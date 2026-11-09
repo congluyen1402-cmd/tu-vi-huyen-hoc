@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 580 140" width="580" height="140">
+  <defs>
+    <!-- Gold Gradients -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffd700" />
+      <stop offset="50%" stop-color="#f5af19" />
+      <stop offset="100%" stop-color="#e69500" />
+    </linearGradient>
+    <linearGradient id="textGold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fff099" />
+      <stop offset="40%" stop-color="#ffd700" />
+      <stop offset="100%" stop-color="#d48800" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Bát Quái Octagon (Center at x=70, y=70, r=58) -->
+  <g transform="translate(70, 70)">
+    <!-- Outer Octagon -->
+    <polygon points="
+      53.58,22.19 22.19,53.58 -22.19,53.58 -53.58,22.19
+      -53.58,-22.19 -22.19,-53.58 22.19,-53.58 53.58,-22.19"
+      fill="url(#goldGrad)" stroke="#78350f" stroke-width="3" stroke-linejoin="round" />
+
+    <!-- Inner Octagon border -->
+    <polygon points="
+      46.19,19.13 19.13,46.19 -19.13,46.19 -46.19,19.13
+      -46.19,-19.13 -19.13,-46.19 19.13,-46.19 46.19,-19.13"
+      fill="none" stroke="#b45309" stroke-width="1.8" />
+
+    <!-- 8 Quẻ Bát Quái -->
+    <!-- Top (Khảm - 0 deg / up) -->
+    <g transform="translate(0, -42)">
+      <line x1="-4" y1="-3" x2="-1" y2="-3" stroke="#140f0a" stroke-width="1.8" />
+      <line x1="1" y1="-3" x2="4" y2="-3" stroke="#140f0a" stroke-width="1.8" />
+      <line x1="-4" y1="0" x2="4" y2="0" stroke="#140f0a" stroke-width="1.8" />
+      <line x1="-4" y1="3" x2="-1" y2="3" stroke="#140f0a" stroke-width="1.8" />
+      <line x1="1" y1="3" x2="4" y2="3" stroke="#140f0a" stroke-width="1.8" />
+    </g>
+
+    <!-- Bottom (Ly - 180 deg / down) -->
+    <g transform="translate(0, 42)">
+      <line x1="-4" y1="-3" x2="4" y2="-3" stroke="#140f0a" stroke-width="1.8" />
+      <line x1="-4" y1="0" x2="-1" y2="0" stroke="#140f0a" stroke-width="1.8" />
+      <line x1="1" y1="0" x2="4" y2="0" stroke="#140f0a" stroke-width="1.8" />
+      <line x1="-4" y1="3" x2="4" y2="3" stroke="#140f0a" stroke-width="1.8" />
+    </g>
+
+    <!-- Left (Chấn - 270 deg / left) -->
+    <g transform="translate(-42, 0) rotate(90)">
+      <line x1="-4" y1="-3" x2="-1" y2="-3" stroke="#140f0a" stroke-width="1.8" />
+      <line x1="1" y1="-3" x2="4" y2="-3" stroke="#140f0a" stroke-width="1.8" />
+      <line x1="-4" y1="0" x2="-1" y2="0" stroke="#140f0a" stroke-width="1.8" />
+      <line x1="1" y1="0" x2="4" y2="0" stroke="#140f0a" stroke-width="1.8" />
+      <line x1="-4" y1="3" x2="4" y2="3" stroke="#140f0a" stroke-width="1.8" />
+    </g>
+
+    <!-- Right (Đoài - 90 deg / right) -->
+    <g transform="translate(42, 0) rotate(90)">
+      <line x1="-4" y1="-3" x2="-1" y2="-3" stroke="#140f0a" stroke-width="1.8" />
+      <line x1="1" y1="-3" x2="4" y2="-3" stroke="#140f0a" stroke-width="1.8" />
+      <line x1="-4" y1="0" x2="4" y2="0" stroke="#140f0a" stroke-width="1.8" />
+      <line x1="-4" y1="3" x2="4" y2="3" stroke="#140f0a" stroke-width="1.8" />
+    </g>
+
+    <!-- Top-Right (Cấn) -->
+    <g transform="translate(30, -30) rotate(45)">
+      <line x1="-4" y1="-3" x2="4" y2="-3" stroke="#140f0a" stroke-width="1.8" />
+      <line x1="-4" y1="0" x2="-1" y2="0" stroke="#140f0a" stroke-width="1.8" />
+      <line x1="1" y1="0" x2="4" y2="0" stroke="#140f0a" stroke-width="1.8" />
+      <line x1="-4" y1="3" x2="-1" y2="3" stroke="#140f0a" stroke-width="1.8" />
+      <line x1="1" y1="3" x2="4" y2="3" stroke="#140f0a" stroke-width="1.8" />
+    </g>
+
+    <!-- Top-Left (Càn) -->
+    <g transform="translate(-30, -30) rotate(-45)">
+      <line x1="-4" y1="-3" x2="4" y2="-3" stroke="#140f0a" stroke-width="1.8" />
+      <line x1="-4" y1="0" x2="4" y2="0" stroke="#140f0a" stroke-width="1.8" />
+      <line x1="-4" y1="3" x2="4" y2="3" stroke="#140f0a" stroke-width="1.8" />
+    </g>
+
+    <!-- Bottom-Right (Tốn) -->
+    <g transform="translate(30, 30) rotate(-45)">
+      <line x1="-4" y1="-3" x2="4" y2="-3" stroke="#140f0a" stroke-width="1.8" />
+      <line x1="-4" y1="0" x2="4" y2="0" stroke="#140f0a" stroke-width="1.8" />
+      <line x1="-4" y1="3" x2="-1" y2="3" stroke="#140f0a" stroke-width="1.8" />
+      <line x1="1" y1="3" x2="4" y2="3" stroke="#140f0a" stroke-width="1.8" />
+    </g>
+
+    <!-- Bottom-Left (Khôn) -->
+    <g transform="translate(-30, 30) rotate(45)">
+      <line x1="-4" y1="-3" x2="-1" y2="-3" stroke="#140f0a" stroke-width="1.8" />
+      <line x1="1" y1="-3" x2="4" y2="-3" stroke="#140f0a" stroke-width="1.8" />
+      <line x1="-4" y1="0" x2="-1" y2="0" stroke="#140f0a" stroke-width="1.8" />
+      <line x1="1" y1="0" x2="4" y2="0" stroke="#140f0a" stroke-width="1.8" />
+      <line x1="-4" y1="3" x2="-1" y2="3" stroke="#140f0a" stroke-width="1.8" />
+      <line x1="1" y1="3" x2="4" y2="3" stroke="#140f0a" stroke-width="1.8" />
+    </g>
+
+    <!-- Central Taiji Yin-Yang (radius 32) -->
+    <circle cx="0" cy="0" r="32" fill="#ffffff" stroke="#140f0a" stroke-width="2" />
+    <!-- Dark Half -->
+    <path d="M 0,-32 A 32,32 0 0,0 0,32 A 16,16 0 0,0 0,0 A 16,16 0 0,1 0,-32 Z" fill="#0f0c12" />
+    <!-- White Eye in Dark -->
+    <circle cx="0" cy="-16" r="4.5" fill="#ffffff" />
+    <!-- Dark Eye in White -->
+    <circle cx="0" cy="16" r="4.5" fill="#0f0c12" />
+    <!-- Border ring -->
+    <circle cx="0" cy="0" r="32" fill="none" stroke="#78350f" stroke-width="1.5" />
+  </g>
+
+  <!-- Typography: XEM TỬ VI HUYỀN HỌC -->
+  <g font-family="'Cinzel Decorative', 'Be Vietnam Pro', Arial, sans-serif">
+    <!-- Top Line: XEM TỬ VI -->
+    <text x="150" y="48" font-size="36" font-weight="900" fill="url(#textGold)" stroke="#1a120b" stroke-width="3" paint-order="stroke fill" letter-spacing="1">XEM TỬ VI</text>
+
+    <!-- Bottom Line: HUYỀN HỌC -->
+    <text x="150" y="88" font-size="34" font-weight="900" fill="url(#textGold)" stroke="#1a120b" stroke-width="3" paint-order="stroke fill" letter-spacing="1.5">HUYỀN HỌC</text>
+
+    <!-- Golden Stars -->
+    <g transform="translate(425, 78)">
+      <polygon points="0,-13 3.5,-3.5 13,0 3.5,3.5 0,13 -3.5,3.5 -13,0 -3.5,-3.5" fill="#ffd700" stroke="#78350f" stroke-width="1" />
+    </g>
+    <g transform="translate(452, 65)">
+      <polygon points="0,-7 2,-2 7,0 2,2 0,7 -2,2 -7,0 -2,-2" fill="#ffe066" />
+    </g>
+
+    <!-- Tagline -->
+    <text x="152" y="114" font-size="12.5" font-family="'Be Vietnam Pro', Arial, sans-serif" font-weight="600" fill="#475569" letter-spacing="0.5">LẬP LÁ SỐ CHÍNH TÔNG &amp; HUYỀN HỌC CỔ TRUYỀN</text>
+  </g>
+</svg>
+

@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!-- SEO Meta Tags -->
+  <title>Xem Tử Vi Huyền Học - Lập Lá Số Tử Vi Chính Xác</title>
+  <meta name="description" content="Xem tử vi trọn đời, lập lá số tử vi chính xác theo phương pháp cổ truyền. Luận giải chi tiết 12 cung, đại hạn, tiểu hạn, lưu niên.">
+  <meta name="keywords" content="tử vi, xem tử vi, lá số tử vi, tử vi huyền học, luận giải tử vi, cung mệnh, 12 cung tử vi">
+  <meta name="author" content="Xem Tử Vi Huyền Học">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://xemtuvihuyenhoc.vn/">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Xem Tử Vi Huyền Học - Lập Lá Số Tử Vi Chính Xác">
+  <meta property="og:description" content="Xem tử vi trọn đời, lập lá số tử vi chính xác theo phương pháp cổ truyền. Luận giải chi tiết 12 cung.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://xemtuvihuyenhoc.vn/">
+  <meta property="og:image" content="images/og-image.jpg">
+  <meta property="og:locale" content="vi_VN">
+  <meta property="og:site_name" content="Xem Tử Vi Huyền Học">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Xem Tử Vi Huyền Học">
+  <meta name="twitter:description" content="Lập lá số tử vi chính xác theo phương pháp cổ truyền.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <!-- Google Fonts: Playfair Display (Headings) & Be Vietnam Pro (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,600&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- Lucide Line Icons (Gold Theme) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Main Stylesheet (Midnight Indigo & Imperial Gold) -->
+  <link rel="stylesheet" href="/css/style.css?v=20261106_guest_instant">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Xem Tử Vi Huyền Học",
+    "description": "Lập lá số tử vi chính xác theo phương pháp cổ truyền Việt Nam",
+    "url": "https://xemtuvihuyenhoc.vn/",
+    "applicationCategory": "LifestyleApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "vi",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "VND"
+    }
+  }
+  </script>
+
+  <!-- Critical initial render styles -->
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; background-color: #0B0A1A; }
+    body {
+      font-family: 'Be Vietnam Pro', -apple-system, sans-serif;
+      background-color: #0B0A1A;
+      color: #F5EFE0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    .loading-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(11, 10, 26, 0.95);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    .loading-overlay.active { opacity: 1; pointer-events: all; }
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 3px solid rgba(212, 175, 55, 0.2);
+      border-top-color: #D4AF37;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    .loading-text {
+      margin-top: 1.2rem;
+      color: #F3D98B;
+      font-size: 0.95rem;
+      letter-spacing: 0.05em;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================ -->
+  <!-- LOADING OVERLAY                                               -->
+  <!-- ============================================================ -->
+  <div class="loading-overlay" id="loadingOverlay" aria-hidden="true" role="status">
+    <div class="loading-spinner" style="position:relative;"></div>
+    <p class="loading-text">Đang tính toán lá số...</p>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- STARFIELD BACKGROUND (CSS-only animated stars)                -->
+  <!-- ============================================================ -->
+  <div class="starfield" aria-hidden="true" id="starfield"></div>
+
+  <!-- ============================================================ -->
+  <!-- NAVBAR                                                        -->
+  <!-- ============================================================ -->
+  <header>
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Menu chính">
+      <a href="#" class="navbar-brand" aria-label="Trang chủ Xem Tử Vi Huyền Học">
+        <img src="/img/logo-xem-tu-vi-huyen-hoc.png" alt="Logo Xem Tử Vi Huyền Học" class="navbar-logo-img">
+        <span class="brand-text">XEM TỬ VI<br>HUYỀN HỌC</span>
+      </a>
+
+      <button class="hamburger" id="hamburgerBtn" aria-label="Mở menu" aria-expanded="false" aria-controls="navMenu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <div class="nav-menu" id="navMenu" role="menu">
+        <a href="#lap-la-so" role="menuitem"><i data-lucide="compass"></i> Lập Lá Số</a>
+        <a href="#ket-qua" role="menuitem"><i data-lucide="sparkles"></i> Lá Số</a>
+        <a href="#bang-gia-dich-vu" role="menuitem"><i data-lucide="crown"></i> Gói VIP</a>
+        <a href="#vat-pham-phong-thuy" role="menuitem"><i data-lucide="shield"></i> Phong Thủy</a>
+        <a href="#dat-lich-tu-van" role="menuitem"><i data-lucide="phone"></i> Tư Vấn 1-1</a>
+        <a href="#khong-gian-tam-linh" role="menuitem"><i data-lucide="moon"></i> Thiền Định</a>
+        <a href="javascript:void(0)" onclick="TuViMonetize.openRestoreModal()" role="menuitem" style="color:var(--gold-light); font-weight:600;"><i data-lucide="search"></i> Tra Cứu VIP</a>
+      </div>
+      <div class="nav-menu-backdrop" id="navBackdrop"></div>
+    </nav>
+  </header>
+
+  <!-- ============================================================ -->
+  <!-- HERO SECTION                                                  -->
+  <!-- ============================================================ -->
+  <section class="hero" id="hero">
+    <div class="hero-compass-ring" aria-hidden="true"></div>
+    <div class="hero-particles" id="heroParticles" aria-hidden="true"></div>
+    <div class="hero-content">
+      <div class="hero-emblem" aria-hidden="true">☯</div>
+      <h1 class="hero-headline">Khám Phá Vận Mệnh Của Bạn</h1>
+      <p>Lập lá số Tử Vi chính xác theo phương pháp cổ truyền. Luận giải chi tiết 12 cung, vận hạn, sự nghiệp, tình duyên và sức khỏe.</p>
+      <a href="#lap-la-so" class="btn-gold-pill hero-cta">
+        <i data-lucide="sparkles"></i>
+        Lập Lá Số Ngay
+      </a>
+      <div class="hero-trust-line">
+        <i data-lucide="shield-check"></i>
+        <span>Chính xác tuyệt đối theo phương pháp cổ truyền Việt Nam · Hơn 100.000+ lá số đã lập</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- INPUT FORM SECTION (TRA CỨU TỬ VI SỐ MỆNH)                    -->
+  <!-- ============================================================ -->
+  <section class="section form-section tracuu-section" id="lap-la-so">
+    <div class="section-container tracuu-container">
+      <h2 class="section-title">Tra Cứu Tử Vi Số Mệnh</h2>
+      <p class="section-subtitle">Xem tử vi online theo giờ sinh, ngày, tháng, năm sinh chính xác nhất</p>
+
+      <div class="form-info-note">
+        <i data-lucide="info"></i>
+        <span><strong>Quy tắc giờ Tý (23h00 – 01h00):</strong> Người sinh từ 23h00 đến 00h00 tính theo giờ Tý ngày hôm trước; từ 00h00 đến 01h00 thuộc chính Tý ngày mới theo chuẩn phương pháp Tử Vi cổ truyền.</span>
+      </div>
+
+      <form class="tracuu-form-card" id="tuviForm" novalidate>
+        <!-- Hàng 1: Họ tên (60%) + Giới tính (40%) -->
+        <div class="form-row-grid grid-row-2">
+          <div class="form-control-item">
+            <label class="form-item-label" for="hoTen">Họ tên khai sinh</label>
+            <input
+              type="text"
+              class="form-item-input"
+              id="hoTen"
+              name="hoTen"
+              placeholder="Nhập họ tên khai sinh"
+              value="Trần Công Luyện"
+              required
+              autocomplete="name"
+            >
+          </div>
+
+          <div class="form-control-item">
+            <label class="form-item-label" for="gioiTinh">Giới tính</label>
+            <select class="form-item-select" id="gioiTinh" name="gioiTinh" required>
+              <option value="nam" selected>Nam giới</option>
+              <option value="nu">Nữ giới</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Hàng 2: Chọn lịch + Giờ sinh + Phút sinh -->
+        <div class="form-row-grid grid-row-3">
+          <div class="form-control-item">
+            <label class="form-item-label" for="loaiLich">Chọn lịch</label>
+            <select class="form-item-select" id="loaiLich" name="loaiLich">
+              <option value="duong" selected>Xem theo lịch dương</option>
+              <option value="am">Xem theo lịch âm</option>
+            </select>
+          </div>
+
+          <div class="form-control-item">
+            <label class="form-item-label" for="gioSinh">Giờ sinh</label>
+            <select class="form-item-select" id="gioSinh" name="gioSinh" required>
+              <option value="0">00 giờ</option>
+              <option value="1">01 giờ</option>
+              <option value="2">02 giờ</option>
+              <option value="3">03 giờ</option>
+              <option value="4">04 giờ</option>
+              <option value="5">05 giờ</option>
+              <option value="6">06 giờ</option>
+              <option value="7">07 giờ</option>
+              <option value="8">08 giờ</option>
+              <option value="9">09 giờ</option>
+              <option value="10">10 giờ</option>
+              <option value="11">11 giờ</option>
+              <option value="12">12 giờ</option>
+              <option value="13">13 giờ</option>
+              <option value="14">14 giờ</option>
+              <option value="15">15 giờ</option>
+              <option value="16">16 giờ</option>
+              <option value="17">17 giờ</option>
+              <option value="18">18 giờ</option>
+              <option value="19" selected>19 giờ</option>
+              <option value="20">20 giờ</option>
+              <option value="21">21 giờ</option>
+              <option value="22">22 giờ</option>
+              <option value="23">23 giờ</option>
+            </select>
+          </div>
+
+          <div class="form-control-item">
+            <label class="form-item-label" for="phutSinh">Phút sinh</label>
+            <select class="form-item-select" id="phutSinh" name="phutSinh">
+              <option value="0">00 phút</option>
+              <option value="5">05 phút</option>
+              <option value="10">10 phút</option>
+              <option value="15">15 phút</option>
+              <option value="20">20 phút</option>
+              <option value="25">25 phút</option>
+              <option value="30" selected>30 phút</option>
+              <option value="35">35 phút</option>
+              <option value="40">40 phút</option>
+              <option value="45">45 phút</option>
+              <option value="50">50 phút</option>
+              <option value="55">55 phút</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Hàng 3: Ngày sinh + Tháng sinh + Năm sinh -->
+        <div class="form-row-grid grid-row-3">
+          <div class="form-control-item">
+            <label class="form-item-label" for="ngaySinh">Ngày sinh</label>
+            <select class="form-item-select" id="ngaySinh" name="ngaySinh" required>
+              <!-- Populated by JS: Ngày 01 - Ngày 31 -->
+            </select>
+          </div>
+
+          <div class="form-control-item">
+            <label class="form-item-label" for="thangSinh">Tháng sinh</label>
+            <select class="form-item-select" id="thangSinh" name="thangSinh" required>
+              <option value="1">Tháng 01</option>
+              <option value="2">Tháng 02</option>
+              <option value="3">Tháng 03</option>
+              <option value="4" selected>Tháng 04</option>
+              <option value="5">Tháng 05</option>
+              <option value="6">Tháng 06</option>
+              <option value="7">Tháng 07</option>
+              <option value="8">Tháng 08</option>
+              <option value="9">Tháng 09</option>
+              <option value="10">Tháng 10</option>
+              <option value="11">Tháng 11</option>
+              <option value="12">Tháng 12</option>
+            </select>
+          </div>
+
+          <div class="form-control-item">
+            <label class="form-item-label" for="namSinh">Năm sinh</label>
+            <select class="form-item-select" id="namSinh" name="namSinh" required>
+              <!-- Populated by JS: 1940 - 2030 -->
+            </select>
+          </div>
+        </div>
+
+        <!-- Hàng 4: Nút Tra Cứu Vàng Rực Rỡ -->
+        <button type="submit" class="btn-submit-full" id="btnSubmit">
+          <i data-lucide="compass"></i> LẬP LÁ SỐ TỬ VI CHÍNH TÔNG
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- RESULT SECTION: LÁ SỐ TỬ VI TRỐNG ĐỒNG ĐÔNG SƠN               -->
+  <!-- ============================================================ -->
+  <section class="section result-section" id="ket-qua">
+    <div class="section-container la-so-outer-wrap">
+      <div id="la-so-chart">
+        <!-- Rendered by TuViChart.render() with authentic Trống Đồng Đông Sơn background -->
+      </div>
+
+      <!-- Accordion Luận Giải 12 Cung & Vận Hạn -->
+      <div class="luan-giai-section" id="luan-giai" style="display:block;">
+        <h3 class="luan-giai-header-title">✦ Luận Giải Chi Tiết 12 Cung ✦</h3>
+        <div class="accordion-list" id="accordionList">
+          <!-- Populated dynamically by TuViChart.renderLuanGiai -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- BẢNG GIÁ DỊCH VỤ & MỞ KHÓA BÁO CÁO VIP                         -->
+  <!-- ============================================================ -->
+  <section class="section pricing-section" id="bang-gia-dich-vu">
+    <div class="section-container">
+      <h2 class="section-title">Bảng Giá Dịch Vụ &amp; Báo Cáo VIP</h2>
+      <div class="section-divider">
+        <div class="line"></div>
+        <span class="icon" aria-hidden="true">👑</span>
+        <div class="line"></div>
+      </div>
+      <p class="section-subtitle">Minh bạch học thuật · Khai mở trọn vẹn tiềm năng và lộ trình tương lai của bạn</p>
+
+      <div class="pricing-grid">
+        <!-- Gói 1: Cơ Bản -->
+        <div class="pricing-card">
+          <div class="pricing-header">
+            <div class="pricing-icon-wrap"><i data-lucide="scroll"></i></div>
+            <h3 class="pricing-title">Tra Cứu Cơ Bản</h3>
+            <p class="pricing-desc">Khám phá tổng quan tính cách &amp; bố cục bản mệnh ban đầu</p>
+          </div>
+          <div class="pricing-price-wrap">
+            <span class="pricing-old-price" style="visibility:hidden;">0 đ</span>
+            <span class="pricing-price">Miễn Phí</span>
+          </div>
+          <ul class="pricing-features">
+            <li><i data-lucide="check" class="icon-jade"></i> <span>Lập lá số chính xác 12 cung &amp; 14 chính tinh</span></li>
+            <li><i data-lucide="check" class="icon-jade"></i> <span>Luận giải chi tiết 2 cung (MỆNH &amp; PHỤ MẪU)</span></li>
+            <li><i data-lucide="check" class="icon-jade"></i> <span>Xem đại hạn đầu đời (6 – 15 Tuổi)</span></li>
+            <li class="disabled"><i data-lucide="x" class="icon-muted"></i> <span>Khóa 10 cung còn lại (Cần gói VIP 49k)</span></li>
+            <li class="disabled"><i data-lucide="x" class="icon-muted"></i> <span>Khóa đại hạn từ 16 tuổi trở đi (Cần gói VIP 49k)</span></li>
+            <li class="disabled"><i data-lucide="x" class="icon-muted"></i> <span>Xuất file PDF A4 chuẩn in ấn hoàng gia</span></li>
+          </ul>
+          <a href="#lap-la-so" class="btn-gold-pill btn-pricing-cta" style="background: var(--surface-2); color: var(--text);">Đang Sử Dụng</a>
+        </div>
+
+        <!-- Gói 2: Báo Cáo VIP A4 (Khuyên dùng - Phổ biến nhất) -->
+        <div class="pricing-card featured">
+          <div class="pricing-badge">Phổ biến nhất</div>
+          <div class="pricing-header">
+            <div class="pricing-icon-wrap"><i data-lucide="crown"></i></div>
+            <h3 class="pricing-title">Báo Cáo VIP A4</h3>
+            <p class="pricing-desc">Xuất trọn bộ file PDF phong thủy hoàng gia lưu giữ trọn đời</p>
+          </div>
+          <div class="pricing-price-wrap">
+            <span class="pricing-old-price">199.000 đ</span>
+            <span class="pricing-price text-gold">49.000 đ</span>
+          </div>
+          <ul class="pricing-features">
+            <li><i data-lucide="check" class="icon-jade"></i> <span><strong>File PDF A4 đóng dấu mộc đỏ phong thủy</strong></span></li>
+            <li><i data-lucide="check" class="icon-jade"></i> <span><strong>Mở khóa toàn bộ luận giải 12 cung không che</strong></span></li>
+            <li><i data-lucide="check" class="icon-jade"></i> <span>Phân tích Ma Trận Tam Phương Tứ Chính (Lệnh Đông Lai)</span></li>
+            <li><i data-lucide="check" class="icon-jade"></i> <span>Luận đoán Vận Hạn Lưu Niên 2026 (Bính Ngọ)</span></li>
+            <li><i data-lucide="check" class="icon-jade"></i> <span>Bảng hướng xuất hành, con số cát tường, màu tương sinh</span></li>
+            <li><i data-lucide="check" class="icon-jade"></i> <span>Quét mã VietQR nhận kết quả tự động trong 3 giây</span></li>
+          </ul>
+          <button class="btn-gold-pill btn-pricing-cta" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư', 49000)">
+            ⚡ Mở Khóa VIP Ngay (49k)
+          </button>
+        </div>
+
+        <!-- Gói 3: Luận Chuyên Sâu -->
+        <div class="pricing-card">
+          <div class="pricing-header">
+            <div class="pricing-icon-wrap"><i data-lucide="sparkles"></i></div>
+            <h3 class="pricing-title">Luận Chuyên Sâu</h3>
+            <p class="pricing-desc">Phân tích cặn kẽ Tình Duyên Hôn Nhân hoặc Điền Sản Kinh Doanh</p>
+          </div>
+          <div class="pricing-price-wrap">
+            <span class="pricing-old-price">399.000 đ</span>
+            <span class="pricing-price text-gold">199.000 đ</span>
+          </div>
+          <ul class="pricing-features">
+            <li><i data-lucide="check" class="icon-jade"></i> <span>Đầy đủ quyền lợi của Báo Cáo VIP A4</span></li>
+            <li><i data-lucide="check" class="icon-jade"></i> <span>Chuyên đề Tình Duyên: Hóa giải Cung Phu Thê bị Tuần/Triệt</span></li>
+            <li><i data-lucide="check" class="icon-jade"></i> <span>Chuyên đề Điền Sản: Thời điểm mua đất, phát tài đại vận</span></li>
+            <li><i data-lucide="check" class="icon-jade"></i> <span>Phương pháp tu dưỡng cải mệnh 4 trụ cột cụ Nguyễn Phát Lộc</span></li>
+            <li><i data-lucide="check" class="icon-jade"></i> <span>Báo cáo phân tích chuyên sâu 30 trang</span></li>
+          </ul>
+          <button class="btn-gold-pill btn-pricing-cta" onclick="TuViMonetize.openVipModal('Gói Luận Chuyên Sâu Hôn Nhân &amp; Tài Vận', 199000)">
+            ✦ Đăng Ký Luận Sâu (199k)
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- VẬT PHẨM PHONG THỦY HỘ THÂN (AFFILIATE MONETIZATION)          -->
+  <!-- ============================================================ -->
+  <section class="section fengshui-section" id="vat-pham-phong-thuy">
+    <div class="section-container">
+      <h2 class="section-title">Vật Phẩm Phong Thủy Hộ Thân Hợp Mệnh</h2>
+      <div class="section-divider">
+        <div class="line"></div>
+        <span class="icon" aria-hidden="true">📿</span>
+        <div class="line"></div>
+      </div>
+      <p class="section-subtitle">Khắc chế sát tinh · Bồi tụ phúc khí &amp; chiêu tài tấn bảo theo nguyên lý ngũ hành tương sinh</p>
+
+      <div class="fengshui-element-banner" id="fengshuiElementTitle">
+        Vật Phẩm Hộ Thân Tương Sinh Cho Đương Số Mệnh <strong>Dương Liễu Mộc (Hành Mộc)</strong>
+      </div>
+
+      <div class="fengshui-grid" id="fengshuiItemsGrid">
+        <!-- Rendered dynamically by TuViMonetize.renderFengShuiItems(laSo) -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ĐẶT LỊCH TƯ VẤN 1-1 VỚI CHUYÊN GIA HUYỀN HỌC                 -->
+  <!-- ============================================================ -->
+  <section class="section consultation-section" id="dat-lich-tu-van">
+    <div class="section-container">
+      <h2 class="section-title">Đặt Lịch Tư Vấn 1-1 Với Chuyên Gia</h2>
+      <div class="section-divider">
+        <div class="line"></div>
+        <span class="icon" aria-hidden="true">📞</span>
+        <div class="line"></div>
+      </div>
+      <p class="section-subtitle">Đàm đạo trực tiếp, giải mã cặn kẽ mọi khúc mắc và định hướng tương lai chuẩn xác cùng các bậc thầy</p>
+
+      <div class="consultation-wrap">
+        <!-- Giới thiệu chuyên gia -->
+        <div class="expert-showcase">
+          <div class="expert-card">
+            <div class="expert-avatar-wrap circular-gold-avatar">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="gold-icon"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="expert-info">
+              <h4>Thầy Minh Trí</h4>
+              <p class="expert-title">Trưởng Môn Phái Tử Vi Đẩu Số Lạc Việt · 18 Năm Kinh Nghiệm</p>
+              <p class="expert-desc">Chuyên sâu phân tích đại vận, hóa giải hung sát tinh và định hướng khởi nghiệp, đầu tư bất động sản, chứng khoán cho đương số.</p>
+            </div>
+          </div>
+
+          <div class="expert-card">
+            <div class="expert-avatar-wrap circular-gold-avatar">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="gold-icon"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="expert-info">
+              <h4>Cô Tuệ Tâm</h4>
+              <p class="expert-title">Bậc Thầy Luận Giải Phu Thê &amp; Phong Thủy Cải Vận</p>
+              <p class="expert-desc">Hơn 12 năm tư vấn hòa hợp hôn nhân, hóa giải triệt duyên, xem tuổi dựng vợ gả chồng và đặt tên con theo Tứ Trụ Bát Tự.</p>
+            </div>
+          </div>
+
+          <!-- Quy trình làm việc (How We Work) -->
+          <div class="how-we-work-card glass-card">
+            <h5 class="how-we-work-title text-gold"><i data-lucide="compass"></i> Quy Trình Làm Việc Chuyên Nghiệp</h5>
+            <div class="how-we-work-steps">
+              <div class="step-item">
+                <div class="step-icon-wrap"><i data-lucide="calendar"></i></div>
+                <div class="step-text"><strong>1. Đặt Lịch &amp; Xác Nhận</strong><span>Chọn ngày giờ và vấn đề trọng tâm cần giải đáp</span></div>
+              </div>
+              <div class="step-item">
+                <div class="step-icon-wrap"><i data-lucide="phone-call"></i></div>
+                <div class="step-text"><strong>2. Đàm Đạo 1-1 Riêng Tư</strong><span>Trò chuyện trực tiếp 60 phút qua Zoom hoặc Zalo video</span></div>
+              </div>
+              <div class="step-item">
+                <div class="step-icon-wrap"><i data-lucide="file-check"></i></div>
+                <div class="step-text"><strong>3. Báo Cáo &amp; Hỗ Trợ 30 Ngày</strong><span>Nhận bản đúc kết và được giải đáp thêm trong 1 tháng</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Biểu mẫu đăng ký (surface-2) -->
+        <div class="booking-form-box surface-2-card">
+          <h3>ĐĂNG KÝ LỊCH HẸN TRỰC TUYẾN</h3>
+          <p>Điền thông tin để chuyên gia liên hệ xác nhận lịch hẹn trong 15 phút</p>
+
+          <form id="tuviBookingForm">
+            <div class="booking-input-group">
+              <label for="bookingName">Họ và tên đương số *</label>
+              <input type="text" id="bookingName" class="booking-input" placeholder="Ví dụ: Trần Công Luyện" required>
+            </div>
+
+            <div class="booking-input-group">
+              <label for="bookingPhone">Số điện thoại / Zalo nhận liên hệ *</label>
+              <input type="tel" id="bookingPhone" class="booking-input" placeholder="Ví dụ: 0988888888" required>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+              <div class="booking-input-group">
+                <label for="bookingDate">Ngày mong muốn</label>
+                <input type="date" id="bookingDate" class="booking-input">
+              </div>
+              <div class="booking-input-group">
+                <label for="bookingTime">Khung giờ</label>
+                <select id="bookingTime" class="booking-select">
+                  <option value="09:00 - 10:00">09:00 - 10:00 (Sáng)</option>
+                  <option value="14:30 - 15:30">14:30 - 15:30 (Chiều)</option>
+                  <option value="19:30 - 20:30" selected>19:30 - 20:30 (Tối)</option>
+                  <option value="21:00 - 22:00">21:00 - 22:00 (Đêm)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="booking-input-group">
+              <label for="bookingService">Gói dịch vụ lựa chọn</label>
+              <select id="bookingService" class="booking-select">
+                <option value="Tư Vấn 1-1 Toàn Thư (1.500.000đ)">Tư Vấn 1-1 Toàn Thư (1.500.000đ / 60 Phút)</option>
+                <option value="Tư Vấn Chuyên Sâu Hôn Nhân (199.000đ)">Tư Vấn Chuyên Sâu Hôn Nhân (199.000đ)</option>
+                <option value="Tư Vấn Điền Sản &amp; Làm Ăn (199.000đ)">Tư Vấn Điền Sản &amp; Làm Ăn (199.000đ)</option>
+                <option value="Chọn Ngày Đại Sự / Đặt Tên Con (500.000đ)">Chọn Ngày Đại Sự / Đặt Tên Con (500.000đ)</option>
+              </select>
+            </div>
+
+            <div class="booking-input-group">
+              <label for="bookingNote">Vấn đề bạn trăn trở nhất cần tháo gỡ</label>
+              <textarea id="bookingNote" class="booking-textarea" placeholder="Ví dụ: Năm 2026 tôi muốn mở rộng kinh doanh, cung Quan Lộc và Tài Bạch có biến động gì cần lưu ý không?..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-gold-pill btn-booking-submit">
+              <i data-lucide="calendar"></i> Gửi Thông Tin &amp; Kết Nối Zalo Chuyên Gia
+            </button>
+          </form>
+
+          <div id="bookingResultSuccess" class="booking-success-box">
+            ✅ <strong>Đăng ký thành công!</strong> Hệ thống đang mở kết nối đến Zalo Chuyên gia để xác nhận lịch cho bạn...
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- MYSTICAL VIDEO & SPIRITUAL MEDITATION SECTION                -->
+  <!-- ============================================================ -->
+  <section class="section mystical-video-section" id="khong-gian-tam-linh">
+    <div class="section-container">
+      <h2 class="section-title">Không Gian Huyền Học & Thiền Định</h2>
+      <div class="section-divider">
+        <div class="line"></div>
+        <span class="icon" aria-hidden="true">☯</span>
+        <div class="line"></div>
+      </div>
+      <p class="section-subtitle">Chiêm ngưỡng vũ điệu Bát Quái và âm thoa năng lượng 432Hz giúp an định tâm trí</p>
+
+      <div class="mystic-video-container">
+        <!-- Canvas Video Screen -->
+        <div class="mystic-screen" id="mysticScreen">
+          <canvas id="mysticVideoCanvas"></canvas>
+          <div class="mystic-overlay-hud">
+            <span class="hud-tag" id="hudModeTag">✦ Chế Độ: Bát Quái Khởi Trận</span>
+            <span class="hud-freq">432Hz · Tần Số Bình An</span>
+          </div>
+          <button class="btn-sound-toggle" id="btnSoundToggle" aria-label="Bật tắt âm thanh thiền định" type="button">
+            <span class="sound-icon" id="soundIcon">🔇</span>
+            <span class="sound-text" id="soundText">Bật Chuông Thiền 432Hz</span>
+          </button>
+        </div>
+
+        <!-- Video Controls -->
+        <div class="mystic-controls">
+          <button class="mystic-ctrl-btn active" data-mode="bagua" type="button">
+            <span class="ctrl-icon">☯</span>
+            <span class="ctrl-name">Bát Quái Trận Đồ</span>
+          </button>
+          <button class="mystic-ctrl-btn" data-mode="stars" type="button">
+            <span class="ctrl-icon">✧</span>
+            <span class="ctrl-name">Bắc Đẩu Tinh Vân</span>
+          </button>
+          <button class="mystic-ctrl-btn" data-mode="wave" type="button">
+            <span class="ctrl-icon">〰️</span>
+            <span class="ctrl-name">Sóng Năng Lượng</span>
+          </button>
+          <button class="mystic-ctrl-btn" id="btnFullscreenMystic" type="button">
+            <span class="ctrl-icon">⛶</span>
+            <span class="ctrl-name">Toàn Màn Hình</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- FEATURES SECTION                                              -->
+  <!-- ============================================================ -->
+  <section class="section features-section" id="tinh-nang">
+    <div class="section-container">
+      <h2 class="section-title">Tính Năng Nổi Bật</h2>
+      <div class="section-divider">
+        <div class="line"></div>
+        <span class="icon" aria-hidden="true">✦</span>
+        <div class="line"></div>
+      </div>
+      <p class="section-subtitle">Khám phá những công cụ huyền học mạnh mẽ</p>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon-wrap"><i data-lucide="compass"></i></div>
+          <h4>Lá Số Chính Xác</h4>
+          <p>Tính toán lá số tử vi chính xác theo thuật toán cổ truyền, đầy đủ 14 chính tinh và hơn 100 phụ tinh.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon-wrap"><i data-lucide="book-open"></i></div>
+          <h4>Luận Giải Chi Tiết</h4>
+          <p>Phân tích sâu từng cung vị, giải thích ý nghĩa các sao và ma trận tương tác Tam Phương Tứ Chính.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon-wrap"><i data-lucide="calendar"></i></div>
+          <h4>Đại Hạn &amp; Vận Hạn</h4>
+          <p>Xem vận hạn qua từng giai đoạn cuộc đời, biết trước cơ hội và thử thách để chủ động nắm bắt vận may.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon-wrap"><i data-lucide="heart-handshake"></i></div>
+          <h4>Tương Thích Cung Mệnh</h4>
+          <p>Xem độ hòa hợp giữa hai người dựa trên Ngũ Hành nạp âm, Can Chi và phối ngẫu cung Phu Thê bản mệnh.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- FOOTER                                                        -->
+  <!-- ============================================================ -->
+  <footer class="footer" id="footer">
+    <div class="footer-brand">
+      <img src="/img/logo-xem-tu-vi-huyen-hoc.png" alt="Logo Xem Tử Vi Huyền Học">
+      <span>Xem Tử Vi Huyền Học</span>
+    </div>
+    <div class="footer-social-links">
+      <a href="https://facebook.com" target="_blank" rel="noopener" class="footer-social-btn" aria-label="Facebook" title="Facebook">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+      </a>
+      <a href="https://youtube.com" target="_blank" rel="noopener" class="footer-social-btn" aria-label="YouTube" title="YouTube">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+      </a>
+      <a href="https://zalo.me" target="_blank" rel="noopener" class="footer-social-btn" aria-label="Zalo" title="Zalo">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      </a>
+      <a href="mailto:contact@xemtuvihuyenhoc.vn" class="footer-social-btn" aria-label="Email" title="Email">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </a>
+    </div>
+    <p class="footer-disclaimer">⚠ Thông tin trên website chỉ mang tính chất tham khảo về mặt huyền học cổ truyền.<br>Không nên dùng làm căn cứ duy nhất cho các quyết định quan trọng trong cuộc sống.</p>
+    <p class="footer-copyright">© 2026 Xem Tử Vi Huyền Học · Lập Lá Số Tử Vi Cổ Truyền. Bảo lưu mọi quyền.</p>
+  </footer>
+
+  <!-- ============================================================ -->
+  <!-- JAVASCRIPT                                                    -->
+  <!-- ============================================================ -->
+
+  <!-- Inline essential UI scripts (starfield, nav, accordion, toggle) -->
+  <script>
+    // Bảo vệ phiên làm việc của khách đã quét mã thanh toán VIP (Guest Instant Checkout)
+    try {
+      const hasAuth = localStorage.getItem('tvhh_auth_token');
+      const hasVipToken = localStorage.getItem('tvhh_vip_token');
+      const hasVipOrder = localStorage.getItem('tvhh_vip_order_code');
+      // Nếu khách đã thanh toán đơn hàng (ví dụ TV377099 hoặc có token VIP) thì bảo lưu vĩnh viễn quyền VIP
+      if (!hasAuth && !hasVipToken && !hasVipOrder) {
+        localStorage.removeItem('tvhh_vip_unlocked');
+        localStorage.removeItem('tvhh_user');
+      }
+    } catch(e) {}
+
+    // ===== Generate CSS-only Starfield =====
+    (function generateStarfield() {
+      const container = document.getElementById('starfield');
+      const count = Math.min(120, Math.floor(window.innerWidth * window.innerHeight / 8000));
+      const fragment = document.createDocumentFragment();
+      for (let i = 0; i < count; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        const size = Math.random() * 2 + 1;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.setProperty('--duration', (Math.random() * 4 + 2) + 's');
+        star.style.setProperty('--max-opacity', (Math.random() * 0.5 + 0.3).toFixed(2));
+        star.style.animationDelay = (Math.random() * 5) + 's';
+        fragment.appendChild(star);
+      }
+      container.appendChild(fragment);
+    })();
+
+    // ===== Sticky Navbar on Scroll =====
+    (function stickyNav() {
+      const navbar = document.getElementById('navbar');
+      let ticking = false;
+      window.addEventListener('scroll', function() {
+        if (!ticking) {
+          requestAnimationFrame(function() {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }, { passive: true });
+    })();
+
+    // ===== Hamburger Menu =====
+    (function mobileMenu() {
+      const btn = document.getElementById('hamburgerBtn');
+      const menu = document.getElementById('navMenu');
+      const backdrop = document.getElementById('navBackdrop');
+
+      function toggleMenu() {
+        const isOpen = menu.classList.toggle('open');
+        btn.classList.toggle('active', isOpen);
+        backdrop.classList.toggle('open', isOpen);
+        btn.setAttribute('aria-expanded', isOpen);
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      }
+      function closeMenu() {
+        menu.classList.remove('open');
+        btn.classList.remove('active');
+        backdrop.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+
+      btn.addEventListener('click', toggleMenu);
+      backdrop.addEventListener('click', closeMenu);
+      menu.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', closeMenu);
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeMenu();
+          if (typeof TuViMonetize !== 'undefined') {
+            TuViMonetize.closeVipModal();
+            TuViMonetize.closeRestoreModal();
+            TuViMonetize.closeClaimAccountModal();
+            TuViMonetize.closeSettingsModal();
+          }
+          if (typeof TuViAuth !== 'undefined') TuViAuth.closeAuthModal();
+        }
+      });
+    })();
+
+    // ===== Calendar Toggle =====
+    (function calendarToggle() {
+      const toggle = document.getElementById('loaiLich');
+      const labelDuong = document.getElementById('labelDuongLich');
+      const labelAm = document.getElementById('labelAmLich');
+
+      toggle.addEventListener('change', function() {
+        labelDuong.classList.toggle('active', !this.checked);
+        labelAm.classList.toggle('active', this.checked);
+      });
+    })();
+
+    // ===== Populate Year Select =====
+    (function populateYears() {
+      const sel = document.getElementById('namSinh');
+      const currentYear = new Date().getFullYear();
+      for (let y = currentYear; y >= 1940; y--) {
+        const opt = document.createElement('option');
+        opt.value = y;
+        opt.textContent = y;
+        sel.appendChild(opt);
+      }
+    })();
+
+    // ===== Accordion & Customer Behavior Tracker =====
+    (function accordion() {
+      document.getElementById('accordionList').addEventListener('click', function(e) {
+        const header = e.target.closest('.accordion-header');
+        if (!header) return;
+        const item = header.closest('.accordion-item');
+        const palaceName = item.querySelector('.palace-name')?.textContent || item.getAttribute('data-palace') || 'Cung vị';
+
+        // Nếu cung đang bị khóa thuộc gói VIP (từ cung thứ 3 trở đi với gói Miễn Phí)
+        if (item.classList.contains('item-locked')) {
+          if (typeof TuViMonetize !== 'undefined') {
+            if (TuViMonetize.trackEvent) {
+              TuViMonetize.trackEvent('click_locked_feature', {
+                cungName: palaceName,
+                action: 'Bấm cung bị khóa trong Luận Giải 12 Cung'
+              });
+            }
+            TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)', 49000);
+            if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
+              TuViApp.showToast('Cung này thuộc Gói VIP 49.000đ. Vui lòng đăng ký gói để mở khóa toàn bộ 12 cung!', 'warning');
+            }
+          }
+          return;
+        }
+
+        const isOpen = item.classList.contains('open');
+
+        // Close all
+        this.querySelectorAll('.accordion-item.open').forEach(function(el) {
+          el.classList.remove('open');
+          el.querySelector('.accordion-header').setAttribute('aria-expanded', 'false');
+        });
+
+        // Open clicked if it was closed
+        if (!isOpen) {
+          item.classList.add('open');
+          header.setAttribute('aria-expanded', 'true');
+
+          if (typeof TuViMonetize !== 'undefined' && TuViMonetize.trackEvent) {
+            TuViMonetize.trackEvent('view_cung', {
+              cungName: palaceName,
+              action: 'Mở xem luận giải chi tiết'
+            });
+          }
+        }
+      });
+    })();
+  </script>
+
+  <!-- External JS modules with version cache busting -->
+  <script src="/js/tuvi-engine.js?v=20261106_guest_instant"></script>
+  <script src="/js/tuvi-luan-giai.js?v=20261106_guest_instant"></script>
+  <script src="/js/tuvi-auth.js?v=20261106_guest_instant"></script>
+  <script src="/js/tuvi-monetize.js?v=20261106_guest_instant"></script>
+  <script src="/js/tuvi-chart.js?v=20261106_guest_instant"></script>
+  <script src="/js/mystic-video.js?v=20261106_guest_instant"></script>
+  <script src="/js/app.js?v=20261106_guest_instant"></script>
+</body>
+</html>
