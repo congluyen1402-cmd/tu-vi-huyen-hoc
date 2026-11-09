@@ -403,7 +403,7 @@
 
               <div class="auth-input-group">
                 <label>Họ và tên đương số:</label>
-                <input type="text" id="regFullName" class="config-input" placeholder="Ví dụ: Trần Công Luyện" required>
+                <input type="text" id="regFullName" class="config-input" placeholder="Ví dụ: Nguyễn Văn An" required>
               </div>
 
               <div class="auth-input-group">

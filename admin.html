@@ -758,6 +758,32 @@
       setTimeout(() => el.classList.remove('show'), 3500);
     }
 
+    // Item 9: Quản lý Header xác thực Quản trị viên bảo mật
+    function getAdminHeaders(extraHeaders = {}) {
+      let token = sessionStorage.getItem('tvhh_admin_token');
+      if (!token) {
+        token = prompt('Vui lòng nhập Mật Khẩu Quản Trị Viên (Admin Secret Key):');
+        if (token) {
+          token = token.trim();
+          sessionStorage.setItem('tvhh_admin_token', token);
+        }
+      }
+      return Object.assign({
+        'Content-Type': 'application/json',
+        'x-admin-token': token || ''
+      }, extraHeaders);
+    }
+
+    function handleAuthError(res) {
+      if (res && res.status === 401) {
+        sessionStorage.removeItem('tvhh_admin_token');
+        showToast('Mật khẩu quản trị viên không hợp lệ!', 'error');
+        setTimeout(() => location.reload(), 1500);
+        return true;
+      }
+      return false;
+    }
+
     // Helper tính base URL API
     function getApiUrl(path) {
       if (window.location.protocol === 'file:') return 'http://localhost:8080' + path;
@@ -771,7 +797,10 @@
 
     async function loadAnalytics() {
       try {
-        const res = await fetch(getApiUrl('/api/admin/analytics'));
+        const res = await fetch(getApiUrl('/api/admin/analytics'), {
+          headers: getAdminHeaders()
+        });
+        if (handleAuthError(res)) return;
         if (!res.ok) return;
         const data = await res.json();
         if (!data.success) return;
@@ -939,7 +968,10 @@
 
     async function loadOrders() {
       try {
-        const res = await fetch(getApiUrl('/api/admin/orders'));
+        const res = await fetch(getApiUrl('/api/admin/orders'), {
+          headers: getAdminHeaders()
+        });
+        if (handleAuthError(res)) return;
         if (!res.ok) return;
         const data = await res.json();
         renderOrders(data.orders || []);
@@ -967,7 +999,7 @@
         return `
           <tr>
             <td><span class="order-code-badge">${o.orderCode}</span></td>
-            <td><strong>${o.customerName || 'Trần Công Luyện'}</strong></td>
+            <td><strong>${o.customerName || 'Khách Hàng'}</strong></td>
             <td>${o.customerPhone || '—'}</td>
             <td>${o.packageName || 'Gói VIP 49k (Mở Khóa 12 Cung)'}</td>
             <td style="font-weight:700; color:var(--gold-light);">${amountStr}</td>
@@ -1002,9 +1034,10 @@
       try {
         const res = await fetch(getApiUrl('/api/admin/orders/approve'), {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: getAdminHeaders(),
           body: JSON.stringify({ orderCode })
         });
+        if (handleAuthError(res)) return;
         const data = await res.json();
         if (data.success) {
           showToast(`✅ Đã duyệt thành công đơn ${orderCode}! Khách hàng đã được mở khóa VIP.`);
@@ -1024,9 +1057,10 @@
       try {
         const res = await fetch(getApiUrl('/api/admin/orders/delete'), {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: getAdminHeaders(),
           body: JSON.stringify({ orderCode })
         });
+        if (handleAuthError(res)) return;
         const data = await res.json();
         if (data.success) {
           showToast(`Đã xóa đơn ${orderCode}`);
@@ -1038,7 +1072,10 @@
 
     async function loadAdminConfig() {
       try {
-        const res = await fetch(getApiUrl('/api/admin/config'));
+        const res = await fetch(getApiUrl('/api/admin/config'), {
+          headers: getAdminHeaders()
+        });
+        if (handleAuthError(res)) return;
         if (res.ok) {
           const cfg = await res.json();
           if (cfg.sepayApiKey) {
@@ -1055,9 +1092,10 @@
       try {
         const res = await fetch(getApiUrl('/api/admin/config'), {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: getAdminHeaders(),
           body: JSON.stringify({ sepayApiKey })
         });
+        if (handleAuthError(res)) return;
         const data = await res.json();
         if (data.success) {
           showToast('✅ Đã lưu cấu hình SePay thành công!');

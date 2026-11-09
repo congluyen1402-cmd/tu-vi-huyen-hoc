@@ -76,7 +76,6 @@
     init: function () {
       this.loadConfig();
       this.createVipModalDOM();
-      this.createSettingsModalDOM();
       this.createRestoreModalDOM();
       this.createClaimAccountModalDOM();
       this.initBookingForm();
@@ -520,7 +519,7 @@
     applyVipUI: function () {
       const vipBtns = document.querySelectorAll('.btn-action-vip');
       vipBtns.forEach(b => {
-        b.innerHTML = '👑 Xuất File PDF VIP (Đã Kích Hoạt)';
+        b.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Xuất File PDF VIP (Đã Kích Hoạt)';
         b.classList.add('unlocked');
       });
 
@@ -528,7 +527,7 @@
       document.body.classList.add('vip-activated');
       const floatBtn = document.getElementById('floatingVipCta');
       if (floatBtn) {
-        floatBtn.innerHTML = '👑 Xuất Báo Cáo VIP A4';
+        floatBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>Xuất Báo Cáo VIP A4</span>';
       }
 
       this.renderVipUnlockedBanner();
@@ -958,7 +957,8 @@
     },
 
     /**
-     * Floating CTA Button
+     * Floating CTA Button (Item 13 & 14)
+     * Đặt ở góc dưới bên phải, ẩn khi vùng Bảng Giá Dịch Vụ đang hiển thị trong tầm nhìn
      */
     initFloatingCta: function () {
       let floatBtn = document.getElementById('floatingVipCta');
@@ -967,21 +967,37 @@
         floatBtn.id = 'floatingVipCta';
         floatBtn.className = 'floating-vip-cta';
         floatBtn.innerHTML = `
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           <span>Tải Báo Cáo VIP A4 (49k)</span>
         `;
         floatBtn.onclick = () => this.openVipModal();
         document.body.appendChild(floatBtn);
       }
 
+      let isPricingInView = false;
+      const pricingSection = document.getElementById('bang-gia-dich-vu') || document.querySelector('.pricing-section');
+
+      const updateVisibility = () => {
+        if (!floatBtn) return;
+        if (window.scrollY > 400 && !isPricingInView) {
+          floatBtn.classList.add('visible');
+        } else {
+          floatBtn.classList.remove('visible');
+        }
+      };
+
+      if (pricingSection && typeof IntersectionObserver !== 'undefined') {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            isPricingInView = entry.isIntersecting;
+            updateVisibility();
+          });
+        }, { threshold: 0.05 });
+        observer.observe(pricingSection);
+      }
+
       if (typeof window !== 'undefined' && window.addEventListener) {
-        window.addEventListener('scroll', () => {
-          if (window.scrollY > 400) {
-            floatBtn.classList.add('visible');
-          } else {
-            floatBtn.classList.remove('visible');
-          }
-        }, { passive: true });
+        window.addEventListener('scroll', updateVisibility, { passive: true });
       }
     },
 
@@ -1031,6 +1047,13 @@
     createVipModalDOM: function () {
       if (document.getElementById('tuvi-vip-modal')) return;
 
+      const curYear = new Date().getFullYear();
+      const nextYear = curYear + 1;
+      const CAN = ['Giáp', 'Ất', 'Bính', 'Đinh', 'Mậu', 'Kỷ', 'Canh', 'Tân', 'Nhâm', 'Quý'];
+      const CHI = ['Tý', 'Sửu', 'Dần', 'Mão', 'Thìn', 'Tỵ', 'Ngọ', 'Mùi', 'Thân', 'Dậu', 'Tuất', 'Hợi'];
+      const curCanChi = `${CAN[(curYear + 6) % 10]} ${CHI[(curYear + 8) % 12]}`;
+      const nextCanChi = `${CAN[(nextYear + 6) % 10]} ${CHI[(nextYear + 8) % 12]}`;
+
       const modalHtml = `
         <div class="tuvi-vip-modal-wrap" id="tuvi-vip-modal">
           <div class="tuvi-vip-backdrop" onclick="TuViMonetize.closeVipModal()"></div>
@@ -1038,7 +1061,9 @@
             <button class="tuvi-vip-close" type="button" aria-label="Đóng" onclick="TuViMonetize.closeVipModal()">&times;</button>
             
             <div class="tuvi-vip-header">
-              <span class="vip-crown">👑</span>
+              <span class="vip-crown">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.562 3.266a.5.5 0 0 1 .876 0L15.39 8.87a1 1 0 0 0 1.516.294L21.183 5.5a.5.5 0 0 1 .798.519l-2.834 10.246a1 1 0 0 1-.956.735H5.81a1 1 0 0 1-.957-.735L2.02 6.02a.5.5 0 0 1 .798-.519l4.276 3.664a1 1 0 0 0 1.516-.294z"/><path d="M5 21h14"/></svg>
+              </span>
               <h3 id="vipModalPackageTitle">MỞ KHÓA BÁO CÁO TỬ VI VIP 49.000đ</h3>
               <p class="vip-sub">Quét mã VietQR hoặc chuyển khoản theo thông tin STK dưới đây để mở khóa tự động toàn bộ 12 cung &amp; đại vận trọn đời</p>
             </div>
@@ -1069,7 +1094,10 @@
                     <span class="b-lbl">Số tài khoản:</span>
                     <div class="b-val-with-copy">
                       <span class="b-val text-gold text-bold copy-target" id="vipAccountNo">108884822302</span>
-                      <button class="btn-copy-mini" type="button" onclick="TuViMonetize.copyField('vipAccountNo', 'Số tài khoản')">📋 Sao chép</button>
+                      <button class="btn-copy-mini" type="button" onclick="TuViMonetize.copyField('vipAccountNo', 'Số tài khoản')">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                        Sao chép
+                      </button>
                     </div>
                   </div>
 
@@ -1082,7 +1110,10 @@
                     <span class="b-lbl">Số tiền:</span>
                     <div class="b-val-with-copy">
                       <span class="b-val text-gold text-bold" id="vipTransferAmount">49.000 đ</span>
-                      <button class="btn-copy-mini" type="button" onclick="TuViMonetize.copyField('vipTransferAmount', 'Số tiền')">📋 Sao chép</button>
+                      <button class="btn-copy-mini" type="button" onclick="TuViMonetize.copyField('vipTransferAmount', 'Số tiền')">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                        Sao chép
+                      </button>
                     </div>
                   </div>
 
@@ -1090,7 +1121,10 @@
                     <span class="b-lbl">Nội dung CK:</span>
                     <div class="b-val-with-copy">
                       <span class="b-val text-gold text-bold copy-target" id="vipMemoText">TV888888</span>
-                      <button class="btn-copy-mini" type="button" onclick="TuViMonetize.copyField('vipMemoText', 'Nội dung chuyển khoản')">📋 Sao chép</button>
+                      <button class="btn-copy-mini" type="button" onclick="TuViMonetize.copyField('vipMemoText', 'Nội dung chuyển khoản')">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                        Sao chép
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -1101,7 +1135,7 @@
             <div class="vip-benefits-list">
               <div class="vip-benefit-item">✓ <strong>Xuất trọn bộ File PDF A4</strong> đóng dấu mộc phong thủy lưu trữ trọn đời.</div>
               <div class="vip-benefit-item">✓ <strong>Mở khóa toàn bộ luận giải</strong> Tam Phương Tứ Chính không che.</div>
-              <div class="vip-benefit-item">✓ <strong>Bản phân tích đặc biệt Lưu Niên 2026 (Bính Ngọ)</strong> &amp; phương pháp hóa giải chi tiết.</div>
+              <div class="vip-benefit-item">✓ <strong>Bản phân tích đặc biệt Lưu Niên ${curYear} (${curCanChi}) &amp; ${nextYear} (${nextCanChi})</strong> &amp; phương pháp hóa giải chi tiết.</div>
               <div class="vip-benefit-item">✓ <strong>Bảng tra cứu màu sắc, hướng xuất hành, con số may mắn</strong> tương sinh bản mệnh.</div>
             </div>
 
@@ -1110,133 +1144,19 @@
 
             <div class="vip-actions">
               <button class="btn-confirm-payment" id="btnConfirmVipPayment" type="button" onclick="TuViMonetize.confirmPayment()">
-                🔍 Kiểm Tra Trạng Thái Thanh Toán
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                Kiểm Tra Trạng Thái Thanh Toán
               </button>
-              <p class="vip-secure-note">🔒 Quý khách chuyển tiền xong bấm nút trên để hệ thống kiểm tra và kích hoạt VIP.</p>
+              <p class="vip-secure-note">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                Quý khách chuyển tiền xong bấm nút trên để hệ thống kiểm tra và kích hoạt VIP.
+              </p>
             </div>
           </div>
         </div>
       `;
 
       document.body.insertAdjacentHTML('beforeend', modalHtml);
-    },
-
-    /**
-     * Modal Cài Đặt Tài Khoản Ngân Hàng Cho Chủ Web (Admin Quick Config)
-     */
-    createSettingsModalDOM: function () {
-      if (document.getElementById('tuvi-settings-modal')) return;
-
-      const html = `
-        <div class="tuvi-vip-modal-wrap" id="tuvi-settings-modal">
-          <div class="tuvi-vip-backdrop" onclick="TuViMonetize.closeSettingsModal()"></div>
-          <div class="tuvi-vip-card settings-card">
-            <button class="tuvi-vip-close" onclick="TuViMonetize.closeSettingsModal()">&times;</button>
-            
-            <div class="tuvi-vip-header">
-              <span class="vip-crown">⚙️</span>
-              <h3>CẤU HÌNH TÀI KHOẢN NHẬN TIỀN VIETQR</h3>
-              <p class="vip-sub">Nhập tài khoản ngân hàng của bạn để nhận tiền chuyển khoản tự động ngay lập tức</p>
-            </div>
-
-            <form id="bankConfigForm" onsubmit="event.preventDefault(); TuViMonetize.saveSettingsFromForm();" style="display:flex; flex-direction:column; gap:12px; margin-top:1rem;">
-              <div>
-                <label style="display:block; font-size:0.85rem; color:#ffd700; margin-bottom:4px;">Ngân Hàng Nhận Tiền:</label>
-                <select id="cfgBankId" class="config-input">
-                  <option value="ICB" selected>VietinBank (Công Thương)</option>
-                  <option value="MB">MB Bank (Quân Đội)</option>
-                  <option value="VCB">Vietcombank</option>
-                  <option value="TCB">Techcombank</option>
-                  <option value="VPB">VPBank</option>
-                  <option value="TPB">TPBank</option>
-                  <option value="ACB">ACB</option>
-                  <option value="BIDV">BIDV</option>
-                  <option value="VIB">VIB</option>
-                  <option value="STB">Sacombank</option>
-                  <option value="MSB">MSB</option>
-                  <option value="OCB">OCB</option>
-                  <option value="VBA">Agribank</option>
-                </select>
-              </div>
-
-              <div>
-                <label style="display:block; font-size:0.85rem; color:#ffd700; margin-bottom:4px;">Số Tài Khoản:</label>
-                <input type="text" id="cfgAccountNo" class="config-input" value="108884822302" required>
-              </div>
-
-              <div>
-                <label style="display:block; font-size:0.85rem; color:#ffd700; margin-bottom:4px;">Tên Chủ Tài Khoản (Không Dấu):</label>
-                <input type="text" id="cfgAccountName" class="config-input" value="TRAN CONG LUYEN" required>
-              </div>
-
-              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-                <div>
-                  <label style="display:block; font-size:0.85rem; color:#ffd700; margin-bottom:4px;">Giá Gói VIP (VNĐ):</label>
-                  <input type="number" id="cfgVipPrice" class="config-input" value="49000" step="1000">
-                </div>
-                <div>
-                  <label style="display:block; font-size:0.85rem; color:#ffd700; margin-bottom:4px;">Số Zalo Tư Vấn:</label>
-                  <input type="text" id="cfgZaloPhone" class="config-input" placeholder="0988888888">
-                </div>
-              </div>
-
-              <button type="submit" class="btn-confirm-payment" style="margin-top:10px;">
-                💾 Lưu Cấu Hình & Cập Nhật VietQR Ngay
-              </button>
-            </form>
-          </div>
-        </div>
-      `;
-
-      document.body.insertAdjacentHTML('beforeend', html);
-    },
-
-    openSettingsModal: function () {
-      const modal = document.getElementById('tuvi-settings-modal');
-      if (!modal) return;
-
-      const bankEl = document.getElementById('cfgBankId');
-      if (bankEl) bankEl.value = this.config.bankId;
-
-      const noEl = document.getElementById('cfgAccountNo');
-      if (noEl) noEl.value = this.config.accountNo;
-
-      const nameEl = document.getElementById('cfgAccountName');
-      if (nameEl) nameEl.value = this.config.accountName;
-
-      const priceEl = document.getElementById('cfgVipPrice');
-      if (priceEl) priceEl.value = this.config.vipPrice;
-
-      const zaloEl = document.getElementById('cfgZaloPhone');
-      if (zaloEl) zaloEl.value = this.config.zaloPhone;
-
-      modal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    },
-
-    closeSettingsModal: function () {
-      const modal = document.getElementById('tuvi-settings-modal');
-      if (modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-      }
-    },
-
-    saveSettingsFromForm: function () {
-      const bankId = document.getElementById('cfgBankId')?.value || 'MB';
-      const accountNo = (document.getElementById('cfgAccountNo')?.value || '').trim();
-      const accountName = (document.getElementById('cfgAccountName')?.value || '').trim().toUpperCase();
-      const vipPrice = parseInt(document.getElementById('cfgVipPrice')?.value, 10) || 49000;
-      const zaloPhone = (document.getElementById('cfgZaloPhone')?.value || '').trim() || '0988888888';
-
-      this.saveConfig({ bankId, accountNo, accountName, vipPrice, zaloPhone });
-      this.closeSettingsModal();
-
-      if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
-        TuViApp.showToast('Đã lưu cấu hình tài khoản nhận tiền thành công!', 'success');
-      } else {
-        alert('Đã lưu cấu hình tài khoản nhận tiền thành công!');
-      }
     },
 
     /**
@@ -1361,7 +1281,10 @@
       } finally {
         if (btn) {
           btn.disabled = false;
-          btn.textContent = '🔍 Tìm & Khôi Phục Ngay';
+          btn.innerHTML = `
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 5px;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            Tìm & Khôi Phục Ngay
+          `;
         }
       }
     },
@@ -1376,7 +1299,10 @@
         <div id="tuvi-claim-modal" class="tuvi-tool-modal-backdrop">
           <div class="tuvi-tool-modal-card">
             <button class="tuvi-tool-modal-close" onclick="TuViMonetize.closeClaimAccountModal()">&times;</button>
-            <h3><i data-lucide="shield-check"></i> Tạo Mật Khẩu Bảo Vệ</h3>
+            <h3>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+              Tạo Mật Khẩu Bảo Vệ
+            </h3>
             <p class="tuvi-tool-modal-desc">
               Gắn đơn hàng VIP này với tài khoản chính thức để bạn có thể đăng nhập bằng Mật khẩu trên mọi thiết bị vĩnh viễn:
             </p>
@@ -1387,11 +1313,11 @@
               </div>
               <div class="tuvi-tool-input-wrap">
                 <label for="claimFullNameInput">Họ và Tên:</label>
-                <input type="text" id="claimFullNameInput" class="tuvi-tool-input" placeholder="Ví dụ: Trần Công Luyện" required>
+                <input type="text" id="claimFullNameInput" class="tuvi-tool-input" placeholder="Ví dụ: Nguyễn Văn An" required>
               </div>
               <div class="tuvi-tool-input-wrap">
                 <label for="claimEmailPhoneInput">Số Điện Thoại hoặc Email:</label>
-                <input type="text" id="claimEmailPhoneInput" class="tuvi-tool-input" placeholder="Ví dụ: 0988888888 hoặc luyen@gmail.com" required autocomplete="username">
+                <input type="text" id="claimEmailPhoneInput" class="tuvi-tool-input" placeholder="Ví dụ: 0988888888 hoặc an.nguyen@gmail.com" required autocomplete="username">
               </div>
               <div class="tuvi-tool-input-wrap">
                 <label for="claimPasswordInput">Thiết Lập Mật Khẩu Mới:</label>
@@ -1399,7 +1325,8 @@
               </div>
               <div id="claimErrorMsg" class="tuvi-tool-error"></div>
               <button type="submit" id="btnClaimSubmit" class="btn-tool-submit" style="margin-top: 10px;">
-                🔒 Kích Hoạt Tài Khoản Vĩnh Viễn
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 5px;"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                Kích Hoạt Tài Khoản Vĩnh Viễn
               </button>
             </form>
           </div>

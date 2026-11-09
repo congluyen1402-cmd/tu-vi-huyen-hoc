@@ -10,6 +10,7 @@
 
   const App = {
     init: function () {
+      this.initDynamicYearLabels();
       this.initFormControls();
       this.initStarfield();
       this.initHeroParticles();
@@ -25,6 +26,32 @@
         window.lucide.createIcons();
       }
       console.log('✦ Tra Cứu Tử Vi Số Mệnh - Hệ Thống Sẵn Sàng ✦');
+    },
+
+    /**
+     * Tự động tính toán và cập nhật năm Dương lịch cùng Thiên Can - Địa Chi động (Item 7)
+     */
+    initDynamicYearLabels: function () {
+      try {
+        const curYear = new Date().getFullYear();
+        const nextYear = curYear + 1;
+        const CAN = ['Giáp', 'Ất', 'Bính', 'Đinh', 'Mậu', 'Kỷ', 'Canh', 'Tân', 'Nhâm', 'Quý'];
+        const CHI = ['Tý', 'Sửu', 'Dần', 'Mão', 'Thìn', 'Tỵ', 'Ngọ', 'Mùi', 'Thân', 'Dậu', 'Tuất', 'Hợi'];
+        const curCanChi = `${CAN[(curYear + 6) % 10]} ${CHI[(curYear + 8) % 12]}`;
+        const nextCanChi = `${CAN[(nextYear + 6) % 10]} ${CHI[(nextYear + 8) % 12]}`;
+
+        const labels = document.querySelectorAll('.dynamic-luu-nien-label');
+        labels.forEach(el => {
+          el.textContent = `Luận đoán Vận Hạn Lưu Niên ${curYear} (${curCanChi}) & ${nextYear} (${nextCanChi})`;
+        });
+
+        const copyYearEl = document.getElementById('footerCopyrightYear');
+        if (copyYearEl) {
+          copyYearEl.textContent = curYear;
+        }
+      } catch (e) {
+        console.warn('initDynamicYearLabels error:', e);
+      }
     },
 
     initHeroParticles: function () {
@@ -60,7 +87,7 @@
       try {
         if (typeof TuViEngine !== 'undefined' && typeof TuViChart !== 'undefined') {
           const laSo = TuViEngine.lapLaSo(10, 4, 2002, 10, 'nam', false, '19 giờ 30 phút');
-          laSo.hoTen = 'Trần Công Luyện';
+          laSo.hoTen = 'Nguyễn Văn An';
           TuViChart.render(laSo);
         }
       } catch (e) {
@@ -84,9 +111,9 @@
       this.populateYears();
       this.updateDayOptions();
 
-      // Mặc định mẫu chuẩn theo PDF Trần Công Luyện: 10/04/2002 19h30
-      if (hoTenEl && (!hoTenEl.value || hoTenEl.value === '')) {
-        hoTenEl.value = 'Trần Công Luyện';
+      // Item 8: Không điền sẵn tên người thật, để trống trường họ tên
+      if (hoTenEl) {
+        hoTenEl.value = '';
       }
       if (gioiTinhEl) gioiTinhEl.value = 'nam';
       if (loaiLichEl) loaiLichEl.value = 'duong';
@@ -201,7 +228,7 @@
      * Xử lý Tra Cứu Tử Vi
      */
     handleFormSubmit: function () {
-      const hoTen = (document.getElementById('hoTen')?.value || '').trim() || 'Trần Công Luyện';
+      const hoTen = (document.getElementById('hoTen')?.value || '').trim() || 'Nguyễn Văn An';
       const gioiTinh = document.getElementById('gioiTinh')?.value || 'nam';
 
       const ngay = parseInt(document.getElementById('ngaySinh')?.value, 10) || 10;

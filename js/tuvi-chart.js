@@ -8,6 +8,16 @@
 const TuViChart = {
   _currentLaSo: null,
 
+  // Tính Thiên Can - Địa Chi động theo năm Dương lịch (Item 7)
+  getCanChiYear: function (year) {
+    const CAN = ['Giáp', 'Ất', 'Bính', 'Đinh', 'Mậu', 'Kỷ', 'Canh', 'Tân', 'Nhâm', 'Quý'];
+    const CHI = ['Tý', 'Sửu', 'Dần', 'Mão', 'Thìn', 'Tỵ', 'Ngọ', 'Mùi', 'Thân', 'Dậu', 'Tuất', 'Hợi'];
+    const y = parseInt(year, 10) || new Date().getFullYear();
+    const can = CAN[(y + 6) % 10];
+    const chi = CHI[(y + 8) % 12];
+    return `${can} ${chi}`;
+  },
+
   // Mã màu chuẩn Ngũ Hành theo bản gốc PDF
   ELEMENT_COLORS: {
     'Hỏa': '#cc0000', // Đỏ
@@ -186,10 +196,10 @@ const TuViChart = {
 
     let html = `
       <div class="la-so-actions-bar">
-        <button class="btn-action-chart btn-action-vip" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)', 49000)">👑 Tải Báo Cáo VIP A4 (49.000đ)</button>
-        <button class="btn-action-chart" onclick="window.print()">🖨️ In Lá Số</button>
-        <button class="btn-action-chart" onclick="TuViChart.toggleLuanGiaiVisibility()">📜 Xem / Ẩn Luận Giải</button>
-        <button class="btn-action-chart btn-action-fengshui" onclick="TuViMonetize.scrollToFengShui()">🪢 Vật Phẩm Hợp Mệnh</button>
+        <button class="btn-action-chart btn-action-vip" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)', 49000)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline;vertical-align:-2px;margin-right:4px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Tải Báo Cáo VIP A4 (49.000đ)</button>
+        <button class="btn-action-chart" onclick="window.print()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline;vertical-align:-2px;margin-right:4px;"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>In Lá Số</button>
+        <button class="btn-action-chart" onclick="TuViChart.toggleLuanGiaiVisibility()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline;vertical-align:-2px;margin-right:4px;"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Xem / Ẩn Luận Giải</button>
+        <button class="btn-action-chart btn-action-fengshui" onclick="TuViMonetize.scrollToFengShui()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline;vertical-align:-2px;margin-right:4px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Vật Phẩm Hợp Mệnh</button>
       </div>
 
       <div class="la-so-scroll-wrapper">
@@ -353,7 +363,7 @@ const TuViChart = {
           <div class="center-brand-header">
             <img src="img/logo-xem-tu-vi-huyen-hoc.png" alt="Xem Tử Vi Huyền Học" class="center-logo-img">
             <h2 class="center-title-main">LẬP LÁ SỐ TỬ VI CHÍNH TÔNG VIỆT NAM</h2>
-            <div class="center-website-link">https://xemtuvihuyenhoc.vn</div>
+            <div class="center-website-link">https://www.xemtuvihuyenhoc.com</div>
           </div>
 
           <!-- Bảng Thông Số Chi Tiết Bản Mệnh -->
@@ -361,7 +371,7 @@ const TuViChart = {
             <tbody>
               <tr>
                 <td class="col-label">Họ tên:</td>
-                <td class="col-val text-bold">${laSo.hoTen || 'Trần Công Luyện'}</td>
+                <td class="col-val text-bold">${laSo.hoTen || 'Nguyễn Văn An'}</td>
               </tr>
               <tr>
                 <td class="col-label">Năm sinh:</td>
@@ -413,13 +423,13 @@ const TuViChart = {
               </tr>
               <tr>
                 <td class="col-label">Xem thêm:</td>
-                <td class="col-val text-sub">Nguyệt vận tháng 9 & tiểu vận năm 2026 âm lịch</td>
+                <td class="col-val text-sub">Nguyệt vận tháng 9 &amp; tiểu vận năm ${new Date().getFullYear()} âm lịch</td>
               </tr>
             </tbody>
           </table>
 
           <div class="center-footer-copy">
-            © 2026 - xemtuvihuyenhoc.vn - ${laSo.hoTen || 'Đương số'}
+            © ${new Date().getFullYear()} - www.xemtuvihuyenhoc.com - ${laSo.hoTen || 'Đương số'}
           </div>
         </div>
       </div>
@@ -548,18 +558,18 @@ const TuViChart = {
     if (!listEl) return;
 
     const CUNG_KEYS = [
-      { name: 'MỆNH', key: 'menh', icon: '👑' },
-      { name: 'PHỤ MẪU', key: 'phu-mau', icon: '👴' },
-      { name: 'PHÚC ĐỨC', key: 'phuc-duc', icon: '🏮' },
-      { name: 'ĐIỀN TRẠCH', key: 'dien-trach', icon: '🏡' },
-      { name: 'QUAN LỘC', key: 'quan-loc', icon: '📜' },
-      { name: 'NÔ BỘC', key: 'no-boc', icon: '🤝' },
-      { name: 'THIÊN DI', key: 'thien-di', icon: '🐎' },
-      { name: 'TẬT ÁCH', key: 'tat-ach', icon: '🛡️' },
-      { name: 'TÀI BẠCH', key: 'tai-bach', icon: '💰' },
-      { name: 'TỬ TỨC', key: 'tu-tuc', icon: '👶' },
-      { name: 'PHU THÊ', key: 'phu-the', icon: '💍' },
-      { name: 'HUYNH ĐỆ', key: 'huynh-de', icon: '👥' }
+      { name: 'MỆNH', key: 'menh', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>' },
+      { name: 'PHỤ MẪU', key: 'phu-mau', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>' },
+      { name: 'PHÚC ĐỨC', key: 'phuc-duc', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>' },
+      { name: 'ĐIỀN TRẠCH', key: 'dien-trach', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>' },
+      { name: 'QUAN LỘC', key: 'quan-loc', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>' },
+      { name: 'NÔ BỘC', key: 'no-boc', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>' },
+      { name: 'THIÊN DI', key: 'thien-di', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>' },
+      { name: 'TẬT ÁCH', key: 'tat-ach', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>' },
+      { name: 'TÀI BẠCH', key: 'tai-bach', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>' },
+      { name: 'TỬ TỨC', key: 'tu-tuc', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>' },
+      { name: 'PHU THÊ', key: 'phu-the', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>' },
+      { name: 'HUYNH ĐỆ', key: 'huynh-de', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>' }
     ];
 
     // Xác thực quyền VIP: Hỗ trợ cả thành viên đăng nhập lẫn khách vãng lai quét mã VietQR mở khóa tức thì
@@ -584,7 +594,7 @@ const TuViChart = {
             <button class="accordion-header" aria-expanded="false" type="button" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)', 49000)">
               <span class="palace-icon gold-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
               <span class="palace-name palace-title-gold-light">${cung.cungName} · Cung ${cung.chi} (${cung.can})</span>
-              <span class="wax-seal-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Mở khóa 49.000đ</span>
+              <span class="wax-seal-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Khóa Gói VIP 49.000đ</span>
               <span class="toggle-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
             </button>
             <div class="accordion-body" role="region" style="display:none;">
@@ -601,7 +611,7 @@ const TuViChart = {
                   <span class="lock-perk-badge">✓ Tải File PDF VIP A4</span>
                 </div>
                 <button class="btn-gold-pill btn-lock-upgrade" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)', 49000)">
-                  👑 Đăng Ký Gói VIP 49.000đ Để Mở Khóa
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:-2px;margin-right:4px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Đăng Ký Gói VIP 49.000đ Để Mở Khóa
                 </button>
               </div>
             </div>
@@ -675,6 +685,12 @@ const TuViChart = {
       `;
     });
 
+    // Item 7: Tính năm Dương lịch hiện tại và Can Chi động
+    const curYear = new Date().getFullYear();
+    const nextYear = curYear + 1;
+    const curCanChi = this.getCanChiYear(curYear);
+    const nextCanChi = this.getCanChiYear(nextYear);
+
     // Thêm Khối Vận Hạn Từng Giai Đoạn & Phương Pháp Hóa Giải
     const daiHanList = [
       {
@@ -685,11 +701,18 @@ const TuViChart = {
         hoaGiai: 'Gia đình cần rèn luyện tính kiên nhẫn, lễ phép, hướng đương số tham gia các hoạt động ngoại khóa để giải tỏa bớt nhiệt khí dư thừa của Thái Dương.'
       },
       {
-        phase: '16 – 25 Tuổi (Hiện Tại - 2026)',
+        phase: '16 – 25 Tuổi',
         cung: 'PHỤ MẪU tại Ngọ',
         chuDe: 'Thử Thách Tuổi Trẻ · Định Hình Con Đường Tự Lập',
-        luanGiai: 'Đại hạn ngộ Phá Quân miếu địa, Thái Tuế, Đại Hao. Đây là 10 năm của những bước ngoặt lớn về học vấn, công việc và thay đổi môi trường sống. Đại Hao chủ về sự biến động, đầu tư học tập và chi tiêu nhiều. Năm 2026 (Bính Ngọ), đương số tròn 25 tuổi mụ, đúng năm Thái Tuế trùng phùng bản mệnh (tuổi Ngọ gặp năm Ngọ) và là năm cuối cùng chuyển giao đại hạn. Thời điểm này tâm tư trăn trở về định hướng tương lai, công việc có sự đổi mới hoặc cơ hội đột phá.',
+        luanGiai: 'Đại hạn ngộ Phá Quân miếu địa, Thái Tuế, Đại Hao. Đây là 10 năm của những bước ngoặt lớn về học vấn, công việc và thay đổi môi trường sống. Đại Hao chủ về sự biến động, đầu tư học tập và chi tiêu nhiều. Thời điểm chuyển giao đại hạn tâm tư trăn trở về định hướng tương lai, công việc có sự đổi mới hoặc cơ hội đột phá.',
         hoaGiai: 'Tập trung trau dồi chuyên môn cốt lõi, không nên vội vã đầu cơ rủi ro. Học cách quản trị tài chính cá nhân chặt chẽ. Hóa giải Thái tuế bằng cách đi xa, thay đổi không gian sống hoặc khởi động dự án mới.'
+      },
+      {
+        phase: `Lưu Niên ${curYear} (${curCanChi}) & ${nextYear} (${nextCanChi})`,
+        cung: 'LƯU NIÊN TOÀN DIỆN',
+        chuDe: `Vận Khí ${curYear} (${curCanChi}) & Tiếp Nối ${nextYear} (${nextCanChi})`,
+        luanGiai: `Năm ${curYear} (${curCanChi}): Vận số mở ra chu kỳ tài lộc và chuyển biến tích cực trong sự nghiệp lẫn nhân duyên. Các cát tinh hội tụ mang lại cơ hội hợp tác mới, kinh doanh hanh thông, song cần cẩn trọng trong các cam kết pháp lý. Bước sang năm ${nextYear} (${nextCanChi}): Tiếp đà sinh vượng, đương số đón nhận cát tinh trợ lực, thuận bề tích lũy tài sản và củng cố vị thế cá nhân vững chắc.`,
+        hoaGiai: `Chủ động lập kế hoạch tài chính rõ ràng cho cả năm ${curYear} và chuẩn bị nền tảng đón vận khí năm ${nextYear}. Tích cực tu tâm dưỡng tính, làm việc thiện, phóng sinh để kích hoạt phúc đức trường tồn.`
       },
       {
         phase: '26 – 35 Tuổi',

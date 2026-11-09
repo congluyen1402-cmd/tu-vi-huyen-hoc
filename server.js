@@ -234,6 +234,17 @@ const server = http.createServer(async (req, res) => {
   // API ROUTING
   // =========================================================================
 
+  // Xác thực bảo mật cho API Quản trị viên (Item 9)
+  const ADMIN_SECRET = process.env.ADMIN_SECRET || 'TuViHuyenHoc@Admin2026';
+  if (pathname.startsWith('/api/admin/')) {
+    const adminToken = req.headers['x-admin-token'] || 
+                       (req.headers['authorization'] ? req.headers['authorization'].replace(/^Bearer\s+/i, '') : '') ||
+                       parsedUrl.query.admin_token;
+    if (!adminToken || adminToken !== ADMIN_SECRET) {
+      return sendJson(res, 401, { success: false, message: 'Yêu cầu quyền Quản trị viên (Unauthorized)' });
+    }
+  }
+
   // 1. Đăng ký tài khoản mới: POST /api/auth/register
   if (pathname === '/api/auth/register' && req.method === 'POST') {
     try {
@@ -456,7 +467,7 @@ const server = http.createServer(async (req, res) => {
           orderCode,
           vipAccessToken: crypto.randomBytes(20).toString('hex'),
           userId: user ? user.id : null,
-          customerName: user ? user.fullName : 'Trần Công Luyện',
+          customerName: user ? user.fullName : 'Khách Hàng',
           customerPhone: user ? user.emailOrPhone : '',
           packageId: 'vip_49k',
           packageName: 'Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)',
@@ -487,7 +498,7 @@ const server = http.createServer(async (req, res) => {
               timestamp: new Date().toISOString(),
               eventType: 'payment_success',
               visitorId: 'vis_' + orderCode,
-              customerName: order.customerName || 'Trần Công Luyện',
+              customerName: order.customerName || 'Khách Hàng',
               details: { orderCode, amount: order.amount, packageName: order.packageName }
             });
             writeJsonFile(ANALYTICS_FILE, analytics);
@@ -968,6 +979,16 @@ const server = http.createServer(async (req, res) => {
   // PHỤC VỤ FILE TĨNH (STATIC FILE SERVER)
   // =========================================================================
   let safePath = path.normalize(decodeURIComponent(pathname)).replace(/^(\.\.[\/\\])+/, '');
+
+  // Bảo vệ an toàn dữ liệu: Chặn truy cập trực tiếp file cấu hình và thư mục data (Item 9)
+  const lowerSafePath = safePath.toLowerCase();
+  if (lowerSafePath.startsWith('/data') || lowerSafePath.startsWith('\\data') || 
+      lowerSafePath.includes('/data/') || lowerSafePath.includes('\\data\\') ||
+      lowerSafePath.endsWith('.json') || lowerSafePath.includes('.env')) {
+    res.writeHead(403, { 'Content-Type': 'application/json; charset=utf-8' });
+    return res.end(JSON.stringify({ success: false, message: 'Forbidden: Access denied to internal data files' }));
+  }
+
   if (safePath === '/' || safePath === '\\') {
     safePath = '/index.html';
   } else if (safePath === '/admin' || safePath === '\\admin' || safePath === '/admin/' || safePath === '\\admin\\') {
