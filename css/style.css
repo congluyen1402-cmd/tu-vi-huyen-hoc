@@ -8,6 +8,7 @@
 
 /* ── DESIGN TOKENS (CSS Variables) ────────────────────────── */
 :root {
+  --header-h: 72px;
   --bg: #0B0A1A;
   --surface: #151330;
   --surface-2: #1E1B3F;
@@ -245,8 +246,9 @@ a:hover {
   top: 0;
   left: 0;
   right: 0;
+  height: var(--header-h);
   z-index: 1000;
-  padding: 0.75rem 1.5rem;
+  padding: 0 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -412,28 +414,48 @@ a:hover {
 }
 
 /* ============================================================
-   2. HERO SECTION (Fixed Spacing & Balanced Golden Ratio)
+   2. HERO SECTION (Flush under Header, Golden Ratio Layout)
    ============================================================ */
 .hero {
   position: relative;
-  min-height: auto;
+  margin: 0;
+  margin-top: var(--header-h);
+  min-height: calc(100dvh - var(--header-h));
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  justify-content: flex-start;
-  text-align: center;
-  padding: calc(65px + 2rem) 1.5rem 3.5rem;
+  padding: clamp(24px, 6vh, 72px) 20px clamp(48px, 8vh, 96px);
   overflow: hidden;
+  background: var(--bg);
+}
+
+/* Layer 1: Nebula Gradient Background (covers from first pixel) */
+.hero-bg-nebula {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
   background: radial-gradient(circle at 50% 35%, rgba(68, 41, 122, 0.45) 0%, rgba(26, 22, 64, 0.55) 45%, var(--bg) 100%);
 }
 
-/* Faint rotating Bat Quai / Compass Ring (A.2) */
+/* Layer 2: Starfield Canvas inside Hero */
+.hero-starfield-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Layer 3: Faint rotating Bat Quai / Compass Ring (A.2 - centered & responsive) */
 .hero-compass-ring {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: min(620px, 92vw);
-  height: min(620px, 92vw);
+  width: min(88vw, 88vh, 620px);
+  height: min(88vw, 88vh, 620px);
   transform: translate(-50%, -50%);
   pointer-events: none;
   animation: rotate-compass 75s linear infinite;
@@ -452,7 +474,7 @@ a:hover {
   inset: 0;
   pointer-events: none;
   overflow: hidden;
-  z-index: 1;
+  z-index: 0;
 }
 
 @keyframes floatParticle {
@@ -463,9 +485,61 @@ a:hover {
 
 .hero-content {
   position: relative;
-  z-index: 2;
+  z-index: 1;
   max-width: 820px;
   margin: 0 auto;
+}
+
+/* Layer 5: Hero Scroll Hint (Subtle indicator at bottom of hero) */
+.hero-scroll-hint {
+  position: absolute;
+  bottom: clamp(12px, 2.5vh, 24px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: var(--gold-light);
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  z-index: 2;
+  opacity: 0.8;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.hero-scroll-hint:hover {
+  opacity: 1;
+  color: var(--gold);
+  transform: translateX(-50%) translateY(2px);
+}
+
+.scroll-hint-chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  animation: bounceChevron 2s infinite ease-in-out;
+}
+
+@keyframes bounceChevron {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+@media (max-height: 640px) {
+  .hero-scroll-hint {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-hint-chevron {
+    animation: none !important;
+  }
 }
 
 .hero-emblem {
@@ -2656,12 +2730,31 @@ footer.footer {
 }
 
 @media (max-width: 768px) {
+  .navbar {
+    padding: 0 1rem;
+  }
   .grid-row-2, .grid-row-3 {
     grid-template-columns: 1fr;
   }
+  .hero {
+    min-height: calc(100dvh - var(--header-h));
+    padding: clamp(16px, 3vh, 32px) 16px clamp(20px, 4vh, 36px);
+  }
   .hero-compass-ring {
-    width: 380px;
-    height: 380px;
+    width: min(88vw, 88vh, 360px);
+    height: min(88vw, 88vh, 360px);
+  }
+  .hero-headline, .hero h1 {
+    font-size: clamp(1.5rem, 5vw, 2.1rem);
+  }
+  .hero p {
+    font-size: 0.92rem;
+    margin-bottom: 1.1rem;
+  }
+  .hero-cta {
+    padding: 0.75rem 1.8rem;
+    font-size: 0.95rem;
+    margin-bottom: 0.85rem;
   }
   .features-grid {
     grid-template-columns: 1fr;
@@ -2973,12 +3066,13 @@ footer.footer {
    UPGRADE: MYSTICAL, PREMIUM, CONVERSION-FOCUSED EXPERIENCE
    ============================================================ */
 
-/* A.1 Global Starfield & A.3 Gold Dust Cursor Trail */
-.global-starfield-canvas {
-  position: fixed;
+/* A.1 Global / Hero Starfield & A.3 Gold Dust Cursor Trail */
+.global-starfield-canvas,
+.hero-starfield-canvas {
+  position: absolute;
   inset: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
   z-index: 0;
 }

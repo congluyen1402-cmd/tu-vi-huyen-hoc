@@ -13,6 +13,7 @@
     _trailAnimId: null,
 
     init: function () {
+      this.initHeaderHeight();
       this.initDynamicYearLabels();
       this.initTrustLine();
       this.initFormControls();
@@ -77,6 +78,34 @@
     },
 
     /**
+     * Measure header height dynamically and sync to --header-h
+     */
+    initHeaderHeight: function () {
+      const navbar = document.getElementById('navbar') || document.querySelector('.navbar');
+      if (!navbar) return;
+
+      const updateHeight = () => {
+        const h = navbar.offsetHeight;
+        if (h > 0) {
+          document.documentElement.style.setProperty('--header-h', `${h}px`);
+        }
+      };
+
+      updateHeight();
+
+      if (window.ResizeObserver) {
+        try {
+          const ro = new ResizeObserver(() => updateHeight());
+          ro.observe(navbar);
+        } catch (e) {
+          window.addEventListener('resize', updateHeight, { passive: true });
+        }
+      } else {
+        window.addEventListener('resize', updateHeight, { passive: true });
+      }
+    },
+
+    /**
      * Global Canvas Starfield (Requirement A.1: Max 120 desktop, 40 mobile, pause when tab hidden)
      */
     initGlobalStarfield: function () {
@@ -92,8 +121,9 @@
       let height = 0;
 
       const resize = () => {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
+        const parent = canvas.parentElement || document.body;
+        width = canvas.width = parent.offsetWidth || window.innerWidth;
+        height = canvas.height = parent.offsetHeight || window.innerHeight;
         const maxStars = width < 768 ? 40 : 120;
         stars = [];
         for (let i = 0; i < maxStars; i++) {
