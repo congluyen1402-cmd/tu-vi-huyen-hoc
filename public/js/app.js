@@ -169,9 +169,9 @@
       this.initTrustLine();
       this.initFormControls();
       this.initNavMenuCheck();
-      this.initHeroStarfield();
-      this.initCursorTrail();
-      this.initHeroParticles();
+      // this.initHeroStarfield(); (Removed for Muc & Giay)
+      // this.initCursorTrail(); (Removed for Muc & Giay)
+      // this.initHeroParticles(); (Removed for Muc & Giay)
       this.initScrollReveal();
       this.setDefaultValues();
       this.restoreLastSession();
@@ -348,178 +348,10 @@
     /**
      * Canvas Starfield tích hợp vào Shared AnimationHub (Phase 2 Item 1, 3, 5)
      */
-    initHeroStarfield: function () {
-      const canvas = document.getElementById('globalStarfield');
-      if (!canvas) return;
+    initHeroStarfield: function () {},
+    initCursorTrail: function () {},
+    initHeroParticles: function () {},
 
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return;
-
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      let stars = [];
-      let width = 0;
-      let height = 0;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-      const resize = () => {
-        const parent = canvas.parentElement || document.body;
-        width = parent.offsetWidth || window.innerWidth;
-        height = parent.offsetHeight || window.innerHeight;
-
-        canvas.width = Math.floor(width * dpr);
-        canvas.height = Math.floor(height * dpr);
-        ctx.scale(dpr, dpr);
-
-        const maxStars = AnimationHub.isLite ? 35 : (width < 768 ? 40 : 90);
-        stars = [];
-        for (let i = 0; i < maxStars; i++) {
-          stars.push({
-            x: Math.random() * width,
-            y: Math.random() * height,
-            radius: Math.random() * 1.4 + 0.4,
-            alpha: Math.random() * 0.7 + 0.2,
-            speed: Math.random() * 0.012 + 0.004,
-            dir: Math.random() > 0.5 ? 1 : -1
-          });
-        }
-      };
-
-      // Debounce resize
-      let resizeTimer = null;
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(resize, 100);
-      }, { passive: true });
-
-      resize();
-
-      if (prefersReducedMotion) {
-        ctx.clearRect(0, 0, width, height);
-        stars.forEach(s => {
-          ctx.beginPath();
-          ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(243, 217, 139, ${s.alpha})`;
-          ctx.fill();
-        });
-        return;
-      }
-
-      // Đăng ký vào AnimationHub
-      AnimationHub.register('heroStarfield', (now, delta) => {
-        ctx.clearRect(0, 0, width, height);
-        for (let i = 0; i < stars.length; i++) {
-          const s = stars[i];
-          s.alpha += s.speed * s.dir * (delta / 16);
-          if (s.alpha > 0.85) { s.alpha = 0.85; s.dir = -1; }
-          if (s.alpha < 0.15) { s.alpha = 0.15; s.dir = 1; }
-
-          ctx.beginPath();
-          ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(243, 217, 139, ${s.alpha})`;
-          ctx.fill();
-        }
-      }, canvas);
-    },
-
-    /**
-     * Gold Dust Cursor Trail (Phase 2 Item 1: Desktop pointer: fine only, disabled on touch/lite-mode)
-     */
-    initCursorTrail: function () {
-      const isFinePointer = window.matchMedia('(pointer: fine)').matches;
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (!isFinePointer || prefersReducedMotion || AnimationHub.isLite) return;
-
-      const canvas = document.getElementById('cursorTrailCanvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return;
-
-      let particles = [];
-      let width = canvas.width = window.innerWidth;
-      let height = canvas.height = window.innerHeight;
-
-      let resizeTimer = null;
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => {
-          width = canvas.width = window.innerWidth;
-          height = canvas.height = window.innerHeight;
-        }, 100);
-      }, { passive: true });
-
-      window.addEventListener('mousemove', (e) => {
-        if (particles.length > 35 || AnimationHub.isLite) return;
-        particles.push({
-          x: e.clientX,
-          y: e.clientY,
-          vx: (Math.random() - 0.5) * 0.6,
-          vy: (Math.random() - 0.5) * 0.6 - 0.2,
-          radius: Math.random() * 1.8 + 0.8,
-          life: 1
-        });
-      }, { passive: true });
-
-      AnimationHub.register('cursorTrail', (now, delta) => {
-        if (particles.length === 0) return;
-        ctx.clearRect(0, 0, width, height);
-
-        for (let i = particles.length - 1; i >= 0; i--) {
-          const p = particles[i];
-          p.x += p.vx * (delta / 16);
-          p.y += p.vy * (delta / 16);
-          p.life -= 0.03 * (delta / 16);
-
-          if (p.life <= 0) {
-            particles.splice(i, 1);
-            continue;
-          }
-
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(243, 217, 139, ${Math.max(0, p.life * 0.75)})`;
-          ctx.fill();
-        }
-      });
-    },
-
-    /**
-     * Hero Particles (Hạt bụi vàng nhẹ nhàng)
-     */
-    initHeroParticles: function () {
-      const container = document.getElementById('heroParticles');
-      if (!container) return;
-      container.innerHTML = '';
-
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-      const count = AnimationHub.isLite ? 10 : 20;
-      const fragment = document.createDocumentFragment();
-
-      for (let i = 0; i < count; i++) {
-        const p = document.createElement('div');
-        p.className = 'gold-particle';
-        const size = Math.random() * 2.5 + 1.2;
-        p.style.cssText = `
-          position: absolute;
-          width: ${size}px;
-          height: ${size}px;
-          border-radius: 50%;
-          background: ${Math.random() > 0.4 ? '#F3D98B' : '#D4AF37'};
-          left: ${Math.random() * 100}%;
-          top: ${Math.random() * 100}%;
-          opacity: ${(Math.random() * 0.4 + 0.2).toFixed(2)};
-          animation: floatParticle ${(Math.random() * 6 + 5).toFixed(1)}s ease-in-out infinite alternate;
-          animation-delay: ${(Math.random() * 4).toFixed(1)}s;
-          pointer-events: none;
-        `;
-        fragment.appendChild(p);
-      }
-      container.appendChild(fragment);
-    },
-
-    /**
-     * Phase 2 Item 7: Reveal-on-scroll qua 1 Shared IntersectionObserver
-     */
     initScrollReveal: function () {
       if (typeof IntersectionObserver === 'undefined') return;
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -921,7 +753,7 @@
         document.body.appendChild(toast);
       }
 
-      toast.innerHTML = `<span class="toast-icon">✦</span> <span class="toast-msg">${msg}</span>`;
+      toast.innerHTML = `<span class="toast-msg">${msg}</span>`;
       toast.className = `tuvi-toast ${type || 'info'} show`;
 
       clearTimeout(this._toastTimer);

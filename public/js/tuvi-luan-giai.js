@@ -463,9 +463,9 @@
       let patternsHtml = '';
       if (tpData.patterns && tpData.patterns.length > 0) {
         patternsHtml = `
-          <div class="tam-phuong-patterns" style="margin: 0.8rem 0; padding: 0.85rem 1rem; background: rgba(20, 18, 43, 0.9); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 8px;">
-            <strong style="color: #F3D98B; font-size: 0.92rem;"><i data-lucide="sparkles" style="width:14px;height:14px;display:inline-block;vertical-align:-2px;"></i> Đại Cách Cục Hội Tụ (Tam Phương Tứ Chính):</strong>
-            <ul style="padding-left: 1.2rem; margin-top: 0.4rem; color: #F5EFE0; font-size: 0.88rem; line-height: 1.65;">
+          <div class="tam-phuong-patterns" style="margin: 0.8rem 0; padding: 0.85rem 1rem; background: #FFFFFF; border: 1px solid var(--line); border-radius: 8px;">
+            <strong style="color: var(--ink); font-size: 0.92rem;"><i data-lucide="sparkles" style="width:14px;height:14px;display:inline-block;vertical-align:-2px;"></i> Đại Cách Cục Hội Tụ (Tam Phương Tứ Chính):</strong>
+            <ul style="padding-left: 1.2rem; margin-top: 0.4rem; color: var(--text); font-size: 0.88rem; line-height: 1.65;">
               ${tpData.patterns.map(pt => `<li><span style="color: #D4AF37; font-weight: 600;">[${pt.type}] ${pt.name}:</span> ${pt.desc}</li>`).join('')}
             </ul>
           </div>
@@ -473,9 +473,9 @@
       }
 
       tamPhuongHtml = `
-        <div class="tam-phuong-tu-chinh-matrix" style="background: rgba(20, 18, 43, 0.9); padding: 0.85rem 1rem; border-radius: 8px; margin: 0.8rem 0; border: 1px solid rgba(212, 175, 55, 0.25);">
-          <strong style="color: #F3D98B; font-size: 0.92rem;"><i data-lucide="compass" style="width:14px;height:14px;display:inline-block;vertical-align:-2px;"></i> Tương Tác Tam Phương Tứ Chính (Theo Tiên Sinh Lệnh Đông Lai):</strong>
-          <div style="font-size: 0.86rem; color: #F5EFE0; line-height: 1.65; margin-top: 0.4rem;">
+        <div class="tam-phuong-tu-chinh-matrix" style="background: #FFFFFF; padding: 0.85rem 1rem; border-radius: 8px; margin: 0.8rem 0; border: 1px solid var(--line);">
+          <strong style="color: var(--ink); font-size: 0.92rem;"><i data-lucide="compass" style="width:14px;height:14px;display:inline-block;vertical-align:-2px;"></i> Tương Tác Tam Phương Tứ Chính (Theo Tiên Sinh Lệnh Đông Lai):</strong>
+          <div style="font-size: 0.86rem; color: var(--text); line-height: 1.65; margin-top: 0.4rem;">
             • <strong>Bản cung (${tpData.banCung.chi}):</strong> ${tpData.banCung.chinhTinh.map(s => s.name + '(' + s.dacHam + ')').join(', ') || 'Vô Chính Diệu'} <em>(Tọa thủ)</em><br>
             • <strong>Đối cung xung chiếu (${tpData.doiCung.chi} - ${tpData.doiCung.cungName}):</strong> ${tpData.doiCung.chinhTinh.map(s => s.name + '(' + s.dacHam + ')').join(', ') || 'Vô Chính Diệu'}<br>
             • <strong>Tam hợp hợp chiếu 1 (${tpData.tamHop1.chi} - ${tpData.tamHop1.cungName}):</strong> ${tpData.tamHop1.chinhTinh.map(s => s.name + '(' + s.dacHam + ')').join(', ') || 'Vô Chính Diệu'}<br>
@@ -504,8 +504,8 @@
         const palaceSpecific = getPalaceStarMeaning(ct.name, cungName, ct.dacHam);
         chinhTinhDetailHtml += `
           <div class="star-analysis-item">
-            <h5 style="color: #F3D98B; margin: 0.5rem 0 0.2rem;">★ ${ct.name} (${ct.dacHam}) — Hành ${ct.element} [${info.title || 'Tinh Quân'}]</h5>
-            <p style="color: #F5EFE0; font-size: 0.88rem; line-height: 1.65; margin-bottom: 0.5rem;">
+            <h5 style="color: var(--ink); margin: 0.5rem 0 0.2rem;">★ ${ct.name} (${ct.dacHam}) — Hành ${ct.element} [${info.title || 'Tinh Quân'}]</h5>
+            <p style="color: var(--text); font-size: 0.88rem; line-height: 1.65; margin-bottom: 0.5rem;">
               ${info.nature ? `<em>Bản chất tinh đẩu:</em> ${info.nature}<br>` : ''}
               <strong>Luận về cung ${cungName}:</strong> ${palaceSpecific}
             </p>
@@ -521,7 +521,7 @@
         const thInfo = TU_HOA_DICT[th.hoa];
         if (thInfo) {
           tuHoaDetailHtml += `
-            <div class="tu-hoa-eval-item" style="background: rgba(20, 18, 43, 0.9); border-left: 3px solid #D4AF37; padding: 0.65rem 0.9rem; margin: 0.5rem 0; border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.25);">
+            <div class="tu-hoa-eval-item" style="background: #FFFFFF; border-left: 3px solid #D4AF37; padding: 0.65rem 0.9rem; margin: 0.5rem 0; border-radius: 6px; border: 1px solid var(--line);">
               ${thInfo.eval(th.star, cungName)}
             </div>
           `;
@@ -532,7 +532,7 @@
     // 4. Phân tích Chi tiết Cát Tinh
     let catTinhDetailHtml = '';
     if (cung.phuTinhLeft && cung.phuTinhLeft.length > 0) {
-      catTinhDetailHtml += `<h5 style="color: #F3D98B; margin-top: 0.8rem;">✦ Quần Cát Tinh Trợ Mệnh Phò Trì:</h5><ul style="padding-left: 1.2rem; color: #F5EFE0; font-size: 0.88rem; line-height: 1.65;">`;
+      catTinhDetailHtml += `<h5 style="color: var(--ink); margin-top: 0.8rem;">✦ Quần Cát Tinh Trợ Mệnh Phò Trì:</h5><ul style="padding-left: 1.2rem; color: var(--text); font-size: 0.88rem; line-height: 1.65;">`;
       cung.phuTinhLeft.forEach(pt => {
         const desc = PHU_TINH_ANALYST[pt.name] || 'Gia tăng may mắn, hỗ trợ bản cung phát triển thuận lợi.';
         catTinhDetailHtml += `<li><strong style="color: #D4AF37;">${pt.name}:</strong> ${desc}</li>`;
@@ -543,7 +543,7 @@
     // 5. Phân tích Chi tiết Sát Tinh
     let satTinhDetailHtml = '';
     if (cung.phuTinhRight && cung.phuTinhRight.length > 0) {
-      satTinhDetailHtml += `<h5 style="color: #F87171; margin-top: 0.8rem;"><i data-lucide="alert-triangle" style="width:14px;height:14px;display:inline-block;vertical-align:-2px;"></i> Sát Bại Tinh &amp; Thử Thách Nghiệp Lực:</h5><ul style="padding-left: 1.2rem; color: #F5EFE0; font-size: 0.88rem; line-height: 1.65;">`;
+      satTinhDetailHtml += `<h5 style="color: #F87171; margin-top: 0.8rem;"><i data-lucide="alert-triangle" style="width:14px;height:14px;display:inline-block;vertical-align:-2px;"></i> Sát Bại Tinh &amp; Thử Thách Nghiệp Lực:</h5><ul style="padding-left: 1.2rem; color: var(--text); font-size: 0.88rem; line-height: 1.65;">`;
       cung.phuTinhRight.forEach(pt => {
         const desc = PHU_TINH_ANALYST[pt.name] || 'Mang theo chông gai, đòi hỏi ý chí kiên định vượt qua.';
         satTinhDetailHtml += `<li><strong style="color: #FCA5A5;">${pt.name}:</strong> ${desc}</li>`;
@@ -559,9 +559,9 @@
 
     if (cung.trangSinh || ttStar) {
       vongKhiHtml = `
-        <div class="vong-khi-block" style="background: rgba(20, 18, 43, 0.9); padding: 0.8rem 1rem; border-radius: 8px; margin: 0.8rem 0; border: 1px solid rgba(212, 175, 55, 0.25);">
-          <strong style="color: #F3D98B;"><i data-lucide="activity" style="width:14px;height:14px;display:inline-block;vertical-align:-2px;"></i> Khí Vận Vòng Tràng Sinh &amp; Thái Tuế:</strong>
-          <p style="color: #F5EFE0; font-size: 0.86rem; margin: 0.35rem 0 0; line-height: 1.6;">
+        <div class="vong-khi-block" style="background: #FFFFFF; padding: 0.8rem 1rem; border-radius: 8px; margin: 0.8rem 0; border: 1px solid var(--line);">
+          <strong style="color: var(--ink);"><i data-lucide="activity" style="width:14px;height:14px;display:inline-block;vertical-align:-2px;"></i> Khí Vận Vòng Tràng Sinh &amp; Thái Tuế:</strong>
+          <p style="color: var(--text); font-size: 0.86rem; margin: 0.35rem 0 0; line-height: 1.6;">
             ${cung.trangSinh ? `• <strong>Tràng Sinh [${cung.trangSinh}]:</strong> ${tsDesc}<br>` : ''}
             ${ttStar ? `• <strong>Thế trận [${ttStar.name}]:</strong> ${ttDesc}` : ''}
           </p>
@@ -575,9 +575,9 @@
     const isTriet = (laSo.triet || []).includes(cung.chiIndex);
     if (isTuan || isTriet) {
       khongVongHtml = `
-        <div style="background: rgba(20, 18, 43, 0.9); border-left: 3px solid #C8362D; padding: 0.8rem 1rem; margin: 0.8rem 0; border-radius: 8px; border: 1px solid rgba(212, 175, 55, 0.25);">
-          <strong style="color: #F3D98B;"><i data-lucide="shield-alert" style="width:14px;height:14px;display:inline-block;vertical-align:-2px;"></i> Ảnh Hưởng Của Không Vong:</strong>
-          <p style="color: #F5EFE0; font-size: 0.86rem; margin: 0.3rem 0 0; line-height: 1.6;">
+        <div style="background: #FFFFFF; border-left: 3px solid #C8362D; padding: 0.8rem 1rem; margin: 0.8rem 0; border-radius: 8px; border: 1px solid var(--line);">
+          <strong style="color: var(--ink);"><i data-lucide="shield-alert" style="width:14px;height:14px;display:inline-block;vertical-align:-2px;"></i> Ảnh Hưởng Của Không Vong:</strong>
+          <p style="color: var(--text); font-size: 0.86rem; margin: 0.3rem 0 0; line-height: 1.6;">
             ${isTriet ? `• <strong>TRIỆT KHÔNG ÁN NGỮ:</strong> Như bức tường thép ngăn chặn hung khí nhưng cũng làm chậm bước tiến tiền vận. Gặp Triệt thì mưu sự trước 30 tuổi hay gặp trắc trở, phải bền gan vững chí mới thành tựu; đồng thời Triệt làm đảo ngược tính chất hung/cát của các sao trong cung.<br>` : ''}
             ${isTuan ? `• <strong>TUẦN KHÔNG BAO BỌC:</strong> Dải mây mờ che phủ, làm giảm bớt tính sát phạt của hung tinh, bảo vệ sự bình yên nhưng đòi hỏi tiến bước chậm mà chắc, không được nôn nóng đốt cháy giai đoạn.` : ''}
           </p>

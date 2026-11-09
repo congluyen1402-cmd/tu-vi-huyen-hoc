@@ -166,7 +166,7 @@
         navContainer.innerHTML = `
           <div class="user-nav-dropdown-wrap">
             <button class="btn-user-badge" id="btnUserBadge" onclick="TuViAuth.toggleDropdown(event)">
-              <span class="user-badge-icon">${isVip ? '👑' : '👤'}</span>
+              <span class="user-badge-icon">${isVip ? 'VIP' : ''}</span>
               <span class="user-badge-name">${this.currentUser.fullName || 'Tài Khoản'}</span>
               <span class="user-tier-tag ${isVip ? 'tier-vip' : 'tier-free'}">${isVip ? 'VIP' : 'Miễn Phí'}</span>
             </button>
@@ -181,11 +181,11 @@
               <div class="dropdown-actions">
                 ${!isVip ? `
                   <button class="btn-dropdown-upgrade" onclick="TuViMonetize.openVipModal(); TuViAuth.closeDropdown();">
-                    👑 Nâng Cấp VIP (49.000đ)
+                    Nâng Cấp VIP (49.000đ)
                   </button>
                 ` : `
                   <button class="btn-dropdown-upgrade" style="background:#10b981;" onclick="TuViMonetize.printVipReport(); TuViAuth.closeDropdown();">
-                    🖨️ Xuất File PDF VIP A4
+                    Xuất File PDF VIP A4
                   </button>
                 `}
                 <button class="btn-dropdown-logout" onclick="TuViAuth.logout()">
@@ -198,8 +198,7 @@
       } else {
         navContainer.innerHTML = `
           <button class="btn-nav-auth" onclick="TuViAuth.openAuthModal('login')">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline; vertical-align:-2px;"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
-            <span>Đăng Nhập</span>
+            <span>Đăng nhập</span>
           </button>
         `;
       }

@@ -858,7 +858,7 @@
               <span class="fengshui-price text-seal-red">${item.price}</span>
               <span class="fengshui-old-price">${item.oldPrice}</span>
             </div>
-            <a href="${item.link}" target="_blank" rel="noopener" class="btn-gold-pill btn-fengshui-buy">
+            <a href="${item.link}" target="_blank" rel="noopener" class="btn-seal btn-fengshui-buy">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline; vertical-align:-2px; margin-right:4px;"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
               Thỉnh Vật Phẩm
             </a>
@@ -1081,12 +1081,12 @@
               <!-- KHỐI QUÉT MÃ QR VIETQR -->
               <div class="qr-code-box">
                 <img id="vipQrImage" src="" alt="Mã VietQR Thanh Toán" class="qr-img">
-                <p class="qr-hint">📲 Mở App Ngân hàng bất kỳ hoặc MoMo để quét mã VietQR tự động điền STK &amp; số tiền</p>
+                <p class="qr-hint">Mở ứng dụng ngân hàng hoặc ví điện tử để quét mã VietQR tự động điền thông tin</p>
               </div>
 
               <!-- KHỐI THÔNG TIN STK VÀ CHUYỂN KHOẢN -->
               <div class="bank-info-container">
-                <h4 class="bank-info-box-title">✦ THÔNG TIN CHUYỂN KHOẢN NGÂN HÀNG (STK) ✦</h4>
+                <h4 class="bank-info-box-title">THÔNG TIN CHUYỂN KHOẢN NGÂN HÀNG (STK)</h4>
                 <div class="bank-info-grid">
                   <div class="bank-row">
                     <span class="b-lbl">Ngân hàng:</span>

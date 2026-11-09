@@ -20,27 +20,27 @@ const TuViChart = {
 
   // Mã màu chuẩn Ngũ Hành theo yêu cầu đặc tả (Kim #8F6B00, Mộc #1E7A3E, Thủy #1D4E89, Hỏa #B3261E, Thổ #A5601A)
   ELEMENT_COLORS: {
-    'Kim': '#8F6B00',
-    'Mộc': '#1E7A3E',
-    'Thủy': '#1D4E89',
-    'Hỏa': '#B3261E',
-    'Thổ': '#A5601A'
+    'Kim': '#7A5C00',
+    'Mộc': '#1A6B35',
+    'Thủy': '#164273',
+    'Hỏa': '#A3281F',
+    'Thổ': '#7D4814'
   },
 
   // Màu sắc định danh Cung Vị theo chuẩn trang nhã, tương phản cao trên nền giấy #FBF7EE
   PALACE_COLORS: {
-    'MỆNH': '#7A1F17',
-    'PHỤ MẪU': '#7A1F17',
-    'PHÚC ĐỨC': '#7A1F17',
-    'ĐIỀN TRẠCH': '#7A1F17',
-    'QUAN LỘC': '#7A1F17',
-    'NÔ BỘC': '#7A1F17',
-    'THIÊN DI': '#7A1F17',
-    'TẬT ÁCH': '#7A1F17',
-    'TÀI BẠCH': '#7A1F17',
-    'TỬ TỨC': '#7A1F17',
-    'PHU THÊ': '#7A1F17',
-    'HUYNH ĐỆ': '#7A1F17'
+    'MỆNH': '#A3281F',
+    'PHỤ MẪU': '#2A231C',
+    'PHÚC ĐỨC': '#2A231C',
+    'ĐIỀN TRẠCH': '#2A231C',
+    'QUAN LỘC': '#2A231C',
+    'NÔ BỘC': '#2A231C',
+    'THIÊN DI': '#2A231C',
+    'TẬT ÁCH': '#2A231C',
+    'TÀI BẠCH': '#2A231C',
+    'TỬ TỨC': '#2A231C',
+    'PHU THÊ': '#2A231C',
+    'HUYNH ĐỆ': '#2A231C'
   },
 
   /**
@@ -276,11 +276,11 @@ const TuViChart = {
       bar.className = 'sticky-bottom-cta-bar';
       bar.innerHTML = `
         <div class="sticky-cta-text">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="color:var(--gold); flex-shrink:0;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          
           <span>Mở khóa toàn bộ 12 cung + Đại hạn · <strong>49.000đ</strong></span>
         </div>
         <button class="btn-sticky-unlock" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)', 49000)">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right:5px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Mở Khóa Ngay
+          Mở Khóa VIP (49.000đ)
         </button>
       `;
       document.body.appendChild(bar);
@@ -335,7 +335,7 @@ const TuViChart = {
             <div class="section-container la-so-outer-wrap">
               <div id="la-so-chart"></div>
               <div class="luan-giai-section" id="luan-giai" style="display:block;">
-                <h3 class="luan-giai-header-title">✦ Luận Giải Chi Tiết 12 Cung ✦</h3>
+                <h3 class="luan-giai-header-title">Luận Giải Chi Tiết 12 Cung</h3>
                 <div class="accordion-list" id="accordionList"></div>
               </div>
             </div>
@@ -672,7 +672,7 @@ const TuViChart = {
   /**
    * Bảng trượt chi tiết Cung (Bottom Sheet trên Mobile / Side Panel trên Desktop)
    * Hiển thị các sao của cung với trạng thái và luận giải
-   * Miễn phí: toàn văn; Khóa: 2 câu đầu rõ ràng, phần sau mờ dần + nút phẳng "Mở khóa 49.000đ"
+   * Miễn phí: toàn văn; Khóa: 2 câu đầu rõ ràng, phần sau mờ dần + nút phẳng "Khóa · 49.000đ"
    * Đóng bằng: nút bấm, vuốt xuống, chạm nền (backdrop), phím Esc.
    */
   openPalaceSheet: function (chiIndex) {
@@ -745,13 +745,13 @@ const TuViChart = {
 
       luanGiaiBody = `
         <div class="sheet-locked-wrap">
-          <p class="sheet-leading-text"><strong>✦ Luận điểm ban đầu:</strong> ${firstSentences}</p>
+          <p class="sheet-leading-text"><strong>Luận điểm ban đầu:</strong> ${firstSentences}</p>
           <div class="sheet-fade-mask" aria-hidden="true">
             <p>Toàn bộ ma trận Tam Phương Tứ Chính, Tứ Hóa Phi Tinh Lộc Quyền Khoa Kỵ, Cát Tinh phò tá, Sát Tinh thử thách và Đạo Trị Mệnh hóa giải vận hạn của Cung ${cung.cungName} được phân tích toàn diện trong bản luận giải chuyên sâu...</p>
           </div>
           <div class="sheet-unlock-cta">
             <button type="button" class="btn-flat-unlock" onclick="TuViMonetize.openVipModal('Mở Khóa Toàn Bộ Cung ${cung.cungName}', 49000)">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline;vertical-align:-2px;margin-right:4px;"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Mở khóa 49.000đ
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline;vertical-align:-2px;margin-right:4px;"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Khóa · 49.000đ
             </button>
           </div>
         </div>
@@ -783,21 +783,21 @@ const TuViChart = {
         </div>
         <div class="sheet-content">
           <div class="sheet-section">
-            <h4 class="sheet-section-title">✦ Chính Tinh</h4>
+            <h4 class="sheet-section-title">Chính Tinh</h4>
             <div class="sheet-stars-group">${chinhTinhHtml}</div>
           </div>
           ${catTinhHtml ? `
           <div class="sheet-section">
-            <h4 class="sheet-section-title">✦ Cát Tinh &amp; Quý Tinh</h4>
+            <h4 class="sheet-section-title">Cát Tinh &amp; Quý Tinh</h4>
             <div class="sheet-substars-group">${catTinhHtml}</div>
           </div>` : ''}
           ${satTinhHtml ? `
           <div class="sheet-section">
-            <h4 class="sheet-section-title">✦ Sát Bại Tinh &amp; Hóa Khí</h4>
+            <h4 class="sheet-section-title">Sát Bại Tinh &amp; Hóa Khí</h4>
             <div class="sheet-substars-group">${satTinhHtml}</div>
           </div>` : ''}
           <div class="sheet-section sheet-section-analysis">
-            <h4 class="sheet-section-title">✦ Luận Giải Cung Vị</h4>
+            <h4 class="sheet-section-title">Luận Giải Cung Vị</h4>
             ${luanGiaiBody}
           </div>
         </div>
@@ -1052,8 +1052,8 @@ const TuViChart = {
           <div class="accordion-item item-locked" data-palace="${item.key}">
             <button class="accordion-header" aria-expanded="false" type="button" onclick="TuViChart.toggleAccordionItem(this)">
               <span class="palace-icon gold-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
-              <span class="palace-name palace-title-gold-light">${cung.cungName} · Cung ${cung.chi} (${cung.can})</span>
-              <span class="wax-seal-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Mở khóa 49.000đ</span>
+              <span class="palace-name palace-title-clean">${cung.cungName} · Cung ${cung.chi} (${cung.can})</span>
+              <span class="seal-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Khóa · 49.000đ</span>
               <span class="toggle-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
             </button>
             <div class="accordion-body" role="region" style="display:none;">
@@ -1063,15 +1063,15 @@ const TuViChart = {
                   ${curiosityLine}
                 </div>
                 <p style="font-size:0.92rem; line-height:1.65; color:#F5EFE0; margin-bottom:0.8rem;">
-                  <strong>✦ Luận điểm ban đầu:</strong> ${firstSentences}
+                  <strong>Luận điểm ban đầu:</strong> ${firstSentences}
                 </p>
                 <div class="locked-fade-text" aria-hidden="true">
                   Toàn bộ ma trận Tam Phương Tứ Chính, Tứ Hóa Phi Tinh Lộc Quyền Khoa Kỵ, Cát Tinh phò tá, Sát Tinh thử thách và Đạo Trị Mệnh hóa giải vận hạn của Cung ${cung.cungName} được bảo mật trong Gói VIP 49.000đ. Đương số cần thấu triệt ngũ hành sinh khắc để đón lành tránh dữ và nắm bắt thiên cơ thịnh vượng...
                 </div>
                 <div class="locked-overlay-card">
                   <div class="lock-glow-icon"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
-                  <span class="wax-seal-badge" style="margin: 0.6rem 0;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Mở khóa 49.000đ</span>
-                  <button class="btn-gold-pill btn-lock-upgrade-sm" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)', 49000)">
+                  <span class="seal-badge" style="margin: 0.6rem 0;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Khóa · 49.000đ</span>
+                  <button class="btn-seal btn-lock-upgrade-sm" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)', 49000)">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline;vertical-align:-2px;margin-right:4px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Mở Khóa Toàn Bộ Cung ${cung.cungName} (49k)
                   </button>
                 </div>
@@ -1108,10 +1108,10 @@ const TuViChart = {
           </button>
           <div class="accordion-body" role="region" style="${isFirst ? 'display:block;' : 'display:none;'}">
             <div class="luan-giai-scholarly-content">
-              <div class="luan-giai-nhandinh-badge">✦ ${tieuDeText}</div>
+              <div class="luan-giai-nhandinh-badge">${tieuDeText}</div>
               
               <!-- 1. Cách Cục & Khí Tượng Cung Vị -->
-              <div class="luan-giai-block cach-cuc-block" style="margin-bottom: 0.8rem; font-size: 0.9rem; line-height: 1.6; color: #e2e8f0;">
+              <div class="luan-giai-block cach-cuc-block" style="margin-bottom: 0.8rem; font-size: 0.92rem; line-height: 1.65; color: var(--text);">
                 ${cachCucText}
               </div>
 
@@ -1137,9 +1137,9 @@ const TuViChart = {
               ${khongVongText}
 
               <!-- 9. Lời Khuyên Tu Dưỡng & Cải Sửa Số Mệnh -->
-              <div class="palace-advice" style="margin-top: 1rem; background: rgba(212, 175, 55, 0.08); border: 1px dashed rgba(212, 175, 55, 0.4); padding: 0.8rem 1rem; border-radius: 6px;">
-                <strong style="color: #ffd700; font-size: 0.9rem;">🛡️ Đạo Trị Mệnh &amp; Hóa Giải Sát Khí (Theo Cụ Nguyễn Phát Lộc):</strong>
-                <p style="color: #f8fafc; font-size: 0.86rem; line-height: 1.6; margin-top: 0.3rem;">${caiSoText}</p>
+              <div class="palace-advice" style="margin-top: 1rem; background: var(--paper-2); border: 1px solid var(--line); padding: 0.8rem 1rem; border-radius: 6px;">
+                <strong style="color: var(--seal); font-size: 0.92rem; font-family: var(--font-heading);">Đạo Trị Mệnh &amp; Hóa Giải Sát Khí (Theo Cụ Nguyễn Phát Lộc):</strong>
+                <p style="color: var(--text); font-size: 0.9rem; line-height: 1.65; margin-top: 0.3rem;">${caiSoText}</p>
               </div>
             </div>
           </div>
@@ -1232,12 +1232,12 @@ const TuViChart = {
                     <div class="timeline-card glass-surface locked-surface">
                       <div class="timeline-card-header">
                         <strong class="timeline-phase-title">Đại Hạn: ${dh.phase} (${dh.cung})</strong>
-                        <span class="wax-seal-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Khóa VIP 49k</span>
+                        <span class="seal-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Khóa · 49.000đ</span>
                       </div>
                       <div class="timeline-locked-blur-preview">
                         <div class="timeline-blur-text">${dh.luanGiai.substring(0, 100)}... ma trận hung cát vận hạn bảo mật trong gói VIP...</div>
                         <div class="timeline-locked-cta-overlay">
-                          <button class="btn-gold-pill btn-lock-upgrade-sm" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ Đại Hạn)', 49000)">
+                          <button class="btn-seal btn-lock-upgrade-sm" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ Đại Hạn)', 49000)">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
                             Mở Khóa Xem Hết Đại Vận (49k)
                           </button>

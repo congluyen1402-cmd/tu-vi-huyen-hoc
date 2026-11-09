@@ -6,39 +6,51 @@
 /* ── DESIGN TOKENS (CSS Variables) ────────────────────────── */
 :root {
   --header-h: 72px;
-  --bg: #0B0A1A;
-  --surface: #151330;
-  --surface-2: #1E1B3F;
-  --gold: #D4AF37;
-  --gold-light: #F3D98B;
-  --gold-deep: #A67C1A;
-  --seal-red: #C8362D;
-  --text: #F5EFE0;
-  --text-muted: #B8B2A0;
-  --border: rgba(212, 175, 55, 0.25);
 
-  /* Ngũ Hành Five Elements (Kim #8F6B00, Mộc #1E7A3E, Thủy #1D4E89, Hỏa #B3261E, Thổ #A5601A) - WCAG >= 4.5:1 trên #FBF7EE */
-  --elem-kim: #8F6B00;
-  --elem-moc: #1E7A3E;
-  --elem-thuy: #1D4E89;
-  --elem-hoa: #B3261E;
-  --elem-tho: #A5601A;
-  --element-kim: #8F6B00;
-  --element-moc: #1E7A3E;
-  --element-thuy: #1D4E89;
-  --element-hoa: #B3261E;
-  --element-tho: #A5601A;
+  /* "Mực & Giấy" Core Tokens */
+  --ink: #1B1714;
+  --paper: #F3ECDD;
+  --paper-2: #EAE0CB;
+  --card: #FBF7EE;
+  --line: #CFC2A6;
+  --text: #2A231C;
+  --text-muted: #5E5446;
+  --seal: #A3281F;
+  --seal-dark: #861F18;
+  --brass: #B08A3E;
 
-  /* Typography - Cormorant Garamond & Playfair Display with Be Vietnam Pro */
-  --font-heading: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  /* Legacy aliases mapped to "Mực & Giấy" for cascade safety */
+  --bg: #F3ECDD;
+  --surface: #FBF7EE;
+  --surface-2: #EAE0CB;
+  --gold: #B08A3E;
+  --gold-light: #FBF7EE;
+  --gold-deep: #861F18;
+  --seal-red: #A3281F;
+  --border: #CFC2A6;
+
+  /* Ngũ Hành Five Elements (Kim #7A5C00, Mộc #1A6B35, Thủy #164273, Hỏa #A3281F, Thổ #7D4814) - WCAG >= 4.5:1 trên #FBF7EE và #F3ECDD */
+  --elem-kim: #7A5C00;
+  --elem-moc: #1A6B35;
+  --elem-thuy: #164273;
+  --elem-hoa: #A3281F;
+  --elem-tho: #7D4814;
+  --element-kim: #7A5C00;
+  --element-moc: #1A6B35;
+  --element-thuy: #164273;
+  --element-hoa: #A3281F;
+  --element-tho: #7D4814;
+
+  /* Typography - Noto Serif 600 with Be Vietnam Pro 400/500/600 */
+  --font-heading: 'Noto Serif', Georgia, serif;
   --font-body: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-  /* Elevations */
-  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.35);
-  --shadow-md: 0 6px 24px rgba(0, 0, 0, 0.55);
-  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.7);
-  --shadow-gold: 0 4px 18px rgba(212, 175, 55, 0.25);
-  --shadow-gold-glow: 0 0 25px rgba(243, 217, 139, 0.45);
+  /* Elevations - Subtle, non-glowing */
+  --shadow-sm: 0 1px 3px rgba(27, 23, 20, 0.08);
+  --shadow-md: 0 4px 12px rgba(27, 23, 20, 0.12);
+  --shadow-lg: 0 10px 30px rgba(27, 23, 20, 0.16);
+  --shadow-gold: none;
+  --shadow-gold-glow: none;
 }
 
 /* ── Reset & Base (Remove small-caps to fix Vietnamese diacritics) ───────────── */
@@ -57,15 +69,12 @@ html {
 }
 
 body {
-  background-color: var(--bg) !important;
-  background-image: 
-    radial-gradient(circle at 50% -10%, rgba(68, 41, 122, 0.42) 0%, rgba(11, 10, 26, 0) 60%),
-    radial-gradient(ellipse 70% 45% at 90% 60%, rgba(45, 27, 85, 0.28) 0%, rgba(11, 10, 26, 0) 70%),
-    radial-gradient(ellipse 60% 40% at 10% 40%, rgba(30, 27, 63, 0.32) 0%, rgba(11, 10, 26, 0) 65%) !important;
-  background-attachment: fixed !important;
+  background-color: var(--paper) !important;
+  background-image: none !important;
   color: var(--text) !important;
   font-family: var(--font-body);
   font-weight: 400;
+  font-size: 16px;
   line-height: 1.65;
   min-height: 100vh;
   overflow-x: hidden;
@@ -4465,3 +4474,1431 @@ footer.footer {
 }
 
 
+
+
+/* ============================================================
+   MASTER RESTYLE: "MỰC & GIẤY" (INK & PAPER)
+   Calm, comfortable to read, hand-crafted aesthetic
+   ============================================================ */
+
+/* Global Focus Ring */
+:focus-visible {
+  outline: 2px solid var(--seal) !important;
+  outline-offset: 2px !important;
+}
+
+/* Base Headings */
+h1, h2, h3, h4, h5, h6, .font-heading, .section-title {
+  font-family: var(--font-heading) !important;
+  font-weight: 600 !important;
+  color: var(--ink) !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+}
+
+/* Clean Sections & Plain Dividers */
+.section {
+  background-color: var(--paper) !important;
+  color: var(--text) !important;
+}
+.section-title {
+  color: var(--ink) !important;
+  font-family: var(--font-heading) !important;
+  font-size: clamp(1.75rem, 3.5vw, 2.25rem) !important;
+  font-weight: 600 !important;
+  margin-bottom: 0.5rem !important;
+  letter-spacing: normal !important;
+}
+.section-subtitle {
+  color: var(--text-muted) !important;
+  font-size: 1rem !important;
+  line-height: 1.6 !important;
+}
+.section-divider-plain {
+  width: 44px;
+  height: 2px;
+  background-color: var(--seal);
+  margin: 0.75rem 0 1.25rem 0;
+}
+.section-divider {
+  display: none !important;
+}
+
+/* 1. Header / Navbar */
+.navbar {
+  background: var(--ink) !important;
+  background-color: var(--ink) !important;
+  border-bottom: 1px solid rgba(207, 194, 166, 0.25) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.navbar-brand .brand-text {
+  font-family: var(--font-heading) !important;
+  font-weight: 600 !important;
+  color: var(--card) !important;
+  letter-spacing: normal !important;
+}
+.navbar-logo-img {
+  border: 1px solid var(--brass) !important;
+  background: var(--card) !important;
+  filter: none !important;
+}
+.nav-menu a {
+  color: var(--paper-2) !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  padding: 8px 12px !important;
+  background: none !important;
+  border-radius: 4px !important;
+  transition: color 0.15s ease !important;
+}
+.nav-menu a:hover {
+  color: #FFFFFF !important;
+  background: rgba(243, 236, 221, 0.1) !important;
+}
+.nav-menu a.active {
+  color: #FFFFFF !important;
+  font-weight: 600 !important;
+  border-bottom: 2px solid var(--seal) !important;
+}
+.nav-btn-login {
+  background: transparent !important;
+  color: var(--card) !important;
+  border: 1px solid rgba(251, 247, 238, 0.35) !important;
+  border-radius: 4px !important;
+  padding: 7px 16px !important;
+  font-family: var(--font-body) !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  cursor: pointer !important;
+  margin-left: 6px !important;
+  transition: all 0.15s ease !important;
+  min-height: 38px !important;
+}
+.nav-btn-login:hover {
+  background: rgba(251, 247, 238, 0.15) !important;
+  color: #FFFFFF !important;
+  border-color: var(--card) !important;
+}
+.hamburger span {
+  background-color: var(--card) !important;
+}
+@media (max-width: 1024px) {
+  .nav-menu {
+    background: var(--ink) !important;
+    border-left: 1px solid var(--line) !important;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.4) !important;
+  }
+}
+
+/* 2. Lookup-First Screen */
+.lookup-first-section {
+  background: var(--paper) !important;
+  background-image: none !important;
+}
+.lookup-brand-badge {
+  background: var(--paper-2) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 4px !important;
+  padding: 4px 10px !important;
+  width: fit-content !important;
+}
+.lookup-badge-text {
+  color: var(--ink) !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+}
+.lookup-title {
+  font-family: var(--font-heading) !important;
+  font-size: clamp(2rem, 3.8vw, 2.75rem) !important;
+  font-weight: 600 !important;
+  color: var(--ink) !important;
+  background: none !important;
+  -webkit-text-fill-color: initial !important;
+  letter-spacing: normal !important;
+}
+.lookup-subtitle {
+  color: var(--text-muted) !important;
+  font-size: 1.05rem !important;
+  line-height: 1.65 !important;
+}
+.lookup-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 1rem;
+}
+.highlight-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--text);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.highlight-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--seal);
+  border-radius: 50%;
+  margin-top: 8px;
+  flex-shrink: 0;
+}
+.tracuu-form-card {
+  background: var(--card) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  padding: clamp(18px, 3vw, 28px) !important;
+}
+.form-item-label {
+  color: var(--text) !important;
+  font-size: 0.88rem !important;
+  font-weight: 500 !important;
+  margin-bottom: 4px !important;
+}
+.form-item-input, .form-item-select {
+  background: #FFFFFF !important;
+  border: 1px solid var(--line) !important;
+  color: var(--text) !important;
+  font-family: var(--font-body) !important;
+  font-size: 16px !important;
+  border-radius: 4px !important;
+  min-height: 48px !important;
+  padding: 0 12px !important;
+  outline: none !important;
+  transition: border-color 0.15s ease !important;
+}
+.form-item-input:focus, .form-item-select:focus {
+  border-color: var(--seal) !important;
+  outline: 2px solid var(--seal) !important;
+  outline-offset: 1px !important;
+  box-shadow: none !important;
+}
+.form-item-select option {
+  background: #FFFFFF !important;
+  color: var(--text) !important;
+}
+.btn-submit-full {
+  background: var(--seal) !important;
+  color: var(--card) !important;
+  border: none !important;
+  border-radius: 4px !important;
+  font-family: var(--font-body) !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.05em !important;
+  min-height: 48px !important;
+  cursor: pointer !important;
+  box-shadow: none !important;
+  transition: background-color 0.15s ease !important;
+  width: 100% !important;
+}
+.btn-submit-full:hover {
+  background: var(--seal-dark) !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+.form-plain-note {
+  background: var(--paper-2) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 4px !important;
+  color: var(--text-muted) !important;
+  font-size: 0.85rem !important;
+  line-height: 1.55 !important;
+  margin-top: 14px !important;
+  padding: 12px 14px !important;
+}
+.form-plain-note strong {
+  color: var(--text) !important;
+}
+.form-summary-bar {
+  background: var(--card) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+}
+.summary-info {
+  color: var(--text) !important;
+}
+.summary-icon {
+  color: var(--seal) !important;
+}
+.btn-summary-edit {
+  background: transparent !important;
+  color: var(--text) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 4px !important;
+}
+.btn-summary-edit:hover {
+  background: var(--paper-2) !important;
+}
+.btn-summary-new {
+  background: var(--seal) !important;
+  color: var(--card) !important;
+  border: 1px solid var(--seal) !important;
+  border-radius: 4px !important;
+}
+.btn-summary-new:hover {
+  background: var(--seal-dark) !important;
+}
+
+/* 3. "Đang an sao" Loading Dialog */
+.an-sao-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(27, 23, 20, 0.7) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+.an-sao-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+.an-sao-card {
+  position: relative;
+  z-index: 2;
+  background: var(--card) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 8px !important;
+  padding: 2.2rem 2rem !important;
+  max-width: 440px !important;
+  width: 90% !important;
+  text-align: center !important;
+  box-shadow: 0 12px 40px rgba(27, 23, 20, 0.25) !important;
+}
+.an-sao-seal-mark {
+  display: inline-block;
+  background: var(--seal);
+  color: var(--card);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  padding: 4px 12px;
+  border-radius: 3px;
+  margin-bottom: 1rem;
+}
+.an-sao-status-text {
+  font-family: var(--font-heading) !important;
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  color: var(--ink) !important;
+  margin-bottom: 0.5rem !important;
+}
+.an-sao-sub-hint {
+  font-size: 0.9rem !important;
+  color: var(--text-muted) !important;
+  margin-bottom: 1.5rem !important;
+}
+.an-sao-progress-line {
+  width: 100% !important;
+  height: 4px !important;
+  background: var(--paper-2) !important;
+  border-radius: 2px !important;
+  overflow: hidden !important;
+  margin: 0 auto !important;
+}
+.an-sao-progress-bar {
+  height: 100% !important;
+  background: var(--seal) !important;
+  transition: width 0.3s ease !important;
+}
+.an-sao-cancel-btn {
+  margin-top: 1.25rem !important;
+  padding: 6px 14px !important;
+  background: transparent !important;
+  border: 1px solid var(--line) !important;
+  color: var(--text-muted) !important;
+  border-radius: 4px !important;
+  font-size: 0.85rem !important;
+  cursor: pointer !important;
+}
+.an-sao-cancel-btn:hover {
+  background: var(--paper-2) !important;
+  color: var(--ink) !important;
+}
+
+/* 4. Traditional 4x4 Chart Grid */
+.result-section {
+  background-color: var(--paper) !important;
+  padding-top: 2rem !important;
+}
+.la-so-paper-container {
+  background-color: var(--card) !important;
+  background-image: none !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 16px rgba(27, 23, 20, 0.08) !important;
+}
+.la-so-classical-grid {
+  background: var(--line) !important;
+  gap: 1px !important;
+}
+.cung-classical-cell {
+  background: var(--card) !important;
+  color: var(--text) !important;
+  border: none !important;
+  transition: background-color 0.15s ease !important;
+}
+.cung-classical-cell:hover {
+  background: #FFFFFF !important;
+  box-shadow: inset 0 0 0 1px var(--seal) !important;
+}
+.cung-classical-cell.cell-menh {
+  border: 2px solid var(--seal) !important;
+  z-index: 3 !important;
+}
+.cung-classical-cell.cell-than {
+  border: 2px solid var(--ink) !important;
+}
+.center-classical-thien-ban {
+  background: var(--paper-2) !important;
+  border: none !important;
+  color: var(--text) !important;
+}
+.thien-ban-owner-name {
+  font-family: var(--font-heading) !important;
+  font-size: clamp(1rem, 2.5cqw, 1.4rem) !important;
+  font-weight: 600 !important;
+  color: var(--seal) !important;
+  letter-spacing: normal !important;
+}
+.thien-ban-sub-title {
+  color: var(--text-muted) !important;
+  font-size: clamp(0.7rem, 1.6cqw, 0.88rem) !important;
+}
+.btn-action-chart {
+  background: var(--card) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  transition: all 0.15s ease !important;
+}
+.btn-action-chart:hover {
+  background: var(--paper-2) !important;
+  border-color: var(--ink) !important;
+  color: var(--ink) !important;
+  transform: none !important;
+}
+.btn-action-chart.btn-action-vip {
+  background: var(--seal) !important;
+  color: var(--card) !important;
+  border-color: var(--seal) !important;
+}
+.btn-action-chart.btn-action-vip:hover {
+  background: var(--seal-dark) !important;
+}
+.btn-toolbar {
+  background: var(--card) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+}
+.btn-toolbar:hover {
+  background: var(--paper-2) !important;
+  color: var(--ink) !important;
+}
+.btn-toolbar-vip {
+  background: var(--seal) !important;
+  color: var(--card) !important;
+  border-color: var(--seal) !important;
+}
+.btn-toolbar-vip:hover {
+  background: var(--seal-dark) !important;
+  color: var(--card) !important;
+}
+
+/* 5. Locked Palaces & Luận Giải 12 Cung */
+.luan-giai-section {
+  background-color: var(--paper) !important;
+}
+.luan-giai-header-title {
+  font-family: var(--font-heading) !important;
+  font-size: 1.8rem !important;
+  font-weight: 600 !important;
+  color: var(--ink) !important;
+  text-align: left !important;
+}
+.luan-giai-sub-note {
+  color: var(--text-muted) !important;
+  text-align: left !important;
+}
+.accordion-item {
+  background: var(--card) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 6px !important;
+  margin-bottom: 0.75rem !important;
+  box-shadow: none !important;
+}
+.accordion-header {
+  background: var(--card) !important;
+  color: var(--ink) !important;
+  border-radius: 6px !important;
+  padding: 1rem 1.25rem !important;
+}
+.accordion-header:hover {
+  background: #FFFFFF !important;
+}
+.palace-name {
+  font-family: var(--font-heading) !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  color: var(--ink) !important;
+}
+.accordion-body {
+  border-top: 1px solid var(--line) !important;
+  padding: 1.25rem !important;
+  background: var(--card) !important;
+  color: var(--text) !important;
+}
+
+/* Locked Palace Styling */
+.accordion-item.item-locked {
+  background: var(--paper-2) !important;
+  border: 1px solid var(--line) !important;
+  border-left: 3px solid var(--seal) !important;
+}
+.accordion-item.item-locked .accordion-header {
+  background: var(--paper-2) !important;
+  color: var(--ink) !important;
+}
+.accordion-item.item-locked .accordion-header:hover {
+  background: #E5DBBF !important;
+}
+.seal-badge, .wax-seal-badge {
+  background: var(--seal) !important;
+  color: var(--card) !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  padding: 3px 8px !important;
+  border-radius: 3px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  transform: rotate(-3deg) !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+.palace-locked-preview-wrap {
+  position: relative !important;
+}
+.curiosity-line {
+  color: var(--ink) !important;
+  font-weight: 600 !important;
+  margin-bottom: 0.6rem !important;
+}
+.locked-fade-text {
+  color: var(--text-muted) !important;
+  opacity: 0.55 !important;
+  filter: blur(2px) !important;
+  user-select: none !important;
+  line-height: 1.6 !important;
+  margin-bottom: 1rem !important;
+}
+.locked-overlay-card {
+  background: var(--card) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 6px !important;
+  padding: 1.5rem !important;
+  text-align: center !important;
+  box-shadow: none !important;
+}
+.btn-lock-upgrade-sm, .btn-seal {
+  background: var(--seal) !important;
+  color: var(--card) !important;
+  border: none !important;
+  border-radius: 4px !important;
+  font-weight: 600 !important;
+  padding: 10px 18px !important;
+  font-size: 0.92rem !important;
+  cursor: pointer !important;
+  box-shadow: none !important;
+  transition: background-color 0.15s ease !important;
+}
+.btn-lock-upgrade-sm:hover, .btn-seal:hover {
+  background: var(--seal-dark) !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* 6. Pricing Section (3 Plain Equal Columns) */
+.pricing-section {
+  background-color: var(--paper) !important;
+}
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  align-items: stretch;
+  margin-top: 1.5rem;
+}
+@media (max-width: 900px) {
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    margin: 1.5rem auto 0;
+  }
+}
+.pricing-card {
+  background: var(--card) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 8px !important;
+  padding: 2rem 1.5rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  position: relative !important;
+  box-shadow: none !important;
+  transform: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transition: border-color 0.15s ease !important;
+}
+.pricing-card:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  border-color: var(--ink) !important;
+}
+.pricing-card.featured {
+  border: 2px solid var(--seal) !important;
+  transform: none !important;
+  box-shadow: none !important;
+  background: var(--card) !important;
+}
+.pricing-card.featured:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+.pricing-plan-badge {
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  background: var(--seal);
+  color: var(--card);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.pricing-badge {
+  display: none !important;
+}
+.pricing-title {
+  font-family: var(--font-heading) !important;
+  font-size: 1.35rem !important;
+  font-weight: 600 !important;
+  color: var(--ink) !important;
+  margin-bottom: 0.4rem !important;
+}
+.pricing-desc {
+  color: var(--text-muted) !important;
+  font-size: 0.9rem !important;
+  line-height: 1.5 !important;
+}
+.pricing-price-wrap {
+  margin: 1.25rem 0 !important;
+  border-top: 1px solid var(--line) !important;
+  border-bottom: 1px solid var(--line) !important;
+  padding: 1rem 0 !important;
+}
+.pricing-price {
+  font-family: var(--font-heading) !important;
+  font-size: 2rem !important;
+  font-weight: 600 !important;
+  color: var(--ink) !important;
+}
+.pricing-old-price {
+  color: var(--text-muted) !important;
+  font-size: 0.95rem !important;
+  text-decoration: line-through !important;
+  display: block !important;
+}
+.pricing-features {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 0 1.5rem 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.65rem !important;
+}
+.pricing-features li {
+  display: flex !important;
+  align-items: baseline !important;
+  gap: 8px !important;
+  font-size: 0.92rem !important;
+  color: var(--text) !important;
+  line-height: 1.5 !important;
+}
+.pricing-features li::before {
+  content: "✓";
+  color: var(--elem-moc);
+  font-weight: bold;
+}
+.pricing-features li.disabled {
+  color: var(--text-muted) !important;
+  opacity: 0.6 !important;
+}
+.pricing-features li.disabled::before {
+  content: "–";
+  color: var(--text-muted);
+}
+.btn-pricing-cta {
+  background: var(--seal) !important;
+  color: var(--card) !important;
+  border: none !important;
+  border-radius: 4px !important;
+  font-weight: 600 !important;
+  min-height: 48px !important;
+  width: 100% !important;
+  cursor: pointer !important;
+  box-shadow: none !important;
+  transition: background-color 0.15s ease !important;
+}
+.btn-pricing-cta:hover {
+  background: var(--seal-dark) !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+.btn-pricing-secondary {
+  background: transparent !important;
+  color: var(--text) !important;
+  border: 1px solid var(--ink) !important;
+  border-radius: 4px !important;
+  font-weight: 600 !important;
+  min-height: 48px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-decoration: none !important;
+  transition: all 0.15s ease !important;
+}
+.btn-pricing-secondary:hover {
+  background: var(--paper-2) !important;
+  color: var(--ink) !important;
+}
+.btn-view-sample-report {
+  background: transparent !important;
+  border: 1px dashed var(--line) !important;
+  color: var(--text-muted) !important;
+  border-radius: 4px !important;
+  padding: 8px !important;
+  font-size: 0.85rem !important;
+  margin-bottom: 0.75rem !important;
+  cursor: pointer !important;
+  width: 100% !important;
+}
+.btn-view-sample-report:hover {
+  border-color: var(--ink) !important;
+  color: var(--ink) !important;
+}
+.reassurance-list {
+  margin-top: 1rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+}
+.reassurance-item {
+  font-size: 0.82rem !important;
+  color: var(--text-muted) !important;
+}
+
+/* 7. Editorial Features Section */
+.features-section {
+  background-color: var(--paper) !important;
+  border-top: 1px solid var(--line) !important;
+}
+.features-editorial-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  margin-top: 2rem;
+}
+@media (max-width: 768px) {
+  .features-editorial-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+.method-step {
+  display: flex;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+  align-items: flex-start;
+}
+.step-num {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--seal);
+  line-height: 1;
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+.step-content h4 {
+  font-family: var(--font-heading) !important;
+  font-size: 1.15rem !important;
+  font-weight: 600 !important;
+  color: var(--ink) !important;
+  margin-bottom: 0.4rem !important;
+}
+.step-content p {
+  color: var(--text-muted) !important;
+  font-size: 0.95rem !important;
+  line-height: 1.65 !important;
+}
+
+/* 8. Feng Shui & Consultation */
+.fengshui-section, .consultation-section {
+  background-color: var(--paper) !important;
+  border-top: 1px solid var(--line) !important;
+}
+.fengshui-element-banner {
+  background: var(--paper-2) !important;
+  border: 1px solid var(--line) !important;
+  color: var(--ink) !important;
+  border-radius: 4px !important;
+  padding: 10px 16px !important;
+  font-size: 0.95rem !important;
+  margin-bottom: 1.5rem !important;
+}
+.fengshui-item-card {
+  background: var(--card) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  padding: 1.25rem !important;
+}
+.fengshui-item-img {
+  border-radius: 4px !important;
+  border: 1px solid var(--line) !important;
+}
+.consultation-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+@media (max-width: 900px) {
+  .consultation-wrap {
+    grid-template-columns: 1fr;
+  }
+}
+.expert-card {
+  background: var(--card) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 8px !important;
+  padding: 1.25rem !important;
+  margin-bottom: 1rem !important;
+  display: flex !important;
+  gap: 1rem !important;
+}
+.expert-avatar-clean {
+  width: 48px;
+  height: 48px;
+  border-radius: 4px;
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--ink);
+}
+.surface-card, .how-we-work-card {
+  background: var(--card) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  padding: 1.5rem !important;
+}
+.surface-2-card, .booking-form-box {
+  background: var(--card) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  padding: 2rem !important;
+}
+.booking-input, .booking-select, .booking-textarea {
+  background: #FFFFFF !important;
+  border: 1px solid var(--line) !important;
+  color: var(--text) !important;
+  border-radius: 4px !important;
+  min-height: 44px !important;
+}
+.btn-booking-submit {
+  background: var(--seal) !important;
+  color: var(--card) !important;
+  border: none !important;
+  border-radius: 4px !important;
+  font-weight: 600 !important;
+  min-height: 48px !important;
+  cursor: pointer !important;
+  width: 100% !important;
+}
+.btn-booking-submit:hover {
+  background: var(--seal-dark) !important;
+}
+
+/* 9. Meditation Section (Intentional Dark Band --ink) */
+.mystical-video-section {
+  background-color: var(--ink) !important;
+  color: var(--paper) !important;
+  border-top: 1px solid var(--line) !important;
+  border-bottom: 1px solid var(--line) !important;
+}
+.mystical-video-section .section-title {
+  color: var(--paper) !important;
+}
+.mystical-video-section .section-subtitle {
+  color: var(--paper-2) !important;
+}
+.mystic-screen {
+  background: #000000 !important;
+  border: 1px solid rgba(207, 194, 166, 0.3) !important;
+  border-radius: 6px !important;
+}
+.mystic-ctrl-btn {
+  background: transparent !important;
+  border: 1px solid rgba(243, 236, 221, 0.3) !important;
+  color: var(--paper) !important;
+  border-radius: 4px !important;
+  padding: 8px 14px !important;
+}
+.mystic-ctrl-btn.active, .mystic-ctrl-btn:hover {
+  background: rgba(243, 236, 221, 0.15) !important;
+  border-color: var(--paper) !important;
+  color: #FFFFFF !important;
+}
+.btn-sound-toggle {
+  background: rgba(27, 23, 20, 0.8) !important;
+  border: 1px solid rgba(243, 236, 221, 0.4) !important;
+  color: var(--paper) !important;
+  border-radius: 4px !important;
+}
+
+/* 10. Footer */
+footer.footer {
+  background-color: var(--ink) !important;
+  color: var(--paper-2) !important;
+  border-top: 1px solid var(--line) !important;
+  padding: 3rem 1.5rem 2rem !important;
+  text-align: center !important;
+}
+.footer-brand span {
+  font-family: var(--font-heading) !important;
+  color: var(--card) !important;
+  font-weight: 600 !important;
+}
+.footer-social-btn {
+  background: transparent !important;
+  border: 1px solid rgba(243, 236, 221, 0.3) !important;
+  color: var(--paper-2) !important;
+  border-radius: 4px !important;
+}
+.footer-social-btn:hover {
+  background: rgba(243, 236, 221, 0.15) !important;
+  color: #FFFFFF !important;
+  border-color: var(--card) !important;
+  transform: none !important;
+}
+.footer-social-btn svg, .footer-social-btn i {
+  color: var(--paper-2) !important;
+  stroke: var(--paper-2) !important;
+}
+.footer-social-btn:hover svg, .footer-social-btn:hover i {
+  color: #FFFFFF !important;
+  stroke: #FFFFFF !important;
+}
+.footer a {
+  color: var(--paper-2) !important;
+}
+.footer a:hover {
+  color: #FFFFFF !important;
+}
+.footer-disclaimer-text {
+  color: var(--text-muted) !important;
+  font-size: 0.85rem !important;
+  max-width: 720px !important;
+  margin: 1.25rem auto 0 !important;
+  line-height: 1.6 !important;
+}
+
+/* 11. Floating VIP CTA */
+.floating-vip-cta {
+  background: var(--seal) !important;
+  color: var(--card) !important;
+  border-radius: 4px !important;
+  box-shadow: 0 4px 16px rgba(27, 23, 20, 0.25) !important;
+  animation: none !important;
+  font-weight: 600 !important;
+  min-height: 48px !important;
+  padding: 0.75rem 1.25rem !important;
+}
+.floating-vip-cta:hover {
+  background: var(--seal-dark) !important;
+  transform: none !important;
+  box-shadow: 0 6px 20px rgba(27, 23, 20, 0.35) !important;
+}
+
+/* 12. Palace Bottom Sheet & Side Panel */
+.tuvi-palace-sheet {
+  background: var(--card) !important;
+  border: 1px solid var(--line) !important;
+  color: var(--text) !important;
+  box-shadow: 0 10px 40px rgba(27, 23, 20, 0.25) !important;
+}
+.sheet-header {
+  border-bottom: 1px solid var(--line) !important;
+  background: var(--card) !important;
+}
+.sheet-title {
+  color: var(--ink) !important;
+  font-family: var(--font-heading) !important;
+  font-weight: 600 !important;
+}
+.sheet-sub {
+  color: var(--text-muted) !important;
+}
+.sheet-star-item {
+  background: #FFFFFF !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 4px !important;
+}
+
+/* 13. Modals (VIP Checkout, Restore, Sample Report, Auth) */
+.tuvi-vip-card,
+.tuvi-tool-modal-card,
+.sample-gallery-card,
+.auth-modal-card {
+  background: var(--card) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 12px 40px rgba(27, 23, 20, 0.25) !important;
+  color: var(--text) !important;
+}
+.tuvi-vip-backdrop,
+.modal-overlay,
+.tuvi-tool-modal-backdrop {
+  background: rgba(27, 23, 20, 0.7) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.tuvi-vip-header h3 {
+  color: var(--ink) !important;
+  font-family: var(--font-heading) !important;
+  font-weight: 600 !important;
+}
+.tuvi-vip-header .vip-sub {
+  color: var(--text-muted) !important;
+}
+.qr-code-box, .bank-info-container {
+  background: #FFFFFF !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 6px !important;
+}
+.bank-row {
+  border-bottom: 1px solid var(--line) !important;
+}
+.b-lbl {
+  color: var(--text-muted) !important;
+}
+.b-val {
+  color: var(--text) !important;
+}
+.b-val.text-gold {
+  color: var(--seal) !important;
+  font-weight: 600 !important;
+}
+.btn-copy-mini {
+  background: var(--paper-2) !important;
+  color: var(--ink) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 3px !important;
+}
+.btn-copy-mini:hover {
+  background: #E5DBBF !important;
+}
+.tuvi-vip-close, .tuvi-tool-modal-close, .gallery-close-btn {
+  background: var(--paper-2) !important;
+  border: 1px solid var(--line) !important;
+  color: var(--ink) !important;
+  border-radius: 4px !important;
+}
+
+/* 14. Motion Budget (150-200ms transitions) */
+* {
+  transition-duration: 0.18s !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+.btn-nav-auth {
+  background: transparent !important;
+  color: var(--card) !important;
+  border: 1px solid rgba(251, 247, 238, 0.35) !important;
+  border-radius: 4px !important;
+  padding: 6px 14px !important;
+  font-family: var(--font-body) !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  cursor: pointer !important;
+  margin-left: 6px !important;
+  transition: all 0.15s ease !important;
+  min-height: 38px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: none !important;
+}
+.btn-nav-auth:hover {
+  background: rgba(251, 247, 238, 0.15) !important;
+  color: #FFFFFF !important;
+  border-color: var(--card) !important;
+  transform: none !important;
+}
+
+/* ── Additional "Mực & Giấy" Refinements ───────────────────── */
+
+/* Summary Card & Seasonal Banner */
+.la-so-summary-card {
+  background: var(--card) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 8px !important;
+  color: var(--text) !important;
+  box-shadow: none !important;
+  padding: 1.25rem 1.5rem !important;
+  margin-bottom: 1.25rem !important;
+}
+.summary-header-row {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+}
+.summary-name {
+  font-family: var(--font-heading) !important;
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  color: var(--ink) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+.summary-name svg {
+  color: var(--seal) !important;
+}
+.summary-tags {
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+}
+.tag-element {
+  background: var(--paper-2) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 4px !important;
+  padding: 4px 10px !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+}
+.summary-main-star {
+  background: var(--paper-2) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 4px !important;
+  padding: 4px 10px !important;
+  font-size: 0.85rem !important;
+}
+.summary-main-star strong {
+  color: var(--ink) !important;
+}
+.summary-teaser-sentence {
+  border-top: 1px solid var(--line) !important;
+  margin-top: 0.85rem !important;
+  padding-top: 0.85rem !important;
+  color: var(--text-muted) !important;
+  font-style: italic !important;
+  font-size: 0.95rem !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+.summary-teaser-sentence svg {
+  color: var(--brass) !important;
+  flex-shrink: 0 !important;
+}
+
+/* Seasonal Banner */
+.seasonal-banner {
+  background: var(--card) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 8px !important;
+  color: var(--text) !important;
+  box-shadow: none !important;
+  padding: 1.25rem 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: wrap !important;
+  gap: 16px !important;
+}
+.seasonal-banner-title {
+  font-family: var(--font-heading) !important;
+  font-size: 1.15rem !important;
+  font-weight: 600 !important;
+  color: var(--ink) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin-bottom: 0.35rem !important;
+}
+.seasonal-banner-title svg {
+  color: var(--seal) !important;
+}
+.seasonal-preview-text {
+  color: var(--text-muted) !important;
+  font-size: 0.92rem !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
+}
+.btn-seasonal-unlock {
+  background: var(--seal) !important;
+  color: var(--card) !important;
+  border: none !important;
+  border-radius: 4px !important;
+  font-weight: 600 !important;
+  font-size: 0.9rem !important;
+  padding: 10px 18px !important;
+  cursor: pointer !important;
+  box-shadow: none !important;
+  transition: background-color 0.15s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+.btn-seasonal-unlock:hover {
+  background: var(--seal-dark) !important;
+  transform: none !important;
+}
+
+/* Inner Analysis Blocks in Accordion / Chart */
+.tam-phuong-patterns,
+.tam-phuong-tu-chinh-matrix,
+.vong-khi-block,
+.tu-hoa-eval-item,
+.luan-giai-scholarly-content,
+.cach-cuc-eval-box,
+.luan-giai-block {
+  background: #FFFFFF !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 6px !important;
+  color: var(--text) !important;
+  padding: 1rem 1.25rem !important;
+  margin-bottom: 0.85rem !important;
+}
+.tam-phuong-patterns strong,
+.tam-phuong-tu-chinh-matrix strong,
+.luan-giai-scholarly-content h4,
+.luan-giai-scholarly-content h5,
+.luan-giai-scholarly-content strong {
+  color: var(--ink) !important;
+}
+.tam-phuong-patterns ul,
+.tam-phuong-tu-chinh-matrix div,
+.luan-giai-scholarly-content p,
+.luan-giai-scholarly-content li {
+  color: var(--text) !important;
+  line-height: 1.65 !important;
+}
+
+/* Locked Palace Header Title Text - Crisp & Readable */
+.accordion-item.item-locked .palace-name,
+.accordion-item.item-locked .palace-title-clean,
+.accordion-item.item-locked .palace-title-gold-light {
+  color: var(--ink) !important;
+  font-weight: 600 !important;
+}
+
+/* Sticky Bottom CTA Bar */
+.sticky-bottom-cta-bar {
+  background: var(--ink) !important;
+  border-top: 1px solid var(--line) !important;
+  color: var(--card) !important;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.25) !important;
+  padding: 10px 20px !important;
+}
+.sticky-cta-text {
+  color: var(--card) !important;
+  font-size: 0.92rem !important;
+}
+.sticky-cta-text svg {
+  display: none !important;
+}
+.sticky-cta-text strong {
+  color: #FFFFFF !important;
+}
+.btn-sticky-unlock {
+  background: var(--seal) !important;
+  color: var(--card) !important;
+  border: none !important;
+  border-radius: 4px !important;
+  font-weight: 600 !important;
+  padding: 8px 16px !important;
+  font-size: 0.88rem !important;
+  cursor: pointer !important;
+}
+.btn-sticky-unlock:hover {
+  background: var(--seal-dark) !important;
+}
+
+/* Quality Lite / Mobile Cascade Overrides */
+.quality-lite .navbar {
+  background: var(--ink) !important;
+}
+.quality-lite .glass-card,
+.quality-lite .tracuu-form-card,
+.quality-lite .consultation-wrap,
+.quality-lite .vip-modal-card {
+  background: var(--card) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--line) !important;
+  box-shadow: none !important;
+}
+
+/* Footer Navigation Links */
+.footer-container {
+  max-width: 960px;
+  margin: 0 auto;
+}
+.footer-nav-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin: 1.25rem 0 1.5rem;
+}
+.footer-nav-links a {
+  color: var(--paper-2) !important;
+  font-size: 0.92rem;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.footer-nav-links a:hover {
+  color: #FFFFFF !important;
+}
+.footer-disclaimer-text {
+  color: var(--text-muted) !important;
+  font-size: 0.85rem !important;
+  line-height: 1.6 !important;
+  max-width: 720px;
+  margin: 0 auto 0.75rem;
+}
+.footer-copyright {
+  color: rgba(234, 224, 203, 0.6) !important;
+  font-size: 0.82rem !important;
+}
+
+/* ── Final "Mực & Giấy" Perfection Overrides ──────────────── */
+
+.palace-advice {
+  margin-top: 1.2rem !important;
+  background: var(--paper-2) !important;
+  border: 1px solid var(--line) !important;
+  border-left: 3px solid var(--seal) !important;
+  padding: 1rem 1.25rem !important;
+  border-radius: 6px !important;
+  color: var(--text) !important;
+}
+.palace-advice strong {
+  color: var(--ink) !important;
+  font-family: var(--font-heading) !important;
+  font-size: 0.94rem !important;
+  font-weight: 600 !important;
+}
+.palace-advice p {
+  color: var(--text) !important;
+  font-size: 0.92rem !important;
+  margin-top: 0.35rem !important;
+  line-height: 1.65 !important;
+}
+
+.daihan-overview-box {
+  background: var(--card) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  color: var(--text) !important;
+}
+.daihan-title {
+  color: var(--ink) !important;
+  font-family: var(--font-heading) !important;
+  font-weight: 600 !important;
+}
+.timeline-axis {
+  background: var(--line) !important;
+}
+.timeline-node {
+  background: var(--card) !important;
+}
+.timeline-node.node-gold, .timeline-node.node-locked {
+  border: 2px solid var(--seal) !important;
+  color: var(--seal) !important;
+  box-shadow: none !important;
+}
+.timeline-card {
+  background: var(--card) !important;
+  border: 1px solid var(--line) !important;
+  color: var(--text) !important;
+}
+.gold-highlight-card {
+  background: #FFFFFF !important;
+  border: 1px solid var(--line) !important;
+  border-left: 3px solid var(--seal) !important;
+  color: var(--text) !important;
+  box-shadow: none !important;
+}
+.timeline-card-locked {
+  background: var(--paper-2) !important;
+  border: 1px solid var(--line) !important;
+  border-left: 3px solid var(--seal) !important;
+}
+.timeline-daihan-range {
+  font-family: var(--font-heading) !important;
+  color: var(--ink) !important;
+  font-weight: 600 !important;
+}
+.timeline-palace-name {
+  color: var(--seal) !important;
+  font-weight: 600 !important;
+}
+.timeline-badge-gold {
+  background: var(--paper-2) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 4px !important;
+  font-size: 0.8rem !important;
+}

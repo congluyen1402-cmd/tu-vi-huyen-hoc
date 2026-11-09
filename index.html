@@ -37,7 +37,7 @@
   <!-- Google Fonts: Cormorant Garamond & Be Vietnam Pro (Streamlined Critical Weights) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap&subset=vietnamese" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@600&family=Be+Vietnam+Pro:wght@400;500;600&display=swap&subset=vietnamese" rel="stylesheet">
 
   <!-- Lucide Line Icons (Deferred for non-blocking paint) -->
   <script src="https://unpkg.com/lucide@latest" defer></script>
@@ -67,11 +67,11 @@
   <!-- Critical initial render styles -->
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; background-color: #0B0A1A; }
+    html { scroll-behavior: smooth; background-color: #F3ECDD; }
     body {
-      font-family: 'Be Vietnam Pro', -apple-system, sans-serif;
-      background-color: #0B0A1A;
-      color: #F5EFE0;
+      font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #F3ECDD;
+      color: #2A231C;
       min-height: 100vh;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
@@ -79,7 +79,7 @@
     .loading-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(11, 10, 26, 0.95);
+      background: rgba(243, 236, 221, 0.96);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -87,22 +87,23 @@
       z-index: 9999;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.4s ease;
+      transition: opacity 0.2s ease;
     }
     .loading-overlay.active { opacity: 1; pointer-events: all; }
     .loading-spinner {
-      width: 50px;
-      height: 50px;
-      border: 3px solid rgba(212, 175, 55, 0.2);
-      border-top-color: #D4AF37;
+      width: 44px;
+      height: 44px;
+      border: 2px solid rgba(27, 23, 20, 0.2);
+      border-top-color: #A3281F;
       border-radius: 50%;
-      animation: spin 1s linear infinite;
+      animation: spin 0.8s linear infinite;
     }
     .loading-text {
-      margin-top: 1.2rem;
-      color: #F3D98B;
+      margin-top: 1rem;
+      color: #1B1714;
+      font-family: 'Noto Serif', Georgia, serif;
       font-size: 0.95rem;
-      letter-spacing: 0.05em;
+      font-weight: 600;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
   </style>
@@ -131,8 +132,6 @@
   <!-- ============================================================ -->
   <!-- CURSOR TRAIL (Requirement A.3)                                -->
   <!-- ============================================================ -->
-  <canvas id="cursorTrailCanvas" class="cursor-trail-canvas" aria-hidden="true"></canvas>
-
   <!-- ============================================================ -->
   <!-- NAVBAR                                                        -->
   <!-- ============================================================ -->
@@ -150,13 +149,14 @@
       </button>
 
       <div class="nav-menu" id="navMenu" role="menu">
-        <a href="#lap-la-so" role="menuitem"><i data-lucide="compass"></i> Lập Lá Số</a>
-        <a href="#ket-qua" id="navMenuLaSo" role="menuitem"><i data-lucide="sparkles"></i> Lá Số</a>
-        <a href="#bang-gia-dich-vu" role="menuitem"><i data-lucide="crown"></i> Gói VIP</a>
-        <a href="#vat-pham-phong-thuy" role="menuitem"><i data-lucide="shield"></i> Phong Thủy</a>
-        <a href="#dat-lich-tu-van" role="menuitem"><i data-lucide="phone"></i> Tư Vấn 1-1</a>
-        <a href="#khong-gian-tam-linh" role="menuitem"><i data-lucide="moon"></i> Thiền Định</a>
-        <a href="javascript:void(0)" onclick="TuViMonetize.openRestoreModal()" role="menuitem" style="color:var(--gold-light); font-weight:600;"><i data-lucide="search"></i> Tra Cứu VIP</a>
+        <a href="#lap-la-so" role="menuitem">Lập Lá Số</a>
+        <a href="#ket-qua" id="navMenuLaSo" role="menuitem">Lá Số</a>
+        <a href="#bang-gia-dich-vu" role="menuitem">Gói VIP</a>
+        <a href="#vat-pham-phong-thuy" role="menuitem">Phong Thủy</a>
+        <a href="#dat-lich-tu-van" role="menuitem">Tư Vấn 1-1</a>
+        <a href="#khong-gian-tam-linh" role="menuitem">Thiền Định</a>
+        <a href="javascript:void(0)" onclick="TuViMonetize.openRestoreModal()" role="menuitem">Tra Cứu VIP</a>
+        <div id="navUserContainer" class="nav-user-container"></div>
       </div>
       <div class="nav-menu-backdrop" id="navBackdrop"></div>
     </nav>
@@ -172,24 +172,23 @@
         <!-- Cột trái: Giới thiệu súc tích (Desktop >= 1024px) -->
         <div class="lookup-intro-col">
           <div class="lookup-brand-badge">
-            <img src="/img/logo-xem-tu-vi-huyen-hoc.png" alt="Logo Xem Tử Vi Huyền Học" class="lookup-logo-img" width="48" height="48" decoding="async">
             <span class="lookup-badge-text">Tử Vi Cổ Truyền Việt Nam</span>
           </div>
           <h1 class="lookup-title">Tra cứu lá số Tử Vi</h1>
-          <p class="lookup-subtitle">Lập lá số chính tông, an định 114 tinh đẩu, luận giải chi tiết 12 cung bản mệnh, đại hạn và lưu niên theo phương pháp cổ học.</p>
+          <p class="lookup-subtitle">Nhập ngày giờ sinh để lập lá số và xem luận giải 12 cung.</p>
           
           <div class="lookup-highlights">
             <div class="highlight-item">
-              <i data-lucide="sparkles"></i>
-              <span>An sao chính xác theo giờ Tý &amp; tiết khí</span>
+              <span class="highlight-dot"></span>
+              <span>An định 14 chính tinh và hơn 100 phụ tinh theo ngày giờ sinh âm dương.</span>
             </div>
             <div class="highlight-item">
-              <i data-lucide="compass"></i>
-              <span>Luận Tam Phương Tứ Chính, Tứ Hóa &amp; Thân Mệnh</span>
+              <span class="highlight-dot"></span>
+              <span>Phân tích vị trí Cung Mệnh, Thân và vòng Đại Hạn 10 năm.</span>
             </div>
             <div class="highlight-item">
-              <i data-lucide="shield-check"></i>
-              <span>Bảo mật dữ liệu, tính toán tức thì theo thiên bàn</span>
+              <span class="highlight-dot"></span>
+              <span>Tuân thủ quy chuẩn an sao giờ Tý và tiết khí phương Đông cổ truyền.</span>
             </div>
           </div>
         </div>
@@ -339,9 +338,7 @@
             </div>
 
             <!-- Nút chính: Lập lá số -->
-            <button type="submit" class="btn-submit-full" id="btnSubmit">
-              <i data-lucide="compass"></i> LẬP LÁ SỐ
-            </button>
+            <button type="submit" class="btn-submit-full" id="btnSubmit">LẬP LÁ SỐ</button>
 
             <!-- Hộp ghi chú phẳng (không phát sáng) -->
             <div class="form-plain-note">
@@ -359,28 +356,15 @@
   <!-- "ĐANG AN SAO" LOADING RITUAL                                  -->
   <!-- ============================================================ -->
   <div class="an-sao-overlay" id="anSaoRitualOverlay" aria-hidden="true" role="status">
-    <div class="an-sao-compass-wrap">
-      <svg class="an-sao-compass-svg" width="220" height="220" viewBox="0 0 200 200" fill="none">
-        <circle cx="100" cy="100" r="95" stroke="#D4AF37" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.65"/>
-        <circle cx="100" cy="100" r="82" stroke="#F3D98B" stroke-width="1.2" opacity="0.5"/>
-        <circle cx="100" cy="100" r="64" stroke="#D4AF37" stroke-width="1" stroke-dasharray="2 4" opacity="0.6"/>
-        <circle cx="100" cy="100" r="42" stroke="#F3D98B" stroke-width="1.5" opacity="0.8"/>
-        <g stroke="#D4AF37" stroke-width="1.5">
-          <line x1="100" y1="5" x2="100" y2="22"/>
-          <line x1="100" y1="178" x2="100" y2="195"/>
-          <line x1="5" y1="100" x2="22" y2="100"/>
-          <line x1="178" y1="100" x2="195" y2="100"/>
-        </g>
-        <circle cx="100" cy="100" r="14" fill="#0B0A1A" stroke="#D4AF37" stroke-width="2"/>
-        <path d="M 100,86 A 14,14 0 0,1 100,114 A 7,7 0 0,1 100,100 A 7,7 0 0,0 100,86 Z" fill="#D4AF37"/>
-      </svg>
-      <div class="an-sao-taiji-center">☯</div>
+    <div class="an-sao-card">
+      <div class="an-sao-seal-mark">LẬP SỐ</div>
+      <div class="an-sao-status-text" id="anSaoStatusText">Đang xác định cung Mệnh…</div>
+      <div class="an-sao-sub-hint">Khởi tạo thiên bàn và an định 114 tinh đẩu</div>
+      <div class="an-sao-progress-line"><div class="an-sao-progress-bar" id="anSaoProgressBar"></div></div>
+      <button type="button" id="anSaoCancelBtn" class="an-sao-cancel-btn" style="display:none;" onclick="TuViApp.cancelAnSao()">Hủy &amp; Thử lại</button>
     </div>
-    <div class="an-sao-progress-line"><div class="an-sao-progress-bar" id="anSaoProgressBar"></div></div>
-    <div class="an-sao-status-text" id="anSaoStatusText">Đang xác định cung Mệnh…</div>
-    <div class="an-sao-sub-hint">Khởi tạo thiên bàn, địa bàn và an định 114 tinh đẩu</div>
-    <button type="button" id="anSaoCancelBtn" class="an-sao-cancel-btn" style="display:none;" onclick="TuViApp.cancelAnSao()">Hủy & Thử lại</button>
   </div>
+
 
   <!-- Vùng chứa Kết Quả Lá Số (Được khởi tạo và chèn vào DOM CHỈ SAU KHI tính toán thành công) -->
   <div id="resultMountPoint"></div>
@@ -391,89 +375,82 @@
   <section class="section pricing-section" id="bang-gia-dich-vu">
     <div class="section-container">
       <h2 class="section-title">Bảng Giá Dịch Vụ &amp; Báo Cáo VIP</h2>
-      <div class="section-divider">
-        <div class="line"></div>
-        <span class="icon" aria-hidden="true"><i data-lucide="crown"></i></span>
-        <div class="line"></div>
-      </div>
-      <p class="section-subtitle">Minh bạch học thuật · Khai mở trọn vẹn tiềm năng và lộ trình tương lai của bạn</p>
+      <div class="section-divider-plain"></div>
+      <p class="section-subtitle">Minh bạch học thuật, mở khóa toàn bộ luận giải 12 cung và đại hạn trọn đời</p>
 
       <div class="pricing-grid">
         <!-- Gói 1: Cơ Bản -->
         <div class="pricing-card">
           <div class="pricing-header">
-            <div class="pricing-icon-wrap"><i data-lucide="scroll"></i></div>
             <h3 class="pricing-title">Tra Cứu Cơ Bản</h3>
-            <p class="pricing-desc">Khám phá tổng quan tính cách &amp; bố cục bản mệnh ban đầu</p>
+            <p class="pricing-desc">Tổng quan bố cục bản mệnh và hai cung khởi đầu</p>
           </div>
           <div class="pricing-price-wrap">
             <span class="pricing-old-price" style="visibility:hidden;">0 đ</span>
             <span class="pricing-price">Miễn Phí</span>
           </div>
           <ul class="pricing-features">
-            <li><i data-lucide="check" class="icon-jade"></i> <span>Lập lá số chính xác 12 cung &amp; 14 chính tinh</span></li>
-            <li><i data-lucide="check" class="icon-jade"></i> <span>Luận giải chi tiết 2 cung (MỆNH &amp; PHỤ MẪU)</span></li>
-            <li><i data-lucide="check" class="icon-jade"></i> <span>Xem đại hạn đầu đời (6 – 15 Tuổi)</span></li>
-            <li class="disabled"><i data-lucide="x" class="icon-muted"></i> <span>Khóa 10 cung còn lại (Cần gói VIP 49k)</span></li>
-            <li class="disabled"><i data-lucide="x" class="icon-muted"></i> <span>Khóa đại hạn từ 16 tuổi trở đi (Cần gói VIP 49k)</span></li>
-            <li class="disabled"><i data-lucide="x" class="icon-muted"></i> <span>Xuất file PDF A4 chuẩn in ấn hoàng gia</span></li>
+            <li><span>Lập lá số chính xác 12 cung &amp; 14 chính tinh</span></li>
+            <li><span>Luận giải chi tiết 2 cung (MỆNH &amp; PHỤ MẪU)</span></li>
+            <li><span>Xem đại hạn đầu đời (6 – 15 tuổi)</span></li>
+            <li class="disabled"><span>Khóa 10 cung còn lại</span></li>
+            <li class="disabled"><span>Khóa đại hạn từ 16 tuổi trở đi</span></li>
+            <li class="disabled"><span>Xuất file PDF A4 lưu trữ</span></li>
           </ul>
-          <a href="#lap-la-so" class="btn-gold-pill btn-pricing-cta" style="background: var(--surface-2); color: var(--text);">Đang Sử Dụng</a>
+          <a href="#lap-la-so" class="btn-pricing-secondary">Bắt đầu tra cứu</a>
         </div>
 
-        <!-- Gói 2: Báo Cáo VIP A4 (Khuyên dùng - Phổ biến nhất) -->
+        <!-- Gói 2: Báo Cáo VIP A4 (Khuyên dùng) -->
         <div class="pricing-card featured">
-          <div class="pricing-badge">Phổ biến nhất</div>
+          <div class="pricing-plan-badge">Gói VIP</div>
           <div class="pricing-header">
-            <div class="pricing-icon-wrap"><i data-lucide="crown"></i></div>
             <h3 class="pricing-title">Báo Cáo VIP A4</h3>
-            <p class="pricing-desc">Xuất trọn bộ file PDF phong thủy hoàng gia lưu giữ trọn đời</p>
+            <p class="pricing-desc">Bản luận giải đầy đủ 12 cung và vận hạn trọn đời</p>
           </div>
           <div class="pricing-price-wrap">
             <span class="pricing-old-price">199.000 đ</span>
-            <span class="pricing-price text-gold">49.000 đ</span>
+            <span class="pricing-price">49.000 đ</span>
           </div>
           <ul class="pricing-features">
-            <li><i data-lucide="check" class="icon-jade"></i> <span><strong>File PDF A4 đóng dấu mộc đỏ phong thủy</strong></span></li>
-            <li><i data-lucide="check" class="icon-jade"></i> <span><strong>Mở khóa toàn bộ luận giải 12 cung không che</strong></span></li>
-            <li><i data-lucide="check" class="icon-jade"></i> <span>Phân tích Ma Trận Tam Phương Tứ Chính (Lệnh Đông Lai)</span></li>
-            <li><i data-lucide="check" class="icon-jade"></i> <span class="dynamic-luu-nien-label">Luận đoán Vận Hạn Lưu Niên 2026 (Bính Ngọ)</span></li>
-            <li><i data-lucide="check" class="icon-jade"></i> <span>Bảng hướng xuất hành, con số cát tường, màu tương sinh</span></li>
-            <li><i data-lucide="check" class="icon-jade"></i> <span>Quét mã VietQR nhận kết quả tự động trong 3 giây</span></li>
+            <li><span><strong>Mở khóa toàn bộ luận giải 12 cung không che</strong></span></li>
+            <li><span><strong>Xuất file PDF A4 đầy đủ bố cục lưu trữ trọn đời</strong></span></li>
+            <li><span>Phân tích Ma Trận Tam Phương Tứ Chính</span></li>
+            <li><span class="dynamic-luu-nien-label">Luận đoán Vận Hạn Lưu Niên 2026 (Bính Ngọ)</span></li>
+            <li><span>Bảng phương hướng xuất hành, con số và màu tương sinh</span></li>
+            <li><span>Quét mã VietQR nhận kết quả tức thì</span></li>
           </ul>
           <button type="button" class="btn-view-sample-report" onclick="TuViMonetize.openSampleReportGallery()">
-            <i data-lucide="eye"></i> Xem mẫu báo cáo (PDF A4)
+            Xem mẫu báo cáo (PDF A4)
           </button>
-          <button class="btn-gold-pill btn-pricing-cta" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư', 49000)">
-            <i data-lucide="zap"></i> Mở Khóa VIP Ngay (49k)
+          <button class="btn-seal btn-pricing-cta" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư', 49000)">
+            Mở Khóa VIP (49.000đ)
           </button>
           <div class="reassurance-list">
-            <div class="reassurance-item"><i data-lucide="check-circle-2"></i><span>Quét VietQR, nhận kết quả sau vài giây</span></div>
-            <div class="reassurance-item"><i data-lucide="shield-check"></i><span>Thông tin ngày sinh được bảo mật</span></div>
-            <div class="reassurance-item"><i data-lucide="message-circle"></i><span>Hỗ trợ qua Zalo nếu có sự cố</span></div>
+            <div class="reassurance-item"><span>Quét VietQR, tự động mở khóa trong vài giây</span></div>
+            <div class="reassurance-item"><span>Thông tin ngày sinh được bảo mật tuyệt đối</span></div>
+            <div class="reassurance-item"><span>Hỗ trợ chu đáo qua Zalo khi cần hỗ trợ</span></div>
           </div>
         </div>
 
         <!-- Gói 3: Luận Chuyên Sâu -->
         <div class="pricing-card">
           <div class="pricing-header">
-            <div class="pricing-icon-wrap"><i data-lucide="sparkles"></i></div>
             <h3 class="pricing-title">Luận Chuyên Sâu</h3>
-            <p class="pricing-desc">Phân tích cặn kẽ Tình Duyên Hôn Nhân hoặc Điền Sản Kinh Doanh</p>
+            <p class="pricing-desc">Phân tích chuyên đề Hôn Nhân Gia Đạo hoặc Điền Sản Kinh Doanh</p>
           </div>
           <div class="pricing-price-wrap">
             <span class="pricing-old-price">399.000 đ</span>
-            <span class="pricing-price text-gold">199.000 đ</span>
+            <span class="pricing-price">199.000 đ</span>
           </div>
           <ul class="pricing-features">
-            <li><i data-lucide="check" class="icon-jade"></i> <span>Đầy đủ quyền lợi của Báo Cáo VIP A4</span></li>
-            <li><i data-lucide="check" class="icon-jade"></i> <span>Chuyên đề Tình Duyên: Hóa giải Cung Phu Thê bị Tuần/Triệt</span></li>
-            <li><i data-lucide="check" class="icon-jade"></i> <span>Chuyên đề Điền Sản: Thời điểm mua đất, phát tài đại vận</span></li>
-            <li><i data-lucide="check" class="icon-jade"></i> <span>Phương pháp tu dưỡng cải mệnh 4 trụ cột cụ Nguyễn Phát Lộc</span></li>
-            <li><i data-lucide="check" class="icon-jade"></i> <span>Báo cáo phân tích chuyên sâu 30 trang</span></li>
+            <li><span>Đầy đủ toàn bộ quyền lợi của Báo Cáo VIP A4</span></li>
+            <li><span>Chuyên đề Tình Duyên: Hóa giải Cung Phu Thê bị Tuần Triệt</span></li>
+            <li><span>Chuyên đề Điền Sản: Thời điểm phát tài đại vận</span></li>
+            <li><span>Phương pháp tu dưỡng cải mệnh 4 trụ cột cụ Nguyễn Phát Lộc</span></li>
+            <li><span>Bản báo cáo phân tích chuyên sâu 30 trang</span></li>
           </ul>
-          <button class="btn-gold-pill btn-pricing-cta" onclick="TuViMonetize.openVipModal('Gói Luận Chuyên Sâu Hôn Nhân &amp; Tài Vận', 199000)">
-            <i data-lucide="sparkles"></i> Đăng Ký Luận Sâu (199k)
+          <button class="btn-seal btn-pricing-cta" onclick="TuViMonetize.openVipModal('Gói Luận Chuyên Sâu Hôn Nhân &amp; Tài Vận', 199000)">
+            Đăng Ký Luận Sâu (199.000đ)
           </button>
         </div>
       </div>
@@ -486,9 +463,8 @@
   <section class="section fengshui-section" id="vat-pham-phong-thuy">
     <div class="section-container">
       <h2 class="section-title">Vật Phẩm Phong Thủy Hộ Thân Hợp Mệnh</h2>
-      <div class="section-divider">
-        <div class="line"></div>
-        <span class="icon" aria-hidden="true"><i data-lucide="shield"></i></span>
+      <div class="section-divider-plain"></div>
+        
         <div class="line"></div>
       </div>
       <p class="section-subtitle">Khắc chế sát tinh · Bồi tụ phúc khí &amp; chiêu tài tấn bảo theo nguyên lý ngũ hành tương sinh</p>
@@ -509,9 +485,8 @@
   <section class="section consultation-section" id="dat-lich-tu-van">
     <div class="section-container">
       <h2 class="section-title">Đặt Lịch Tư Vấn 1-1 Với Chuyên Gia</h2>
-      <div class="section-divider">
-        <div class="line"></div>
-        <span class="icon" aria-hidden="true"><i data-lucide="phone-call"></i></span>
+      <div class="section-divider-plain"></div>
+        
         <div class="line"></div>
       </div>
       <p class="section-subtitle">Đàm đạo trực tiếp, giải mã cặn kẽ mọi khúc mắc và định hướng tương lai chuẩn xác cùng các bậc thầy</p>
@@ -520,7 +495,7 @@
         <!-- Giới thiệu chuyên gia -->
         <div class="expert-showcase">
           <div class="expert-card">
-            <div class="expert-avatar-wrap circular-gold-avatar">
+            <div class="expert-avatar-wrap expert-avatar-clean">
               <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="gold-icon"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             </div>
             <div class="expert-info">
@@ -531,7 +506,7 @@
           </div>
 
           <div class="expert-card">
-            <div class="expert-avatar-wrap circular-gold-avatar">
+            <div class="expert-avatar-wrap expert-avatar-clean">
               <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="gold-icon"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             </div>
             <div class="expert-info">
@@ -542,8 +517,8 @@
           </div>
 
           <!-- Quy trình làm việc (How We Work) -->
-          <div class="how-we-work-card glass-card">
-            <h5 class="how-we-work-title text-gold"><i data-lucide="compass"></i> Quy Trình Làm Việc Chuyên Nghiệp</h5>
+          <div class="how-we-work-card surface-card">
+            <h5 class="how-we-work-title"><i data-lucide="compass"></i> Quy Trình Làm Việc Chuyên Nghiệp</h5>
             <div class="how-we-work-steps">
               <div class="step-item">
                 <div class="step-icon-wrap"><i data-lucide="calendar"></i></div>
@@ -627,9 +602,8 @@
   <section class="section mystical-video-section" id="khong-gian-tam-linh">
     <div class="section-container">
       <h2 class="section-title">Không Gian Huyền Học & Thiền Định</h2>
-      <div class="section-divider">
-        <div class="line"></div>
-        <span class="icon" aria-hidden="true"><i data-lucide="disc"></i></span>
+      <div class="section-divider-plain"></div>
+        
         <div class="line"></div>
       </div>
       <p class="section-subtitle">Chiêm ngưỡng vũ điệu Bát Quái và âm thoa năng lượng 432Hz giúp an định tâm trí</p>
@@ -672,38 +646,46 @@
   </section>
 
   <!-- ============================================================ -->
-  <!-- FEATURES SECTION                                              -->
+  <!-- PHƯƠNG PHÁP LUẬN GIẢI TỬ VI CỔ TRUYỀN (FEATURES)             -->
   <!-- ============================================================ -->
   <section class="section features-section" id="tinh-nang">
     <div class="section-container">
-      <h2 class="section-title">Tính Năng Nổi Bật</h2>
-      <div class="section-divider">
-        <div class="line"></div>
-        <span class="icon" aria-hidden="true"><i data-lucide="sparkles"></i></span>
-        <div class="line"></div>
-      </div>
-      <p class="section-subtitle">Khám phá những công cụ huyền học mạnh mẽ</p>
+      <h2 class="section-title">Phương Pháp Luận Giải Tử Vi Cổ Truyền</h2>
+      <div class="section-divider-plain"></div>
+      <p class="section-subtitle">Phương pháp giải mã vận mệnh dựa trên thiên bàn, ngũ hành sinh khắc và kinh nghiệm ngàn năm</p>
 
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon-wrap"><i data-lucide="compass"></i></div>
-          <h4>Lá Số Chính Xác</h4>
-          <p>Tính toán lá số tử vi chính xác theo thuật toán cổ truyền, đầy đủ 14 chính tinh và hơn 100 phụ tinh.</p>
+      <div class="features-editorial-grid">
+        <div class="editorial-col">
+          <div class="method-step">
+            <span class="step-num">01</span>
+            <div class="step-content">
+              <h4>Khởi Tạo Thiên Bàn &amp; Định Ngũ Hành Cục</h4>
+              <p>Từ năm, tháng, ngày và giờ sinh (tính theo quy chuẩn giờ Tý cổ truyền), hệ thống xác định Bản Mệnh và Ngũ Hành Cục (Thủy Nhị Cục, Mộc Tam Cục, Kim Tứ Cục, Thổ Ngũ Cục, Hỏa Lục Cục) làm gốc tọa độ cho toàn bộ lá số.</p>
+            </div>
+          </div>
+          <div class="method-step">
+            <span class="step-num">02</span>
+            <div class="step-content">
+              <h4>An Định 14 Chính Tinh &amp; Hệ Thống Tinh Đẩu</h4>
+              <p>Theo vòng Tử Vi và Thiên Phủ, phân bố chính xác 14 chính tinh vào 12 cung chức. Tiếp tục an định Tứ Hóa (Khoa, Quyền, Lộc, Kỵ), Lục Sát Tinh, Lục Cát Tinh và hơn 100 phụ tinh phản ánh cụ thể từng diện mạo cuộc đời.</p>
+            </div>
+          </div>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon-wrap"><i data-lucide="book-open"></i></div>
-          <h4>Luận Giải Chi Tiết</h4>
-          <p>Phân tích sâu từng cung vị, giải thích ý nghĩa các sao và ma trận tương tác Tam Phương Tứ Chính.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon-wrap"><i data-lucide="calendar"></i></div>
-          <h4>Đại Hạn &amp; Vận Hạn</h4>
-          <p>Xem vận hạn qua từng giai đoạn cuộc đời, biết trước cơ hội và thử thách để chủ động nắm bắt vận may.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon-wrap"><i data-lucide="heart-handshake"></i></div>
-          <h4>Tương Thích Cung Mệnh</h4>
-          <p>Xem độ hòa hợp giữa hai người dựa trên Ngũ Hành nạp âm, Can Chi và phối ngẫu cung Phu Thê bản mệnh.</p>
+        <div class="editorial-col">
+          <div class="method-step">
+            <span class="step-num">03</span>
+            <div class="step-content">
+              <h4>Luận Tam Phương Tứ Chính &amp; Thân Mệnh Đồng Cung</h4>
+              <p>Phân tích tương quan đa chiều giữa Cung Bản Vị, Cung Đối, Cung Tam Hợp và Nhị Hợp. Đánh giá thế đứng của Cung Mệnh và Cung Thân để nhận định hậu vận và năng lực nội tại của đương số.</p>
+            </div>
+          </div>
+          <div class="method-step">
+            <span class="step-num">04</span>
+            <div class="step-content">
+              <h4>Đại Hạn 10 Năm, Lưu Niên &amp; Tu Dưỡng Cải Mệnh</h4>
+              <p>Lần lượt truy vết chu kỳ thịnh suy theo các Đại Hạn 10 năm, Tiểu Hạn và Lưu Niên từng năm. Kết hợp định hướng tu dưỡng tâm tính, tích phúc hành thiện để hóa giải sát tinh theo phương châm đức năng thắng số.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -717,7 +699,7 @@
     <div class="sample-gallery-card">
       <button class="sample-gallery-close" onclick="TuViMonetize.closeSampleReportGallery()" aria-label="Đóng">&times;</button>
       <h3 style="font-family: var(--font-heading); color: var(--gold-light); font-size: 1.35rem; margin-bottom: 0.4rem;">
-        ✦ MẪU BÁO CÁO TỬ VI VIP A4 TOÀN THƯ ✦
+        Mẫu Báo Cáo Tử Vi VIP A4 Toàn Thư
       </h3>
       <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.2rem;">
         File PDF A4 chính tông hoàng gia, đóng dấu mộc đỏ phong thủy, bảo mật trọn đời
@@ -733,8 +715,8 @@
           <img src="/images/sample-report-3.jpg" alt="Mẫu Báo Cáo VIP Trang 3 - Vận Hạn & Đạo Trị Mệnh" width="340" height="480" loading="lazy" decoding="async">
         </div>
       </div>
-      <button class="btn-gold-pill" onclick="TuViMonetize.closeSampleReportGallery(); TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư', 49000);" style="padding: 0.75rem 2rem; font-size: 0.95rem;">
-        <i data-lucide="zap"></i> Đăng Ký Mở Khóa Ngay (49.000đ)
+      <button class="btn-seal" onclick="TuViMonetize.closeSampleReportGallery(); TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư', 49000);" style="padding: 0.75rem 2rem; font-size: 0.95rem;">
+        Đăng Ký Mở Khóa Ngay (49.000đ)
       </button>
     </div>
   </div>
@@ -743,15 +725,23 @@
   <!-- FOOTER                                                        -->
   <!-- ============================================================ -->
   <footer class="footer" id="footer">
-    <div class="footer-brand">
-      <img src="/img/logo-xem-tu-vi-huyen-hoc.png" alt="Logo Xem Tử Vi Huyền Học" width="56" height="56" loading="lazy" decoding="async">
-      <span>Xem Tử Vi Huyền Học</span>
+    <div class="footer-container">
+      <div class="footer-brand">
+        <img src="/img/logo-xem-tu-vi-huyen-hoc.png" alt="Logo Xem Tử Vi Huyền Học" width="48" height="48" loading="lazy" decoding="async">
+        <span>Xem Tử Vi Huyền Học</span>
+      </div>
+      <div class="footer-nav-links">
+        <a href="#lap-la-so">Lập Lá Số</a>
+        <a href="#ket-qua">Lá Số</a>
+        <a href="#bang-gia-dich-vu">Gói VIP</a>
+        <a href="#vat-pham-phong-thuy">Phong Thủy</a>
+        <a href="#dat-lich-tu-van">Tư Vấn 1-1</a>
+        <a href="#khong-gian-tam-linh">Thiền Định</a>
+        <a href="javascript:void(0)" onclick="TuViMonetize.openRestoreModal()">Tra Cứu VIP</a>
+      </div>
+      <p class="footer-disclaimer-text">Tử Vi Đẩu Số là di sản học thuật và triết học phương Đông truyền thống, mang tính chất chiêm nghiệm nhân sinh và hướng thiện. Mọi quyết định trọng đại trong đời sống cần dựa trên sự tỉnh thức, tri thức khoa học và nỗ lực cá nhân.</p>
+      <p class="footer-copyright">© <span id="footerCopyrightYear">2026</span> Xem Tử Vi Huyền Học · Bảo lưu mọi quyền.</p>
     </div>
-    <div class="footer-social-links" id="footerSocialLinks">
-      <!-- Populated dynamically based on window.SOCIAL_CONFIG; empty links remain hidden -->
-    </div>
-    <p class="footer-disclaimer"><i data-lucide="alert-triangle" style="width:14px;height:14px;display:inline-block;vertical-align:-2px;margin-right:4px;"></i> Thông tin trên website chỉ mang tính chất tham khảo về mặt huyền học cổ truyền.<br>Không nên dùng làm căn cứ duy nhất cho các quyết định quan trọng trong cuộc sống.</p>
-    <p class="footer-copyright">© <span id="footerCopyrightYear">2026</span> Xem Tử Vi Huyền Học · Lập Lá Số Tử Vi Cổ Truyền. Bảo lưu mọi quyền.</p>
   </footer>
 
   <!-- ============================================================ -->
