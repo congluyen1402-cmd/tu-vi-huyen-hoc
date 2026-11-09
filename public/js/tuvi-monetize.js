@@ -957,11 +957,21 @@
       }
 
       let isPricingInView = false;
+      let isChartInView = false;
       const pricingSection = document.getElementById('bang-gia-dich-vu') || document.querySelector('.pricing-section');
 
       const updateVisibility = () => {
         if (!floatBtn) return;
-        if (window.scrollY > 400 && !isPricingInView) {
+        // Ẩn nút floating VIP khi lá số hoặc bảng giá đang trong tầm nhìn
+        const chartArea = document.getElementById('laSoPrintArea') || document.getElementById('ket-qua');
+        if (chartArea) {
+          const rect = chartArea.getBoundingClientRect();
+          isChartInView = (rect.top < window.innerHeight && rect.bottom > 0);
+        } else {
+          isChartInView = false;
+        }
+
+        if (window.scrollY > 400 && !isPricingInView && !isChartInView) {
           floatBtn.classList.add('visible');
         } else {
           floatBtn.classList.remove('visible');

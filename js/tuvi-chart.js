@@ -18,29 +18,29 @@ const TuViChart = {
     return `${can} ${chi}`;
   },
 
-  // Mã màu chuẩn Ngũ Hành theo yêu cầu đặc tả (Requirement C.2: Kim #E5C46B, Mộc #4CAF7D, Thủy #4A8FE7, Hỏa #E5553D, Thổ #B98A4E)
+  // Mã màu chuẩn Ngũ Hành theo yêu cầu đặc tả (Kim #8F6B00, Mộc #1E7A3E, Thủy #1D4E89, Hỏa #B3261E, Thổ #A5601A)
   ELEMENT_COLORS: {
-    'Kim': '#E5C46B',
-    'Mộc': '#4CAF7D',
-    'Thủy': '#4A8FE7',
-    'Hỏa': '#E5553D',
-    'Thổ': '#B98A4E'
+    'Kim': '#8F6B00',
+    'Mộc': '#1E7A3E',
+    'Thủy': '#1D4E89',
+    'Hỏa': '#B3261E',
+    'Thổ': '#A5601A'
   },
 
-  // Màu sắc định danh Cung Vị theo bản gốc Tra Cứu Tử Vi
+  // Màu sắc định danh Cung Vị theo chuẩn trang nhã, tương phản cao trên nền giấy #FBF7EE
   PALACE_COLORS: {
-    'MỆNH': '#cc0000',
-    'PHỤ MẪU': '#cc0000',
-    'PHÚC ĐỨC': '#b45309',
-    'ĐIỀN TRẠCH': '#334155',
-    'QUAN LỘC': '#0f172a',
-    'NÔ BỘC': '#cc0000',
-    'THIÊN DI': '#0f172a',
-    'TẬT ÁCH': '#cc0000',
-    'TÀI BẠCH': '#b45309',
-    'TỬ TỨC': '#0d9488',
-    'PHU THÊ': '#16a34a',
-    'HUYNH ĐỆ': '#ea580c'
+    'MỆNH': '#7A1F17',
+    'PHỤ MẪU': '#7A1F17',
+    'PHÚC ĐỨC': '#7A1F17',
+    'ĐIỀN TRẠCH': '#7A1F17',
+    'QUAN LỘC': '#7A1F17',
+    'NÔ BỘC': '#7A1F17',
+    'THIÊN DI': '#7A1F17',
+    'TẬT ÁCH': '#7A1F17',
+    'TÀI BẠCH': '#7A1F17',
+    'TỬ TỨC': '#7A1F17',
+    'PHU THÊ': '#7A1F17',
+    'HUYNH ĐỆ': '#7A1F17'
   },
 
   /**
@@ -325,8 +325,25 @@ const TuViChart = {
     if (!laSo) return;
     this._currentLaSo = laSo;
 
-    // 1. Hiển thị Section Kết Quả
-    const ketQuaSection = document.getElementById('ket-qua');
+    // 1. Khởi tạo và chèn Section Kết Quả vào DOM (Chỉ xuất hiện sau khi tính toán thành công)
+    let ketQuaSection = document.getElementById('ket-qua');
+    if (!ketQuaSection) {
+      const mount = document.getElementById('resultMountPoint');
+      if (mount) {
+        mount.innerHTML = `
+          <section class="section result-section" id="ket-qua">
+            <div class="section-container la-so-outer-wrap">
+              <div id="la-so-chart"></div>
+              <div class="luan-giai-section" id="luan-giai" style="display:block;">
+                <h3 class="luan-giai-header-title">✦ Luận Giải Chi Tiết 12 Cung ✦</h3>
+                <div class="accordion-list" id="accordionList"></div>
+              </div>
+            </div>
+          </section>
+        `;
+        ketQuaSection = document.getElementById('ket-qua');
+      }
+    }
     if (ketQuaSection) {
       ketQuaSection.style.display = 'block';
       ketQuaSection.classList.add('visible');
@@ -356,11 +373,10 @@ const TuViChart = {
       setTimeout(() => window.lucide.createIcons(), 60);
     }
 
-    // Cuộn mượt mà đến lá số
+    // Cuộn mượt mà đến lá số với bù đắp header height
     setTimeout(() => {
-      const chartEl = document.getElementById('la-so-chart');
-      if (chartEl) {
-        chartEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (ketQuaSection) {
+        ketQuaSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }, 250);
   },
@@ -376,12 +392,22 @@ const TuViChart = {
       ${this.renderSummaryCard(laSo)}
       ${this.renderSeasonalBanner(laSo)}
 
-      <div class="la-so-actions-bar">
-        <button class="btn-action-chart btn-action-vip" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)', 49000)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline;vertical-align:-2px;margin-right:4px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Tải Báo Cáo VIP A4 (49.000đ)</button>
-        <button class="btn-action-chart btn-action-share" onclick="if(window.TuViShare){TuViShare.generateCard(TuViChart._currentLaSo);}else{alert('Đang tải mô-đun chia sẻ...');}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline;vertical-align:-2px;margin-right:4px;"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>Chia Sẻ Lá Số</button>
-        <button class="btn-action-chart" onclick="window.print()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline;vertical-align:-2px;margin-right:4px;"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>In Lá Số</button>
-        <button class="btn-action-chart" onclick="TuViChart.toggleLuanGiaiVisibility()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline;vertical-align:-2px;margin-right:4px;"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Xem / Ẩn Luận Giải</button>
-        <button class="btn-action-chart btn-action-fengshui" onclick="TuViMonetize.scrollToFengShui()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline;vertical-align:-2px;margin-right:4px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Vật Phẩm Hợp Mệnh</button>
+      <div class="la-so-toolbar">
+        <button type="button" class="btn-toolbar btn-toolbar-png" onclick="TuViChart.downloadChartPng()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline;vertical-align:-2px;margin-right:5px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Tải lá số
+        </button>
+        <button type="button" class="btn-toolbar btn-toolbar-zoom" onclick="TuViChart.openZoomModal()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline;vertical-align:-2px;margin-right:5px;"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>Phóng to
+        </button>
+        <button type="button" class="btn-toolbar btn-toolbar-new" onclick="TuViApp.resetAndExpandForm()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline;vertical-align:-2px;margin-right:5px;"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>Lập lá số khác
+        </button>
+        <button type="button" class="btn-toolbar btn-toolbar-luan" onclick="TuViChart.toggleLuanGiaiVisibility()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline;vertical-align:-2px;margin-right:5px;"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Xem / Ẩn Luận Giải
+        </button>
+        <button type="button" class="btn-toolbar btn-toolbar-vip" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)', 49000)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline;vertical-align:-2px;margin-right:5px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Tải Báo Cáo VIP A4 (49k)
+        </button>
       </div>
 
       <div class="la-so-scroll-wrapper">
@@ -416,7 +442,7 @@ const TuViChart = {
           <!-- Legend Chú Giải Ngũ Hành & Trạng Thái dưới cùng lá số -->
           <div class="la-so-legend-footer">
             <div class="legend-status">
-              (M): Miếu địa; (V): Vượng địa; (Đ): Đắc địa; (B): Bình hòa; (H): Hãm địa
+              (M): Miếu · (V): Vượng · (Đ): Đắc · (B): Bình hòa · (H): Hãm
             </div>
             <div class="legend-elements">
               <span class="legend-item"><span class="color-box box-kim"></span> Kim</span>
@@ -449,12 +475,11 @@ const TuViChart = {
     const isFreePalace = cung.cungName.startsWith('MỆNH') || cung.cungName.startsWith('PHỤ MẪU');
     const isLocked = !isVip && !isFreePalace;
 
-    // Kiểm tra Tuần / Triệt
+    // Kiểm tra Tuần / Triệt (Đặt GỌN GÀNG BÊN TRONG đường viền ô)
     const hasTuan = laSo.tuan && laSo.tuan.includes(chiIndex);
     const hasTriet = laSo.triet && laSo.triet.includes(chiIndex);
 
     let tuanTrietBanner = '';
-    // Tuần giữa Thân & Dậu (ở ô Thân hoặc ô Dậu)
     if (hasTuan && chiIndex === laSo.tuan[0]) {
       tuanTrietBanner = '<div class="tuan-triet-ribbon ribbon-tuan">Tuần</div>';
     }
@@ -463,14 +488,14 @@ const TuViChart = {
     }
 
     // Tiêu đề cung và màu sắc đặc trưng
-    const titleColor = this.PALACE_COLORS[cung.cungName] || '#cc0000';
+    const titleColor = this.PALACE_COLORS[cung.cungName] || '#7A1F17';
     const palaceTitle = isThan ? `${cung.cungName}&lt;THÂN&gt;` : cung.cungName;
 
     // Cột sao trái: Chính tinh + Cát tinh
     let leftColHtml = '';
     if (cung.chinhTinh && cung.chinhTinh.length > 0) {
       cung.chinhTinh.forEach(ct => {
-        const color = this.ELEMENT_COLORS[ct.element] || '#cc0000';
+        const color = this.ELEMENT_COLORS[ct.element] || '#8F6B00';
         const sign = ct.sign || '+';
         const dacHam = ct.dacHam ? ` (${ct.dacHam})` : '';
         leftColHtml += `
@@ -485,7 +510,7 @@ const TuViChart = {
 
     if (cung.phuTinhLeft && cung.phuTinhLeft.length > 0) {
       cung.phuTinhLeft.forEach(pt => {
-        const color = this.ELEMENT_COLORS[pt.element] || '#b45309';
+        const color = this.ELEMENT_COLORS[pt.element] || '#1E7A3E';
         const dacHam = pt.dacHam ? ` (${pt.dacHam})` : '';
         leftColHtml += `
           <div class="star-line star-cat" style="color: ${color};">
@@ -500,7 +525,7 @@ const TuViChart = {
     let rightColHtml = '';
     if (cung.phuTinhRight && cung.phuTinhRight.length > 0) {
       cung.phuTinhRight.forEach(pt => {
-        const color = this.ELEMENT_COLORS[pt.element] || '#cc0000';
+        const color = this.ELEMENT_COLORS[pt.element] || '#B3261E';
         const dacHam = pt.dacHam ? ` (${pt.dacHam})` : '';
         rightColHtml += `
           <div class="star-line star-sat" style="color: ${color};">
@@ -514,8 +539,8 @@ const TuViChart = {
     return `
       <div class="cung-classical-cell la-so-cell ${isMenh ? 'cell-menh' : ''} ${isThan ? 'cell-than' : ''}" 
            data-chi="${chiIndex}"
-           onclick="TuViChart.scrollToPalace('${cung.cungName}')"
-           title="Nhấp để xem luận giải Cung ${cung.cungName}">
+           onclick="TuViChart.openPalaceSheet(${chiIndex})"
+           title="Nhấp để xem chi tiết sao & luận giải Cung ${cung.cungName}">
         ${tuanTrietBanner}
         
         <!-- Header Cung -->
@@ -538,7 +563,7 @@ const TuViChart = {
         <div class="cung-bottom-bar">
           <span class="cung-chi-label">${cung.chi}</span>
           <span class="cung-trang-sinh">${cung.trangSinh || ''}</span>
-          <span class="cung-thang-han">${cung.thangHan || ''}</span>
+          <span class="cung-thang-han">${cung.tieuHan ? 'H.' + cung.tieuHan : (cung.thangHan || '')}</span>
         </div>
       </div>
     `;
@@ -645,103 +670,310 @@ const TuViChart = {
   },
 
   /**
-   * Modal xem chi tiết từng cung
+   * Bảng trượt chi tiết Cung (Bottom Sheet trên Mobile / Side Panel trên Desktop)
+   * Hiển thị các sao của cung với trạng thái và luận giải
+   * Miễn phí: toàn văn; Khóa: 2 câu đầu rõ ràng, phần sau mờ dần + nút phẳng "Mở khóa 49.000đ"
+   * Đóng bằng: nút bấm, vuốt xuống, chạm nền (backdrop), phím Esc.
    */
-  showCungModal: function (chiIndex) {
-    return false; // Đã gỡ bỏ tính năng mở popup khi nhấp vào lá số
+  openPalaceSheet: function (chiIndex) {
     if (!this._currentLaSo) return;
     const cung = this._currentLaSo.cung[chiIndex];
+    if (!cung) return;
 
-    let modal = document.getElementById('tuvi-cung-modal');
-    if (!modal) {
-      modal = document.createElement('div');
-      modal.id = 'tuvi-cung-modal';
-      modal.className = 'tuvi-modal-wrapper';
-      document.body.appendChild(modal);
+    let sheet = document.getElementById('tuviPalaceSheet');
+    if (!sheet) {
+      sheet = document.createElement('div');
+      sheet.id = 'tuviPalaceSheet';
+      sheet.className = 'tuvi-palace-sheet';
+      document.body.appendChild(sheet);
     }
 
+    const isVip = Boolean(
+      (typeof TuViAuth !== 'undefined' && TuViAuth.isVip && TuViAuth.isVip()) ||
+      (typeof TuViMonetize !== 'undefined' && TuViMonetize.isVipUnlocked) ||
+      (typeof window !== 'undefined' && window.TuViMonetize && window.TuViMonetize.isVipUnlocked)
+    );
+    const isFreePalace = cung.cungName.startsWith('MỆNH') || cung.cungName.startsWith('PHỤ MẪU');
+    const isLocked = !isVip && !isFreePalace;
+
+    // Chính tinh
     let chinhTinhHtml = '';
     if (cung.chinhTinh && cung.chinhTinh.length > 0) {
-      chinhTinhHtml += '<h4>✦ Chính Tinh Tọa Thủ:</h4>';
-      cung.chinhTinh.forEach(ct => {
-        chinhTinhHtml += `
-          <div class="modal-star-row">
-            <span class="modal-star-name" style="color: ${this.ELEMENT_COLORS[ct.element] || '#cc0000'}">
-              ★ ${ct.name} (${ct.dacHam || 'Đ'})
-            </span>
-            <span class="modal-element-tag">Hành ${ct.element}</span>
-            ${ct.tuHoa ? `<span class="modal-hoa-badge">${ct.tuHoa}</span>` : ''}
+      chinhTinhHtml = cung.chinhTinh.map(ct => {
+        const color = this.ELEMENT_COLORS[ct.element] || '#8F6B00';
+        const dacHam = ct.dacHam ? ` (${ct.dacHam})` : '';
+        const hoa = ct.tuHoa ? ` <span class="badge-hoa">${ct.tuHoa}</span>` : '';
+        return `<span class="sheet-star-tag" style="border-color:${color};color:${color};"><strong>★ ${ct.name}</strong>${dacHam}${hoa}</span>`;
+      }).join(' ');
+    } else {
+      chinhTinhHtml = '<span class="sheet-star-empty">Vô Chính Diệu (Không có chính tinh tọa thủ)</span>';
+    }
+
+    // Cát tinh & Quý tinh
+    let catTinhHtml = (cung.phuTinhLeft || []).map(pt => {
+      const color = this.ELEMENT_COLORS[pt.element] || '#1E7A3E';
+      const dacHam = pt.dacHam ? ` (${pt.dacHam})` : '';
+      const hoa = pt.tuHoa ? ` <span class="badge-hoa">${pt.tuHoa}</span>` : '';
+      return `<span class="sheet-substar-tag" style="color:${color};">+ ${pt.name}${dacHam}${hoa}</span>`;
+    }).join(' ');
+
+    // Sát bại tinh
+    let satTinhHtml = (cung.phuTinhRight || []).map(pt => {
+      const color = this.ELEMENT_COLORS[pt.element] || '#B3261E';
+      const dacHam = pt.dacHam ? ` (${pt.dacHam})` : '';
+      const hoa = pt.tuHoa ? ` <span class="badge-hoa">${pt.tuHoa}</span>` : '';
+      return `<span class="sheet-substar-tag" style="color:${color};">- ${pt.name}${dacHam}${hoa}</span>`;
+    }).join(' ');
+
+    // Luận giải chi tiết
+    let deepAnalysis = null;
+    if (typeof TuViLuanGiaiEngine !== 'undefined') {
+      deepAnalysis = TuViLuanGiaiEngine.generatePalaceDeepAnalysis(cung, this._currentLaSo);
+    }
+
+    let luanGiaiBody = '';
+    if (isLocked) {
+      let firstSentences = '';
+      if (deepAnalysis && deepAnalysis.cachCucHtml) {
+        const rawText = deepAnalysis.cachCucHtml.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+        const sentences = rawText.split(/(?<=[.!?])\s+/);
+        firstSentences = sentences.slice(0, 2).join(' ');
+      }
+      if (!firstSentences) {
+        firstSentences = `Cung ${cung.cungName} tọa tại địa chi ${cung.chi} (${cung.can}), tạo thành kết cấu trọng điểm ảnh hưởng trực tiếp đến đương số.`;
+      }
+
+      luanGiaiBody = `
+        <div class="sheet-locked-wrap">
+          <p class="sheet-leading-text"><strong>✦ Luận điểm ban đầu:</strong> ${firstSentences}</p>
+          <div class="sheet-fade-mask" aria-hidden="true">
+            <p>Toàn bộ ma trận Tam Phương Tứ Chính, Tứ Hóa Phi Tinh Lộc Quyền Khoa Kỵ, Cát Tinh phò tá, Sát Tinh thử thách và Đạo Trị Mệnh hóa giải vận hạn của Cung ${cung.cungName} được phân tích toàn diện trong bản luận giải chuyên sâu...</p>
           </div>
-        `;
-      });
-    }
-
-    let catTinhHtml = '';
-    if (cung.phuTinhLeft && cung.phuTinhLeft.length > 0) {
-      catTinhHtml += '<h4>✦ Cát Tinh & Quý Tinh:</h4><div class="modal-phu-grid">';
-      cung.phuTinhLeft.forEach(pt => {
-        catTinhHtml += `<span class="modal-phu-item cat-tinh">${pt.name}</span>`;
-      });
-      catTinhHtml += '</div>';
-    }
-
-    let satTinhHtml = '';
-    if (cung.phuTinhRight && cung.phuTinhRight.length > 0) {
-      satTinhHtml += '<h4>✦ Sát Bại Tinh:</h4><div class="modal-phu-grid">';
-      cung.phuTinhRight.forEach(pt => {
-        satTinhHtml += `<span class="modal-phu-item sat-tinh">${pt.name}</span>`;
-      });
-      satTinhHtml += '</div>';
-    }
-
-    let deepAnalysisHtml = '';
-    if (typeof TuViLuanGiaiEngine !== 'undefined' && this._currentLaSo) {
-      const a = TuViLuanGiaiEngine.generatePalaceDeepAnalysis(cung, this._currentLaSo);
-      deepAnalysisHtml = `
-        <div class="modal-deep-analysis" style="margin-top: 1rem; border-top: 1px solid rgba(212, 175, 55, 0.3); padding-top: 1rem;">
-          <h4 style="color: #ffd700; margin-bottom: 0.5rem; font-size: 1rem;">✦ Biện Giải Cổ Học &amp; Tinh Đẩu:</h4>
-          <div style="font-size: 0.88rem; line-height: 1.6; color: #e2e8f0; margin-bottom: 0.8rem;">
-            ${a.cachCucHtml}
-          </div>
-          ${a.tamPhuongHtml || ''}
-          ${a.chinhTinhDetailHtml}
-          ${a.tuHoaDetailHtml}
-          ${a.vongKhiHtml}
-          ${a.khongVongHtml}
-          <div style="margin-top: 0.8rem; background: rgba(212, 175, 55, 0.08); border-left: 3px solid #d4af37; padding: 0.6rem 0.8rem; border-radius: 4px;">
-            <strong style="color: #ffd700; font-size: 0.86rem;">🛡️ Đạo Trị Mệnh &amp; Hóa Giải Sát Khí (Theo Cụ Nguyễn Phát Lộc):</strong>
-            <p style="color: #f1f5f9; font-size: 0.84rem; line-height: 1.5; margin: 0.3rem 0 0;">${a.caiSoHtml}</p>
+          <div class="sheet-unlock-cta">
+            <button type="button" class="btn-flat-unlock" onclick="TuViMonetize.openVipModal('Mở Khóa Toàn Bộ Cung ${cung.cungName}', 49000)">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline;vertical-align:-2px;margin-right:4px;"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Mở khóa 49.000đ
+            </button>
           </div>
         </div>
       `;
+    } else {
+      if (deepAnalysis) {
+        luanGiaiBody = `
+          <div class="sheet-free-analysis">
+            ${deepAnalysis.cachCucHtml ? `<div class="sheet-analysis-block">${deepAnalysis.cachCucHtml}</div>` : ''}
+            ${deepAnalysis.chinhTinhDetailHtml ? `<div class="sheet-analysis-block">${deepAnalysis.chinhTinhDetailHtml}</div>` : ''}
+            ${deepAnalysis.loiKhuyenHtml ? `<div class="sheet-analysis-block sheet-advice-box">${deepAnalysis.loiKhuyenHtml}</div>` : ''}
+          </div>
+        `;
+      } else {
+        luanGiaiBody = `<p>Cung ${cung.cungName} tọa tại ${cung.chi}. Bản mệnh đắc địa thế cát lành, tinh đẩu tương trợ hanh thông.</p>`;
+      }
     }
 
-    modal.innerHTML = `
-      <div class="tuvi-modal-backdrop" onclick="TuViChart.closeCungModal()"></div>
-      <div class="tuvi-modal-card">
-        <div class="tuvi-modal-header">
-          <h3>${cung.cungName} · Cung ${cung.chi} (${cung.can})</h3>
-          <button class="tuvi-modal-close" onclick="TuViChart.closeCungModal()">&times;</button>
+    sheet.innerHTML = `
+      <div class="sheet-backdrop" onclick="TuViChart.closePalaceSheet()"></div>
+      <div class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="sheetPalaceTitle">
+        <div class="sheet-drag-handle" aria-hidden="true"></div>
+        <div class="sheet-header">
+          <div class="sheet-header-title">
+            <h3 id="sheetPalaceTitle">${cung.cungName} · CUNG ${cung.chi}</h3>
+            <span class="sheet-subtitle">Can Chi: <strong>${cung.can} ${cung.chi}</strong> · Đại hạn: <strong>${cung.daiHan ? cung.daiHan.num : ''}</strong> tuổi</span>
+          </div>
+          <button type="button" class="sheet-close-btn" aria-label="Đóng bảng chi tiết" onclick="TuViChart.closePalaceSheet()">&times;</button>
         </div>
-        <div class="tuvi-modal-body">
-          ${cung.daiHan ? `<div class="modal-daihan-info">Đại Hạn giai đoạn: <strong>${cung.daiHan.startAge} - ${cung.daiHan.endAge} tuổi</strong> (Vòng Tràng Sinh: <em>${cung.trangSinh || ''}</em>)</div>` : ''}
-          ${chinhTinhHtml}
-          ${catTinhHtml}
-          ${satTinhHtml}
-          ${deepAnalysisHtml}
+        <div class="sheet-content">
+          <div class="sheet-section">
+            <h4 class="sheet-section-title">✦ Chính Tinh</h4>
+            <div class="sheet-stars-group">${chinhTinhHtml}</div>
+          </div>
+          ${catTinhHtml ? `
+          <div class="sheet-section">
+            <h4 class="sheet-section-title">✦ Cát Tinh &amp; Quý Tinh</h4>
+            <div class="sheet-substars-group">${catTinhHtml}</div>
+          </div>` : ''}
+          ${satTinhHtml ? `
+          <div class="sheet-section">
+            <h4 class="sheet-section-title">✦ Sát Bại Tinh &amp; Hóa Khí</h4>
+            <div class="sheet-substars-group">${satTinhHtml}</div>
+          </div>` : ''}
+          <div class="sheet-section sheet-section-analysis">
+            <h4 class="sheet-section-title">✦ Luận Giải Cung Vị</h4>
+            ${luanGiaiBody}
+          </div>
+        </div>
+      </div>
+    `;
+
+    sheet.classList.add('active');
+    document.body.classList.add('sheet-open');
+
+    // Thêm listener đóng bằng phím ESC
+    if (this._sheetEscListener) {
+      window.removeEventListener('keydown', this._sheetEscListener);
+    }
+    this._sheetEscListener = (e) => {
+      if (e.key === 'Escape') TuViChart.closePalaceSheet();
+    };
+    window.addEventListener('keydown', this._sheetEscListener);
+
+    // Hỗ trợ cử chỉ vuốt xuống trên thiết bị di động (Swipe-down to close)
+    const panel = sheet.querySelector('.sheet-panel');
+    if (panel) {
+      let startY = 0;
+      let currentY = 0;
+      panel.ontouchstart = (e) => {
+        startY = e.touches[0].clientY;
+      };
+      panel.ontouchmove = (e) => {
+        currentY = e.touches[0].clientY;
+        const diff = currentY - startY;
+        if (diff > 0 && panel.scrollTop <= 0) {
+          panel.style.transform = `translateY(${diff}px)`;
+        }
+      };
+      panel.ontouchend = () => {
+        const diff = currentY - startY;
+        panel.style.transform = '';
+        if (diff > 90) {
+          TuViChart.closePalaceSheet();
+        }
+      };
+    }
+  },
+
+  closePalaceSheet: function () {
+    const sheet = document.getElementById('tuviPalaceSheet');
+    if (sheet) sheet.classList.remove('active');
+    document.body.classList.remove('sheet-open');
+    if (this._sheetEscListener) {
+      window.removeEventListener('keydown', this._sheetEscListener);
+      this._sheetEscListener = null;
+    }
+  },
+
+  /**
+   * Tải ảnh lá số chuẩn nét PNG (Client-side render)
+   */
+  downloadChartPng: function () {
+    const printArea = document.getElementById('laSoPrintArea');
+    if (!printArea) {
+      alert('Chưa có lá số để tải. Vui lòng lập lá số trước.');
+      return;
+    }
+
+    const loadScript = (src) => new Promise((resolve, reject) => {
+      if (window.html2canvas) return resolve();
+      const s = document.createElement('script');
+      s.src = src;
+      s.onload = () => resolve();
+      s.onerror = () => reject(new Error('Không thể tải thư viện xuất ảnh.'));
+      document.head.appendChild(s);
+    });
+
+    if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
+      TuViApp.showToast('Đang tạo ảnh lá số chất lượng cao...', 'info');
+    }
+
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js')
+      .then(() => {
+        return window.html2canvas(printArea, {
+          scale: 2,
+          backgroundColor: '#FBF7EE',
+          useCORS: true,
+          logging: false
+        });
+      })
+      .then(canvas => {
+        const link = document.createElement('a');
+        const hoTen = (this._currentLaSo && this._currentLaSo.hoTen) ? this._currentLaSo.hoTen.replace(/\s+/g, '_') : 'DuongSo';
+        link.download = `La-So-Tu-Vi-${hoTen}-xemtuvihuyenhoc.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
+          TuViApp.showToast('Đã tải ảnh lá số thành công!', 'success');
+        }
+      })
+      .catch(err => {
+        console.error('PNG download error:', err);
+        alert('Có lỗi khi tạo ảnh lá số. Bạn có thể dùng tính năng In hoặc chụp màn hình.');
+      });
+  },
+
+  /**
+   * Modal xem toàn màn hình (Phóng to / Thu nhỏ / Pan)
+   */
+  _zoomLevel: 1,
+  openZoomModal: function () {
+    const printArea = document.getElementById('laSoPrintArea');
+    if (!printArea) return;
+
+    let modal = document.getElementById('tuviZoomModal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'tuviZoomModal';
+      modal.className = 'tuvi-zoom-modal';
+      document.body.appendChild(modal);
+    }
+
+    this._zoomLevel = 1;
+    modal.innerHTML = `
+      <div class="zoom-modal-backdrop" onclick="TuViChart.closeZoomModal()"></div>
+      <div class="zoom-modal-container">
+        <div class="zoom-modal-toolbar">
+          <button type="button" class="btn-zoom-ctrl" onclick="TuViChart.changeZoom(0.2)" title="Phóng to">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+          </button>
+          <button type="button" class="btn-zoom-ctrl" onclick="TuViChart.changeZoom(-0.2)" title="Thu nhỏ">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+          </button>
+          <button type="button" class="btn-zoom-ctrl" onclick="TuViChart.resetZoom()" title="Về mặc định">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+          </button>
+          <button type="button" class="btn-zoom-ctrl btn-zoom-close" onclick="TuViChart.closeZoomModal()" title="Đóng">&times;</button>
+        </div>
+        <div class="zoom-modal-viewport" id="zoomViewport">
+          <div class="zoom-modal-content" id="zoomContent">
+            ${printArea.outerHTML}
+          </div>
         </div>
       </div>
     `;
 
     modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
+    document.body.classList.add('zoom-modal-open');
+
+    if (this._zoomEscListener) {
+      window.removeEventListener('keydown', this._zoomEscListener);
+    }
+    this._zoomEscListener = (e) => {
+      if (e.key === 'Escape') TuViChart.closeZoomModal();
+    };
+    window.addEventListener('keydown', this._zoomEscListener);
   },
 
-  closeCungModal: function () {
-    const modal = document.getElementById('tuvi-cung-modal');
-    if (modal) {
-      modal.classList.remove('active');
-      document.body.style.overflow = '';
+  changeZoom: function (delta) {
+    this._zoomLevel = Math.max(0.6, Math.min(2.5, this._zoomLevel + delta));
+    const content = document.getElementById('zoomContent');
+    if (content) {
+      content.style.transform = `scale(${this._zoomLevel})`;
+    }
+  },
+
+  resetZoom: function () {
+    this._zoomLevel = 1;
+    const content = document.getElementById('zoomContent');
+    if (content) {
+      content.style.transform = 'scale(1)';
+    }
+  },
+
+  closeZoomModal: function () {
+    const modal = document.getElementById('tuviZoomModal');
+    if (modal) modal.classList.remove('active');
+    document.body.classList.remove('zoom-modal-open');
+    if (this._zoomEscListener) {
+      window.removeEventListener('keydown', this._zoomEscListener);
+      this._zoomEscListener = null;
     }
   },
 

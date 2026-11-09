@@ -151,7 +151,7 @@
 
       <div class="nav-menu" id="navMenu" role="menu">
         <a href="#lap-la-so" role="menuitem"><i data-lucide="compass"></i> Lập Lá Số</a>
-        <a href="#ket-qua" role="menuitem"><i data-lucide="sparkles"></i> Lá Số</a>
+        <a href="#ket-qua" id="navMenuLaSo" role="menuitem"><i data-lucide="sparkles"></i> Lá Số</a>
         <a href="#bang-gia-dich-vu" role="menuitem"><i data-lucide="crown"></i> Gói VIP</a>
         <a href="#vat-pham-phong-thuy" role="menuitem"><i data-lucide="shield"></i> Phong Thủy</a>
         <a href="#dat-lich-tu-van" role="menuitem"><i data-lucide="phone"></i> Tư Vấn 1-1</a>
@@ -163,208 +163,200 @@
   </header>
 
   <!-- ============================================================ -->
-  <!-- HERO SECTION                                                  -->
+  <!-- 1. LOOKUP-FIRST SCREEN (TRA CỨU LÁ SỐ TỬ VI)                  -->
   <!-- ============================================================ -->
-  <section class="hero" id="hero">
-    <!-- Hero Background Layers (Nebula + Canvas Starfield + Rotating Compass) -->
-    <div class="hero-bg-nebula" aria-hidden="true"></div>
-    <canvas id="globalStarfield" class="hero-starfield-canvas" aria-hidden="true"></canvas>
+  <section class="section lookup-first-section" id="lap-la-so">
+    <div class="section-container lookup-container">
+      <div class="lookup-grid">
+        
+        <!-- Cột trái: Giới thiệu súc tích (Desktop >= 1024px) -->
+        <div class="lookup-intro-col">
+          <div class="lookup-brand-badge">
+            <img src="/img/logo-xem-tu-vi-huyen-hoc.png" alt="Logo Xem Tử Vi Huyền Học" class="lookup-logo-img" width="48" height="48" decoding="async">
+            <span class="lookup-badge-text">Tử Vi Cổ Truyền Việt Nam</span>
+          </div>
+          <h1 class="lookup-title">Tra cứu lá số Tử Vi</h1>
+          <p class="lookup-subtitle">Lập lá số chính tông, an định 114 tinh đẩu, luận giải chi tiết 12 cung bản mệnh, đại hạn và lưu niên theo phương pháp cổ học.</p>
+          
+          <div class="lookup-highlights">
+            <div class="highlight-item">
+              <i data-lucide="sparkles"></i>
+              <span>An sao chính xác theo giờ Tý &amp; tiết khí</span>
+            </div>
+            <div class="highlight-item">
+              <i data-lucide="compass"></i>
+              <span>Luận Tam Phương Tứ Chính, Tứ Hóa &amp; Thân Mệnh</span>
+            </div>
+            <div class="highlight-item">
+              <i data-lucide="shield-check"></i>
+              <span>Bảo mật dữ liệu, tính toán tức thì theo thiên bàn</span>
+            </div>
+          </div>
+        </div>
 
-    <div class="hero-compass-ring" aria-hidden="true" id="heroCompassRing">
-      <svg width="100%" height="100%" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="250" cy="250" r="240" stroke="#D4AF37" stroke-width="1.2" stroke-dasharray="6 4" opacity="0.45"/>
-        <circle cx="250" cy="250" r="226" stroke="#F3D98B" stroke-width="0.8" opacity="0.35"/>
-        <circle cx="250" cy="250" r="212" stroke="#D4AF37" stroke-width="1" stroke-dasharray="2 4" opacity="0.4"/>
-        <polygon points="179.8,32.2 320.2,32.2 419.5,131.5 419.5,271.8 320.2,371.1 179.8,371.1 80.5,271.8 80.5,131.5" stroke="#D4AF37" stroke-width="1" fill="none" opacity="0.3"/>
-        <circle cx="250" cy="250" r="175" stroke="#D4AF37" stroke-width="1" opacity="0.35"/>
-        <circle cx="250" cy="250" r="130" stroke="#F3D98B" stroke-width="0.8" opacity="0.35"/>
-        <circle cx="250" cy="250" r="85" stroke="#D4AF37" stroke-width="1.2" opacity="0.4"/>
-        <g stroke="#D4AF37" stroke-width="0.8" opacity="0.3">
-          <line x1="250" y1="24" x2="250" y2="476"/>
-          <line x1="24" y1="250" x2="476" y2="250"/>
-          <line x1="90" y1="90" x2="410" y2="410"/>
-          <line x1="410" y1="90" x2="90" y2="410"/>
-          <line x1="145" y1="42" x2="355" y2="458"/>
-          <line x1="355" y1="42" x2="145" y2="458"/>
-          <line x1="42" y1="145" x2="458" y2="355"/>
-          <line x1="42" y1="355" x2="458" y2="145"/>
-        </g>
-        <circle cx="250" cy="250" r="50" stroke="#D4AF37" stroke-width="1" opacity="0.45"/>
-      </svg>
-    </div>
-    <div class="hero-particles" id="heroParticles" aria-hidden="true"></div>
-    <div class="hero-content">
-      <div class="hero-emblem" aria-hidden="true">☯</div>
-      <h1 class="hero-headline">Khám Phá Vận Mệnh Của Bạn</h1>
-      <p>Lập lá số Tử Vi chính xác theo phương pháp cổ truyền. Luận giải chi tiết 12 cung, vận hạn, sự nghiệp, tình duyên và sức khỏe.</p>
-      <a href="#lap-la-so" class="btn-gold-pill hero-cta">
-        <i data-lucide="sparkles"></i>
-        Lập Lá Số Ngay
-      </a>
-      <div class="hero-trust-line" id="heroTrustLine">
-        <i data-lucide="shield-check"></i>
-        <span id="heroTrustText">Lập lá số theo phương pháp Tử Vi cổ truyền</span>
+        <!-- Cột phải: Khung Biểu Mẫu Nhập Liệu 3 Hàng Tinh Gọn -->
+        <div class="lookup-form-col">
+          <!-- Thanh tóm tắt 1 dòng sau khi lập lá số (Collapsed Form) -->
+          <div class="form-summary-bar" id="formSummaryBar" style="display: none;" role="region" aria-label="Tóm tắt thông tin đương số">
+            <div class="summary-info">
+              <i data-lucide="user-check" class="summary-icon"></i>
+              <span class="summary-text" id="summaryText">Đương Số · Nam · 10/04/2002 · 19:30</span>
+            </div>
+            <div class="summary-actions">
+              <button type="button" class="btn-summary-action btn-summary-edit" id="btnEditForm" onclick="TuViApp.expandForm()">
+                <i data-lucide="edit-3"></i> Sửa
+              </button>
+              <button type="button" class="btn-summary-action btn-summary-new" id="btnNewForm" onclick="TuViApp.resetAndExpandForm()">
+                <i data-lucide="plus-circle"></i> Lập lá số khác
+              </button>
+            </div>
+          </div>
+
+          <!-- Biểu mẫu 3 hàng -->
+          <form class="tracuu-form-card" id="tuviForm" novalidate>
+            <!-- Hàng 1: Họ tên khai sinh (rộng) + Giới tính (hẹp) -->
+            <div class="form-row form-row-name-gender">
+              <div class="form-control-item item-name">
+                <label class="form-item-label" for="hoTen">Họ tên khai sinh</label>
+                <input
+                  type="text"
+                  class="form-item-input"
+                  id="hoTen"
+                  name="hoTen"
+                  placeholder="Ví dụ: Nguyễn Văn An"
+                  value=""
+                  autocomplete="name"
+                  required
+                >
+                <div class="form-error-inline" id="error-hoTen" role="alert" aria-live="polite"></div>
+              </div>
+
+              <div class="form-control-item item-gender">
+                <label class="form-item-label" for="gioiTinh">Giới tính</label>
+                <select class="form-item-select" id="gioiTinh" name="gioiTinh" required>
+                  <option value="nam" selected>Nam</option>
+                  <option value="nu">Nữ</option>
+                </select>
+                <div class="form-error-inline" id="error-gioiTinh" role="alert" aria-live="polite"></div>
+              </div>
+            </div>
+
+            <!-- Hàng 2: Xem theo + Giờ sinh + Phút sinh (3 cột) -->
+            <div class="form-row form-row-calendar-time">
+              <div class="form-control-item">
+                <label class="form-item-label" for="loaiLich">Xem theo</label>
+                <select class="form-item-select" id="loaiLich" name="loaiLich">
+                  <option value="duong" selected>Dương lịch</option>
+                  <option value="am">Âm lịch</option>
+                </select>
+              </div>
+
+              <div class="form-control-item">
+                <label class="form-item-label" for="gioSinh">Giờ sinh</label>
+                <select class="form-item-select" id="gioSinh" name="gioSinh" required>
+                  <option value="0">00 giờ</option>
+                  <option value="1">01 giờ</option>
+                  <option value="2">02 giờ</option>
+                  <option value="3">03 giờ</option>
+                  <option value="4">04 giờ</option>
+                  <option value="5">05 giờ</option>
+                  <option value="6">06 giờ</option>
+                  <option value="7">07 giờ</option>
+                  <option value="8">08 giờ</option>
+                  <option value="9">09 giờ</option>
+                  <option value="10">10 giờ</option>
+                  <option value="11">11 giờ</option>
+                  <option value="12">12 giờ</option>
+                  <option value="13">13 giờ</option>
+                  <option value="14">14 giờ</option>
+                  <option value="15">15 giờ</option>
+                  <option value="16">16 giờ</option>
+                  <option value="17">17 giờ</option>
+                  <option value="18">18 giờ</option>
+                  <option value="19" selected>19 giờ</option>
+                  <option value="20">20 giờ</option>
+                  <option value="21">21 giờ</option>
+                  <option value="22">22 giờ</option>
+                  <option value="23">23 giờ</option>
+                </select>
+              </div>
+
+              <div class="form-control-item">
+                <label class="form-item-label" for="phutSinh">Phút sinh</label>
+                <select class="form-item-select" id="phutSinh" name="phutSinh">
+                  <option value="0">00 phút</option>
+                  <option value="5">05 phút</option>
+                  <option value="10">10 phút</option>
+                  <option value="15">15 phút</option>
+                  <option value="20">20 phút</option>
+                  <option value="25">25 phút</option>
+                  <option value="30" selected>30 phút</option>
+                  <option value="35">35 phút</option>
+                  <option value="40">40 phút</option>
+                  <option value="45">45 phút</option>
+                  <option value="50">50 phút</option>
+                  <option value="55">55 phút</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Hàng 3: Ngày + Tháng + Năm (3 cột) -->
+            <div class="form-row form-row-date">
+              <div class="form-control-item">
+                <label class="form-item-label" for="ngaySinh">Ngày</label>
+                <select class="form-item-select" id="ngaySinh" name="ngaySinh" required>
+                  <!-- Populated by JS -->
+                </select>
+                <div class="form-error-inline" id="error-ngaySinh" role="alert" aria-live="polite"></div>
+              </div>
+
+              <div class="form-control-item">
+                <label class="form-item-label" for="thangSinh">Tháng</label>
+                <select class="form-item-select" id="thangSinh" name="thangSinh" required>
+                  <option value="1">Tháng 01</option>
+                  <option value="2">Tháng 02</option>
+                  <option value="3">Tháng 03</option>
+                  <option value="4" selected>Tháng 04</option>
+                  <option value="5">Tháng 05</option>
+                  <option value="6">Tháng 06</option>
+                  <option value="7">Tháng 07</option>
+                  <option value="8">Tháng 08</option>
+                  <option value="9">Tháng 09</option>
+                  <option value="10">Tháng 10</option>
+                  <option value="11">Tháng 11</option>
+                  <option value="12">Tháng 12</option>
+                </select>
+                <div class="form-error-inline" id="error-thangSinh" role="alert" aria-live="polite"></div>
+              </div>
+
+              <div class="form-control-item">
+                <label class="form-item-label" for="namSinh">Năm</label>
+                <select class="form-item-select" id="namSinh" name="namSinh" required>
+                  <!-- Populated by JS: 1930 - 2035 -->
+                </select>
+                <div class="form-error-inline" id="error-namSinh" role="alert" aria-live="polite"></div>
+              </div>
+            </div>
+
+            <!-- Nút chính: Lập lá số -->
+            <button type="submit" class="btn-submit-full" id="btnSubmit">
+              <i data-lucide="compass"></i> LẬP LÁ SỐ
+            </button>
+
+            <!-- Hộp ghi chú phẳng (không phát sáng) -->
+            <div class="form-plain-note">
+              <p><strong>Quy tắc giờ Tý (23h00 – 01h00):</strong> Người sinh từ 23h00 đến 00h00 tính theo giờ Tý ngày hôm trước; từ 00h00 đến 01h00 thuộc chính Tý ngày mới theo chuẩn phương pháp Tử Vi cổ truyền.</p>
+              <p>Hệ thống tự động an sao chi tiết 114 tinh đẩu, tính toán Đại Hạn, Tiểu Vận và Nguyệt Vận theo thiên bàn cổ học.</p>
+            </div>
+          </form>
+        </div>
+
       </div>
-    </div>
-
-    <!-- Subtle Scroll Hint (Requirement 4) -->
-    <a href="#lap-la-so" class="hero-scroll-hint" aria-label="Cuộn xuống form tra cứu">
-      <span class="scroll-hint-text">Cuộn xuống</span>
-      <span class="scroll-hint-chevron" aria-hidden="true">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="6 9 12 15 18 9"></polyline>
-        </svg>
-      </span>
-    </a>
-  </section>
-
-  <!-- ============================================================ -->
-  <!-- INPUT FORM SECTION (TRA CỨU TỬ VI SỐ MỆNH)                    -->
-  <!-- ============================================================ -->
-  <section class="section form-section tracuu-section" id="lap-la-so">
-    <div class="section-container tracuu-container">
-      <h2 class="section-title">Tra Cứu Tử Vi Số Mệnh</h2>
-      <p class="section-subtitle">Xem tử vi online theo giờ sinh, ngày, tháng, năm sinh chính xác nhất</p>
-
-      <div class="form-info-note">
-        <i data-lucide="info"></i>
-        <span><strong>Quy tắc giờ Tý (23h00 – 01h00):</strong> Người sinh từ 23h00 đến 00h00 tính theo giờ Tý ngày hôm trước; từ 00h00 đến 01h00 thuộc chính Tý ngày mới theo chuẩn phương pháp Tử Vi cổ truyền.</span>
-      </div>
-
-      <form class="tracuu-form-card" id="tuviForm" novalidate>
-        <!-- Hàng 1: Họ tên (60%) + Giới tính (40%) -->
-        <div class="form-row-grid grid-row-2">
-          <div class="form-control-item">
-            <label class="form-item-label" for="hoTen">Họ tên khai sinh</label>
-            <input
-              type="text"
-              class="form-item-input"
-              id="hoTen"
-              name="hoTen"
-              placeholder="Ví dụ: Nguyễn Văn An"
-              value=""
-              autocomplete="name"
-            >
-            <div class="form-error-inline" id="error-hoTen" role="alert" aria-live="polite"></div>
-          </div>
-
-          <div class="form-control-item">
-            <label class="form-item-label" for="gioiTinh">Giới tính</label>
-            <select class="form-item-select" id="gioiTinh" name="gioiTinh" required>
-              <option value="nam" selected>Nam giới</option>
-              <option value="nu">Nữ giới</option>
-            </select>
-            <div class="form-error-inline" id="error-gioiTinh" role="alert" aria-live="polite"></div>
-          </div>
-        </div>
-
-        <!-- Hàng 2: Chọn lịch + Giờ sinh + Phút sinh -->
-        <div class="form-row-grid grid-row-3">
-          <div class="form-control-item">
-            <label class="form-item-label" for="loaiLich">Chọn lịch</label>
-            <select class="form-item-select" id="loaiLich" name="loaiLich">
-              <option value="duong" selected>Xem theo lịch dương</option>
-              <option value="am">Xem theo lịch âm</option>
-            </select>
-          </div>
-
-          <div class="form-control-item">
-            <label class="form-item-label" for="gioSinh">Giờ sinh</label>
-            <select class="form-item-select" id="gioSinh" name="gioSinh" required>
-              <option value="0">00 giờ</option>
-              <option value="1">01 giờ</option>
-              <option value="2">02 giờ</option>
-              <option value="3">03 giờ</option>
-              <option value="4">04 giờ</option>
-              <option value="5">05 giờ</option>
-              <option value="6">06 giờ</option>
-              <option value="7">07 giờ</option>
-              <option value="8">08 giờ</option>
-              <option value="9">09 giờ</option>
-              <option value="10">10 giờ</option>
-              <option value="11">11 giờ</option>
-              <option value="12">12 giờ</option>
-              <option value="13">13 giờ</option>
-              <option value="14">14 giờ</option>
-              <option value="15">15 giờ</option>
-              <option value="16">16 giờ</option>
-              <option value="17">17 giờ</option>
-              <option value="18">18 giờ</option>
-              <option value="19" selected>19 giờ</option>
-              <option value="20">20 giờ</option>
-              <option value="21">21 giờ</option>
-              <option value="22">22 giờ</option>
-              <option value="23">23 giờ</option>
-            </select>
-          </div>
-
-          <div class="form-control-item">
-            <label class="form-item-label" for="phutSinh">Phút sinh</label>
-            <select class="form-item-select" id="phutSinh" name="phutSinh">
-              <option value="0">00 phút</option>
-              <option value="5">05 phút</option>
-              <option value="10">10 phút</option>
-              <option value="15">15 phút</option>
-              <option value="20">20 phút</option>
-              <option value="25">25 phút</option>
-              <option value="30" selected>30 phút</option>
-              <option value="35">35 phút</option>
-              <option value="40">40 phút</option>
-              <option value="45">45 phút</option>
-              <option value="50">50 phút</option>
-              <option value="55">55 phút</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Hàng 3: Ngày sinh + Tháng sinh + Năm sinh -->
-        <div class="form-row-grid grid-row-3">
-          <div class="form-control-item">
-            <label class="form-item-label" for="ngaySinh">Ngày sinh</label>
-            <select class="form-item-select" id="ngaySinh" name="ngaySinh" required>
-              <!-- Populated by JS: Ngày 01 - Ngày 31 -->
-            </select>
-            <div class="form-error-inline" id="error-ngaySinh" role="alert" aria-live="polite"></div>
-          </div>
-
-          <div class="form-control-item">
-            <label class="form-item-label" for="thangSinh">Tháng sinh</label>
-            <select class="form-item-select" id="thangSinh" name="thangSinh" required>
-              <option value="1">Tháng 01</option>
-              <option value="2">Tháng 02</option>
-              <option value="3">Tháng 03</option>
-              <option value="4" selected>Tháng 04</option>
-              <option value="5">Tháng 05</option>
-              <option value="6">Tháng 06</option>
-              <option value="7">Tháng 07</option>
-              <option value="8">Tháng 08</option>
-              <option value="9">Tháng 09</option>
-              <option value="10">Tháng 10</option>
-              <option value="11">Tháng 11</option>
-              <option value="12">Tháng 12</option>
-            </select>
-            <div class="form-error-inline" id="error-thangSinh" role="alert" aria-live="polite"></div>
-          </div>
-
-          <div class="form-control-item">
-            <label class="form-item-label" for="namSinh">Năm sinh</label>
-            <select class="form-item-select" id="namSinh" name="namSinh" required>
-              <!-- Populated by JS: 1940 - 2030 -->
-            </select>
-            <div class="form-error-inline" id="error-namSinh" role="alert" aria-live="polite"></div>
-          </div>
-        </div>
-
-        <!-- Hàng 4: Nút Tra Cứu Vàng Rực Rỡ -->
-        <button type="submit" class="btn-submit-full" id="btnSubmit">
-          <i data-lucide="compass"></i> LẬP LÁ SỐ TỬ VI CHÍNH TÔNG
-        </button>
-      </form>
     </div>
   </section>
 
   <!-- ============================================================ -->
-  <!-- "ĐANG AN SAO" LOADING RITUAL (Requirement B)                  -->
+  <!-- "ĐANG AN SAO" LOADING RITUAL                                  -->
   <!-- ============================================================ -->
   <div class="an-sao-overlay" id="anSaoRitualOverlay" aria-hidden="true" role="status">
     <div class="an-sao-compass-wrap">
@@ -390,24 +382,8 @@
     <button type="button" id="anSaoCancelBtn" class="an-sao-cancel-btn" style="display:none;" onclick="TuViApp.cancelAnSao()">Hủy & Thử lại</button>
   </div>
 
-  <!-- ============================================================ -->
-  <!-- RESULT SECTION: LÁ SỐ TỬ VI TRỐNG ĐỒNG ĐÔNG SƠN               -->
-  <!-- ============================================================ -->
-  <section class="section result-section" id="ket-qua">
-    <div class="section-container la-so-outer-wrap">
-      <div id="la-so-chart">
-        <!-- Rendered by TuViChart.render() with authentic Trống Đồng Đông Sơn background -->
-      </div>
-
-      <!-- Accordion Luận Giải 12 Cung & Vận Hạn -->
-      <div class="luan-giai-section" id="luan-giai" style="display:block;">
-        <h3 class="luan-giai-header-title">✦ Luận Giải Chi Tiết 12 Cung ✦</h3>
-        <div class="accordion-list" id="accordionList">
-          <!-- Populated dynamically by TuViChart.renderLuanGiai -->
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- Vùng chứa Kết Quả Lá Số (Được khởi tạo và chèn vào DOM CHỈ SAU KHI tính toán thành công) -->
+  <div id="resultMountPoint"></div>
 
   <!-- ============================================================ -->
   <!-- BẢNG GIÁ DỊCH VỤ & MỞ KHÓA BÁO CÁO VIP                         -->

@@ -168,6 +168,7 @@
       this.initDynamicYearLabels();
       this.initTrustLine();
       this.initFormControls();
+      this.initNavMenuCheck();
       this.initHeroStarfield();
       this.initCursorTrail();
       this.initHeroParticles();
@@ -188,6 +189,65 @@
       }
 
       console.log('✦ Xem Tử Vi Huyền Học - Đã Tối Ưu Hóa & Sẵn Sàng ✦');
+    },
+
+    initNavMenuCheck: function () {
+      const navLaSo = document.getElementById('navMenuLaSo') || document.querySelector('a[href="#ket-qua"]');
+      if (navLaSo) {
+        navLaSo.addEventListener('click', (e) => {
+          const ketQua = document.getElementById('ket-qua');
+          const hasChart = ketQua && (typeof TuViChart !== 'undefined') && TuViChart._currentLaSo;
+          if (!hasChart) {
+            e.preventDefault();
+            const formSec = document.getElementById('lap-la-so');
+            if (formSec) {
+              formSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            this.showToast('Hãy lập lá số trước', 'info');
+          }
+        });
+      }
+    },
+
+    collapseForm: function (laSo) {
+      const summaryBar = document.getElementById('formSummaryBar');
+      const formCard = document.getElementById('tuviForm');
+      const summaryText = document.getElementById('summaryText');
+
+      if (summaryText && laSo) {
+        const hoTen = laSo.hoTen || 'Đương số';
+        const gioi = laSo.gioiTinh === 'nu' ? 'Nữ' : 'Nam';
+        const sDate = laSo.solarDate;
+        const dStr = sDate ? `${sDate.day < 10 ? '0' + sDate.day : sDate.day}/${sDate.month < 10 ? '0' + sDate.month : sDate.month}/${sDate.year}` : '';
+        const tStr = laSo.gioPhutText || '';
+        summaryText.textContent = `${hoTen} · ${gioi} · ${dStr} · ${tStr}`;
+      }
+
+      if (formCard) formCard.style.display = 'none';
+      if (summaryBar) summaryBar.style.display = 'flex';
+      if (typeof window !== 'undefined' && window.lucide) {
+        try { window.lucide.createIcons(); } catch (e) {}
+      }
+    },
+
+    expandForm: function () {
+      const summaryBar = document.getElementById('formSummaryBar');
+      const formCard = document.getElementById('tuviForm');
+      if (summaryBar) summaryBar.style.display = 'none';
+      if (formCard) formCard.style.display = 'block';
+    },
+
+    resetAndExpandForm: function () {
+      this.expandForm();
+      const formSec = document.getElementById('lap-la-so');
+      if (formSec) {
+        formSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      const hoTenInput = document.getElementById('hoTen');
+      if (hoTenInput) {
+        hoTenInput.focus();
+        hoTenInput.select();
+      }
     },
 
     /**
@@ -818,6 +878,7 @@
 
             if (computedLaSo && typeof TuViChart !== 'undefined') {
               TuViChart.render(computedLaSo);
+              this.collapseForm(computedLaSo);
               this.saveHistory(computedLaSo);
 
               // Lưu vào sessionStorage (Phase 4 Item 6)

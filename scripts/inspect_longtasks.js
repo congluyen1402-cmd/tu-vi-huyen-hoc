@@ -16,3 +16,4 @@ if (bootup.details && bootup.details.items) {
     console.log(`  ${item.url ? item.url.split('/').pop().split('?')[0] : 'other'}: total ${item.total.toFixed(0)} ms (eval: ${item.scripting.toFixed(0)} ms, parse: ${item.scriptParseCompile.toFixed(0)} ms)`);
   });
 }
+
