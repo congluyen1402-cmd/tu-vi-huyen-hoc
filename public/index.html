@@ -43,7 +43,7 @@
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <!-- Main Stylesheet (Midnight Indigo & Imperial Gold) -->
-  <link rel="stylesheet" href="/css/style.css?v=20261106_guest_instant">
+  <link rel="stylesheet" href="/css/style.css?v=20261109_v2">
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -118,9 +118,11 @@
   </div>
 
   <!-- ============================================================ -->
-  <!-- STARFIELD BACKGROUND (CSS-only animated stars)                -->
+  <!-- STARFIELD BACKGROUND & CURSOR TRAIL (Requirement A.1, A.3)     -->
   <!-- ============================================================ -->
   <div class="starfield" aria-hidden="true" id="starfield"></div>
+  <canvas id="globalStarfield" class="global-starfield-canvas" aria-hidden="true"></canvas>
+  <canvas id="cursorTrailCanvas" class="cursor-trail-canvas" aria-hidden="true"></canvas>
 
   <!-- ============================================================ -->
   <!-- NAVBAR                                                        -->
@@ -155,7 +157,28 @@
   <!-- HERO SECTION                                                  -->
   <!-- ============================================================ -->
   <section class="hero" id="hero">
-    <div class="hero-compass-ring" aria-hidden="true"></div>
+    <div class="hero-compass-ring" aria-hidden="true" id="heroCompassRing">
+      <svg width="100%" height="100%" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="250" cy="250" r="240" stroke="#D4AF37" stroke-width="1.2" stroke-dasharray="6 4" opacity="0.45"/>
+        <circle cx="250" cy="250" r="226" stroke="#F3D98B" stroke-width="0.8" opacity="0.35"/>
+        <circle cx="250" cy="250" r="212" stroke="#D4AF37" stroke-width="1" stroke-dasharray="2 4" opacity="0.4"/>
+        <polygon points="179.8,32.2 320.2,32.2 419.5,131.5 419.5,271.8 320.2,371.1 179.8,371.1 80.5,271.8 80.5,131.5" stroke="#D4AF37" stroke-width="1" fill="none" opacity="0.3"/>
+        <circle cx="250" cy="250" r="175" stroke="#D4AF37" stroke-width="1" opacity="0.35"/>
+        <circle cx="250" cy="250" r="130" stroke="#F3D98B" stroke-width="0.8" opacity="0.35"/>
+        <circle cx="250" cy="250" r="85" stroke="#D4AF37" stroke-width="1.2" opacity="0.4"/>
+        <g stroke="#D4AF37" stroke-width="0.8" opacity="0.3">
+          <line x1="250" y1="24" x2="250" y2="476"/>
+          <line x1="24" y1="250" x2="476" y2="250"/>
+          <line x1="90" y1="90" x2="410" y2="410"/>
+          <line x1="410" y1="90" x2="90" y2="410"/>
+          <line x1="145" y1="42" x2="355" y2="458"/>
+          <line x1="355" y1="42" x2="145" y2="458"/>
+          <line x1="42" y1="145" x2="458" y2="355"/>
+          <line x1="42" y1="355" x2="458" y2="145"/>
+        </g>
+        <circle cx="250" cy="250" r="50" stroke="#D4AF37" stroke-width="1" opacity="0.45"/>
+      </svg>
+    </div>
     <div class="hero-particles" id="heroParticles" aria-hidden="true"></div>
     <div class="hero-content">
       <div class="hero-emblem" aria-hidden="true">☯</div>
@@ -165,9 +188,9 @@
         <i data-lucide="sparkles"></i>
         Lập Lá Số Ngay
       </a>
-      <div class="hero-trust-line">
+      <div class="hero-trust-line" id="heroTrustLine">
         <i data-lucide="shield-check"></i>
-        <span>Chính xác tuyệt đối theo phương pháp cổ truyền Việt Nam · Hơn 100.000+ lá số đã lập</span>
+        <span id="heroTrustText">Lập lá số theo phương pháp Tử Vi cổ truyền</span>
       </div>
     </div>
   </section>
@@ -314,6 +337,32 @@
   </section>
 
   <!-- ============================================================ -->
+  <!-- "ĐANG AN SAO" LOADING RITUAL (Requirement B)                  -->
+  <!-- ============================================================ -->
+  <div class="an-sao-overlay" id="anSaoRitualOverlay" aria-hidden="true" role="status">
+    <div class="an-sao-compass-wrap">
+      <svg class="an-sao-compass-svg" width="220" height="220" viewBox="0 0 200 200" fill="none">
+        <circle cx="100" cy="100" r="95" stroke="#D4AF37" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.65"/>
+        <circle cx="100" cy="100" r="82" stroke="#F3D98B" stroke-width="1.2" opacity="0.5"/>
+        <circle cx="100" cy="100" r="64" stroke="#D4AF37" stroke-width="1" stroke-dasharray="2 4" opacity="0.6"/>
+        <circle cx="100" cy="100" r="42" stroke="#F3D98B" stroke-width="1.5" opacity="0.8"/>
+        <g stroke="#D4AF37" stroke-width="1.5">
+          <line x1="100" y1="5" x2="100" y2="22"/>
+          <line x1="100" y1="178" x2="100" y2="195"/>
+          <line x1="5" y1="100" x2="22" y2="100"/>
+          <line x1="178" y1="100" x2="195" y2="100"/>
+        </g>
+        <circle cx="100" cy="100" r="14" fill="#0B0A1A" stroke="#D4AF37" stroke-width="2"/>
+        <path d="M 100,86 A 14,14 0 0,1 100,114 A 7,7 0 0,1 100,100 A 7,7 0 0,0 100,86 Z" fill="#D4AF37"/>
+      </svg>
+      <div class="an-sao-taiji-center">☯</div>
+    </div>
+    <div class="an-sao-progress-line"><div class="an-sao-progress-bar" id="anSaoProgressBar"></div></div>
+    <div class="an-sao-status-text" id="anSaoStatusText">Đang xác định cung Mệnh…</div>
+    <div class="an-sao-sub-hint">Khởi tạo thiên bàn, địa bàn và an định 114 tinh đẩu</div>
+  </div>
+
+  <!-- ============================================================ -->
   <!-- RESULT SECTION: LÁ SỐ TỬ VI TRỐNG ĐỒNG ĐÔNG SƠN               -->
   <!-- ============================================================ -->
   <section class="section result-section" id="ket-qua">
@@ -388,9 +437,17 @@
             <li><i data-lucide="check" class="icon-jade"></i> <span>Bảng hướng xuất hành, con số cát tường, màu tương sinh</span></li>
             <li><i data-lucide="check" class="icon-jade"></i> <span>Quét mã VietQR nhận kết quả tự động trong 3 giây</span></li>
           </ul>
+          <button type="button" class="btn-view-sample-report" onclick="TuViMonetize.openSampleReportGallery()">
+            <i data-lucide="eye"></i> Xem mẫu báo cáo (PDF A4)
+          </button>
           <button class="btn-gold-pill btn-pricing-cta" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư', 49000)">
             <i data-lucide="zap"></i> Mở Khóa VIP Ngay (49k)
           </button>
+          <div class="reassurance-list">
+            <div class="reassurance-item"><i data-lucide="check-circle-2"></i><span>Quét VietQR, nhận kết quả sau vài giây</span></div>
+            <div class="reassurance-item"><i data-lucide="shield-check"></i><span>Thông tin ngày sinh được bảo mật</span></div>
+            <div class="reassurance-item"><i data-lucide="message-circle"></i><span>Hỗ trợ qua Zalo nếu có sự cố</span></div>
+          </div>
         </div>
 
         <!-- Gói 3: Luận Chuyên Sâu -->
@@ -649,6 +706,36 @@
   </section>
 
   <!-- ============================================================ -->
+  <!-- SAMPLE REPORT GALLERY MODAL (Requirement D.2)                -->
+  <!-- ============================================================ -->
+  <div id="sampleReportGalleryModal" class="sample-gallery-modal" aria-hidden="true">
+    <div class="sample-gallery-backdrop" onclick="TuViMonetize.closeSampleReportGallery()"></div>
+    <div class="sample-gallery-card">
+      <button class="sample-gallery-close" onclick="TuViMonetize.closeSampleReportGallery()" aria-label="Đóng">&times;</button>
+      <h3 style="font-family: var(--font-heading); color: var(--gold-light); font-size: 1.35rem; margin-bottom: 0.4rem;">
+        ✦ MẪU BÁO CÁO TỬ VI VIP A4 TOÀN THƯ ✦
+      </h3>
+      <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.2rem;">
+        File PDF A4 chính tông hoàng gia, đóng dấu mộc đỏ phong thủy, bảo mật trọn đời
+      </p>
+      <div class="sample-thumbs-grid">
+        <div class="sample-thumb-item">
+          <img src="/images/sample-report-1.jpg" alt="Mẫu Báo Cáo VIP Trang 1 - Thiên Bàn Địa Bàn" loading="lazy">
+        </div>
+        <div class="sample-thumb-item">
+          <img src="/images/sample-report-2.jpg" alt="Mẫu Báo Cáo VIP Trang 2 - Luận Giải 12 Cung" loading="lazy">
+        </div>
+        <div class="sample-thumb-item">
+          <img src="/images/sample-report-3.jpg" alt="Mẫu Báo Cáo VIP Trang 3 - Vận Hạn & Đạo Trị Mệnh" loading="lazy">
+        </div>
+      </div>
+      <button class="btn-gold-pill" onclick="TuViMonetize.closeSampleReportGallery(); TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư', 49000);" style="padding: 0.75rem 2rem; font-size: 0.95rem;">
+        <i data-lucide="zap"></i> Đăng Ký Mở Khóa Ngay (49.000đ)
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
   <!-- FOOTER                                                        -->
   <!-- ============================================================ -->
   <footer class="footer" id="footer">
@@ -710,7 +797,6 @@
       const hasAuth = localStorage.getItem('tvhh_auth_token');
       const hasVipToken = localStorage.getItem('tvhh_vip_token');
       const hasVipOrder = localStorage.getItem('tvhh_vip_order_code');
-      // Nếu khách đã thanh toán đơn hàng (ví dụ TV377099 hoặc có token VIP) thì bảo lưu vĩnh viễn quyền VIP
       if (!hasAuth && !hasVipToken && !hasVipOrder) {
         localStorage.removeItem('tvhh_vip_unlocked');
         localStorage.removeItem('tvhh_user');
@@ -720,6 +806,7 @@
     // ===== Generate CSS-only Starfield =====
     (function generateStarfield() {
       const container = document.getElementById('starfield');
+      if (!container) return;
       const count = Math.min(120, Math.floor(window.innerWidth * window.innerHeight / 8000));
       const fragment = document.createDocumentFragment();
       for (let i = 0; i < count; i++) {
@@ -745,7 +832,7 @@
       window.addEventListener('scroll', function() {
         if (!ticking) {
           requestAnimationFrame(function() {
-            navbar.classList.toggle('scrolled', window.scrollY > 50);
+            if (navbar) navbar.classList.toggle('scrolled', window.scrollY > 50);
             ticking = false;
           });
           ticking = true;
@@ -774,21 +861,25 @@
         document.body.style.overflow = '';
       }
 
-      btn.addEventListener('click', toggleMenu);
-      backdrop.addEventListener('click', closeMenu);
-      menu.querySelectorAll('a').forEach(function(a) {
-        a.addEventListener('click', closeMenu);
-      });
+      if (btn) btn.addEventListener('click', toggleMenu);
+      if (backdrop) backdrop.addEventListener('click', closeMenu);
+      if (menu) {
+        menu.querySelectorAll('a').forEach(function(a) {
+          a.addEventListener('click', closeMenu);
+        });
+      }
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
           closeMenu();
           if (typeof TuViMonetize !== 'undefined') {
             TuViMonetize.closeVipModal();
+            TuViMonetize.closeSampleReportGallery();
             TuViMonetize.closeRestoreModal();
             TuViMonetize.closeClaimAccountModal();
             TuViMonetize.closeSettingsModal();
           }
           if (typeof TuViAuth !== 'undefined') TuViAuth.closeAuthModal();
+          if (typeof TuViShare !== 'undefined') TuViShare.closeModal();
         }
       });
     })();
@@ -799,15 +890,18 @@
       const labelDuong = document.getElementById('labelDuongLich');
       const labelAm = document.getElementById('labelAmLich');
 
-      toggle.addEventListener('change', function() {
-        labelDuong.classList.toggle('active', !this.checked);
-        labelAm.classList.toggle('active', this.checked);
-      });
+      if (toggle && labelDuong && labelAm) {
+        toggle.addEventListener('change', function() {
+          labelDuong.classList.toggle('active', !this.checked);
+          labelAm.classList.toggle('active', this.checked);
+        });
+      }
     })();
 
     // ===== Populate Year Select =====
     (function populateYears() {
       const sel = document.getElementById('namSinh');
+      if (!sel) return;
       const currentYear = new Date().getFullYear();
       for (let y = currentYear; y >= 1940; y--) {
         const opt = document.createElement('option');
@@ -816,63 +910,16 @@
         sel.appendChild(opt);
       }
     })();
-
-    // ===== Accordion & Customer Behavior Tracker =====
-    (function accordion() {
-      document.getElementById('accordionList').addEventListener('click', function(e) {
-        const header = e.target.closest('.accordion-header');
-        if (!header) return;
-        const item = header.closest('.accordion-item');
-        const palaceName = item.querySelector('.palace-name')?.textContent || item.getAttribute('data-palace') || 'Cung vị';
-
-        // Nếu cung đang bị khóa thuộc gói VIP (từ cung thứ 3 trở đi với gói Miễn Phí)
-        if (item.classList.contains('item-locked')) {
-          if (typeof TuViMonetize !== 'undefined') {
-            if (TuViMonetize.trackEvent) {
-              TuViMonetize.trackEvent('click_locked_feature', {
-                cungName: palaceName,
-                action: 'Bấm cung bị khóa trong Luận Giải 12 Cung'
-              });
-            }
-            TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)', 49000);
-            if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
-              TuViApp.showToast('Cung này thuộc Gói VIP 49.000đ. Vui lòng đăng ký gói để mở khóa toàn bộ 12 cung!', 'warning');
-            }
-          }
-          return;
-        }
-
-        const isOpen = item.classList.contains('open');
-
-        // Close all
-        this.querySelectorAll('.accordion-item.open').forEach(function(el) {
-          el.classList.remove('open');
-          el.querySelector('.accordion-header').setAttribute('aria-expanded', 'false');
-        });
-
-        // Open clicked if it was closed
-        if (!isOpen) {
-          item.classList.add('open');
-          header.setAttribute('aria-expanded', 'true');
-
-          if (typeof TuViMonetize !== 'undefined' && TuViMonetize.trackEvent) {
-            TuViMonetize.trackEvent('view_cung', {
-              cungName: palaceName,
-              action: 'Mở xem luận giải chi tiết'
-            });
-          }
-        }
-      });
-    })();
   </script>
 
   <!-- External JS modules with version cache busting -->
-  <script src="/js/tuvi-engine.js?v=20261106_guest_instant"></script>
-  <script src="/js/tuvi-luan-giai.js?v=20261106_guest_instant"></script>
-  <script src="/js/tuvi-auth.js?v=20261106_guest_instant"></script>
-  <script src="/js/tuvi-monetize.js?v=20261106_guest_instant"></script>
-  <script src="/js/tuvi-chart.js?v=20261106_guest_instant"></script>
-  <script src="/js/mystic-video.js?v=20261106_guest_instant"></script>
-  <script src="/js/app.js?v=20261106_guest_instant"></script>
+  <script src="/js/tuvi-engine.js?v=20261109_v2"></script>
+  <script src="/js/tuvi-luan-giai.js?v=20261109_v2"></script>
+  <script src="/js/tuvi-auth.js?v=20261109_v2"></script>
+  <script src="/js/tuvi-monetize.js?v=20261109_v2"></script>
+  <script src="/js/tuvi-share.js?v=20261109_v2"></script>
+  <script src="/js/tuvi-chart.js?v=20261109_v2"></script>
+  <script src="/js/mystic-video.js?v=20261109_v2"></script>
+  <script src="/js/app.js?v=20261109_v2"></script>
 </body>
 </html>

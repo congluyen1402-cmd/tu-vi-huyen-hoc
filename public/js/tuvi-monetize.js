@@ -326,6 +326,22 @@
       }
     },
 
+    openSampleReportGallery: function () {
+      const modal = document.getElementById('sampleReportGalleryModal');
+      if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    },
+
+    closeSampleReportGallery: function () {
+      const modal = document.getElementById('sampleReportGalleryModal');
+      if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    },
+
     /**
      * Kiểm tra trạng thái thanh toán (CHỐNG GIAN LẬN: Chỉ mở khóa khi thực sự có tiền vào tài khoản)
      */
@@ -474,46 +490,6 @@
           this.openClaimAccountModal();
         }
       }, 1200);
-    },
-
-      this.vipOrderCode = orderCode;
-      this.vipAccessToken = vipToken;
-
-      try {
-        localStorage.setItem('tvhh_vip_unlocked', 'true');
-        localStorage.setItem('tvhh_vip_token', vipToken);
-        localStorage.setItem('tvhh_vip_order_code', orderCode);
-      } catch (e) {}
-
-      // Cập nhật tham số URL ?vip_token=... mà không cần tải lại trang
-      try {
-        if (typeof window !== 'undefined' && window.history && window.history.replaceState) {
-          const url = new URL(window.location.href);
-          url.searchParams.set('vip_token', vipToken);
-          window.history.replaceState({}, '', url.toString());
-        }
-      } catch (e) {}
-
-      if (typeof TuViAuth !== 'undefined' && TuViAuth.currentUser) {
-        TuViAuth.currentUser.isVip = true;
-        TuViAuth.currentUser.vipPackage = 'vip_49k';
-        try {
-          localStorage.setItem('tvhh_user', JSON.stringify(TuViAuth.currentUser));
-        } catch (e) {}
-        TuViAuth.syncVipStatus();
-      }
-
-      this.closeVipModal();
-      this.applyVipUI();
-
-      // Tự động mở khóa toàn bộ 12 cung và đại hạn ngay trên màn hình!
-      if (typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) {
-        TuViChart.renderLuanGiai(TuViChart._currentLaSo);
-      }
-
-      if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
-        TuViApp.showToast('🎉 Chúc mừng bạn đã mở khóa thành công Gói VIP 49.000đ! Toàn bộ 12 cung và đại hạn đã được mở khóa.', 'success');
-      }
     },
 
     applyVipUI: function () {
@@ -668,7 +644,7 @@
             tag: 'Mộc Sinh Vượng · Trừ Tà Khí',
             price: '890.000 đ',
             oldPrice: '1.450.000 đ',
-            icon: '🪵',
+            icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--gold);"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/></svg>',
             desc: 'Gỗ Trầm già tự nhiên mang năng lượng thuần dương của trời đất, dưỡng khí an thần, giúp mệnh Mộc hanh thông tài vận.',
             link: 'https://shopee.vn/search?keyword=vong+tram+huong+108+hat'
           },
@@ -677,7 +653,7 @@
             tag: 'Thủy Sinh Mộc · Đại Cát Tương Sinh',
             price: '499.000 đ',
             oldPrice: '750.000 đ',
-            icon: '🖤',
+            icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--gold);"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
             desc: 'Đá Thủy tương sinh trực tiếp cho Mộc bản mệnh, hộ thân trừ tiểu nhân, mang lại nguồn năng lượng kiên định dũng cảm.',
             link: 'https://shopee.vn/search?keyword=vong+tay+thach+anh+den'
           },
@@ -686,7 +662,7 @@
             tag: 'Bát Quái Hộ Mệnh · Hóa Giải Sát Tinh',
             price: '650.000 đ',
             oldPrice: '980.000 đ',
-            icon: '☯️',
+            icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--gold);"><circle cx="12" cy="12" r="10"/><path d="M12 2a5 5 0 0 0 0 10 5 5 0 0 1 0 10"/></svg>',
             desc: 'Khắc họa trận đồ Hậu Thiên Bát Quái xoay chuyển càn khôn, trấn trạch trừ ám khí cho người mang Thái Dương, Thất Sát.',
             link: 'https://shopee.vn/search?keyword=mat+day+bat+quai+bac+thai'
           },
@@ -695,7 +671,7 @@
             tag: 'Thanh Tẩy Năng Lượng · An Định Tâm Trí',
             price: '1.250.000 đ',
             oldPrice: '1.800.000 đ',
-            icon: '🔔',
+            icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--gold);"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>',
             desc: 'Âm thanh sóng rung 432Hz xua tan năng lượng tiêu cực, tăng cường trực giác và phúc trạch tinh thần.',
             link: 'https://shopee.vn/search?keyword=chuong+xoay+tay+tang+singing+bowl'
           }
@@ -706,7 +682,7 @@
             tag: 'Thổ Sinh Kim · Chiêu Tài Hút Lộc',
             price: '680.000 đ',
             oldPrice: '1.100.000 đ',
-            icon: '💛',
+            icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--gold);"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>',
             desc: 'Đá của thương nhân, kích hoạt năng lượng tài chính và sự quyết đoán cho người mệnh Kim.',
             link: 'https://shopee.vn/search?keyword=vong+thach+anh+vang+citrine'
           },
@@ -715,7 +691,7 @@
             tag: 'Dũng Khí Quyền Uy · Bền Bỉ Cơ Đồ',
             price: '399.000 đ',
             oldPrice: '600.000 đ',
-            icon: '🐯',
+            icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--gold);"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
             desc: 'Tăng cường sự tự tin và dũng khí của bậc thủ lĩnh.',
             link: 'https://shopee.vn/search?keyword=vong+da+mat+ho+vang+nau'
           },
@@ -724,7 +700,7 @@
             tag: 'Thu Hút Sinh Khí · Trừ Bệnh Tật',
             price: '550.000 đ',
             oldPrice: '850.000 đ',
-            icon: '🏺',
+            icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--gold);"><circle cx="12" cy="12" r="8"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M20 12h2"/><path d="M2 12h2"/></svg>',
             desc: 'Bảo bối phong thủy bảo vệ sức khỏe và tích lũy tiền của.',
             link: 'https://shopee.vn/search?keyword=ho+lo+phong+thuy+ma+vang'
           },
@@ -733,7 +709,7 @@
             tag: 'Kim Đồng Bản Vị · Bảo Hộ Toàn Diện',
             price: '520.000 đ',
             oldPrice: '800.000 đ',
-            icon: '✨',
+            icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--gold);"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>',
             desc: 'Thanh lọc từ trường, giúp tâm trí hanh thông sáng suốt.',
             link: 'https://shopee.vn/search?keyword=ty+huu+thach+anh+trang'
           }
@@ -744,7 +720,7 @@
             tag: 'Bản Mệnh Đồng Khí · Tụ Tài Khí',
             price: '480.000 đ',
             oldPrice: '750.000 đ',
-            icon: '💎',
+            icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--gold);"><path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/></svg>',
             desc: 'Củng cố sức mạnh dòng chảy tài chính cho người mệnh Thủy.',
             link: 'https://shopee.vn/search?keyword=vong+thach+anh+khoi+den'
           },
@@ -753,7 +729,7 @@
             tag: 'Bình An May Mắn · Thuận Buồm Xuôi Gió',
             price: '850.000 đ',
             oldPrice: '1.300.000 đ',
-            icon: '🌊',
+            icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--gold);"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg>',
             desc: 'Viên đá của biển cả, tăng cường tài giao tiếp ngoại giao.',
             link: 'https://shopee.vn/search?keyword=vong+aquamarine'
           },
@@ -762,7 +738,7 @@
             tag: 'Đệ Nhất Hút Lộc · Giữ Kho Tiền',
             price: '590.000 đ',
             oldPrice: '900.000 đ',
-            icon: '🐲',
+            icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--gold);"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
             desc: 'Giữ chặt tài lộc, ngăn ngừa hao tài tốn của.',
             link: 'https://shopee.vn/search?keyword=ty+huu+hac+dieu+thach'
           },
@@ -771,7 +747,7 @@
             tag: 'Kim Thủy Tương Sinh · Phúc Thọ Song Toàn',
             price: '920.000 đ',
             oldPrice: '1.400.000 đ',
-            icon: '📿',
+            icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--gold);"><circle cx="12" cy="12" r="10"/><path d="M12 6v12"/></svg>',
             desc: 'Kim sinh Thủy, trợ lực công danh sự nghiệp bền vững.',
             link: 'https://shopee.vn/search?keyword=tram+huong+boc+bac'
           }
@@ -782,7 +758,7 @@
             tag: 'Mộc Sinh Hỏa · Phát Quang Đắc Lộc',
             price: '790.000 đ',
             oldPrice: '1.200.000 đ',
-            icon: '💚',
+            icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--gold);"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>',
             desc: 'Năng lượng Mộc tương sinh dồi dào tiếp thêm sức mạnh cho ngọn lửa nhiệt huyết của mệnh Hỏa.',
             link: 'https://shopee.vn/search?keyword=thach+anh+toc+xanh'
           },
@@ -791,7 +767,7 @@
             tag: 'Thuần Dương Khí · Xua Tan Tà Khí',
             price: '450.000 đ',
             oldPrice: '680.000 đ',
-            icon: '🔴',
+            icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--gold);"><circle cx="12" cy="12" r="9"/></svg>',
             desc: 'Sắc đỏ may mắn hộ thân trừ vận rủi trong các năm hạn.',
             link: 'https://shopee.vn/search?keyword=vong+chu+sa+do'
           },
@@ -800,7 +776,7 @@
             tag: 'Ấm Áp Gia Đạo · Tụ Vượng Khí',
             price: '380.000 đ',
             oldPrice: '550.000 đ',
-            icon: '🏮',
+            icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--gold);"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>',
             desc: 'Cân bằng ion âm, thanh lọc không gian làm việc và phòng ngủ.',
             link: 'https://shopee.vn/search?keyword=den+da+muoi+himalaya'
           },
@@ -809,7 +785,7 @@
             tag: 'Cao Quý Hoàng Gia · Danh Vọng Vinh Hiển',
             price: '950.000 đ',
             oldPrice: '1.500.000 đ',
-            icon: '🔥',
+            icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--gold);"><circle cx="12" cy="12" r="10"/><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
             desc: 'Gia tăng uy quyền và sức hút trước công chúng.',
             link: 'https://shopee.vn/search?keyword=mat+day+chuyen+ngoc+bich+do'
           }
@@ -820,7 +796,7 @@
             tag: 'Hỏa Sinh Thổ · Vững Vàng Điền Sản',
             price: '420.000 đ',
             oldPrice: '650.000 đ',
-            icon: '🤎',
+            icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--gold);"><rect width="18" height="18" x="3" y="3" rx="2"/></svg>',
             desc: 'Tăng cường sự kiên định, giúp mệnh Thổ tích lũy đất đai bền chắc.',
             link: 'https://shopee.vn/search?keyword=vong+mat+ho+do'
           },
@@ -829,7 +805,7 @@
             tag: 'Khai Sáng Trí Tuệ · Quý Nhân Phù Trợ',
             price: '680.000 đ',
             oldPrice: '1.050.000 đ',
-            icon: '💜',
+            icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--gold);"><polygon points="6 2 18 2 22 8 12 22 2 8 6 2"/></svg>',
             desc: 'Đá của trực giác tâm linh, an thần dưỡng khí giấc ngủ ngon.',
             link: 'https://shopee.vn/search?keyword=vong+thach+anh+tim+amethyst'
           },
@@ -838,7 +814,7 @@
             tag: 'Chiêu Tài Giữ Của · Phúc Lộc Đầy Nhà',
             price: '750.000 đ',
             oldPrice: '1.150.000 đ',
-            icon: '🐸',
+            icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--gold);"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/></svg>',
             desc: 'Đặt trên bàn làm việc giúp tiền tài không ngừng sinh sôi.',
             link: 'https://shopee.vn/search?keyword=thiem+thu+ngoc+hoang+long'
           },
@@ -847,7 +823,7 @@
             tag: 'Trầm Tích Thiên Niên · Dưỡng Khí Trường Thọ',
             price: '1.100.000 đ',
             oldPrice: '1.750.000 đ',
-            icon: '🟡',
+            icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--gold);"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/></svg>',
             desc: 'Tinh hoa nhựa cây hóa thạch hàng triệu năm mang lại đại thọ an khang.',
             link: 'https://shopee.vn/search?keyword=vong+ho+phach+mat+lap'
           }

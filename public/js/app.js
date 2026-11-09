@@ -1,7 +1,7 @@
 /**
  * ============================================================================
  * XEM TỬ VI HUYỀN HỌC - MAIN APPLICATION SCRIPT
- * Đồng bộ hóa biểu mẫu Tra Cứu Tử Vi & Dựng Lá Số Trống Đồng Đông Sơn
+ * Trải nghiệm huyền bí cao cấp, nghi thức an sao, starfield & cursor trail
  * ============================================================================
  */
 
@@ -9,23 +9,31 @@
   'use strict';
 
   const App = {
+    _starfieldAnimId: null,
+    _trailAnimId: null,
+
     init: function () {
       this.initDynamicYearLabels();
+      this.initTrustLine();
       this.initFormControls();
-      this.initStarfield();
+      this.initGlobalStarfield();
+      this.initCursorTrail();
       this.initHeroParticles();
       this.setDefaultValues();
+
       if (typeof TuViAuth !== 'undefined') {
         TuViAuth.init();
       }
       if (typeof TuViMonetize !== 'undefined') {
         TuViMonetize.init();
       }
+
       this.renderInitialChart();
+
       if (typeof window !== 'undefined' && window.lucide) {
         window.lucide.createIcons();
       }
-      console.log('✦ Tra Cứu Tử Vi Số Mệnh - Hệ Thống Sẵn Sàng ✦');
+      console.log('✦ Xem Tử Vi Huyền Học - Giao Diện Huyền Bí Sẵn Sàng ✦');
     },
 
     /**
@@ -54,15 +62,177 @@
       }
     },
 
+    /**
+     * Cập nhật dòng uy tín ở Hero (Requirement A.2: Chỉ hiển thị window.CHART_COUNT nếu có)
+     */
+    initTrustLine: function () {
+      const trustText = document.getElementById('heroTrustText');
+      if (!trustText) return;
+
+      if (window.CHART_COUNT && String(window.CHART_COUNT).trim()) {
+        trustText.textContent = `Lập lá số theo phương pháp Tử Vi cổ truyền · Hơn ${window.CHART_COUNT} lá số đã lập`;
+      } else {
+        trustText.textContent = 'Lập lá số theo phương pháp Tử Vi cổ truyền';
+      }
+    },
+
+    /**
+     * Global Canvas Starfield (Requirement A.1: Max 120 desktop, 40 mobile, pause when tab hidden)
+     */
+    initGlobalStarfield: function () {
+      const canvas = document.getElementById('globalStarfield');
+      if (!canvas) return;
+
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let stars = [];
+      let width = 0;
+      let height = 0;
+
+      const resize = () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        const maxStars = width < 768 ? 40 : 120;
+        stars = [];
+        for (let i = 0; i < maxStars; i++) {
+          stars.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            radius: Math.random() * 1.5 + 0.4,
+            alpha: Math.random() * 0.7 + 0.2,
+            speed: Math.random() * 0.015 + 0.005,
+            dir: Math.random() > 0.5 ? 1 : -1
+          });
+        }
+      };
+
+      window.addEventListener('resize', resize, { passive: true });
+      resize();
+
+      const drawStatic = () => {
+        ctx.clearRect(0, 0, width, height);
+        stars.forEach(s => {
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(243, 217, 139, ${s.alpha})`;
+          ctx.fill();
+        });
+      };
+
+      if (prefersReducedMotion) {
+        drawStatic();
+        return;
+      }
+
+      const animate = () => {
+        ctx.clearRect(0, 0, width, height);
+        stars.forEach(s => {
+          s.alpha += s.speed * s.dir;
+          if (s.alpha > 0.85) { s.alpha = 0.85; s.dir = -1; }
+          if (s.alpha < 0.15) { s.alpha = 0.15; s.dir = 1; }
+
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(243, 217, 139, ${s.alpha})`;
+          ctx.shadowBlur = 3;
+          ctx.shadowColor = 'rgba(212, 175, 55, 0.4)';
+          ctx.fill();
+        });
+        App._starfieldAnimId = requestAnimationFrame(animate);
+      };
+
+      animate();
+
+      // Dừng vòng lặp khi chuyển tab để bảo vệ pin và hiệu năng thiết bị
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          if (App._starfieldAnimId) {
+            cancelAnimationFrame(App._starfieldAnimId);
+            App._starfieldAnimId = null;
+          }
+        } else {
+          if (!App._starfieldAnimId && !prefersReducedMotion) {
+            animate();
+          }
+        }
+      });
+    },
+
+    /**
+     * Gold Dust Cursor Trail (Requirement A.3: Desktop pointer: fine only, disabled on touch/reduced-motion)
+     */
+    initCursorTrail: function () {
+      const isFinePointer = window.matchMedia('(pointer: fine)').matches;
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!isFinePointer || prefersReducedMotion) return;
+
+      const canvas = document.getElementById('cursorTrailCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      let particles = [];
+      let width = canvas.width = window.innerWidth;
+      let height = canvas.height = window.innerHeight;
+
+      window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      }, { passive: true });
+
+      window.addEventListener('mousemove', (e) => {
+        if (particles.length > 50) return;
+        for (let i = 0; i < 2; i++) {
+          particles.push({
+            x: e.clientX + (Math.random() - 0.5) * 8,
+            y: e.clientY + (Math.random() - 0.5) * 8,
+            vx: (Math.random() - 0.5) * 0.8,
+            vy: (Math.random() - 0.5) * 0.8 - 0.3,
+            radius: Math.random() * 2 + 1,
+            alpha: 0.8,
+            life: 1
+          });
+        }
+      }, { passive: true });
+
+      const renderTrail = () => {
+        ctx.clearRect(0, 0, width, height);
+        for (let i = particles.length - 1; i >= 0; i--) {
+          const p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          p.life -= 0.025;
+          p.alpha = Math.max(0, p.life * 0.8);
+
+          if (p.life <= 0) {
+            particles.splice(i, 1);
+            continue;
+          }
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(243, 217, 139, ${p.alpha})`;
+          ctx.shadowBlur = 4;
+          ctx.shadowColor = 'rgba(212, 175, 55, 0.6)';
+          ctx.fill();
+        }
+        App._trailAnimId = requestAnimationFrame(renderTrail);
+      };
+
+      renderTrail();
+    },
+
     initHeroParticles: function () {
       const container = document.getElementById('heroParticles');
       if (!container) return;
       container.innerHTML = '';
-      const count = 30;
+      const count = 25;
       for (let i = 0; i < count; i++) {
         const p = document.createElement('div');
         p.className = 'gold-particle';
-        const size = Math.random() * 3 + 2;
+        const size = Math.random() * 3 + 1.5;
         p.style.cssText = `
           position: absolute;
           width: ${size}px;
@@ -72,7 +242,7 @@
           box-shadow: 0 0 ${size * 2}px #D4AF37;
           left: ${Math.random() * 100}%;
           top: ${Math.random() * 100}%;
-          opacity: ${(Math.random() * 0.6 + 0.2).toFixed(2)};
+          opacity: ${(Math.random() * 0.5 + 0.2).toFixed(2)};
           animation: floatParticle ${(Math.random() * 6 + 4).toFixed(1)}s ease-in-out infinite alternate;
           animation-delay: ${(Math.random() * 5).toFixed(1)}s;
         `;
@@ -111,10 +281,8 @@
       this.populateYears();
       this.updateDayOptions();
 
-      // Item 8: Không điền sẵn tên người thật, để trống trường họ tên
-      if (hoTenEl) {
-        hoTenEl.value = '';
-      }
+      // Không điền sẵn tên người thật
+      if (hoTenEl) hoTenEl.value = '';
       if (gioiTinhEl) gioiTinhEl.value = 'nam';
       if (loaiLichEl) loaiLichEl.value = 'duong';
       if (ngayEl) ngayEl.value = '10';
@@ -124,9 +292,6 @@
       if (phutEl) phutEl.value = '30';
     },
 
-    /**
-     * Đổ danh sách năm sinh
-     */
     populateYears: function () {
       const namEl = document.getElementById('namSinh');
       if (!namEl) return;
@@ -141,9 +306,6 @@
       }
     },
 
-    /**
-     * Cập nhật số ngày linh hoạt theo tháng & năm
-     */
     updateDayOptions: function () {
       const ngayEl = document.getElementById('ngaySinh');
       const thangEl = document.getElementById('thangSinh');
@@ -177,29 +339,11 @@
       ngayEl.value = prevVal && parseInt(prevVal, 10) <= maxDays ? prevVal : Math.min(currentDay, maxDays).toString();
     },
 
-    /**
-     * Quy đổi Giờ & Phút thành Địa Chi của giờ (0-11)
-     */
     getHourChiIndex: function (hour, minute) {
-      // 23:00 - 00:59: Tý (0)
-      // 01:00 - 02:59: Sửu (1)
-      // 03:00 - 04:59: Dần (2)
-      // 05:00 - 06:59: Mão (3)
-      // 07:00 - 08:59: Thìn (4)
-      // 09:00 - 10:59: Tỵ (5)
-      // 11:00 - 12:59: Ngọ (6)
-      // 13:00 - 14:59: Mùi (7)
-      // 15:00 - 16:59: Thân (8)
-      // 17:00 - 18:59: Dậu (9)
-      // 19:00 - 20:59: Tuất (10)
-      // 21:00 - 22:59: Hợi (11)
       if (hour === 23 || hour === 0) return 0;
       return Math.floor((hour + 1) / 2);
     },
 
-    /**
-     * Khởi tạo Form và các sự kiện
-     */
     initFormControls: function () {
       const form = document.getElementById('tuviForm');
       const thangEl = document.getElementById('thangSinh');
@@ -225,7 +369,7 @@
     },
 
     /**
-     * Xử lý Tra Cứu Tử Vi
+     * Xử lý Tra Cứu Tử Vi & Nghi Thức "Đang An Sao" (Requirement B)
      */
     handleFormSubmit: function () {
       const hoTen = (document.getElementById('hoTen')?.value || '').trim() || 'Nguyễn Văn An';
@@ -244,56 +388,86 @@
       const gioIndex = this.getHourChiIndex(gio, phut);
       const gioPhutText = `${gio} giờ ${phut < 10 ? '0' + phut : phut} phút`;
 
-      this.showLoading(true);
+      // Bật Nghi thức An Sao Overlay
+      const ritualOverlay = document.getElementById('anSaoRitualOverlay');
+      const statusText = document.getElementById('anSaoStatusText');
+      const progressBar = document.getElementById('anSaoProgressBar');
+
+      if (ritualOverlay) {
+        ritualOverlay.classList.add('active');
+        if (progressBar) progressBar.style.width = '10%';
+        if (statusText) statusText.textContent = 'Đang xác định cung Mệnh…';
+      }
+
+      const startTime = Date.now();
+
+      // Tiến trình 4 câu khẩu quyết an sao
+      const ritualSteps = [
+        { time: 700, text: 'Đang an sao Tử Vi, Thiên Phủ…', progress: '38%' },
+        { time: 1500, text: 'Đang luận Tam Phương Tứ Chính…', progress: '68%' },
+        { time: 2200, text: 'Đang tính Đại Hạn & Vận Khí…', progress: '92%' }
+      ];
+
+      ritualSteps.forEach(step => {
+        setTimeout(() => {
+          if (statusText) statusText.textContent = step.text;
+          if (progressBar) progressBar.style.width = step.progress;
+        }, step.time);
+      });
+
+      // Tính toán song song
+      let computedLaSo = null;
+      let computeError = null;
+
+      try {
+        if (typeof TuViEngine === 'undefined') {
+          throw new Error('Bộ tính toán Tử Vi chưa sẵn sàng.');
+        }
+        computedLaSo = TuViEngine.lapLaSo(ngay, thang, nam, gioIndex, gioiTinh, isLunar, gioPhutText);
+        computedLaSo.hoTen = hoTen;
+      } catch (err) {
+        computeError = err;
+      }
+
+      // Đảm bảo nghi thức hiển thị tối thiểu 2.5s - 3.0s rồi chuyển cảnh êm ái
+      const MIN_RITUAL_MS = 2800;
+      const elapsed = Date.now() - startTime;
+      const waitTime = Math.max(0, MIN_RITUAL_MS - elapsed);
 
       setTimeout(() => {
-        try {
-          if (typeof TuViEngine === 'undefined') {
-            throw new Error('Bộ tính toán Tử Vi chưa sẵn sàng.');
+        if (progressBar) progressBar.style.width = '100%';
+
+        setTimeout(() => {
+          if (ritualOverlay) ritualOverlay.classList.remove('active');
+
+          if (computeError) {
+            console.error('Lỗi tính toán:', computeError);
+            this.showToast(computeError.message || 'Có lỗi xảy ra khi tra cứu.', 'error');
+            return;
           }
 
-          // Lập lá số
-          const laSo = TuViEngine.lapLaSo(ngay, thang, nam, gioIndex, gioiTinh, isLunar, gioPhutText);
-          laSo.hoTen = hoTen;
+          if (computedLaSo && typeof TuViChart !== 'undefined') {
+            TuViChart.render(computedLaSo);
+            this.saveHistory(computedLaSo);
+            this.showToast('Khởi tạo và an định lá số thành công!', 'success');
 
-          // Render Lá Số Trống Đồng Đông Sơn
-          if (typeof TuViChart !== 'undefined') {
-            TuViChart.render(laSo);
             const resultEl = document.getElementById('ket-qua');
             if (resultEl) {
               resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
-          } else {
-            throw new Error('Bộ hiển thị lá số chưa tải xong.');
+
+            if (typeof TuViMonetize !== 'undefined' && TuViMonetize.trackEvent) {
+              TuViMonetize.trackEvent('lap_la_so', {
+                hoTen: computedLaSo.hoTen,
+                gioiTinh: computedLaSo.gioiTinh,
+                namSinh: computedLaSo.namDuong,
+                cuc: computedLaSo.cuc,
+                menh: computedLaSo.menh
+              });
+            }
           }
-
-          this.saveHistory(laSo);
-          this.showToast('Tra cứu lá số thành công!', 'success');
-
-          // Ghi nhận hành vi lập lá số vào Hệ Thống Phân Tích Thông Minh
-          if (typeof TuViMonetize !== 'undefined' && TuViMonetize.trackEvent) {
-            TuViMonetize.trackEvent('lap_la_so', {
-              hoTen: laSo.hoTen,
-              gioiTinh: laSo.gioiTinh,
-              namSinh: laSo.namDuong,
-              cuc: laSo.cuc,
-              menh: laSo.menh
-            });
-          }
-        } catch (err) {
-          console.error('Lỗi tính toán:', err);
-          this.showToast(err.message || 'Có lỗi xảy ra khi tra cứu.', 'error');
-        } finally {
-          this.showLoading(false);
-        }
-      }, 400);
-    },
-
-    showLoading: function (show) {
-      const overlay = document.getElementById('loadingOverlay');
-      if (overlay) {
-        overlay.classList.toggle('active', show);
-      }
+        }, 350);
+      }, waitTime);
     },
 
     showToast: function (msg, type) {
@@ -312,63 +486,6 @@
       this._toastTimer = setTimeout(() => {
         toast.classList.remove('show');
       }, 3500);
-    },
-
-    initStarfield: function () {
-      const hero = document.getElementById('hero');
-      if (!hero) return;
-
-      const canvas = document.createElement('canvas');
-      canvas.className = 'starfield-canvas';
-      canvas.style.position = 'absolute';
-      canvas.style.inset = '0';
-      canvas.style.width = '100%';
-      canvas.style.height = '100%';
-      canvas.style.pointerEvents = 'none';
-      canvas.style.zIndex = '0';
-      hero.insertBefore(canvas, hero.firstChild);
-
-      const ctx = canvas.getContext('2d');
-      let stars = [];
-      let width, height;
-
-      const resize = () => {
-        width = canvas.width = hero.offsetWidth;
-        height = canvas.height = hero.offsetHeight;
-        stars = [];
-        const count = Math.floor((width * height) / 8000);
-        for (let i = 0; i < count; i++) {
-          stars.push({
-            x: Math.random() * width,
-            y: Math.random() * height,
-            radius: Math.random() * 1.5 + 0.3,
-            alpha: Math.random() * 0.8 + 0.2,
-            speed: Math.random() * 0.02 + 0.005,
-            dir: Math.random() > 0.5 ? 1 : -1
-          });
-        }
-      };
-
-      window.addEventListener('resize', resize, { passive: true });
-      resize();
-
-      const animate = () => {
-        ctx.clearRect(0, 0, width, height);
-        stars.forEach(s => {
-          s.alpha += s.speed * s.dir;
-          if (s.alpha > 0.9) { s.alpha = 0.9; s.dir = -1; }
-          if (s.alpha < 0.15) { s.alpha = 0.15; s.dir = 1; }
-
-          ctx.beginPath();
-          ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(212, 175, 55, ${s.alpha})`;
-          ctx.shadowBlur = 4;
-          ctx.shadowColor = 'rgba(212, 175, 55, 0.4)';
-          ctx.fill();
-        });
-        requestAnimationFrame(animate);
-      };
-      animate();
     },
 
     saveHistory: function (laSo) {

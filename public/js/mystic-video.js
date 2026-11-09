@@ -374,6 +374,7 @@
         });
 
         this.isPlayingSound = true;
+        try { localStorage.setItem('mystic_sound_muted', 'false'); } catch (e) {}
         this.updateSoundBtn(true);
       } catch (err) {
         console.warn('Web Audio error:', err);
@@ -393,6 +394,7 @@
         this.oscillators = [];
         this.gainNodes = [];
         this.isPlayingSound = false;
+        try { localStorage.setItem('mystic_sound_muted', 'true'); } catch (e) {}
         this.updateSoundBtn(false);
       }, 1250);
     },
@@ -403,7 +405,11 @@
       const text = document.getElementById('soundText');
 
       if (btn) btn.classList.toggle('playing', playing);
-      if (icon) icon.textContent = playing ? '🔊' : '🔇';
+      if (icon) {
+        icon.innerHTML = playing
+          ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-3px;margin-right:4px;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>'
+          : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-3px;margin-right:4px;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>';
+      }
       if (text) text.textContent = playing ? 'Tắt Chuông Thiền 432Hz' : 'Bật Chuông Thiền 432Hz';
     }
   };
