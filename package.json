@@ -1,0 +1,19 @@
+{
+  "name": "xem-tu-vi-huyen-hoc",
+  "version": "1.0.0",
+  "description": "Website Tra Cứu & Luận Giải Tử Vi Huyền Học Đa Tầng kết hợp Cổng Thanh Toán VietQR Tự Động & Bảng Quản Trị Thông Minh",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "tu-vi",
+    "huyen-hoc",
+    "vietqr",
+    "sepay",
+    "astrology",
+    "dashboard"
+  ],
+  "author": "Trần Công Luyện",
+  "license": "ISC"
+}

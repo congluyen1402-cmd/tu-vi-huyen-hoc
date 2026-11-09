@@ -1,0 +1,96 @@
+{
+  "summary": {
+    "totalPageViews": 142,
+    "uniqueVisitors": 46,
+    "totalLaSoCalculated": 53,
+    "totalPalaceClicks": 188,
+    "totalVipModalOpens": 29,
+    "totalPaidOrders": 7
+  },
+  "visitors": {
+    "vis_test_123": {
+      "firstSeen": "2026-11-06T09:36:30.604Z",
+      "lastSeen": "2026-11-06T09:36:30.604Z",
+      "visitCount": 1
+    }
+  },
+  "events": [
+    {
+      "id": "evt_1793957790604_435",
+      "timestamp": "2026-11-06T09:36:30.604Z",
+      "eventType": "view_cung",
+      "visitorId": "vis_test_123",
+      "customerName": "Trần Công Luyện",
+      "details": {
+        "cungName": "Cung Phu Thê"
+      }
+    },
+    {
+      "id": "evt_001",
+      "timestamp": "2026-11-06T09:20:10.000Z",
+      "eventType": "open_vip_modal",
+      "visitorId": "vis_luyen_admin",
+      "customerName": "Trần Công Luyện",
+      "details": {
+        "orderCode": "TV377099",
+        "package": "Báo Cáo VIP A4 Toàn Thư",
+        "amount": 49000
+      }
+    },
+    {
+      "id": "evt_002",
+      "timestamp": "2026-11-06T09:23:00.000Z",
+      "eventType": "payment_success",
+      "visitorId": "vis_luyen_admin",
+      "customerName": "Trần Công Luyện",
+      "details": {
+        "orderCode": "TV377099",
+        "amount": 49000,
+        "method": "VietinBank VietQR"
+      }
+    },
+    {
+      "id": "evt_003",
+      "timestamp": "2026-11-06T09:30:15.000Z",
+      "eventType": "view_cung",
+      "visitorId": "vis_demo_01",
+      "customerName": "Khách Vãng Lai",
+      "details": {
+        "cungName": "Cung Phu Thê",
+        "chinhTinh": "Thiên Cơ, Thái Âm",
+        "action": "Đọc phân tích tình duyên & vợ chồng"
+      }
+    },
+    {
+      "id": "evt_004",
+      "timestamp": "2026-11-06T09:32:40.000Z",
+      "eventType": "click_locked_feature",
+      "visitorId": "vis_demo_01",
+      "customerName": "Khách Vãng Lai",
+      "details": {
+        "cungName": "Cung Tài Bạch",
+        "trigger": "Bấm xem tiếp phần luận giải tiền bạc bị che mờ"
+      }
+    },
+    {
+      "id": "evt_005",
+      "timestamp": "2026-11-06T09:34:10.000Z",
+      "eventType": "view_cung",
+      "visitorId": "vis_demo_02",
+      "customerName": "Khách Quan Tâm Sự Nghiệp",
+      "details": {
+        "cungName": "Cung Quan Lộc",
+        "chinhTinh": "Vũ Khúc, Thiên Phủ",
+        "action": "Xem đường công danh & thăng tiến"
+      }
+    }
+  ],
+  "palaceClicks": {
+    "Cung Phu Thê": 65,
+    "Cung Tài Bạch": 48,
+    "Cung Quan Lộc": 35,
+    "Cung Mệnh": 22,
+    "Cung Thiên Di": 11,
+    "Cung Phúc Đức": 7
+  }
+}

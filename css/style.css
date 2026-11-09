@@ -1,0 +1,2870 @@
+/* ============================================================
+   XEM TỬ VI HUYỀN HỌC - THEME: MIDNIGHT INDIGO & IMPERIAL GOLD
+   Bản Quyền Thiết Kế Cao Cấp Dành Riêng Cho Tử Vi Cổ Truyền
+   ============================================================ */
+
+/* ── Google Fonts ─────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,600&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+/* ── DESIGN TOKENS (CSS Variables) ────────────────────────── */
+:root {
+  --bg: #0B0A1A;
+  --surface: #151330;
+  --surface-2: #1E1B3F;
+  --gold: #D4AF37;
+  --gold-light: #F3D98B;
+  --gold-deep: #A67C1A;
+  --seal-red: #C8362D;
+  --text: #F5EFE0;
+  --text-muted: #B8B2A0;
+  --border: rgba(212, 175, 55, 0.25);
+
+  /* Ngũ Hành Tags */
+  --elem-kim: #E5C46B;
+  --elem-moc: #4CAF7D;
+  --elem-thuy: #4A8FE7;
+  --elem-hoa: #E5553D;
+  --elem-tho: #B98A4E;
+
+  /* Typography */
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Elevations */
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 6px 24px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.7);
+  --shadow-gold: 0 4px 18px rgba(212, 175, 55, 0.25);
+  --shadow-gold-glow: 0 0 25px rgba(243, 217, 139, 0.45);
+}
+
+/* ── Reset & Base ─────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--bg) !important;
+  color: var(--text) !important;
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.65;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography Rules */
+h1, h2, h3, h4, h5, .font-heading {
+  font-family: var(--font-heading);
+  letter-spacing: 0.02em;
+  font-weight: 700;
+}
+
+p, span, label, input, select, button, textarea {
+  font-family: var(--font-body);
+}
+
+a {
+  color: var(--gold);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+a:hover {
+  color: var(--gold-light);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--gold) 0%, var(--surface-2) 100%);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-light);
+}
+
+/* ── Utility Classes & Elements ───────────────────────────── */
+.text-gold { color: var(--gold) !important; }
+.text-gold-light { color: var(--gold-light) !important; }
+.text-gold-deep { color: var(--gold-deep) !important; }
+.text-seal-red { color: var(--seal-red) !important; }
+.text-muted { color: var(--text-muted) !important; }
+
+.gold-icon {
+  color: var(--gold);
+  stroke: var(--gold);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Glass Card */
+.glass-card {
+  background: rgba(21, 19, 48, 0.72) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 14px;
+  transition: all 0.25s ease;
+}
+
+.glass-surface {
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 10px;
+}
+
+.surface-2-card {
+  background: var(--surface-2) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 12px;
+}
+
+/* Gold Gradient Buttons (Pill Shape) */
+.btn-gold-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0.75rem 1.8rem;
+  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-deep) 100%) !important;
+  color: #0B0A1A !important;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  border: none;
+  border-radius: 9999px !important;
+  cursor: pointer;
+  box-shadow: var(--shadow-gold);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  white-space: nowrap !important;
+  text-decoration: none;
+}
+
+.btn-gold-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold-glow);
+  color: #0B0A1A !important;
+}
+
+.btn-gold-pill:active {
+  transform: translateY(0);
+}
+
+/* Red Wax-Seal Badge */
+.wax-seal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--seal-red) !important;
+  color: #ffffff !important;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  padding: 0.28rem 0.75rem;
+  border-radius: 9999px;
+  box-shadow: 0 2px 8px rgba(200, 54, 45, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  white-space: nowrap !important;
+}
+
+/* Five Elements Badges */
+.elem-kim {
+  background: rgba(229, 196, 107, 0.15) !important;
+  color: var(--elem-kim) !important;
+  border: 1px solid var(--elem-kim) !important;
+}
+.elem-moc {
+  background: rgba(76, 175, 125, 0.15) !important;
+  color: var(--elem-moc) !important;
+  border: 1px solid var(--elem-moc) !important;
+}
+.elem-thuy {
+  background: rgba(74, 143, 231, 0.15) !important;
+  color: var(--elem-thuy) !important;
+  border: 1px solid var(--elem-thuy) !important;
+}
+.elem-hoa {
+  background: rgba(229, 85, 61, 0.15) !important;
+  color: var(--elem-hoa) !important;
+  border: 1px solid var(--elem-hoa) !important;
+}
+.elem-tho {
+  background: rgba(185, 138, 78, 0.15) !important;
+  color: var(--elem-tho) !important;
+  border: 1px solid var(--elem-tho) !important;
+}
+
+.fengshui-element-tag {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  margin-bottom: 0.5rem;
+}
+
+/* ============================================================
+   1. HEADER / NAVBAR
+   ============================================================ */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(11, 10, 26, 0.88) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border-bottom: 1px solid var(--border) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+  transition: all 0.3s ease;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.navbar-logo-img {
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  object-fit: contain;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  background: var(--surface);
+  padding: 2px;
+  filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.4));
+}
+
+.navbar-brand .brand-text {
+  font-family: var(--font-heading);
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--gold-light);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: clamp(4px, 0.7vw, 12px);
+  flex-wrap: nowrap !important;
+}
+
+.nav-menu a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.5rem 0.8rem;
+  color: var(--text);
+  font-size: 0.88rem;
+  font-weight: 500;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  border-radius: 6px;
+  transition: all 0.25s ease;
+}
+
+.nav-menu a i, .nav-menu a svg, .nav-menu a .nav-icon {
+  color: var(--gold);
+  width: 16px;
+  height: 16px;
+}
+
+.nav-menu a:hover {
+  color: var(--gold-light) !important;
+  background: rgba(212, 175, 55, 0.12);
+  transform: translateY(-1px);
+}
+
+.btn-nav-auth {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.5rem 1.1rem;
+  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-deep) 100%) !important;
+  color: #0B0A1A !important;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(212, 175, 55, 0.25);
+  transition: all 0.25s ease;
+  white-space: nowrap !important;
+}
+
+.btn-nav-auth:hover {
+  box-shadow: 0 4px 18px rgba(243, 217, 139, 0.45);
+  transform: translateY(-1px);
+}
+
+/* User Badge in Nav */
+.btn-user-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.45rem 0.9rem;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-user-badge:hover {
+  border-color: var(--gold);
+}
+.user-tier-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.user-tier-tag.tier-vip {
+  background: var(--gold);
+  color: #0B0A1A;
+}
+.user-tier-tag.tier-free {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--text-muted);
+}
+
+.user-nav-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 260px;
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: var(--shadow-lg);
+  display: none;
+  z-index: 1002;
+}
+.user-nav-dropdown.active {
+  display: block;
+}
+
+/* Hamburger (Mobile) */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 1001;
+}
+.hamburger span {
+  width: 24px;
+  height: 2px;
+  background: var(--gold);
+  border-radius: 2px;
+  transition: all 0.25s ease;
+}
+
+/* ============================================================
+   2. HERO SECTION
+   ============================================================ */
+.hero {
+  position: relative;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 7rem 1.5rem 4rem;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 30%, #1a1640 0%, #110e2b 50%, var(--bg) 100%);
+}
+
+/* Faint rotating Bat Quai / Compass Ring */
+.hero-compass-ring {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  width: 580px;
+  height: 580px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px dashed rgba(212, 175, 55, 0.22);
+  box-shadow: inset 0 0 60px rgba(212, 175, 55, 0.05), 0 0 80px rgba(139, 92, 246, 0.08);
+  pointer-events: none;
+  animation: rotate-compass 90s linear infinite;
+  z-index: 0;
+}
+
+.hero-compass-ring::before {
+  content: '';
+  position: absolute;
+  inset: 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 175, 55, 0.12);
+}
+
+.hero-compass-ring::after {
+  content: '';
+  position: absolute;
+  inset: 70px;
+  border-radius: 50%;
+  border: 1px dotted rgba(212, 175, 55, 0.15);
+}
+
+@keyframes rotate-compass {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Floating Gold Particles */
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+@keyframes floatParticle {
+  0% { transform: translateY(0) scale(0.85); opacity: 0.3; }
+  50% { opacity: 0.85; }
+  100% { transform: translateY(-28px) scale(1.15); opacity: 0.2; }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.hero-emblem {
+  font-size: 2.8rem;
+  color: var(--gold);
+  margin-bottom: 1.2rem;
+  display: inline-block;
+  filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.45));
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Gradient-gold Playfair headline */
+.hero-headline, .hero h1 {
+  font-family: var(--font-heading) !important;
+  font-size: clamp(2rem, 5.2vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.25;
+  margin-bottom: 1.2rem;
+  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-deep) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.6));
+}
+
+.hero p {
+  font-size: clamp(1rem, 2vw, 1.18rem);
+  color: var(--text);
+  line-height: 1.75;
+  max-width: 620px;
+  margin: 0 auto 2.2rem;
+}
+
+.hero-cta {
+  padding: 0.95rem 2.5rem;
+  font-size: 1.05rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Trust Line Under CTA */
+.hero-trust-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.hero-trust-line svg {
+  color: var(--gold);
+  stroke: var(--gold);
+  width: 16px;
+  height: 16px;
+}
+
+/* ============================================================
+   SECTIONS COMMON STYLES
+   ============================================================ */
+.section {
+  padding: 5rem 1.5rem;
+  position: relative;
+}
+
+.section-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 3.5vw, 2.3rem);
+  font-weight: 700;
+  text-align: center;
+  color: var(--gold-light);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.03em;
+}
+
+.section-subtitle {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  max-width: 640px;
+  margin: 0 auto 1.5rem;
+  line-height: 1.6;
+}
+
+.section-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 2.2rem;
+}
+.section-divider .line {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.section-divider .icon {
+  color: var(--gold);
+  font-size: 1rem;
+}
+
+/* ============================================================
+   3. CHART LOOKUP FORM (#lap-la-so)
+   ============================================================ */
+.form-section {
+  padding-top: 3rem;
+}
+
+.tracuu-container {
+  max-width: 860px;
+}
+
+.tracuu-form-card {
+  background: rgba(21, 19, 48, 0.75) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 16px;
+  padding: clamp(1.5rem, 4vw, 2.8rem);
+  box-shadow: var(--shadow-lg);
+}
+
+/* 2-Column Grid */
+.form-row-grid {
+  display: grid;
+  gap: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+.grid-row-2 {
+  grid-template-columns: 1fr 1fr;
+}
+.grid-row-3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.form-control-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.form-item-label {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--gold-light);
+}
+
+/* Dark Inputs with Gold Focus Ring */
+.form-item-input, .form-item-select, .form-control {
+  background: var(--surface-2) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text) !important;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.25s ease;
+  width: 100%;
+}
+
+.form-item-input:focus, .form-item-select:focus, .form-control:focus {
+  border-color: var(--gold) !important;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.28) !important;
+  background: rgba(30, 27, 63, 0.9) !important;
+}
+
+.form-item-select option {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+/* Info Note for the Ty Hour Rule */
+.form-info-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: rgba(30, 27, 63, 0.65);
+  border: 1px dashed rgba(212, 175, 55, 0.35);
+  border-radius: 8px;
+  padding: 0.85rem 1.1rem;
+  margin-bottom: 1.6rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.form-info-note strong {
+  color: var(--gold-light);
+}
+.form-info-note svg {
+  color: var(--gold);
+  stroke: var(--gold);
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Full-width Gold Submit Button */
+.btn-submit-full, .btn-tracuu-gold {
+  width: 100%;
+  padding: 0.95rem 2rem;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-deep) 100%) !important;
+  color: #0B0A1A !important;
+  font-weight: 800;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  box-shadow: var(--shadow-gold);
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-submit-full:hover, .btn-tracuu-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold-glow);
+}
+
+/* ============================================================
+   LÁ SỐ TRADITIONAL GRID (#la-so-chart)
+   ============================================================ */
+.result-section {
+  padding-top: 2rem;
+}
+
+.la-so-outer-wrap {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+#la-so-chart {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin-bottom: 2.5rem;
+}
+
+/* Actions bar directly above chart */
+.la-so-actions-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.btn-action-chart {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.btn-action-chart:hover {
+  background: #f8fafc !important;
+  border-color: var(--gold) !important;
+  color: var(--gold-deep) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.btn-action-chart.btn-action-vip {
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%) !important;
+  border-color: #f59e0b !important;
+  color: #92400e !important;
+  font-weight: 700;
+}
+
+.btn-action-chart.btn-action-vip:hover {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%) !important;
+  border-color: #d97706 !important;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+}
+
+/* Scroll wrapper for smooth horizontal scroll on mobile/tablet */
+.la-so-scroll-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 8px;
+}
+
+/* Paper container replicating royal parchment & watermark */
+.la-so-paper-container {
+  position: relative;
+  width: 100%;
+  min-width: 860px;
+  max-width: 1060px;
+  margin: 0 auto;
+  background-color: #fffdf8;
+  background-image: url('../img/extracted_bg_1_1.jpeg');
+  background-position: center center;
+  background-size: cover;
+  border: 2px solid #b45309;
+  border-radius: 8px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+
+/* Faint Bát Quái Watermark centered behind the 4x4 grid */
+.la-so-watermark-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 580px;
+  height: 580px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.13;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bat-quai-watermark-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Traditional 4x4 Grid */
+.la-so-classical-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, auto);
+  gap: 1px;
+  background: rgba(0, 0, 0, 0.35); /* Creates crisp 1px borders between cells */
+}
+
+/* Individual Palace Cell */
+.cung-classical-cell {
+  background: rgba(255, 254, 249, 0.92) !important;
+  color: #0F172A !important;
+  min-height: 155px;
+  padding: 6px 8px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: default !important;
+  user-select: none;
+  transition: background 0.2s ease;
+}
+
+.cung-classical-cell:hover {
+  background: rgba(255, 255, 255, 0.97) !important;
+}
+
+/* Cung MỆNH: Bold red border outline */
+.cung-classical-cell.cell-menh {
+  border: 2.5px solid #cc0000 !important;
+  background: rgba(255, 253, 248, 0.96) !important;
+  z-index: 3;
+}
+
+/* Cung THÂN: Elegant subtle border */
+.cung-classical-cell.cell-than {
+  border: 1.5px solid #b45309 !important;
+}
+
+/* Tuần & Triệt Ribbons */
+.tuan-triet-ribbon {
+  position: absolute;
+  background: #000000;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 2px 14px;
+  border-radius: 2px;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
+  line-height: 1.3;
+}
+.ribbon-tuan {
+  top: -8px;
+  right: 18px;
+}
+.ribbon-triet {
+  top: -8px;
+  left: 18px;
+}
+
+/* Cell Header */
+.cung-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 3px;
+  font-size: 0.82rem;
+}
+
+.cung-can-chi {
+  font-weight: 700;
+  color: #000000;
+  font-size: 0.84rem;
+}
+
+.cung-main-title {
+  font-weight: 800;
+  font-size: 0.88rem;
+  letter-spacing: 0.02em;
+}
+
+.cung-dai-han-num {
+  font-weight: 700;
+  color: #334155;
+  font-size: 0.82rem;
+}
+
+/* Two Star Columns */
+.cung-stars-columns {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  font-size: 0.74rem;
+  line-height: 1.38;
+  margin: 5px 0;
+  flex: 1;
+}
+
+.cung-col-left, .cung-col-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.cung-col-left {
+  text-align: left;
+}
+.cung-col-right {
+  text-align: right;
+}
+
+.star-line {
+  white-space: nowrap;
+}
+
+.star-line .star-sign {
+  font-weight: 700;
+  margin-right: 1px;
+}
+
+.star-line strong {
+  font-weight: 700;
+}
+
+.tu-hoa-badge {
+  display: inline-block;
+  background: #fef3c7;
+  color: #b45309;
+  border: 1px solid #d97706;
+  border-radius: 2px;
+  padding: 0 3px;
+  font-size: 10px;
+  font-weight: 700;
+  margin-left: 2px;
+  vertical-align: 1px;
+}
+
+/* Cell Footer */
+.cung-bottom-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding-top: 3px;
+  font-size: 0.73rem;
+  color: #475569;
+}
+
+.cung-chi-label {
+  font-weight: 700;
+  color: #000000;
+  font-size: 0.8rem;
+}
+
+.cung-trang-sinh {
+  font-size: 0.74rem;
+  color: #64748b;
+}
+
+.cung-thang-han {
+  font-size: 0.74rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* Center Classical Box (Ô Trung Cung 2x2) */
+.center-classical-box {
+  grid-column: 2 / span 2;
+  grid-row: 2 / span 2;
+  background: rgba(254, 252, 245, 0.95) !important;
+  border: 2px solid #b45309 !important;
+  padding: 1.1rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #0F172A !important;
+  z-index: 3;
+}
+
+.center-brand-header {
+  text-align: center;
+  margin-bottom: 0.6rem;
+}
+
+.center-logo-img {
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 4px;
+  object-fit: contain;
+}
+
+.center-title-main {
+  font-family: var(--font-heading);
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: #92400e !important;
+  letter-spacing: 0.04em;
+  margin: 2px 0;
+}
+
+.center-website-link {
+  font-size: 0.76rem;
+  color: #78716c;
+}
+
+.center-meta-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+  margin: 6px 0;
+}
+
+.center-meta-table td {
+  padding: 2px 4px;
+  line-height: 1.35;
+  color: #1e293b;
+}
+
+.center-meta-table .col-label {
+  width: 32%;
+  font-weight: 600;
+  color: #334155;
+  white-space: nowrap;
+}
+
+.center-meta-table .col-val {
+  color: #0f172a;
+}
+
+.center-meta-table .text-bold {
+  font-weight: 700;
+  color: #000000;
+}
+
+.center-meta-table .text-sub {
+  color: #64748b;
+  font-size: 0.74rem;
+}
+
+.center-footer-copy {
+  text-align: center;
+  font-size: 0.7rem;
+  color: #64748b;
+  margin-top: 4px;
+  font-style: italic;
+}
+
+/* Legend Footer under chart */
+.la-so-legend-footer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 14px;
+  background: rgba(255, 254, 249, 0.96);
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  font-size: 0.74rem;
+  color: #334155;
+}
+
+.legend-elements {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.color-box {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  vertical-align: -1px;
+}
+.box-kim { background: #555555; }
+.box-moc { background: #008000; }
+.box-thuy { background: #000000; }
+.box-hoa { background: #cc0000; }
+.box-tho { background: #b45309; }
+
+/* ============================================================
+   4. 12-PALACE ACCORDION RESULTS
+   ============================================================ */
+.luan-giai-section {
+  margin-top: 1.5rem;
+}
+
+.luan-giai-header-title {
+  font-family: var(--font-heading);
+  color: var(--gold-light);
+  font-size: 1.35rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.04em;
+}
+
+.accordion-item {
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 10px;
+  margin-bottom: 0.85rem;
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+
+/* Open state has a 3px gold left border */
+.accordion-item.open {
+  border-left: 3px solid var(--gold) !important;
+  border-color: rgba(212, 175, 55, 0.45);
+  background: rgba(30, 27, 63, 0.7) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.accordion-header {
+  width: 100%;
+  padding: 1.1rem 1.4rem;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.25s ease;
+}
+
+.accordion-header .palace-name {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.03em;
+  flex: 1;
+}
+
+.accordion-header .palace-stars-count {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+}
+
+.accordion-header .toggle-icon {
+  color: var(--gold);
+  transition: transform 0.25s ease;
+}
+
+.accordion-item.open .accordion-header .toggle-icon {
+  transform: rotate(180deg);
+}
+
+.accordion-body {
+  padding: 0 1.4rem 1.6rem;
+}
+
+/* Inner blocks in indigo / soft purple / soft gold tones, all readable */
+.luan-giai-scholarly-content {
+  color: var(--text) !important;
+  font-size: 0.93rem;
+  line-height: 1.75;
+}
+
+.luan-giai-nhandinh-badge {
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0.18) 0%, rgba(30, 27, 63, 0.4) 100%);
+  border-left: 3px solid var(--gold);
+  padding: 0.6rem 1rem;
+  color: var(--gold-light);
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-radius: 0 6px 6px 0;
+  margin-bottom: 1rem;
+}
+
+.luan-giai-block {
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+.luan-giai-block strong {
+  color: var(--gold-light);
+}
+
+.luan-giai-star-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.9rem 1.1rem;
+  margin-bottom: 0.75rem;
+  transition: border-color 0.2s ease;
+}
+.luan-giai-star-card:hover {
+  border-color: var(--gold);
+}
+
+.luan-giai-star-title {
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 0.92rem;
+  margin-bottom: 0.35rem;
+}
+
+.luan-giai-star-body {
+  color: var(--text);
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+.palace-advice {
+  margin-top: 1.2rem;
+  background: rgba(212, 175, 55, 0.08);
+  border: 1px dashed rgba(212, 175, 55, 0.35);
+  padding: 0.9rem 1.2rem;
+  border-radius: 8px;
+}
+.palace-advice strong {
+  color: var(--gold-light);
+  font-size: 0.92rem;
+}
+.palace-advice p {
+  color: var(--text);
+  font-size: 0.88rem;
+  margin-top: 0.3rem;
+  line-height: 1.65;
+}
+
+/* ============================================================
+   5. LOCKED PALACES (VIP)
+   ============================================================ */
+.accordion-item.item-locked {
+  background: rgba(18, 15, 38, 0.85) !important;
+  border: 1px dashed rgba(200, 54, 45, 0.45) !important;
+  cursor: pointer;
+}
+
+.accordion-item.item-locked:hover {
+  border-color: var(--seal-red) !important;
+  background: rgba(24, 18, 48, 0.95) !important;
+}
+
+.palace-title-gold-light {
+  color: var(--gold-light) !important;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.02rem;
+}
+
+.palace-locked-preview-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.palace-vip-lock-card {
+  text-align: center;
+  padding: 2.2rem 1.8rem;
+  background: radial-gradient(circle at 50% 30%, rgba(30, 27, 63, 0.95) 0%, rgba(15, 13, 33, 0.98) 100%);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  position: relative;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.palace-vip-lock-card .lock-glow-icon {
+  color: var(--gold);
+  margin-bottom: 0.6rem;
+  filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.5));
+}
+
+.palace-vip-lock-card h4 {
+  color: var(--gold-light);
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  margin-bottom: 0.75rem;
+}
+
+.palace-vip-lock-card .lock-sub-desc {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.7;
+  max-width: 620px;
+  margin: 0 auto 1.4rem;
+}
+.palace-vip-lock-card .lock-sub-desc strong {
+  color: var(--gold);
+}
+
+.lock-perks-row {
+  display: flex;
+  justify-content: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.lock-perk-badge {
+  background: rgba(212, 175, 55, 0.12);
+  color: var(--gold-light);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+}
+
+.btn-lock-upgrade {
+  padding: 0.85rem 2.2rem;
+  font-size: 0.98rem;
+}
+
+/* ============================================================
+   6. DAI HAN (VERTICAL TIMELINE)
+   ============================================================ */
+.daihan-overview-box {
+  margin-top: 2.2rem;
+  padding: 2rem clamp(1.2rem, 3vw, 2.2rem);
+}
+
+.daihan-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 0.5rem;
+}
+
+.daihan-title {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  color: var(--gold-light);
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+.daihan-sub-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+/* Vertical Timeline Structure */
+.daihan-vertical-timeline {
+  position: relative;
+  padding-left: 28px;
+}
+
+.timeline-axis {
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 10px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--gold) 0%, rgba(212, 175, 55, 0.4) 60%, rgba(100, 116, 139, 0.2) 100%);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.timeline-node {
+  position: absolute;
+  top: 14px;
+  left: -28px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  z-index: 2;
+}
+
+.timeline-node.node-gold {
+  border: 2px solid var(--gold);
+  color: var(--gold);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+.timeline-node.node-locked {
+  border: 2px solid var(--seal-red);
+  color: var(--seal-red);
+  box-shadow: 0 0 10px rgba(200, 54, 45, 0.35);
+}
+
+.timeline-card-wrap {
+  position: relative;
+}
+
+.timeline-card {
+  padding: 1.2rem 1.4rem;
+  transition: all 0.25s ease;
+}
+
+.gold-highlight-card {
+  border-left: 3px solid var(--gold) !important;
+  background: rgba(30, 27, 63, 0.8) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.timeline-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 0.6rem;
+}
+
+.timeline-phase-title {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.timeline-badge-gold {
+  background: rgba(212, 175, 55, 0.15);
+  color: var(--gold-light);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.2rem 0.65rem;
+  border-radius: 9999px;
+}
+
+.timeline-desc {
+  font-size: 0.88rem;
+  color: var(--text);
+  line-height: 1.7;
+  margin-bottom: 0.7rem;
+}
+
+.timeline-advice-box {
+  background: rgba(212, 175, 55, 0.08);
+  border: 1px dashed rgba(212, 175, 55, 0.3);
+  padding: 0.65rem 0.9rem;
+  border-radius: 6px;
+  font-size: 0.84rem;
+  color: var(--text);
+}
+
+/* Locked Period Timeline */
+.locked-surface {
+  background: rgba(18, 15, 35, 0.8) !important;
+  border-left: 3px solid rgba(200, 54, 45, 0.6) !important;
+}
+
+.timeline-locked-blur-preview {
+  position: relative;
+  min-height: 70px;
+  padding: 0.4rem 0;
+}
+
+.timeline-blur-text {
+  filter: blur(4px);
+  user-select: none;
+  opacity: 0.4;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.timeline-locked-cta-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-lock-upgrade-sm {
+  padding: 0.5rem 1.2rem;
+  font-size: 0.84rem;
+}
+
+/* ============================================================
+   7. PRICING (3 PLANS)
+   ============================================================ */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  align-items: stretch;
+  margin-top: 1.5rem;
+}
+
+.pricing-card {
+  background: rgba(21, 19, 48, 0.72) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 16px;
+  padding: 2.2rem 1.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.pricing-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--gold);
+}
+
+/* Middle VIP A4 Card Scaled Up */
+.pricing-card.featured {
+  border: 2px solid var(--gold) !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(212, 175, 55, 0.25) !important;
+  transform: scale(1.04);
+  background: linear-gradient(180deg, rgba(30, 27, 63, 0.9) 0%, rgba(21, 19, 48, 0.95) 100%) !important;
+  z-index: 2;
+}
+
+.pricing-card.featured:hover {
+  transform: scale(1.05) translateY(-4px);
+  box-shadow: 0 14px 45px rgba(0, 0, 0, 0.7), 0 0 35px rgba(243, 217, 139, 0.4) !important;
+}
+
+.pricing-badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%) !important;
+  color: #0B0A1A !important;
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 0.76rem;
+  letter-spacing: 0.05em;
+  padding: 0.35rem 1rem;
+  border-radius: 9999px;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+  white-space: nowrap;
+}
+
+.pricing-header {
+  text-align: center;
+  margin-bottom: 1.2rem;
+}
+
+.pricing-header .pricing-icon-wrap {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 0.75rem;
+  border-radius: 50%;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pricing-header .pricing-icon-wrap svg {
+  color: var(--gold);
+  stroke: var(--gold);
+  width: 24px;
+  height: 24px;
+}
+
+.pricing-title {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  color: var(--gold-light);
+  margin-bottom: 0.35rem;
+}
+
+.pricing-desc {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.pricing-price-wrap {
+  text-align: center;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(212, 175, 55, 0.15);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+  margin-bottom: 1.4rem;
+}
+
+.pricing-old-price {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  text-decoration: line-through;
+  display: block;
+}
+
+.pricing-price {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--gold-light);
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+}
+
+.pricing-features {
+  list-style: none;
+  margin-bottom: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  font-size: 0.88rem;
+}
+
+.pricing-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.icon-jade {
+  color: var(--elem-moc);
+  stroke: var(--elem-moc);
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.icon-muted {
+  color: var(--text-muted);
+  stroke: var(--text-muted);
+  opacity: 0.5;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.pricing-features li.disabled {
+  color: var(--text-muted);
+  opacity: 0.65;
+}
+
+.btn-pricing-cta {
+  width: 100%;
+  padding: 0.85rem;
+  font-size: 0.95rem;
+}
+
+/* ============================================================
+   8. FENG SHUI PRODUCTS (#vat-pham-phong-thuy)
+   ============================================================ */
+.fengshui-element-banner {
+  text-align: center;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.75rem 1.2rem;
+  font-size: 0.92rem;
+  color: var(--text);
+  margin-bottom: 2rem;
+}
+.fengshui-element-banner strong {
+  color: var(--gold-light);
+}
+
+.fengshui-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.fengshui-item-card {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  transition: all 0.25s ease;
+}
+
+.fengshui-item-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold) !important;
+  box-shadow: var(--shadow-md);
+}
+
+.fengshui-icon-wrap {
+  font-size: 2.8rem;
+  margin-bottom: 0.75rem;
+  display: inline-block;
+}
+
+.fengshui-name {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--gold-light);
+  margin-bottom: 0.5rem;
+  line-height: 1.35;
+}
+
+.fengshui-desc {
+  font-size: 0.85rem;
+  color: var(--text);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  flex: 1;
+}
+
+.fengshui-price-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 1.2rem;
+}
+
+.fengshui-price {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--seal-red) !important;
+}
+
+.fengshui-old-price {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+.btn-fengshui-buy {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 0.92rem;
+}
+
+/* ============================================================
+   9. 1-ON-1 CONSULTATION (#dat-lich-tu-van)
+   ============================================================ */
+.consultation-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.expert-showcase {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.expert-card {
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 12px;
+  padding: 1.2rem 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  transition: all 0.25s ease;
+}
+.expert-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+
+/* Circular gold-bordered avatars */
+.circular-gold-avatar {
+  width: 68px;
+  height: 68px;
+  min-width: 68px;
+  border-radius: 50% !important;
+  border: 2px solid var(--gold) !important;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.35);
+  overflow: hidden;
+  background: var(--surface-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.circular-gold-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.expert-info h4 {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--gold-light);
+  margin-bottom: 0.2rem;
+}
+
+.expert-title {
+  font-size: 0.82rem;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.expert-desc {
+  font-size: 0.84rem;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+/* "How We Work" Card */
+.how-we-work-card {
+  padding: 1.2rem 1.4rem;
+}
+.how-we-work-title {
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.how-we-work-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+.step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.step-icon-wrap {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.15);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+.step-icon-wrap svg {
+  width: 16px;
+  height: 16px;
+}
+.step-text strong {
+  display: block;
+  font-size: 0.86rem;
+  color: var(--text);
+}
+.step-text span {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Booking Form on surface-2 */
+.booking-form-box {
+  background: var(--surface-2) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 14px;
+  padding: 2rem;
+  box-shadow: var(--shadow-lg);
+}
+
+.booking-form-box h3 {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  color: var(--gold-light);
+  margin-bottom: 0.35rem;
+}
+
+.booking-form-box p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 1.4rem;
+}
+
+.booking-input-group {
+  margin-bottom: 1rem;
+}
+
+.booking-input-group label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--gold-light);
+  margin-bottom: 0.35rem;
+}
+
+.booking-input, .booking-select, .booking-textarea {
+  width: 100%;
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text) !important;
+  padding: 0.7rem 0.9rem;
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  outline: none;
+  transition: all 0.25s ease;
+}
+
+.booking-input:focus, .booking-select:focus, .booking-textarea:focus {
+  border-color: var(--gold) !important;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25) !important;
+}
+
+.booking-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.btn-booking-submit {
+  width: 100%;
+  padding: 0.9rem;
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+}
+
+/* ============================================================
+   10. FEATURED FEATURES (#tinh-nang)
+   ============================================================ */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.feature-card {
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Lift + border glow on hover */
+.feature-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold) !important;
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.25) !important;
+}
+
+.feature-icon-wrap {
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 1.2rem;
+  border-radius: 50%;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+}
+.feature-icon-wrap svg {
+  width: 24px;
+  height: 24px;
+}
+
+.feature-card h4 {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  color: var(--gold-light);
+  margin-bottom: 0.6rem;
+}
+
+.feature-card p {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+/* ============================================================
+   11. FOOTER
+   ============================================================ */
+footer.footer {
+  background: #07060F !important;
+  border-top: 1px solid var(--border);
+  padding: 3.5rem 1.5rem 2.5rem;
+  text-align: center;
+}
+
+.footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1.4rem;
+}
+
+.footer-brand img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.footer-brand span {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--gold-light);
+}
+
+.footer-social-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-bottom: 1.8rem;
+}
+
+.footer-social-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  transition: all 0.25s ease;
+}
+
+.footer-social-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.footer-social-btn:hover {
+  background: var(--gold);
+  color: #0B0A1A;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+}
+
+.footer-disclaimer {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto 1rem;
+  line-height: 1.6;
+}
+
+.footer-copyright {
+  font-size: 0.8rem;
+  color: rgba(184, 178, 160, 0.7);
+}
+
+/* ============================================================
+   12. FLOATING "TẢI BÁO CÁO VIP A4 (49K)" BUTTON
+   ============================================================ */
+.floating-vip-cta {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 990;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.85rem 1.6rem;
+  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-deep) 100%) !important;
+  color: #0B0A1A !important;
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
+  border-radius: 9999px !important;
+  border: none;
+  box-shadow: var(--shadow-gold);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: subtle-pulse 3s infinite ease-in-out;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(20px);
+}
+
+.floating-vip-cta.visible {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
+}
+
+.floating-vip-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold-glow);
+}
+
+@keyframes subtle-pulse {
+  0%, 100% {
+    box-shadow: 0 4px 18px rgba(212, 175, 55, 0.35);
+  }
+  50% {
+    box-shadow: 0 6px 30px rgba(243, 217, 139, 0.65);
+  }
+}
+
+/* ============================================================
+   MODALS (VietQR VIP Payment, STK Bank Info & Auth Modal)
+   ============================================================ */
+.tuvi-vip-modal-wrap,
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 1rem;
+}
+
+.tuvi-vip-modal-wrap.active,
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.tuvi-vip-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 5, 18, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.tuvi-vip-card,
+.tuvi-vip-modal-card,
+.auth-modal-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 580px;
+  max-height: 92vh;
+  overflow-y: auto;
+  background: var(--surface) !important;
+  border: 2px solid var(--gold) !important;
+  border-radius: 16px;
+  padding: 1.8rem 1.8rem 1.5rem;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(212, 175, 55, 0.25);
+  color: var(--text) !important;
+  animation: vip-modal-pop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes vip-modal-pop {
+  from { opacity: 0; transform: scale(0.92) translateY(16px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.tuvi-vip-close,
+.btn-close-modal {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 5;
+}
+
+.tuvi-vip-close:hover,
+.btn-close-modal:hover {
+  color: var(--gold-light);
+  border-color: var(--gold);
+  transform: rotate(90deg);
+}
+
+.tuvi-vip-header {
+  text-align: center;
+  margin-bottom: 1.2rem;
+}
+
+.vip-crown {
+  font-size: 2.2rem;
+  display: block;
+  margin-bottom: 4px;
+  filter: drop-shadow(0 2px 8px rgba(212, 175, 55, 0.5));
+}
+
+.tuvi-vip-header h3 {
+  font-family: var(--font-heading);
+  color: var(--gold-light);
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin: 0 0 6px;
+  letter-spacing: 0.03em;
+}
+
+.vip-sub {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.vip-benefits-list {
+  background: rgba(30, 27, 63, 0.6);
+  border: 1px dashed rgba(212, 175, 55, 0.3);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.vip-benefit-item {
+  font-size: 0.82rem;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.vip-benefit-item strong {
+  color: var(--gold-light);
+}
+
+.vip-price-tag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 1.2rem;
+  padding: 0.6rem 1rem;
+  background: var(--surface-2);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+.vip-price-tag .old-price {
+  color: var(--text-muted);
+  text-decoration: line-through;
+  font-size: 0.95rem;
+}
+
+.vip-price-tag .current-price {
+  color: var(--gold-light);
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.vip-price-tag .discount-badge {
+  background: var(--seal-red);
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  letter-spacing: 0.04em;
+}
+
+.vip-qr-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.qr-code-box,
+.qr-frame {
+  background: #ffffff;
+  border: 2px solid var(--gold);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.qr-img {
+  width: 210px;
+  height: 210px;
+  max-width: 100%;
+  object-fit: contain;
+  margin: 0 auto;
+  display: block;
+}
+
+.qr-hint {
+  color: #475569;
+  font-size: 0.78rem;
+  margin: 8px 0 0;
+  font-weight: 500;
+}
+
+/* Bank Account Info Box (STK & Chuyển Khoản) */
+.bank-info-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.bank-info-box-title {
+  color: var(--gold-light);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 0 0 8px;
+  letter-spacing: 0.03em;
+}
+
+.bank-info-grid,
+.transfer-info-box {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.8rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bank-row,
+.transfer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+  font-size: 0.86rem;
+}
+
+.bank-row:last-child,
+.transfer-row:last-child {
+  border-bottom: none;
+}
+
+.bank-row .b-lbl,
+.transfer-label {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
+.bank-row .b-val,
+.transfer-val {
+  color: var(--text);
+  font-weight: 600;
+  text-align: right;
+}
+
+.bank-row .b-val-with-copy {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-copy-mini {
+  background: rgba(212, 175, 55, 0.15);
+  border: 1px solid var(--border);
+  color: var(--gold-light);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-copy-mini:hover {
+  background: var(--gold);
+  color: #0b0a1a;
+}
+
+.bank-auto-note {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  font-style: italic;
+  text-align: center;
+  margin: 6px 0 0;
+}
+
+.vip-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 1rem;
+}
+
+.btn-confirm-payment {
+  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-deep) 100%) !important;
+  color: #0B0A1A !important;
+  font-weight: 800;
+  font-size: 0.95rem;
+  padding: 0.9rem 1.4rem;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  box-shadow: var(--shadow-gold-glow);
+  transition: all 0.25s ease;
+  width: 100%;
+  text-align: center;
+}
+
+.btn-confirm-payment:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.5);
+}
+
+.vip-secure-note {
+  text-align: center;
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Auth Modal Tabs & Inputs */
+.auth-tabs-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 1.5rem;
+  background: var(--surface-2);
+  padding: 4px;
+  border-radius: 8px;
+}
+
+.auth-tab-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.auth-tab-btn.active {
+  background: var(--surface);
+  color: var(--gold-light);
+  box-shadow: var(--shadow-sm);
+}
+
+.auth-input-group {
+  margin-bottom: 1rem;
+}
+
+.auth-input-group label {
+  display: block;
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.config-input {
+  width: 100%;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  transition: border-color 0.2s ease;
+}
+
+.config-input:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.25);
+}
+
+.auth-error-msg {
+  background: rgba(200, 54, 45, 0.2);
+  border: 1px solid var(--seal-red);
+  color: #ff9b9b;
+  padding: 0.6rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  margin-bottom: 1rem;
+}
+
+.auth-switch-hint {
+  text-align: center;
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  margin-top: 1rem;
+}
+
+.auth-switch-hint a {
+  color: var(--gold-light);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ============================================================
+   RESPONSIVE DESIGN (Mobile-First)
+   ============================================================ */
+@media (max-width: 1024px) {
+  .nav-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: min(300px, 80vw);
+    height: 100vh;
+    background: var(--surface) !important;
+    border-left: 1px solid var(--border);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 5rem 1.5rem 2rem;
+    transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 999;
+    box-shadow: var(--shadow-lg);
+  }
+  .nav-menu.open {
+    right: 0;
+  }
+  .nav-menu a {
+    width: 100%;
+    padding: 0.8rem 0.5rem;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+  }
+  .hamburger {
+    display: flex;
+  }
+  .nav-menu-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 998;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .nav-menu-backdrop.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    max-width: 440px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .pricing-card.featured {
+    transform: none;
+  }
+  .pricing-card.featured:hover {
+    transform: translateY(-4px);
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .consultation-wrap {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-row-2, .grid-row-3 {
+    grid-template-columns: 1fr;
+  }
+  .hero-compass-ring {
+    width: 380px;
+    height: 380px;
+  }
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+  /* Preserve authentic 4x4 Tử Vi geometry with horizontal scrolling on mobile */
+  .la-so-scroll-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .floating-vip-cta {
+    bottom: 16px;
+    right: 16px;
+    padding: 0.65rem 1.1rem;
+    font-size: 0.82rem;
+  }
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   VIP UNLOCKED BANNER (Xuất hiện ngay trên Lá Số khi khách thanh toán thành công)
+   ========================================================================== */
+.vip-unlocked-banner {
+  background: linear-gradient(135deg, rgba(30, 27, 63, 0.95), rgba(21, 19, 48, 0.98));
+  border: 1.5px solid rgba(212, 175, 55, 0.5);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(212, 175, 55, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: bannerSlideIn 0.4s ease-out;
+}
+
+@keyframes bannerSlideIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.vip-banner-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.vip-banner-headline {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.vip-banner-crown {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #f3d98b, #d4af37, #a67c1a);
+  color: #0b0a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+  flex-shrink: 0;
+}
+
+.vip-banner-text-group h3 {
+  font-family: var(--font-heading);
+  color: var(--gold-light);
+  font-size: 1.25rem;
+  margin: 0 0 0.2rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.vip-banner-text-group p {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.vip-banner-actions-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.btn-banner-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.6rem 1.1rem;
+  border-radius: 9999px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  border: 1px solid transparent;
+  font-family: var(--font-body);
+}
+
+.btn-banner-pdf {
+  background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-deep));
+  color: #0b0a1a;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+.btn-banner-pdf:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+}
+
+.btn-banner-magic {
+  background: rgba(21, 19, 48, 0.85);
+  color: var(--gold-light);
+  border-color: rgba(212, 175, 55, 0.45);
+}
+
+.btn-banner-magic:hover {
+  background: rgba(212, 175, 55, 0.15);
+  border-color: var(--gold);
+}
+
+.btn-banner-claim {
+  background: rgba(76, 175, 125, 0.15);
+  color: #4caf7d;
+  border-color: rgba(76, 175, 125, 0.4);
+}
+
+.btn-banner-claim:hover {
+  background: rgba(76, 175, 125, 0.25);
+  border-color: #4caf7d;
+}
+
+/* ==========================================================================
+   MODAL KHÔI PHỤC VIP & TẠO MẬT KHẨU BẢO VỆ
+   ========================================================================== */
+.tuvi-tool-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 10, 26, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.25s ease;
+}
+
+.tuvi-tool-modal-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.tuvi-tool-modal-card {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 480px;
+  padding: 1.8rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  position: relative;
+  transform: translateY(15px);
+  transition: transform 0.25s ease;
+}
+
+.tuvi-tool-modal-backdrop.active .tuvi-tool-modal-card {
+  transform: translateY(0);
+}
+
+.tuvi-tool-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.5rem;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.2s, color 0.2s;
+}
+
+.tuvi-tool-modal-close:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.tuvi-tool-modal-card h3 {
+  font-family: var(--font-heading);
+  color: var(--gold-light);
+  font-size: 1.35rem;
+  margin: 0 0 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tuvi-tool-modal-desc {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+}
+
+.tuvi-tool-input-wrap {
+  margin-bottom: 1.2rem;
+}
+
+.tuvi-tool-input-wrap label {
+  display: block;
+  font-size: 0.86rem;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+  font-weight: 500;
+}
+
+.tuvi-tool-input {
+  width: 100%;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: var(--font-body);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.tuvi-tool-input:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+.btn-tool-submit {
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-deep));
+  color: #0b0a1a;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-tool-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+}
+
+.tuvi-tool-error {
+  color: #e5553d;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  display: none;
+}
