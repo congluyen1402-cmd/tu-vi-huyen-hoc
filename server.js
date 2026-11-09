@@ -1012,10 +1012,14 @@ const server = http.createServer(async (req, res) => {
   });
 });
 
-server.listen(PORT, () => {
-  console.log(`=======================================================`);
-  console.log(`✦ XEM TỬ VI HUYỀN HỌC - BACKEND ĐANG CHẠY TRÊN PORT ${PORT} ✦`);
-  console.log(`✦ Truy cập trực tiếp: http://localhost:${PORT}/ ✦`);
-  console.log(`=======================================================`);
-});
+if (require.main === module) {
+  server.listen(PORT, () => {
+    console.log(`=======================================================`);
+    console.log(`✦ XEM TỬ VI HUYỀN HỌC - BACKEND ĐANG CHẠY TRÊN PORT ${PORT} ✦`);
+    console.log(`✦ Truy cập trực tiếp: http://localhost:${PORT}/ ✦`);
+    console.log(`=======================================================`);
+  });
+}
+
+module.exports = server;
 
