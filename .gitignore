@@ -18,12 +18,11 @@ ehthumbs.db
 Desktop.ini
 .DS_Store
 
-# Editor directories and files
-.vscode/
-.idea/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+# Test and audit artifacts
+test-results/
+playwright-report/
+lh-*.json
+*.png
+!img/**/*.png
+!public/img/**/*.png
 

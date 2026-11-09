@@ -3,9 +3,6 @@
    Bản Quyền Thiết Kế Cao Cấp Dành Riêng Cho Tử Vi Cổ Truyền
    ============================================================ */
 
-/* ── Google Fonts (Vietnamese subset, display=swap) ─────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap&subset=vietnamese');
-
 /* ── DESIGN TOKENS (CSS Variables) ────────────────────────── */
 :root {
   --header-h: 72px;
@@ -419,24 +416,25 @@ a:hover {
 .hero {
   position: relative;
   margin: 0;
-  margin-top: var(--header-h);
-  min-height: calc(100dvh - var(--header-h));
+  padding-top: calc(var(--header-h) + clamp(24px, 4vh, 32px));
+  padding-bottom: clamp(32px, 5vh, 44px);
+  padding-left: 20px;
+  padding-right: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  padding: clamp(24px, 6vh, 72px) 20px clamp(48px, 8vh, 96px);
+  text-align: center;
   overflow: hidden;
   background: var(--bg);
 }
 
-/* Layer 1: Nebula Gradient Background (covers from first pixel) */
+/* Layer 1: Nebula Gradient Background (covers from first pixel behind navbar) */
 .hero-bg-nebula {
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: radial-gradient(circle at 50% 35%, rgba(68, 41, 122, 0.45) 0%, rgba(26, 22, 64, 0.55) 45%, var(--bg) 100%);
+  background: radial-gradient(circle at 50% 45%, rgba(78, 45, 140, 0.48) 0%, rgba(28, 22, 68, 0.45) 50%, var(--bg) 95%);
 }
 
 /* Layer 2: Starfield Canvas inside Hero */
@@ -449,18 +447,18 @@ a:hover {
   pointer-events: none;
 }
 
-/* Layer 3: Faint rotating Bat Quai / Compass Ring (A.2 - centered & responsive) */
+/* Layer 3: Faint rotating Bat Quai / Compass Ring (A.2 - centered behind hero content) */
 .hero-compass-ring {
   position: absolute;
-  top: 50%;
+  top: calc(var(--header-h) + 160px);
   left: 50%;
-  width: min(88vw, 88vh, 620px);
-  height: min(88vw, 88vh, 620px);
+  width: min(85vw, 540px);
+  height: min(85vw, 540px);
   transform: translate(-50%, -50%);
   pointer-events: none;
   animation: rotate-compass 75s linear infinite;
   z-index: 0;
-  opacity: 0.65;
+  opacity: 0.55;
 }
 
 @keyframes rotate-compass {
@@ -492,10 +490,10 @@ a:hover {
 
 /* Layer 5: Hero Scroll Hint (Subtle indicator at bottom of hero) */
 .hero-scroll-hint {
-  position: absolute;
-  bottom: clamp(12px, 2.5vh, 24px);
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative;
+  margin-top: 1.2rem;
+  left: auto;
+  transform: none;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
@@ -514,7 +512,7 @@ a:hover {
 .hero-scroll-hint:hover {
   opacity: 1;
   color: var(--gold);
-  transform: translateX(-50%) translateY(2px);
+  transform: translateY(2px);
 }
 
 .scroll-hint-chevron {
@@ -702,13 +700,13 @@ a:hover {
   color: var(--gold-light);
 }
 
-/* Dark Inputs with Gold Focus Ring */
+/* Dark Inputs with Gold Focus Ring (font-size: 16px to prevent iOS auto-zoom) */
 .form-item-input, .form-item-select, .form-control {
   background: var(--surface-2) !important;
   border: 1px solid var(--border) !important;
   color: var(--text) !important;
   font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-size: 16px !important;
   padding: 0.75rem 1rem;
   border-radius: 8px;
   outline: none;
@@ -720,6 +718,68 @@ a:hover {
   border-color: var(--gold) !important;
   box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.28) !important;
   background: rgba(30, 27, 63, 0.9) !important;
+}
+
+.form-item-input.is-invalid, .form-item-select.is-invalid {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.35) !important;
+}
+
+.form-error-inline {
+  color: #f87171;
+  font-size: 0.78rem;
+  font-weight: 500;
+  margin-top: 0.25rem;
+  display: none;
+}
+
+/* Phase 4: Global Error Boundary & An Sao Cancel */
+.app-error-boundary {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100000;
+  background: #7f1d1d;
+  color: #fef2f2;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+}
+.error-boundary-content {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.btn-error-retry {
+  padding: 0.35rem 0.9rem;
+  background: #fef2f2;
+  color: #7f1d1d;
+  font-weight: 700;
+  font-size: 0.82rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.an-sao-cancel-btn {
+  margin-top: 1.5rem;
+  padding: 0.45rem 1.2rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  color: var(--gold-light);
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.an-sao-cancel-btn:hover {
+  background: rgba(212, 175, 55, 0.25);
+  color: #fff;
 }
 
 .form-item-select option {
@@ -2254,10 +2314,12 @@ footer.footer {
 
 @keyframes subtle-pulse {
   0%, 100% {
-    box-shadow: 0 4px 18px rgba(212, 175, 55, 0.35);
+    transform: scale(1);
+    opacity: 0.95;
   }
   50% {
-    box-shadow: 0 6px 30px rgba(243, 217, 139, 0.65);
+    transform: scale(1.02);
+    opacity: 1;
   }
 }
 
@@ -2273,14 +2335,16 @@ footer.footer {
   justify-content: center;
   z-index: 99999;
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease;
   padding: 1rem;
 }
 
 .tuvi-vip-modal-wrap.active,
 .modal-overlay.active {
   opacity: 1;
+  visibility: visible;
   pointer-events: all;
 }
 
@@ -2333,7 +2397,7 @@ footer.footer {
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
-  z-index: 5;
+  z-index: 25;
 }
 
 .tuvi-vip-close:hover,
@@ -3127,8 +3191,8 @@ footer.footer {
 }
 
 @keyframes anSaoPulse {
-  0% { box-shadow: 0 10px 40px rgba(0,0,0,0.8), 0 0 25px rgba(212, 175, 55, 0.25); }
-  100% { box-shadow: 0 10px 55px rgba(0,0,0,0.9), 0 0 45px rgba(243, 217, 139, 0.55); }
+  0% { transform: scale(0.99); opacity: 0.95; }
+  100% { transform: scale(1.01); opacity: 1; }
 }
 
 .an-sao-compass-wrap {
@@ -3745,8 +3809,55 @@ footer.footer {
   .an-sao-compass-svg,
   .hero-emblem,
   .hero-headline,
-  .hero h1 {
+  .hero h1,
+  .hero-scroll-hint,
+  .scroll-hint-chevron {
     animation: none !important;
   }
 }
+
+/* ── Phase 2: Adaptive Quality System (Lite Mode) ────────── */
+.quality-lite .navbar {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background: rgba(11, 10, 26, 0.97) !important;
+}
+
+.quality-lite .glass-card,
+.quality-lite .tracuu-form-card,
+.quality-lite .consultation-wrap,
+.quality-lite .vip-modal-card {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background: rgba(21, 19, 48, 0.97) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5) !important;
+}
+
+.quality-lite .hero-compass-ring {
+  animation-duration: 180s !important;
+}
+
+.quality-lite .cursor-trail-canvas {
+  display: none !important;
+}
+
+/* ── Progressive Reveal on Scroll (Phase 2 Item 7) ────────── */
+.reveal-init {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.js-reveal-ready .reveal-item {
+  opacity: 0;
+  transform: translateY(20px);
+  will-change: opacity, transform;
+}
+
+.js-reveal-ready .reveal-item.revealed {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  will-change: auto;
+}
+
 

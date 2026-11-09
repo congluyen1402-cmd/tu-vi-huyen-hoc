@@ -4,7 +4,9 @@
   "description": "Website Tra Cứu & Luận Giải Tử Vi Huyền Học Đa Tầng kết hợp Cổng Thanh Toán VietQR Tự Động & Bảng Quản Trị Thông Minh",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "playwright test",
+    "check": "node -c server.js js/app.js js/tuvi-chart.js js/tuvi-engine.js js/tuvi-luan-giai.js js/tuvi-monetize.js js/mystic-video.js js/tuvi-auth.js js/tuvi-share.js && playwright test"
   },
   "keywords": [
     "tu-vi",
@@ -15,6 +17,8 @@
     "dashboard"
   ],
   "author": "Trần Công Luyện",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.65.0"
+  }
 }
-

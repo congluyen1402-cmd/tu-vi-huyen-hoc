@@ -75,13 +75,19 @@
 
     init: function () {
       this.loadConfig();
-      this.createVipModalDOM();
-      this.createRestoreModalDOM();
-      this.createClaimAccountModalDOM();
       this.initBookingForm();
       this.checkVipStatus();
       this.initFloatingCta();
-      this.trackEvent('page_view', { path: window.location.pathname });
+
+      // Trì hoãn ghi nhận sự kiện analytics để không cản trở LCP & First Paint
+      if (typeof window !== 'undefined') {
+        const sendPageView = () => this.trackEvent('page_view', { path: window.location.pathname });
+        if ('requestIdleCallback' in window) {
+          window.requestIdleCallback(sendPageView);
+        } else {
+          setTimeout(sendPageView, 2000);
+        }
+      }
       console.log('✦ Hệ thống Thương Mại Hóa Tử Vi Sẵn Sàng ✦');
     },
 
@@ -972,8 +978,19 @@
         observer.observe(pricingSection);
       }
 
+      let scrollTicking = false;
+      const onScrollThrottled = () => {
+        if (!scrollTicking) {
+          scrollTicking = true;
+          requestAnimationFrame(() => {
+            updateVisibility();
+            scrollTicking = false;
+          });
+        }
+      };
+
       if (typeof window !== 'undefined' && window.addEventListener) {
-        window.addEventListener('scroll', updateVisibility, { passive: true });
+        window.addEventListener('scroll', onScrollThrottled, { passive: true });
       }
     },
 

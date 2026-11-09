@@ -34,13 +34,13 @@
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-  <!-- Google Fonts: Cormorant Garamond & Playfair Display (Headings) & Be Vietnam Pro (Body) with Vietnamese subset -->
+  <!-- Google Fonts: Cormorant Garamond & Be Vietnam Pro (Streamlined Critical Weights) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap&subset=vietnamese" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap&subset=vietnamese" rel="stylesheet">
 
-  <!-- Lucide Line Icons (Gold Theme) -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Lucide Line Icons (Deferred for non-blocking paint) -->
+  <script src="https://unpkg.com/lucide@latest" defer></script>
 
   <!-- Main Stylesheet (Midnight Indigo & Imperial Gold) -->
   <link rel="stylesheet" href="/css/style.css?v=20261109_v2">
@@ -110,6 +110,17 @@
 <body>
 
   <!-- ============================================================ -->
+  <!-- GLOBAL ERROR BOUNDARY (Phase 4 Item 1)                        -->
+  <!-- ============================================================ -->
+  <div id="appErrorBoundary" class="app-error-boundary" style="display:none;" role="alert">
+    <div class="error-boundary-content">
+      <span class="error-icon">✦</span>
+      <span class="error-msg">Có lỗi xảy ra trong quá trình xử lý. Vui lòng tải lại hoặc thử lại.</span>
+      <button type="button" class="btn-error-retry" onclick="window.location.reload()">Thử lại</button>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
   <!-- LOADING OVERLAY                                               -->
   <!-- ============================================================ -->
   <div class="loading-overlay" id="loadingOverlay" aria-hidden="true" role="status">
@@ -128,7 +139,7 @@
   <header>
     <nav class="navbar" id="navbar" role="navigation" aria-label="Menu chính">
       <a href="#" class="navbar-brand" aria-label="Trang chủ Xem Tử Vi Huyền Học">
-        <img src="/img/logo-xem-tu-vi-huyen-hoc.png" alt="Logo Xem Tử Vi Huyền Học" class="navbar-logo-img">
+        <img src="/img/logo-xem-tu-vi-huyen-hoc.png" alt="Logo Xem Tử Vi Huyền Học" class="navbar-logo-img" width="42" height="42" decoding="async">
         <span class="brand-text">XEM TỬ VI<br>HUYỀN HỌC</span>
       </a>
 
@@ -232,9 +243,9 @@
               name="hoTen"
               placeholder="Ví dụ: Nguyễn Văn An"
               value=""
-              required
               autocomplete="name"
             >
+            <div class="form-error-inline" id="error-hoTen" role="alert" aria-live="polite"></div>
           </div>
 
           <div class="form-control-item">
@@ -243,6 +254,7 @@
               <option value="nam" selected>Nam giới</option>
               <option value="nu">Nữ giới</option>
             </select>
+            <div class="form-error-inline" id="error-gioiTinh" role="alert" aria-live="polite"></div>
           </div>
         </div>
 
@@ -312,6 +324,7 @@
             <select class="form-item-select" id="ngaySinh" name="ngaySinh" required>
               <!-- Populated by JS: Ngày 01 - Ngày 31 -->
             </select>
+            <div class="form-error-inline" id="error-ngaySinh" role="alert" aria-live="polite"></div>
           </div>
 
           <div class="form-control-item">
@@ -330,6 +343,7 @@
               <option value="11">Tháng 11</option>
               <option value="12">Tháng 12</option>
             </select>
+            <div class="form-error-inline" id="error-thangSinh" role="alert" aria-live="polite"></div>
           </div>
 
           <div class="form-control-item">
@@ -337,6 +351,7 @@
             <select class="form-item-select" id="namSinh" name="namSinh" required>
               <!-- Populated by JS: 1940 - 2030 -->
             </select>
+            <div class="form-error-inline" id="error-namSinh" role="alert" aria-live="polite"></div>
           </div>
         </div>
 
@@ -372,6 +387,7 @@
     <div class="an-sao-progress-line"><div class="an-sao-progress-bar" id="anSaoProgressBar"></div></div>
     <div class="an-sao-status-text" id="anSaoStatusText">Đang xác định cung Mệnh…</div>
     <div class="an-sao-sub-hint">Khởi tạo thiên bàn, địa bàn và an định 114 tinh đẩu</div>
+    <button type="button" id="anSaoCancelBtn" class="an-sao-cancel-btn" style="display:none;" onclick="TuViApp.cancelAnSao()">Hủy & Thử lại</button>
   </div>
 
   <!-- ============================================================ -->
@@ -732,13 +748,13 @@
       </p>
       <div class="sample-thumbs-grid">
         <div class="sample-thumb-item">
-          <img src="/images/sample-report-1.jpg" alt="Mẫu Báo Cáo VIP Trang 1 - Thiên Bàn Địa Bàn" loading="lazy">
+          <img src="/images/sample-report-1.jpg" alt="Mẫu Báo Cáo VIP Trang 1 - Thiên Bàn Địa Bàn" width="340" height="480" loading="lazy" decoding="async">
         </div>
         <div class="sample-thumb-item">
-          <img src="/images/sample-report-2.jpg" alt="Mẫu Báo Cáo VIP Trang 2 - Luận Giải 12 Cung" loading="lazy">
+          <img src="/images/sample-report-2.jpg" alt="Mẫu Báo Cáo VIP Trang 2 - Luận Giải 12 Cung" width="340" height="480" loading="lazy" decoding="async">
         </div>
         <div class="sample-thumb-item">
-          <img src="/images/sample-report-3.jpg" alt="Mẫu Báo Cáo VIP Trang 3 - Vận Hạn & Đạo Trị Mệnh" loading="lazy">
+          <img src="/images/sample-report-3.jpg" alt="Mẫu Báo Cáo VIP Trang 3 - Vận Hạn & Đạo Trị Mệnh" width="340" height="480" loading="lazy" decoding="async">
         </div>
       </div>
       <button class="btn-gold-pill" onclick="TuViMonetize.closeSampleReportGallery(); TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư', 49000);" style="padding: 0.75rem 2rem; font-size: 0.95rem;">
@@ -752,7 +768,7 @@
   <!-- ============================================================ -->
   <footer class="footer" id="footer">
     <div class="footer-brand">
-      <img src="/img/logo-xem-tu-vi-huyen-hoc.png" alt="Logo Xem Tử Vi Huyền Học">
+      <img src="/img/logo-xem-tu-vi-huyen-hoc.png" alt="Logo Xem Tử Vi Huyền Học" width="56" height="56" loading="lazy" decoding="async">
       <span>Xem Tử Vi Huyền Học</span>
     </div>
     <div class="footer-social-links" id="footerSocialLinks">
@@ -902,14 +918,14 @@
     })();
   </script>
 
-  <!-- External JS modules with version cache busting -->
-  <script src="/js/tuvi-engine.js?v=20261109_v2"></script>
-  <script src="/js/tuvi-luan-giai.js?v=20261109_v2"></script>
-  <script src="/js/tuvi-auth.js?v=20261109_v2"></script>
-  <script src="/js/tuvi-monetize.js?v=20261109_v2"></script>
-  <script src="/js/tuvi-share.js?v=20261109_v2"></script>
-  <script src="/js/tuvi-chart.js?v=20261109_v2"></script>
-  <script src="/js/mystic-video.js?v=20261109_v2"></script>
-  <script src="/js/app.js?v=20261109_v2"></script>
+  <!-- External JS modules with version cache busting (Deferred for non-blocking paint) -->
+  <script src="/js/tuvi-engine.js?v=20261109_v3" defer></script>
+  <script src="/js/tuvi-luan-giai.js?v=20261109_v3" defer></script>
+  <script src="/js/tuvi-auth.js?v=20261109_v3" defer></script>
+  <script src="/js/tuvi-monetize.js?v=20261109_v3" defer></script>
+  <script src="/js/tuvi-share.js?v=20261109_v3" defer></script>
+  <script src="/js/tuvi-chart.js?v=20261109_v3" defer></script>
+  <script src="/js/mystic-video.js?v=20261109_v3" defer></script>
+  <script src="/js/app.js?v=20261109_v3" defer></script>
 </body>
 </html>

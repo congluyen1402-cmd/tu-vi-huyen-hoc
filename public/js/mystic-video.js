@@ -30,7 +30,13 @@
       this.ctx = this.canvas.getContext('2d');
       this.initResize();
       this.initControls();
-      this.startAnimation();
+
+      // Đăng ký vào AnimationHub để chỉ vẽ khi phần tử hiển thị trong màn hình
+      if (typeof window.AnimationHub !== 'undefined') {
+        window.AnimationHub.register('mysticCanvas', () => this.renderFrame(), this.canvas);
+      } else {
+        this.startAnimation();
+      }
       console.log('✦ Không Gian Huyền Học Video - Khởi Động Thành Công ✦');
     },
 
@@ -89,18 +95,22 @@
       }
     },
 
+    renderFrame: function () {
+      if (!this.canvas || !this.ctx) return;
+      this.angle += 0.008;
+
+      if (this.mode === 'bagua') {
+        this.drawBaguaScene();
+      } else if (this.mode === 'stars') {
+        this.drawStarsScene();
+      } else if (this.mode === 'wave') {
+        this.drawWaveScene();
+      }
+    },
+
     startAnimation: function () {
       const render = () => {
-        this.angle += 0.008;
-
-        if (this.mode === 'bagua') {
-          this.drawBaguaScene();
-        } else if (this.mode === 'stars') {
-          this.drawStarsScene();
-        } else if (this.mode === 'wave') {
-          this.drawWaveScene();
-        }
-
+        this.renderFrame();
         this.animId = requestAnimationFrame(render);
       };
       render();
