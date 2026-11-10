@@ -1,0 +1,427 @@
+[
+  {
+    "id": "CASE-01-NAM-2002-HOA-LUC-CUC",
+    "description": "Nam Dương mạng, Hỏa lục cục, sinh 10/04/2002 19:30",
+    "input": {
+      "solarDate": "2002-04-10",
+      "time": "19:30",
+      "gioiTinh": "nam",
+      "calendar": "solar"
+    },
+    "expected": {
+      "lunar": {
+        "day": 28,
+        "month": 2,
+        "year": 2002,
+        "leap": false
+      },
+      "canChi": {
+        "nam": "Nhâm Ngọ",
+        "thang": "Quý Mão",
+        "ngay": "Mậu Thân",
+        "gio": "Nhâm Tuất"
+      },
+      "cuc": {
+        "name": "Hỏa lục cục",
+        "value": 6
+      },
+      "menh": "Tỵ",
+      "than": "Sửu",
+      "tuVi": "Thân",
+      "thienPhu": "Thân",
+      "chieuDaiHan": "Thuận",
+      "tuHoa": {
+        "hoaLoc": "Thiên Lương",
+        "hoaQuyen": "Tử Vi",
+        "hoaKhoa": "Tả Phù",
+        "hoaKy": "Vũ Khúc"
+      }
+    }
+  },
+  {
+    "id": "CASE-02-NU-1995-KIM-TU-CUC",
+    "description": "Nữ Âm mạng, Kim tứ cục, sinh 15/08/1995 06:15",
+    "input": {
+      "solarDate": "1995-08-15",
+      "time": "06:15",
+      "gioiTinh": "nu",
+      "calendar": "solar"
+    },
+    "expected": {
+      "lunar": {
+        "day": 20,
+        "month": 7,
+        "year": 1995,
+        "leap": false
+      },
+      "canChi": {
+        "nam": "Ất Hợi",
+        "thang": "Giáp Thân",
+        "ngay": "Mậu Dần",
+        "gio": "Ất Mão"
+      },
+      "cuc": {
+        "name": "Kim tứ cục",
+        "value": 4
+      },
+      "menh": "Tỵ",
+      "than": "Hợi",
+      "tuVi": "Ngọ",
+      "thienPhu": "Tuất",
+      "chieuDaiHan": "Thuận",
+      "tuHoa": {
+        "hoaLoc": "Thiên Cơ",
+        "hoaQuyen": "Thiên Lương",
+        "hoaKhoa": "Tử Vi",
+        "hoaKy": "Thái Âm"
+      }
+    }
+  },
+  {
+    "id": "CASE-03-NAM-1990-THO-NGU-CUC",
+    "description": "Nam Dương mạng (Kỷ Tỵ là Âm Nam), Thổ ngũ cục, sinh 01/01/1990 12:00",
+    "input": {
+      "solarDate": "1990-01-01",
+      "time": "12:00",
+      "gioiTinh": "nam",
+      "calendar": "solar"
+    },
+    "expected": {
+      "lunar": {
+        "day": 5,
+        "month": 12,
+        "year": 1989,
+        "leap": false
+      },
+      "canChi": {
+        "nam": "Kỷ Tỵ",
+        "thang": "Đinh Sửu",
+        "ngay": "Bính Dần",
+        "gio": "Giáp Ngọ"
+      },
+      "cuc": {
+        "name": "Thổ ngũ cục",
+        "value": 5
+      },
+      "menh": "Mùi",
+      "than": "Mùi",
+      "tuVi": "Dần",
+      "thienPhu": "Dần",
+      "chieuDaiHan": "Nghịch",
+      "tuHoa": {
+        "hoaLoc": "Vũ Khúc",
+        "hoaQuyen": "Tham Lang",
+        "hoaKhoa": "Thiên Lương",
+        "hoaKy": "Văn Khúc"
+      }
+    }
+  },
+  {
+    "id": "CASE-04-NU-1988-THUY-NHI-CUC",
+    "description": "Nữ Dương mạng, Thủy nhị cục, sinh 20/05/1988 14:20",
+    "input": {
+      "solarDate": "1988-05-20",
+      "time": "14:20",
+      "gioiTinh": "nu",
+      "calendar": "solar"
+    },
+    "expected": {
+      "lunar": {
+        "day": 5,
+        "month": 4,
+        "year": 1988,
+        "leap": false
+      },
+      "canChi": {
+        "nam": "Mậu Thìn",
+        "thang": "Đinh Tỵ",
+        "ngay": "Ất Hợi",
+        "gio": "Quý Mùi"
+      },
+      "cuc": {
+        "name": "Thủy nhị cục",
+        "value": 2
+      },
+      "menh": "Tuất",
+      "than": "Tý",
+      "tuVi": "Mão",
+      "thienPhu": "Sửu",
+      "chieuDaiHan": "Nghịch",
+      "tuHoa": {
+        "hoaLoc": "Tham Lang",
+        "hoaQuyen": "Thái Âm",
+        "hoaKhoa": "Hữu Bật",
+        "hoaKy": "Thiên Cơ"
+      }
+    }
+  },
+  {
+    "id": "CASE-05-NAM-1976-MOC-TAM-CUC",
+    "description": "Nam Dương mạng, Bính Thìn, Mộc tam cục, sinh 08/03/1976 08:30",
+    "input": {
+      "solarDate": "1976-03-08",
+      "time": "08:30",
+      "gioiTinh": "nam",
+      "calendar": "solar"
+    },
+    "expected": {
+      "lunar": {
+        "day": 8,
+        "month": 2,
+        "year": 1976,
+        "leap": false
+      },
+      "canChi": {
+        "nam": "Bính Thìn",
+        "thang": "Tân Mão",
+        "ngay": "Kỷ Mùi",
+        "gio": "Mậu Thìn"
+      },
+      "cuc": {
+        "name": "Mộc tam cục",
+        "value": 3
+      },
+      "menh": "Hợi",
+      "than": "Mùi",
+      "tuVi": "Mão",
+      "thienPhu": "Sửu",
+      "chieuDaiHan": "Thuận",
+      "tuHoa": {
+        "hoaLoc": "Thiên Đồng",
+        "hoaQuyen": "Thiên Cơ",
+        "hoaKhoa": "Văn Xương",
+        "hoaKy": "Liêm Trinh"
+      }
+    }
+  },
+  {
+    "id": "CASE-06-GIO-TY-23H-DAU-NGAY",
+    "description": "Kiểm tra quy ước giờ Tý lúc 23h45 sinh ngày 15/10/2000",
+    "input": {
+      "solarDate": "2000-10-15",
+      "time": "23:45",
+      "gioiTinh": "nam",
+      "calendar": "solar"
+    },
+    "expected": {
+      "lunar": {
+        "day": 18,
+        "month": 9,
+        "year": 2000,
+        "leap": false
+      },
+      "canChi": {
+        "nam": "Canh Thìn",
+        "thang": "Bính Tuất",
+        "ngay": "Bính Ngọ",
+        "gio": "Mậu Tý"
+      },
+      "cuc": {
+        "name": "Thổ ngũ cục",
+        "value": 5
+      },
+      "menh": "Tuất",
+      "than": "Tuất",
+      "tuVi": "Mùi",
+      "thienPhu": "Dậu",
+      "chieuDaiHan": "Thuận"
+    }
+  },
+  {
+    "id": "CASE-07-GIO-TY-00H-SAU-NGAY",
+    "description": "Kiểm tra giờ Tý lúc 00h30 sinh ngày 16/10/2000",
+    "input": {
+      "solarDate": "2000-10-16",
+      "time": "00:30",
+      "gioiTinh": "nam",
+      "calendar": "solar"
+    },
+    "expected": {
+      "lunar": {
+        "day": 19,
+        "month": 9,
+        "year": 2000,
+        "leap": false
+      },
+      "canChi": {
+        "nam": "Canh Thìn",
+        "thang": "Bính Tuất",
+        "ngay": "Đinh Mùi",
+        "gio": "Canh Tý"
+      },
+      "cuc": {
+        "name": "Thổ ngũ cục",
+        "value": 5
+      },
+      "menh": "Tuất",
+      "than": "Tuất",
+      "tuVi": "Thìn",
+      "thienPhu": "Tý",
+      "chieuDaiHan": "Thuận"
+    }
+  },
+  {
+    "id": "CASE-08-THANG-NHUAN-2023",
+    "description": "Năm Quý Mão 2023 nhuận tháng 2 âm lịch",
+    "input": {
+      "solarDate": "2023-04-05",
+      "time": "10:15",
+      "gioiTinh": "nu",
+      "calendar": "solar"
+    },
+    "expected": {
+      "lunar": {
+        "day": 15,
+        "month": 2,
+        "year": 2023,
+        "leap": true
+      },
+      "canChi": {
+        "nam": "Quý Mão",
+        "thang": "Ất Mão",
+        "ngay": "Quý Tỵ",
+        "gio": "Đinh Tỵ"
+      },
+      "cuc": {
+        "name": "Thủy nhị cục",
+        "value": 2
+      },
+      "menh": "Tuất",
+      "than": "Thân",
+      "tuVi": "Thân",
+      "thienPhu": "Thân",
+      "chieuDaiHan": "Thuận"
+    }
+  },
+  {
+    "id": "CASE-09-NAM-1984-GIAP-TY",
+    "description": "Giáp Tý 1984, khởi đầu chu kỳ 60 hoa giáp",
+    "input": {
+      "solarDate": "1984-02-05",
+      "time": "04:00",
+      "gioiTinh": "nam",
+      "calendar": "solar"
+    },
+    "expected": {
+      "lunar": {
+        "day": 4,
+        "month": 1,
+        "year": 1984,
+        "leap": false
+      },
+      "canChi": {
+        "nam": "Giáp Tý",
+        "thang": "Bính Dần",
+        "ngay": "Kỷ Tỵ",
+        "gio": "Bính Dần"
+      },
+      "cuc": {
+        "name": "Thủy nhị cục",
+        "value": 2
+      },
+      "menh": "Tý",
+      "than": "Thìn",
+      "tuVi": "Mão",
+      "thienPhu": "Sửu",
+      "chieuDaiHan": "Thuận"
+    }
+  },
+  {
+    "id": "CASE-10-NU-1999-KY-MAO",
+    "description": "Kỷ Mão 1999, Âm Nữ, đi Nghịch đại hạn",
+    "input": {
+      "solarDate": "1999-09-09",
+      "time": "18:00",
+      "gioiTinh": "nu",
+      "calendar": "solar"
+    },
+    "expected": {
+      "lunar": {
+        "day": 30,
+        "month": 7,
+        "year": 1999,
+        "leap": false
+      },
+      "canChi": {
+        "nam": "Kỷ Mão",
+        "thang": "Nhâm Thân",
+        "ngay": "Giáp Tý",
+        "gio": "Quý Dậu"
+      },
+      "cuc": {
+        "name": "Hỏa lục cục",
+        "value": 6
+      },
+      "menh": "Hợi",
+      "than": "Tỵ",
+      "tuVi": "Ngọ",
+      "thienPhu": "Tuất",
+      "chieuDaiHan": "Thuận"
+    }
+  },
+  {
+    "id": "CASE-11-LUNAR-INPUT-DIRECT",
+    "description": "Nhập trực tiếp ngày âm lịch 15/08/1990 giờ Ngọ",
+    "input": {
+      "lunarDate": "1990-08-15",
+      "time": "12:00",
+      "gioiTinh": "nam",
+      "calendar": "lunar"
+    },
+    "expected": {
+      "lunar": {
+        "day": 15,
+        "month": 8,
+        "year": 1990,
+        "leap": false
+      },
+      "canChi": {
+        "nam": "Canh Ngọ",
+        "thang": "Ất Dậu",
+        "ngay": "Nhâm Tý",
+        "gio": "Bính Ngọ"
+      },
+      "menh": "Mão",
+      "than": "Mão",
+      "cuc": {
+        "name": "Thổ ngũ cục",
+        "value": 5
+      },
+      "tuVi": "Thìn",
+      "thienPhu": "Tý"
+    }
+  },
+  {
+    "id": "CASE-12-NAM-2024-GIAP-THIN",
+    "description": "Em bé sinh năm Giáp Thìn 2024",
+    "input": {
+      "solarDate": "2024-06-01",
+      "time": "09:30",
+      "gioiTinh": "nam",
+      "calendar": "solar"
+    },
+    "expected": {
+      "lunar": {
+        "day": 25,
+        "month": 4,
+        "year": 2024,
+        "leap": false
+      },
+      "canChi": {
+        "nam": "Giáp Thìn",
+        "thang": "Kỷ Tỵ",
+        "ngay": "Bính Thân",
+        "gio": "Quý Tỵ"
+      },
+      "cuc": {
+        "name": "Thủy nhị cục",
+        "value": 2
+      },
+      "menh": "Tý",
+      "than": "Tuất",
+      "tuVi": "Sửu",
+      "thienPhu": "Mão",
+      "chieuDaiHan": "Thuận"
+    }
+  }
+]

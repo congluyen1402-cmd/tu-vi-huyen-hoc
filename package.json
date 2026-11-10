@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node server.js",
     "test": "playwright test",
-    "check": "node -c server.js js/app.js js/tuvi-chart.js js/tuvi-engine.js js/tuvi-luan-giai.js js/tuvi-monetize.js js/mystic-video.js js/tuvi-auth.js js/tuvi-share.js && playwright test"
+    "trace": "node scripts/trace.js",
+    "test:golden": "node scripts/test_golden.js",
+    "check": "node -c server.js js/app.js js/tuvi-chart.js js/tuvi-engine.js js/tuvi-luan-giai.js js/tuvi-monetize.js js/mystic-video.js js/tuvi-auth.js js/tuvi-share.js && node scripts/test_golden.js && playwright test"
   },
   "keywords": [
     "tu-vi",

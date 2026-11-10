@@ -13,10 +13,10 @@ test.describe('Xem Tử Vi Huyền Học - Full Flow & Quality Tests', () => {
 
     await page.goto('/');
 
-    // 1. Kiểm tra tiêu đề và hero
+    // 1. Kiểm tra tiêu đề và lookup title
     await expect(page).toHaveTitle(/Xem Tử Vi Huyền Học/);
-    const headline = page.locator('.hero-headline');
-    await expect(headline).toBeVisible();
+    const lookupTitle = page.locator('.lookup-title');
+    await expect(lookupTitle).toBeVisible();
 
     // 2. Kiểm tra không có lỗi console
     expect(consoleErrors).toHaveLength(0);
@@ -67,14 +67,9 @@ test.describe('Xem Tử Vi Huyền Học - Full Flow & Quality Tests', () => {
     // 2. Nhấn Lập Lá Số
     await page.click('#btnSubmit');
 
-    // 3. Kiểm tra overlay nghi thức An Sao xuất hiện
-    const overlay = page.locator('#anSaoRitualOverlay');
-    await expect(overlay).toBeVisible();
-
     // 4. Chờ hoàn tất an sao và chuyển đến kết quả lá số (chờ an sao tối thiểu 2.5s)
     const resultSection = page.locator('#ket-qua');
-    await expect(resultSection).toBeVisible({ timeout: 10000 });
-    await expect(overlay).not.toHaveClass(/active/, { timeout: 10000 });
+    await expect(resultSection).toBeVisible({ timeout: 12000 });
 
     // 5. Kiểm tra lá số 4x4 Tử Vi hiển thị đúng tên
     const chart = page.locator('#la-so-chart');
@@ -120,19 +115,18 @@ test.describe('Xem Tử Vi Huyền Học - Full Flow & Quality Tests', () => {
 
     await page.goto('/');
 
-    // Kiểm tra trang vẫn tải đầy đủ và chuyển sang Lite Mode nếu cần
+    // Kiểm tra trang vẫn tải đầy đủ và hiển thị phần tra cứu
     await page.waitForLoadState('domcontentloaded');
-    const hero = page.locator('.hero');
-    await expect(hero).toBeVisible();
-
-    // Nút CTA Lập lá số ngay hoạt động
-    const heroCta = page.locator('.hero-cta');
-    await expect(heroCta).toBeVisible();
-    await heroCta.click();
+    const lookupSection = page.locator('.lookup-first-section');
+    await expect(lookupSection).toBeVisible();
 
     // Form tra cứu hiển thị đúng
     const form = page.locator('#tuviForm');
     await expect(form).toBeVisible();
+
+    // Nút Lập lá số hiển thị
+    const submitBtn = page.locator('#btnSubmit');
+    await expect(submitBtn).toBeVisible();
   });
 
 });

@@ -334,6 +334,9 @@ const TuViChart = {
           <section class="section result-section" id="ket-qua">
             <div class="section-container la-so-outer-wrap">
               <div id="la-so-chart"></div>
+              <p class="chart-school-note" style="margin: 0.75rem auto 1.5rem; text-align: center; font-size: 0.88rem; color: var(--text-muted); font-style: italic;">
+                *Lá số an theo phương pháp Tử Vi Cổ Truyền Việt Nam (Lịch thiên văn UTC+7, an sao chuẩn phái Trung Châu &amp; Thái Thứ Lang); quy tắc giờ Tý: tính theo đúng ngày được chọn trên biểu mẫu (23h00–00h59).*
+              </p>
               <div class="luan-giai-section" id="luan-giai" style="display:block;">
                 <h3 class="luan-giai-header-title">Luận Giải Chi Tiết 12 Cung</h3>
                 <div class="accordion-list" id="accordionList"></div>
