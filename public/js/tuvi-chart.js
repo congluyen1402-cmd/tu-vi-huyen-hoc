@@ -494,23 +494,30 @@ const TuViChart = {
     const titleColor = this.PALACE_COLORS[cung.cungName] || '#7A1F17';
     const palaceTitle = isThan ? `${cung.cungName}&lt;THÂN&gt;` : cung.cungName;
 
-    // Cột sao trái: Chính tinh + Cát tinh
-    let leftColHtml = '';
-    if (cung.chinhTinh && cung.chinhTinh.length > 0) {
+    // Dấu Âm / Dương của Thiên Can cung vị (Giáp, Bính, Mậu, Canh, Nhâm: '+'; Ất, Đinh, Kỷ, Tân, Quý: '−')
+    const canIsDuong = (typeof cung.canIndex === 'number') ? (cung.canIndex % 2 === 0) : true;
+    const canSignSymbol = canIsDuong ? '+' : '−';
+
+    // Khối Chính Tinh ở GIỮA (Centered Main Stars)
+    let chinhTinhCenterHtml = '';
+    const hasChinhTinh = cung.chinhTinh && cung.chinhTinh.length > 0;
+    if (hasChinhTinh) {
       cung.chinhTinh.forEach(ct => {
         const color = this.ELEMENT_COLORS[ct.element] || '#8F6B00';
-        const sign = ct.sign || '+';
+        const sign = (ct.sign === '-' || ct.sign === '−') ? '−' : (ct.sign || '+');
         const dacHam = ct.dacHam ? ` (${ct.dacHam})` : '';
-        leftColHtml += `
-          <div class="star-line star-chinh" style="color: ${color};">
+        chinhTinhCenterHtml += `
+          <div class="star-chinh-center" style="color: ${color};">
             <span class="star-sign">${sign}</span>
-            <strong class="star-name">${ct.name}</strong>${dacHam}
+            <strong class="star-name">${ct.name}</strong>${dacHam ? `<span class="star-dacham">${dacHam}</span>` : ''}
             ${ct.tuHoa ? `<span class="tu-hoa-badge">${ct.tuHoa}</span>` : ''}
           </div>
         `;
       });
     }
 
+    // Cột sao trái: Cát tinh
+    let leftColHtml = '';
     if (cung.phuTinhLeft && cung.phuTinhLeft.length > 0) {
       cung.phuTinhLeft.forEach(pt => {
         const color = this.ELEMENT_COLORS[pt.element] || '#1E7A3E';
@@ -554,6 +561,14 @@ const TuViChart = {
             ${isLocked ? '<span class="cell-lock-icon" title="Cung bị khóa"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>' : ''}
           </span>
           <span class="cung-dai-han-num">${cung.daiHan ? cung.daiHan.num : ''}</span>
+        </div>
+
+        <!-- Khối Chính Tinh ở GIỮA -->
+        <div class="cung-chinh-tinh-wrap ${hasChinhTinh ? '' : 'vcd'}">
+          <span class="cung-can-sign" style="color: ${titleColor};">${canSignSymbol}</span>
+          <div class="cung-chinh-tinh-center">
+            ${chinhTinhCenterHtml}
+          </div>
         </div>
 
         <!-- Hai cột sao -->

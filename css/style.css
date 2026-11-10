@@ -1328,6 +1328,67 @@ a:hover {
   font-size: clamp(8px, 2cqw, 12px);
 }
 
+/* Khối Chính Tinh ở giữa Cung (Centered Main Stars) */
+.cung-chinh-tinh-wrap {
+  position: relative;
+  width: 100%;
+  min-height: 18px;
+  margin: 2px 0 3px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cung-chinh-tinh-wrap.vcd {
+  min-height: 10px;
+  margin: 1px 0;
+}
+.cung-can-sign {
+  position: absolute;
+  left: 2px;
+  top: 1px;
+  font-weight: 700;
+  font-size: clamp(10px, 2.4cqw, 14px);
+  line-height: 1.1;
+  user-select: none;
+}
+.cung-chinh-tinh-center {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1px;
+  padding: 0 12px;
+}
+.star-chinh-center {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
+  gap: 3px;
+  font-size: clamp(9px, 2.45cqw, 13.5px);
+  line-height: 1.25;
+  font-weight: 700;
+}
+.star-chinh-center .star-sign {
+  font-weight: 700;
+  margin-right: 1px;
+  font-size: 0.95em;
+}
+.star-chinh-center .star-name {
+  font-weight: 700;
+}
+.star-chinh-center .star-dacham {
+  font-weight: 600;
+  font-size: 0.92em;
+}
+.star-chinh-center .tu-hoa-badge {
+  margin-left: 2px;
+  font-size: clamp(7.5px, 1.7cqw, 9.5px);
+}
+
 /* Two Star Columns */
 .cung-stars-columns {
   display: flex;
