@@ -996,7 +996,10 @@ const server = http.createServer(async (req, res) => {
     safePath = '/admin.html';
   }
 
-  const filePath = path.join(__dirname, safePath);
+  let filePath = path.join(__dirname, safePath);
+  if (!path.extname(filePath) && fs.existsSync(filePath + '.html')) {
+    filePath = filePath + '.html';
+  }
 
   fs.stat(filePath, (err, stats) => {
     if (err || !stats.isFile()) {

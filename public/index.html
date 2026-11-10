@@ -41,6 +41,7 @@
 
   <!-- Lucide Line Icons (Deferred for non-blocking paint) -->
   <script src="https://unpkg.com/lucide@latest" defer></script>
+  <script src="/js/config.js?v=20261110_v1"></script>
 
   <!-- Main Stylesheet (Midnight Indigo & Imperial Gold) -->
   <link rel="stylesheet" href="/css/style.css?v=20261109_v2">
@@ -107,6 +108,108 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
   </style>
+
+  <!-- Structured Data: Organization & WebSite (Requirement 9) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.xemtuvihuyenhoc.com/#organization",
+        "name": "Xem Tử Vi Huyền Học",
+        "url": "https://www.xemtuvihuyenhoc.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www.xemtuvihuyenhoc.com/img/logo-xem-tu-vi-huyen-hoc.png",
+          "caption": "Logo Xem Tử Vi Huyền Học"
+        },
+        "sameAs": [
+          "https://instagram.com/tu_vi_huyenhoc"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://www.xemtuvihuyenhoc.com/#website",
+        "url": "https://www.xemtuvihuyenhoc.com",
+        "name": "Xem Tử Vi Huyền Học",
+        "publisher": { "@id": "https://www.xemtuvihuyenhoc.com/#organization" },
+        "inLanguage": "vi-VN"
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://www.xemtuvihuyenhoc.com/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Độ chính xác của lá số Tử Vi trên website như thế nào?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Lá số được an định tự động dựa trên các quy tắc toán học và thiên bàn Tử Vi Đẩu Số truyền thống (14 chính tinh, lục sát tinh, lục cát tinh, tứ hóa và hơn 100 phụ tinh). Kết quả mang tính chất tham khảo học thuật và chiêm nghiệm nhân sinh."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Quy tắc tính giờ Tý (23h00 – 01h00) trên website ra sao?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Hệ thống tính giờ Tý theo đúng ngày bạn đã chọn trên biểu mẫu (người sinh từ 23h00 đến 00h59 được xếp vào giờ Tý của ngày đó, không tự động chuyển sang ngày hôm sau). Nếu quý bạn sinh sau 23h00 và muốn an theo ngày hôm sau, vui lòng chọn ngày sinh kế tiếp."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Tôi nên tra cứu theo Âm lịch hay Dương lịch?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Bạn có thể chọn tra cứu theo Dương lịch hoặc Âm lịch. Hệ thống tích hợp thuật toán chuyển đổi lịch thiên văn chính xác múi giờ Việt Nam (UTC+7) để quy đổi ra Can Chi ngày, tháng, năm và tiết khí tương ứng."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Dữ liệu ngày sinh và thông tin cá nhân có được lưu không?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Dữ liệu ngày giờ sinh chỉ dùng để tính toán lá số và lưu tạm trên trình duyệt của bạn (sessionStorage/localStorage) để tiện xem lại. Máy chủ không lưu trữ hồ sơ tử vi của bạn. Số điện thoại chỉ lưu trữ nếu bạn chủ động đăng ký tư vấn hoặc thanh toán gói VIP để nhận mã giao dịch."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Sự khác biệt giữa bản Miễn Phí, Báo Cáo VIP và Luận Chuyên Sâu?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Bản Miễn Phí hiển thị tổng quan và luận giải 2 cung (Mệnh, Phụ Mẫu). Báo Cáo VIP A4 (49.000đ) mở khóa toàn bộ 12 cung, ma trận tam phương tứ chính và xuất file PDF lưu trữ. Gói Luận Chuyên Sâu (199.000đ) bổ sung phân tích chuyên đề gia đạo, điền sản và phương pháp tu dưỡng cải mệnh."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Sau khi thanh toán gói VIP, tôi nhận file PDF như thế nào?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sau khi chuyển khoản VietQR thành công, hệ thống tự động mở khóa báo cáo ngay trên màn hình lá số của bạn và xuất hiện nút Tải Báo Cáo PDF A4. Bạn có thể lưu file về máy hoặc xem lại bất cứ lúc nào qua mục Xem lại báo cáo VIP."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Chính sách hoàn tiền hoặc hỗ trợ khi gặp sự cố thanh toán?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Nếu đã chuyển khoản nhưng mạng chập chờn chưa mở khóa tự động, bạn chỉ cần gửi mã giao dịch qua Zalo hỗ trợ. Hệ thống hoàn tiền 100% trong 24 giờ làm việc nếu xảy ra lỗi trừ tiền trùng lặp hoặc lỗi kỹ thuật không thể khắc phục."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Làm sao để xem lại báo cáo VIP đã mua khi đổi thiết bị?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Bạn bấm vào mục Xem lại báo cáo VIP trên thanh menu đầu trang hoặc chân trang, sau đó nhập Mã đơn hàng hoặc Số điện thoại đã thanh toán để hệ thống khôi phục quyền truy cập tức thì."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
 </head>
 <body>
 
@@ -124,7 +227,7 @@
   <!-- ============================================================ -->
   <!-- LOADING OVERLAY                                               -->
   <!-- ============================================================ -->
-  <div class="loading-overlay" id="loadingOverlay" aria-hidden="true" role="status">
+  <div class="loading-overlay" id="loadingOverlay" hidden aria-hidden="true" role="status" style="display:none;">
     <div class="loading-spinner" style="position:relative;"></div>
     <p class="loading-text">Đang tính toán lá số...</p>
   </div>
@@ -155,7 +258,7 @@
         <a href="#vat-pham-phong-thuy" role="menuitem">Phong Thủy</a>
         <a href="#dat-lich-tu-van" role="menuitem">Tư Vấn 1-1</a>
         <a href="#khong-gian-tam-linh" role="menuitem">Thiền Định</a>
-        <a href="javascript:void(0)" onclick="TuViMonetize.openRestoreModal()" role="menuitem">Tra Cứu VIP</a>
+        <a href="javascript:void(0)" onclick="TuViMonetize.openRestoreModal()" role="menuitem">Xem lại báo cáo VIP</a>
         <div id="navUserContainer" class="nav-user-container"></div>
       </div>
       <div class="nav-menu-backdrop" id="navBackdrop"></div>
@@ -175,31 +278,16 @@
             <span class="lookup-badge-text">Tử Vi Cổ Truyền Việt Nam</span>
           </div>
           <h1 class="lookup-title">Tra cứu lá số Tử Vi</h1>
-          <p class="lookup-subtitle">Nhập ngày giờ sinh để lập lá số và xem luận giải 12 cung.</p>
-          
-          <div class="lookup-highlights">
-            <div class="highlight-item">
-              <span class="highlight-dot"></span>
-              <span>An định 14 chính tinh và hơn 100 phụ tinh theo ngày giờ sinh âm dương.</span>
-            </div>
-            <div class="highlight-item">
-              <span class="highlight-dot"></span>
-              <span>Phân tích vị trí Cung Mệnh, Thân và vòng Đại Hạn 10 năm.</span>
-            </div>
-            <div class="highlight-item">
-              <span class="highlight-dot"></span>
-              <span>Tuân thủ quy chuẩn an sao giờ Tý và tiết khí phương Đông cổ truyền.</span>
-            </div>
-          </div>
+          <p class="lookup-subtitle">Nhập ngày giờ sinh để lập lá số và xem luận giải 12 cung theo phương pháp Tử Vi Đẩu Số truyền thống.</p>
         </div>
 
         <!-- Cột phải: Khung Biểu Mẫu Nhập Liệu 3 Hàng Tinh Gọn -->
         <div class="lookup-form-col">
-          <!-- Thanh tóm tắt 1 dòng sau khi lập lá số (Collapsed Form) -->
-          <div class="form-summary-bar" id="formSummaryBar" style="display: none;" role="region" aria-label="Tóm tắt thông tin đương số">
+          <!-- Thanh tóm tắt 1 dòng sau khi lập lá số (Collapsed Form - Rendered dynamically) -->
+          <div class="form-summary-bar" id="formSummaryBar" hidden style="display: none;" role="region" aria-label="Tóm tắt thông tin đương số">
             <div class="summary-info">
               <i data-lucide="user-check" class="summary-icon"></i>
-              <span class="summary-text" id="summaryText">Đương Số · Nam · 10/04/2002 · 19:30</span>
+              <span class="summary-text" id="summaryText"></span>
             </div>
             <div class="summary-actions">
               <button type="button" class="btn-summary-action btn-summary-edit" id="btnEditForm" onclick="TuViApp.expandForm()">
@@ -211,12 +299,12 @@
             </div>
           </div>
 
-          <!-- Biểu mẫu 3 hàng -->
+          <!-- Biểu mẫu 3 hàng (Bắt đầu trống hoàn toàn, không điền sẵn dữ liệu cá nhân) -->
           <form class="tracuu-form-card" id="tuviForm" novalidate>
             <!-- Hàng 1: Họ tên khai sinh (rộng) + Giới tính (hẹp) -->
             <div class="form-row form-row-name-gender">
               <div class="form-control-item item-name">
-                <label class="form-item-label" for="hoTen">Họ tên khai sinh</label>
+                <label class="form-item-label" for="hoTen">Họ tên khai sinh *</label>
                 <input
                   type="text"
                   class="form-item-input"
@@ -231,9 +319,10 @@
               </div>
 
               <div class="form-control-item item-gender">
-                <label class="form-item-label" for="gioiTinh">Giới tính</label>
+                <label class="form-item-label" for="gioiTinh">Giới tính *</label>
                 <select class="form-item-select" id="gioiTinh" name="gioiTinh" required>
-                  <option value="nam" selected>Nam</option>
+                  <option value="" disabled selected>Chọn giới tính</option>
+                  <option value="nam">Nam</option>
                   <option value="nu">Nữ</option>
                 </select>
                 <div class="form-error-inline" id="error-gioiTinh" role="alert" aria-live="polite"></div>
@@ -251,8 +340,9 @@
               </div>
 
               <div class="form-control-item">
-                <label class="form-item-label" for="gioSinh">Giờ sinh</label>
+                <label class="form-item-label" for="gioSinh">Giờ sinh *</label>
                 <select class="form-item-select" id="gioSinh" name="gioSinh" required>
+                  <option value="" disabled selected>Chọn giờ</option>
                   <option value="0">00 giờ</option>
                   <option value="1">01 giờ</option>
                   <option value="2">02 giờ</option>
@@ -272,50 +362,54 @@
                   <option value="16">16 giờ</option>
                   <option value="17">17 giờ</option>
                   <option value="18">18 giờ</option>
-                  <option value="19" selected>19 giờ</option>
+                  <option value="19">19 giờ</option>
                   <option value="20">20 giờ</option>
                   <option value="21">21 giờ</option>
                   <option value="22">22 giờ</option>
                   <option value="23">23 giờ</option>
                 </select>
+                <div class="form-error-inline" id="error-gioSinh" role="alert" aria-live="polite"></div>
               </div>
 
               <div class="form-control-item">
-                <label class="form-item-label" for="phutSinh">Phút sinh</label>
-                <select class="form-item-select" id="phutSinh" name="phutSinh">
+                <label class="form-item-label" for="phutSinh">Phút sinh *</label>
+                <select class="form-item-select" id="phutSinh" name="phutSinh" required>
+                  <option value="" disabled selected>Chọn phút</option>
                   <option value="0">00 phút</option>
                   <option value="5">05 phút</option>
                   <option value="10">10 phút</option>
                   <option value="15">15 phút</option>
                   <option value="20">20 phút</option>
                   <option value="25">25 phút</option>
-                  <option value="30" selected>30 phút</option>
+                  <option value="30">30 phút</option>
                   <option value="35">35 phút</option>
                   <option value="40">40 phút</option>
                   <option value="45">45 phút</option>
                   <option value="50">50 phút</option>
                   <option value="55">55 phút</option>
                 </select>
+                <div class="form-error-inline" id="error-phutSinh" role="alert" aria-live="polite"></div>
               </div>
             </div>
 
             <!-- Hàng 3: Ngày + Tháng + Năm (3 cột) -->
             <div class="form-row form-row-date">
               <div class="form-control-item">
-                <label class="form-item-label" for="ngaySinh">Ngày</label>
+                <label class="form-item-label" for="ngaySinh">Ngày *</label>
                 <select class="form-item-select" id="ngaySinh" name="ngaySinh" required>
-                  <!-- Populated by JS -->
+                  <option value="" disabled selected>Ngày</option>
                 </select>
                 <div class="form-error-inline" id="error-ngaySinh" role="alert" aria-live="polite"></div>
               </div>
 
               <div class="form-control-item">
-                <label class="form-item-label" for="thangSinh">Tháng</label>
+                <label class="form-item-label" for="thangSinh">Tháng *</label>
                 <select class="form-item-select" id="thangSinh" name="thangSinh" required>
+                  <option value="" disabled selected>Tháng</option>
                   <option value="1">Tháng 01</option>
                   <option value="2">Tháng 02</option>
                   <option value="3">Tháng 03</option>
-                  <option value="4" selected>Tháng 04</option>
+                  <option value="4">Tháng 04</option>
                   <option value="5">Tháng 05</option>
                   <option value="6">Tháng 06</option>
                   <option value="7">Tháng 07</option>
@@ -329,9 +423,10 @@
               </div>
 
               <div class="form-control-item">
-                <label class="form-item-label" for="namSinh">Năm</label>
+                <label class="form-item-label" for="namSinh">Năm *</label>
                 <select class="form-item-select" id="namSinh" name="namSinh" required>
-                  <!-- Populated by JS: 1930 - 2035 -->
+                  <option value="" disabled selected>Năm</option>
+                  <!-- Populated by JS: 1930 - Current Year -->
                 </select>
                 <div class="form-error-inline" id="error-namSinh" role="alert" aria-live="polite"></div>
               </div>
@@ -340,10 +435,10 @@
             <!-- Nút chính: Lập lá số -->
             <button type="submit" class="btn-submit-full" id="btnSubmit">LẬP LÁ SỐ</button>
 
-            <!-- Hộp ghi chú phẳng (không phát sáng) -->
+            <!-- Hộp ghi chú: Giờ Tý & Quyền riêng tư (Requirement 3, 5 & 10) -->
             <div class="form-plain-note">
-              <p><strong>Quy tắc giờ Tý (23h00 – 01h00):</strong> Người sinh từ 23h00 đến 00h00 tính theo giờ Tý ngày hôm trước; từ 00h00 đến 01h00 thuộc chính Tý ngày mới theo chuẩn phương pháp Tử Vi cổ truyền.</p>
-              <p>Hệ thống tự động an sao chi tiết 114 tinh đẩu, tính toán Đại Hạn, Tiểu Vận và Nguyệt Vận theo thiên bàn cổ học.</p>
+              <p class="form-note-ty"><strong>Quy tắc giờ Tý (23h00 – 01h00):</strong> Giờ Tý được tính theo đúng ngày bạn chọn trên biểu mẫu (sinh từ 23h00 đến 00h59 thuộc giờ Tý của ngày đó, không tự động chuyển sang ngày hôm sau).</p>
+              <p class="form-note-privacy">Dữ liệu ngày sinh chỉ dùng để tính toán lá số và hiển thị trực tiếp trên trình duyệt của bạn; hệ thống không lưu trữ hồ sơ tử vi của bạn trên máy chủ.</p>
             </div>
           </form>
         </div>
@@ -355,7 +450,7 @@
   <!-- ============================================================ -->
   <!-- "ĐANG AN SAO" LOADING RITUAL                                  -->
   <!-- ============================================================ -->
-  <div class="an-sao-overlay" id="anSaoRitualOverlay" aria-hidden="true" role="status">
+  <div class="an-sao-overlay" id="anSaoRitualOverlay" hidden aria-hidden="true" role="status" style="display:none;">
     <div class="an-sao-card">
       <div class="an-sao-seal-mark">LẬP SỐ</div>
       <div class="an-sao-status-text" id="anSaoStatusText">Đang xác định cung Mệnh…</div>
@@ -378,6 +473,18 @@
       <div class="section-divider-plain"></div>
       <p class="section-subtitle">Minh bạch học thuật, mở khóa toàn bộ luận giải 12 cung và đại hạn trọn đời</p>
 
+      <!-- Banner Vận hạn theo mùa (Requirement 2) -->
+      <div class="pricing-seasonal-banner" id="pricingSeasonalBanner">
+        <span class="seasonal-icon">✦</span>
+        <span class="seasonal-text" id="pricingSeasonalText">Vận hạn 2026 (Bính Ngọ) – Định vị cát hung &amp; đại vận trọn đời</span>
+      </div>
+
+      <!-- NHÓM 1: BÁO CÁO (FILE PDF) -->
+      <div class="pricing-group-header">
+        <h3 class="pricing-group-title">Nhóm 1: Báo Cáo Luận Giải (File PDF)</h3>
+        <p class="pricing-group-desc">Tra cứu tức thì và tải file PDF A4 lưu trữ trọn đời</p>
+      </div>
+
       <div class="pricing-grid">
         <!-- Gói 1: Cơ Bản -->
         <div class="pricing-card">
@@ -390,19 +497,19 @@
             <span class="pricing-price">Miễn Phí</span>
           </div>
           <ul class="pricing-features">
-            <li><span>Lập lá số chính xác 12 cung &amp; 14 chính tinh</span></li>
-            <li><span>Luận giải chi tiết 2 cung (MỆNH &amp; PHỤ MẪU)</span></li>
-            <li><span>Xem đại hạn đầu đời (6 – 15 tuổi)</span></li>
-            <li class="disabled"><span>Khóa 10 cung còn lại</span></li>
-            <li class="disabled"><span>Khóa đại hạn từ 16 tuổi trở đi</span></li>
-            <li class="disabled"><span>Xuất file PDF A4 lưu trữ</span></li>
+            <li><span>✓ Lập lá số chính xác 12 cung &amp; 14 chính tinh</span></li>
+            <li><span>✓ Luận giải chi tiết 2 cung (Mệnh &amp; Phụ Mẫu)</span></li>
+            <li><span>✓ Xem đại hạn đầu đời (6 – 15 tuổi)</span></li>
+            <li class="disabled"><span class="feat-cross">✕</span> <del>10 cung còn lại</del></li>
+            <li class="disabled"><span class="feat-cross">✕</span> <del>Đại hạn từ 16 tuổi trở đi</del></li>
+            <li class="disabled"><span class="feat-cross">✕</span> <del>Xuất file PDF A4 lưu trữ</del></li>
           </ul>
           <a href="#lap-la-so" class="btn-pricing-secondary">Bắt đầu tra cứu</a>
         </div>
 
         <!-- Gói 2: Báo Cáo VIP A4 (Khuyên dùng) -->
         <div class="pricing-card featured">
-          <div class="pricing-plan-badge">Gói VIP</div>
+          <div class="pricing-plan-badge">Khuyên dùng</div>
           <div class="pricing-header">
             <h3 class="pricing-title">Báo Cáo VIP A4</h3>
             <p class="pricing-desc">Bản luận giải đầy đủ 12 cung và vận hạn trọn đời</p>
@@ -412,12 +519,11 @@
             <span class="pricing-price">49.000 đ</span>
           </div>
           <ul class="pricing-features">
-            <li><span><strong>Mở khóa toàn bộ luận giải 12 cung không che</strong></span></li>
-            <li><span><strong>Xuất file PDF A4 đầy đủ bố cục lưu trữ trọn đời</strong></span></li>
-            <li><span>Phân tích Ma Trận Tam Phương Tứ Chính</span></li>
-            <li><span class="dynamic-luu-nien-label">Luận đoán Vận Hạn Lưu Niên 2026 (Bính Ngọ)</span></li>
-            <li><span>Bảng phương hướng xuất hành, con số và màu tương sinh</span></li>
-            <li><span>Quét mã VietQR nhận kết quả tức thì</span></li>
+            <li><span>✓ <strong>Mở khóa toàn bộ luận giải 12 cung không che</strong></span></li>
+            <li><span>✓ <strong>Xuất file PDF A4 đầy đủ bố cục lưu trữ trọn đời</strong></span></li>
+            <li><span>✓ Phân tích Ma Trận Tam Phương Tứ Chính</span></li>
+            <li><span class="dynamic-luu-nien-label">✓ Luận đoán Vận Hạn Lưu Niên 2026 (Bính Ngọ)</span></li>
+            <li><span>✓ Bảng phương hướng xuất hành, con số và màu tương sinh</span></li>
           </ul>
           <button type="button" class="btn-view-sample-report" onclick="TuViMonetize.openSampleReportGallery()">
             Xem mẫu báo cáo (PDF A4)
@@ -425,10 +531,17 @@
           <button class="btn-seal btn-pricing-cta" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư', 49000)">
             Mở Khóa VIP (49.000đ)
           </button>
-          <div class="reassurance-list">
-            <div class="reassurance-item"><span>Quét VietQR, tự động mở khóa trong vài giây</span></div>
-            <div class="reassurance-item"><span>Thông tin ngày sinh được bảo mật tuyệt đối</span></div>
-            <div class="reassurance-item"><span>Hỗ trợ chu đáo qua Zalo khi cần hỗ trợ</span></div>
+
+          <!-- Dải 3 bước & Hỗ trợ qua Zalo (Requirement 7) -->
+          <div class="vip-steps-strip">
+            <span class="step-num">1. Chọn gói</span>
+            <span class="step-arrow">&rarr;</span>
+            <span class="step-num">2. Quét VietQR</span>
+            <span class="step-arrow">&rarr;</span>
+            <span class="step-num">3. Hệ thống mở khóa</span>
+          </div>
+          <div class="vip-support-note">
+            <span>Đã chuyển tiền nhưng chưa mở khóa? Gửi mã giao dịch qua <a href="https://zalo.me/0988888888" class="vip-zalo-link" target="_blank" rel="noopener">Zalo hỗ trợ</a></span>
           </div>
         </div>
 
@@ -443,17 +556,68 @@
             <span class="pricing-price">199.000 đ</span>
           </div>
           <ul class="pricing-features">
-            <li><span>Đầy đủ toàn bộ quyền lợi của Báo Cáo VIP A4</span></li>
-            <li><span>Chuyên đề Tình Duyên: Hóa giải Cung Phu Thê bị Tuần Triệt</span></li>
-            <li><span>Chuyên đề Điền Sản: Thời điểm phát tài đại vận</span></li>
-            <li><span>Phương pháp tu dưỡng cải mệnh 4 trụ cột cụ Nguyễn Phát Lộc</span></li>
-            <li><span>Bản báo cáo phân tích chuyên sâu 30 trang</span></li>
+            <li><span>✓ Đầy đủ toàn bộ quyền lợi của Báo Cáo VIP A4</span></li>
+            <li><span>✓ Chuyên đề Tình Duyên: Hóa giải Cung Phu Thê bị Tuần Triệt</span></li>
+            <li><span>✓ Chuyên đề Điền Sản: Thời điểm phát tài đại vận</span></li>
+            <li><span>✓ Phương pháp tu dưỡng cải mệnh theo học thuyết cổ truyền</span></li>
+            <li><span>✓ Bản báo cáo phân tích chuyên sâu chi tiết</span></li>
           </ul>
           <button class="btn-seal btn-pricing-cta" onclick="TuViMonetize.openVipModal('Gói Luận Chuyên Sâu Hôn Nhân &amp; Tài Vận', 199000)">
             Đăng Ký Luận Sâu (199.000đ)
           </button>
         </div>
       </div>
+
+      <!-- NHÓM 2: TƯ VẤN TRỰC TIẾP (CUỘC GỌI) -->
+      <div class="pricing-group-header" style="margin-top: 48px;">
+        <h3 class="pricing-group-title">Nhóm 2: Tư Vấn Trực Tiếp (Cuộc Gọi 1-1)</h3>
+        <p class="pricing-group-desc">Đàm đạo trực tiếp cùng người am hiểu Tử Vi qua Zoom hoặc Zalo Video</p>
+      </div>
+
+      <div class="pricing-grid consultation-pricing-grid">
+        <!-- Gói Cuộc Gọi 1: Tham Vấn 1-1 Chuyên Đề (490.000đ) -->
+        <div class="pricing-card">
+          <div class="pricing-header">
+            <h3 class="pricing-title">Tham Vấn 1-1 Chuyên Đề</h3>
+            <p class="pricing-desc">30 phút đàm đạo trực tiếp tập trung tháo gỡ 1 vấn đề cụ thể</p>
+          </div>
+          <div class="pricing-price-wrap">
+            <span class="pricing-price">490.000 đ</span>
+            <span class="pricing-unit">/ 30 phút</span>
+          </div>
+          <ul class="pricing-features">
+            <li><span>✓ Đàm đạo trực tiếp qua Zalo Call / Zoom 30 phút</span></li>
+            <li><span>✓ Tập trung giải đáp: Hôn nhân hoặc Công danh sự nghiệp</span></li>
+            <li><span>✓ Định hướng thời điểm hành động tốt nhất</span></li>
+          </ul>
+          <a href="#dat-lich-tu-van" class="btn-seal btn-pricing-cta" onclick="const bs = document.getElementById('bookingService'); if (bs) bs.value = 'Tham Vấn 1-1 Chuyên Đề (490.000đ)';">
+            Đặt Lịch 30 Phút
+          </a>
+        </div>
+
+        <!-- Gói Cuộc Gọi 2: Luận Đàm 1-1 Toàn Đồ (990.000đ) -->
+        <div class="pricing-card featured">
+          <div class="pricing-plan-badge">Toàn Diện</div>
+          <div class="pricing-header">
+            <h3 class="pricing-title">Luận Đàm 1-1 Toàn Đồ</h3>
+            <p class="pricing-desc">60 phút phân tích toàn diện 12 cung, 10 năm đại vận và tương lai</p>
+          </div>
+          <div class="pricing-price-wrap">
+            <span class="pricing-price">990.000 đ</span>
+            <span class="pricing-unit">/ 60 phút</span>
+          </div>
+          <ul class="pricing-features">
+            <li><span>✓ Đàm đạo chuyên sâu 60 phút trực tiếp</span></li>
+            <li><span>✓ Soi chiếu tổng thể Mệnh - Thân - Tài - Quan - Phối</span></li>
+            <li><span>✓ Phân tích đại vận 10 năm và lưu niên cát hung</span></li>
+            <li><span>✓ Hỗ trợ giải đáp thêm thắc mắc trong 7 ngày sau buổi đàm</span></li>
+          </ul>
+          <a href="#dat-lich-tu-van" class="btn-seal btn-pricing-cta" onclick="const bs = document.getElementById('bookingService'); if (bs) bs.value = 'Luận Đàm 1-1 Toàn Đồ (990.000đ)';">
+            Đặt Lịch 60 Phút
+          </a>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -470,11 +634,14 @@
       <p class="section-subtitle">Khắc chế sát tinh · Bồi tụ phúc khí &amp; chiêu tài tấn bảo theo nguyên lý ngũ hành tương sinh</p>
 
       <div class="fengshui-element-banner" id="fengshuiElementTitle">
-        Vật Phẩm Hộ Thân Tương Sinh Cho Đương Số Mệnh <strong>Dương Liễu Mộc (Hành Mộc)</strong>
+        <div class="fengshui-neutral-state">
+          <p>Lập lá số để xem vật phẩm hộ thân tương sinh hợp theo ngũ hành bản mệnh của bạn.</p>
+          <a href="#lap-la-so" class="btn-seal-neutral">Lập lá số để xem vật phẩm hợp mệnh</a>
+        </div>
       </div>
 
       <div class="fengshui-grid" id="fengshuiItemsGrid">
-        <!-- Rendered dynamically by TuViMonetize.renderFengShuiItems(laSo) -->
+        <!-- Rendered dynamically by TuViMonetize.renderFengShuiItems(laSo) sau khi đương số lập lá số -->
       </div>
     </div>
   </section>
@@ -492,28 +659,15 @@
       <p class="section-subtitle">Đàm đạo trực tiếp, giải mã cặn kẽ mọi khúc mắc và định hướng tương lai chuẩn xác cùng các bậc thầy</p>
 
       <div class="consultation-wrap">
-        <!-- Giới thiệu chuyên gia -->
-        <div class="expert-showcase">
-          <div class="expert-card">
-            <div class="expert-avatar-wrap expert-avatar-clean">
-              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="gold-icon"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <!-- Giới thiệu chuyên gia (Data-driven từ SITE_CONFIG.experts) -->
+        <div class="expert-showcase" id="expertShowcase">
+          <!-- Khối trung tính khi chưa có chuyên gia xác thực (Requirement 6) -->
+          <div class="expert-neutral-box" id="expertNeutralBox">
+            <div class="expert-neutral-icon">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
             </div>
-            <div class="expert-info">
-              <h4>Thầy Minh Trí</h4>
-              <p class="expert-title">Trưởng Môn Phái Tử Vi Đẩu Số Lạc Việt · 18 Năm Kinh Nghiệm</p>
-              <p class="expert-desc">Chuyên sâu phân tích đại vận, hóa giải hung sát tinh và định hướng khởi nghiệp, đầu tư bất động sản, chứng khoán cho đương số.</p>
-            </div>
-          </div>
-
-          <div class="expert-card">
-            <div class="expert-avatar-wrap expert-avatar-clean">
-              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="gold-icon"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            </div>
-            <div class="expert-info">
-              <h4>Cô Tuệ Tâm</h4>
-              <p class="expert-title">Bậc Thầy Luận Giải Phu Thê &amp; Phong Thủy Cải Vận</p>
-              <p class="expert-desc">Hơn 12 năm tư vấn hòa hợp hôn nhân, hóa giải triệt duyên, xem tuổi dựng vợ gả chồng và đặt tên con theo Tứ Trụ Bát Tự.</p>
-            </div>
+            <h4>Đội Ngũ Tư Vấn Huyền Học</h4>
+            <p class="expert-neutral-desc">Kết nối trực tiếp cùng người am hiểu Tử Vi Đẩu Số để được luận giải chuyên sâu từng cung số, đại vận và định hướng vận trình nhân sinh.</p>
           </div>
 
           <!-- Quy trình làm việc (How We Work) -->
@@ -526,11 +680,11 @@
               </div>
               <div class="step-item">
                 <div class="step-icon-wrap"><i data-lucide="phone-call"></i></div>
-                <div class="step-text"><strong>2. Đàm Đạo 1-1 Riêng Tư</strong><span>Trò chuyện trực tiếp 60 phút qua Zoom hoặc Zalo video</span></div>
+                <div class="step-text"><strong>2. Đàm Đạo 1-1 Riêng Tư</strong><span>Trò chuyện trực tiếp qua Zoom hoặc Zalo</span></div>
               </div>
               <div class="step-item">
                 <div class="step-icon-wrap"><i data-lucide="file-check"></i></div>
-                <div class="step-text"><strong>3. Báo Cáo &amp; Hỗ Trợ 30 Ngày</strong><span>Nhận bản đúc kết và được giải đáp thêm trong 1 tháng</span></div>
+                <div class="step-text"><strong>3. Báo Cáo &amp; Hỗ Trợ</strong><span>Nhận bản đúc kết và được giải đáp thắc mắc thêm</span></div>
               </div>
             </div>
           </div>
@@ -539,7 +693,7 @@
         <!-- Biểu mẫu đăng ký (surface-2) -->
         <div class="booking-form-box surface-2-card">
           <h3>ĐĂNG KÝ LỊCH HẸN TRỰC TUYẾN</h3>
-          <p>Điền thông tin để chuyên gia liên hệ xác nhận lịch hẹn trong 15 phút</p>
+          <p>Điền thông tin để chúng tôi liên hệ xác nhận lịch hẹn với bạn.</p>
 
           <form id="tuviBookingForm">
             <div class="booking-input-group">
@@ -562,7 +716,8 @@
                 <select id="bookingTime" class="booking-select">
                   <option value="09:00 - 10:00">09:00 - 10:00 (Sáng)</option>
                   <option value="14:30 - 15:30">14:30 - 15:30 (Chiều)</option>
-                  <option value="19:30 - 20:30" selected>19:30 - 20:30 (Tối)</option>
+                  <option value="" disabled selected>Chọn khung giờ</option>
+                  <option value="19:30 - 20:30">19:30 - 20:30 (Tối)</option>
                   <option value="21:00 - 22:00">21:00 - 22:00 (Đêm)</option>
                 </select>
               </div>
@@ -571,10 +726,8 @@
             <div class="booking-input-group">
               <label for="bookingService">Gói dịch vụ lựa chọn</label>
               <select id="bookingService" class="booking-select">
-                <option value="Tư Vấn 1-1 Toàn Thư (1.500.000đ)">Tư Vấn 1-1 Toàn Thư (1.500.000đ / 60 Phút)</option>
-                <option value="Tư Vấn Chuyên Sâu Hôn Nhân (199.000đ)">Tư Vấn Chuyên Sâu Hôn Nhân (199.000đ)</option>
-                <option value="Tư Vấn Điền Sản &amp; Làm Ăn (199.000đ)">Tư Vấn Điền Sản &amp; Làm Ăn (199.000đ)</option>
-                <option value="Chọn Ngày Đại Sự / Đặt Tên Con (500.000đ)">Chọn Ngày Đại Sự / Đặt Tên Con (500.000đ)</option>
+                <option value="Tham Vấn 1-1 Chuyên Đề (490.000đ)">Tham Vấn 1-1 Chuyên Đề (490.000đ / 30 phút)</option>
+                <option value="Luận Đàm 1-1 Toàn Đồ (990.000đ)">Luận Đàm 1-1 Toàn Đồ (990.000đ / 60 phút)</option>
               </select>
             </div>
 
@@ -583,8 +736,16 @@
               <textarea id="bookingNote" class="booking-textarea" placeholder="Ví dụ: Tôi muốn tham vấn chuyên sâu về định hướng công việc, hôn nhân gia đạo và tài vận trong thời gian tới..."></textarea>
             </div>
 
+            <!-- Checkbox đồng ý liên hệ & chính sách bảo mật (Requirement 5) -->
+            <div class="booking-consent-group">
+              <label class="booking-consent-label">
+                <input type="checkbox" id="bookingConsent" required>
+                <span>Tôi đồng ý để chuyên gia liên hệ qua số điện thoại/Zalo này và đã đọc <a href="/chinh-sach-bao-mat" target="_blank" rel="noopener">chính sách bảo mật</a>.</span>
+              </label>
+            </div>
+
             <button type="submit" class="btn-gold-pill btn-booking-submit">
-              <i data-lucide="calendar"></i> Gửi Thông Tin &amp; Kết Nối Zalo Chuyên Gia
+              <i data-lucide="calendar"></i> Gửi Thông Tin Đặt Lịch
             </button>
           </form>
 
@@ -721,6 +882,108 @@
     </div>
   </div>
 
+  
+  <!-- ============================================================ -->
+  <!-- CÂU HỎI THƯỜNG GẶP (FAQ ACCORDION - Requirement 8)          -->
+  <!-- ============================================================ -->
+  <section class="section faq-section" id="cau-hoi-thuong-gap">
+    <div class="section-container">
+      <h2 class="section-title">Câu Hỏi Thường Gặp</h2>
+      <div class="section-divider-plain"></div>
+      <p class="section-subtitle">Giải đáp rõ ràng về phương pháp lập lá số, quy tắc an sao và quyền lợi dịch vụ</p>
+
+      <div class="faq-accordion" role="region" aria-label="Danh sách câu hỏi thường gặp">
+        <!-- Q1 -->
+        <div class="faq-item">
+          <button type="button" class="faq-question" id="faq-q1" aria-expanded="false" aria-controls="faq-a1" onclick="TuViApp.toggleFaq('faq-a1', this)">
+            <span class="faq-title">1. Độ chính xác của lá số Tử Vi trên website như thế nào?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" id="faq-a1" role="region" aria-labelledby="faq-q1" hidden>
+            <p>Lá số được an định tự động dựa trên các quy tắc toán học và thiên bàn Tử Vi Đẩu Số truyền thống (14 chính tinh, lục sát tinh, lục cát tinh, tứ hóa và hơn 100 phụ tinh). Kết quả mang tính chất tham khảo học thuật và chiêm nghiệm nhân sinh.</p>
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="faq-item">
+          <button type="button" class="faq-question" id="faq-q2" aria-expanded="false" aria-controls="faq-a2" onclick="TuViApp.toggleFaq('faq-a2', this)">
+            <span class="faq-title">2. Quy tắc tính giờ Tý (23h00 – 01h00) trên website ra sao?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" id="faq-a2" role="region" aria-labelledby="faq-q2" hidden>
+            <p>Hệ thống tính giờ Tý theo đúng ngày bạn đã chọn trên biểu mẫu (người sinh từ 23h00 đến 00h59 được xếp vào giờ Tý của ngày đó, không tự động chuyển sang ngày hôm sau). Nếu quý bạn sinh sau 23h00 và muốn an theo ngày hôm sau, vui lòng chọn ngày sinh kế tiếp.</p>
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="faq-item">
+          <button type="button" class="faq-question" id="faq-q3" aria-expanded="false" aria-controls="faq-a3" onclick="TuViApp.toggleFaq('faq-a3', this)">
+            <span class="faq-title">3. Tôi nên tra cứu theo Âm lịch hay Dương lịch?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" id="faq-a3" role="region" aria-labelledby="faq-q3" hidden>
+            <p>Bạn có thể chọn tra cứu theo Dương lịch hoặc Âm lịch. Hệ thống tích hợp thuật toán chuyển đổi lịch thiên văn chính xác múi giờ Việt Nam (UTC+7) để quy đổi ra Can Chi ngày, tháng, năm và tiết khí tương ứng.</p>
+          </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="faq-item">
+          <button type="button" class="faq-question" id="faq-q4" aria-expanded="false" aria-controls="faq-a4" onclick="TuViApp.toggleFaq('faq-a4', this)">
+            <span class="faq-title">4. Dữ liệu ngày sinh và thông tin cá nhân có được lưu không?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" id="faq-a4" role="region" aria-labelledby="faq-q4" hidden>
+            <p>Dữ liệu ngày giờ sinh chỉ dùng để tính toán lá số và lưu tạm trên trình duyệt của bạn (sessionStorage/localStorage) để tiện xem lại. Máy chủ không lưu trữ hồ sơ tử vi của bạn. Số điện thoại chỉ lưu trữ nếu bạn chủ động đăng ký tư vấn hoặc thanh toán gói VIP để nhận mã giao dịch.</p>
+          </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="faq-item">
+          <button type="button" class="faq-question" id="faq-q5" aria-expanded="false" aria-controls="faq-a5" onclick="TuViApp.toggleFaq('faq-a5', this)">
+            <span class="faq-title">5. Sự khác biệt giữa bản Miễn Phí, Báo Cáo VIP và Luận Chuyên Sâu?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" id="faq-a5" role="region" aria-labelledby="faq-q5" hidden>
+            <p>Bản Miễn Phí hiển thị tổng quan và luận giải 2 cung (Mệnh, Phụ Mẫu). Báo Cáo VIP A4 (49.000đ) mở khóa toàn bộ 12 cung, ma trận tam phương tứ chính và xuất file PDF lưu trữ. Gói Luận Chuyên Sâu (199.000đ) bổ sung phân tích chuyên đề gia đạo, điền sản và phương pháp tu dưỡng cải mệnh.</p>
+          </div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="faq-item">
+          <button type="button" class="faq-question" id="faq-q6" aria-expanded="false" aria-controls="faq-a6" onclick="TuViApp.toggleFaq('faq-a6', this)">
+            <span class="faq-title">6. Sau khi thanh toán gói VIP, tôi nhận file PDF như thế nào?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" id="faq-a6" role="region" aria-labelledby="faq-q6" hidden>
+            <p>Sau khi chuyển khoản VietQR thành công, hệ thống tự động mở khóa báo cáo ngay trên màn hình lá số của bạn và xuất hiện nút "Tải Báo Cáo PDF A4". Bạn có thể lưu file về máy hoặc xem lại bất cứ lúc nào qua mục "Xem lại báo cáo VIP".</p>
+          </div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="faq-item">
+          <button type="button" class="faq-question" id="faq-q7" aria-expanded="false" aria-controls="faq-a7" onclick="TuViApp.toggleFaq('faq-a7', this)">
+            <span class="faq-title">7. Chính sách hoàn tiền hoặc hỗ trợ khi gặp sự cố thanh toán?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" id="faq-a7" role="region" aria-labelledby="faq-q7" hidden>
+            <p>Nếu đã chuyển khoản nhưng mạng chập chờn chưa mở khóa tự động, bạn chỉ cần gửi mã giao dịch qua Zalo hỗ trợ. Hệ thống hoàn tiền 100% trong 24 giờ làm việc nếu xảy ra lỗi trừ tiền trùng lặp hoặc lỗi kỹ thuật không thể khắc phục.</p>
+          </div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="faq-item">
+          <button type="button" class="faq-question" id="faq-q8" aria-expanded="false" aria-controls="faq-a8" onclick="TuViApp.toggleFaq('faq-a8', this)">
+            <span class="faq-title">8. Làm sao để xem lại báo cáo VIP đã mua khi đổi thiết bị?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" id="faq-a8" role="region" aria-labelledby="faq-q8" hidden>
+            <p>Bạn bấm vào mục "Xem lại báo cáo VIP" trên thanh menu đầu trang hoặc chân trang, sau đó nhập Mã đơn hàng hoặc Số điện thoại đã thanh toán để hệ thống khôi phục quyền truy cập tức thì.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============================================================ -->
   <!-- FOOTER                                                        -->
   <!-- ============================================================ -->
@@ -736,9 +999,22 @@
         <a href="#bang-gia-dich-vu">Gói VIP</a>
         <a href="#vat-pham-phong-thuy">Phong Thủy</a>
         <a href="#dat-lich-tu-van">Tư Vấn 1-1</a>
-        <a href="#khong-gian-tam-linh">Thiền Định</a>
-        <a href="javascript:void(0)" onclick="TuViMonetize.openRestoreModal()">Tra Cứu VIP</a>
+        <a href="#cau-hoi-thuong-gap">Hỏi Đáp</a>
+        <a href="javascript:void(0)" onclick="TuViMonetize.openRestoreModal()">Xem lại báo cáo VIP</a>
       </div>
+
+      <!-- Liên kết Chính sách & Điều khoản (Requirement 4) -->
+      <div class="footer-policy-links" style="margin: 14px 0; font-size: 0.88rem; display: flex; gap: 18px; justify-content: center; flex-wrap: wrap;">
+        <a href="/chinh-sach-bao-mat" style="color: var(--text-muted); text-decoration: none;">Chính Sách Bảo Mật</a>
+        <span style="color: var(--line);">·</span>
+        <a href="/dieu-khoan-su-dung" style="color: var(--text-muted); text-decoration: none;">Điều Khoản Sử Dụng</a>
+        <span style="color: var(--line);">·</span>
+        <a href="/chinh-sach-hoan-tien-ho-tro" style="color: var(--text-muted); text-decoration: none;">Chính Sách Hoàn Tiền &amp; Hỗ Trợ</a>
+      </div>
+
+      <div class="footer-contact-box" id="footerContactBox" style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 12px;"></div>
+      <div class="footer-social-links" id="footerSocialLinks" style="display: flex; gap: 12px; justify-content: center; margin-bottom: 14px;"></div>
+
       <p class="footer-disclaimer-text">Tử Vi Đẩu Số là di sản học thuật và triết học phương Đông truyền thống, mang tính chất chiêm nghiệm nhân sinh và hướng thiện. Mọi quyết định trọng đại trong đời sống cần dựa trên sự tỉnh thức, tri thức khoa học và nỗ lực cá nhân.</p>
       <p class="footer-copyright">© <span id="footerCopyrightYear">2026</span> Xem Tử Vi Huyền Học · Bảo lưu mọi quyền.</p>
     </div>

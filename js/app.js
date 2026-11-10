@@ -166,6 +166,7 @@
       AnimationHub.init();
       this.initHeaderHeight();
       this.initDynamicYearLabels();
+      this.initSiteConfig();
       this.initTrustLine();
       this.initFormControls();
       this.initNavMenuCheck();
@@ -224,7 +225,10 @@
       }
 
       if (formCard) formCard.style.display = 'none';
-      if (summaryBar) summaryBar.style.display = 'flex';
+      if (summaryBar) {
+        summaryBar.removeAttribute('hidden');
+        summaryBar.style.display = 'flex';
+      }
       if (typeof window !== 'undefined' && window.lucide) {
         try { window.lucide.createIcons(); } catch (e) {}
       }
@@ -233,7 +237,10 @@
     expandForm: function () {
       const summaryBar = document.getElementById('formSummaryBar');
       const formCard = document.getElementById('tuviForm');
-      if (summaryBar) summaryBar.style.display = 'none';
+      if (summaryBar) {
+        summaryBar.setAttribute('hidden', '');
+        summaryBar.style.display = 'none';
+      }
       if (formCard) formCard.style.display = 'block';
     },
 
@@ -282,30 +289,90 @@
      */
     initDynamicYearLabels: function () {
       try {
-        const curYear = new Date().getFullYear();
+        const curDate = new Date();
+        const curYear = curDate.getFullYear();
+        const curMonth = curDate.getMonth() + 1;
         const nextYear = curYear + 1;
-        const CAN = ['Giáp', 'Ất', 'Bính', 'Đinh', 'Mậu', 'Kỷ', 'Canh', 'Tân', 'Nhâm', 'Quý'];
-        const CHI = ['Tý', 'Sửu', 'Dần', 'Mão', 'Thìn', 'Tỵ', 'Ngọ', 'Mùi', 'Thân', 'Dậu', 'Tuất', 'Hợi'];
+        const CAN = ["Giáp", "Ất", "Bính", "Đinh", "Mậu", "Kỷ", "Canh", "Tân", "Nhâm", "Quý"];
+        const CHI = ["Tý", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi", "Thân", "Dậu", "Tuất", "Hợi"];
         const curCanChi = `${CAN[(curYear + 6) % 10]} ${CHI[(curYear + 8) % 12]}`;
         const nextCanChi = `${CAN[(nextYear + 6) % 10]} ${CHI[(nextYear + 8) % 12]}`;
 
-        const labels = document.querySelectorAll('.dynamic-luu-nien-label');
+        let yearText = `${curYear} (${curCanChi})`;
+        if (curMonth >= 11) {
+          yearText = `${curYear} (${curCanChi}) & Đón đầu ${nextYear} (${nextCanChi})`;
+        }
+
+        const labels = document.querySelectorAll(".dynamic-luu-nien-label");
         labels.forEach(el => {
-          el.textContent = `Luận đoán Vận Hạn Lưu Niên ${curYear} (${curCanChi}) & ${nextYear} (${nextCanChi})`;
+          el.textContent = `Luận đoán Vận Hạn Lưu Niên ${yearText}`;
         });
 
-        const copyYearEl = document.getElementById('footerCopyrightYear');
+        const copyYearEl = document.getElementById("footerCopyrightYear");
         if (copyYearEl) {
-          copyYearEl.textContent = curYear;
+          copyYearEl.textContent = curYear.toString();
+        }
+
+        const seasonalTextEl = document.getElementById("pricingSeasonalText");
+        if (seasonalTextEl) {
+          seasonalTextEl.textContent = `Vận hạn ${yearText} – Định vị cát hung & đại vận trọn đời`;
         }
       } catch (e) {
-        console.warn('initDynamicYearLabels error:', e);
+        console.warn("initDynamicYearLabels error:", e);
       }
     },
 
-    /**
-     * Cập nhật dòng uy tín ở Hero
-     */
+    toggleFaq: function (ansId, btnEl) {
+      const ans = document.getElementById(ansId);
+      if (!ans) return;
+      const isExpanded = btnEl.getAttribute("aria-expanded") === "true";
+      btnEl.setAttribute("aria-expanded", !isExpanded);
+      if (isExpanded) {
+        ans.setAttribute("hidden", "");
+      } else {
+        ans.removeAttribute("hidden");
+      }
+    },
+
+    initSiteConfig: function () {
+      const cfg = window.SITE_CONFIG;
+      if (!cfg) return;
+
+      if (cfg.seasonalYearLabel) {
+        const seasonalEl = document.getElementById("pricingSeasonalText");
+        if (seasonalEl) {
+          seasonalEl.textContent = `Vận hạn ${cfg.seasonalYearLabel} – Định vị cát hung & đại vận trọn đời`;
+        }
+      }
+
+      this.renderFooterFromConfig(cfg);
+    },
+
+    renderFooterFromConfig: function (cfg) {
+      const footerSocial = document.getElementById("footerSocialLinks");
+      if (footerSocial) {
+        let html = "";
+        if (cfg.facebookUrl && cfg.facebookUrl.trim()) {
+          html += `<a href="${cfg.facebookUrl}" target="_blank" rel="noopener" class="footer-social-btn" aria-label="Facebook" title="Facebook"><i data-lucide="facebook"></i></a>`;
+        }
+        if (cfg.instagramUrl && cfg.instagramUrl.trim()) {
+          html += `<a href="${cfg.instagramUrl}" target="_blank" rel="noopener" class="footer-social-btn" aria-label="Instagram" title="Instagram"><i data-lucide="instagram"></i></a>`;
+        }
+        if (cfg.youtubeUrl && cfg.youtubeUrl.trim()) {
+          html += `<a href="${cfg.youtubeUrl}" target="_blank" rel="noopener" class="footer-social-btn" aria-label="YouTube" title="YouTube"><i data-lucide="youtube"></i></a>`;
+        }
+        if (cfg.zaloUrl && cfg.zaloUrl.trim()) {
+          html += `<a href="${cfg.zaloUrl}" target="_blank" rel="noopener" class="footer-social-btn" aria-label="Zalo" title="Zalo"><i data-lucide="message-circle"></i></a>`;
+        }
+        if (cfg.contactEmail && cfg.contactEmail.trim()) {
+          html += `<a href="mailto:${cfg.contactEmail}" class="footer-social-btn" aria-label="Email" title="Email"><i data-lucide="mail"></i></a>`;
+        }
+        footerSocial.innerHTML = html;
+        if (window.lucide) {
+          try { window.lucide.createIcons({ root: footerSocial }); } catch (e) {}
+        }
+      }
+    },
     initTrustLine: function () {
       const trustText = document.getElementById('heroTrustText');
       if (!trustText) return;
@@ -395,37 +462,37 @@
      * Khởi tạo giá trị mặc định cho biểu mẫu
      */
     setDefaultValues: function () {
-      const hoTenEl = document.getElementById('hoTen');
-      const ngayEl = document.getElementById('ngaySinh');
-      const thangEl = document.getElementById('thangSinh');
-      const namEl = document.getElementById('namSinh');
-      const gioEl = document.getElementById('gioSinh');
-      const phutEl = document.getElementById('phutSinh');
-      const gioiTinhEl = document.getElementById('gioiTinh');
-      const loaiLichEl = document.getElementById('loaiLich');
+      const hoTenEl = document.getElementById("hoTen");
+      const ngayEl = document.getElementById("ngaySinh");
+      const thangEl = document.getElementById("thangSinh");
+      const namEl = document.getElementById("namSinh");
+      const gioEl = document.getElementById("gioSinh");
+      const phutEl = document.getElementById("phutSinh");
+      const gioiTinhEl = document.getElementById("gioiTinh");
+      const loaiLichEl = document.getElementById("loaiLich");
 
       this.populateYears();
       this.updateDayOptions();
 
-      // Không điền sẵn tên người thật
-      if (hoTenEl) hoTenEl.value = '';
-      if (gioiTinhEl) gioiTinhEl.value = 'nam';
-      if (loaiLichEl) loaiLichEl.value = 'duong';
-      if (ngayEl) ngayEl.value = '10';
-      if (thangEl) thangEl.value = '4';
-      if (namEl) namEl.value = '2002';
-      if (gioEl) gioEl.value = '19';
-      if (phutEl) phutEl.value = '30';
+      // Không điền sẵn bất kỳ thông tin nào (Requirement 1: No pre-filled personal data)
+      if (hoTenEl) hoTenEl.value = "";
+      if (gioiTinhEl) gioiTinhEl.value = "";
+      if (loaiLichEl) loaiLichEl.value = "duong";
+      if (ngayEl) ngayEl.value = "";
+      if (thangEl) thangEl.value = "";
+      if (namEl) namEl.value = "";
+      if (gioEl) gioEl.value = "";
+      if (phutEl) phutEl.value = "";
     },
 
     populateYears: function () {
-      const namEl = document.getElementById('namSinh');
+      const namEl = document.getElementById("namSinh");
       if (!namEl) return;
 
       const currentYear = new Date().getFullYear();
-      namEl.innerHTML = '';
-      for (let y = currentYear; y >= 1940; y--) {
-        const opt = document.createElement('option');
+      namEl.innerHTML = '<option value="" disabled selected>Năm</option>';
+      for (let y = currentYear; y >= 1930; y--) {
+        const opt = document.createElement("option");
         opt.value = y.toString();
         opt.textContent = `Năm ${y}`;
         namEl.appendChild(opt);
@@ -433,38 +500,39 @@
     },
 
     updateDayOptions: function () {
-      const ngayEl = document.getElementById('ngaySinh');
-      const thangEl = document.getElementById('thangSinh');
-      const namEl = document.getElementById('namSinh');
+      const ngayEl = document.getElementById("ngaySinh");
+      const thangEl = document.getElementById("thangSinh");
+      const namEl = document.getElementById("namSinh");
       if (!ngayEl) return;
 
-      const currentDay = parseInt(ngayEl.value, 10) || 10;
-      const month = parseInt(thangEl ? thangEl.value : 4, 10) || 4;
-      const year = parseInt(namEl ? namEl.value : 2002, 10) || 2002;
+      const month = parseInt(thangEl ? thangEl.value : NaN, 10);
+      const year = parseInt(namEl ? namEl.value : NaN, 10);
 
-      const loaiLich = document.getElementById('loaiLich');
-      const isAm = loaiLich ? loaiLich.value === 'am' : false;
+      const loaiLich = document.getElementById("loaiLich");
+      const isAm = loaiLich ? loaiLich.value === "am" : false;
 
       let maxDays = 31;
       if (isAm) {
         maxDays = 30;
-      } else {
+      } else if (!isNaN(month) && !isNaN(year)) {
         maxDays = new Date(year, month, 0).getDate();
+      } else if (!isNaN(month)) {
+        maxDays = new Date(2024, month, 0).getDate();
       }
 
       const prevVal = ngayEl.value;
-      ngayEl.innerHTML = '';
+      ngayEl.innerHTML = '<option value="" disabled' + (!prevVal ? ' selected' : '') + '>Ngày</option>';
       for (let d = 1; d <= maxDays; d++) {
-        const opt = document.createElement('option');
+        const opt = document.createElement("option");
         opt.value = d.toString();
-        const dStr = d < 10 ? '0' + d : d;
+        const dStr = d < 10 ? "0" + d : d;
         opt.textContent = `Ngày ${dStr}`;
+        if (prevVal && parseInt(prevVal, 10) === d) {
+          opt.selected = true;
+        }
         ngayEl.appendChild(opt);
       }
-
-      ngayEl.value = prevVal && parseInt(prevVal, 10) <= maxDays ? prevVal : Math.min(currentDay, maxDays).toString();
     },
-
     getHourChiIndex: function (hour, minute) {
       if (hour === 23 || hour === 0) return 0;
       return Math.floor((hour + 1) / 2) % 12;
@@ -502,51 +570,59 @@
       const currentYear = new Date().getFullYear();
 
       // Họ tên
-      if (data.hoTen && data.hoTen.length > 80) {
-        errors.hoTen = 'Họ tên không được vượt quá 80 ký tự.';
+      if (!data.hoTen || !data.hoTen.trim()) {
+        errors.hoTen = "Vui lòng nhập họ tên đương số.";
+      } else if (data.hoTen.length > 80) {
+        errors.hoTen = "Họ tên không được vượt quá 80 ký tự.";
       }
 
       // Giới tính
-      if (!data.gioiTinh || !['nam', 'nu'].includes(data.gioiTinh)) {
-        errors.gioiTinh = 'Vui lòng chọn giới tính (Nam hoặc Nữ).';
+      if (!data.gioiTinh || !["nam", "nu"].includes(data.gioiTinh)) {
+        errors.gioiTinh = "Vui lòng chọn giới tính.";
       }
 
-      // Năm sinh
-      if (isNaN(data.nam) || data.nam < 1900 || data.nam > currentYear) {
-        errors.namSinh = `Năm sinh phải từ 1900 đến ${currentYear}.`;
+      // Giờ sinh
+      if (data.gio === "" || data.gio === undefined || isNaN(data.gio) || data.gio < 0 || data.gio > 23) {
+        errors.gioSinh = "Vui lòng chọn giờ sinh.";
+      }
+
+      // Phút sinh
+      if (data.phut === "" || data.phut === undefined || isNaN(data.phut) || data.phut < 0 || data.phut > 59) {
+        errors.phutSinh = "Vui lòng chọn phút sinh.";
+      }
+
+      // Ngày sinh
+      if (isNaN(data.ngay) || data.ngay < 1) {
+        errors.ngaySinh = "Vui lòng chọn ngày sinh.";
       }
 
       // Tháng sinh
       if (isNaN(data.thang) || data.thang < 1 || data.thang > 12) {
-        errors.thangSinh = 'Tháng sinh không hợp lệ (1 - 12).';
+        errors.thangSinh = "Vui lòng chọn tháng sinh.";
       }
 
-      // Ngày sinh
-      if (!errors.namSinh && !errors.thangSinh) {
+      // Năm sinh
+      if (isNaN(data.nam) || data.nam < 1900 || data.nam > currentYear) {
+        errors.namSinh = "Vui lòng chọn năm sinh.";
+      }
+
+      // Kiểm tra tính hợp lệ ngày theo tháng/năm
+      if (!errors.ngaySinh && !errors.thangSinh && !errors.namSinh) {
         if (data.isLunar) {
-          if (isNaN(data.ngay) || data.ngay < 1 || data.ngay > 30) {
-            errors.ngaySinh = 'Ngày Âm lịch hợp lệ từ mùng 1 đến 30.';
-          }
+          if (data.ngay > 30) errors.ngaySinh = "Ngày Âm lịch hợp lệ từ mùng 1 đến 30.";
         } else {
           const isLeap = (data.nam % 4 === 0 && data.nam % 100 !== 0) || (data.nam % 400 === 0);
           let maxDay = 31;
-          if (data.thang === 2) {
-            maxDay = isLeap ? 29 : 28;
-          } else if ([4, 6, 9, 11].includes(data.thang)) {
-            maxDay = 30;
-          }
-
-          if (isNaN(data.ngay) || data.ngay < 1 || data.ngay > maxDay) {
-            if (data.thang === 2 && !isLeap && data.ngay === 29) {
-              errors.ngaySinh = `Năm ${data.nam} không phải năm nhuận, tháng 2 chỉ có 28 ngày.`;
-            } else {
-              errors.ngaySinh = `Tháng ${data.thang} chỉ có tối đa ${maxDay} ngày.`;
-            }
+          if (data.thang === 2) maxDay = isLeap ? 29 : 28;
+          else if ([4, 6, 9, 11].includes(data.thang)) maxDay = 30;
+          if (data.ngay > maxDay) {
+            errors.ngaySinh = `Tháng ${data.thang} năm ${data.nam} chỉ có tối đa ${maxDay} ngày.`;
           } else {
-            // Kiểm tra ngày tương lai
-            const birthDate = new Date(data.nam, data.thang - 1, data.ngay, data.gio, data.phut);
+            const checkGio = isNaN(data.gio) ? 0 : data.gio;
+            const checkPhut = isNaN(data.phut) ? 0 : data.phut;
+            const birthDate = new Date(data.nam, data.thang - 1, data.ngay, checkGio, checkPhut);
             if (birthDate > new Date()) {
-              errors.ngaySinh = 'Thời gian sinh không thể ở tương lai.';
+              errors.ngaySinh = "Thời gian sinh không thể ở tương lai.";
             }
           }
         }
@@ -554,7 +630,6 @@
 
       return errors;
     },
-
     clearInlineErrors: function () {
       const errNodes = document.querySelectorAll('.form-error-inline');
       errNodes.forEach(node => { node.textContent = ''; node.style.display = 'none'; });
@@ -600,18 +675,23 @@
      * Xử lý Tra Cứu Tử Vi & Nghi Thức "Đang An Sao" (Phase 4 Item 2 & 3)
      */
     handleFormSubmit: function () {
-      const hoTen = (document.getElementById('hoTen')?.value || '').trim() || 'Nguyễn Văn An';
-      const gioiTinh = document.getElementById('gioiTinh')?.value || 'nam';
+      const hoTen = (document.getElementById("hoTen")?.value || "").trim();
+      const gioiTinh = document.getElementById("gioiTinh")?.value || "";
 
-      const ngay = parseInt(document.getElementById('ngaySinh')?.value, 10) || 10;
-      const thang = parseInt(document.getElementById('thangSinh')?.value, 10) || 4;
-      const nam = parseInt(document.getElementById('namSinh')?.value, 10) || 2002;
+      const rawNgay = document.getElementById("ngaySinh")?.value;
+      const rawThang = document.getElementById("thangSinh")?.value;
+      const rawNam = document.getElementById("namSinh")?.value;
+      const rawGio = document.getElementById("gioSinh")?.value;
+      const rawPhut = document.getElementById("phutSinh")?.value;
 
-      const gio = parseInt(document.getElementById('gioSinh')?.value, 10) || 19;
-      const phut = parseInt(document.getElementById('phutSinh')?.value, 10) || 30;
+      const ngay = (rawNgay !== "" && rawNgay !== undefined && rawNgay !== null) ? parseInt(rawNgay, 10) : NaN;
+      const thang = (rawThang !== "" && rawThang !== undefined && rawThang !== null) ? parseInt(rawThang, 10) : NaN;
+      const nam = (rawNam !== "" && rawNam !== undefined && rawNam !== null) ? parseInt(rawNam, 10) : NaN;
+      const gio = (rawGio !== "" && rawGio !== undefined && rawGio !== null) ? parseInt(rawGio, 10) : NaN;
+      const phut = (rawPhut !== "" && rawPhut !== undefined && rawPhut !== null) ? parseInt(rawPhut, 10) : NaN;
 
-      const loaiLich = document.getElementById('loaiLich')?.value;
-      const isLunar = (loaiLich === 'am');
+      const loaiLich = document.getElementById("loaiLich")?.value || "duong";
+      const isLunar = (loaiLich === "am");
 
       // 1. Kiểm tra tính hợp lệ dữ liệu
       const formData = { hoTen, gioiTinh, ngay, thang, nam, gio, phut, isLunar };

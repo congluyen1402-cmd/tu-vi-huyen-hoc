@@ -866,6 +866,16 @@
         `;
       });
 
+      const supportText = (typeof window.SITE_CONFIG !== 'undefined' && window.SITE_CONFIG.returnsSupportText)
+        ? window.SITE_CONFIG.returnsSupportText
+        : 'Hỗ trợ kiểm tra hàng khi nhận và đổi trả trong vòng 7 ngày nếu vật phẩm bị hư hỏng, nứt vỡ trong quá trình vận chuyển.';
+
+      html += `
+        <div class="fengshui-support-banner" style="grid-column: 1 / -1; margin-top: 16px; padding: 12px 16px; background: var(--paper-2); border: 1px solid var(--line); border-radius: 6px; font-size: 0.9rem; color: var(--text-muted); text-align: center;">
+          <span>🛡️ <strong>Chính sách đổi trả &amp; hỗ trợ:</strong> ${supportText}</span>
+        </div>
+      `;
+
       container.innerHTML = html;
     },
 
@@ -889,8 +899,9 @@
       const phone = document.getElementById('bookingPhone')?.value || '';
       const date = document.getElementById('bookingDate')?.value || '';
       const time = document.getElementById('bookingTime')?.value || '';
-      const service = document.getElementById('bookingService')?.value || 'Tư Vấn 1-1 60 Phút';
+      const service = document.getElementById('bookingService')?.value || 'Tham Vấn 1-1 Chuyên Đề (490.000đ)';
       const note = document.getElementById('bookingNote')?.value || '';
+      const consent = document.getElementById('bookingConsent');
 
       if (!name || !phone) {
         if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
@@ -898,6 +909,16 @@
         } else {
           alert('Vui lòng nhập Họ tên và Số điện thoại/Zalo');
         }
+        return;
+      }
+
+      if (consent && !consent.checked) {
+        if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
+          TuViApp.showToast('Vui lòng đồng ý với điều khoản liên hệ và chính sách bảo mật.', 'error');
+        } else {
+          alert('Vui lòng đồng ý với điều khoản liên hệ và chính sách bảo mật.');
+        }
+        consent.focus();
         return;
       }
 
@@ -1131,7 +1152,16 @@
                     </div>
                   </div>
                 </div>
-                <p class="bank-auto-note">⚡ Hệ thống quét tự động biến động số dư 24/7 và kích hoạt mở khóa ngay sau khi nhận được tiền.</p>
+                <div class="vip-step-strip" style="margin-top: 14px; padding: 10px; background: rgba(0,0,0,0.04); border-radius: 6px; font-size: 0.85rem; display: flex; justify-content: space-around; text-align: center; border: 1px dashed var(--line, #ccc);">
+                  <div><strong>1.</strong> Chọn gói</div>
+                  <div>&rarr;</div>
+                  <div><strong>2.</strong> Quét VietQR</div>
+                  <div>&rarr;</div>
+                  <div><strong>3.</strong> Hệ thống mở khóa</div>
+                </div>
+                <p class="bank-auto-note" style="margin-top: 8px; font-size: 0.85rem;">
+                  Đã chuyển tiền nhưng chưa mở khóa? Gửi mã giao dịch qua <a href="https://zalo.me/0988888888" id="vipZaloSupportLink" target="_blank" rel="noopener" style="color:var(--seal, #A3281F); font-weight:600; text-decoration:underline;">Zalo hỗ trợ</a> để được đối soát ngay.
+                </p>
               </div>
             </div>
 
@@ -1172,9 +1202,9 @@
         <div id="tuvi-restore-modal" class="tuvi-tool-modal-backdrop">
           <div class="tuvi-tool-modal-card">
             <button class="tuvi-tool-modal-close" onclick="TuViMonetize.closeRestoreModal()">&times;</button>
-            <h3><i data-lucide="key-round"></i> Khôi Phục Quyền VIP</h3>
+            <h3><i data-lucide="key-round"></i> Xem Lại Báo Cáo VIP</h3>
             <p class="tuvi-tool-modal-desc">
-              Nếu bạn đã từng quét mã VietQR mở khóa gói VIP nhưng đổi thiết bị hoặc xóa lịch sử duyệt web, hãy nhập <strong>Mã đơn hàng (ví dụ: TV123456)</strong> hoặc <strong>Số điện thoại</strong> để khôi phục ngay:
+              Nhập mã đơn hàng (ví dụ: TV123456) hoặc số điện thoại đã dùng khi thanh toán để mở khóa lại lá số và tải file PDF:
             </p>
             <form onsubmit="TuViMonetize.handleRestoreSubmit(event)">
               <div class="tuvi-tool-input-wrap">
@@ -1183,7 +1213,7 @@
               </div>
               <div id="restoreErrorMsg" class="tuvi-tool-error"></div>
               <button type="submit" id="btnRestoreSubmit" class="btn-tool-submit" style="margin-top: 10px;">
-                🔍 Tìm &amp; Khôi Phục Ngay
+                Xem lại báo cáo
               </button>
             </form>
           </div>

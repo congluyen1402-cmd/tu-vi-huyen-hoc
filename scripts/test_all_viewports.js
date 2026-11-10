@@ -7,6 +7,13 @@ const { chromium } = require('playwright');
     const page = await browser.newPage({ viewport: { width: w, height: 800 } });
     await page.goto('http://localhost:8080', { waitUntil: 'networkidle' });
     await page.fill('#hoTen', 'Trần Công Luyện');
+    await page.selectOption('#gioiTinh', 'nam');
+    await page.selectOption('#gioSinh', '14');
+    await page.selectOption('#phutSinh', '30');
+    await page.selectOption('#thangSinh', '2');
+    await page.selectOption('#namSinh', '1995');
+    await page.selectOption('#ngaySinh', '14');
+
     await page.click('#btnSubmit');
     await page.waitForSelector('#ket-qua', { state: 'visible', timeout: 10000 });
     const sw = await page.evaluate(() => document.documentElement.scrollWidth);

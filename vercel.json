@@ -1,8 +1,21 @@
 {
+  "cleanUrls": true,
   "rewrites": [
     {
       "source": "/admin",
       "destination": "/admin.html"
+    },
+    {
+      "source": "/chinh-sach-bao-mat",
+      "destination": "/chinh-sach-bao-mat.html"
+    },
+    {
+      "source": "/dieu-khoan-su-dung",
+      "destination": "/dieu-khoan-su-dung.html"
+    },
+    {
+      "source": "/chinh-sach-hoan-tien-ho-tro",
+      "destination": "/chinh-sach-hoan-tien-ho-tro.html"
     }
   ]
 }
