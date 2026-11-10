@@ -520,10 +520,10 @@ const TuViChart = {
     let leftColHtml = '';
     if (cung.phuTinhLeft && cung.phuTinhLeft.length > 0) {
       cung.phuTinhLeft.forEach(pt => {
-        const color = this.ELEMENT_COLORS[pt.element] || '#1E7A3E';
+        const color = pt.isLuu ? '#C2410C' : (this.ELEMENT_COLORS[pt.element] || '#1E7A3E');
         const dacHam = pt.dacHam ? ` (${pt.dacHam})` : '';
         leftColHtml += `
-          <div class="star-line star-cat" style="color: ${color};">
+          <div class="star-line star-cat ${pt.isLuu ? 'star-luu' : ''}" style="color: ${color};">
             <span>${pt.name}</span>${dacHam}
             ${pt.tuHoa ? `<span class="tu-hoa-badge">${pt.tuHoa}</span>` : ''}
           </div>
@@ -535,10 +535,10 @@ const TuViChart = {
     let rightColHtml = '';
     if (cung.phuTinhRight && cung.phuTinhRight.length > 0) {
       cung.phuTinhRight.forEach(pt => {
-        const color = this.ELEMENT_COLORS[pt.element] || '#B3261E';
+        const color = pt.isLuu ? '#C2410C' : (this.ELEMENT_COLORS[pt.element] || '#B3261E');
         const dacHam = pt.dacHam ? ` (${pt.dacHam})` : '';
         rightColHtml += `
-          <div class="star-line star-sat" style="color: ${color};">
+          <div class="star-line star-sat ${pt.isLuu ? 'star-luu' : ''}" style="color: ${color};">
             <span>${pt.name}</span>${dacHam}
             ${pt.tuHoa ? `<span class="tu-hoa-badge">${pt.tuHoa}</span>` : ''}
           </div>
@@ -579,9 +579,9 @@ const TuViChart = {
 
         <!-- Footer Cung -->
         <div class="cung-bottom-bar">
-          <span class="cung-chi-label">${cung.chi}</span>
+          <span class="cung-chi-label" title="Tiểu Hạn">${cung.tieuHan || cung.chi}</span>
           <span class="cung-trang-sinh">${cung.trangSinh || ''}</span>
-          <span class="cung-thang-han">${cung.tieuHan ? 'H.' + cung.tieuHan : (cung.thangHan || '')}</span>
+          <span class="cung-thang-han" title="Tháng Hạn">${cung.thangHan || ''}</span>
         </div>
       </div>
     `;

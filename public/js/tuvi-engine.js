@@ -501,8 +501,8 @@
   ];
 
   const LOC_TON_POS = [2, 3, 5, 6, 5, 6, 8, 9, 11, 0];
-  const THIEN_KHOI_POS = [1, 0, 11, 9, 1, 0, 7, 6, 3, 3];
-  const THIEN_VIET_POS = [7, 8, 9, 11, 7, 8, 1, 2, 5, 5];
+  const THIEN_KHOI_POS = [1, 0, 11, 11, 1, 0, 6, 6, 3, 3];
+  const THIEN_VIET_POS = [7, 8, 9, 9, 7, 8, 2, 2, 5, 5];
 
   const VONG_THAI_TUE = [
     'Thái tuế', 'Thiếu dương', 'Tang môn', 'Thiếu âm', 'Quan phù', 'Tử phù',
@@ -537,10 +537,11 @@
   // 6. MAIN ENGINE: LẬP LÁ SỐ TỬ VI CHÍNH TÔNG
   // ==========================================================================
 
-  function lapLaSo(ngay, thang, nam, gioIndex, gioiTinh, isLunar, gioPhutText) {
+  function lapLaSo(ngay, thang, nam, gioIndex, gioiTinh, isLunar, gioPhutText, viewYear) {
     var hoTen = '';
+    var opt = null;
     if (typeof ngay === 'object' && ngay !== null) {
-      var opt = ngay;
+      opt = ngay;
       hoTen = opt.hoTen || '';
       thang = opt.thang;
       nam = opt.nam;
@@ -548,8 +549,10 @@
       gioiTinh = opt.gioiTinh || 'nam';
       isLunar = (opt.isLunar === true || opt.loaiLich === 'am');
       gioPhutText = opt.gioPhutText || ((opt.gio !== undefined ? opt.gio + ' giờ ' : '') + (opt.phut !== undefined ? opt.phut + ' phút' : ''));
+      viewYear = opt.viewYear || opt.namXem;
       ngay = opt.ngay;
     }
+    var vYear = parseInt(viewYear, 10) || 2026;
 
     // Chuẩn hóa giới tính: hỗ trợ 'nam', 'nu', 'Nam', 'Nữ', '1', '0'
     var rawGender = (gioiTinh || 'nam').toString().trim().toLowerCase();
@@ -681,13 +684,15 @@
     });
 
     // Helper thêm phụ tinh
-    function addStar(pos, starName, isLeft, dacHam) {
-      var el = STAR_ELEMENTS[starName] || 'Thổ';
+    function addStar(pos, starName, isLeft, dacHam, isLuu) {
+      var baseName = starName.replace(/^L\./, '');
+      var el = STAR_ELEMENTS[starName] || STAR_ELEMENTS[baseName] || 'Thổ';
       var starObj = {
         name: starName,
         element: el,
         dacHam: dacHam || null,
-        tuHoa: null
+        tuHoa: null,
+        isLuu: isLuu === true || starName.startsWith('L.')
       };
       if (isLeft) {
         cungArray[pos].phuTinhLeft.push(starObj);
@@ -780,6 +785,10 @@
     addStar(vanTinhMap[canNamIdx], 'Văn tinh', true);
     addStar(thienTruMap[canNamIdx], 'Thiên trù', true);
 
+    // Lưu Niên Văn Tinh (theo Can năm sinh)
+    var lnVanTinhMap = [5, 6, 8, 9, 8, 9, 11, 0, 2, 3];
+    addStar(lnVanTinhMap[canNamIdx], 'LN Văn tinh', true);
+
     // 7. Sao theo Giờ sinh
     var vanXuongPos = (10 - gioIndex + 120) % 12;
     var vanKhucPos = (4 + gioIndex) % 12;
@@ -812,7 +821,14 @@
     var phuongCacPos = (10 - chiNamIdx + 120) % 12;
     addStar(phuongCacPos, 'Phượng các', true);
     addStar(phuongCacPos, 'Giải thần', true);
-    addStar((daoHoaMap[chiNamIdx] + 1) % 12, 'Hoa cái', true);
+
+    // Hoa Cái (Tam Hợp Địa Chi năm sinh)
+    var hoaCaiMap = [4, 1, 10, 7, 4, 1, 10, 7, 4, 1, 10, 7];
+    addStar(hoaCaiMap[chiNamIdx], 'Hoa cái', true);
+
+    // Đẩu Quân (Khởi từ cung Thái Tuế đếm nghịch đến tháng sinh, rồi đếm thuận đến giờ sinh)
+    var dauQuanPos = (chiNamIdx - (lunar.month - 1) + gioIndex + 120) % 12;
+    addStar(dauQuanPos, 'Đẩu quân', false);
 
     addStar(coThanMap[chiNamIdx], 'Cô thần', false);
     addStar(quaTuMap[chiNamIdx], 'Quả tú', false);
@@ -834,34 +850,61 @@
     addStar(noBocChi, 'Thiên thương', false);
     addStar(tatAchChi, 'Thiên sứ', false);
 
-    // 10. Tứ Hóa (Áp dụng cho CẢ Chính Tinh & Phụ Tinh)
+    // 10. Tứ Hóa (Áp dụng cho CẢ Chính Tinh & Phụ Tinh, so khớp không phân biệt hoa/thường)
     var tuHoaMap = TU_HOA_TABLE[canNamIdx];
+    function findTuHoa(name) {
+      if (!name) return null;
+      var clean = name.toLowerCase().trim();
+      for (var k in tuHoaMap) {
+        if (k.toLowerCase().trim() === clean) return tuHoaMap[k];
+      }
+      return null;
+    }
+
     for (var p = 0; p < 12; p++) {
       cungArray[p].chinhTinh.forEach(function (ct) {
-        if (tuHoaMap[ct.name]) {
-          ct.tuHoa = tuHoaMap[ct.name];
-          cungArray[p].tuHoa.push({ star: ct.name, hoa: tuHoaMap[ct.name] });
+        var hoa = findTuHoa(ct.name);
+        if (hoa) {
+          ct.tuHoa = hoa;
+          cungArray[p].tuHoa.push({ star: ct.name, hoa: hoa });
         }
       });
       cungArray[p].phuTinhLeft.forEach(function (pt) {
-        if (tuHoaMap[pt.name]) {
-          pt.tuHoa = tuHoaMap[pt.name];
-          cungArray[p].tuHoa.push({ star: pt.name, hoa: tuHoaMap[pt.name] });
+        var hoa = findTuHoa(pt.name);
+        if (hoa) {
+          pt.tuHoa = hoa;
+          cungArray[p].tuHoa.push({ star: pt.name, hoa: hoa });
         }
       });
       cungArray[p].phuTinhRight.forEach(function (pt) {
-        if (tuHoaMap[pt.name]) {
-          pt.tuHoa = tuHoaMap[pt.name];
-          cungArray[p].tuHoa.push({ star: pt.name, hoa: tuHoaMap[pt.name] });
+        var hoa = findTuHoa(pt.name);
+        if (hoa) {
+          pt.tuHoa = hoa;
+          cungArray[p].tuHoa.push({ star: pt.name, hoa: hoa });
         }
       });
     }
 
-    // 11. Tuần & Triệt
+    // 11. Sao Lưu Niên theo năm xem hạn (L.Thái Tuế, L.Kình Dương, L.Đà La, L.Tang Môn, L.Bạch Hổ, L.Thiên Khốc, L.Thiên Hư, L.Thiên Mã, L.Lộc Tồn)
+    var vCanIdx = (vYear + 6) % 10;
+    var vChiIdx = (vYear + 8) % 12;
+    var vLocTonPos = LOC_TON_POS[vCanIdx];
+
+    addStar(vLocTonPos, 'L.Lộc tồn', true, null, true);
+    addStar(vChiIdx, 'L.Thái tuế', false, null, true);
+    addStar((vLocTonPos + 1) % 12, 'L.Kình dương', false, null, true);
+    addStar((vLocTonPos - 1 + 12) % 12, 'L.Đà la', false, null, true);
+    addStar((vChiIdx + 2) % 12, 'L.Tang môn', false, null, true);
+    addStar((vChiIdx + 8) % 12, 'L.Bạch hổ', false, null, true);
+    addStar((6 - vChiIdx + 120) % 12, 'L.Thiên khốc', false, null, true);
+    addStar((6 + vChiIdx) % 12, 'L.Thiên hư', false, null, true);
+    addStar(thienMaMap[vChiIdx], 'L.Thiên mã', true, null, true);
+
+    // 12. Tuần & Triệt
     var tuanArray = getTuanKhong(lunar.year);
     var trietArray = getTrietKhong(canNamIdx);
 
-    // 12. Đại Hạn 10 năm
+    // 13. Đại Hạn 10 năm
     var startAge = cucInfo.value;
     for (var d = 0; d < 12; d++) {
       var dChi = isThuan ? (cungMenh.chiIndex + d) % 12 : (cungMenh.chiIndex - d + 120) % 12;
@@ -873,7 +916,7 @@
       };
     }
 
-    // 13. Vòng Tràng Sinh (12 cung: Thủy/Thổ khởi Thân, Mộc khởi Hợi, Kim khởi Tỵ, Hỏa khởi Dần)
+    // 14. Vòng Tràng Sinh (12 cung: Thủy/Thổ khởi Thân, Mộc khởi Hợi, Kim khởi Tỵ, Hỏa khởi Dần)
     var tsRoots = { 2: 8, 3: 11, 4: 5, 5: 8, 6: 2 };
     var tsRoot = tsRoots[cucInfo.value] !== undefined ? tsRoots[cucInfo.value] : 8;
     for (var ts = 0; ts < 12; ts++) {
@@ -881,11 +924,28 @@
       cungArray[tsChi].trangSinh = VONG_TRANG_SINH_NAMES[ts];
     }
 
-    // 14. Tháng Hạn
-    var thRoot = (cungMenh.chiIndex - (lunar.month - 1) + 120) % 12;
-    var startThang1 = (thRoot + gioIndex) % 12;
+    // 15. Tiểu Hạn theo từng cung (Hiển thị góc trái dưới mỗi cung)
+    var tieuHanStartChi = [10, 7, 4, 1][chiNamIdx % 4];
+    for (var p = 0; p < 12; p++) {
+      var offsetFromDan = (p - 2 + 12) % 12;
+      var thChi = isNam
+        ? (tieuHanStartChi + offsetFromDan) % 12
+        : (tieuHanStartChi - offsetFromDan + 120) % 12;
+      cungArray[p].tieuHan = DIA_CHI[thChi];
+      cungArray[p].tieuHanChiIdx = thChi;
+    }
+
+    // 16. Nguyệt Hạn (Tháng hạn Th.1 -> Th.12 của năm xem hạn, khởi từ cung Tiểu Hạn của năm xem)
+    var cungTieuHanYear = 0;
+    for (var p = 0; p < 12; p++) {
+      if (cungArray[p].tieuHanChiIdx === vChiIdx) {
+        cungTieuHanYear = p;
+        break;
+      }
+    }
+    var th1Pos = (cungTieuHanYear - (lunar.month - 1) + gioIndex + 120) % 12;
     for (var th = 0; th < 12; th++) {
-      var thChi = (startThang1 + th) % 12;
+      var thChi = (th1Pos + th) % 12;
       cungArray[thChi].thangHan = 'Th.' + (th + 1);
     }
 
