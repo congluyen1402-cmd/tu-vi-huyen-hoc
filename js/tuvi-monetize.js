@@ -76,6 +76,12 @@
 
     init: function () {
       this.loadConfig();
+      window.addEventListener('popstate', (e) => {
+        const modal = document.getElementById('tuvi-vip-modal');
+        if (modal && modal.classList.contains('active')) {
+          TuViMonetize.closeVipModal(true);
+        }
+      });
       this.initBookingForm();
       this.checkVipStatus();
       this.initFloatingCta();
@@ -204,6 +210,11 @@
      */
     openVipModal: function (pkgName, price) {
       this.currentPackageName = pkgName || 'Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)';
+      try {
+        if (window.history && window.history.pushState) {
+          window.history.pushState({ tuviVipModal: true }, '');
+        }
+      } catch (e) {}
       this.currentPackagePrice = (price && price > 0) ? price : this.config.vipPrice;
 
       this.currentOrderId = 'TV' + Math.floor(100000 + Math.random() * 900000);
@@ -435,12 +446,15 @@
       }
     },
 
-    closeVipModal: function () {
+    closeVipModal: function (fromPopstate) {
       this.stopOrderPolling();
       const modal = document.getElementById('tuvi-vip-modal');
       if (modal) {
         modal.classList.remove('active');
         document.body.style.overflow = '';
+      }
+      if (!fromPopstate && window.history && window.history.state && window.history.state.tuviVipModal) {
+        try { window.history.back(); } catch (e) {}
       }
     },
 

@@ -168,6 +168,7 @@
       this.initDynamicYearLabels();
       this.initSiteConfig();
       this.initTrustLine();
+      this.initAndroidKeyboardAdapt();
       this.initFormControls();
       this.initNavMenuCheck();
       // this.initHeroStarfield(); (Removed for Muc & Giay)
@@ -562,6 +563,23 @@
       return Math.floor((hour + 1) / 2) % 12;
     },
 
+    
+    /* Android Virtual Keyboard Listener */
+    initAndroidKeyboardAdapt: function () {
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', () => {
+          const isKeyboardOpen = window.visualViewport.height < window.innerHeight * 0.75;
+          const stickyBar = document.getElementById('stickyBottomCtaBar');
+          const floatVip = document.getElementById('floatingVipCtaBtn');
+          if (stickyBar) {
+            stickyBar.style.display = isKeyboardOpen ? 'none' : '';
+          }
+          if (floatVip) {
+            floatVip.style.display = isKeyboardOpen ? 'none' : '';
+          }
+        });
+      }
+    },
     initFormControls: function () {
       const form = document.getElementById('tuviForm');
       const thangEl = document.getElementById('thangSinh');

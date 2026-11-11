@@ -6905,3 +6905,61 @@ footer.footer {
     overflow: hidden;
   }
 }
+
+
+/* ============================================================ */
+/* ANDROID & MOBILE COMPATIBILITY ENHANCEMENTS                  */
+/* ============================================================ */
+
+/* 1. Android Tap Highlight & Touch Response */
+* {
+  -webkit-tap-highlight-color: rgba(212, 175, 55, 0.18);
+}
+
+button, a, input, select, .cung-classical-cell, .cung-cell, .btn-scale-toggle {
+  touch-action: manipulation;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 2. Android Chrome & Samsung Internet Select Arrow Styling */
+.form-item-select {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%237A1F17' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 10px center !important;
+  background-size: 13px 13px !important;
+  padding-right: 28px !important;
+}
+
+/* 3. Small Android Screen (360px: Samsung Galaxy A, Xiaomi Redmi, Oppo, Vivo) */
+@media (max-width: 380px) {
+  .tracuu-form-card {
+    padding: 12px 10px !important;
+  }
+  .form-item-select {
+    padding: 10px 22px 10px 8px !important;
+    background-position: right 6px center !important;
+    background-size: 12px 12px !important;
+    font-size: 15px !important;
+  }
+  .form-row-date {
+    gap: 6px !important;
+  }
+  .btn-scale-toggle {
+    font-size: 0.71rem !important;
+    padding: 7px 5px !important;
+    letter-spacing: -0.015em;
+  }
+}
+
+/* 4. Overscroll control on Android to prevent unwanted pull-to-refresh */
+.sheet-panel, .la-so-scroll-wrapper, .tuvi-vip-card {
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}

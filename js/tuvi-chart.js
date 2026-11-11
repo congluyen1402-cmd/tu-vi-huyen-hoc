@@ -515,7 +515,7 @@ const TuViChart = {
       <!-- THANH CHUYỂN ĐỔI CHẾ ĐỘ XEM TRÊN ĐIỆN THOẠI (Auto-fit & Zoom) -->
       <div class="mobile-chart-scale-bar" id="mobileChartScaleBar">
         <button type="button" class="btn-scale-toggle active" id="btnScaleFit" onclick="TuViChart.setMobileScaleMode('fit')">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-2px;margin-right:4px;"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg>🗺️ Xem Bàn Lá Số Chuẩn (Vừa màn hình)
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-2px;margin-right:4px;"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg>🗺️ Vừa Màn Hình (Chuẩn)
         </button>
         <button type="button" class="btn-scale-toggle" id="btnScaleScroll" onclick="TuViChart.setMobileScaleMode('scroll')">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-2px;margin-right:4px;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>🔍 Phóng To Lá Số (Vuốt ngang)
@@ -587,6 +587,15 @@ const TuViChart = {
   _onResizeScale: null,
 
   initMobileChartScale: function () {
+    if (!this._androidPopstateListenerAttached) {
+      this._androidPopstateListenerAttached = true;
+      window.addEventListener('popstate', (e) => {
+        const sheet = document.getElementById('tuviPalaceSheet');
+        if (sheet && sheet.classList.contains('active')) {
+          TuViChart.closePalaceSheet(true);
+        }
+      });
+    }
     const updateScale = () => {
       const wrapper = document.querySelector('.la-so-scroll-wrapper');
       const container = document.getElementById('laSoPrintArea');
