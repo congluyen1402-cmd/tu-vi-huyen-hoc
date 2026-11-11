@@ -873,7 +873,16 @@
                 resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }
 
-              if (typeof TuViMonetize !== 'undefined' && TuViMonetize.trackEvent) {
+              if (window.TuViTracker && window.TuViTracker.track) {
+                window.TuViTracker.track('lap_la_so', {
+                  hoTen: computedLaSo.hoTen || 'Khách Xem Mệnh',
+                  gioiTinh: computedLaSo.gioiTinh || 'Nam',
+                  ngayThangNam: `${computedLaSo.ngayDuong}/${computedLaSo.thangDuong}/${computedLaSo.namDuong}`,
+                  gioSinh: `${computedLaSo.gioDuong || '00'}:${computedLaSo.phutDuong || '00'}`,
+                  banMenh: computedLaSo.menh || '',
+                  cucMenh: computedLaSo.cuc || ''
+                });
+              } else if (typeof TuViMonetize !== 'undefined' && TuViMonetize.trackEvent) {
                 TuViMonetize.trackEvent('lap_la_so', {
                   hoTen: computedLaSo.hoTen,
                   gioiTinh: computedLaSo.gioiTinh,

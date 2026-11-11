@@ -1123,6 +1123,29 @@
         localStorage.setItem('tvhh_bookings', JSON.stringify(bookings));
       } catch (e) {}
 
+      // Gửi dữ liệu đặt lịch trực tiếp về Backend Server để Admin quản lý
+      fetch(this.getApiUrl('/api/bookings/create'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          customerName: name,
+          customerPhone: phone,
+          bookingDate: date,
+          bookingTime: time,
+          serviceName: service,
+          note: note,
+          visitorId: (window.TuViTracker ? window.TuViTracker.visitorId : localStorage.getItem('tvhh_visitor_id')) || ''
+        })
+      }).catch(function(err) { console.warn('Lỗi lưu lịch tư vấn:', err); });
+
+      if (window.TuViTracker && window.TuViTracker.track) {
+        window.TuViTracker.track('booking_submit', {
+          customerName: name,
+          customerPhone: phone,
+          serviceName: service
+        });
+      }
+
       // Mở modal xác nhận hoặc điều hướng Zalo
       const resultBox = document.getElementById('bookingResultSuccess');
       if (resultBox) {

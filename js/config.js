@@ -126,6 +126,66 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+// =========================================================================
+// HỆ THỐNG ĐỒNG BỘ SỰ KIỆN & PHÂN TÍCH HÀNH VI (TuViTracker)
+// =========================================================================
+(function() {
+  function getOrCreateVisitorId() {
+    try {
+      let vid = localStorage.getItem('tvhh_visitor_id');
+      if (!vid) {
+        vid = 'vis_' + Date.now().toString(36) + '_' + Math.random().toString(36).substring(2, 9);
+        localStorage.setItem('tvhh_visitor_id', vid);
+      }
+      return vid;
+    } catch (e) {
+      return 'vis_anon_' + Date.now().toString(36);
+    }
+  }
+
+  window.TuViTracker = {
+    visitorId: getOrCreateVisitorId(),
+    track: function(eventType, details) {
+      try {
+        const payload = {
+          eventType: eventType,
+          visitorId: this.visitorId,
+          details: details || {},
+          timestamp: new Date().toISOString()
+        };
+
+        const dataStr = JSON.stringify(payload);
+        if (navigator.sendBeacon) {
+          const blob = new Blob([dataStr], { type: 'application/json' });
+          if (navigator.sendBeacon('/api/analytics/track', blob)) return;
+        }
+
+        fetch('/api/analytics/track', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: dataStr,
+          keepalive: true
+        }).catch(function() {});
+      } catch (err) {
+        console.warn('TuViTracker error:', err);
+      }
+    }
+  };
+
+  // Tự động ghi nhận lượt xem trang (page_view)
+  document.addEventListener('DOMContentLoaded', function() {
+    try {
+      const isMobile = /Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+      window.TuViTracker.track('page_view', {
+        path: window.location.pathname,
+        referrer: document.referrer || '',
+        screen: window.innerWidth + 'x' + window.innerHeight,
+        device: isMobile ? 'mobile' : 'desktop'
+      });
+    } catch (e) {}
+  });
+})();
+
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = window.SITE_CONFIG;
 }

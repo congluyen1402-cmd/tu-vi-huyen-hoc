@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bảng Quản Trị Kinh Doanh, Lưu Lượng & Phân Tích Thông Minh - Xem Tử Vi Huyền Học</title>
+  <title>Bảng Quản Trị Kinh Doanh, Lưu Lượng & Phân Tích Thực Tế - Xem Tử Vi Huyền Học</title>
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,7 +38,7 @@
       line-height: 1.5;
     }
     .admin-container {
-      max-width: 1280px;
+      max-width: 1320px;
       margin: 0 auto;
     }
     /* Header */
@@ -50,7 +50,7 @@
       gap: 1.25rem;
       padding-bottom: 1.5rem;
       border-bottom: 1px solid var(--border);
-      margin-bottom: 2rem;
+      margin-bottom: 1.75rem;
     }
     .admin-header-title {
       display: flex;
@@ -60,25 +60,37 @@
     .admin-header h1 {
       font-family: 'Playfair Display', serif;
       color: var(--gold-light);
-      font-size: 1.75rem;
+      font-size: 1.65rem;
       letter-spacing: 0.5px;
     }
     .header-tag {
       background: rgba(16, 185, 129, 0.15);
       color: #34d399;
       border: 1px solid rgba(16, 185, 129, 0.4);
-      padding: 0.2rem 0.6rem;
+      padding: 0.25rem 0.75rem;
       border-radius: 9999px;
       font-size: 0.75rem;
       font-weight: 600;
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
+      gap: 0.4rem;
+    }
+    .header-tag .pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #34d399;
+      box-shadow: 0 0 8px #34d399;
+      animation: pulse 1.8s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.3); }
     }
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.65rem;
       flex-wrap: wrap;
     }
     .btn-action-pill {
@@ -88,10 +100,10 @@
       background: var(--surface-2);
       color: var(--gold-light);
       border: 1px solid var(--border);
-      padding: 0.55rem 1.15rem;
+      padding: 0.5rem 1rem;
       border-radius: 9999px;
       text-decoration: none;
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       font-weight: 500;
       cursor: pointer;
       transition: all 0.2s;
@@ -104,11 +116,59 @@
     .btn-gold-action {
       background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-deep));
       color: #0b0a1a !important;
-      font-weight: 600;
+      font-weight: 700;
       border: none;
     }
     .btn-gold-action:hover {
       box-shadow: 0 4px 16px rgba(212,175,55,0.4);
+    }
+    .btn-logout {
+      background: rgba(239, 68, 68, 0.12);
+      color: #f87171;
+      border-color: rgba(239, 68, 68, 0.35);
+    }
+    .btn-logout:hover {
+      background: rgba(239, 68, 68, 0.22);
+      border-color: #ef4444;
+    }
+
+    /* Filters Bar */
+    .filter-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.85rem 1.25rem;
+      margin-bottom: 1.75rem;
+    }
+    .filter-tabs {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+    .filter-tab {
+      background: var(--surface-2);
+      border: 1px solid var(--border-light);
+      color: var(--text-muted);
+      padding: 0.4rem 0.9rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .filter-tab:hover {
+      color: var(--gold-light);
+      border-color: var(--border);
+    }
+    .filter-tab.active {
+      background: rgba(212,175,55,0.18);
+      color: var(--gold-light);
+      border-color: var(--gold);
     }
 
     /* Section Subheadings */
@@ -118,22 +178,13 @@
       letter-spacing: 1px;
       color: var(--gold);
       font-weight: 700;
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.4rem;
       display: flex;
       align-items: center;
       gap: 0.4rem;
     }
 
     /* Metric Grid Cards */
-    .metrics-group-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.25rem;
-      color: var(--text);
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
     .grid-4 {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
@@ -150,7 +201,7 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 1.25rem;
+      padding: 1.2rem;
       box-shadow: 0 8px 24px rgba(0,0,0,0.3);
       position: relative;
       overflow: hidden;
@@ -171,35 +222,82 @@
     }
     .stat-card .lbl {
       color: var(--text-muted);
-      font-size: 0.84rem;
+      font-size: 0.82rem;
       margin-bottom: 0.4rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
     .stat-card .val {
-      font-size: 1.75rem;
+      font-size: 1.7rem;
       font-weight: 700;
       color: var(--gold-light);
       font-family: 'Playfair Display', serif;
     }
     .stat-card .trend {
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       margin-top: 0.35rem;
       color: var(--text-muted);
     }
 
-    /* 2-Column Layout for Funnel & AI Advisor */
+    /* Visual Charts Section */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 1.75rem;
+    }
+    @media (max-width: 960px) {
+      .charts-grid { grid-template-columns: 1fr; }
+    }
+    .chart-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.25rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+    }
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .chart-title {
+      font-family: 'Playfair Display', serif;
+      color: var(--gold-light);
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .chart-svg-container {
+      width: 100%;
+      height: 220px;
+      position: relative;
+    }
+    .chart-tooltip {
+      position: absolute;
+      background: rgba(20, 18, 43, 0.95);
+      border: 1px solid var(--gold);
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      pointer-events: none;
+      display: none;
+      z-index: 10;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.6);
+    }
+
+    /* 2-Column Layout for Funnel & Top Cung */
     .dashboard-row-2col {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      margin-bottom: 2rem;
+      gap: 1.25rem;
+      margin-bottom: 1.75rem;
     }
     @media (max-width: 960px) {
-      .dashboard-row-2col {
-        grid-template-columns: 1fr;
-      }
+      .dashboard-row-2col { grid-template-columns: 1fr; }
     }
 
     /* Section Cards */
@@ -207,46 +305,46 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 14px;
-      padding: 1.5rem;
-      margin-bottom: 2rem;
+      padding: 1.35rem;
+      margin-bottom: 1.75rem;
       box-shadow: 0 8px 30px rgba(0,0,0,0.35);
     }
     .section-title-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.15rem;
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 0.75rem;
     }
     .section-title {
       font-family: 'Playfair Display', serif;
       color: var(--gold-light);
-      font-size: 1.35rem;
+      font-size: 1.28rem;
       display: flex;
       align-items: center;
-      gap: 0.6rem;
+      gap: 0.55rem;
     }
 
     /* Funnel Visualization */
     .funnel-list {
       display: flex;
       flex-direction: column;
-      gap: 0.85rem;
+      gap: 0.75rem;
     }
     .funnel-step-item {
       background: var(--surface-2);
       border: 1px solid var(--border-light);
       border-radius: 8px;
-      padding: 0.85rem 1.1rem;
+      padding: 0.8rem 1rem;
       position: relative;
     }
     .funnel-step-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.88rem;
-      margin-bottom: 0.45rem;
+      font-size: 0.86rem;
+      margin-bottom: 0.4rem;
     }
     .funnel-step-name {
       font-weight: 600;
@@ -255,15 +353,15 @@
     .funnel-step-metrics {
       display: flex;
       align-items: center;
-      gap: 0.8rem;
+      gap: 0.75rem;
     }
     .funnel-count {
       font-weight: 700;
       color: var(--gold-light);
     }
     .funnel-rate-badge {
-      font-size: 0.76rem;
-      padding: 0.15rem 0.5rem;
+      font-size: 0.74rem;
+      padding: 0.15rem 0.45rem;
       border-radius: 4px;
       font-weight: 600;
       background: rgba(16, 185, 129, 0.2);
@@ -281,18 +379,13 @@
       border-radius: 9999px;
       transition: width 0.6s ease;
     }
-    .funnel-step-desc {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-top: 0.4rem;
-    }
 
-    /* Smart AI Growth Advisor */
+    /* AI Growth Advisor */
     .ai-badge {
       background: linear-gradient(135deg, #8B5CF6, #EC4899);
       color: #fff;
-      font-size: 0.75rem;
-      padding: 0.2rem 0.65rem;
+      font-size: 0.72rem;
+      padding: 0.2rem 0.6rem;
       border-radius: 9999px;
       font-weight: 700;
       letter-spacing: 0.5px;
@@ -302,8 +395,8 @@
       background: var(--surface-2);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 1.15rem;
-      margin-bottom: 0.9rem;
+      padding: 1rem;
+      margin-bottom: 0.8rem;
       transition: all 0.2s;
     }
     .solution-card:hover {
@@ -314,7 +407,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.35rem;
     }
     .solution-tag {
       font-size: 0.72rem;
@@ -324,41 +417,41 @@
       text-transform: uppercase;
     }
     .solution-badge {
-      font-size: 0.74rem;
-      padding: 0.15rem 0.5rem;
+      font-size: 0.72rem;
+      padding: 0.15rem 0.45rem;
       border-radius: 4px;
       background: rgba(212,175,55,0.15);
       color: var(--gold-light);
       border: 1px solid rgba(212,175,55,0.3);
     }
     .solution-title {
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       font-weight: 600;
       color: var(--text);
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.3rem;
     }
     .solution-action {
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       color: var(--text-muted);
-      line-height: 1.5;
+      line-height: 1.45;
     }
 
     /* Palace Ranking */
     .palace-bar-row {
       display: flex;
       align-items: center;
-      gap: 0.85rem;
-      margin-bottom: 0.75rem;
+      gap: 0.8rem;
+      margin-bottom: 0.65rem;
     }
     .palace-name-col {
       width: 120px;
-      font-size: 0.86rem;
+      font-size: 0.85rem;
       font-weight: 600;
       color: var(--text);
     }
     .palace-bar-container {
       flex: 1;
-      height: 10px;
+      height: 9px;
       background: rgba(255,255,255,0.06);
       border-radius: 9999px;
       overflow: hidden;
@@ -371,49 +464,9 @@
     .palace-count-col {
       width: 70px;
       text-align: right;
-      font-size: 0.84rem;
+      font-size: 0.82rem;
       color: var(--gold-light);
       font-weight: 600;
-    }
-
-    /* Live Activity Feed */
-    .activity-feed-wrap {
-      max-height: 280px;
-      overflow-y: auto;
-      padding-right: 0.4rem;
-    }
-    .activity-feed-wrap::-webkit-scrollbar {
-      width: 6px;
-    }
-    .activity-feed-wrap::-webkit-scrollbar-thumb {
-      background: rgba(212,175,55,0.3);
-      border-radius: 3px;
-    }
-    .activity-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-      padding: 0.65rem 0.5rem;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      font-size: 0.85rem;
-    }
-    .activity-icon-badge {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.78rem;
-      flex-shrink: 0;
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-    }
-    .activity-item .act-time {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-left: auto;
-      flex-shrink: 0;
     }
 
     /* Tables */
@@ -428,16 +481,16 @@
     th {
       background: var(--surface-2);
       color: var(--gold-light);
-      padding: 0.85rem 1rem;
-      font-size: 0.82rem;
+      padding: 0.8rem 0.9rem;
+      font-size: 0.8rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       border-bottom: 1px solid var(--border);
     }
     td {
-      padding: 0.9rem 1rem;
+      padding: 0.85rem 0.9rem;
       border-bottom: 1px solid rgba(212,175,55,0.08);
-      font-size: 0.9rem;
+      font-size: 0.88rem;
     }
     tr:hover td {
       background: rgba(212,175,55,0.03);
@@ -447,7 +500,7 @@
       font-weight: 700;
       color: var(--gold-light);
       background: rgba(212,175,55,0.12);
-      padding: 0.25rem 0.55rem;
+      padding: 0.2rem 0.5rem;
       border-radius: 4px;
       border: 1px solid rgba(212,175,55,0.3);
     }
@@ -455,9 +508,9 @@
       display: inline-flex;
       align-items: center;
       gap: 0.35rem;
-      padding: 0.3rem 0.75rem;
+      padding: 0.25rem 0.65rem;
       border-radius: 9999px;
-      font-size: 0.8rem;
+      font-size: 0.76rem;
       font-weight: 600;
     }
     .status-paid {
@@ -474,9 +527,9 @@
       background: linear-gradient(135deg, #10b981, #059669);
       color: #fff;
       border: none;
-      padding: 0.45rem 0.85rem;
+      padding: 0.4rem 0.75rem;
       border-radius: 6px;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 600;
       cursor: pointer;
       display: inline-flex;
@@ -492,16 +545,85 @@
       background: transparent;
       color: var(--danger);
       border: 1px solid rgba(239,68,68,0.3);
-      padding: 0.45rem 0.7rem;
+      padding: 0.4rem 0.6rem;
       border-radius: 6px;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       cursor: pointer;
-      margin-left: 0.4rem;
+      margin-left: 0.35rem;
       transition: all 0.15s;
     }
     .btn-delete:hover {
       background: rgba(239,68,68,0.15);
       border-color: var(--danger);
+    }
+
+    /* Live Activity Feed */
+    .activity-feed-wrap {
+      max-height: 260px;
+      overflow-y: auto;
+      padding-right: 0.4rem;
+    }
+    .activity-feed-wrap::-webkit-scrollbar { width: 5px; }
+    .activity-feed-wrap::-webkit-scrollbar-thumb {
+      background: rgba(212,175,55,0.3);
+      border-radius: 3px;
+    }
+    .activity-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.6rem 0.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 0.84rem;
+    }
+    .activity-icon-badge {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+    }
+    .activity-item .act-time {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+
+    /* Search & Table Toolbar */
+    .table-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .search-input {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.45rem 0.9rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      min-width: 260px;
+    }
+    .search-input:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+    .select-filter {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.45rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
     }
 
     /* SePay Box */
@@ -524,12 +646,12 @@
       color: var(--text);
       padding: 0.65rem 1rem;
       border-radius: 6px;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
     }
     .btn-save-cfg {
       background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-deep));
       color: #0b0a1a;
-      font-weight: 600;
+      font-weight: 700;
       border: none;
       padding: 0.65rem 1.25rem;
       border-radius: 6px;
@@ -546,8 +668,8 @@
       color: var(--text);
       padding: 0.85rem 1.4rem;
       border-radius: 8px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      z-index: 9999;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      z-index: 10000;
       opacity: 0;
       transform: translateY(20px);
       transition: all 0.3s ease;
@@ -559,55 +681,319 @@
       opacity: 1;
       transform: translateY(0);
     }
-  
-    /* Post Editor Modal */
-    .post-modal-backdrop {
+
+    /* Modals Generic Backdrop */
+    .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.78);
-      backdrop-filter: blur(4px);
+      background: rgba(5, 4, 12, 0.85);
+      backdrop-filter: blur(6px);
       z-index: 9999;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 1rem;
     }
-    .post-modal-dialog {
-      background: var(--bg-card, #140d21);
-      border: 1px solid var(--border-color, #2d2042);
-      border-radius: 12px;
+    .modal-card {
+      background: #14112c;
+      border: 1px solid var(--gold);
+      border-radius: 14px;
       width: 100%;
-      max-width: 820px;
+      max-width: 540px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+      padding: 2rem;
+      position: relative;
+    }
+    .modal-card-lg {
+      max-width: 900px;
       max-height: 90vh;
       overflow-y: auto;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.65);
-      padding: 1.5rem;
     }
+    .modal-close-btn {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.2rem;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    .modal-close-btn:hover { color: #fff; }
 
+    /* Login Modal Specific */
+    .login-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+    .login-logo-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--gold) 0%, var(--gold-deep) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0b0a1a;
+      box-shadow: 0 0 16px rgba(212,175,55,0.4);
+    }
+    .password-wrap {
+      position: relative;
+      margin: 1.2rem 0 0.8rem;
+    }
+    .password-wrap input {
+      width: 100%;
+      background: #0d0b1e;
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 0.85rem 3rem 0.85rem 1rem;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    .password-wrap input:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 10px rgba(212,175,55,0.3);
+    }
+    .btn-toggle-eye {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    .login-error {
+      background: rgba(239,68,68,0.15);
+      border: 1px solid rgba(239,68,68,0.4);
+      color: #f87171;
+      padding: 0.6rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      margin-bottom: 1rem;
+      display: none;
+    }
+    .remember-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      cursor: pointer;
+    }
+    .btn-login-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-deep));
+      color: #0b0a1a;
+      font-weight: 700;
+      font-size: 1rem;
+      border: none;
+      padding: 0.9rem;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(212,175,55,0.4);
+      transition: transform 0.15s;
+    }
+    .btn-login-submit:hover { transform: translateY(-1px); }
   </style>
 </head>
 <body>
+
+  <!-- ============================================================ -->
+  <!-- MODAL ĐĂNG NHẬP QUẢN TRỊ VIÊN BẢO MẬT (Thay thế prompt)       -->
+  <!-- ============================================================ -->
+  <div id="adminLoginModal" class="modal-backdrop" style="display:none;">
+    <div class="modal-card">
+      <div class="login-logo">
+        <div class="login-logo-icon"><i data-lucide="shield-check"></i></div>
+        <h2 style="font-family:'Playfair Display', serif; color:var(--gold-light); font-size:1.45rem;">XÁC THỰC QUẢN TRỊ</h2>
+      </div>
+      <p style="text-align:center; color:var(--text-muted); font-size:0.86rem; margin-bottom:0.5rem;">
+        Hệ thống dữ liệu kinh doanh &amp; ngân hàng VietinBank bảo mật cấp cao.
+      </p>
+
+      <form id="adminLoginForm" onsubmit="event.preventDefault(); handleAdminLogin();">
+        <div id="loginErrorMessage" class="login-error">
+          <i data-lucide="alert-circle" style="width:16px; height:16px; display:inline; vertical-align:-3px;"></i>
+          <span id="loginErrorText">Mật khẩu quản trị không chính xác!</span>
+        </div>
+
+        <div class="password-wrap">
+          <input type="password" id="adminPasswordInput" placeholder="Nhập mật khẩu quản trị..." required autofocus>
+          <button type="button" class="btn-toggle-eye" onclick="togglePasswordVisibility()" title="Ẩn/Hiện mật khẩu">
+            <i data-lucide="eye" id="eyeIcon"></i>
+          </button>
+        </div>
+
+        <label class="remember-row">
+          <input type="checkbox" id="rememberAdminCheckbox" checked>
+          <span>Ghi nhớ đăng nhập trên thiết bị này</span>
+        </label>
+
+        <button type="submit" class="btn-login-submit">
+          <i data-lucide="lock" style="width:16px; height:16px; display:inline; vertical-align:-2px;"></i>
+          ĐĂNG NHẬP HỆ THỐNG
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- MODAL TẠO MÃ VIP NHANH / DUYỆT ĐƠN ZALO THỦ CÔNG             -->
+  <!-- ============================================================ -->
+  <div id="manualOrderModal" class="modal-backdrop" style="display:none;">
+    <div class="modal-card">
+      <button type="button" class="modal-close-btn" onclick="closeManualOrderModal()">&times;</button>
+      <h3 style="font-family:'Playfair Display', serif; color:var(--gold-light); font-size:1.25rem; margin-bottom:0.5rem;">
+        ➕ KÍCH HOẠT VIP NHANH CHO KHÁCH
+      </h3>
+      <p style="color:var(--text-muted); font-size:0.84rem; margin-bottom:1.2rem;">
+        Sử dụng khi khách đã chuyển khoản qua Zalo hoặc khi SePay bị chậm biến động số dư.
+      </p>
+
+      <form onsubmit="event.preventDefault(); submitManualOrder();">
+        <div style="margin-bottom:0.9rem;">
+          <label style="display:block; font-size:0.82rem; color:var(--text-muted); margin-bottom:0.3rem;">Mã Đơn Hàng (Ví dụ: TV523662 - Để trống sẽ tự sinh):</label>
+          <input type="text" id="manualOrderCode" class="sepay-input" placeholder="Ví dụ: TV523662" style="width:100%; text-transform:uppercase;">
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:0.9rem;">
+          <div>
+            <label style="display:block; font-size:0.82rem; color:var(--text-muted); margin-bottom:0.3rem;">Họ Tên Khách:</label>
+            <input type="text" id="manualCustomerName" class="sepay-input" placeholder="Tên khách hàng" style="width:100%;" required>
+          </div>
+          <div>
+            <label style="display:block; font-size:0.82rem; color:var(--text-muted); margin-bottom:0.3rem;">Số Điện Thoại / Zalo:</label>
+            <input type="text" id="manualCustomerPhone" class="sepay-input" placeholder="09xxxxxxx" style="width:100%;">
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1.5fr 1fr; gap:10px; margin-bottom:0.9rem;">
+          <div>
+            <label style="display:block; font-size:0.82rem; color:var(--text-muted); margin-bottom:0.3rem;">Gói Dịch Vụ:</label>
+            <select id="manualPackageSelect" class="sepay-input" style="width:100%; background:#14112c;" onchange="onManualPackageChange()">
+              <option value="29000|Gói Mở Khóa Nhanh Vận Hạn 2026-2027 (29.000đ)">Gói Mở Khóa Nhanh 29.000đ</option>
+              <option value="49000|Báo Cáo VIP A4 Toàn Thư (49.000đ)" selected>Báo Cáo VIP Toàn Thư 49.000đ</option>
+              <option value="149000|Gói Luận Giải Chuyên Sâu Hôn Nhân & Cải Mệnh (149.000đ)">Chuyên Sâu 149.000đ</option>
+              <option value="490000|Tham Vấn 1-1 Chuyên Đề (490.000đ)">Tham Vấn 1-1 (490.000đ)</option>
+              <option value="990000|Luận Đàm 1-1 Toàn Đồ (990.000đ)">Luận Đàm 1-1 (990.000đ)</option>
+            </select>
+          </div>
+          <div>
+            <label style="display:block; font-size:0.82rem; color:var(--text-muted); margin-bottom:0.3rem;">Số Tiền (VNĐ):</label>
+            <input type="number" id="manualAmount" class="sepay-input" value="49000" style="width:100%;" required>
+          </div>
+        </div>
+
+        <div style="margin-bottom:1.2rem;">
+          <label style="display:block; font-size:0.82rem; color:var(--text-muted); margin-bottom:0.3rem;">Ghi chú duyệt đơn:</label>
+          <input type="text" id="manualNote" class="sepay-input" placeholder="Ví dụ: Đã nhận tiền qua app ngân hàng / Chuyển khoản Zalo" style="width:100%;">
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; gap:8px;">
+          <button type="button" class="btn-save-cfg" style="background:#374151;" onclick="closeManualOrderModal()">Đóng</button>
+          <button type="submit" class="btn-save-cfg">⚡ Kích Hoạt VIP Ngay</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- MODAL ĐỐI SOÁT GIAO DỊCH VIETINBANK THỰC TẾ QUA SEPAY        -->
+  <!-- ============================================================ -->
+  <div id="sepayReconcileModal" class="modal-backdrop" style="display:none;">
+    <div class="modal-card modal-card-lg">
+      <button type="button" class="modal-close-btn" onclick="closeSepayReconcileModal()">&times;</button>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem; flex-wrap:wrap; gap:0.5rem;">
+        <h3 style="font-family:'Playfair Display', serif; color:var(--gold-light); font-size:1.25rem;">
+          🏦 BIẾN ĐỘNG SỐ DƯ VIETINBANK QUA SEPAY (108884822302)
+        </h3>
+        <button class="btn-action-pill" onclick="fetchSepayLiveTransactions()"><i data-lucide="refresh-cw"></i> Quét Lại SePay Ngay</button>
+      </div>
+      <p style="color:var(--text-muted); font-size:0.84rem; margin-bottom:1rem;" id="sepayModalStatusText">
+        Đang nạp 25 giao dịch gần nhất từ API SePay...
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Thời Gian</th>
+              <th>Số Tiền</th>
+              <th>Nội Dung Chuyển Khoản</th>
+              <th>Mã Tham Chiếu</th>
+              <th>Trạng Thái Đối Soát</th>
+            </tr>
+          </thead>
+          <tbody id="sepayTxTableBody">
+            <tr><td colspan="6" style="text-align:center; padding:2rem; color:var(--text-muted);">Đang truy vấn SePay...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- MAIN ADMIN DASHBOARD CONTAINER                               -->
+  <!-- ============================================================ -->
   <div class="admin-container">
     <!-- Header -->
     <header class="admin-header">
       <div>
         <div class="admin-header-title">
           <h1>✦ TRUNG TÂM QUẢN TRỊ &amp; PHÁT TRIỂN KINH DOANH</h1>
-          <span class="header-tag"><i data-lucide="activity"></i> LIVE 24/7</span>
+          <span id="serverConnectionPill" class="header-tag">
+            <span class="pulse-dot"></span>
+            <span id="serverConnectionText">🟢 Đã kết nối dữ liệu máy chủ</span>
+          </span>
         </div>
-        <p style="color:var(--text-muted); font-size:0.88rem; margin-top:0.35rem;">
-          Tài khoản nhận tiền: <strong style="color:var(--gold-light);">VietinBank (108884822302 - TRAN CONG LUYEN)</strong>
-          &nbsp;·&nbsp; Trạng thái SePay API: <strong style="color:#34d399;" id="sepayStatusBadge">Đã Tích Hợp</strong>
+        <p style="color:var(--text-muted); font-size:0.86rem; margin-top:0.35rem;">
+          Tài khoản VietinBank: <strong style="color:var(--gold-light);">108884822302 - TRAN CONG LUYEN</strong>
+          &nbsp;·&nbsp; Trạng thái SePay: <strong style="color:#34d399;" id="sepayStatusBadge">Đã Tích Hợp</strong>
         </p>
       </div>
       <div class="header-actions">
-        <button class="btn-action-pill" onclick="refreshAllData()"><i data-lucide="refresh-cw"></i> Làm Mới Dữ Liệu</button>
-        <a href="/" class="btn-action-pill btn-gold-action" target="_blank"><i data-lucide="external-link"></i> Xem Website Khách Hàng</a>
+        <button class="btn-action-pill btn-gold-action" onclick="openManualOrderModal()">
+          <i data-lucide="user-plus"></i> ➕ Tạo Mã VIP Nhanh
+        </button>
+        <button class="btn-action-pill" onclick="openSepayReconcileModal()">
+          <i data-lucide="repeat"></i> 🔄 Đối Soát SePay
+        </button>
+        <button class="btn-action-pill" onclick="refreshAllData()">
+          <i data-lucide="refresh-cw"></i> Làm Mới
+        </button>
+        <a href="/" class="btn-action-pill" target="_blank">
+          <i data-lucide="external-link"></i> Xem Website
+        </a>
+        <button class="btn-action-pill btn-logout" onclick="handleAdminLogout()">
+          <i data-lucide="log-out"></i> Đăng Xuất
+        </button>
       </div>
     </header>
 
-    <!-- HÀNG 1: DOANH THU & CHỈ SỐ TÀI CHÍNH -->
-    <div class="section-eyebrow"><i data-lucide="wallet"></i> BÁO CÁO DOANH THU THỰC TẾ</div>
+    <!-- THANH BỘ LỌC THỜI GIAN -->
+    <div class="filter-bar">
+      <div style="display:flex; align-items:center; gap:0.6rem;">
+        <i data-lucide="calendar" style="color:var(--gold); width:18px; height:18px;"></i>
+        <span style="font-size:0.85rem; font-weight:600; color:var(--text);">Bộ Lọc Thời Gian Thống Kê:</span>
+      </div>
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-range="today" onclick="switchTimeFilter('today')">Hôm nay</button>
+        <button class="filter-tab" data-range="7d" onclick="switchTimeFilter('7d')">7 ngày qua</button>
+        <button class="filter-tab" data-range="30d" onclick="switchTimeFilter('30d')">30 ngày qua</button>
+        <button class="filter-tab" data-range="all" onclick="switchTimeFilter('all')">Tất cả thời gian</button>
+      </div>
+    </div>
+
+    <!-- HÀNG 1: DOANH THU & CHỈ SỐ TÀI CHÍNH THỰC TẾ -->
+    <div class="section-eyebrow"><i data-lucide="wallet"></i> BÁO CÁO DOANH THU THỰC TẾ (100% TIỀN VÀO VIETINBANK)</div>
     <div class="grid-4">
       <div class="stat-card" style="--card-color: #10B981;">
         <div class="lbl"><span>Doanh Thu Hôm Nay</span> <i data-lucide="sun"></i></div>
@@ -617,12 +1003,12 @@
       <div class="stat-card" style="--card-color: #3B82F6;">
         <div class="lbl"><span>Doanh Thu Tuần Này (7 Ngày)</span> <i data-lucide="calendar"></i></div>
         <div class="val" id="statWeekRevenue" style="color:#60a5fa;">0 đ</div>
-        <div class="trend">Cập nhật theo biến động tuần</div>
+        <div class="trend" id="statWeekCount">0 đơn thành công</div>
       </div>
       <div class="stat-card" style="--card-color: #F59E0B;">
         <div class="lbl"><span>Doanh Thu Tháng Này</span> <i data-lucide="trending-up"></i></div>
         <div class="val" id="statMonthRevenue" style="color:#fbbf24;">0 đ</div>
-        <div class="trend">Tháng hiện tại</div>
+        <div class="trend" id="statMonthCount">Tháng hiện tại</div>
       </div>
       <div class="stat-card" style="--card-color: var(--gold);">
         <div class="lbl"><span>TỔNG DOANH THU TÍCH LŨY</span> <i data-lucide="crown"></i></div>
@@ -631,7 +1017,34 @@
       </div>
     </div>
 
-    <!-- HÀNG 2: LƯU LƯỢNG TRUY CẬP & TƯƠNG TÁC -->
+    <!-- HÀNG 2: 2 BIỂU ĐỒ TRỰC QUAN TƯƠNG TÁC (14 NGÀY QUA) -->
+    <div class="charts-grid">
+      <!-- Biểu đồ 1: Doanh thu & Đơn hàng -->
+      <div class="chart-box">
+        <div class="chart-header">
+          <h3 class="chart-title"><i data-lucide="line-chart"></i> Doanh Thu &amp; Đơn Hàng (14 Ngày Qua)</h3>
+          <span style="font-size:0.75rem; color:#34d399;">● Cột: Doanh thu (VNĐ)</span>
+        </div>
+        <div class="chart-svg-container" id="revenueChartContainer">
+          <svg id="revenueChartSvg" width="100%" height="100%"></svg>
+          <div id="revenueChartTooltip" class="chart-tooltip"></div>
+        </div>
+      </div>
+
+      <!-- Biểu đồ 2: Lưu lượng & Lập lá số -->
+      <div class="chart-box">
+        <div class="chart-header">
+          <h3 class="chart-title"><i data-lucide="bar-chart-2"></i> Lượt Xem Trang &amp; Lập Lá Số (14 Ngày Qua)</h3>
+          <span style="font-size:0.75rem; color:var(--gold-light);">■ Xanh: Views · Vàng: Lá số</span>
+        </div>
+        <div class="chart-svg-container" id="trafficChartContainer">
+          <svg id="trafficChartSvg" width="100%" height="100%"></svg>
+          <div id="trafficChartTooltip" class="chart-tooltip"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HÀNG 3: LƯU LƯỢNG TRUY CẬP & HÀNH VI KHÁCH HÀNG -->
     <div class="section-eyebrow"><i data-lucide="users"></i> LƯU LƯỢNG TRUY CẬP &amp; HÀNH VI KHÁCH HÀNG</div>
     <div class="grid-5">
       <div class="stat-card">
@@ -642,7 +1055,7 @@
       <div class="stat-card">
         <div class="lbl"><span>Khách Ghé Thăm</span> <i data-lucide="user-check"></i></div>
         <div class="val" id="statUniqueVisitors">0</div>
-        <div class="trend">Unique Visitors</div>
+        <div class="trend">Unique Visitors thực tế</div>
       </div>
       <div class="stat-card">
         <div class="lbl"><span>Lá Số Đã Lập</span> <i data-lucide="compass"></i></div>
@@ -661,9 +1074,9 @@
       </div>
     </div>
 
-    <!-- HÀNG 3: 2 CỘT: PHỄU CHUYỂN ĐỔI & TOP CUNG ĐƯỢC XEM NHIỀU NHẤT -->
+    <!-- HÀNG 4: PHỄU CHUYỂN ĐỔI & TOP CUNG ĐƯỢC XEM NHIỀU NHẤT -->
     <div class="dashboard-row-2col">
-      <!-- Cột 1: Phễu chuyển đổi (Conversion Funnel) -->
+      <!-- Cột 1: Phễu chuyển đổi -->
       <div class="section-card">
         <div class="section-title-row">
           <h2 class="section-title"><i data-lucide="filter"></i> Phễu Chuyển Đổi Khách Hàng</h2>
@@ -674,7 +1087,7 @@
         </div>
       </div>
 
-      <!-- Cột 2: Xếp hạng Cung Vị khách tò mò nhất -->
+      <!-- Cột 2: Xếp hạng Cung Vị -->
       <div class="section-card">
         <div class="section-title-row">
           <h2 class="section-title"><i data-lucide="bar-chart-3"></i> Top Cung Vị Khách Tò Mò Nhất</h2>
@@ -686,46 +1099,57 @@
       </div>
     </div>
 
-    <!-- HÀNG 4: TÍNH NĂNG THÔNG MINH - AI SMART GROWTH ADVISOR -->
+    <!-- HÀNG 5: AI SMART GROWTH ADVISOR -->
     <div class="section-card" style="border: 1px solid rgba(139,92,246,0.35); background: linear-gradient(180deg, rgba(29,26,60,0.85) 0%, rgba(20,18,43,0.95) 100%);">
       <div class="section-title-row">
         <div>
           <span class="ai-badge">✦ TÍNH NĂNG THÔNG MINH</span>
           <h2 class="section-title" style="margin-top:0.4rem; color:var(--gold-light);">
-            <i data-lucide="sparkles"></i> AI Growth Advisor: Phân Tích Hành Vi &amp; Đưa Ra Giải Pháp Phát Triển
+            <i data-lucide="sparkles"></i> AI Growth Advisor: Phân Tích Hành Vi &amp; Khuyến Nghị Tăng Trưởng
           </h2>
         </div>
-        <button class="btn-action-pill" onclick="loadAnalytics()"><i data-lucide="refresh-cw"></i> Cập Nhật Lại Phân Tích</button>
+        <button class="btn-action-pill" onclick="loadAnalytics()"><i data-lucide="refresh-cw"></i> Cập Nhật Lại</button>
       </div>
 
-      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:1rem; margin-top:1.25rem;" id="aiInsightsContainer">
-        <!-- Key insights populated dynamically -->
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:1rem; margin-top:1rem;" id="aiInsightsContainer">
+        <!-- Key insights -->
       </div>
 
-      <h3 style="font-family:'Playfair Display', serif; color:var(--gold-light); font-size:1.15rem; margin:1.5rem 0 1rem; border-top:1px dashed var(--border); padding-top:1.2rem;">
-        🚀 4 Giải Pháp Chiến Lược Đột Phá Doanh Thu Dành Riêng Cho Bạn:
+      <h3 style="font-family:'Playfair Display', serif; color:var(--gold-light); font-size:1.1rem; margin:1.3rem 0 0.8rem; border-top:1px dashed var(--border); padding-top:1rem;">
+        🚀 Giải Pháp Chiến Lược Đột Phá Doanh Thu Dành Riêng Cho Bạn:
       </h3>
       <div id="aiSolutionsContainer">
-        <!-- Strategic solutions populated dynamically -->
-      </div>
-    </div>
-
-    <!-- HÀNG 5: NHẬT KÝ HÀNH VI KHÁCH HÀNG THỜI GIAN THỰC -->
-    <div class="section-card">
-      <div class="section-title-row">
-        <h2 class="section-title"><i data-lucide="rss"></i> Nhật Ký Hành Vi Thời Gian Thực (Live Activity Feed)</h2>
-        <span style="font-size:0.8rem; color:#34d399;"><i data-lucide="circle-dot"></i> Đang theo dõi trực tiếp</span>
-      </div>
-      <div class="activity-feed-wrap" id="activityFeed">
-        <div style="text-align:center; padding:1.5rem; color:var(--text-muted);">Đang nạp nhật ký hành vi...</div>
+        <!-- Strategic solutions -->
       </div>
     </div>
 
     <!-- HÀNG 6: QUẢN LÝ ĐƠN HÀNG & PHÊ DUYỆT VIP -->
     <div class="section-card">
       <div class="section-title-row">
-        <h2 class="section-title"><i data-lucide="receipt"></i> Danh Sách Đơn Hàng &amp; Phê Duyệt VIP</h2>
-        <span style="font-size:0.8rem; color:var(--text-muted);">Tự động làm mới mỗi 3.5 giây</span>
+        <div>
+          <h2 class="section-title"><i data-lucide="receipt"></i> Quản Lý Đơn Hàng &amp; Phê Duyệt VIP</h2>
+          <span style="font-size:0.8rem; color:var(--text-muted);">Đồng bộ tự động VietQR VietinBank</span>
+        </div>
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+          <button class="btn-action-pill" onclick="exportOrdersToCsv()">
+            <i data-lucide="download"></i> 📥 Xuất File CSV Doanh Thu
+          </button>
+          <button class="btn-action-pill btn-gold-action" onclick="openManualOrderModal()">
+            <i data-lucide="plus"></i> Tạo Đơn Mới
+          </button>
+        </div>
+      </div>
+
+      <!-- Toolbar tìm kiếm & lọc đơn -->
+      <div class="table-toolbar">
+        <input type="text" id="orderSearchInput" class="search-input" placeholder="🔍 Tìm kiếm mã đơn, họ tên, số điện thoại..." oninput="filterOrdersTable()">
+        <div style="display:flex; gap:0.5rem;">
+          <select id="orderStatusFilter" class="select-filter" onchange="filterOrdersTable()">
+            <option value="ALL">Tất Cả Trạng Thái</option>
+            <option value="PAID">ĐÃ THANH TOÁN (PAID)</option>
+            <option value="PENDING">CHỜ THANH TOÁN (PENDING)</option>
+          </select>
+        </div>
       </div>
 
       <div class="table-wrap">
@@ -751,26 +1175,106 @@
       </div>
     </div>
 
-    
-    <!-- HÀNG 6.5: QUẢN LÝ BÀI VIẾT BLOG & SEO GOOGLE -->
+    <!-- HÀNG 7: NHẬT KÝ KHÁCH LẬP LÁ SỐ (LASO LOGS) -->
+    <div class="section-card">
+      <div class="section-title-row">
+        <div>
+          <h2 class="section-title"><i data-lucide="compass"></i> Danh Sách Khách Hàng Đã Lập Lá Số</h2>
+          <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0.25rem;">
+            Ghi nhận thời gian thực từ form nhập ngày giờ sinh của khách hàng
+          </p>
+        </div>
+        <button class="btn-action-pill" onclick="loadLasoLogs()"><i data-lucide="refresh-cw"></i> Cập Nhật</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Thời Gian</th>
+              <th>Họ Tên Đương Số</th>
+              <th>Giới Tính</th>
+              <th>Ngày Sinh</th>
+              <th>Giờ Sinh</th>
+              <th>Bản Mệnh / Cục</th>
+              <th>Phễu Chuyển Đổi</th>
+              <th>Hành Động</th>
+            </tr>
+          </thead>
+          <tbody id="lasoLogsTableBody">
+            <tr>
+              <td colspan="8" style="text-align:center; color:var(--text-muted); padding:2rem;">Đang tải danh sách lá số...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- HÀNG 8: QUẢN LÝ ĐẶT LỊCH TƯ VẤN 1-1 (BOOKINGS) -->
+    <div class="section-card">
+      <div class="section-title-row">
+        <div>
+          <h2 class="section-title"><i data-lucide="calendar"></i> Khách Hàng Đăng Ký Tư Vấn 1-1 Chuyên Sâu</h2>
+          <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0.25rem;">
+            Dữ liệu đăng ký từ form #tuviBookingForm trên website
+          </p>
+        </div>
+        <button class="btn-action-pill" onclick="loadBookings()"><i data-lucide="refresh-cw"></i> Cập Nhật Lịch Hẹn</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Mã Lịch</th>
+              <th>Ngày Đăng Ký</th>
+              <th>Họ Tên Khách</th>
+              <th>Số Điện Thoại / Zalo</th>
+              <th>Ngày &amp; Khung Giờ Hẹn</th>
+              <th>Gói Dịch Vụ</th>
+              <th>Trăn Trở / Ghi Chú</th>
+              <th>Trạng Thái</th>
+            </tr>
+          </thead>
+          <tbody id="bookingsTableBody">
+            <tr>
+              <td colspan="8" style="text-align:center; color:var(--text-muted); padding:2rem;">Đang tải danh sách lịch tư vấn...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- HÀNG 9: LIVE ACTIVITY FEED -->
+    <div class="section-card">
+      <div class="section-title-row">
+        <h2 class="section-title"><i data-lucide="rss"></i> Nhật Ký Hoạt Động Thời Gian Thực (Live Activity Feed)</h2>
+        <span style="font-size:0.8rem; color:#34d399;"><i data-lucide="circle-dot"></i> Trực tiếp 24/7</span>
+      </div>
+      <div class="activity-feed-wrap" id="activityFeed">
+        <div style="text-align:center; padding:1.5rem; color:var(--text-muted);">Đang nạp nhật ký hành vi...</div>
+      </div>
+    </div>
+
+    <!-- HÀNG 10: QUẢN LÝ BÀI VIẾT BLOG & SEO GOOGLE -->
     <div class="section-card">
       <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:1rem;">
         <div>
-          <h2 class="section-title"><i data-lucide="file-text"></i> Quản Lý Bài Viết Blog & SEO Google</h2>
-          <p style="color:var(--text-muted); font-size:0.88rem; margin-top:0.25rem;">
+          <h2 class="section-title"><i data-lucide="file-text"></i> Quản Lý Bài Viết Blog &amp; SEO Google</h2>
+          <p style="color:var(--text-muted); font-size:0.86rem; margin-top:0.25rem;">
             Quản trị nội dung bài viết, chuẩn SEO kỹ thuật, schema JSON-LD tự động để kéo traffic tự nhiên từ Google Search.
           </p>
         </div>
-        <button type="button" class="btn-export" style="background:var(--gold); color:#1a0f07; font-weight:700;" onclick="openPostModal()">
+        <button type="button" class="btn-action-pill btn-gold-action" onclick="openPostModal()">
           + Viết Bài Mới
         </button>
       </div>
 
-      <div class="table-responsive">
-        <table class="orders-table">
+      <div class="table-wrap">
+        <table>
           <thead>
             <tr>
-              <th>Tiêu đề & Tóm tắt</th>
+              <th>Tiêu đề &amp; Tóm tắt</th>
               <th>Chuyên mục</th>
               <th>Đường dẫn (Slug)</th>
               <th style="text-align:center;">Lượt xem</th>
@@ -788,26 +1292,26 @@
     </div>
 
     <!-- POST EDITOR MODAL -->
-    <div id="postEditorModal" class="post-modal-backdrop" style="display:none;">
-      <div class="post-modal-dialog">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; border-bottom:1px solid var(--border-color); padding-bottom:0.75rem;">
+    <div id="postEditorModal" class="modal-backdrop" style="display:none;">
+      <div class="modal-card modal-card-lg">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; border-bottom:1px solid var(--border); padding-bottom:0.75rem;">
           <h3 id="postModalTitle" style="color:var(--gold-light); font-size:1.15rem; margin:0;">📝 Viết Bài Mới</h3>
           <button type="button" onclick="closePostModal()" style="background:none; border:none; color:var(--text-muted); font-size:1.5rem; cursor:pointer;">&times;</button>
         </div>
         <form id="postEditorForm" onsubmit="event.preventDefault(); savePost();">
           <input type="hidden" id="postIdInput" value="">
-          <div style="margin-bottom:1rem;">
-            <label style="display:block; font-size:0.85rem; color:var(--text-muted); margin-bottom:0.35rem;">Tiêu đề bài viết (Chuẩn SEO 60-70 ký tự):</label>
+          <div style="margin-bottom:0.9rem;">
+            <label style="display:block; font-size:0.82rem; color:var(--text-muted); margin-bottom:0.35rem;">Tiêu đề bài viết (Chuẩn SEO 60-70 ký tự):</label>
             <input type="text" id="postTitleInput" required class="sepay-input" style="width:100%;" placeholder="Nhập tiêu đề bài viết...">
           </div>
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:1rem;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:0.9rem;">
             <div>
-              <label style="display:block; font-size:0.85rem; color:var(--text-muted); margin-bottom:0.35rem;">Đường dẫn tĩnh (Slug):</label>
+              <label style="display:block; font-size:0.82rem; color:var(--text-muted); margin-bottom:0.35rem;">Đường dẫn tĩnh (Slug):</label>
               <input type="text" id="postSlugInput" required class="sepay-input" style="width:100%;" placeholder="vi-du-duong-dan-bai-viet">
             </div>
             <div>
-              <label style="display:block; font-size:0.85rem; color:var(--text-muted); margin-bottom:0.35rem;">Chuyên mục:</label>
-              <select id="postCategorySelect" class="sepay-input" style="width:100%; background:#1c1328; color:#fff;">
+              <label style="display:block; font-size:0.82rem; color:var(--text-muted); margin-bottom:0.35rem;">Chuyên mục:</label>
+              <select id="postCategorySelect" class="sepay-input" style="width:100%; background:#14112c; color:#fff;">
                 <option value="Kiến thức tử vi">Kiến thức tử vi</option>
                 <option value="Vận hạn năm 2026">Vận hạn năm 2026</option>
                 <option value="Luận giải mẫu">Luận giải mẫu</option>
@@ -815,38 +1319,38 @@
               </select>
             </div>
           </div>
-          <div style="margin-bottom:1rem;">
-            <label style="display:block; font-size:0.85rem; color:var(--text-muted); margin-bottom:0.35rem;">Tóm tắt Meta Description (150-160 ký tự):</label>
+          <div style="margin-bottom:0.9rem;">
+            <label style="display:block; font-size:0.82rem; color:var(--text-muted); margin-bottom:0.35rem;">Tóm tắt Meta Description (150-160 ký tự):</label>
             <textarea id="postSummaryInput" rows="2" class="sepay-input" style="width:100%; resize:vertical;" placeholder="Mô tả ngắn gọn nội dung bài viết hiển thị trên Google Search..."></textarea>
           </div>
-          <div style="margin-bottom:1rem;">
-            <label style="display:block; font-size:0.85rem; color:var(--text-muted); margin-bottom:0.35rem;">Từ khóa SEO (cách nhau bởi dấu phẩy):</label>
+          <div style="margin-bottom:0.9rem;">
+            <label style="display:block; font-size:0.82rem; color:var(--text-muted); margin-bottom:0.35rem;">Từ khóa SEO (cách nhau bởi dấu phẩy):</label>
             <input type="text" id="postKeywordsInput" class="sepay-input" style="width:100%;" placeholder="tử vi 2026, cung mệnh, bính ngọ...">
           </div>
-          <div style="margin-bottom:1rem;">
-            <label style="display:block; font-size:0.85rem; color:var(--text-muted); margin-bottom:0.35rem;">Nội dung bài viết (Hỗ trợ HTML/Heading h2, h3, p, strong):</label>
+          <div style="margin-bottom:0.9rem;">
+            <label style="display:block; font-size:0.82rem; color:var(--text-muted); margin-bottom:0.35rem;">Nội dung bài viết (Hỗ trợ HTML/Heading h2, h3, p, strong):</label>
             <textarea id="postContentInput" rows="10" required class="sepay-input" style="width:100%; font-family:monospace; font-size:0.88rem; resize:vertical;" placeholder="<p>Nội dung chi tiết bài viết...</p>"></textarea>
           </div>
-          <div style="display:flex; justify-content:flex-end; gap:10px; border-top:1px solid var(--border-color); padding-top:1rem;">
+          <div style="display:flex; justify-content:flex-end; gap:10px; border-top:1px solid var(--border); padding-top:1rem;">
             <button type="button" class="btn-save-cfg" style="background:#374151;" onclick="closePostModal()">Hủy</button>
-            <button type="submit" class="btn-save-cfg" style="background:var(--gold); color:#1a0f07; font-weight:700;">💾 Lưu Bài Viết</button>
+            <button type="submit" class="btn-save-cfg">💾 Lưu Bài Viết</button>
           </div>
         </form>
       </div>
     </div>
 
-    <!-- HÀNG 7: CẤU HÌNH SEPAY & TỰ ĐỘNG HÓA -->
+    <!-- HÀNG 11: CẤU HÌNH SEPAY & TỰ ĐỘNG HÓA -->
     <div class="section-card">
       <h2 class="section-title"><i data-lucide="zap"></i> Cấu Hình Tự Động Hóa 100% Qua SePay API</h2>
-      <p style="color:var(--text-muted); font-size:0.88rem; margin-top:0.4rem; line-height:1.6;">
-        Khi tích hợp SePay API, mỗi khi tài khoản VietinBank <strong>108884822302</strong> nhận tiền chuyển khoản đúng mã đơn, hệ thống sẽ tự động đối soát và kích hoạt VIP 100% không cần bạn duyệt tay:
+      <p style="color:var(--text-muted); font-size:0.86rem; margin-top:0.4rem; line-height:1.6;">
+        Tài khoản VietinBank: <strong>108884822302 (TRAN CONG LUYEN)</strong>. Khi khách chuyển khoản đúng cú pháp, SePay sẽ tự động đối soát và kích hoạt VIP ngay lập tức:
       </p>
       <div class="sepay-box">
-        <label style="display:block; font-size:0.88rem; color:var(--gold-light); font-weight:600; margin-bottom:0.4rem;">
+        <label style="display:block; font-size:0.86rem; color:var(--gold-light); font-weight:600; margin-bottom:0.4rem;">
           SePay API Key (Đang cấu hình):
         </label>
         <div class="sepay-input-row">
-          <input type="password" id="sepayApiKeyInput" class="sepay-input" value="" placeholder="Nhập API Key SePay (Chỉ tải sau khi đăng nhập)..." autocomplete="off">
+          <input type="password" id="sepayApiKeyInput" class="sepay-input" value="" placeholder="Nhập API Key SePay..." autocomplete="off">
           <button type="button" class="btn-save-cfg" onclick="saveAdminConfig()">💾 Lưu Cấu Hình</button>
         </div>
         <p style="color:var(--text-muted); font-size:0.82rem; margin-top:0.7rem;">
@@ -859,24 +1363,30 @@
   <div id="adminToast" class="toast"></div>
 
   <script>
-    function showToast(msg, type) {
-      const el = document.getElementById('adminToast');
-      el.textContent = msg;
-      el.style.borderColor = type === 'error' ? 'var(--danger)' : 'var(--gold)';
-      el.classList.add('show');
-      setTimeout(() => el.classList.remove('show'), 3500);
+    // =========================================================================
+    // QUẢN LÝ XÁC THỰC ADMIN & TOKEN
+    // =========================================================================
+    const TOKEN_KEY = 'tvhh_admin_token';
+
+    function getAdminToken() {
+      return localStorage.getItem(TOKEN_KEY) || sessionStorage.getItem(TOKEN_KEY) || '';
     }
 
-    // Item 9: Quản lý Header xác thực Quản trị viên bảo mật
-    function getAdminHeaders(extraHeaders = {}) {
-      let token = sessionStorage.getItem('tvhh_admin_token');
-      if (!token) {
-        token = prompt('Vui lòng nhập Mật Khẩu Quản Trị Viên (Admin Secret Key):');
-        if (token) {
-          token = token.trim();
-          sessionStorage.setItem('tvhh_admin_token', token);
-        }
+    function setAdminToken(token, remember = false) {
+      if (remember) {
+        localStorage.setItem(TOKEN_KEY, token);
+      } else {
+        sessionStorage.setItem(TOKEN_KEY, token);
       }
+    }
+
+    function clearAdminToken() {
+      localStorage.removeItem(TOKEN_KEY);
+      sessionStorage.removeItem(TOKEN_KEY);
+    }
+
+    function getAdminHeaders(extraHeaders = {}) {
+      const token = getAdminToken();
       return Object.assign({
         'Content-Type': 'application/json',
         'x-admin-token': token || ''
@@ -885,15 +1395,111 @@
 
     function handleAuthError(res) {
       if (res && res.status === 401) {
-        sessionStorage.removeItem('tvhh_admin_token');
-        showToast('Mật khẩu quản trị viên không hợp lệ!', 'error');
-        setTimeout(() => location.reload(), 1500);
+        clearAdminToken();
+        openLoginModal('Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại!');
         return true;
       }
       return false;
     }
 
-    // Helper tính base URL API
+    function openLoginModal(errMsg = '') {
+      const modal = document.getElementById('adminLoginModal');
+      const errBox = document.getElementById('loginErrorMessage');
+      const errText = document.getElementById('loginErrorText');
+      if (errMsg) {
+        errText.textContent = errMsg;
+        errBox.style.display = 'block';
+      } else {
+        errBox.style.display = 'none';
+      }
+      modal.style.display = 'flex';
+      setTimeout(() => {
+        const input = document.getElementById('adminPasswordInput');
+        if (input) input.focus();
+      }, 100);
+    }
+
+    function closeLoginModal() {
+      const modal = document.getElementById('adminLoginModal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function togglePasswordVisibility() {
+      const input = document.getElementById('adminPasswordInput');
+      const icon = document.getElementById('eyeIcon');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.setAttribute('data-lucide', 'eye-off');
+      } else {
+        input.type = 'password';
+        icon.setAttribute('data-lucide', 'eye');
+      }
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    async function handleAdminLogin() {
+      const password = document.getElementById('adminPasswordInput').value.trim();
+      const remember = document.getElementById('rememberAdminCheckbox').checked;
+      const errBox = document.getElementById('loginErrorMessage');
+      const errText = document.getElementById('loginErrorText');
+
+      if (!password) {
+        errText.textContent = 'Vui lòng nhập mật khẩu quản trị viên.';
+        errBox.style.display = 'block';
+        return;
+      }
+
+      try {
+        const res = await fetch(getApiUrl('/api/admin/login'), {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password })
+        });
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          setAdminToken(data.token, remember);
+          closeLoginModal();
+          showToast('✅ Đăng nhập quản trị thành công!', 'success');
+          updateServerStatusBadge();
+          refreshAllData();
+        } else {
+          errText.textContent = data.message || 'Mật khẩu quản trị không chính xác!';
+          errBox.style.display = 'block';
+        }
+      } catch (err) {
+        errText.textContent = 'Lỗi kết nối máy chủ: ' + err.message;
+        errBox.style.display = 'block';
+      }
+    }
+
+    function handleAdminLogout() {
+      if (confirm('Bạn có chắc chắn muốn đăng xuất khỏi trang quản trị?')) {
+        clearAdminToken();
+        showToast('Đã đăng xuất hệ thống.');
+        openLoginModal();
+      }
+    }
+
+    function updateServerStatusBadge() {
+      const nowStr = new Date().toLocaleTimeString('vi-VN');
+      const textEl = document.getElementById('serverConnectionText');
+      if (textEl) {
+        textEl.textContent = `🟢 Đã kết nối dữ liệu máy chủ (${nowStr})`;
+      }
+    }
+
+    // =========================================================================
+    // HELPER & TOAST
+    // =========================================================================
+    function showToast(msg, type) {
+      const el = document.getElementById('adminToast');
+      el.textContent = msg;
+      el.style.borderColor = type === 'error' ? 'var(--danger)' : (type === 'success' ? '#10B981' : 'var(--gold)');
+      el.classList.add('show');
+      setTimeout(() => el.classList.remove('show'), 3500);
+    }
+
     function getApiUrl(path) {
       if (window.location.protocol === 'file:') return 'http://localhost:8080' + path;
       if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
@@ -904,7 +1510,45 @@
       return path;
     }
 
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // =========================================================================
+    // BỘ LỌC THỜI GIAN
+    // =========================================================================
+    let _currentTimeFilter = 'today';
+
+    function switchTimeFilter(range) {
+      _currentTimeFilter = range;
+      document.querySelectorAll('.filter-tab').forEach(tab => {
+        if (tab.getAttribute('data-range') === range) {
+          tab.classList.add('active');
+        } else {
+          tab.classList.remove('active');
+        }
+      });
+      loadAnalytics();
+      filterOrdersTable();
+    }
+
+    // =========================================================================
+    // LOAD ANALYTICS & TIME-SERIES CHARTS
+    // =========================================================================
+    let _analyticsData = null;
+
     async function loadAnalytics() {
+      if (!getAdminToken()) {
+        openLoginModal();
+        return;
+      }
+
       try {
         const res = await fetch(getApiUrl('/api/admin/analytics'), {
           headers: getAdminHeaders()
@@ -913,58 +1557,195 @@
         if (!res.ok) return;
         const data = await res.json();
         if (!data.success) return;
+        _analyticsData = data;
+
+        updateServerStatusBadge();
 
         // Render Lưu Lượng & Tương Tác
-        document.getElementById('statTotalPageViews').textContent = (data.traffic.totalPageViews || 0).toLocaleString('vi-VN');
-        document.getElementById('statUniqueVisitors').textContent = (data.traffic.uniqueVisitors || 0).toLocaleString('vi-VN');
-        document.getElementById('statTotalLaSo').textContent = (data.traffic.totalLaSoCalculated || 0).toLocaleString('vi-VN');
-        document.getElementById('statPalaceClicks').textContent = (data.traffic.totalPalaceClicks || 0).toLocaleString('vi-VN');
-        document.getElementById('statVipOpens').textContent = (data.traffic.totalVipModalOpens || 0).toLocaleString('vi-VN');
+        const tr = data.traffic || {};
+        const be = data.behavior || {};
+        const rev = data.revenue || {};
+        const me = data.metrics || {};
 
-        // Render Doanh Thu
-        document.getElementById('statTodayRevenue').textContent = (data.revenue.todayRevenue || 0).toLocaleString('vi-VN') + ' đ';
-        document.getElementById('statWeekRevenue').textContent = (data.revenue.weekRevenue || 0).toLocaleString('vi-VN') + ' đ';
-        document.getElementById('statMonthRevenue').textContent = (data.revenue.monthRevenue || 0).toLocaleString('vi-VN') + ' đ';
-        document.getElementById('statTotalRevenue').textContent = (data.revenue.totalRevenue || 0).toLocaleString('vi-VN') + ' đ';
-        document.getElementById('statPaidRatio').textContent = 'Tỷ lệ chốt đơn: ' + (data.revenue.conversionRate || '0%');
+        document.getElementById('statTotalPageViews').textContent = (tr.totalPageViews || me.totalPageViews || 0).toLocaleString('vi-VN');
+        document.getElementById('statUniqueVisitors').textContent = (tr.uniqueVisitors || me.totalVisitors || 0).toLocaleString('vi-VN');
+        document.getElementById('statTotalLaSo').textContent = (be.totalLaSoCalculated || me.totalLaSoCalculated || 0).toLocaleString('vi-VN');
+        document.getElementById('statPalaceClicks').textContent = (be.totalPalaceClicks || me.totalPalaceClicks || 0).toLocaleString('vi-VN');
+        document.getElementById('statVipOpens').textContent = (be.totalVipModalOpens || me.totalVipModalOpens || 0).toLocaleString('vi-VN');
+
+        // Render Doanh Thu theo bộ lọc
+        document.getElementById('statTodayRevenue').textContent = (me.todayRevenue || rev.today || 0).toLocaleString('vi-VN') + ' đ';
+        document.getElementById('statTodayCount').textContent = `Ghi nhận: ${me.todayCount || 0} đơn`;
+
+        document.getElementById('statWeekRevenue').textContent = (me.weekRevenue || rev.week || 0).toLocaleString('vi-VN') + ' đ';
+        document.getElementById('statWeekCount').textContent = `${me.weekCount || 0} đơn thành công`;
+
+        document.getElementById('statMonthRevenue').textContent = (me.monthRevenue || rev.month || 0).toLocaleString('vi-VN') + ' đ';
+        document.getElementById('statMonthCount').textContent = `Tháng này: ${me.monthCount || 0} đơn`;
+
+        document.getElementById('statTotalRevenue').textContent = (me.totalRevenue || rev.total || 0).toLocaleString('vi-VN') + ' đ';
+        document.getElementById('statPaidRatio').textContent = 'Tỷ lệ chuyển đổi: ' + (me.conversionRate || '0.00%');
+
+        // Render 2 biểu đồ tương tác 14 ngày
+        renderTimeSeriesCharts(data.timeSeries || []);
 
         // Render Phễu chuyển đổi
-        renderFunnel(data.behavior.funnel || []);
+        renderFunnel(data.funnel || []);
 
         // Render Bảng xếp hạng cung
-        renderPalaceRanking(data.behavior.palaceRanking || []);
+        renderPalaceRanking(data.palaceRanking || be.palaceRanking || []);
 
         // Render Trí Tuệ Thông Minh AI Advisor
         renderAiAdvisor(data.smartAdvisor);
 
-        // Render Nhật Ký Hoạt Động Thời Gian Thực
-        renderRecentEvents(data.behavior.recentEvents || []);
+        // Render Live Activity Feed
+        renderRecentEvents(data.recentEvents || []);
       } catch (err) {
-        console.error('Lỗi tải dữ liệu Analytics:', err);
+        console.error('Lỗi tải Analytics:', err);
       }
+    }
+
+    // Vẽ 2 Biểu Đồ 14 Ngày bằng SVG Tương Tác
+    function renderTimeSeriesCharts(series) {
+      if (!series || series.length === 0) return;
+
+      // 1. Biểu đồ Doanh Thu & Đơn Hàng
+      const revSvg = document.getElementById('revenueChartSvg');
+      const revTooltip = document.getElementById('revenueChartTooltip');
+      if (revSvg) {
+        const width = revSvg.clientWidth || 450;
+        const height = revSvg.clientHeight || 220;
+        const padding = { top: 25, right: 20, bottom: 35, left: 45 };
+        const chartW = width - padding.left - padding.right;
+        const chartH = height - padding.top - padding.bottom;
+
+        const maxRev = Math.max(...series.map(s => s.revenue || 0), 100000);
+        const barWidth = Math.max(8, Math.floor(chartW / series.length) - 6);
+
+        let svgHtml = '';
+        // Đường kẻ ngang mờ
+        for (let i = 0; i <= 3; i++) {
+          const y = padding.top + (chartH / 3) * i;
+          const val = Math.round(maxRev * (1 - i / 3));
+          svgHtml += `
+            <line x1="${padding.left}" y1="${y}" x2="${width - padding.right}" y2="${y}" stroke="rgba(255,255,255,0.07)" stroke-dasharray="3,3" />
+            <text x="${padding.left - 6}" y="${y + 4}" fill="#71717a" font-size="10" text-anchor="end">${(val / 1000).toFixed(0)}k</text>
+          `;
+        }
+
+        // Vẽ các cột Doanh thu
+        series.forEach((s, idx) => {
+          const x = padding.left + idx * (chartW / series.length) + 3;
+          const barH = ((s.revenue || 0) / maxRev) * chartH;
+          const y = padding.top + chartH - barH;
+
+          svgHtml += `
+            <rect x="${x}" y="${y}" width="${barWidth}" height="${barH}" rx="3" fill="url(#revGrad)" 
+                  onmouseover="showChartTooltip(event, '${s.date}', '${(s.revenue || 0).toLocaleString('vi-VN')} đ', '${s.paidOrders || 0} đơn VIP', 'revenueChartTooltip')" 
+                  onmouseout="hideChartTooltip('revenueChartTooltip')" style="cursor:pointer;" />
+            <text x="${x + barWidth / 2}" y="${height - 12}" fill="#a1a1aa" font-size="9" text-anchor="middle">${s.dayLabel || s.date.slice(5)}</text>
+          `;
+        });
+
+        // Gradient
+        svgHtml = `
+          <defs>
+            <linearGradient id="revGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#10B981" />
+              <stop offset="100%" stop-color="#047857" />
+            </linearGradient>
+          </defs>
+        ` + svgHtml;
+
+        revSvg.innerHTML = svgHtml;
+      }
+
+      // 2. Biểu đồ Lưu Lượng & Lập Lá Số
+      const trafSvg = document.getElementById('trafficChartSvg');
+      if (trafSvg) {
+        const width = trafSvg.clientWidth || 450;
+        const height = trafSvg.clientHeight || 220;
+        const padding = { top: 25, right: 20, bottom: 35, left: 35 };
+        const chartW = width - padding.left - padding.right;
+        const chartH = height - padding.top - padding.bottom;
+
+        const maxViews = Math.max(...series.map(s => s.pageViews || 0), ...series.map(s => s.laSoCount || 0), 10);
+        let svgHtml = '';
+
+        for (let i = 0; i <= 3; i++) {
+          const y = padding.top + (chartH / 3) * i;
+          const val = Math.round(maxViews * (1 - i / 3));
+          svgHtml += `
+            <line x1="${padding.left}" y1="${y}" x2="${width - padding.right}" y2="${y}" stroke="rgba(255,255,255,0.07)" stroke-dasharray="3,3" />
+            <text x="${padding.left - 6}" y="${y + 4}" fill="#71717a" font-size="10" text-anchor="end">${val}</text>
+          `;
+        }
+
+        // Đường gấp khúc Pageviews (Xanh)
+        let ptsViews = [];
+        let ptsLaSo = [];
+        series.forEach((s, idx) => {
+          const x = padding.left + idx * (chartW / (series.length - 1 || 1));
+          const yV = padding.top + chartH - ((s.pageViews || 0) / maxViews) * chartH;
+          const yL = padding.top + chartH - ((s.laSoCount || 0) / maxViews) * chartH;
+          ptsViews.push(`${x},${yV}`);
+          ptsLaSo.push(`${x},${yL}`);
+
+          svgHtml += `
+            <circle cx="${x}" cy="${yV}" r="4" fill="#3B82F6" 
+                    onmouseover="showChartTooltip(event, '${s.date}', '${s.pageViews || 0} lượt xem', '${s.laSoCount || 0} lá số', 'trafficChartTooltip')" 
+                    onmouseout="hideChartTooltip('trafficChartTooltip')" style="cursor:pointer;" />
+            <circle cx="${x}" cy="${yL}" r="4" fill="#F59E0B" 
+                    onmouseover="showChartTooltip(event, '${s.date}', '${s.pageViews || 0} lượt xem', '${s.laSoCount || 0} lá số', 'trafficChartTooltip')" 
+                    onmouseout="hideChartTooltip('trafficChartTooltip')" style="cursor:pointer;" />
+            <text x="${x}" y="${height - 12}" fill="#a1a1aa" font-size="9" text-anchor="middle">${s.dayLabel || s.date.slice(5)}</text>
+          `;
+        });
+
+        svgHtml = `
+          <polyline points="${ptsViews.join(' ')}" fill="none" stroke="#3B82F6" stroke-width="2.5" />
+          <polyline points="${ptsLaSo.join(' ')}" fill="none" stroke="#F59E0B" stroke-width="2.5" />
+        ` + svgHtml;
+
+        trafSvg.innerHTML = svgHtml;
+      }
+    }
+
+    function showChartTooltip(e, date, val1, val2, tooltipId) {
+      const tt = document.getElementById(tooltipId);
+      if (!tt) return;
+      tt.innerHTML = `<strong>${date}</strong><br><span style="color:#34d399;">${val1}</span><br><span style="color:#fbbf24;">${val2}</span>`;
+      tt.style.display = 'block';
+      const rect = e.target.closest('.chart-svg-container').getBoundingClientRect();
+      tt.style.left = (e.clientX - rect.left + 10) + 'px';
+      tt.style.top = (e.clientY - rect.top - 35) + 'px';
+    }
+
+    function hideChartTooltip(tooltipId) {
+      const tt = document.getElementById(tooltipId);
+      if (tt) tt.style.display = 'none';
     }
 
     function renderFunnel(funnel) {
       const container = document.getElementById('funnelContainer');
       if (!funnel || funnel.length === 0) return;
 
-      const maxCount = Math.max(...funnel.map(f => f.count), 1);
+      const maxCount = Math.max(...funnel.map(f => f.count || 0), 1);
 
       container.innerHTML = funnel.map((f, i) => {
-        const percentWidth = Math.max(8, Math.round((f.count / maxCount) * 100));
+        const percentWidth = Math.max(8, Math.round(((f.count || 0) / maxCount) * 100));
         return `
           <div class="funnel-step-item">
             <div class="funnel-step-header">
               <span class="funnel-step-name">${f.step}</span>
               <div class="funnel-step-metrics">
-                <span class="funnel-count">${(f.count).toLocaleString('vi-VN')} người</span>
-                <span class="funnel-rate-badge">${f.rate}</span>
+                <span class="funnel-count">${(f.count || 0).toLocaleString('vi-VN')} người</span>
+                <span class="funnel-rate-badge">${f.dropRate ? 'Rơi rụng: ' + f.dropRate : ''}</span>
               </div>
             </div>
             <div class="funnel-bar-bg">
               <div class="funnel-bar-fill" style="width: ${percentWidth}%;"></div>
             </div>
-            <div class="funnel-step-desc">${f.desc}</div>
           </div>
         `;
       }).join('');
@@ -995,31 +1776,25 @@
     function renderAiAdvisor(advisor) {
       if (!advisor) return;
 
-      // Render Key Insights
       const insightsContainer = document.getElementById('aiInsightsContainer');
-      if (advisor.keyInsights) {
-        insightsContainer.innerHTML = advisor.keyInsights.map(item => `
-          <div style="background:var(--surface-2); border:1px solid var(--border-light); border-radius:10px; padding:1.1rem;">
-            <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.4rem; color:var(--gold-light); font-weight:600; font-size:0.92rem;">
-              <i data-lucide="${item.icon || 'lightbulb'}"></i>
-              <span>${item.title}</span>
-            </div>
-            <p style="font-size:0.84rem; color:var(--text-muted); line-height:1.5;">${item.detail}</p>
+      insightsContainer.innerHTML = `
+        <div style="background:var(--surface-2); border:1px solid var(--border-light); border-radius:10px; padding:1.1rem;">
+          <div style="color:var(--gold-light); font-weight:600; font-size:0.92rem; margin-bottom:0.4rem;">
+            ✦ Đánh Giá Sức Khỏe Doanh Thu: ${advisor.overallHealth || 'Khả quan'}
           </div>
-        `).join('');
-      }
+          <p style="font-size:0.84rem; color:var(--text-muted); line-height:1.5;">${advisor.assessment || ''}</p>
+        </div>
+      `;
 
-      // Render Strategic Solutions
       const solutionsContainer = document.getElementById('aiSolutionsContainer');
-      if (advisor.growthSolutions) {
-        solutionsContainer.innerHTML = advisor.growthSolutions.map(sol => `
+      if (advisor.recommendations) {
+        solutionsContainer.innerHTML = advisor.recommendations.map((rec, idx) => `
           <div class="solution-card">
             <div class="solution-tag-row">
-              <span class="solution-tag">${sol.tag}</span>
-              <span class="solution-badge">${sol.badge}</span>
+              <span class="solution-tag">Khuyến Nghị Chiến Lược #${idx + 1}</span>
+              <span class="solution-badge">Ưu tiên cao</span>
             </div>
-            <div class="solution-title">${sol.title}</div>
-            <div class="solution-action">${sol.action}</div>
+            <div class="solution-action" style="color:var(--text); font-size:0.88rem;">${rec}</div>
           </div>
         `).join('');
       }
@@ -1042,7 +1817,7 @@
         if (ev.eventType === 'lap_la_so') {
           icon = 'compass';
           color = '#fbbf24';
-          text = `<strong>${ev.customerName || 'Khách'}</strong> vừa lập lá số Tử Vi (${ev.details?.namSinh || '2026'})`;
+          text = `<strong>${ev.details?.hoTen || 'Khách'}</strong> vừa lập lá số Tử Vi`;
         } else if (ev.eventType === 'view_cung') {
           icon = 'book-open';
           color = '#a78bfa';
@@ -1054,11 +1829,11 @@
         } else if (ev.eventType === 'open_vip_modal') {
           icon = 'qr-code';
           color = '#f59e0b';
-          text = `Khách mở modal quét mã VietQR: <strong>${ev.details?.orderCode || 'Đơn hàng'}</strong> (${(ev.details?.amount || 49000).toLocaleString('vi-VN')} đ)`;
+          text = `Khách mở modal quét mã VietQR: <strong>${ev.details?.orderCode || 'Đơn hàng'}</strong> (${(ev.details?.amount || 29000).toLocaleString('vi-VN')} đ)`;
         } else if (ev.eventType === 'payment_success') {
           icon = 'check-circle';
           color = '#34d399';
-          text = `🎉 <strong>${ev.customerName || 'Khách'}</strong> đã thanh toán thành công đơn <strong>${ev.details?.orderCode || 'VIP'}</strong>!`;
+          text = `🎉 Khách đã thanh toán thành công đơn <strong>${ev.details?.orderCode || 'VIP'}</strong>!`;
         }
 
         const timeStr = ev.timestamp ? new Date(ev.timestamp).toLocaleTimeString('vi-VN') : 'Vừa xong';
@@ -1075,7 +1850,13 @@
       if (window.lucide) window.lucide.createIcons();
     }
 
+    // =========================================================================
+    // QUẢN LÝ ĐƠN HÀNG & PHÊ DUYỆT THỦ CÔNG
+    // =========================================================================
+    let _allOrders = [];
+
     async function loadOrders() {
+      if (!getAdminToken()) return;
       try {
         const res = await fetch(getApiUrl('/api/admin/orders'), {
           headers: getAdminHeaders()
@@ -1083,36 +1864,54 @@
         if (handleAuthError(res)) return;
         if (!res.ok) return;
         const data = await res.json();
-        renderOrders(data.orders || []);
+        _allOrders = Array.isArray(data) ? data : (data.orders || []);
+        filterOrdersTable();
       } catch (e) {
         console.error('Lỗi tải đơn hàng:', e);
       }
     }
 
+    function filterOrdersTable() {
+      const search = (document.getElementById('orderSearchInput')?.value || '').trim().toLowerCase();
+      const statusFilter = document.getElementById('orderStatusFilter')?.value || 'ALL';
+
+      let filtered = _allOrders.filter(o => {
+        if (statusFilter !== 'ALL' && o.status !== statusFilter) return false;
+        if (search) {
+          const matchCode = (o.orderCode || '').toLowerCase().includes(search);
+          const matchName = (o.customerName || '').toLowerCase().includes(search);
+          const matchPhone = (o.customerPhone || '').toLowerCase().includes(search);
+          if (!matchCode && !matchName && !matchPhone) return false;
+        }
+        return true;
+      });
+
+      renderOrders(filtered);
+    }
+
     function renderOrders(orders) {
       const tbody = document.getElementById('ordersTableBody');
       if (!orders || orders.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; color:var(--text-muted); padding:2rem;">Chưa có đơn hàng nào được tạo.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; color:var(--text-muted); padding:2rem;">Không tìm thấy đơn hàng nào phù hợp.</td></tr>';
         return;
       }
-
-      const todayStr = new Date().toISOString().slice(0, 10);
-      const todayCount = orders.filter(o => o.status === 'PAID' && (o.paidAt || o.createdAt || '').slice(0, 10) === todayStr).length;
-      document.getElementById('statTodayCount').textContent = `Hôm nay: ${todayCount} đơn đã thanh toán`;
 
       tbody.innerHTML = orders.map(o => {
         const isPaid = o.status === 'PAID';
         const dateStr = o.paidAt ? new Date(o.paidAt).toLocaleString('vi-VN') : new Date(o.createdAt).toLocaleString('vi-VN');
-        const amountStr = (o.amount || 49000).toLocaleString('vi-VN') + ' đ';
+        const amountStr = (o.amount || 29000).toLocaleString('vi-VN') + ' đ';
 
         return `
           <tr>
             <td><span class="order-code-badge">${o.orderCode}</span></td>
-            <td><strong>${o.customerName || 'Khách Hàng'}</strong></td>
-            <td>${o.customerPhone || '—'}</td>
-            <td>${o.packageName || 'Gói VIP 49k (Mở Khóa 12 Cung)'}</td>
+            <td><strong>${escapeHtml(o.customerName || 'Khách Hàng')}</strong></td>
+            <td>
+              ${o.customerPhone ? `<a href="https://zalo.me/${o.customerPhone}" target="_blank" style="color:#60a5fa; text-decoration:none;">📱 ${escapeHtml(o.customerPhone)}</a>` : '—'}
+              ${o.note ? `<br><small style="color:var(--text-muted);">${escapeHtml(o.note)}</small>` : ''}
+            </td>
+            <td>${escapeHtml(o.packageName || 'Gói VIP (Mở Khóa Luận Giải)')}</td>
             <td style="font-weight:700; color:var(--gold-light);">${amountStr}</td>
-            <td style="color:var(--text-muted); font-size:0.85rem;">${dateStr}</td>
+            <td style="color:var(--text-muted); font-size:0.82rem;">${dateStr}</td>
             <td>
               <span class="status-badge ${isPaid ? 'status-paid' : 'status-pending'}">
                 ${isPaid ? '● ĐÃ THANH TOÁN' : '○ CHỜ CHUYỂN TIỀN'}
@@ -1124,7 +1923,7 @@
                   <i data-lucide="check"></i> Duyệt Đã Nhận Tiền
                 </button>
               ` : `
-                <span style="color:#34d399; font-size:0.85rem; font-weight:600;">✓ Đã Kích Hoạt VIP</span>
+                <span style="color:#34d399; font-size:0.82rem; font-weight:600;">✓ VIP Kích Hoạt</span>
               `}
               <button class="btn-delete" title="Xóa đơn hàng" onclick="deleteOrder('${o.orderCode}')">
                 <i data-lucide="trash-2"></i>
@@ -1138,7 +1937,7 @@
     }
 
     async function approveOrder(orderCode) {
-      if (!confirm(`Xác nhận đã nhận được tiền cho đơn hàng ${orderCode}? Hệ thống sẽ mở khóa VIP ngay lập tức cho khách hàng.`)) return;
+      if (!confirm(`Xác nhận đã nhận tiền cho đơn hàng ${orderCode}? Khách hàng sẽ được mở khóa VIP tự động ngay tức thì!`)) return;
 
       try {
         const res = await fetch(getApiUrl('/api/admin/orders/approve'), {
@@ -1149,9 +1948,10 @@
         if (handleAuthError(res)) return;
         const data = await res.json();
         if (data.success) {
-          showToast(`✅ Đã duyệt thành công đơn ${orderCode}! Khách hàng đã được mở khóa VIP.`);
+          showToast(`✅ Đã kích hoạt VIP cho đơn ${orderCode}!`, 'success');
           loadOrders();
           loadAnalytics();
+          loadLasoLogs();
         } else {
           showToast(data.message || 'Lỗi duyệt đơn', 'error');
         }
@@ -1179,7 +1979,318 @@
       } catch (err) {}
     }
 
+    // Modal Tạo Mã VIP Nhanh
+    function openManualOrderModal(prefillCode = '') {
+      const modal = document.getElementById('manualOrderModal');
+      document.getElementById('manualOrderCode').value = prefillCode || '';
+      document.getElementById('manualCustomerName').value = '';
+      document.getElementById('manualCustomerPhone').value = '';
+      document.getElementById('manualNote').value = '';
+      modal.style.display = 'flex';
+    }
+
+    function closeManualOrderModal() {
+      const modal = document.getElementById('manualOrderModal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function onManualPackageChange() {
+      const val = document.getElementById('manualPackageSelect').value;
+      const parts = val.split('|');
+      document.getElementById('manualAmount').value = parts[0];
+    }
+
+    async function submitManualOrder() {
+      const orderCode = document.getElementById('manualOrderCode').value.trim().toUpperCase();
+      const customerName = document.getElementById('manualCustomerName').value.trim();
+      const customerPhone = document.getElementById('manualCustomerPhone').value.trim();
+      const selVal = document.getElementById('manualPackageSelect').value;
+      const [price, pkgName] = selVal.split('|');
+      const amount = Number(document.getElementById('manualAmount').value) || Number(price);
+      const note = document.getElementById('manualNote').value.trim();
+
+      try {
+        const res = await fetch(getApiUrl('/api/admin/orders/create-manual'), {
+          method: 'POST',
+          headers: getAdminHeaders(),
+          body: JSON.stringify({
+            orderCode,
+            customerName,
+            customerPhone,
+            packageName: pkgName,
+            amount,
+            note: note || 'Kích hoạt từ Admin'
+          })
+        });
+        if (handleAuthError(res)) return;
+        const data = await res.json();
+        if (data.success) {
+          showToast(`✅ Đã kích hoạt thành công đơn hàng ${data.order.orderCode}!`, 'success');
+          closeManualOrderModal();
+          loadOrders();
+          loadAnalytics();
+          loadLasoLogs();
+        } else {
+          showToast(data.message || 'Lỗi tạo đơn', 'error');
+        }
+      } catch (err) {
+        showToast('Lỗi máy chủ: ' + err.message, 'error');
+      }
+    }
+
+    // Xuất File CSV Doanh Thu
+    function exportOrdersToCsv() {
+      if (!_allOrders || _allOrders.length === 0) {
+        showToast('Không có đơn hàng nào để xuất file', 'error');
+        return;
+      }
+
+      let csv = '\uFEFF'; // BOM UTF-8 for Excel
+      csv += 'Mã Đơn Hàng,Khách Hàng,Số Điện Thoại,Gói Dịch Vụ,Số Tiền (VNĐ),Ngày Tạo,Ngày Thanh Toán,Trạng Thái,Nguồn Thanh Toán,Ghi Chú\n';
+
+      _allOrders.forEach(o => {
+        const row = [
+          `"${o.orderCode || ''}"`,
+          `"${(o.customerName || '').replace(/"/g, '""')}"`,
+          `"${o.customerPhone || ''}"`,
+          `"${(o.packageName || '').replace(/"/g, '""')}"`,
+          o.amount || 0,
+          `"${o.createdAt || ''}"`,
+          `"${o.paidAt || ''}"`,
+          `"${o.status || ''}"`,
+          `"${o.paymentSource || ''}"`,
+          `"${(o.note || '').replace(/"/g, '""')}"`
+        ];
+        csv += row.join(',') + '\n';
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Danh_Sach_Don_Hang_${new Date().toISOString().slice(0, 10)}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      showToast('📥 Đã xuất file CSV thành công!', 'success');
+    }
+
+    // =========================================================================
+    // MODAL ĐỐI SOÁT SEPAY TRỰC TIẾP
+    // =========================================================================
+    function openSepayReconcileModal() {
+      const modal = document.getElementById('sepayReconcileModal');
+      modal.style.display = 'flex';
+      fetchSepayLiveTransactions();
+    }
+
+    function closeSepayReconcileModal() {
+      const modal = document.getElementById('sepayReconcileModal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    async function fetchSepayLiveTransactions() {
+      const statusText = document.getElementById('sepayModalStatusText');
+      const tbody = document.getElementById('sepayTxTableBody');
+      statusText.textContent = 'Đang kết nối API SePay & truy vấn biến động VietinBank...';
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:2rem; color:var(--text-muted);">Đang truy vấn SePay...</td></tr>';
+
+      try {
+        const res = await fetch(getApiUrl('/api/admin/sepay-transactions'), {
+          headers: getAdminHeaders()
+        });
+        if (handleAuthError(res)) return;
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          const list = data.transactions || [];
+          statusText.innerHTML = `✅ Tìm thấy <strong>${list.length}</strong> giao dịch ngân hàng. Khớp tự động: <strong style="color:#34d399;">${data.matchedOrders || 0}</strong> đơn hàng.`;
+
+          if (list.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:2rem; color:var(--text-muted);">Không có giao dịch nào được ghi nhận gần đây trên SePay.</td></tr>';
+            return;
+          }
+
+          tbody.innerHTML = list.map(tx => {
+            const rawContent = tx.transaction_content || tx.content || tx.description || '';
+            const amountStr = Number(tx.amount_in || tx.amount || 0).toLocaleString('vi-VN') + ' đ';
+            return `
+              <tr>
+                <td><span class="order-code-badge">${tx.id || '—'}</span></td>
+                <td style="color:var(--text-muted); font-size:0.82rem;">${tx.transaction_date || '—'}</td>
+                <td style="font-weight:700; color:#34d399;">+${amountStr}</td>
+                <td><code style="color:var(--gold-light);">${escapeHtml(rawContent)}</code></td>
+                <td style="font-size:0.82rem; color:var(--text-muted);">${tx.reference_number || '—'}</td>
+                <td>
+                  <span class="status-badge status-paid">● GHI NHẬN NGÂN HÀNG</span>
+                </td>
+              </tr>
+            `;
+          }).join('');
+
+          if (data.matchedOrders > 0) {
+            loadOrders();
+            loadAnalytics();
+          }
+        } else {
+          statusText.innerHTML = `<span style="color:#ef4444;">⚠️ ${data.message || 'Lỗi kết nối SePay'}</span>`;
+          tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:2rem; color:#ef4444;">${data.message || 'Không thể lấy dữ liệu SePay'}</td></tr>`;
+        }
+      } catch (err) {
+        statusText.innerHTML = `<span style="color:#ef4444;">Lỗi kết nối: ${err.message}</span>`;
+      }
+    }
+
+    // =========================================================================
+    // NHẬT KÝ LẬP LÁ SỐ (LASO LOGS)
+    // =========================================================================
+    let _lasoLogs = [];
+
+    async function loadLasoLogs() {
+      if (!getAdminToken()) return;
+      try {
+        const res = await fetch(getApiUrl('/api/admin/laso-logs'), {
+          headers: getAdminHeaders()
+        });
+        if (handleAuthError(res)) return;
+        if (!res.ok) return;
+        const data = await res.json();
+        _lasoLogs = data.logs || [];
+        renderLasoLogs(_lasoLogs);
+      } catch (e) {
+        console.error('Lỗi tải Laso logs:', e);
+      }
+    }
+
+    function renderLasoLogs(logs) {
+      const tbody = document.getElementById('lasoLogsTableBody');
+      if (!logs || logs.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; color:var(--text-muted); padding:2rem;">Chưa có khách hàng nào lập lá số hôm nay.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = logs.slice(0, 50).map(l => {
+        let statusBadge = '<span class="status-badge" style="background:rgba(107,114,128,0.2); color:#9ca3af;">○ Đã Xem Lá Số</span>';
+        if (l.isPaid) {
+          statusBadge = '<span class="status-badge status-paid">★ ĐÃ NÂNG CẤP VIP</span>';
+        } else if (l.hasOpenedQr) {
+          statusBadge = '<span class="status-badge status-pending">⚡ ĐÃ BẬT MÃ QR</span>';
+        }
+
+        const timeStr = l.timestamp ? new Date(l.timestamp).toLocaleString('vi-VN') : '—';
+
+        return `
+          <tr>
+            <td style="color:var(--text-muted); font-size:0.82rem;">${timeStr}</td>
+            <td><strong>${escapeHtml(l.hoTen || 'Khách Xem')}</strong></td>
+            <td>${l.gioiTinh || 'Nam'}</td>
+            <td>${l.ngayThangNam || '—'}</td>
+            <td>${l.gioSinh || '—'}</td>
+            <td><span style="color:var(--gold-light);">${l.banMenh || '—'} / ${l.cucMenh || '—'}</span></td>
+            <td>${statusBadge}</td>
+            <td>
+              ${!l.isPaid ? `
+                <button class="btn-approve" onclick="openManualOrderModal()">
+                  <i data-lucide="award"></i> Nâng Cấp VIP
+                </button>
+              ` : `
+                <span style="color:#34d399; font-size:0.82rem;">Đã Mở Khóa</span>
+              `}
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    // =========================================================================
+    // QUẢN LÝ ĐẶT LỊCH TƯ VẤN 1-1 (BOOKINGS)
+    // =========================================================================
+    let _bookingsList = [];
+
+    async function loadBookings() {
+      if (!getAdminToken()) return;
+      try {
+        const res = await fetch(getApiUrl('/api/admin/bookings'), {
+          headers: getAdminHeaders()
+        });
+        if (handleAuthError(res)) return;
+        if (!res.ok) return;
+        const data = await res.json();
+        _bookingsList = data.bookings || [];
+        renderBookings(_bookingsList);
+      } catch (e) {
+        console.error('Lỗi tải Bookings:', e);
+      }
+    }
+
+    function renderBookings(list) {
+      const tbody = document.getElementById('bookingsTableBody');
+      if (!list || list.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; color:var(--text-muted); padding:2rem;">Chưa có khách hàng nào gửi form đặt lịch tư vấn 1-1.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = list.map(b => {
+        const dateStr = b.createdAt ? new Date(b.createdAt).toLocaleString('vi-VN') : '—';
+        const cleanPhone = (b.customerPhone || '').replace(/\D/g, '');
+
+        let statusClass = 'status-pending';
+        let statusText = 'Chờ liên hệ';
+        if (b.status === 'CONTACTED') { statusClass = 'status-paid'; statusText = 'Đã liên hệ'; }
+        else if (b.status === 'COMPLETED') { statusClass = 'status-paid'; statusText = 'Đã hoàn thành'; }
+        else if (b.status === 'CANCELLED') { statusClass = ''; statusText = 'Đã hủy'; }
+
+        return `
+          <tr>
+            <td><span class="order-code-badge">${b.id || '—'}</span></td>
+            <td style="color:var(--text-muted); font-size:0.82rem;">${dateStr}</td>
+            <td><strong>${escapeHtml(b.customerName || 'Khách')}</strong></td>
+            <td>
+              <a href="https://zalo.me/${cleanPhone}" target="_blank" style="color:#60a5fa; font-weight:600; text-decoration:none; display:inline-flex; align-items:center; gap:3px;">
+                💬 ${escapeHtml(b.customerPhone)}
+              </a>
+            </td>
+            <td>${escapeHtml(b.bookingDate || '')} (${escapeHtml(b.bookingTime || '')})</td>
+            <td>${escapeHtml(b.serviceName || 'Tư Vấn 1-1')}</td>
+            <td style="max-width:200px; font-size:0.82rem; color:var(--text-muted);">${escapeHtml(b.note || '—')}</td>
+            <td>
+              <select class="select-filter" style="font-size:0.78rem;" onchange="updateBookingStatus('${b.id}', this.value)">
+                <option value="PENDING" ${b.status === 'PENDING' ? 'selected' : ''}>⏳ Chờ liên hệ</option>
+                <option value="CONTACTED" ${b.status === 'CONTACTED' ? 'selected' : ''}>📞 Đã liên hệ</option>
+                <option value="COMPLETED" ${b.status === 'COMPLETED' ? 'selected' : ''}>✅ Đã hoàn thành</option>
+                <option value="CANCELLED" ${b.status === 'CANCELLED' ? 'selected' : ''}>❌ Đã hủy</option>
+              </select>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    async function updateBookingStatus(id, status) {
+      try {
+        const res = await fetch(getApiUrl('/api/admin/bookings/status'), {
+          method: 'POST',
+          headers: getAdminHeaders(),
+          body: JSON.stringify({ id, status })
+        });
+        if (handleAuthError(res)) return;
+        const data = await res.json();
+        if (data.success) {
+          showToast('✅ Đã cập nhật trạng thái lịch tư vấn!', 'success');
+          loadBookings();
+        }
+      } catch (err) {
+        showToast('Lỗi cập nhật lịch hẹn', 'error');
+      }
+    }
+
+    // =========================================================================
+    // SEPAY CONFIGURATION
+    // =========================================================================
     async function loadAdminConfig() {
+      if (!getAdminToken()) return;
       try {
         const res = await fetch(getApiUrl('/api/admin/config'), {
           headers: getAdminHeaders()
@@ -1207,7 +2318,7 @@
         if (handleAuthError(res)) return;
         const data = await res.json();
         if (data.success) {
-          showToast('✅ Đã lưu cấu hình SePay thành công!');
+          showToast('✅ Đã lưu cấu hình SePay thành công!', 'success');
           document.getElementById('sepayStatusBadge').textContent = 'Đã Kết Nối API';
         }
       } catch (e) {
@@ -1215,10 +2326,13 @@
       }
     }
 
-    
+    // =========================================================================
+    // BLOG SEO MANAGER
+    // =========================================================================
     let _adminPosts = [];
 
     async function loadAdminPosts() {
+      if (!getAdminToken()) return;
       try {
         const res = await fetch(getApiUrl('/api/admin/posts'), {
           headers: getAdminHeaders()
@@ -1226,7 +2340,7 @@
         if (handleAuthError(res)) return;
         if (res.ok) {
           const data = await res.json();
-          _adminPosts = data.posts || [];
+          _adminPosts = Array.isArray(data) ? data : (data.posts || []);
           renderAdminPostsTable(_adminPosts);
         }
       } catch (err) {
@@ -1245,17 +2359,17 @@
         <tr>
           <td>
             <strong style="color:var(--gold-light); display:block;">${escapeHtml(p.title)}</strong>
-            <span style="font-size:0.8rem; color:var(--text-muted);">${escapeHtml((p.summary || '').slice(0, 90))}...</span>
+            <span style="font-size:0.8rem; color:var(--text-muted);">${escapeHtml((p.description || p.summary || '').slice(0, 90))}...</span>
           </td>
           <td><span style="background:rgba(212,168,83,0.15); color:var(--gold-light); padding:2px 8px; border-radius:4px; font-size:0.8rem;">${escapeHtml(p.category || 'Tử Vi')}</span></td>
           <td><code style="color:#60a5fa; font-size:0.8rem;">/blog/${escapeHtml(p.slug)}</code></td>
           <td style="text-align:center; font-weight:600;">${(p.views || 0).toLocaleString('vi-VN')}</td>
-          <td style="font-size:0.8rem; color:var(--text-muted); white-space:nowrap;">${escapeHtml(p.publishedAt || p.createdAt || 'Mới')}</td>
+          <td style="font-size:0.8rem; color:var(--text-muted); white-space:nowrap;">${escapeHtml(p.publishedAt || 'Mới')}</td>
           <td style="text-align:center;">
             <div style="display:flex; gap:6px; justify-content:center;">
-              <a href="/blog/${escapeHtml(p.slug)}" target="_blank" class="btn-action-view" style="text-decoration:none; padding:3px 8px; font-size:0.78rem;" title="Xem trên web">🔗</a>
-              <button type="button" class="btn-action-view" style="padding:3px 8px; font-size:0.78rem;" onclick="openPostModal('${p.id}')" title="Sửa bài">✏️</button>
-              <button type="button" class="btn-action-view" style="padding:3px 8px; font-size:0.78rem; background:rgba(239,68,68,0.15); color:#ef4444; border-color:rgba(239,68,68,0.3);" onclick="deletePost('${p.id}')" title="Xóa bài">🗑️</button>
+              <a href="/blog/${escapeHtml(p.slug)}" target="_blank" class="btn-action-pill" style="padding:3px 8px; font-size:0.78rem;" title="Xem trên web">🔗</a>
+              <button type="button" class="btn-action-pill" style="padding:3px 8px; font-size:0.78rem;" onclick="openPostModal('${p.id}')" title="Sửa bài">✏️</button>
+              <button type="button" class="btn-action-pill btn-logout" style="padding:3px 8px; font-size:0.78rem;" onclick="deletePost('${p.id}')" title="Xóa bài">🗑️</button>
             </div>
           </td>
         </tr>
@@ -1281,9 +2395,9 @@
           titleInput.value = p.title || '';
           slugInput.value = p.slug || '';
           catSelect.value = p.category || 'Kiến thức tử vi';
-          sumInput.value = p.summary || '';
+          sumInput.value = p.description || p.summary || '';
           kwInput.value = (p.keywords || []).join(', ');
-          contentInput.value = p.content || '';
+          contentInput.value = p.contentHtml || p.content || '';
         }
       } else {
         titleEl.textContent = '📝 Viết Bài Mới';
@@ -1309,38 +2423,39 @@
       const title = document.getElementById('postTitleInput').value.trim();
       let slug = document.getElementById('postSlugInput').value.trim();
       const category = document.getElementById('postCategorySelect').value;
-      const summary = document.getElementById('postSummaryInput').value.trim();
+      const description = document.getElementById('postSummaryInput').value.trim();
       const keywords = document.getElementById('postKeywordsInput').value.split(',').map(s => s.trim()).filter(Boolean);
-      const content = document.getElementById('postContentInput').value.trim();
+      const contentHtml = document.getElementById('postContentInput').value.trim();
 
-      if (!title || !content) {
+      if (!title || !contentHtml) {
         showToast('Vui lòng nhập tiêu đề và nội dung bài viết', 'error');
         return;
       }
 
       if (!slug) {
         slug = title.toLowerCase()
-          .normalize('NFD').replace(/[̀-ͯ]/g, '')
+          .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
           .replace(/[đĐ]/g, 'd')
           .replace(/[^a-z0-9]+/g, '-')
           .replace(/^-+|-+$/g, '');
       }
 
       const post = {
-        id: id || ('post_' + Date.now()),
+        id: id || ('post-' + Date.now()),
         title,
         slug,
         category,
-        summary,
+        description,
         keywords,
-        content
+        contentHtml,
+        publishedAt: new Date().toISOString().split('T')[0]
       };
 
       try {
         const res = await fetch(getApiUrl('/api/admin/posts/save'), {
           method: 'POST',
           headers: getAdminHeaders(),
-          body: JSON.stringify({ post })
+          body: JSON.stringify(post)
         });
         if (handleAuthError(res)) return;
         const data = await res.json();
@@ -1357,7 +2472,7 @@
     }
 
     async function deletePost(id) {
-      if (!confirm('Bạn có chắc chắn muốn xóa bài viết này không? Hành động này không thể hoàn tác.')) return;
+      if (!confirm('Bạn có chắc chắn muốn xóa bài viết này không?')) return;
       try {
         const res = await fetch(getApiUrl('/api/admin/posts/delete'), {
           method: 'POST',
@@ -1377,20 +2492,35 @@
       }
     }
 
+    // =========================================================================
+    // KHỞI CHẠY HỆ THỐNG
+    // =========================================================================
     function refreshAllData() {
-      loadOrders();
       loadAnalytics();
+      loadOrders();
+      loadLasoLogs();
+      loadBookings();
+      loadAdminConfig();
+      loadAdminPosts();
       showToast('Đã làm mới dữ liệu mới nhất!', 'success');
     }
 
-    // Init
-    loadOrders();
-    loadAnalytics();
-    loadAdminConfig();
-    loadAdminPosts();
-    setInterval(loadOrders, 3500);
-    setInterval(loadAnalytics, 10000);
-    if (window.lucide) window.lucide.createIcons();
+    document.addEventListener('DOMContentLoaded', () => {
+      const token = getAdminToken();
+      if (!token) {
+        openLoginModal();
+      } else {
+        refreshAllData();
+      }
+
+      // Tự động làm mới định kỳ
+      setInterval(loadOrders, 4000);
+      setInterval(loadAnalytics, 12000);
+      setInterval(loadLasoLogs, 10000);
+      setInterval(loadBookings, 15000);
+
+      if (window.lucide) window.lucide.createIcons();
+    });
   </script>
 </body>
 </html>

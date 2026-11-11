@@ -668,6 +668,16 @@ const TuViChart = {
     const isFreePalace = cung.cungName.startsWith('MỆNH') || cung.cungName.startsWith('PHỤ MẪU');
     const isLocked = !isVip && !isFreePalace;
 
+    if (window.TuViTracker && window.TuViTracker.track) {
+      window.TuViTracker.track('view_cung', {
+        palaceName: cung.cungName,
+        cungName: cung.cungName,
+        chi: cung.chi,
+        can: cung.can,
+        isLocked
+      });
+    }
+
     // Kiểm tra Tuần / Triệt (Đặt GỌN GÀNG BÊN TRONG đường viền ô)
     const hasTuan = laSo.tuan && laSo.tuan.includes(chiIndex);
     const hasTriet = laSo.triet && laSo.triet.includes(chiIndex);
@@ -907,6 +917,16 @@ const TuViChart = {
     );
     const isFreePalace = cung.cungName.startsWith('MỆNH') || cung.cungName.startsWith('PHỤ MẪU');
     const isLocked = !isVip && !isFreePalace;
+
+    if (window.TuViTracker && window.TuViTracker.track) {
+      window.TuViTracker.track('view_cung', {
+        palaceName: cung.cungName,
+        cungName: cung.cungName,
+        chi: cung.chi,
+        can: cung.can,
+        isLocked
+      });
+    }
 
     // Chính tinh
     let chinhTinhHtml = '';

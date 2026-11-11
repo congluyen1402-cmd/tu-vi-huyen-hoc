@@ -1,0 +1,93 @@
+[
+  {
+    "id": "ls_1794387567181_827",
+    "timestamp": "2026-11-11T08:59:27.181Z",
+    "visitorId": "vis_mwbw0we6_k2zsbop",
+    "hoTen": "Nguyễn Hoàng Minh Quân",
+    "gioiTinh": "nam",
+    "ngayThangNam": "undefined/undefined/undefined",
+    "gioSinh": "00:00",
+    "banMenh": "",
+    "cucMenh": "",
+    "hasOpenedQr": true,
+    "isPaid": false
+  },
+  {
+    "id": "ls_1794387566834_248",
+    "timestamp": "2026-11-11T08:59:26.834Z",
+    "visitorId": "vis_mwbw0wbu_urypbq6",
+    "hoTen": "Nguyễn Hoàng Minh Quân",
+    "gioiTinh": "nam",
+    "ngayThangNam": "undefined/undefined/undefined",
+    "gioSinh": "00:00",
+    "banMenh": "",
+    "cucMenh": "",
+    "hasOpenedQr": true,
+    "isPaid": false
+  },
+  {
+    "id": "ls_1794387566813_32",
+    "timestamp": "2026-11-11T08:59:26.813Z",
+    "visitorId": "vis_mwbw0wad_i34pyn4",
+    "hoTen": "Nguyễn Hoàng Minh Quân",
+    "gioiTinh": "nam",
+    "ngayThangNam": "undefined/undefined/undefined",
+    "gioSinh": "00:00",
+    "banMenh": "",
+    "cucMenh": "",
+    "hasOpenedQr": true,
+    "isPaid": false
+  },
+  {
+    "id": "ls_1794387501399_102",
+    "timestamp": "2026-11-11T08:58:21.399Z",
+    "visitorId": "vis_mwbvzhzk_kcg1eax",
+    "hoTen": "Nguyễn Hoàng Minh Quân",
+    "gioiTinh": "nam",
+    "ngayThangNam": "undefined/undefined/undefined",
+    "gioSinh": "00:00",
+    "banMenh": "",
+    "cucMenh": "",
+    "hasOpenedQr": false,
+    "isPaid": false
+  },
+  {
+    "id": "ls_1794387468550_660",
+    "timestamp": "2026-11-11T08:57:48.550Z",
+    "visitorId": "vis_mwbvysgs_q1ft6y8",
+    "hoTen": "Nguyễn Hoàng Minh Quân",
+    "gioiTinh": "nam",
+    "ngayThangNam": "undefined/undefined/undefined",
+    "gioSinh": "00:00",
+    "banMenh": "",
+    "cucMenh": "",
+    "hasOpenedQr": true,
+    "isPaid": false
+  },
+  {
+    "id": "ls_1794387468403_995",
+    "timestamp": "2026-11-11T08:57:48.403Z",
+    "visitorId": "vis_mwbvysex_sx95avt",
+    "hoTen": "Nguyễn Hoàng Minh Quân",
+    "gioiTinh": "nam",
+    "ngayThangNam": "undefined/undefined/undefined",
+    "gioSinh": "00:00",
+    "banMenh": "",
+    "cucMenh": "",
+    "hasOpenedQr": true,
+    "isPaid": false
+  },
+  {
+    "id": "ls_1794387468374_106",
+    "timestamp": "2026-11-11T08:57:48.374Z",
+    "visitorId": "vis_mwbvyse6_jjk0vvm",
+    "hoTen": "Nguyễn Hoàng Minh Quân",
+    "gioiTinh": "nam",
+    "ngayThangNam": "undefined/undefined/undefined",
+    "gioSinh": "00:00",
+    "banMenh": "",
+    "cucMenh": "",
+    "hasOpenedQr": true,
+    "isPaid": false
+  }
+]
