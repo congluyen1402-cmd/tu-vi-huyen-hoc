@@ -2043,6 +2043,10 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  pointer-events: none;
+}
+.timeline-locked-cta-overlay > * {
+  pointer-events: auto;
 }
 
 .btn-lock-upgrade-sm {
@@ -6645,4 +6649,250 @@ footer.footer {
   color: #FFF;
   box-shadow: 0 4px 14px rgba(163, 40, 31, 0.25);
   transform: translateY(-1px);
+}
+
+
+/* ============================================================ */
+/* MOBILE & RESPONSIVE PERFECTION (Form & Chart Requirements)    */
+/* ============================================================ */
+
+/* 1. Form Grid (Desktop & Base) */
+.form-row-name {
+  grid-template-columns: 1fr;
+}
+.form-row-gender-calendar {
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.form-row-time {
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.form-row-date {
+  grid-template-columns: 1fr 1fr 1.25fr;
+  gap: 10px;
+}
+
+/* 2. Mobile Form (< 640px) */
+@media (max-width: 640px) {
+  .tracuu-form-card {
+    padding: 14px 12px !important;
+  }
+  .form-row {
+    gap: 10px !important;
+    margin-bottom: 10px !important;
+  }
+  .form-row-name {
+    grid-template-columns: 1fr !important;
+  }
+  .form-row-gender-calendar {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+  }
+  .form-row-time {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+  }
+  .form-row-date {
+    grid-template-columns: 1fr 1fr 1.25fr !important;
+    gap: 8px !important;
+  }
+  .form-item-input, .form-item-select {
+    font-size: 16px !important;
+    padding: 10px 24px 10px 10px !important;
+    min-height: 46px !important;
+    text-overflow: ellipsis;
+  }
+}
+
+/* 3. Mobile Chart Scale Bar */
+.mobile-chart-scale-bar {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 10px auto 14px;
+  padding: 4px;
+  background: rgba(30, 27, 75, 0.88);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: 24px;
+  max-width: 380px;
+  width: calc(100% - 16px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+}
+
+@media (max-width: 767px) {
+  .mobile-chart-scale-bar {
+    display: flex;
+  }
+}
+
+.btn-scale-toggle {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 20px;
+  border: none;
+  background: transparent;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-scale-toggle.active {
+  background: linear-gradient(135deg, #d4af37, #b45309);
+  color: #0b0a1a !important;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.45);
+}
+
+/* 4. Cell Overlap Fixes (Tuần / Triệt, THÂN, Tứ Hóa, 2 Cột Phụ Tinh) */
+.tuan-triet-ribbon {
+  position: absolute !important;
+  top: -1px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  background: #111111 !important;
+  color: #ffffff !important;
+  font-size: clamp(8px, 1.8cqw, 10px) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+  padding: 1px 8px !important;
+  border-radius: 2px !important;
+  z-index: 20 !important;
+  line-height: 1.2 !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.45) !important;
+  pointer-events: none !important;
+}
+
+.cung-classical-cell.has-tuan-triet .cung-top-bar {
+  padding-top: 14px !important;
+}
+
+.than-badge {
+  display: inline-block;
+  background: #8F6B00;
+  color: #ffffff;
+  font-size: 0.65em;
+  padding: 0.5px 3.5px;
+  border-radius: 3px;
+  font-weight: 700;
+  letter-spacing: 0;
+  vertical-align: middle;
+  margin-left: 2px;
+}
+
+.cung-top-bar {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  white-space: nowrap !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+  padding-bottom: 2px !important;
+  min-width: 0 !important;
+}
+
+.cung-main-title {
+  font-weight: 800 !important;
+  letter-spacing: 0.02em !important;
+  font-size: clamp(9.5px, 2.7cqw, 15px) !important;
+  color: #7A1F17 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 2px !important;
+  white-space: nowrap !important;
+}
+
+.cung-chinh-tinh-center {
+  width: 100% !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  gap: 2px 4px !important;
+  padding: 0 4px !important;
+}
+
+.star-chinh-center {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  gap: 2px !important;
+  font-size: clamp(9.5px, 2.45cqw, 13.5px) !important;
+  line-height: 1.25 !important;
+  font-weight: 700 !important;
+}
+
+.star-chinh-center .tu-hoa-badge {
+  font-size: 0.72rem !important;
+  padding: 1px 4px !important;
+  white-space: nowrap !important;
+  line-height: 1.2 !important;
+  border-radius: 2px !important;
+  margin-left: 2px !important;
+}
+
+.cung-stars-columns {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 4px !important;
+  align-items: start !important;
+  line-height: 1.25 !important;
+  margin: 3px 0 !important;
+  flex: 1 !important;
+}
+
+.cung-col-left {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1px !important;
+  text-align: left !important;
+  min-width: 0 !important;
+}
+
+.cung-col-right {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1px !important;
+  text-align: right !important;
+  min-width: 0 !important;
+}
+
+.star-line {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  font-size: clamp(8px, 2.35cqw, 13px) !important;
+  line-height: 1.25 !important;
+}
+
+/* 5. Palace Cell Highlight on Click */
+.cung-classical-cell.cell-active-highlight {
+  outline: 2.5px solid #d4af37 !important;
+  box-shadow: 0 0 16px rgba(212, 175, 55, 0.8) !important;
+  z-index: 25 !important;
+  animation: pulseHighlight 1.5s ease-in-out infinite;
+}
+
+@keyframes pulseHighlight {
+  0%, 100% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.6); }
+  50% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.95); }
+}
+
+@media (max-width: 767px) {
+  .la-so-scroll-wrapper {
+    width: 100%;
+    max-width: 100%;
+    position: relative;
+    margin: 0 auto;
+    overflow: hidden;
+  }
 }

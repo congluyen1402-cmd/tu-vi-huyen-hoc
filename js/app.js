@@ -518,7 +518,7 @@
       for (let y = currentYear; y >= 1930; y--) {
         const opt = document.createElement("option");
         opt.value = y.toString();
-        opt.textContent = `Năm ${y}`;
+        opt.textContent = y.toString();
         namEl.appendChild(opt);
       }
     },
@@ -550,7 +550,7 @@
         const opt = document.createElement("option");
         opt.value = d.toString();
         const dStr = d < 10 ? "0" + d : d;
-        opt.textContent = `Ngày ${dStr}`;
+        opt.textContent = dStr.toString();
         if (prevVal && parseInt(prevVal, 10) === d) {
           opt.selected = true;
         }

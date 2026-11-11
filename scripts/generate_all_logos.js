@@ -211,3 +211,4 @@ const { chromium } = require('playwright');
   console.log('ALL LOGO ASSETS SUCCESSFULLY GENERATED!');
   await browser.close();
 })();
+

@@ -19,3 +19,4 @@ const fs = require('fs');
   fs.writeFileSync(filePath, css);
   console.log('Updated ' + filePath);
 });
+

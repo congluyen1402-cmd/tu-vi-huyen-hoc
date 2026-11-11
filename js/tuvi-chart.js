@@ -512,6 +512,16 @@ const TuViChart = {
         </button>
       </div>
 
+      <!-- THANH CHUYỂN ĐỔI CHẾ ĐỘ XEM TRÊN ĐIỆN THOẠI (Auto-fit & Zoom) -->
+      <div class="mobile-chart-scale-bar" id="mobileChartScaleBar">
+        <button type="button" class="btn-scale-toggle active" id="btnScaleFit" onclick="TuViChart.setMobileScaleMode('fit')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-2px;margin-right:4px;"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg>🗺️ Vừa Màn Hình (Chuẩn)
+        </button>
+        <button type="button" class="btn-scale-toggle" id="btnScaleScroll" onclick="TuViChart.setMobileScaleMode('scroll')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-2px;margin-right:4px;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>🔍 Phóng To Lá Số (Vuốt ngang)
+        </button>
+      </div>
+
       <div class="la-so-scroll-wrapper">
         <div class="la-so-paper-container" id="laSoPrintArea">
           <!-- Hình Bát Quái Mờ Đằng Sau Lưới Lá Số (Chính Tông Cổ Truyền) -->
@@ -566,11 +576,76 @@ const TuViChart = {
     `;
 
     chartWrapper.innerHTML = html;
+    this.initMobileChartScale();
   },
 
   /**
    * Render từng ô Cung (Palace Cell) chuẩn nguyên bản Tra Cứu Tử Vi
    */
+  
+  _mobileScaleMode: 'fit',
+  _onResizeScale: null,
+
+  initMobileChartScale: function () {
+    const updateScale = () => {
+      const wrapper = document.querySelector('.la-so-scroll-wrapper');
+      const container = document.getElementById('laSoPrintArea');
+      if (!wrapper || !container) return;
+
+      const isMobile = window.innerWidth < 768;
+      const toggleBar = document.getElementById('mobileChartScaleBar');
+      if (toggleBar) {
+        toggleBar.style.display = isMobile ? 'flex' : 'none';
+      }
+
+      if (!isMobile || this._mobileScaleMode === 'scroll') {
+        container.style.transform = '';
+        container.style.transformOrigin = '';
+        container.style.width = '';
+        container.style.minWidth = '';
+        wrapper.style.height = '';
+        wrapper.style.overflowX = 'auto';
+        return;
+      }
+
+      // Mode: 'fit' on mobile (iPhone 13 & smaller)
+      const availWidth = wrapper.clientWidth || (window.innerWidth - 24);
+      const BASE_WIDTH = 780;
+      const scale = Math.min(1, Math.max(0.32, availWidth / BASE_WIDTH));
+
+      container.style.width = BASE_WIDTH + 'px';
+      container.style.minWidth = BASE_WIDTH + 'px';
+      container.style.transform = 'scale(' + scale + ')';
+      container.style.transformOrigin = 'top left';
+
+      // Measure unscaled height
+      const unscaledHeight = container.offsetHeight || container.scrollHeight || 780;
+      wrapper.style.height = Math.round(unscaledHeight * scale + 8) + 'px';
+      wrapper.style.overflow = 'hidden';
+    };
+
+    if (this._onResizeScale) {
+      window.removeEventListener('resize', this._onResizeScale);
+    }
+    this._onResizeScale = () => updateScale();
+    window.addEventListener('resize', this._onResizeScale, { passive: true });
+    
+    updateScale();
+    setTimeout(updateScale, 50);
+    setTimeout(updateScale, 250);
+  },
+
+  setMobileScaleMode: function (mode) {
+    this._mobileScaleMode = mode;
+    const btnFit = document.getElementById('btnScaleFit');
+    const btnScroll = document.getElementById('btnScaleScroll');
+    if (btnFit && btnScroll) {
+      btnFit.classList.toggle('active', mode === 'fit');
+      btnScroll.classList.toggle('active', mode === 'scroll');
+    }
+    if (this._onResizeScale) this._onResizeScale();
+  },
+
   renderPalaceCell: function (laSo, chiIndex) {
     const cung = laSo.cung[chiIndex];
     const isMenh = chiIndex === laSo.cungMenh.chiIndex;
@@ -587,6 +662,9 @@ const TuViChart = {
     // Kiểm tra Tuần / Triệt (Đặt GỌN GÀNG BÊN TRONG đường viền ô)
     const hasTuan = laSo.tuan && laSo.tuan.includes(chiIndex);
     const hasTriet = laSo.triet && laSo.triet.includes(chiIndex);
+    const isTuanCell = hasTuan && chiIndex === laSo.tuan[0];
+    const isTrietCell = hasTriet && chiIndex === laSo.triet[0];
+    const hasTuanTriet = isTuanCell || isTrietCell;
 
     let tuanTrietBanner = '';
     if (hasTuan && chiIndex === laSo.tuan[0]) {
@@ -598,7 +676,8 @@ const TuViChart = {
 
     // Tiêu đề cung và màu sắc đặc trưng
     const titleColor = this.PALACE_COLORS[cung.cungName] || '#7A1F17';
-    const palaceTitle = isThan ? `${cung.cungName}&lt;THÂN&gt;` : cung.cungName;
+    const cleanPalaceName = (cung.cungName || "").replace(/<THÂN>|&lt;THÂN&gt;/g, "").trim();
+    const palaceTitle = cleanPalaceName + (isThan ? " <span class=\"than-badge\">THÂN</span>" : "");
 
     // Dấu Âm / Dương của Thiên Can cung vị (Giáp, Bính, Mậu, Canh, Nhâm: '+'; Ất, Đinh, Kỷ, Tân, Quý: '−')
     const canIsDuong = (typeof cung.canIndex === 'number') ? (cung.canIndex % 2 === 0) : true;
@@ -653,7 +732,7 @@ const TuViChart = {
     }
 
     return `
-      <div class="cung-classical-cell la-so-cell ${isMenh ? 'cell-menh' : ''} ${isThan ? 'cell-than' : ''}" 
+      <div class="cung-classical-cell la-so-cell ${isMenh ? 'cell-menh' : ''} ${isThan ? 'cell-than' : ''} ${hasTuanTriet ? 'has-tuan-triet' : ''}" 
            data-chi="${chiIndex}"
            onclick="TuViChart.openPalaceSheet(${chiIndex})"
            title="Nhấp để xem chi tiết sao & luận giải Cung ${cung.cungName}">

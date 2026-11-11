@@ -94,7 +94,7 @@ test.describe('Xem Tử Vi Huyền Học - Full Flow & Quality Tests', () => {
     // 8. Nhấn nút mở khóa VIP để mở modal VietQR
     const unlockBtn = page.locator('button.btn-action-vip, button.btn-lock-upgrade-sm, button.btn-pricing-cta').first();
     if (await unlockBtn.isVisible()) {
-      await unlockBtn.click();
+      await unlockBtn.click({ force: true });
       const vipModal = page.locator('#tuvi-vip-modal');
       await expect(vipModal).toBeVisible();
       // Đóng modal

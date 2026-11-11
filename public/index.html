@@ -300,10 +300,10 @@
             </div>
           </div>
 
-          <!-- Biểu mẫu 3 hàng (Bắt đầu trống hoàn toàn, không điền sẵn dữ liệu cá nhân) -->
+          <!-- Biểu mẫu 4 hàng tối ưu trên mobile & desktop (Requirement Part 1) -->
           <form class="tracuu-form-card" id="tuviForm" novalidate>
-            <!-- Hàng 1: Họ tên khai sinh (rộng) + Giới tính (hẹp) -->
-            <div class="form-row form-row-name-gender">
+            <!-- Hàng 1: Họ tên khai sinh (rộng 100%) -->
+            <div class="form-row form-row-name">
               <div class="form-control-item item-name">
                 <label class="form-item-label" for="hoTen">Họ tên khai sinh *</label>
                 <input
@@ -318,7 +318,10 @@
                 >
                 <div class="form-error-inline" id="error-hoTen" role="alert" aria-live="polite"></div>
               </div>
+            </div>
 
+            <!-- Hàng 2: Giới tính (50%) + Xem theo (50%) -->
+            <div class="form-row form-row-gender-calendar">
               <div class="form-control-item item-gender">
                 <label class="form-item-label" for="gioiTinh">Giới tính *</label>
                 <select class="form-item-select" id="gioiTinh" name="gioiTinh" required>
@@ -328,19 +331,19 @@
                 </select>
                 <div class="form-error-inline" id="error-gioiTinh" role="alert" aria-live="polite"></div>
               </div>
-            </div>
 
-            <!-- Hàng 2: Xem theo + Giờ sinh + Phút sinh (3 cột) -->
-            <div class="form-row form-row-calendar-time">
-              <div class="form-control-item">
+              <div class="form-control-item item-calendar">
                 <label class="form-item-label" for="loaiLich">Xem theo</label>
                 <select class="form-item-select" id="loaiLich" name="loaiLich">
                   <option value="duong" selected>Dương lịch</option>
                   <option value="am">Âm lịch</option>
                 </select>
               </div>
+            </div>
 
-              <div class="form-control-item">
+            <!-- Hàng 3: Giờ sinh (50%) + Phút sinh (50%) -->
+            <div class="form-row form-row-time">
+              <div class="form-control-item item-hour">
                 <label class="form-item-label" for="gioSinh">Giờ sinh *</label>
                 <select class="form-item-select" id="gioSinh" name="gioSinh" required>
                   <option value="" disabled selected>Chọn giờ</option>
@@ -372,7 +375,7 @@
                 <div class="form-error-inline" id="error-gioSinh" role="alert" aria-live="polite"></div>
               </div>
 
-              <div class="form-control-item">
+              <div class="form-control-item item-minute">
                 <label class="form-item-label" for="phutSinh">Phút sinh *</label>
                 <select class="form-item-select" id="phutSinh" name="phutSinh" required>
                   <option value="" disabled selected>Chọn phút</option>
@@ -408,9 +411,9 @@
               </label>
             </div>
 
-            <!-- Hàng 3: Ngày + Tháng + Năm (3 cột) -->
+            <!-- Hàng 4: Ngày + Tháng + Năm (3 cột: 1fr 1fr 1.25fr) -->
             <div class="form-row form-row-date">
-              <div class="form-control-item">
+              <div class="form-control-item item-day">
                 <label class="form-item-label" for="ngaySinh">Ngày *</label>
                 <select class="form-item-select" id="ngaySinh" name="ngaySinh" required>
                   <option value="" disabled selected>Ngày</option>
@@ -418,31 +421,30 @@
                 <div class="form-error-inline" id="error-ngaySinh" role="alert" aria-live="polite"></div>
               </div>
 
-              <div class="form-control-item">
+              <div class="form-control-item item-month">
                 <label class="form-item-label" for="thangSinh">Tháng *</label>
                 <select class="form-item-select" id="thangSinh" name="thangSinh" required>
                   <option value="" disabled selected>Tháng</option>
-                  <option value="1">Tháng 01</option>
-                  <option value="2">Tháng 02</option>
-                  <option value="3">Tháng 03</option>
-                  <option value="4">Tháng 04</option>
-                  <option value="5">Tháng 05</option>
-                  <option value="6">Tháng 06</option>
-                  <option value="7">Tháng 07</option>
-                  <option value="8">Tháng 08</option>
-                  <option value="9">Tháng 09</option>
-                  <option value="10">Tháng 10</option>
-                  <option value="11">Tháng 11</option>
-                  <option value="12">Tháng 12</option>
+                  <option value="1">01</option>
+                  <option value="2">02</option>
+                  <option value="3">03</option>
+                  <option value="4">04</option>
+                  <option value="5">05</option>
+                  <option value="6">06</option>
+                  <option value="7">07</option>
+                  <option value="8">08</option>
+                  <option value="9">09</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
                 </select>
                 <div class="form-error-inline" id="error-thangSinh" role="alert" aria-live="polite"></div>
               </div>
 
-              <div class="form-control-item">
+              <div class="form-control-item item-year">
                 <label class="form-item-label" for="namSinh">Năm *</label>
                 <select class="form-item-select" id="namSinh" name="namSinh" required>
                   <option value="" disabled selected>Năm</option>
-                  <!-- Populated by JS: 1930 - Current Year -->
                 </select>
                 <div class="form-error-inline" id="error-namSinh" role="alert" aria-live="polite"></div>
               </div>
