@@ -543,14 +543,14 @@
     if (typeof ngay === 'object' && ngay !== null) {
       opt = ngay;
       hoTen = opt.hoTen || '';
-      thang = opt.thang;
-      nam = opt.nam;
+      thang = opt.thang || opt.thangSinh;
+      nam = opt.nam || opt.namSinh;
       gioIndex = opt.gioIndex !== undefined ? opt.gioIndex : (opt.gio !== undefined ? (opt.gio === 23 || opt.gio === 0 ? 0 : Math.floor((parseInt(opt.gio, 10) + 1) / 2)) : 0);
       gioiTinh = opt.gioiTinh || 'nam';
       isLunar = (opt.isLunar === true || opt.loaiLich === 'am');
       gioPhutText = opt.gioPhutText || ((opt.gio !== undefined ? opt.gio + ' giờ ' : '') + (opt.phut !== undefined ? opt.phut + ' phút' : ''));
       viewYear = opt.viewYear || opt.namXem;
-      ngay = opt.ngay;
+      ngay = opt.ngay || opt.ngaySinh;
     }
     var vYear = parseInt(viewYear, 10) || 2026;
 
@@ -559,20 +559,51 @@
     var isNam = (rawGender === 'nam' || rawGender === 'male' || rawGender === '1' || rawGender === 'true');
     var genderStr = isNam ? 'Nam' : 'Nữ';
 
+    // Xử lý Giờ Tý (23:00 - 23:59):
+    // gioTyMode: 'next_day' (sau 23h sang ngày mới) hoặc 'same_day' (mặc định giữ nguyên ngày cho API cũ)
+    var rawGio = (opt && opt.gio !== undefined) ? parseInt(opt.gio, 10) : (gioIndex === 0 ? 0 : gioIndex * 2);
+    var rawPhut = (opt && opt.phut !== undefined) ? parseInt(opt.phut, 10) : 0;
+    var gioTyMode = (opt && opt.gioTyMode) ? opt.gioTyMode : ((opt && opt.gioTyNextDay) ? 'next_day' : 'same_day');
+    var isGioTyNextDay = (rawGio === 23 && gioTyMode === 'next_day');
+
     var lunar;
     var solarDate = null;
 
     if (isLunar) {
+      var lDay = parseInt(ngay, 10);
+      var lMonth = parseInt(thang, 10);
+      var lYear = parseInt(nam, 10);
+      if (isGioTyNextDay) {
+        lDay += 1;
+        if (lDay > 30) {
+          lDay = 1;
+          lMonth = (lMonth % 12) + 1;
+          if (lMonth === 1) lYear += 1;
+        }
+      }
       lunar = {
-        day: parseInt(ngay, 10),
-        month: parseInt(thang, 10),
-        year: parseInt(nam, 10),
-        leap: false,
-        jd: jdFromDate(parseInt(ngay, 10), parseInt(thang, 10), parseInt(nam, 10))
+        day: lDay,
+        month: lMonth,
+        year: lYear,
+        leap: (opt && (opt.isLeap === true || opt.leap === true)),
+        jd: jdFromDate(lDay, lMonth, lYear)
       };
     } else {
-      solarDate = { day: parseInt(ngay, 10), month: parseInt(thang, 10), year: parseInt(nam, 10) };
+      var sDay = parseInt(ngay, 10);
+      var sMonth = parseInt(thang, 10);
+      var sYear = parseInt(nam, 10);
+      if (isGioTyNextDay) {
+        var dNext = new Date(sYear, sMonth - 1, sDay + 1);
+        sDay = dNext.getDate();
+        sMonth = dNext.getMonth() + 1;
+        sYear = dNext.getFullYear();
+      }
+      solarDate = { day: sDay, month: sMonth, year: sYear };
       lunar = convertSolar2Lunar(solarDate.day, solarDate.month, solarDate.year, 7);
+    }
+
+    if (isGioTyNextDay) {
+      gioIndex = 0; // Sau 23h thuộc giờ Tý của ngày mới
     }
 
     var canNamIdx = getCanNam(lunar.year);
@@ -581,14 +612,21 @@
     var amDuongNam = (canNamIdx % 2 === 0) ? 'duong' : 'am';
     var napAmNam = getNapAm(canNamIdx, chiNamIdx);
 
+    // Quy tắc Tháng Nhuận Âm Lịch (Tử Vi Nam Phái):
+    // Sinh từ ngày 1 đến 15 tính theo tháng chính, sinh từ ngày 16 đến 30 tính sang tháng sau
+    var thangTuVi = lunar.month;
+    if (lunar.leap && lunar.day > 15) {
+      thangTuVi = (lunar.month % 12) + 1;
+    }
+
     // Can Chi Tháng, Ngày, Giờ
-    var canChiThangStr = getCanChiThang(canNamIdx, lunar.month);
+    var canChiThangStr = getCanChiThang(canNamIdx, thangTuVi);
     var canChiNgayObj = getCanChiNgay(lunar.jd);
     var canChiGioStr = getCanChiGio(canChiNgayObj.canIndex, gioIndex);
 
     // Cung Mệnh & Thân
-    var cungMenh = getCungMenh(lunar.month, gioIndex);
-    var cungThan = getCungThan(lunar.month, gioIndex);
+    var cungMenh = getCungMenh(thangTuVi, gioIndex);
+    var cungThan = getCungThan(thangTuVi, gioIndex);
 
     // Can của 12 cung
     var palaceCans = getCanOfPalaces(canNamIdx);
@@ -759,7 +797,7 @@
     addStar(linhPos, 'Linh tinh', false, 'Đ');
 
     // 5. Sao theo Tháng sinh
-    var mIdx = lunar.month - 1;
+    var mIdx = thangTuVi - 1;
     var taPhuPos = (4 + mIdx) % 12;
     var huuBatPos = (10 - mIdx + 120) % 12;
     addStar(taPhuPos, 'Tả phù', true);
@@ -777,15 +815,14 @@
     var thienQuanMap = [7, 4, 5, 2, 3, 9, 11, 9, 10, 6];
     var thienPhucMap = [9, 8, 0, 11, 3, 2, 6, 5, 6, 5];
     var luuHaMap = [9, 10, 7, 8, 5, 6, 11, 0, 11, 2];
-    var vanTinhMap = [5, 6, 8, 9, 8, 9, 11, 0, 9, 10];
     var thienTruMap = [5, 6, 0, 5, 6, 8, 2, 6, 9, 10];
     addStar(thienQuanMap[canNamIdx], 'Thiên quan', true);
     addStar(thienPhucMap[canNamIdx], 'Thiên phúc', true);
     addStar(luuHaMap[canNamIdx], 'Lưu hà', false);
-    addStar(vanTinhMap[canNamIdx], 'Văn tinh', true);
     addStar(thienTruMap[canNamIdx], 'Thiên trù', true);
 
-    // Lưu Niên Văn Tinh (theo Can năm sinh)
+    // Lưu Niên Văn Tinh (chuẩn theo Can năm sinh, tránh trùng lặp Văn Tinh)
+    // Giáp -> Tỵ (5), Ất -> Ngọ (6), Bính/Mậu -> Thân (8), Đinh/Kỷ -> Dậu (9), Canh -> Hợi (11), Tân -> Tý (0), Nhâm -> Dần (2), Quý -> Mão (3)
     var lnVanTinhMap = [5, 6, 8, 9, 8, 9, 11, 0, 2, 3];
     addStar(lnVanTinhMap[canNamIdx], 'LN Văn tinh', true);
 
@@ -827,7 +864,7 @@
     addStar(hoaCaiMap[chiNamIdx], 'Hoa cái', true);
 
     // Đẩu Quân (Khởi từ cung Thái Tuế đếm nghịch đến tháng sinh, rồi đếm thuận đến giờ sinh)
-    var dauQuanPos = (chiNamIdx - (lunar.month - 1) + gioIndex + 120) % 12;
+    var dauQuanPos = (chiNamIdx - (thangTuVi - 1) + gioIndex + 120) % 12;
     addStar(dauQuanPos, 'Đẩu quân', false);
 
     addStar(coThanMap[chiNamIdx], 'Cô thần', false);
@@ -925,17 +962,30 @@
     }
 
     // 15. Tiểu Hạn theo từng cung (Hiển thị góc trái dưới mỗi cung)
-    var tieuHanStartChi = [10, 7, 4, 1][chiNamIdx % 4];
-    for (var p = 0; p < 12; p++) {
-      var offsetFromDan = (p - 2 + 12) % 12;
-      var thChi = isNam
-        ? (tieuHanStartChi + offsetFromDan) % 12
-        : (tieuHanStartChi - offsetFromDan + 120) % 12;
-      cungArray[p].tieuHan = DIA_CHI[thChi];
-      cungArray[p].tieuHanChiIdx = thChi;
+    // Quy tắc chuẩn Tử Vi Nam Phái (đồng bộ 100% tuvi.vn & tracuutuvi.com):
+    // Khởi địa chi năm sinh (chiNamIdx) tại cung Tam Hợp:
+    // - Tuổi Thân - Tý - Thìn: khởi tại cung Tuất (10)
+    // - Tuổi Tỵ - Dậu - Sửu: khởi tại cung Mùi (7)
+    // - Tuổi Dần - Ngọ - Tuất: khởi tại cung Thìn (4)
+    // - Tuổi Hợi - Mão - Mùi: khởi tại cung Sửu (1)
+    // Chiều đi:
+    // - Nam đếm THUẬN theo chiều kim đồng hồ (cung tăng, chi tăng)
+    // - Nữ đếm NGHỊCH theo chiều kim đồng hồ (cung tăng, chi giảm)
+    var startPalaceMap = [10, 7, 4, 1];
+    var startPalace = startPalaceMap[chiNamIdx % 4];
+    for (var step = 0; step < 12; step++) {
+      var palace = (startPalace + step) % 12;
+      var yChi = isNam
+        ? (chiNamIdx + step) % 12
+        : (chiNamIdx - step + 120) % 12;
+      cungArray[palace].tieuHan = DIA_CHI[yChi];
+      cungArray[palace].tieuHanChiIdx = yChi;
     }
 
-    // 16. Nguyệt Hạn (Tháng hạn Th.1 -> Th.12 của năm xem hạn, khởi từ cung Tiểu Hạn của năm xem)
+    // 16. Nguyệt Hạn (Tháng hạn Th.1 -> Th.12 của năm xem hạn)
+    // Từ cung Tiểu Vận của năm xem hạn (vChiIdx), coi đó là tháng Giêng,
+    // đếm NGHỊCH đến tháng sinh âm lịch, rồi từ cung đó coi là giờ Tý đếm THUẬN đến giờ sinh để định Tháng Giêng (Th.1).
+    // Sau đó từ Th.1 đếm thuận chiều kim đồng hồ ra Th.2 -> Th.12.
     var cungTieuHanYear = 0;
     for (var p = 0; p < 12; p++) {
       if (cungArray[p].tieuHanChiIdx === vChiIdx) {
@@ -943,7 +993,8 @@
         break;
       }
     }
-    var th1Pos = (cungTieuHanYear - (lunar.month - 1) + gioIndex + 120) % 12;
+    var stopMonthPalace = (cungTieuHanYear - (thangTuVi - 1) + 120) % 12;
+    var th1Pos = (stopMonthPalace + gioIndex) % 12;
     for (var th = 0; th < 12; th++) {
       var thChi = (th1Pos + th) % 12;
       cungArray[thChi].thangHan = 'Th.' + (th + 1);
@@ -962,6 +1013,13 @@
         break;
       }
     }
+
+    // 3 Điểm Nghiệm Lý Xác Thực Giờ Sinh (Mệnh, Thân, Tật Ách)
+    var nghiemLy = get3DiemNghiemLy({
+      cung: cungArray,
+      cungMenh: cungMenh,
+      thanCu: thanCuText
+    });
 
     return {
       hoTen: hoTen || '',
@@ -992,7 +1050,123 @@
       thienPhuPos: thienPhuPos,
       tuan: tuanArray,
       triet: trietArray,
-      cung: cungArray
+      cung: cungArray,
+      nghiemLyDienMao: nghiemLy.dienMao,
+      nghiemLyTinhCach: nghiemLy.tinhCach,
+      nghiemLyTheChat: nghiemLy.theChat,
+      _input: {
+        ngay: ngay,
+        thang: thang,
+        nam: nam,
+        gioIndex: gioIndex,
+        gioiTinh: gioiTinh,
+        isLunar: isLunar,
+        gioPhutText: gioPhutText,
+        viewYear: vYear,
+        hoTen: hoTen,
+        gio: rawGio,
+        phut: rawPhut,
+        gioTyMode: gioTyMode
+      }
+    };
+  }
+
+  /**
+   * Trích xuất 3 Điểm Nghiệm Lý Xác Thực Giờ Sinh từ Cung Mệnh, Thân, Tật Ách
+   */
+  function get3DiemNghiemLy(chart) {
+    if (!chart || !chart.cung) {
+      return {
+        dienMao: 'Diện mạo đoan chính đôn hậu, ngũ quan hài hòa, phong thái đĩnh đạc tự nhiên.',
+        tinhCach: 'Nội tâm kiên định, hành sự chu toàn thực tế, coi trọng danh dự và uy tín cá nhân.',
+        theChat: 'Cơ thể nhìn chung lành tính; chú ý hệ tiêu hóa và giữ ấm đường hô hấp khi thời tiết chuyển mùa.'
+      };
+    }
+
+    // 1. Diện mạo theo Cung Mệnh
+    var cungMenh = chart.cung.find(function (c) { return c.chiIndex === chart.cungMenh.chiIndex; });
+    var ctMenhNames = (cungMenh && cungMenh.chinhTinh) ? cungMenh.chinhTinh.map(function (s) { return s.name; }) : [];
+    var dienMao = '';
+    if (ctMenhNames.includes('Thái Dương')) {
+      dienMao = 'Gương mặt đầy đặn hoặc vuông vắn, vầng trán cao rộng, mắt sáng có thần khí; diện mạo quang minh đường bệ, tác phong đĩnh đạc, tiếng nói vang rõ ấm áp.';
+    } else if (ctMenhNames.includes('Tử Vi') || ctMenhNames.includes('Thiên Phủ')) {
+      dienMao = 'Cốt cách sang trọng đôn hậu, ngũ quan cân đối hài hòa, phong thái uy nghi điềm đạm, toát lên khí chất lãnh đạo và tạo được sự tin cậy tự nhiên.';
+    } else if (ctMenhNames.includes('Vũ Khúc')) {
+      dienMao = 'Thân hình rắn chắc gân guốc, khuôn mặt chữ điền góc cạnh cương nghị, ánh mắt thẳng thắn dứt khoát, tác phong nhanh nhẹn và kiên trì.';
+    } else if (ctMenhNames.includes('Thiên Cơ')) {
+      dienMao = 'Dáng người thanh nhã mảnh mai, bước đi linh hoạt, trán rộng thông tuệ, ánh mắt lanh lợi tinh anh, phong thái trí thức nho nhã.';
+    } else if (ctMenhNames.includes('Thiên Đồng')) {
+      dienMao = 'Khuôn mặt tròn trịa phúc hậu, nụ cười tươi tắn hiền hòa dễ gần, diện mạo trẻ trung hơn tuổi thực, dáng dấp đẫm đà có duyên.';
+    } else if (ctMenhNames.includes('Liêm Trinh')) {
+      dienMao = 'Lông mày rậm, ánh mắt sắc sảo có uy, sống mũi thẳng, nét mặt cương trực bộc trực, thần thái tự tin quả quyết.';
+    } else if (ctMenhNames.includes('Thái Âm')) {
+      dienMao = 'Khuôn mặt thanh tú, da dẻ trắng sáng mềm mại, ánh mắt sâu lắng đa cảm, phong thái đoan trang điềm đạm, giọng nói nhẹ nhàng truyền cảm.';
+    } else if (ctMenhNames.includes('Tham Lang')) {
+      dienMao = 'Thân hình cao ráo cân đối hoặc nở nang, ánh mắt ướt đa tình thu hút, nụ cười tươi hoạt bát, phong thái duyên dáng dễ chiếm cảm tình người đối diện.';
+    } else if (ctMenhNames.includes('Cự Môn')) {
+      dienMao = 'Khuôn mặt sắc nét, khóe miệng rõ ràng, ánh mắt quan sát nhanh nhạy, biểu cảm sinh động, ăn nói lưu loát và phản ứng ngôn ngữ rất nhạy.';
+    } else if (ctMenhNames.includes('Thiên Tướng')) {
+      dienMao = 'Tướng mạo tuấn tú khôi ngô, dáng đứng thẳng thắn bệ vệ, phong thái hòa nhã đàng hoàng, khí chất hào hoa cương trực.';
+    } else if (ctMenhNames.includes('Thiên Lương')) {
+      dienMao = 'Dáng người cao ráo thanh mảnh, phong thái đạo mạo chững chạc như bậc thầy, cử chỉ từ tốn nho nhã, toát lên vẻ nhân hậu hướng thiện.';
+    } else if (ctMenhNames.includes('Thất Sát')) {
+      dienMao = 'Gương mặt góc cạnh uy nghiêm, ánh mắt sắc bén cương nghị, tác phong nhanh thoăn thoắt dũng cảm, khí phách kiên cường độc lập.';
+    } else if (ctMenhNames.includes('Phá Quân')) {
+      dienMao = 'Thân hình chắc nịch, lưng hơi dày, bước đi vội vã quyết đoán, nét mặt cương cường phong trần, phong thái phóng khoáng ngang tàng.';
+    } else {
+      dienMao = 'Dáng người thanh thoát, ngũ quan thanh tú nhã nhặn, thần thái linh hoạt biến hóa theo hoàn cảnh, dễ hòa nhập và thích nghi cao với mọi môi trường.';
+    }
+
+    // 2. Tính cách theo Thân cư
+    var tinhCach = '';
+    var thanCu = (chart.thanCu || '').toLowerCase();
+    if (thanCu.includes('tài bạch')) {
+      tinhCach = 'Hành động thực tế, coi trọng tự chủ tài chính; kiếm tiền bằng năng lực chuyên môn và uy tín; thích đầu tư tích lũy an toàn, tính cách rộng rãi hay giúp đỡ người khác.';
+    } else if (thanCu.includes('quan lộc')) {
+      tinhCach = 'Rất có chí tiến thủ, say mê công việc; luôn đặt trách nhiệm, danh dự và vị thế xã hội lên hàng đầu; sẵn sàng cống hiến để đạt đỉnh cao sự nghiệp.';
+    } else if (thanCu.includes('phúc đức')) {
+      tinhCach = 'Coi trọng đời sống tinh thần và cội nguồn gia tộc; thích sự an nhiên tĩnh tại, nhạy cảm sâu sắc, thường hay trăn trở suy nghĩ xa xôi.';
+    } else if (thanCu.includes('phu thê')) {
+      tinhCach = 'Sống nặng tình cảm, coi trọng hôn nhân gia đình; người bạn đời có sức ảnh hưởng rất lớn đến mọi quyết định và vận mệnh cuộc đời.';
+    } else if (thanCu.includes('thiên di')) {
+      tinhCach = 'Tính cách hướng ngoại, thích xê dịch giao thiệp; cuộc đời dễ gắn bó với nơi xa, càng ra ngoài xã hội càng phát huy được năng lực.';
+    } else {
+      tinhCach = 'Tính tự lập rất cao, lập trường kiên định khó lay chuyển; tin vào năng lực bản thân, tự lực cánh sinh gầy dựng cơ nghiệp.';
+    }
+
+    // 3. Thể chất & Dấu hiệu sẹo theo Cung Tật Ách
+    var cungTat = chart.cung.find(function (c) { return c.cungName.includes('TẬT ÁCH'); });
+    var tatStars = [];
+    if (cungTat) {
+      if (cungTat.chinhTinh) cungTat.chinhTinh.forEach(function (s) { tatStars.push(s.name); });
+      if (cungTat.phuTinhLeft) cungTat.phuTinhLeft.forEach(function (s) { tatStars.push(s.name); });
+      if (cungTat.phuTinhRight) cungTat.phuTinhRight.forEach(function (s) { tatStars.push(s.name); });
+    }
+    var theChat = '';
+    if (tatStars.includes('Liêm Trinh') || tatStars.includes('Thiên Tướng')) {
+      theChat = 'Dễ có vết sẹo nhỏ hoặc vết bớt/dấu vết ở đầu, mặt hoặc tay chân từ nhỏ; hệ tiêu hóa nhạy cảm, dễ bị nhiệt miệng, nóng trong hoặc mỏi vai gáy khi thức khuya căng thẳng.';
+    } else if (tatStars.includes('Cự Môn') || tatStars.includes('Hỏa Tinh') || tatStars.includes('Hỏa tinh')) {
+      theChat = 'Hệ hô hấp, cổ họng hoặc răng miệng nhạy cảm; dễ bị viêm họng, nhiệt miệng hoặc khó chịu dạ dày khi ăn uống thất thường.';
+    } else if (tatStars.includes('Thái Dương')) {
+      theChat = 'Cần chú ý thị lực (cận thị, loạn thị hoặc mỏi mắt), huyết áp, giấc ngủ dễ bị chập chờn khi áp lực công việc.';
+    } else if (tatStars.includes('Thái Âm')) {
+      theChat = 'Khí huyết hoặc hệ bài tiết/thận thủy dễ hư hao nếu sinh hoạt không điều độ; cơ thể nhạy cảm với thời tiết lạnh ẩm.';
+    } else if (tatStars.includes('Vũ Khúc') || tatStars.includes('Thất Sát')) {
+      theChat = 'Thường có sẹo xước do va chạm kim loại, vật nhọn hoặc chấn thương khi vận động từ thuở thiếu niên; hệ hô hấp phổi nhạy cảm.';
+    } else if (tatStars.includes('Thiên Cơ') || tatStars.includes('Đà La') || tatStars.includes('Đà la')) {
+      theChat = 'Hệ thần kinh nhạy cảm, dễ mất ngủ, hay suy nghĩ nhiều dẫn đến đau nửa đầu; chú ý xương khớp gân cốt cổ vai.';
+    } else if (tatStars.includes('Thiên Đồng')) {
+      theChat = 'Hệ tiêu hóa đường ruột hoặc bàng quang dễ bị lạnh bụng; tạng người dễ tăng cân nếu không duy trì vận động đều đặn.';
+    } else if (tatStars.includes('Thiên Lương')) {
+      theChat = 'Sức đề kháng nhìn chung lành tính, nếu có bệnh thường gặp thầy gặp thuốc tai qua nạn khỏi; chú ý tỳ vị và giấc ngủ.';
+    } else {
+      theChat = 'Cơ thể dễ có dấu vết sẹo nhỏ hoặc nốt ruồi kín ở tay chân lưng; hệ tiêu hóa và hô hấp cần giữ ấm và ăn uống thanh đạm.';
+    }
+
+    return {
+      dienMao: dienMao,
+      tinhCach: tinhCach,
+      theChat: theChat
     };
   }
 

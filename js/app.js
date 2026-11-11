@@ -544,6 +544,18 @@
       const namEl = document.getElementById('namSinh');
       const loaiLich = document.getElementById('loaiLich');
 
+      const gioSinhEl = document.getElementById("gioSinh");
+      const gioTyBox = document.getElementById("gioTyChoiceWrap");
+      if (gioSinhEl && gioTyBox) {
+        gioSinhEl.addEventListener("change", () => {
+          if (gioSinhEl.value === "23") {
+            gioTyBox.style.display = "block";
+          } else {
+            gioTyBox.style.display = "none";
+          }
+        });
+      }
+
       if (thangEl) {
         thangEl.addEventListener('change', () => this.updateDayOptions());
       }
@@ -762,7 +774,21 @@
         if (typeof TuViEngine === 'undefined') {
           throw new Error('Hệ thống tính toán Tử Vi đang tải. Vui lòng thử lại sau giây lát.');
         }
-        computedLaSo = TuViEngine.lapLaSo(ngay, thang, nam, gioIndex, gioiTinh, isLunar, gioPhutText);
+        const gioTyOption = document.querySelector('input[name="gioTyOption"]:checked')?.value || 'next_day';
+        computedLaSo = TuViEngine.lapLaSo({
+          ngay,
+          thang,
+          nam,
+          gioIndex,
+          gioiTinh,
+          isLunar,
+          gioPhutText,
+          hoTen,
+          gio,
+          phut,
+          gioTyMode: gioTyOption,
+          viewYear: 2026
+        });
         computedLaSo.hoTen = hoTen;
       } catch (err) {
         computeError = err;

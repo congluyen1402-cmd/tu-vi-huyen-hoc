@@ -392,6 +392,21 @@
               </div>
             </div>
 
+            <!-- Tùy chọn Giờ Tý (23:00 - 23:59) -->
+            <div class="gio-ty-choice-wrap" id="gioTyChoiceWrap" style="display: none; margin-bottom: 1rem; padding: 0.75rem 1rem; background: var(--paper-2); border: 1px solid var(--line); border-radius: 4px; font-size: 0.85rem;">
+              <div style="font-weight: 600; color: var(--seal); margin-bottom: 0.35rem; display: flex; align-items: center; gap: 4px;">
+                <span>⚡ Bạn chọn sinh vào lúc 23 giờ (Giờ Tý):</span>
+              </div>
+              <label style="display: flex; align-items: flex-start; gap: 6px; cursor: pointer; margin-bottom: 0.35rem; color: var(--text);">
+                <input type="radio" name="gioTyOption" id="gioTyOptionNext" value="next_day" checked style="margin-top: 2px;">
+                <span><strong>Giờ Tý ngày hôm sau</strong> (Chuẩn cổ truyền: sau 23h00 đã sang ngày mới – Khuyên dùng)</span>
+              </label>
+              <label style="display: flex; align-items: flex-start; gap: 6px; cursor: pointer; color: var(--text-muted);">
+                <input type="radio" name="gioTyOption" id="gioTyOptionSame" value="same_day" style="margin-top: 2px;">
+                <span><strong>Giờ Tý giữ nguyên ngày đã chọn</strong></span>
+              </label>
+            </div>
+
             <!-- Hàng 3: Ngày + Tháng + Năm (3 cột) -->
             <div class="form-row form-row-date">
               <div class="form-control-item">
@@ -1161,13 +1176,13 @@
   </script>
 
   <!-- External JS modules with version cache busting (Deferred for non-blocking paint) -->
-  <script src="/js/tuvi-engine.js?v=20261109_v3" defer></script>
-  <script src="/js/tuvi-luan-giai.js?v=20261109_v3" defer></script>
-  <script src="/js/tuvi-auth.js?v=20261109_v3" defer></script>
-  <script src="/js/tuvi-monetize.js?v=20261109_v3" defer></script>
-  <script src="/js/tuvi-share.js?v=20261109_v3" defer></script>
-  <script src="/js/tuvi-chart.js?v=20261109_v3" defer></script>
-  <script src="/js/mystic-video.js?v=20261109_v3" defer></script>
-  <script src="/js/app.js?v=20261109_v3" defer></script>
+  <script src="/js/tuvi-engine.js?v=20261111_v2" defer></script>
+  <script src="/js/tuvi-luan-giai.js?v=20261111_v2" defer></script>
+  <script src="/js/tuvi-auth.js?v=20261111_v2" defer></script>
+  <script src="/js/tuvi-monetize.js?v=20261111_v2" defer></script>
+  <script src="/js/tuvi-share.js?v=20261111_v2" defer></script>
+  <script src="/js/tuvi-chart.js?v=20261111_v2" defer></script>
+  <script src="/js/mystic-video.js?v=20261111_v2" defer></script>
+  <script src="/js/app.js?v=20261111_v2" defer></script>
 </body>
 </html>
