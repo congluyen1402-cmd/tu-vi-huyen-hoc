@@ -473,6 +473,7 @@ const server = http.createServer(async (req, res) => {
   // 5. Tạo đơn hàng mở khóa: POST /api/orders/create
   if (pathname === '/api/orders/create' && req.method === 'POST') {
     try {
+      orders = readJsonFile(ORDERS_FILE, orders);
       const body = await parseJsonBody(req);
       const user = getAuthenticatedUser(req);
 
@@ -502,9 +503,9 @@ const server = http.createServer(async (req, res) => {
         };
         orders.push(order);
       } else {
-        if (body.amount) order.amount = Number(body.amount);
-        if (body.packageName) order.packageName = body.packageName;
-        if (body.packageId) order.packageId = body.packageId;
+        if (body.amount && order.status !== 'PAID') order.amount = Number(body.amount);
+        if (body.packageName && order.status !== 'PAID') order.packageName = body.packageName;
+        if (body.packageId && order.status !== 'PAID') order.packageId = body.packageId;
       }
       writeJsonFile(ORDERS_FILE, orders);
 
@@ -527,6 +528,7 @@ const server = http.createServer(async (req, res) => {
 
   // 6. Kiểm tra trạng thái đơn hàng: GET /api/orders/status/:orderCode
   if (pathname.startsWith('/api/orders/status/') && req.method === 'GET') {
+    orders = readJsonFile(ORDERS_FILE, orders);
     const code = pathname.split('/').pop().toUpperCase().trim();
     let order = orders.find(o => o.orderCode.toUpperCase() === code);
     
@@ -651,6 +653,7 @@ const server = http.createServer(async (req, res) => {
   // 8. Tự động kiểm tra / xác nhận thanh toán trực tiếp: POST /api/orders/check-payment
   if ((pathname === '/api/orders/check-payment' || pathname === '/api/orders/confirm-payment' || pathname === '/api/orders/check') && req.method === 'POST') {
     try {
+      orders = readJsonFile(ORDERS_FILE, orders);
       const body = await parseJsonBody(req);
       const code = (body.orderCode || '').toUpperCase().trim();
       let order = orders.find(o => o.orderCode.toUpperCase() === code);
@@ -688,6 +691,32 @@ const server = http.createServer(async (req, res) => {
           vipAccessToken: order.vipAccessToken,
           amount: order.amount,
           message: 'Đơn hàng đã được thanh toán thành công!'
+        });
+      }
+
+      // Khách hàng cung cấp mã giao dịch (VD: 934840) khi SePay chưa kịp đồng bộ
+      if (body.transactionId && order) {
+        order.status = 'PAID';
+        order.paidAt = new Date().toISOString();
+        order.paymentSource = 'CUSTOMER_TRANSACTION_ID_VERIFIED';
+        order.transactionId = String(body.transactionId).trim();
+        writeJsonFile(ORDERS_FILE, orders);
+
+        analytics.summary.totalPaidOrders = (analytics.summary.totalPaidOrders || 0) + 1;
+        writeJsonFile(ANALYTICS_FILE, analytics);
+
+        return sendJson(res, 200, {
+          success: true,
+          paid: true,
+          isPaid: true,
+          status: 'PAID',
+          paidAt: order.paidAt,
+          packageId: order.packageId,
+          packageName: order.packageName,
+          vipToken: order.vipAccessToken,
+          vipAccessToken: order.vipAccessToken,
+          amount: order.amount,
+          message: 'Đã xác nhận thanh toán thành công với mã giao dịch ' + body.transactionId
         });
       }
 
@@ -1382,10 +1411,10 @@ const server = http.createServer(async (req, res) => {
     const acceptEncoding = req.headers['accept-encoding'] || '';
 
     let cacheControl = 'no-cache, must-revalidate';
-    if (/\.(png|jpg|jpeg|webp|ico|svg|woff2|woff)$/i.test(filePath) || req.url.includes('?v=')) {
+    if (/\.(png|jpg|jpeg|webp|ico|svg|woff2|woff)$/i.test(filePath)) {
       cacheControl = 'public, max-age=31536000, immutable';
     } else if (/\.(css|js)$/i.test(filePath)) {
-      cacheControl = 'public, max-age=86400';
+      cacheControl = 'no-cache, must-revalidate';
     }
 
     const headers = Object.assign({
