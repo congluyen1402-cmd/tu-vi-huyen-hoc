@@ -200,6 +200,39 @@
         // 4. Người dùng vãng lai hoặc chưa nâng cấp VIP -> Khóa đúng chuẩn
         this.isVipUnlocked = false;
         localStorage.removeItem('tvhh_vip_unlocked');
+
+        // 5. Phục hồi và kích hoạt quét tự động nếu trước đó có đơn hàng đang chờ
+        try {
+          const pendingOrder = sessionStorage.getItem('tvhh_pending_order');
+          if (pendingOrder && !this.isVipUnlocked) {
+            this.currentOrderId = pendingOrder;
+            this.startOrderPolling(pendingOrder);
+          }
+        } catch (e) {}
+
+        // 6. Lắng nghe sự kiện khách quay lại tab (từ app ngân hàng hoặc màn hình khóa)
+        if (typeof document !== 'undefined') {
+          const checkOnActive = () => {
+            const code = this.currentOrderId || (typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('tvhh_pending_order') : null);
+            if (code && !this.isVipUnlocked) {
+              const price = this.currentPackagePrice || (typeof sessionStorage !== 'undefined' ? Number(sessionStorage.getItem('tvhh_pending_price')) : 29000) || 29000;
+              fetch(this.getApiUrl(`/api/orders/status/${code}?amount=${price}`))
+                .then(r => r.json())
+                .then(data => {
+                  if (data && (data.isPaid || data.paid || data.status === 'PAID')) {
+                    this.stopOrderPolling();
+                    this.onPaymentSuccess(data);
+                  }
+                })
+                .catch(() => {});
+            }
+          };
+
+          document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible') checkOnActive();
+          });
+          window.addEventListener('focus', checkOnActive);
+        }
       } catch (e) {
         this.isVipUnlocked = false;
       }
@@ -218,6 +251,11 @@
       this.currentPackagePrice = (price && price > 0) ? price : this.config.vipPrice;
 
       this.currentOrderId = 'TV' + Math.floor(100000 + Math.random() * 900000);
+      try {
+        sessionStorage.setItem('tvhh_pending_order', this.currentOrderId);
+        sessionStorage.setItem('tvhh_pending_price', String(this.currentPackagePrice));
+      } catch (e) {}
+
       let modal = document.getElementById('tuvi-vip-modal');
       if (!modal) {
         this.createVipModalDOM();
@@ -226,6 +264,9 @@
       if (!modal) return;
 
       this.updateModalDisplay();
+
+      // Bắt đầu quét tự động ngay lập tức (Zero-Click Auto Verification)
+      this.startOrderPolling(this.currentOrderId);
 
       // Ghi nhận hành vi mở modal VIP
       this.trackEvent('open_vip_modal', {
@@ -254,9 +295,13 @@
       })
       .then(res => res.json())
       .then(data => {
-        if (data.success && data.order) {
-          this.currentOrderId = data.order.orderCode;
-          this.vipAccessToken = data.order.vipAccessToken || '';
+        if (data && data.success) {
+          const finalCode = (data.order && data.order.orderCode) || data.orderCode || this.currentOrderId;
+          this.currentOrderId = finalCode;
+          this.vipAccessToken = (data.order && data.order.vipAccessToken) || data.vipAccessToken || '';
+          try {
+            sessionStorage.setItem('tvhh_pending_order', this.currentOrderId);
+          } catch (e) {}
           this.updateModalDisplay();
           this.startOrderPolling(this.currentOrderId);
         }
@@ -309,10 +354,12 @@
       })
       .then(res => res.json())
       .then(data => {
-        if (data.success && data.order) {
-          this.currentOrderId = data.order.orderCode;
-          this.vipAccessToken = data.order.vipAccessToken || '';
+        if (data && data.success) {
+          const finalCode = (data.order && data.order.orderCode) || data.orderCode || this.currentOrderId;
+          this.currentOrderId = finalCode;
+          this.vipAccessToken = (data.order && data.order.vipAccessToken) || data.vipAccessToken || '';
           this.updateModalDisplay();
+          this.startOrderPolling(this.currentOrderId);
         }
       })
       .catch(e => console.warn('Lỗi đổi gói modal:', e));
@@ -425,9 +472,13 @@
 
     startOrderPolling: function (orderCode) {
       this.stopOrderPolling();
-      this._pollTimer = setInterval(async () => {
+      const code = orderCode || this.currentOrderId || (typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('tvhh_pending_order') : null);
+      if (!code) return;
+
+      const checkNow = async () => {
         try {
-          const res = await fetch(this.getApiUrl(`/api/orders/status/${orderCode}?amount=${this.currentPackagePrice}`));
+          const price = this.currentPackagePrice || (typeof sessionStorage !== 'undefined' ? Number(sessionStorage.getItem('tvhh_pending_price')) : 29000) || 29000;
+          const res = await fetch(this.getApiUrl(`/api/orders/status/${code}?amount=${price}`));
           if (res.ok) {
             const data = await res.json();
             if (data.isPaid || data.paid || data.status === "PAID") {
@@ -436,7 +487,13 @@
             }
           }
         } catch (e) {}
-      }, 2500);
+      };
+
+      // Quét ngay lập tức 1 lần không chờ độ trễ
+      checkNow();
+
+      // Quét tự động định kỳ 1.8 giây siêu tốc
+      this._pollTimer = setInterval(checkNow, 1800);
     },
 
     stopOrderPolling: function () {
@@ -447,7 +504,6 @@
     },
 
     closeVipModal: function (fromPopstate) {
-      this.stopOrderPolling();
       const modal = document.getElementById('tuvi-vip-modal');
       if (modal) {
         modal.classList.remove('active');
@@ -455,6 +511,27 @@
       }
       if (!fromPopstate && window.history && window.history.state && window.history.state.tuviVipModal) {
         try { window.history.back(); } catch (e) {}
+      }
+
+      // NẾU CHƯA MỞ KHÓA VIP: KHÔNG TẮT HẲN POLLING!
+      // Vẫn duy trì background watcher mỗi 3.5s để khi khách chuyển khoản xong ở app ngân hàng
+      // hoặc đóng modal quay lại lá số thì hệ thống vẫn TỰ ĐỘNG BẬT MÀN HÌNH THÀNH CÔNG!
+      if (!this.isVipUnlocked && this.currentOrderId) {
+        if (this._pollTimer) clearInterval(this._pollTimer);
+        this._pollTimer = setInterval(async () => {
+          try {
+            const res = await fetch(this.getApiUrl(`/api/orders/status/${this.currentOrderId}?amount=${this.currentPackagePrice}`));
+            if (res.ok) {
+              const data = await res.json();
+              if (data.isPaid || data.paid || data.status === "PAID") {
+                this.stopOrderPolling();
+                this.onPaymentSuccess(data);
+              }
+            }
+          } catch (e) {}
+        }, 3500);
+      } else {
+        this.stopOrderPolling();
       }
     },
 
@@ -506,6 +583,9 @@
       const vipToken = (data && (data.vipToken || data.vipAccessToken || (data.order && data.order.vipAccessToken))) || 'vip_' + Date.now();
       localStorage.setItem('tvhh_vip_order_code', orderCode);
       localStorage.setItem('tvhh_vip_token', vipToken);
+      try {
+        sessionStorage.removeItem('tvhh_pending_order');
+      } catch (e) {}
 
       // Mở khóa UI ở trang phía sau
       this.applyVipUI();
@@ -513,42 +593,85 @@
         TuViChart.renderLuanGiai(TuViChart._currentLaSo);
       }
 
-      // HIỆN MÀN HÌNH "XÁC NHẬN THANH TOÁN THÀNH CÔNG" TRONG MODAL
-      const modal = document.getElementById('tuvi-vip-modal');
-      const card = modal ? modal.querySelector('.tuvi-vip-card') : null;
-      if (card) {
-        const displayAmount = (data && (data.amount || (data.order && data.order.amount))) || this.currentPackagePrice || 49000;
-        card.innerHTML = `
-          <button class="tuvi-vip-close" type="button" aria-label="Đóng" onclick="TuViMonetize.closeVipModal()">&times;</button>
-          <div class="vip-success-container">
-            <div class="vip-success-icon-badge">
-              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                <polyline points="22 4 12 14.01 9 11.01"></polyline>
-              </svg>
-            </div>
-            <h2 class="vip-success-heading">XÁC NHẬN THANH TOÁN THÀNH CÔNG!</h2>
-            <p class="vip-success-message">
-              Hệ thống đã nhận đủ <strong>${Number(displayAmount).toLocaleString('vi-VN')} đ</strong> cho mã đơn <strong>#${orderCode}</strong>.<br>
-              Toàn bộ luận giải VIP và tính năng xuất PDF A4 của bạn đã được mở khóa!
-            </p>
-            <div class="vip-success-meta">
-              <span>Mã đơn: <strong>#${orderCode}</strong></span>
-              <span>•</span>
-              <span>Thời gian: <strong>${new Date().toLocaleTimeString('vi-VN')}</strong></span>
-            </div>
-            <button type="button" class="btn-seal btn-success-dismiss" onclick="TuViMonetize.closeVipModal();">
-              ✨ Xem Ngay Bản Luận Giải Đầy Đủ
-            </button>
-            <p class="vip-auto-close-countdown">Cửa sổ sẽ tự động đóng sau <strong id="vipSuccessCountdown">2.5</strong> giây...</p>
-          </div>
-        `;
+      // HIỆN MÀN HÌNH "XÁC NHẬN THANH TOÁN THÀNH CÔNG" TRONG MODAL (TỰ ĐỘNG BẬT NẾU ĐANG ĐÓNG)
+      let modal = document.getElementById('tuvi-vip-modal');
+      if (!modal) {
+        this.createVipModalDOM();
+        modal = document.getElementById('tuvi-vip-modal');
+      }
+      if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
 
-        // Tự động đóng modal sau 2.5 giây
-        if (this._autoCloseTimer) clearTimeout(this._autoCloseTimer);
-        this._autoCloseTimer = setTimeout(() => {
-          this.closeVipModal();
-        }, 2500);
+        const card = modal.querySelector('.tuvi-vip-card');
+        if (card) {
+          const displayAmount = (data && (data.amount || (data.order && data.order.amount))) || this.currentPackagePrice || 29000;
+          card.innerHTML = `
+            <button class="tuvi-vip-close" type="button" aria-label="Đóng" onclick="TuViMonetize.closeVipModal()">&times;</button>
+            <div class="vip-success-container">
+              <div class="vip-success-icon-badge">
+                <svg width="68" height="68" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+              </div>
+              <h2 class="vip-success-heading">XÁC NHẬN THANH TOÁN THÀNH CÔNG!</h2>
+              <p class="vip-success-message">
+                Hệ thống đã nhận đủ <strong>${Number(displayAmount).toLocaleString('vi-VN')} đ</strong> cho mã đơn <strong>#${orderCode}</strong>.<br>
+                Toàn bộ luận giải VIP và tính năng xuất PDF A4 của bạn đã được mở khóa tự động!
+              </p>
+              <div class="vip-success-meta">
+                <span>Mã đơn: <strong>#${orderCode}</strong></span>
+                <span>•</span>
+                <span>Thời gian: <strong>${new Date().toLocaleTimeString('vi-VN')}</strong></span>
+              </div>
+              <button type="button" class="btn-seal btn-success-dismiss" onclick="TuViMonetize.closeVipModal();">
+                ✨ Xem Ngay Bản Luận Giải Đầy Đủ
+              </button>
+              <p class="vip-auto-close-countdown">Cửa sổ sẽ tự động đóng sau <strong id="vipSuccessCountdown">3</strong> giây...</p>
+            </div>
+          `;
+
+          // Rung nhẹ haptic trên điện thoại di động
+          try {
+            if (navigator && navigator.vibrate) navigator.vibrate([100, 50, 150]);
+          } catch (e) {}
+
+          // Âm thanh chúc mừng thanh toán thành công (Web Audio API)
+          try {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (AudioCtx) {
+              const ctx = new AudioCtx();
+              const osc = ctx.createOscillator();
+              const gain = ctx.createGain();
+              osc.connect(gain);
+              gain.connect(ctx.destination);
+              osc.type = 'triangle';
+              osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
+              osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.12); // E5
+              osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.24); // G5
+              osc.frequency.setValueAtTime(1046.50, ctx.currentTime + 0.36); // C6
+              gain.gain.setValueAtTime(0.18, ctx.currentTime);
+              gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.8);
+              osc.start();
+              osc.stop(ctx.currentTime + 0.8);
+            }
+          } catch (e) {}
+
+          // Đếm ngược 3 giây tự động đóng modal
+          let secondsLeft = 3;
+          if (this._autoCloseTimer) clearInterval(this._autoCloseTimer);
+          this._autoCloseTimer = setInterval(() => {
+            secondsLeft -= 1;
+            const cdEl = document.getElementById('vipSuccessCountdown');
+            if (cdEl) cdEl.textContent = secondsLeft;
+            if (secondsLeft <= 0) {
+              clearInterval(this._autoCloseTimer);
+              this._autoCloseTimer = null;
+              this.closeVipModal();
+            }
+          }, 1000);
+        }
       } else {
         this.closeVipModal();
       }

@@ -1,11 +1,11 @@
 {
   "summary": {
-    "totalPageViews": 462,
-    "uniqueVisitors": 278,
-    "totalLaSoCalculated": 160,
+    "totalPageViews": 465,
+    "uniqueVisitors": 279,
+    "totalLaSoCalculated": 161,
     "totalPalaceClicks": 188,
-    "totalVipModalOpens": 79,
-    "totalPaidOrders": 8
+    "totalVipModalOpens": 80,
+    "totalPaidOrders": 10
   },
   "visitors": {
     "vis_test_123": {
@@ -1397,9 +1397,41 @@
       "firstSeen": "2026-11-11T08:16:23.514Z",
       "eventsCount": 2,
       "lastSeen": "2026-11-11T08:16:24.020Z"
+    },
+    "vis_juaveysna": {
+      "firstSeen": "2026-11-11T08:42:47.834Z",
+      "eventsCount": 3,
+      "lastSeen": "2026-11-11T08:42:51.956Z"
     }
   },
   "events": [
+    {
+      "eventType": "open_vip_modal",
+      "visitorId": "vis_juaveysna",
+      "details": {
+        "orderCode": "TV840365",
+        "packageName": "vip_29k",
+        "amount": 49000
+      },
+      "timestamp": "2026-11-11T08:42:51.956Z"
+    },
+    {
+      "eventType": "lap_la_so",
+      "visitorId": "vis_juaveysna",
+      "details": {
+        "hoTen": "Trần Văn Nam",
+        "gioiTinh": "nam"
+      },
+      "timestamp": "2026-11-11T08:42:51.748Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_juaveysna",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-11T08:42:47.834Z"
+    },
     {
       "eventType": "open_vip_modal",
       "visitorId": "vis_dnckfvd36",
@@ -3254,41 +3286,6 @@
       "customerName": "Nguyễn Hoàng Minh Quân",
       "details": {
         "orderCode": "TV291644",
-        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ Đại Hạn)",
-        "amount": 49000
-      }
-    },
-    {
-      "id": "evt_1794367491409_892",
-      "timestamp": "2026-11-11T03:24:51.409Z",
-      "eventType": "open_vip_modal",
-      "visitorId": "vis_ablyo07ue",
-      "customerName": "Nguyễn Hoàng Minh Quân",
-      "details": {
-        "orderCode": "TV241422",
-        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ Đại Hạn)",
-        "amount": 49000
-      }
-    },
-    {
-      "id": "evt_1794367491399_604",
-      "timestamp": "2026-11-11T03:24:51.399Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_5i5uzxzr2",
-      "customerName": "Nguyễn Hoàng Minh Quân",
-      "details": {
-        "hoTen": "Nguyễn Hoàng Minh Quân",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794367491375_634",
-      "timestamp": "2026-11-11T03:24:51.375Z",
-      "eventType": "open_vip_modal",
-      "visitorId": "vis_b5dyef3yz",
-      "customerName": "Nguyễn Hoàng Minh Quân",
-      "details": {
-        "orderCode": "TV590712",
         "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ Đại Hạn)",
         "amount": 49000
       }
