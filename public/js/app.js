@@ -345,6 +345,30 @@
         }
       }
 
+      // Cập nhật link hỗ trợ Zalo / hotline từ config (Vá thông tin ảo)
+      const zaloLinks = document.querySelectorAll('.vip-zalo-link');
+      const zaloSupportWraps = document.querySelectorAll('.vip-support-note');
+      const hasValidZalo = Boolean(cfg.zaloUrl && cfg.zaloUrl.trim() && !cfg.zaloUrl.includes('0988888888'));
+
+      zaloLinks.forEach(link => {
+        if (hasValidZalo) {
+          link.href = cfg.zaloUrl;
+          link.style.display = '';
+        } else if (cfg.phone && cfg.phone.trim()) {
+          link.href = `tel:${cfg.phone.trim()}`;
+          link.textContent = `Hotline ${cfg.phone.trim()}`;
+          link.style.display = '';
+        } else {
+          link.style.display = 'none';
+        }
+      });
+
+      if (!hasValidZalo && (!cfg.phone || !cfg.phone.trim())) {
+        zaloSupportWraps.forEach(wrap => {
+          wrap.innerHTML = '<span>Đã chuyển tiền nhưng chưa mở khóa? Hệ thống tự động kích hoạt sau 3 giây. Nếu cần hỗ trợ thêm, xin vui lòng gửi email về ban quản trị.</span>';
+        });
+      }
+
       this.renderFooterFromConfig(cfg);
     },
 

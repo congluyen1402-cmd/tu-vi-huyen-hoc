@@ -30,7 +30,7 @@
     // 1. THÔNG TIN LIÊN HỆ & PHÁP NHÂN
     businessName: 'Xem Tử Vi Huyền Học',
     contactEmail: '', // TODO: Điền email liên hệ (VD: hotro@xemtuvihuyenhoc.com)
-    zaloUrl: 'https://zalo.me/0988888888', // TODO: Điền link Zalo chính thức hoặc số Zalo
+    zaloUrl: '', // TODO: Điền link Zalo chính thức (VD: https://zalo.me/09xxxx) hoặc để trống để ẩn
     phone: '',        // TODO: Điền số điện thoại hotline nếu có
     address: '',      // TODO: Điền địa chỉ văn phòng nếu có
     facebookUrl: '',  // TODO: Điền link Fanpage Facebook nếu có

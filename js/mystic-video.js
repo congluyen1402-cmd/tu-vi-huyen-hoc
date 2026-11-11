@@ -31,9 +31,19 @@
       this.initResize();
       this.initControls();
 
-      // Đăng ký vào AnimationHub để chỉ vẽ khi phần tử hiển thị trong màn hình
-      if (typeof window.AnimationHub !== 'undefined') {
-        window.AnimationHub.register('mysticCanvas', () => this.renderFrame(), this.canvas);
+      // Tối ưu TBT & CPU: CHỈ chạy animation khi #khong-gian-tam-linh lọt vào viewport
+      const targetSection = document.getElementById('khong-gian-tam-linh') || this.canvas;
+      if (typeof window !== 'undefined' && 'IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              this.startAnimation();
+            } else {
+              this.stopAnimation();
+            }
+          });
+        }, { threshold: 0.05 });
+        observer.observe(targetSection);
       } else {
         this.startAnimation();
       }
@@ -109,11 +119,19 @@
     },
 
     startAnimation: function () {
+      if (this.animId) return;
       const render = () => {
         this.renderFrame();
         this.animId = requestAnimationFrame(render);
       };
-      render();
+      this.animId = requestAnimationFrame(render);
+    },
+
+    stopAnimation: function () {
+      if (this.animId) {
+        cancelAnimationFrame(this.animId);
+        this.animId = null;
+      }
     },
 
     /**

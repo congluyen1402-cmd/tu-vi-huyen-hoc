@@ -22,7 +22,7 @@
       bankBranch: 'CN Nam Sài Gòn - PGD Phú Mỹ Hưng',
       vipPrice: 49000,
       vipOriginalPrice: 199000,
-      zaloPhone: '0988888888'
+      zaloPhone: ''
     },
 
     isVipUnlocked: false,
@@ -1299,7 +1299,7 @@
                   <div><strong>3.</strong> Hệ thống mở khóa</div>
                 </div>
                 <p class="bank-auto-note" style="margin-top: 8px; font-size: 0.85rem;">
-                  Đã chuyển tiền nhưng chưa mở khóa? Gửi mã giao dịch qua <a href="https://zalo.me/0988888888" id="vipZaloSupportLink" target="_blank" rel="noopener" style="color:var(--seal, #A3281F); font-weight:600; text-decoration:underline;">Zalo hỗ trợ</a> để được đối soát ngay.
+                  Đã chuyển tiền nhưng chưa mở khóa? Gửi mã giao dịch qua <a href="#" id="vipZaloSupportLink" class="vip-zalo-link" target="_blank" rel="noopener" style="color:var(--seal, #A3281F); font-weight:600; text-decoration:underline;">kênh hỗ trợ</a> để được đối soát ngay.
                 </p>
               </div>
             </div>

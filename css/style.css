@@ -6617,3 +6617,30 @@ footer.footer {
     padding: 8px 12px;
   }
 }
+
+/* Viral Wrapped Share Button */
+.btn-viral-wrapped-share {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 580px;
+  padding: 0.95rem 1.6rem;
+  background: var(--card, #FBF7EE);
+  color: var(--seal, #A3281F);
+  border: 1.5px solid var(--seal, #A3281F);
+  border-radius: 6px;
+  font-family: var(--font-heading, 'Noto Serif', serif);
+  font-size: 1.02rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(163, 40, 31, 0.12);
+  transition: all 0.2s ease;
+}
+.btn-viral-wrapped-share:hover {
+  background: var(--seal, #A3281F);
+  color: #FFF;
+  box-shadow: 0 4px 14px rgba(163, 40, 31, 0.25);
+  transform: translateY(-1px);
+}

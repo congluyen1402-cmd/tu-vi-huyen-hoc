@@ -1,9 +1,11 @@
 User-agent: *
 Allow: /
+Allow: /chinh-sach-bao-mat
+Allow: /dieu-khoan-su-dung
+Allow: /chinh-sach-hoan-tien-ho-tro
 Disallow: /admin
 Disallow: /admin.html
 Disallow: /data/
 Disallow: /api/
 
 Sitemap: https://www.xemtuvihuyenhoc.com/sitemap.xml
-

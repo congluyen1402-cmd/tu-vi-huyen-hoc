@@ -495,6 +495,9 @@ const TuViChart = {
         <button type="button" class="btn-toolbar btn-toolbar-png" onclick="TuViChart.downloadChartPng()">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline;vertical-align:-2px;margin-right:5px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Tải lá số
         </button>
+        <button type="button" class="btn-toolbar btn-toolbar-viral" onclick="TuViShare.generateCard(TuViChart._currentLaSo)" style="background: rgba(163,40,31,0.08); color: var(--seal); border-color: var(--seal); font-weight: 600;">
+          ✨ Thẻ Mệnh Bàn Viral
+        </button>
         <button type="button" class="btn-toolbar btn-toolbar-zoom" onclick="TuViChart.openZoomModal()">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline;vertical-align:-2px;margin-right:5px;"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>Phóng to
         </button>
@@ -552,6 +555,13 @@ const TuViChart = {
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- NÚT NỔI BẬT: THẺ TÓM TẮT MỆNH BÀN 2026 (VIRAL WRAPPED) -->
+      <div class="viral-wrapped-cta-wrap" style="text-align: center; margin: 1.25rem auto 1.5rem; max-width: 680px; padding: 0 10px;">
+        <button type="button" class="btn-viral-wrapped-share" onclick="TuViShare.generateCard(TuViChart._currentLaSo)">
+          ✨ Tải Thẻ Tóm Tắt Mệnh Bàn 2026 (Đăng Threads / TikTok / Story)
+        </button>
       </div>
     `;
 
