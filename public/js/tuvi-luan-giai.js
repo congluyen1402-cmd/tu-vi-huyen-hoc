@@ -891,11 +891,234 @@
     };
   }
 
+  // ============================================================================
+  // 8. CỐ VẤN TỬ VI AI DÀNH CHO VIP (QUYỀN LỢI ĐỘC BẢN)
+  // ============================================================================
+
+  function generateAiAdvisorHtml(laSo, isVip) {
+    if (!laSo) return '';
+
+    var contentHtml = '';
+
+    if (!isVip) {
+      contentHtml = `
+        <div class="ai-advisor-locked-box">
+          <p class="ai-prompt-lead" style="font-size: 0.92rem; color: var(--text); margin-bottom: 0.85rem; font-weight: 500;">
+            Đặt câu hỏi mẫu được nhiều đương số quan tâm nhất:
+          </p>
+
+          <div class="ai-locked-questions-grid">
+            <button type="button" class="ai-locked-question-btn" onclick="TuViMonetize.openVipModal('Báo Cáo VIP &amp; Cố Vấn Tử Vi AI', 49000)">
+              <div class="ai-q-text">💬 "Tháng nào trong năm nay tôi dễ có lộc bất ngờ?"</div>
+              <span class="ai-q-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display:inline; vertical-align:-1px; margin-right:3px;"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Mở Khóa VIP</span>
+            </button>
+
+            <button type="button" class="ai-locked-question-btn" onclick="TuViMonetize.openVipModal('Báo Cáo VIP &amp; Cố Vấn Tử Vi AI', 49000)">
+              <div class="ai-q-text">💬 "Mệnh của tôi hợp làm chủ kinh doanh hay làm chuyên môn?"</div>
+              <span class="ai-q-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display:inline; vertical-align:-1px; margin-right:3px;"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Mở Khóa VIP</span>
+            </button>
+
+            <button type="button" class="ai-locked-question-btn" onclick="TuViMonetize.openVipModal('Báo Cáo VIP &amp; Cố Vấn Tử Vi AI', 49000)">
+              <div class="ai-q-text">💬 "Khi nào nhân duyên vợ chồng của tôi ổn định nhất?"</div>
+              <span class="ai-q-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display:inline; vertical-align:-1px; margin-right:3px;"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Mở Khóa VIP</span>
+            </button>
+          </div>
+
+          <div class="ai-unlock-cta-banner">
+            <div class="ai-cta-icon">👑</div>
+            <div class="ai-cta-content">
+              <h4>MỞ KHÓA ĐẶC QUYỀN HỎI ĐÁP CÙNG CỐ VẤN TỬ VI AI</h4>
+              <p>Mỗi đơn hàng VIP được tặng kèm <strong>5 lượt hỏi đáp chuyên sâu trực tiếp</strong>. AI đối chiếu chính xác từng cung vị và sao tọa thủ trên lá số của bạn để đưa ra lời khuyên thực chứng.</p>
+            </div>
+            <button type="button" class="btn-seal btn-unlock-ai-action" onclick="TuViMonetize.openVipModal('Báo Cáo VIP &amp; Cố Vấn Tử Vi AI', 49000)">
+              Mở Khóa VIP (49.000đ)
+            </button>
+          </div>
+        </div>
+      `;
+    } else {
+      contentHtml = `
+        <div class="ai-advisor-unlocked-box">
+          <div class="ai-quota-status-row">
+            <div class="ai-quota-info">
+              <span>Đặc quyền VIP: Còn lại <strong id="aiRemainingQuota" style="color:var(--seal); font-size:1.05rem;">5/5</strong> lượt hỏi đáp chuyên sâu</span>
+            </div>
+            <div class="ai-online-pill">
+              <span class="live-pulse-dot"></span>
+              <span>Cố vấn AI đang trực tuyến</span>
+            </div>
+          </div>
+
+          <div class="ai-quick-suggest-row">
+            <span class="ai-quick-lbl">Gợi ý câu hỏi nhanh:</span>
+            <div class="ai-quick-btns">
+              <button type="button" class="btn-quick-q" onclick="TuViLuanGiaiEngine.fillAiQuestion('Tháng nào trong năm nay tôi dễ có lộc bất ngờ?')">
+                💰 Tháng nào có lộc bất ngờ?
+              </button>
+              <button type="button" class="btn-quick-q" onclick="TuViLuanGiaiEngine.fillAiQuestion('Mệnh của tôi hợp làm chủ kinh doanh hay làm chuyên môn?')">
+                👑 Hợp làm chủ hay chuyên môn?
+              </button>
+              <button type="button" class="btn-quick-q" onclick="TuViLuanGiaiEngine.fillAiQuestion('Khi nào nhân duyên vợ chồng của tôi ổn định nhất?')">
+                🌸 Khi nào nhân duyên ổn định?
+              </button>
+            </div>
+          </div>
+
+          <!-- Lịch sử hội thoại -->
+          <div class="ai-chat-thread" id="aiChatThread" style="display:none;"></div>
+
+          <!-- Khung nhập câu hỏi -->
+          <div class="ai-input-container">
+            <textarea id="aiUserQuestionInput" class="ai-textarea" rows="2" placeholder="Nhập câu hỏi bạn muốn cố vấn về tiền bạc, công việc hoặc tình duyên (ví dụ: Tôi có nên đầu tư hoặc chuyển việc trong năm 2026 không?)..." maxlength="300"></textarea>
+            <div class="ai-action-row">
+              <span class="ai-note-text">⚡ Phân tích trực tiếp từ 14 chính tinh &amp; tứ hóa của bạn</span>
+              <button type="button" class="btn-seal btn-send-ai" id="btnSubmitAiQuestion" onclick="TuViLuanGiaiEngine.submitAiQuestion()">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="margin-right:4px; vertical-align:-2px;"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                Gửi Câu Hỏi Cho AI
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    return `
+      <div class="vip-ai-advisor-section" id="vipAiAdvisorSection" style="margin-top: 2.25rem;">
+        <div class="ai-advisor-header-wrap">
+          <div class="ai-header-badge">
+            <span class="ai-sparkle">✦</span>
+            <span>TÍNH NĂNG ĐỘC BẢN DÀNH CHO VIP</span>
+          </div>
+          <h3 class="ai-advisor-main-title">
+            ✦ ĐẶT CÂU HỎI RIÊNG CHO LÁ SỐ CỦA BẠN (CỐ VẤN TỬ VI AI)
+          </h3>
+          <p class="ai-advisor-main-desc">
+            Không chỉ đọc luận giải tĩnh — bạn có thể đối thoại trực tiếp với Cố Vấn Tử Vi AI Nam Phái để tháo gỡ cụ thể từng băn khoăn về thời vận, tài chính, công danh và hôn nhân.
+          </p>
+        </div>
+
+        ${contentHtml}
+      </div>
+    `;
+  }
+
+  function fillAiQuestion(text) {
+    var input = document.getElementById('aiUserQuestionInput');
+    if (input) {
+      input.value = text;
+      input.focus();
+    }
+  }
+
+  async function submitAiQuestion() {
+    var input = document.getElementById('aiUserQuestionInput');
+    var btn = document.getElementById('btnSubmitAiQuestion');
+    var thread = document.getElementById('aiChatThread');
+    var quotaEl = document.getElementById('aiRemainingQuota');
+
+    if (!input || !btn) return;
+    var q = input.value.trim();
+    if (!q) {
+      if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
+        TuViApp.showToast('Vui lòng nhập câu hỏi trước khi gửi!', 'warning');
+      } else {
+        alert('Vui lòng nhập câu hỏi!');
+      }
+      input.focus();
+      return;
+    }
+
+    var orderCode = (typeof TuViMonetize !== 'undefined' && TuViMonetize.vipOrderCode) || localStorage.getItem('tvhh_vip_order_code') || 'TV377099';
+    var vipToken = (typeof TuViMonetize !== 'undefined' && TuViMonetize.vipAccessToken) || localStorage.getItem('tvhh_vip_token') || '9a7f34bc6102da88e14cf956102a399f';
+    var chart = (typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) ? TuViChart._currentLaSo : {};
+
+    if (thread) {
+      thread.style.display = 'block';
+      var userBubble = document.createElement('div');
+      userBubble.className = 'ai-chat-bubble bubble-user';
+      userBubble.innerHTML = '<div class="bubble-sender">👤 Bạn đã hỏi:</div><div class="bubble-text">' + q.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</div>';
+      thread.appendChild(userBubble);
+
+      var loadingBubble = document.createElement('div');
+      loadingBubble.className = 'ai-chat-bubble bubble-ai bubble-loading';
+      loadingBubble.id = 'aiLoadingBubble';
+      loadingBubble.innerHTML = '<div class="bubble-sender">☯ Cố Vấn Tử Vi Nam Phái:</div><div class="bubble-text" style="color:var(--text-muted); font-style:italic;"><span class="live-pulse-dot" style="display:inline-block; vertical-align:middle; margin-right:6px;"></span>Đang thấu suốt tinh bàn &amp; giải mã thiên cơ cho bạn...</div>';
+      thread.appendChild(loadingBubble);
+      thread.scrollTop = thread.scrollHeight;
+    }
+
+    btn.disabled = true;
+    btn.innerHTML = '⏳ Đang phân tích tinh bàn...';
+    input.value = '';
+
+    try {
+      var res = await fetch('/api/vip/ask-ai', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          orderCode: orderCode,
+          vipToken: vipToken,
+          chartDataJson: chart,
+          userQuestion: q
+        })
+      });
+
+      var data = await res.json();
+      var curLoading = document.getElementById('aiLoadingBubble');
+      if (curLoading) curLoading.remove();
+
+      if (data.success && data.answer) {
+        if (thread) {
+          var aiBubble = document.createElement('div');
+          aiBubble.className = 'ai-chat-bubble bubble-ai';
+          aiBubble.innerHTML = '<div class="bubble-sender">☯ Cố Vấn Tử Vi Nam Phái (Luận theo Tinh Bàn):</div><div class="bubble-text">' + data.answer.replace(/\n\n/g, '<br><br>') + '</div>';
+          thread.appendChild(aiBubble);
+          thread.scrollTop = thread.scrollHeight;
+        }
+
+        if (quotaEl && typeof data.remaining !== 'undefined') {
+          quotaEl.textContent = data.remaining + '/5';
+          if (data.remaining <= 0) {
+            btn.disabled = true;
+            btn.textContent = 'Hết lượt hỏi (5/5)';
+            input.placeholder = 'Bạn đã sử dụng hết 5 lượt hỏi đáp của đơn hàng VIP này.';
+            input.disabled = true;
+          }
+        }
+      } else {
+        if (thread) {
+          var errBubble = document.createElement('div');
+          errBubble.className = 'ai-chat-bubble bubble-ai bubble-error';
+          errBubble.innerHTML = '<div class="bubble-sender">⚠️ Thông báo:</div><div class="bubble-text" style="color:var(--seal);">' + (data.message || 'Không thể kết nối đến máy chủ cố vấn.') + '</div>';
+          thread.appendChild(errBubble);
+        }
+      }
+    } catch (err) {
+      var curLoading2 = document.getElementById('aiLoadingBubble');
+      if (curLoading2) curLoading2.remove();
+      if (thread) {
+        var errBubble2 = document.createElement('div');
+        errBubble2.className = 'ai-chat-bubble bubble-ai bubble-error';
+        errBubble2.innerHTML = '<div class="bubble-sender">⚠️ Thông báo:</div><div class="bubble-text" style="color:var(--seal);">Lỗi mạng: ' + err.message + '. Vui lòng thử lại sau.</div>';
+        thread.appendChild(errBubble2);
+      }
+    } finally {
+      var isQuotaDepleted = quotaEl && quotaEl.textContent.startsWith('0/');
+      if (!isQuotaDepleted) {
+        btn.disabled = false;
+        btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="margin-right:4px; vertical-align:-2px;"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Gửi Câu Hỏi Cho AI';
+      }
+    }
+  }
+
   // 6. XUẤT RA TOÀN BỘ API
   var TuViLuanGiaiEngine = {
     generatePalaceDeepAnalysis: generatePalaceDeepAnalysis,
     generateFreePsychologicalTeaserHtml: generateFreePsychologicalTeaserHtml,
     generatePalaceCliffhangerTeaser: generatePalaceCliffhangerTeaser,
+    generateAiAdvisorHtml: generateAiAdvisorHtml,
+    fillAiQuestion: fillAiQuestion,
+    submitAiQuestion: submitAiQuestion,
     CHINH_TINH_DICT: CHINH_TINH_DICT,
     TU_HOA_DICT: TU_HOA_DICT,
     PHU_TINH_ANALYST: PHU_TINH_ANALYST,

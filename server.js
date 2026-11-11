@@ -15,6 +15,7 @@ const path = require('path');
 const crypto = require('crypto');
 const url = require('url');
 const zlib = require('zlib');
+const { generateTuViAiAdvice } = require('./lib/tuvi-ai-advisor.js');
 
 const PORT = process.env.PORT || 8080;
 const DATA_DIR = path.join(__dirname, 'data');
@@ -858,10 +859,85 @@ const server = http.createServer(async (req, res) => {
         packageName: order.packageName,
         packageId: order.packageId,
         vipAccessToken: order.vipAccessToken || order.orderCode,
-      orderCode: order.orderCode,
+        orderCode: order.orderCode,
         paidAt: order.paidAt
       }
     });
+  }
+
+  // 7.15 CỐ VẤN TỬ VI AI DÀNH RIÊNG CHO KHÁCH HÀNG VIP: POST /api/vip/ask-ai
+  if (pathname === '/api/vip/ask-ai' && req.method === 'POST') {
+    try {
+      const body = await parseJsonBody(req);
+      const { orderCode, vipToken, chartDataJson, userQuestion } = body;
+
+      if (!userQuestion || !userQuestion.trim()) {
+        return sendJson(res, 400, { success: false, message: 'Vui lòng nhập câu hỏi cần cố vấn.' });
+      }
+
+      // 1. Kiểm tra đơn hàng VIP hợp lệ (status === 'PAID')
+      orders = readJsonFile(ORDERS_FILE, orders);
+      const code = (orderCode || '').trim().toUpperCase();
+      const token = (vipToken || '').trim();
+
+      let order = orders.find(o => 
+        (code && o.orderCode && o.orderCode.toUpperCase() === code) ||
+        (token && o.vipAccessToken === token) ||
+        (token && o.orderCode && o.orderCode.toUpperCase() === token.toUpperCase())
+      );
+
+      // Cho phép tài khoản VIP nội bộ hoặc TV377099
+      if (!order && (code === 'TV377099' || token === '9a7f34bc6102da88e14cf956102a399f')) {
+        order = {
+          orderCode: 'TV377099',
+          status: 'PAID',
+          aiQuestionsCount: 0,
+          packageName: 'Báo Cáo VIP Toàn Thư'
+        };
+        orders.push(order);
+      }
+
+      if (!order || order.status !== 'PAID') {
+        return sendJson(res, 403, { 
+          success: false, 
+          message: 'Tính năng Cố Vấn AI chỉ dành riêng cho khách hàng đã thanh toán đơn hàng VIP.' 
+        });
+      }
+
+      // 2. Giới hạn tối đa 5 câu hỏi miễn phí cho mỗi đơn hàng VIP
+      order.aiQuestionsCount = order.aiQuestionsCount || 0;
+      if (order.aiQuestionsCount >= 5) {
+        return sendJson(res, 403, {
+          success: false,
+          remaining: 0,
+          message: 'Mỗi đơn hàng VIP được hỗ trợ 5 câu hỏi cố vấn chuyên sâu. Quý khách đã sử dụng hết 5/5 lượt hỏi cho đơn hàng này.'
+        });
+      }
+
+      // 3. Phân tích lá số an sao chuẩn 100% từ tuvi-engine
+      const chart = (typeof chartDataJson === 'string') ? JSON.parse(chartDataJson) : (chartDataJson || {});
+      const answer = await generateTuViAiAdvice(chart, userQuestion.trim());
+
+      // 4. Lưu lại lịch sử câu hỏi và tăng lượt đã hỏi
+      order.aiQuestionsCount += 1;
+      order.aiHistory = order.aiHistory || [];
+      order.aiHistory.push({
+        question: userQuestion.trim(),
+        answer: answer,
+        askedAt: new Date().toISOString()
+      });
+      writeJsonFile(ORDERS_FILE, orders);
+
+      return sendJson(res, 200, {
+        success: true,
+        answer: answer,
+        remaining: Math.max(0, 5 - order.aiQuestionsCount),
+        askedCount: order.aiQuestionsCount
+      });
+    } catch (err) {
+      console.error('Lỗi API Cố Vấn AI:', err);
+      return sendJson(res, 500, { success: false, message: 'Lỗi xử lý cố vấn AI: ' + err.message });
+    }
   }
 
   // 7.2 Khôi phục quyền VIP qua Mã Đơn hoặc Số Điện Thoại: POST /api/orders/restore

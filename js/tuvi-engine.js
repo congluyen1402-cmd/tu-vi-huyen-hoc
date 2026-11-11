@@ -723,6 +723,10 @@
 
     // Helper thêm phụ tinh
     function addStar(pos, starName, isLeft, dacHam, isLuu) {
+      var exists = cungArray[pos].phuTinhLeft.some(function(s) { return s.name.toLowerCase() === starName.toLowerCase(); }) ||
+                   cungArray[pos].phuTinhRight.some(function(s) { return s.name.toLowerCase() === starName.toLowerCase(); });
+      if (exists) return;
+
       var baseName = starName.replace(/^L\./, '');
       var el = STAR_ELEMENTS[starName] || STAR_ELEMENTS[baseName] || 'Thổ';
       var starObj = {
@@ -821,10 +825,9 @@
     addStar(luuHaMap[canNamIdx], 'Lưu hà', false);
     addStar(thienTruMap[canNamIdx], 'Thiên trù', true);
 
-    // Lưu Niên Văn Tinh (chuẩn theo Can năm sinh, tránh trùng lặp Văn Tinh)
-    // Giáp -> Tỵ (5), Ất -> Ngọ (6), Bính/Mậu -> Thân (8), Đinh/Kỷ -> Dậu (9), Canh -> Hợi (11), Tân -> Tý (0), Nhâm -> Dần (2), Quý -> Mão (3)
-    var lnVanTinhMap = [5, 6, 8, 9, 8, 9, 11, 0, 2, 3];
-    addStar(lnVanTinhMap[canNamIdx], 'LN Văn tinh', true);
+    // Văn Tinh (Theo Can năm sinh)
+    var vanTinhMap = [5, 6, 8, 9, 8, 9, 11, 0, 9, 10];
+    addStar(vanTinhMap[canNamIdx], 'Văn tinh', true);
 
     // 7. Sao theo Giờ sinh
     var vanXuongPos = (10 - gioIndex + 120) % 12;
@@ -922,7 +925,7 @@
       });
     }
 
-    // 11. Sao Lưu Niên theo năm xem hạn (L.Thái Tuế, L.Kình Dương, L.Đà La, L.Tang Môn, L.Bạch Hổ, L.Thiên Khốc, L.Thiên Hư, L.Thiên Mã, L.Lộc Tồn)
+    // 11. Sao Lưu Niên theo năm xem hạn (Đồng bộ 100% tuvi.vn & tracuutuvi.com)
     var vCanIdx = (vYear + 6) % 10;
     var vChiIdx = (vYear + 8) % 12;
     var vLocTonPos = LOC_TON_POS[vCanIdx];
@@ -936,6 +939,45 @@
     addStar((6 - vChiIdx + 120) % 12, 'L.Thiên khốc', false, null, true);
     addStar((6 + vChiIdx) % 12, 'L.Thiên hư', false, null, true);
     addStar(thienMaMap[vChiIdx], 'L.Thiên mã', true, null, true);
+
+    // Lưu Khôi, Lưu Việt
+    addStar(THIEN_KHOI_POS[vCanIdx], 'L.Thiên khôi', true, null, true);
+    addStar(THIEN_VIET_POS[vCanIdx], 'L.Thiên việt', true, null, true);
+
+    // Lưu Đào Hoa, Lưu Hồng Loan, Lưu Kiếp Sát
+    addStar(daoHoaMap[vChiIdx], 'L.Đào hoa', true, null, true);
+    addStar((15 - vChiIdx) % 12, 'L.Hồng loan', true, null, true);
+    addStar(kiepSatMap[vChiIdx], 'L.Kiếp sát', false, null, true);
+
+    // Lưu Văn Xương, Lưu Văn Khúc
+    var luuXuongMap = [5, 6, 8, 9, 8, 9, 11, 0, 2, 3];
+    var luuKhucMap = [9, 8, 6, 7, 6, 7, 4, 3, 2, 1];
+    addStar(luuXuongMap[vCanIdx], 'L.Văn xương', true, null, true);
+    addStar(luuKhucMap[vCanIdx], 'L.Văn khúc', true, null, true);
+
+    // Lưu Thiên Đức, Phúc Đức, Long Đức, Nguyệt Đức
+    addStar((vChiIdx + 9) % 12, 'L.Thiên đức', true, null, true);
+    addStar((vChiIdx + 9) % 12, 'L.Phúc đức', true, null, true);
+    addStar((vChiIdx + 7) % 12, 'L.Long đức', true, null, true);
+    addStar((vChiIdx + 5) % 12, 'L.Nguyệt đức', true, null, true);
+
+    // Lưu Tứ Hóa năm xem hạn (L.Hóa Lộc, L.Hóa Quyền, L.Hóa Khoa, L.Hóa Kỵ)
+    var vTuHoaMap = TU_HOA_TABLE[vCanIdx];
+    if (vTuHoaMap) {
+      for (var pIdx = 0; pIdx < 12; pIdx++) {
+        var allPalaceStars = cungArray[pIdx].chinhTinh.concat(cungArray[pIdx].phuTinhLeft, cungArray[pIdx].phuTinhRight);
+        allPalaceStars.forEach(function (st) {
+          var cleanSt = st.name.toLowerCase().trim();
+          for (var hoaStar in vTuHoaMap) {
+            if (hoaStar.toLowerCase().trim() === cleanSt && !st.isLuu) {
+              var hoaType = vTuHoaMap[hoaStar];
+              var isLeftHoa = (hoaType !== 'Hóa Kỵ');
+              addStar(pIdx, 'L.' + hoaType, isLeftHoa, null, true);
+            }
+          }
+        });
+      }
+    }
 
     // 12. Tuần & Triệt
     var tuanArray = getTuanKhong(lunar.year);

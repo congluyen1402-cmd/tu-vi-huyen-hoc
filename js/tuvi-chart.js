@@ -1446,6 +1446,11 @@ const TuViChart = {
       </div>
     `;
 
+    // 8. Khối Cố Vấn Tử Vi AI Dành Cho VIP
+    if (typeof TuViLuanGiaiEngine !== 'undefined' && TuViLuanGiaiEngine.generateAiAdvisorHtml) {
+      html += TuViLuanGiaiEngine.generateAiAdvisorHtml(laSo, isVip);
+    }
+
     listEl.innerHTML = html;
 
     // Khởi động đồng hồ đếm ngược 15 phút
