@@ -515,14 +515,14 @@ const TuViChart = {
       <!-- THANH CHUYỂN ĐỔI CHẾ ĐỘ XEM TRÊN ĐIỆN THOẠI (Auto-fit & Zoom) -->
       <div class="mobile-chart-scale-bar" id="mobileChartScaleBar">
         <button type="button" class="btn-scale-toggle active" id="btnScaleFit" onclick="TuViChart.setMobileScaleMode('fit')">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-2px;margin-right:4px;"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg>🗺️ Vừa Màn Hình (Chuẩn)
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-2px;margin-right:4px;"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg>🗺️ Xem Bàn Lá Số Chuẩn (Vừa màn hình)
         </button>
         <button type="button" class="btn-scale-toggle" id="btnScaleScroll" onclick="TuViChart.setMobileScaleMode('scroll')">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-2px;margin-right:4px;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>🔍 Phóng To Lá Số (Vuốt ngang)
         </button>
       </div>
 
-      <div class="la-so-scroll-wrapper">
+      <div class="la-so-scroll-wrapper laso-board-wrapper">
         <div class="la-so-paper-container" id="laSoPrintArea">
           <!-- Hình Bát Quái Mờ Đằng Sau Lưới Lá Số (Chính Tông Cổ Truyền) -->
           <div class="la-so-watermark-bg">
@@ -668,10 +668,10 @@ const TuViChart = {
 
     let tuanTrietBanner = '';
     if (hasTuan && chiIndex === laSo.tuan[0]) {
-      tuanTrietBanner = '<div class="tuan-triet-ribbon ribbon-tuan">Tuần</div>';
+      tuanTrietBanner = '<div class="tuan-triet-ribbon tuan-triet-badge ribbon-tuan">Tuần</div>';
     }
     if (hasTriet && chiIndex === laSo.triet[0]) {
-      tuanTrietBanner = '<div class="tuan-triet-ribbon ribbon-triet">Triệt</div>';
+      tuanTrietBanner = '<div class="tuan-triet-ribbon tuan-triet-badge ribbon-triet">Triệt</div>';
     }
 
     // Tiêu đề cung và màu sắc đặc trưng
@@ -732,14 +732,14 @@ const TuViChart = {
     }
 
     return `
-      <div class="cung-classical-cell la-so-cell ${isMenh ? 'cell-menh' : ''} ${isThan ? 'cell-than' : ''} ${hasTuanTriet ? 'has-tuan-triet' : ''}" 
+      <div class="cung-classical-cell cung-cell la-so-cell ${isMenh ? 'cell-menh' : ''} ${isThan ? 'cell-than' : ''} ${hasTuanTriet ? 'has-tuan-triet' : ''}" 
            data-chi="${chiIndex}"
            onclick="TuViChart.openPalaceSheet(${chiIndex})"
            title="Nhấp để xem chi tiết sao & luận giải Cung ${cung.cungName}">
         ${tuanTrietBanner}
         
         <!-- Header Cung -->
-        <div class="cung-top-bar">
+        <div class="cung-top-bar cung-header">
           <span class="cung-can-chi">${cung.canShort}.${cung.chi}</span>
           <span class="cung-main-title" style="color: ${titleColor};">
             ${palaceTitle}
@@ -751,13 +751,13 @@ const TuViChart = {
         <!-- Khối Chính Tinh ở GIỮA -->
         <div class="cung-chinh-tinh-wrap ${hasChinhTinh ? '' : 'vcd'}">
           <span class="cung-can-sign" style="color: ${titleColor};">${canSignSymbol}</span>
-          <div class="cung-chinh-tinh-center">
+          <div class="cung-chinh-tinh-center chinh-tinh-row">
             ${chinhTinhCenterHtml}
           </div>
         </div>
 
         <!-- Hai cột sao -->
-        <div class="cung-stars-columns">
+        <div class="cung-stars-columns phu-tinh-grid">
           <div class="cung-col-left">${leftColHtml}</div>
           <div class="cung-col-right">${rightColHtml}</div>
         </div>

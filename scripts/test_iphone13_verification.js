@@ -81,3 +81,4 @@ const path = require('path');
   console.log('ALL IPHONE 13 VERIFICATION TESTS COMPLETED SUCCESSFULLY!');
   await browser.close();
 })();
+

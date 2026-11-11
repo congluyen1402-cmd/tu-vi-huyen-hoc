@@ -1268,7 +1268,8 @@ a:hover {
 }
 
 /* Tuần & Triệt Ribbons - Gọn gàng BÊN TRONG ô, không bao giờ bị cắt */
-.tuan-triet-ribbon {
+.tuan-triet-ribbon,
+.tuan-triet-badge {
   position: absolute;
   top: 2px;
   background: #111111;
@@ -1351,7 +1352,8 @@ a:hover {
   line-height: 1.1;
   user-select: none;
 }
-.cung-chinh-tinh-center {
+.cung-chinh-tinh-center,
+.chinh-tinh-row {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -1390,7 +1392,8 @@ a:hover {
 }
 
 /* Two Star Columns */
-.cung-stars-columns {
+.cung-stars-columns,
+.phu-tinh-grid {
   display: flex;
   justify-content: space-between;
   gap: 3px;
@@ -6738,7 +6741,9 @@ footer.footer {
   color: #94a3b8;
   cursor: pointer;
   transition: all 0.2s ease;
-  white-space: nowrap;
+  white-space: normal;
+  line-height: 1.25;
+  text-align: center;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -6770,6 +6775,10 @@ footer.footer {
   pointer-events: none !important;
 }
 
+.cung-classical-cell.has-tuan-triet .cung-top-bar,
+.cung-cell.has-tuan-triet .cung-header {
+  padding-top: 14px !important;
+}
 .cung-classical-cell.has-tuan-triet .cung-top-bar {
   padding-top: 14px !important;
 }
