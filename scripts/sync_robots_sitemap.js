@@ -46,3 +46,4 @@ const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 ['sitemap.xml', 'public/sitemap.xml'].forEach(p => fs.writeFileSync(p, sitemapXml, 'utf8'));
 
 console.log('Successfully updated robots.txt and sitemap.xml in root and public!');
+

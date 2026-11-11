@@ -374,3 +374,4 @@ code = code.slice(0, sIdx) + updatedFunction + "\n};\n\nif (typeof window !== 'u
 fs.writeFileSync('js/tuvi-chart.js', code, 'utf8');
 fs.writeFileSync('public/js/tuvi-chart.js', code, 'utf8');
 console.log('Successfully updated js/tuvi-chart.js and public/js/tuvi-chart.js!');
+

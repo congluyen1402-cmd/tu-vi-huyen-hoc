@@ -1,10 +1,10 @@
 {
   "summary": {
-    "totalPageViews": 231,
-    "uniqueVisitors": 134,
-    "totalLaSoCalculated": 99,
+    "totalPageViews": 396,
+    "uniqueVisitors": 240,
+    "totalLaSoCalculated": 144,
     "totalPalaceClicks": 188,
-    "totalVipModalOpens": 42,
+    "totalVipModalOpens": 67,
     "totalPaidOrders": 7
   },
   "visitors": {
@@ -452,70 +452,1202 @@
       "firstSeen": "2026-11-09T09:00:49.471Z",
       "lastSeen": "2026-11-09T09:00:49.471Z",
       "visitCount": 1
+    },
+    "vis_5cguhkycs": {
+      "firstSeen": "2026-11-11T02:49:56.924Z",
+      "lastSeen": "2026-11-11T02:49:56.924Z",
+      "visitCount": 1
+    },
+    "vis_nyas9qzto": {
+      "firstSeen": "2026-11-11T02:49:56.928Z",
+      "lastSeen": "2026-11-11T02:49:56.928Z",
+      "visitCount": 1
+    },
+    "vis_hyhxqn4g5": {
+      "firstSeen": "2026-11-11T02:49:56.930Z",
+      "lastSeen": "2026-11-11T02:49:56.930Z",
+      "visitCount": 1
+    },
+    "vis_9223kehc6": {
+      "firstSeen": "2026-11-11T02:49:58.139Z",
+      "lastSeen": "2026-11-11T02:49:58.139Z",
+      "visitCount": 1
+    },
+    "vis_vnzs34d1n": {
+      "firstSeen": "2026-11-11T02:49:58.143Z",
+      "lastSeen": "2026-11-11T02:49:58.143Z",
+      "visitCount": 1
+    },
+    "vis_m1xzozerh": {
+      "firstSeen": "2026-11-11T02:49:58.179Z",
+      "lastSeen": "2026-11-11T02:49:58.179Z",
+      "visitCount": 1
+    },
+    "vis_4xe2xsqz5": {
+      "firstSeen": "2026-11-11T02:49:59.442Z",
+      "lastSeen": "2026-11-11T02:50:02.989Z",
+      "visitCount": 2
+    },
+    "vis_vxt42frll": {
+      "firstSeen": "2026-11-11T02:49:59.458Z",
+      "lastSeen": "2026-11-11T02:50:03.006Z",
+      "visitCount": 2
+    },
+    "vis_fqk5x8tme": {
+      "firstSeen": "2026-11-11T02:49:59.528Z",
+      "lastSeen": "2026-11-11T02:50:03.165Z",
+      "visitCount": 2
+    },
+    "vis_ob1pmxqqj": {
+      "firstSeen": "2026-11-11T02:50:04.125Z",
+      "lastSeen": "2026-11-11T02:50:04.125Z",
+      "visitCount": 1
+    },
+    "vis_r7g3hvug4": {
+      "firstSeen": "2026-11-11T02:50:04.298Z",
+      "lastSeen": "2026-11-11T02:50:04.298Z",
+      "visitCount": 1
+    },
+    "vis_u72refoki": {
+      "firstSeen": "2026-11-11T02:50:04.414Z",
+      "lastSeen": "2026-11-11T02:50:04.414Z",
+      "visitCount": 1
+    },
+    "vis_yuymqaxpv": {
+      "firstSeen": "2026-11-11T02:50:16.594Z",
+      "lastSeen": "2026-11-11T02:50:16.594Z",
+      "visitCount": 1
+    },
+    "vis_j5eg2u8dj": {
+      "firstSeen": "2026-11-11T02:50:16.596Z",
+      "lastSeen": "2026-11-11T02:50:16.596Z",
+      "visitCount": 1
+    },
+    "vis_sawhk7oue": {
+      "firstSeen": "2026-11-11T02:50:16.625Z",
+      "lastSeen": "2026-11-11T02:50:16.625Z",
+      "visitCount": 1
+    },
+    "vis_kicmek8z0": {
+      "firstSeen": "2026-11-11T02:50:17.792Z",
+      "lastSeen": "2026-11-11T02:50:17.792Z",
+      "visitCount": 1
+    },
+    "vis_90b8ysyuh": {
+      "firstSeen": "2026-11-11T02:50:17.807Z",
+      "lastSeen": "2026-11-11T02:50:17.807Z",
+      "visitCount": 1
+    },
+    "vis_nild7yr5j": {
+      "firstSeen": "2026-11-11T02:50:17.892Z",
+      "lastSeen": "2026-11-11T02:50:17.892Z",
+      "visitCount": 1
+    },
+    "vis_rhkk7c755": {
+      "firstSeen": "2026-11-11T02:50:19.126Z",
+      "lastSeen": "2026-11-11T02:50:22.706Z",
+      "visitCount": 2
+    },
+    "vis_znhn2x9eg": {
+      "firstSeen": "2026-11-11T02:50:19.208Z",
+      "lastSeen": "2026-11-11T02:50:22.948Z",
+      "visitCount": 2
+    },
+    "vis_i0x7aob45": {
+      "firstSeen": "2026-11-11T02:50:19.414Z",
+      "lastSeen": "2026-11-11T02:50:22.561Z",
+      "visitCount": 2
+    },
+    "vis_7uks6id4s": {
+      "firstSeen": "2026-11-11T02:50:23.863Z",
+      "lastSeen": "2026-11-11T02:50:23.863Z",
+      "visitCount": 1
+    },
+    "vis_nv37gdkhd": {
+      "firstSeen": "2026-11-11T02:50:23.913Z",
+      "lastSeen": "2026-11-11T02:50:23.913Z",
+      "visitCount": 1
+    },
+    "vis_cklvxgu4m": {
+      "firstSeen": "2026-11-11T02:50:24.242Z",
+      "lastSeen": "2026-11-11T02:50:24.242Z",
+      "visitCount": 1
+    },
+    "vis_jrrcma98n": {
+      "firstSeen": "2026-11-11T02:50:34.493Z",
+      "lastSeen": "2026-11-11T02:50:38.075Z",
+      "visitCount": 2
+    },
+    "vis_q13nt1qaz": {
+      "firstSeen": "2026-11-11T02:50:45.677Z",
+      "lastSeen": "2026-11-11T02:50:45.677Z",
+      "visitCount": 1
+    },
+    "vis_qvrpevscr": {
+      "firstSeen": "2026-11-11T02:50:52.957Z",
+      "lastSeen": "2026-11-11T02:50:52.957Z",
+      "visitCount": 1
+    },
+    "vis_76sjyi7c4": {
+      "firstSeen": "2026-11-11T03:01:15.224Z",
+      "lastSeen": "2026-11-11T03:01:15.224Z",
+      "visitCount": 1
+    },
+    "vis_oaec3q3kd": {
+      "firstSeen": "2026-11-11T03:01:15.227Z",
+      "lastSeen": "2026-11-11T03:01:15.227Z",
+      "visitCount": 1
+    },
+    "vis_y7kl4zs9n": {
+      "firstSeen": "2026-11-11T03:01:15.229Z",
+      "lastSeen": "2026-11-11T03:01:15.229Z",
+      "visitCount": 1
+    },
+    "vis_xpxgrouhu": {
+      "firstSeen": "2026-11-11T03:01:16.384Z",
+      "lastSeen": "2026-11-11T03:01:16.384Z",
+      "visitCount": 1
+    },
+    "vis_pe0uvb33v": {
+      "firstSeen": "2026-11-11T03:01:16.452Z",
+      "lastSeen": "2026-11-11T03:01:16.452Z",
+      "visitCount": 1
+    },
+    "vis_sejw2xzc4": {
+      "firstSeen": "2026-11-11T03:01:16.670Z",
+      "lastSeen": "2026-11-11T03:01:16.670Z",
+      "visitCount": 1
+    },
+    "vis_9ehiosu6w": {
+      "firstSeen": "2026-11-11T03:01:17.784Z",
+      "lastSeen": "2026-11-11T03:01:21.443Z",
+      "visitCount": 2
+    },
+    "vis_jmi8ujqhs": {
+      "firstSeen": "2026-11-11T03:01:17.787Z",
+      "lastSeen": "2026-11-11T03:01:21.441Z",
+      "visitCount": 2
+    },
+    "vis_d3b1l8t4o": {
+      "firstSeen": "2026-11-11T03:01:17.848Z",
+      "lastSeen": "2026-11-11T03:01:21.637Z",
+      "visitCount": 2
+    },
+    "vis_05lb71gx6": {
+      "firstSeen": "2026-11-11T03:01:22.497Z",
+      "lastSeen": "2026-11-11T03:01:22.497Z",
+      "visitCount": 1
+    },
+    "vis_1m3mluogr": {
+      "firstSeen": "2026-11-11T03:01:22.695Z",
+      "lastSeen": "2026-11-11T03:01:22.695Z",
+      "visitCount": 1
+    },
+    "vis_vldy4o4u3": {
+      "firstSeen": "2026-11-11T03:01:22.736Z",
+      "lastSeen": "2026-11-11T03:01:22.736Z",
+      "visitCount": 1
+    },
+    "vis_xs5rufdc7": {
+      "firstSeen": "2026-11-11T03:02:15.083Z",
+      "lastSeen": "2026-11-11T03:02:15.083Z",
+      "visitCount": 1
+    },
+    "vis_26p0rtgtg": {
+      "firstSeen": "2026-11-11T03:03:09.583Z",
+      "lastSeen": "2026-11-11T03:03:13.926Z",
+      "visitCount": 2
+    },
+    "vis_ufe3f6uqy": {
+      "firstSeen": "2026-11-11T03:03:39.573Z",
+      "lastSeen": "2026-11-11T03:03:43.429Z",
+      "visitCount": 2
+    },
+    "vis_g10uttk63": {
+      "firstSeen": "2026-11-11T03:23:52.183Z",
+      "lastSeen": "2026-11-11T03:23:52.183Z",
+      "visitCount": 1
+    },
+    "vis_p3kuqnyhz": {
+      "firstSeen": "2026-11-11T03:23:52.196Z",
+      "lastSeen": "2026-11-11T03:23:52.196Z",
+      "visitCount": 1
+    },
+    "vis_d8w47r0q0": {
+      "firstSeen": "2026-11-11T03:23:52.219Z",
+      "lastSeen": "2026-11-11T03:23:52.219Z",
+      "visitCount": 1
+    },
+    "vis_krpp77pmu": {
+      "firstSeen": "2026-11-11T03:23:53.817Z",
+      "lastSeen": "2026-11-11T03:23:53.817Z",
+      "visitCount": 1
+    },
+    "vis_8xx19a9la": {
+      "firstSeen": "2026-11-11T03:23:53.852Z",
+      "lastSeen": "2026-11-11T03:23:53.852Z",
+      "visitCount": 1
+    },
+    "vis_tq6b7x3g5": {
+      "firstSeen": "2026-11-11T03:23:53.913Z",
+      "lastSeen": "2026-11-11T03:23:53.913Z",
+      "visitCount": 1
+    },
+    "vis_zt4rh4vsx": {
+      "firstSeen": "2026-11-11T03:23:55.635Z",
+      "lastSeen": "2026-11-11T03:24:00.144Z",
+      "visitCount": 3
+    },
+    "vis_nt7htp2ho": {
+      "firstSeen": "2026-11-11T03:23:55.668Z",
+      "lastSeen": "2026-11-11T03:24:00.644Z",
+      "visitCount": 3
+    },
+    "vis_mbengrnia": {
+      "firstSeen": "2026-11-11T03:23:55.697Z",
+      "lastSeen": "2026-11-11T03:24:00.093Z",
+      "visitCount": 3
+    },
+    "vis_m876r6e4i": {
+      "firstSeen": "2026-11-11T03:24:01.515Z",
+      "lastSeen": "2026-11-11T03:24:01.515Z",
+      "visitCount": 1
+    },
+    "vis_tbuyopabh": {
+      "firstSeen": "2026-11-11T03:24:01.528Z",
+      "lastSeen": "2026-11-11T03:24:01.528Z",
+      "visitCount": 1
+    },
+    "vis_5dvxddbu0": {
+      "firstSeen": "2026-11-11T03:24:02.147Z",
+      "lastSeen": "2026-11-11T03:24:02.147Z",
+      "visitCount": 1
+    },
+    "vis_gbawetv9z": {
+      "firstSeen": "2026-11-11T03:24:16.297Z",
+      "lastSeen": "2026-11-11T03:24:16.297Z",
+      "visitCount": 1
+    },
+    "vis_euaiwgunw": {
+      "firstSeen": "2026-11-11T03:24:26.010Z",
+      "lastSeen": "2026-11-11T03:24:30.478Z",
+      "visitCount": 3
+    },
+    "vis_tw3cc2i1d": {
+      "firstSeen": "2026-11-11T03:24:44.296Z",
+      "lastSeen": "2026-11-11T03:24:44.296Z",
+      "visitCount": 1
+    },
+    "vis_fdmtp5xth": {
+      "firstSeen": "2026-11-11T03:24:44.312Z",
+      "lastSeen": "2026-11-11T03:24:44.312Z",
+      "visitCount": 1
+    },
+    "vis_d8ykgmolg": {
+      "firstSeen": "2026-11-11T03:24:44.346Z",
+      "lastSeen": "2026-11-11T03:24:44.346Z",
+      "visitCount": 1
+    },
+    "vis_z5dwjq8g5": {
+      "firstSeen": "2026-11-11T03:24:45.532Z",
+      "lastSeen": "2026-11-11T03:24:45.532Z",
+      "visitCount": 1
+    },
+    "vis_w3w1s8hdu": {
+      "firstSeen": "2026-11-11T03:24:45.609Z",
+      "lastSeen": "2026-11-11T03:24:45.609Z",
+      "visitCount": 1
+    },
+    "vis_tsvp1bfx0": {
+      "firstSeen": "2026-11-11T03:24:45.646Z",
+      "lastSeen": "2026-11-11T03:24:45.646Z",
+      "visitCount": 1
+    },
+    "vis_b5dyef3yz": {
+      "firstSeen": "2026-11-11T03:24:46.959Z",
+      "lastSeen": "2026-11-11T03:24:51.375Z",
+      "visitCount": 3
+    },
+    "vis_ablyo07ue": {
+      "firstSeen": "2026-11-11T03:24:47.014Z",
+      "lastSeen": "2026-11-11T03:24:51.409Z",
+      "visitCount": 3
+    },
+    "vis_5i5uzxzr2": {
+      "firstSeen": "2026-11-11T03:24:47.197Z",
+      "lastSeen": "2026-11-11T03:24:52.095Z",
+      "visitCount": 3
+    },
+    "vis_255uwmis3": {
+      "firstSeen": "2026-11-11T03:24:52.845Z",
+      "lastSeen": "2026-11-11T03:24:52.845Z",
+      "visitCount": 1
+    },
+    "vis_341hvlr88": {
+      "firstSeen": "2026-11-11T03:24:52.893Z",
+      "lastSeen": "2026-11-11T03:24:52.893Z",
+      "visitCount": 1
+    },
+    "vis_xb6b2pf2e": {
+      "firstSeen": "2026-11-11T03:24:53.513Z",
+      "lastSeen": "2026-11-11T03:24:53.513Z",
+      "visitCount": 1
+    },
+    "vis_y1u286k7u": {
+      "firstSeen": "2026-11-11T03:37:17.416Z",
+      "lastSeen": "2026-11-11T03:37:21.567Z",
+      "visitCount": 2
+    },
+    "vis_ixlla55sg": {
+      "firstSeen": "2026-11-11T03:37:30.504Z",
+      "lastSeen": "2026-11-11T03:37:30.504Z",
+      "visitCount": 1
+    },
+    "vis_abx3kwnzl": {
+      "firstSeen": "2026-11-11T03:37:30.616Z",
+      "lastSeen": "2026-11-11T03:37:30.616Z",
+      "visitCount": 1
+    },
+    "vis_83c2oz0tb": {
+      "firstSeen": "2026-11-11T03:37:30.803Z",
+      "lastSeen": "2026-11-11T03:37:30.803Z",
+      "visitCount": 1
+    },
+    "vis_9bkgezxyq": {
+      "firstSeen": "2026-11-11T03:37:31.922Z",
+      "lastSeen": "2026-11-11T03:37:31.922Z",
+      "visitCount": 1
+    },
+    "vis_pirkn2w9e": {
+      "firstSeen": "2026-11-11T03:37:31.971Z",
+      "lastSeen": "2026-11-11T03:37:31.971Z",
+      "visitCount": 1
+    },
+    "vis_62pwkbvv1": {
+      "firstSeen": "2026-11-11T03:37:32.079Z",
+      "lastSeen": "2026-11-11T03:37:32.079Z",
+      "visitCount": 1
+    },
+    "vis_g3hap9xsy": {
+      "firstSeen": "2026-11-11T03:37:33.176Z",
+      "lastSeen": "2026-11-11T03:37:37.092Z",
+      "visitCount": 3
+    },
+    "vis_w95h7j9bx": {
+      "firstSeen": "2026-11-11T03:37:33.361Z",
+      "lastSeen": "2026-11-11T03:37:38.852Z",
+      "visitCount": 3
+    },
+    "vis_ri12k9gcg": {
+      "firstSeen": "2026-11-11T03:37:33.406Z",
+      "lastSeen": "2026-11-11T03:37:37.671Z",
+      "visitCount": 3
+    },
+    "vis_c0ppm4n08": {
+      "firstSeen": "2026-11-11T03:37:38.142Z",
+      "lastSeen": "2026-11-11T03:37:38.142Z",
+      "visitCount": 1
+    },
+    "vis_6smkx3dej": {
+      "firstSeen": "2026-11-11T03:37:38.708Z",
+      "lastSeen": "2026-11-11T03:37:38.708Z",
+      "visitCount": 1
+    },
+    "vis_pr8dl39ix": {
+      "firstSeen": "2026-11-11T03:37:39.953Z",
+      "lastSeen": "2026-11-11T03:37:39.953Z",
+      "visitCount": 1
+    },
+    "vis_xeghx4z3c": {
+      "firstSeen": "2026-11-11T03:45:49.491Z",
+      "lastSeen": "2026-11-11T03:45:49.491Z",
+      "visitCount": 1
+    },
+    "vis_hfax6wq62": {
+      "firstSeen": "2026-11-11T03:46:01.029Z",
+      "lastSeen": "2026-11-11T03:46:04.665Z",
+      "visitCount": 2
+    },
+    "vis_mw39avj9t": {
+      "firstSeen": "2026-11-11T03:46:33.955Z",
+      "lastSeen": "2026-11-11T03:46:37.583Z",
+      "visitCount": 2
+    },
+    "vis_pfbgbsejs": {
+      "firstSeen": "2026-11-11T03:48:03.164Z",
+      "lastSeen": "2026-11-11T03:48:06.986Z",
+      "visitCount": 2
+    },
+    "vis_cjlcmvo99": {
+      "firstSeen": "2026-11-11T03:48:55.081Z",
+      "lastSeen": "2026-11-11T03:48:58.957Z",
+      "visitCount": 2
+    },
+    "vis_ze2fq62ge": {
+      "firstSeen": "2026-11-11T03:49:30.116Z",
+      "lastSeen": "2026-11-11T03:49:30.116Z",
+      "visitCount": 1
+    },
+    "vis_fkcp9now7": {
+      "firstSeen": "2026-11-11T03:49:30.186Z",
+      "lastSeen": "2026-11-11T03:49:30.186Z",
+      "visitCount": 1
+    },
+    "vis_urq3a74al": {
+      "firstSeen": "2026-11-11T03:49:30.199Z",
+      "lastSeen": "2026-11-11T03:49:30.199Z",
+      "visitCount": 1
+    },
+    "vis_ue6n4fci4": {
+      "firstSeen": "2026-11-11T03:49:31.520Z",
+      "lastSeen": "2026-11-11T03:49:31.520Z",
+      "visitCount": 1
+    },
+    "vis_fc9w4d6zj": {
+      "firstSeen": "2026-11-11T03:49:31.630Z",
+      "lastSeen": "2026-11-11T03:49:31.630Z",
+      "visitCount": 1
+    },
+    "vis_nj0dc7mvj": {
+      "firstSeen": "2026-11-11T03:49:31.676Z",
+      "lastSeen": "2026-11-11T03:49:31.676Z",
+      "visitCount": 1
+    },
+    "vis_j4pxcfo14": {
+      "firstSeen": "2026-11-11T03:49:32.743Z",
+      "lastSeen": "2026-11-11T03:49:36.989Z",
+      "visitCount": 3
+    },
+    "vis_xemf2ixhk": {
+      "firstSeen": "2026-11-11T03:49:32.894Z",
+      "lastSeen": "2026-11-11T03:49:36.862Z",
+      "visitCount": 3
+    },
+    "vis_otxr48dnk": {
+      "firstSeen": "2026-11-11T03:49:32.943Z",
+      "lastSeen": "2026-11-11T03:49:38.384Z",
+      "visitCount": 3
+    },
+    "vis_z2ti0m677": {
+      "firstSeen": "2026-11-11T03:49:38.027Z",
+      "lastSeen": "2026-11-11T03:49:38.027Z",
+      "visitCount": 1
+    },
+    "vis_yyv5jzkcz": {
+      "firstSeen": "2026-11-11T03:49:38.111Z",
+      "lastSeen": "2026-11-11T03:49:38.111Z",
+      "visitCount": 1
+    },
+    "vis_7k5ocmeie": {
+      "firstSeen": "2026-11-11T03:49:39.470Z",
+      "lastSeen": "2026-11-11T03:49:39.470Z",
+      "visitCount": 1
+    },
+    "vis_nsohw4mgz": {
+      "firstSeen": "2026-11-11T03:53:54.542Z",
+      "lastSeen": "2026-11-11T03:53:58.402Z",
+      "visitCount": 2
+    },
+    "vis_djw9z1hf3": {
+      "firstSeen": "2026-11-11T03:54:17.308Z",
+      "lastSeen": "2026-11-11T03:54:17.308Z",
+      "visitCount": 1
+    },
+    "vis_0s8zl1qor": {
+      "firstSeen": "2026-11-11T03:54:17.403Z",
+      "lastSeen": "2026-11-11T03:54:17.403Z",
+      "visitCount": 1
+    },
+    "vis_1gy0fidcg": {
+      "firstSeen": "2026-11-11T03:54:17.406Z",
+      "lastSeen": "2026-11-11T03:54:17.406Z",
+      "visitCount": 1
+    },
+    "vis_9rfwf78cs": {
+      "firstSeen": "2026-11-11T03:54:18.675Z",
+      "lastSeen": "2026-11-11T03:54:18.675Z",
+      "visitCount": 1
+    },
+    "vis_8o15vnbit": {
+      "firstSeen": "2026-11-11T03:54:18.683Z",
+      "lastSeen": "2026-11-11T03:54:18.683Z",
+      "visitCount": 1
+    },
+    "vis_qqz8sisnh": {
+      "firstSeen": "2026-11-11T03:54:18.717Z",
+      "lastSeen": "2026-11-11T03:54:18.717Z",
+      "visitCount": 1
+    },
+    "vis_y8xoppqia": {
+      "firstSeen": "2026-11-11T03:54:19.909Z",
+      "lastSeen": "2026-11-11T03:54:24.318Z",
+      "visitCount": 3
+    },
+    "vis_ceaih8nrp": {
+      "firstSeen": "2026-11-11T03:54:19.990Z",
+      "lastSeen": "2026-11-11T03:54:24.537Z",
+      "visitCount": 3
+    },
+    "vis_yolan89v5": {
+      "firstSeen": "2026-11-11T03:54:20.031Z",
+      "lastSeen": "2026-11-11T03:54:24.651Z",
+      "visitCount": 3
+    },
+    "vis_qhhpw2hxm": {
+      "firstSeen": "2026-11-11T03:54:25.615Z",
+      "lastSeen": "2026-11-11T03:54:25.615Z",
+      "visitCount": 1
+    },
+    "vis_k70f2byrg": {
+      "firstSeen": "2026-11-11T03:54:25.733Z",
+      "lastSeen": "2026-11-11T03:54:25.733Z",
+      "visitCount": 1
+    },
+    "vis_sxhthomeo": {
+      "firstSeen": "2026-11-11T03:54:25.931Z",
+      "lastSeen": "2026-11-11T03:54:25.931Z",
+      "visitCount": 1
+    },
+    "vis_iiug7pntk": {
+      "firstSeen": "2026-11-11T04:01:30.007Z",
+      "lastSeen": "2026-11-11T04:01:30.007Z",
+      "visitCount": 1
+    },
+    "vis_fwebynjuy": {
+      "firstSeen": "2026-11-11T04:01:30.042Z",
+      "lastSeen": "2026-11-11T04:01:30.042Z",
+      "visitCount": 1
+    },
+    "vis_x4vpl79i5": {
+      "firstSeen": "2026-11-11T04:01:30.045Z",
+      "lastSeen": "2026-11-11T04:01:30.045Z",
+      "visitCount": 1
+    },
+    "vis_sgr74g6m4": {
+      "firstSeen": "2026-11-11T04:01:31.333Z",
+      "lastSeen": "2026-11-11T04:01:31.333Z",
+      "visitCount": 1
+    },
+    "vis_by5gyzrrx": {
+      "firstSeen": "2026-11-11T04:01:31.347Z",
+      "lastSeen": "2026-11-11T04:01:31.347Z",
+      "visitCount": 1
+    },
+    "vis_se0pmq9po": {
+      "firstSeen": "2026-11-11T04:01:31.349Z",
+      "lastSeen": "2026-11-11T04:01:31.349Z",
+      "visitCount": 1
+    },
+    "vis_kgj45j0ko": {
+      "firstSeen": "2026-11-11T04:01:32.675Z",
+      "lastSeen": "2026-11-11T04:01:36.662Z",
+      "visitCount": 3
+    },
+    "vis_ti6xum4z4": {
+      "firstSeen": "2026-11-11T04:01:32.693Z",
+      "lastSeen": "2026-11-11T04:01:36.996Z",
+      "visitCount": 3
+    },
+    "vis_99rnuebya": {
+      "firstSeen": "2026-11-11T04:01:32.739Z",
+      "lastSeen": "2026-11-11T04:01:38.505Z",
+      "visitCount": 3
+    },
+    "vis_i4sxi2ew6": {
+      "firstSeen": "2026-11-11T04:01:37.816Z",
+      "lastSeen": "2026-11-11T04:01:37.816Z",
+      "visitCount": 1
+    },
+    "vis_iy1rm90yr": {
+      "firstSeen": "2026-11-11T04:01:38.017Z",
+      "lastSeen": "2026-11-11T04:01:38.017Z",
+      "visitCount": 1
+    },
+    "vis_tg7yzuyyc": {
+      "firstSeen": "2026-11-11T04:01:39.639Z",
+      "lastSeen": "2026-11-11T04:01:39.639Z",
+      "visitCount": 1
+    },
+    "vis_rygjolkka": {
+      "firstSeen": "2026-11-11T04:25:07.922Z",
+      "eventsCount": 1,
+      "lastSeen": "2026-11-11T04:25:07.922Z"
+    },
+    "vis_pe1jqhicm": {
+      "firstSeen": "2026-11-11T04:25:21.076Z",
+      "eventsCount": 1,
+      "lastSeen": "2026-11-11T04:25:21.076Z"
+    },
+    "vis_ybwkf1spd": {
+      "firstSeen": "2026-11-11T04:26:23.698Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-11T04:26:27.331Z"
+    },
+    "vis_35b1m8e4i": {
+      "firstSeen": "2026-11-11T04:27:02.137Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-11T04:27:05.716Z"
+    },
+    "vis_6vlphghlh": {
+      "firstSeen": "2026-11-11T04:29:36.908Z",
+      "eventsCount": 1,
+      "lastSeen": "2026-11-11T04:29:36.909Z"
+    },
+    "vis_j6ule59ti": {
+      "firstSeen": "2026-11-11T04:29:36.974Z",
+      "eventsCount": 1,
+      "lastSeen": "2026-11-11T04:29:36.974Z"
+    },
+    "vis_b03m9hrtp": {
+      "firstSeen": "2026-11-11T04:29:37.016Z",
+      "eventsCount": 1,
+      "lastSeen": "2026-11-11T04:29:37.016Z"
+    },
+    "vis_pkbfipxlo": {
+      "firstSeen": "2026-11-11T04:29:38.402Z",
+      "eventsCount": 1,
+      "lastSeen": "2026-11-11T04:29:38.402Z"
+    },
+    "vis_tm0eprns9": {
+      "firstSeen": "2026-11-11T04:29:38.414Z",
+      "eventsCount": 1,
+      "lastSeen": "2026-11-11T04:29:38.414Z"
+    },
+    "vis_6z9wa18us": {
+      "firstSeen": "2026-11-11T04:29:38.473Z",
+      "eventsCount": 1,
+      "lastSeen": "2026-11-11T04:29:38.473Z"
+    },
+    "vis_szgmofc2j": {
+      "firstSeen": "2026-11-11T04:29:39.888Z",
+      "eventsCount": 3,
+      "lastSeen": "2026-11-11T04:29:44.113Z"
+    },
+    "vis_zhbrfq1dg": {
+      "firstSeen": "2026-11-11T04:29:39.984Z",
+      "eventsCount": 3,
+      "lastSeen": "2026-11-11T04:29:44.494Z"
+    },
+    "vis_bclx18406": {
+      "firstSeen": "2026-11-11T04:29:40.056Z",
+      "eventsCount": 3,
+      "lastSeen": "2026-11-11T04:29:44.453Z"
+    },
+    "vis_rjrojnac8": {
+      "firstSeen": "2026-11-11T04:29:45.357Z",
+      "eventsCount": 1,
+      "lastSeen": "2026-11-11T04:29:45.357Z"
+    },
+    "vis_21tdrwfqt": {
+      "firstSeen": "2026-11-11T04:29:45.672Z",
+      "eventsCount": 1,
+      "lastSeen": "2026-11-11T04:29:45.672Z"
+    },
+    "vis_12eejgj18": {
+      "firstSeen": "2026-11-11T04:29:45.729Z",
+      "eventsCount": 1,
+      "lastSeen": "2026-11-11T04:29:45.729Z"
+    },
+    "vis_2mi3p7esg": {
+      "firstSeen": "2026-11-11T04:30:11.125Z",
+      "eventsCount": 1,
+      "lastSeen": "2026-11-11T04:30:11.125Z"
+    },
+    "vis_tw2q0ej9e": {
+      "firstSeen": "2026-11-11T04:30:11.211Z",
+      "eventsCount": 1,
+      "lastSeen": "2026-11-11T04:30:11.212Z"
+    },
+    "vis_mgj5gq5ay": {
+      "firstSeen": "2026-11-11T04:30:11.329Z",
+      "eventsCount": 1,
+      "lastSeen": "2026-11-11T04:30:11.329Z"
+    },
+    "vis_mbot9p0t7": {
+      "firstSeen": "2026-11-11T04:30:12.607Z",
+      "eventsCount": 1,
+      "lastSeen": "2026-11-11T04:30:12.607Z"
+    },
+    "vis_ujih8bfhz": {
+      "firstSeen": "2026-11-11T04:30:12.721Z",
+      "eventsCount": 1,
+      "lastSeen": "2026-11-11T04:30:12.721Z"
+    },
+    "vis_wpzuwygod": {
+      "firstSeen": "2026-11-11T04:30:12.931Z",
+      "eventsCount": 1,
+      "lastSeen": "2026-11-11T04:30:12.931Z"
+    },
+    "vis_g91d7r5dr": {
+      "firstSeen": "2026-11-11T04:30:14.099Z",
+      "eventsCount": 3,
+      "lastSeen": "2026-11-11T04:30:18.197Z"
+    },
+    "vis_peiluobyn": {
+      "firstSeen": "2026-11-11T04:30:14.117Z",
+      "eventsCount": 3,
+      "lastSeen": "2026-11-11T04:30:18.465Z"
+    },
+    "vis_spawq6eqs": {
+      "firstSeen": "2026-11-11T04:30:14.356Z",
+      "eventsCount": 3,
+      "lastSeen": "2026-11-11T04:30:20.078Z"
+    },
+    "vis_yl0bf9s2d": {
+      "firstSeen": "2026-11-11T04:30:19.450Z",
+      "eventsCount": 1,
+      "lastSeen": "2026-11-11T04:30:19.450Z"
+    },
+    "vis_zmwqiv8ec": {
+      "firstSeen": "2026-11-11T04:30:19.614Z",
+      "eventsCount": 1,
+      "lastSeen": "2026-11-11T04:30:19.614Z"
+    },
+    "vis_fqvam15co": {
+      "firstSeen": "2026-11-11T04:30:21.320Z",
+      "eventsCount": 1,
+      "lastSeen": "2026-11-11T04:30:21.320Z"
     }
   },
   "events": [
     {
-      "id": "evt_1794214849471_740",
-      "timestamp": "2026-11-09T09:00:49.471Z",
       "eventType": "page_view",
-      "visitorId": "vis_i54bdvd3z",
-      "customerName": "Khách vãng lai",
+      "visitorId": "vis_fqvam15co",
       "details": {
         "path": "/"
-      }
+      },
+      "timestamp": "2026-11-11T04:30:21.320Z"
     },
     {
-      "id": "evt_1794214848106_262",
-      "timestamp": "2026-11-09T09:00:48.106Z",
-      "eventType": "page_view",
-      "visitorId": "vis_3634iuup2",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214847524_730",
-      "timestamp": "2026-11-09T09:00:47.524Z",
       "eventType": "open_vip_modal",
-      "visitorId": "vis_ipe09pebf",
+      "visitorId": "vis_spawq6eqs",
+      "details": {
+        "orderCode": "TV465934",
+        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ Đại Hạn)",
+        "amount": 49000
+      },
+      "timestamp": "2026-11-11T04:30:20.078Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_zmwqiv8ec",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-11T04:30:19.614Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_yl0bf9s2d",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-11T04:30:19.450Z"
+    },
+    {
+      "eventType": "open_vip_modal",
+      "visitorId": "vis_peiluobyn",
+      "details": {
+        "orderCode": "TV433777",
+        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ Đại Hạn)",
+        "amount": 49000
+      },
+      "timestamp": "2026-11-11T04:30:18.465Z"
+    },
+    {
+      "eventType": "lap_la_so",
+      "visitorId": "vis_spawq6eqs",
+      "details": {
+        "hoTen": "Nguyễn Hoàng Minh Quân",
+        "gioiTinh": "nam"
+      },
+      "timestamp": "2026-11-11T04:30:18.303Z"
+    },
+    {
+      "eventType": "open_vip_modal",
+      "visitorId": "vis_g91d7r5dr",
+      "details": {
+        "orderCode": "TV249265",
+        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ Đại Hạn)",
+        "amount": 49000
+      },
+      "timestamp": "2026-11-11T04:30:18.197Z"
+    },
+    {
+      "eventType": "lap_la_so",
+      "visitorId": "vis_peiluobyn",
+      "details": {
+        "hoTen": "Nguyễn Hoàng Minh Quân",
+        "gioiTinh": "nam"
+      },
+      "timestamp": "2026-11-11T04:30:17.817Z"
+    },
+    {
+      "eventType": "lap_la_so",
+      "visitorId": "vis_g91d7r5dr",
+      "details": {
+        "hoTen": "Nguyễn Hoàng Minh Quân",
+        "gioiTinh": "nam"
+      },
+      "timestamp": "2026-11-11T04:30:17.806Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_spawq6eqs",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-11T04:30:14.356Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_peiluobyn",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-11T04:30:14.117Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_g91d7r5dr",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-11T04:30:14.099Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_wpzuwygod",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-11T04:30:12.931Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_ujih8bfhz",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-11T04:30:12.721Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mbot9p0t7",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-11T04:30:12.607Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mgj5gq5ay",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-11T04:30:11.329Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_tw2q0ej9e",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-11T04:30:11.212Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_2mi3p7esg",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-11T04:30:11.125Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_12eejgj18",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-11T04:29:45.729Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_21tdrwfqt",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-11T04:29:45.672Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_rjrojnac8",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-11T04:29:45.357Z"
+    },
+    {
+      "eventType": "open_vip_modal",
+      "visitorId": "vis_zhbrfq1dg",
+      "details": {
+        "orderCode": "TV266418",
+        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ Đại Hạn)",
+        "amount": 49000
+      },
+      "timestamp": "2026-11-11T04:29:44.494Z"
+    },
+    {
+      "eventType": "open_vip_modal",
+      "visitorId": "vis_bclx18406",
+      "details": {
+        "orderCode": "TV521713",
+        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ Đại Hạn)",
+        "amount": 49000
+      },
+      "timestamp": "2026-11-11T04:29:44.453Z"
+    },
+    {
+      "eventType": "open_vip_modal",
+      "visitorId": "vis_szgmofc2j",
+      "details": {
+        "orderCode": "TV987346",
+        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ Đại Hạn)",
+        "amount": 49000
+      },
+      "timestamp": "2026-11-11T04:29:44.113Z"
+    },
+    {
+      "eventType": "lap_la_so",
+      "visitorId": "vis_bclx18406",
+      "details": {
+        "hoTen": "Nguyễn Hoàng Minh Quân",
+        "gioiTinh": "nam"
+      },
+      "timestamp": "2026-11-11T04:29:43.917Z"
+    },
+    {
+      "eventType": "lap_la_so",
+      "visitorId": "vis_zhbrfq1dg",
+      "details": {
+        "hoTen": "Nguyễn Hoàng Minh Quân",
+        "gioiTinh": "nam"
+      },
+      "timestamp": "2026-11-11T04:29:43.776Z"
+    },
+    {
+      "eventType": "lap_la_so",
+      "visitorId": "vis_szgmofc2j",
+      "details": {
+        "hoTen": "Nguyễn Hoàng Minh Quân",
+        "gioiTinh": "nam"
+      },
+      "timestamp": "2026-11-11T04:29:43.711Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_bclx18406",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-11T04:29:40.056Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_zhbrfq1dg",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-11T04:29:39.985Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_szgmofc2j",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-11T04:29:39.888Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_6z9wa18us",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-11T04:29:38.473Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_tm0eprns9",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-11T04:29:38.414Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_pkbfipxlo",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-11T04:29:38.402Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_b03m9hrtp",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-11T04:29:37.016Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_j6ule59ti",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-11T04:29:36.974Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_6vlphghlh",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-11T04:29:36.909Z"
+    },
+    {
+      "eventType": "lap_la_so",
+      "visitorId": "vis_35b1m8e4i",
+      "details": {
+        "hoTen": "Trần Công Luyện",
+        "gioiTinh": "nam"
+      },
+      "timestamp": "2026-11-11T04:27:05.716Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_35b1m8e4i",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-11T04:27:02.137Z"
+    },
+    {
+      "eventType": "lap_la_so",
+      "visitorId": "vis_ybwkf1spd",
+      "details": {
+        "hoTen": "Trần Công Luyện",
+        "gioiTinh": "nam"
+      },
+      "timestamp": "2026-11-11T04:26:27.331Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_ybwkf1spd",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-11T04:26:23.698Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_pe1jqhicm",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-11T04:25:21.076Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_rygjolkka",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-11T04:25:07.922Z"
+    },
+    {
+      "id": "evt_1794369699639_446",
+      "timestamp": "2026-11-11T04:01:39.639Z",
+      "eventType": "page_view",
+      "visitorId": "vis_tg7yzuyyc",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794369698505_220",
+      "timestamp": "2026-11-11T04:01:38.505Z",
+      "eventType": "open_vip_modal",
+      "visitorId": "vis_99rnuebya",
       "customerName": "Nguyễn Hoàng Minh Quân",
       "details": {
-        "orderCode": "TV242242",
-        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)",
+        "orderCode": "TV654192",
+        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ Đại Hạn)",
         "amount": 49000
       }
     },
     {
-      "id": "evt_1794214846142_228",
-      "timestamp": "2026-11-09T09:00:46.142Z",
+      "id": "evt_1794369698017_618",
+      "timestamp": "2026-11-11T04:01:38.017Z",
+      "eventType": "page_view",
+      "visitorId": "vis_iy1rm90yr",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794369697816_874",
+      "timestamp": "2026-11-11T04:01:37.816Z",
+      "eventType": "page_view",
+      "visitorId": "vis_i4sxi2ew6",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794369696996_496",
+      "timestamp": "2026-11-11T04:01:36.996Z",
       "eventType": "open_vip_modal",
-      "visitorId": "vis_coufraxsf",
+      "visitorId": "vis_ti6xum4z4",
       "customerName": "Nguyễn Hoàng Minh Quân",
       "details": {
-        "orderCode": "TV300072",
-        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)",
+        "orderCode": "TV229390",
+        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ Đại Hạn)",
         "amount": 49000
       }
     },
     {
-      "id": "evt_1794214846095_587",
-      "timestamp": "2026-11-09T09:00:46.095Z",
-      "eventType": "open_vip_modal",
-      "visitorId": "vis_jhyx0pi2s",
+      "id": "evt_1794369696717_957",
+      "timestamp": "2026-11-11T04:01:36.717Z",
+      "eventType": "lap_la_so",
+      "visitorId": "vis_99rnuebya",
       "customerName": "Nguyễn Hoàng Minh Quân",
       "details": {
-        "orderCode": "TV419085",
-        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)",
+        "hoTen": "Nguyễn Hoàng Minh Quân",
+        "gioiTinh": "nam"
+      }
+    },
+    {
+      "id": "evt_1794369696662_912",
+      "timestamp": "2026-11-11T04:01:36.662Z",
+      "eventType": "open_vip_modal",
+      "visitorId": "vis_kgj45j0ko",
+      "customerName": "Nguyễn Hoàng Minh Quân",
+      "details": {
+        "orderCode": "TV906273",
+        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ Đại Hạn)",
         "amount": 49000
       }
     },
     {
-      "id": "evt_1794214845029_46",
-      "timestamp": "2026-11-09T09:00:45.029Z",
+      "id": "evt_1794369696395_628",
+      "timestamp": "2026-11-11T04:01:36.395Z",
       "eventType": "lap_la_so",
-      "visitorId": "vis_ipe09pebf",
+      "visitorId": "vis_ti6xum4z4",
       "customerName": "Nguyễn Hoàng Minh Quân",
       "details": {
         "hoTen": "Nguyễn Hoàng Minh Quân",
@@ -523,10 +1655,10 @@
       }
     },
     {
-      "id": "evt_1794214844866_71",
-      "timestamp": "2026-11-09T09:00:44.866Z",
+      "id": "evt_1794369696281_484",
+      "timestamp": "2026-11-11T04:01:36.281Z",
       "eventType": "lap_la_so",
-      "visitorId": "vis_jhyx0pi2s",
+      "visitorId": "vis_kgj45j0ko",
       "customerName": "Nguyễn Hoàng Minh Quân",
       "details": {
         "hoTen": "Nguyễn Hoàng Minh Quân",
@@ -534,210 +1666,166 @@
       }
     },
     {
-      "id": "evt_1794214844729_517",
-      "timestamp": "2026-11-09T09:00:44.729Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_coufraxsf",
-      "customerName": "Nguyễn Hoàng Minh Quân",
-      "details": {
-        "hoTen": "Nguyễn Hoàng Minh Quân",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214841974_238",
-      "timestamp": "2026-11-09T09:00:41.974Z",
+      "id": "evt_1794369692739_837",
+      "timestamp": "2026-11-11T04:01:32.739Z",
       "eventType": "page_view",
-      "visitorId": "vis_coufraxsf",
+      "visitorId": "vis_99rnuebya",
       "customerName": "Khách vãng lai",
       "details": {
         "path": "/"
       }
     },
     {
-      "id": "evt_1794214841441_47",
-      "timestamp": "2026-11-09T09:00:41.441Z",
+      "id": "evt_1794369692693_443",
+      "timestamp": "2026-11-11T04:01:32.693Z",
       "eventType": "page_view",
-      "visitorId": "vis_jhyx0pi2s",
+      "visitorId": "vis_ti6xum4z4",
       "customerName": "Khách vãng lai",
       "details": {
         "path": "/"
       }
     },
     {
-      "id": "evt_1794214841225_334",
-      "timestamp": "2026-11-09T09:00:41.225Z",
+      "id": "evt_1794369692675_782",
+      "timestamp": "2026-11-11T04:01:32.675Z",
       "eventType": "page_view",
-      "visitorId": "vis_ipe09pebf",
+      "visitorId": "vis_kgj45j0ko",
       "customerName": "Khách vãng lai",
       "details": {
         "path": "/"
       }
     },
     {
-      "id": "evt_1794214839699_347",
-      "timestamp": "2026-11-09T09:00:39.699Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_iaf262sm2",
-      "customerName": "Trần Văn Nam",
-      "details": {
-        "hoTen": "Trần Văn Nam",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214839670_690",
-      "timestamp": "2026-11-09T09:00:39.670Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_0iwh91j75",
-      "customerName": "Trần Văn Nam",
-      "details": {
-        "hoTen": "Trần Văn Nam",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214839644_101",
-      "timestamp": "2026-11-09T09:00:39.644Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_eh45ahgr5",
-      "customerName": "Trần Văn Nam",
-      "details": {
-        "hoTen": "Trần Văn Nam",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214837092_570",
-      "timestamp": "2026-11-09T09:00:37.092Z",
+      "id": "evt_1794369691349_904",
+      "timestamp": "2026-11-11T04:01:31.349Z",
       "eventType": "page_view",
-      "visitorId": "vis_iaf262sm2",
+      "visitorId": "vis_se0pmq9po",
       "customerName": "Khách vãng lai",
       "details": {
         "path": "/"
       }
     },
     {
-      "id": "evt_1794214836440_893",
-      "timestamp": "2026-11-09T09:00:36.440Z",
+      "id": "evt_1794369691347_436",
+      "timestamp": "2026-11-11T04:01:31.347Z",
       "eventType": "page_view",
-      "visitorId": "vis_0iwh91j75",
+      "visitorId": "vis_by5gyzrrx",
       "customerName": "Khách vãng lai",
       "details": {
         "path": "/"
       }
     },
     {
-      "id": "evt_1794214836438_489",
-      "timestamp": "2026-11-09T09:00:36.438Z",
+      "id": "evt_1794369691333_220",
+      "timestamp": "2026-11-11T04:01:31.333Z",
       "eventType": "page_view",
-      "visitorId": "vis_eh45ahgr5",
+      "visitorId": "vis_sgr74g6m4",
       "customerName": "Khách vãng lai",
       "details": {
         "path": "/"
       }
     },
     {
-      "id": "evt_1794214834674_156",
-      "timestamp": "2026-11-09T09:00:34.674Z",
+      "id": "evt_1794369690046_147",
+      "timestamp": "2026-11-11T04:01:30.045Z",
       "eventType": "page_view",
-      "visitorId": "vis_eix2qfymf",
+      "visitorId": "vis_x4vpl79i5",
       "customerName": "Khách vãng lai",
       "details": {
         "path": "/"
       }
     },
     {
-      "id": "evt_1794214834626_792",
-      "timestamp": "2026-11-09T09:00:34.626Z",
+      "id": "evt_1794369690042_407",
+      "timestamp": "2026-11-11T04:01:30.042Z",
       "eventType": "page_view",
-      "visitorId": "vis_npbo052ct",
+      "visitorId": "vis_fwebynjuy",
       "customerName": "Khách vãng lai",
       "details": {
         "path": "/"
       }
     },
     {
-      "id": "evt_1794214777529_299",
-      "timestamp": "2026-11-09T08:59:37.529Z",
+      "id": "evt_1794369690007_121",
+      "timestamp": "2026-11-11T04:01:30.007Z",
       "eventType": "page_view",
-      "visitorId": "vis_i2o9ggonn",
+      "visitorId": "vis_iiug7pntk",
       "customerName": "Khách vãng lai",
       "details": {
         "path": "/"
       }
     },
     {
-      "id": "evt_1794214746756_690",
-      "timestamp": "2026-11-09T08:59:06.756Z",
+      "id": "evt_1794369265931_574",
+      "timestamp": "2026-11-11T03:54:25.931Z",
       "eventType": "page_view",
-      "visitorId": "vis_zvrhqu73y",
+      "visitorId": "vis_sxhthomeo",
       "customerName": "Khách vãng lai",
       "details": {
         "path": "/"
       }
     },
     {
-      "id": "evt_1794214729195_63",
-      "timestamp": "2026-11-09T08:58:49.195Z",
+      "id": "evt_1794369265733_909",
+      "timestamp": "2026-11-11T03:54:25.733Z",
       "eventType": "page_view",
-      "visitorId": "vis_q76qjs4sk",
+      "visitorId": "vis_k70f2byrg",
       "customerName": "Khách vãng lai",
       "details": {
         "path": "/"
       }
     },
     {
-      "id": "evt_1794214727845_35",
-      "timestamp": "2026-11-09T08:58:47.845Z",
+      "id": "evt_1794369265615_51",
+      "timestamp": "2026-11-11T03:54:25.615Z",
       "eventType": "page_view",
-      "visitorId": "vis_3984uucc0",
+      "visitorId": "vis_qhhpw2hxm",
       "customerName": "Khách vãng lai",
       "details": {
         "path": "/"
       }
     },
     {
-      "id": "evt_1794214726303_215",
-      "timestamp": "2026-11-09T08:58:46.303Z",
+      "id": "evt_1794369264651_36",
+      "timestamp": "2026-11-11T03:54:24.651Z",
       "eventType": "open_vip_modal",
-      "visitorId": "vis_cdpxr4b05",
+      "visitorId": "vis_yolan89v5",
       "customerName": "Nguyễn Hoàng Minh Quân",
       "details": {
-        "orderCode": "TV414720",
-        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)",
+        "orderCode": "TV725845",
+        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ Đại Hạn)",
         "amount": 49000
       }
     },
     {
-      "id": "evt_1794214725383_419",
-      "timestamp": "2026-11-09T08:58:45.383Z",
+      "id": "evt_1794369264537_27",
+      "timestamp": "2026-11-11T03:54:24.537Z",
       "eventType": "open_vip_modal",
-      "visitorId": "vis_6oyn75akz",
+      "visitorId": "vis_ceaih8nrp",
       "customerName": "Nguyễn Hoàng Minh Quân",
       "details": {
-        "orderCode": "TV669722",
-        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)",
+        "orderCode": "TV335350",
+        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ Đại Hạn)",
         "amount": 49000
       }
     },
     {
-      "id": "evt_1794214725263_298",
-      "timestamp": "2026-11-09T08:58:45.263Z",
+      "id": "evt_1794369264318_991",
+      "timestamp": "2026-11-11T03:54:24.318Z",
       "eventType": "open_vip_modal",
-      "visitorId": "vis_stzu6mbv5",
+      "visitorId": "vis_y8xoppqia",
       "customerName": "Nguyễn Hoàng Minh Quân",
       "details": {
-        "orderCode": "TV187076",
-        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)",
+        "orderCode": "TV727848",
+        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ Đại Hạn)",
         "amount": 49000
       }
     },
     {
-      "id": "evt_1794214723497_283",
-      "timestamp": "2026-11-09T08:58:43.497Z",
+      "id": "evt_1794369264196_57",
+      "timestamp": "2026-11-11T03:54:24.196Z",
       "eventType": "lap_la_so",
-      "visitorId": "vis_cdpxr4b05",
+      "visitorId": "vis_yolan89v5",
       "customerName": "Nguyễn Hoàng Minh Quân",
       "details": {
         "hoTen": "Nguyễn Hoàng Minh Quân",
@@ -745,10 +1833,10 @@
       }
     },
     {
-      "id": "evt_1794214723431_378",
-      "timestamp": "2026-11-09T08:58:43.431Z",
+      "id": "evt_1794369263945_173",
+      "timestamp": "2026-11-11T03:54:23.945Z",
       "eventType": "lap_la_so",
-      "visitorId": "vis_6oyn75akz",
+      "visitorId": "vis_ceaih8nrp",
       "customerName": "Nguyễn Hoàng Minh Quân",
       "details": {
         "hoTen": "Nguyễn Hoàng Minh Quân",
@@ -756,10 +1844,10 @@
       }
     },
     {
-      "id": "evt_1794214723305_818",
-      "timestamp": "2026-11-09T08:58:43.305Z",
+      "id": "evt_1794369263905_441",
+      "timestamp": "2026-11-11T03:54:23.905Z",
       "eventType": "lap_la_so",
-      "visitorId": "vis_stzu6mbv5",
+      "visitorId": "vis_y8xoppqia",
       "customerName": "Nguyễn Hoàng Minh Quân",
       "details": {
         "hoTen": "Nguyễn Hoàng Minh Quân",
@@ -767,1313 +1855,1367 @@
       }
     },
     {
-      "id": "evt_1794214720661_266",
-      "timestamp": "2026-11-09T08:58:40.661Z",
+      "id": "evt_1794369260031_867",
+      "timestamp": "2026-11-11T03:54:20.031Z",
       "eventType": "page_view",
-      "visitorId": "vis_cdpxr4b05",
+      "visitorId": "vis_yolan89v5",
       "customerName": "Khách vãng lai",
       "details": {
         "path": "/"
       }
     },
     {
-      "id": "evt_1794214719796_133",
-      "timestamp": "2026-11-09T08:58:39.796Z",
+      "id": "evt_1794369259990_282",
+      "timestamp": "2026-11-11T03:54:19.990Z",
       "eventType": "page_view",
-      "visitorId": "vis_stzu6mbv5",
+      "visitorId": "vis_ceaih8nrp",
       "customerName": "Khách vãng lai",
       "details": {
         "path": "/"
       }
     },
     {
-      "id": "evt_1794214719345_203",
-      "timestamp": "2026-11-09T08:58:39.345Z",
+      "id": "evt_1794369259910_691",
+      "timestamp": "2026-11-11T03:54:19.909Z",
       "eventType": "page_view",
-      "visitorId": "vis_6oyn75akz",
+      "visitorId": "vis_y8xoppqia",
       "customerName": "Khách vãng lai",
       "details": {
         "path": "/"
       }
     },
     {
-      "id": "evt_1794214718432_784",
-      "timestamp": "2026-11-09T08:58:38.432Z",
+      "id": "evt_1794369258717_297",
+      "timestamp": "2026-11-11T03:54:18.717Z",
+      "eventType": "page_view",
+      "visitorId": "vis_qqz8sisnh",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794369258683_662",
+      "timestamp": "2026-11-11T03:54:18.683Z",
+      "eventType": "page_view",
+      "visitorId": "vis_8o15vnbit",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794369258675_928",
+      "timestamp": "2026-11-11T03:54:18.675Z",
+      "eventType": "page_view",
+      "visitorId": "vis_9rfwf78cs",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794369257406_883",
+      "timestamp": "2026-11-11T03:54:17.406Z",
+      "eventType": "page_view",
+      "visitorId": "vis_1gy0fidcg",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794369257403_272",
+      "timestamp": "2026-11-11T03:54:17.403Z",
+      "eventType": "page_view",
+      "visitorId": "vis_0s8zl1qor",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794369257309_440",
+      "timestamp": "2026-11-11T03:54:17.308Z",
+      "eventType": "page_view",
+      "visitorId": "vis_djw9z1hf3",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794369238402_233",
+      "timestamp": "2026-11-11T03:53:58.402Z",
       "eventType": "lap_la_so",
-      "visitorId": "vis_r4cuinlwi",
-      "customerName": "Trần Văn Nam",
-      "details": {
-        "hoTen": "Trần Văn Nam",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214718269_573",
-      "timestamp": "2026-11-09T08:58:38.269Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_eriidamii",
-      "customerName": "Trần Văn Nam",
-      "details": {
-        "hoTen": "Trần Văn Nam",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214718154_951",
-      "timestamp": "2026-11-09T08:58:38.154Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_wlb3z6r76",
-      "customerName": "Trần Văn Nam",
-      "details": {
-        "hoTen": "Trần Văn Nam",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214715945_271",
-      "timestamp": "2026-11-09T08:58:35.945Z",
-      "eventType": "page_view",
-      "visitorId": "vis_r4cuinlwi",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214714944_676",
-      "timestamp": "2026-11-09T08:58:34.944Z",
-      "eventType": "page_view",
-      "visitorId": "vis_eriidamii",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214714830_758",
-      "timestamp": "2026-11-09T08:58:34.830Z",
-      "eventType": "page_view",
-      "visitorId": "vis_wlb3z6r76",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214713442_349",
-      "timestamp": "2026-11-09T08:58:33.442Z",
-      "eventType": "page_view",
-      "visitorId": "vis_3nklgdcjf",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214649545_563",
-      "timestamp": "2026-11-09T08:57:29.545Z",
-      "eventType": "page_view",
-      "visitorId": "vis_25huhdgfj",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214649016_329",
-      "timestamp": "2026-11-09T08:57:29.016Z",
-      "eventType": "page_view",
-      "visitorId": "vis_wdy8gmfkh",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214637530_248",
-      "timestamp": "2026-11-09T08:57:17.530Z",
-      "eventType": "page_view",
-      "visitorId": "vis_x0ububnec",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214624808_629",
-      "timestamp": "2026-11-09T08:57:04.808Z",
-      "eventType": "open_vip_modal",
-      "visitorId": "vis_uai9fg7qk",
-      "customerName": "Nguyễn Hoàng Minh Quân",
-      "details": {
-        "orderCode": "TV648676",
-        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)",
-        "amount": 49000
-      }
-    },
-    {
-      "id": "evt_1794214623831_870",
-      "timestamp": "2026-11-09T08:57:03.831Z",
-      "eventType": "open_vip_modal",
-      "visitorId": "vis_28hloyg9b",
-      "customerName": "Nguyễn Hoàng Minh Quân",
-      "details": {
-        "orderCode": "TV850286",
-        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)",
-        "amount": 49000
-      }
-    },
-    {
-      "id": "evt_1794214623537_401",
-      "timestamp": "2026-11-09T08:57:03.537Z",
-      "eventType": "open_vip_modal",
-      "visitorId": "vis_kecyiw96j",
-      "customerName": "Nguyễn Hoàng Minh Quân",
-      "details": {
-        "orderCode": "TV764083",
-        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)",
-        "amount": 49000
-      }
-    },
-    {
-      "id": "evt_1794214621972_466",
-      "timestamp": "2026-11-09T08:57:01.972Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_uai9fg7qk",
-      "customerName": "Nguyễn Hoàng Minh Quân",
-      "details": {
-        "hoTen": "Nguyễn Hoàng Minh Quân",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214621738_841",
-      "timestamp": "2026-11-09T08:57:01.738Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_28hloyg9b",
-      "customerName": "Nguyễn Hoàng Minh Quân",
-      "details": {
-        "hoTen": "Nguyễn Hoàng Minh Quân",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214621551_37",
-      "timestamp": "2026-11-09T08:57:01.551Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_kecyiw96j",
-      "customerName": "Nguyễn Hoàng Minh Quân",
-      "details": {
-        "hoTen": "Nguyễn Hoàng Minh Quân",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214618749_654",
-      "timestamp": "2026-11-09T08:56:58.749Z",
-      "eventType": "page_view",
-      "visitorId": "vis_uai9fg7qk",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214618067_941",
-      "timestamp": "2026-11-09T08:56:58.067Z",
-      "eventType": "page_view",
-      "visitorId": "vis_28hloyg9b",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214617551_519",
-      "timestamp": "2026-11-09T08:56:57.551Z",
-      "eventType": "page_view",
-      "visitorId": "vis_kecyiw96j",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214616761_491",
-      "timestamp": "2026-11-09T08:56:56.761Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_f64n3rm0a",
-      "customerName": "Trần Văn Nam",
-      "details": {
-        "hoTen": "Trần Văn Nam",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214616506_347",
-      "timestamp": "2026-11-09T08:56:56.506Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_r5fzv06fc",
-      "customerName": "Trần Văn Nam",
-      "details": {
-        "hoTen": "Trần Văn Nam",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214616496_547",
-      "timestamp": "2026-11-09T08:56:56.496Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_sgelupd0p",
-      "customerName": "Trần Văn Nam",
-      "details": {
-        "hoTen": "Trần Văn Nam",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214613967_389",
-      "timestamp": "2026-11-09T08:56:53.967Z",
-      "eventType": "page_view",
-      "visitorId": "vis_f64n3rm0a",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214613502_745",
-      "timestamp": "2026-11-09T08:56:53.502Z",
-      "eventType": "page_view",
-      "visitorId": "vis_r5fzv06fc",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214613433_662",
-      "timestamp": "2026-11-09T08:56:53.433Z",
-      "eventType": "page_view",
-      "visitorId": "vis_sgelupd0p",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214611420_360",
-      "timestamp": "2026-11-09T08:56:51.420Z",
-      "eventType": "page_view",
-      "visitorId": "vis_334ry0w0g",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214590337_807",
-      "timestamp": "2026-11-09T08:56:30.337Z",
-      "eventType": "page_view",
-      "visitorId": "vis_2czps2vww",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214589337_446",
-      "timestamp": "2026-11-09T08:56:29.337Z",
-      "eventType": "page_view",
-      "visitorId": "vis_347fk3j50",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214564572_470",
-      "timestamp": "2026-11-09T08:56:04.572Z",
-      "eventType": "open_vip_modal",
-      "visitorId": "vis_cxq64klqs",
-      "customerName": "Nguyễn Hoàng Minh Quân",
-      "details": {
-        "orderCode": "TV416388",
-        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)",
-        "amount": 49000
-      }
-    },
-    {
-      "id": "evt_1794214563771_561",
-      "timestamp": "2026-11-09T08:56:03.771Z",
-      "eventType": "open_vip_modal",
-      "visitorId": "vis_7vu5e6cqr",
-      "customerName": "Nguyễn Hoàng Minh Quân",
-      "details": {
-        "orderCode": "TV996485",
-        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)",
-        "amount": 49000
-      }
-    },
-    {
-      "id": "evt_1794214563609_306",
-      "timestamp": "2026-11-09T08:56:03.609Z",
-      "eventType": "open_vip_modal",
-      "visitorId": "vis_e614iq58s",
-      "customerName": "Nguyễn Hoàng Minh Quân",
-      "details": {
-        "orderCode": "TV638439",
-        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)",
-        "amount": 49000
-      }
-    },
-    {
-      "id": "evt_1794214561498_148",
-      "timestamp": "2026-11-09T08:56:01.498Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_7vu5e6cqr",
-      "customerName": "Nguyễn Hoàng Minh Quân",
-      "details": {
-        "hoTen": "Nguyễn Hoàng Minh Quân",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214561450_610",
-      "timestamp": "2026-11-09T08:56:01.450Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_e614iq58s",
-      "customerName": "Nguyễn Hoàng Minh Quân",
-      "details": {
-        "hoTen": "Nguyễn Hoàng Minh Quân",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214561177_239",
-      "timestamp": "2026-11-09T08:56:01.177Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_cxq64klqs",
-      "customerName": "Nguyễn Hoàng Minh Quân",
-      "details": {
-        "hoTen": "Nguyễn Hoàng Minh Quân",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214558851_762",
-      "timestamp": "2026-11-09T08:55:58.851Z",
-      "eventType": "page_view",
-      "visitorId": "vis_cxq64klqs",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214558368_535",
-      "timestamp": "2026-11-09T08:55:58.368Z",
-      "eventType": "page_view",
-      "visitorId": "vis_7vu5e6cqr",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214557108_78",
-      "timestamp": "2026-11-09T08:55:57.108Z",
-      "eventType": "page_view",
-      "visitorId": "vis_e614iq58s",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214556126_95",
-      "timestamp": "2026-11-09T08:55:56.126Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_hanrilvdc",
-      "customerName": "Trần Văn Nam",
-      "details": {
-        "hoTen": "Trần Văn Nam",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214556105_459",
-      "timestamp": "2026-11-09T08:55:56.105Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_tm6salmrt",
-      "customerName": "Trần Văn Nam",
-      "details": {
-        "hoTen": "Trần Văn Nam",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214556092_275",
-      "timestamp": "2026-11-09T08:55:56.092Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_vux9ovgy8",
-      "customerName": "Trần Văn Nam",
-      "details": {
-        "hoTen": "Trần Văn Nam",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214553416_508",
-      "timestamp": "2026-11-09T08:55:53.416Z",
-      "eventType": "page_view",
-      "visitorId": "vis_vux9ovgy8",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214553337_492",
-      "timestamp": "2026-11-09T08:55:53.337Z",
-      "eventType": "page_view",
-      "visitorId": "vis_tm6salmrt",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214553053_444",
-      "timestamp": "2026-11-09T08:55:53.053Z",
-      "eventType": "page_view",
-      "visitorId": "vis_hanrilvdc",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214524283_384",
-      "timestamp": "2026-11-09T08:55:24.283Z",
-      "eventType": "page_view",
-      "visitorId": "vis_yet6p9ejq",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214523215_965",
-      "timestamp": "2026-11-09T08:55:23.215Z",
-      "eventType": "page_view",
-      "visitorId": "vis_ob4zp0o5j",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214523186_578",
-      "timestamp": "2026-11-09T08:55:23.186Z",
-      "eventType": "page_view",
-      "visitorId": "vis_thh2b5ote",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214510538_769",
-      "timestamp": "2026-11-09T08:55:10.538Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_b5q4tvw9s",
-      "customerName": "Nguyễn Hoàng Minh Quân",
-      "details": {
-        "hoTen": "Nguyễn Hoàng Minh Quân",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214510141_270",
-      "timestamp": "2026-11-09T08:55:10.141Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_ocjj8cjng",
-      "customerName": "Nguyễn Hoàng Minh Quân",
-      "details": {
-        "hoTen": "Nguyễn Hoàng Minh Quân",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214510051_532",
-      "timestamp": "2026-11-09T08:55:10.051Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_84opxutot",
-      "customerName": "Nguyễn Hoàng Minh Quân",
-      "details": {
-        "hoTen": "Nguyễn Hoàng Minh Quân",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214507621_53",
-      "timestamp": "2026-11-09T08:55:07.621Z",
-      "eventType": "page_view",
-      "visitorId": "vis_b5q4tvw9s",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214506437_679",
-      "timestamp": "2026-11-09T08:55:06.437Z",
-      "eventType": "page_view",
-      "visitorId": "vis_ocjj8cjng",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214505937_567",
-      "timestamp": "2026-11-09T08:55:05.937Z",
-      "eventType": "page_view",
-      "visitorId": "vis_84opxutot",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214505435_832",
-      "timestamp": "2026-11-09T08:55:05.435Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_b7xb6pofi",
-      "customerName": "Trần Văn Nam",
-      "details": {
-        "hoTen": "Trần Văn Nam",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214505086_911",
-      "timestamp": "2026-11-09T08:55:05.086Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_6b7dx3gar",
-      "customerName": "Trần Văn Nam",
-      "details": {
-        "hoTen": "Trần Văn Nam",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214504997_74",
-      "timestamp": "2026-11-09T08:55:04.997Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_md3ho4c0k",
-      "customerName": "Trần Văn Nam",
-      "details": {
-        "hoTen": "Trần Văn Nam",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214502670_44",
-      "timestamp": "2026-11-09T08:55:02.670Z",
-      "eventType": "page_view",
-      "visitorId": "vis_b7xb6pofi",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214501555_601",
-      "timestamp": "2026-11-09T08:55:01.555Z",
-      "eventType": "page_view",
-      "visitorId": "vis_6b7dx3gar",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214501339_309",
-      "timestamp": "2026-11-09T08:55:01.339Z",
-      "eventType": "page_view",
-      "visitorId": "vis_md3ho4c0k",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214500455_352",
-      "timestamp": "2026-11-09T08:55:00.455Z",
-      "eventType": "page_view",
-      "visitorId": "vis_nyv6vvh11",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214500222_376",
-      "timestamp": "2026-11-09T08:55:00.222Z",
-      "eventType": "page_view",
-      "visitorId": "vis_hknmijvau",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214466718_230",
-      "timestamp": "2026-11-09T08:54:26.718Z",
-      "eventType": "page_view",
-      "visitorId": "vis_soqkbxejo",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214433440_368",
-      "timestamp": "2026-11-09T08:53:53.440Z",
-      "eventType": "page_view",
-      "visitorId": "vis_1l6m8ysjd",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214421354_226",
-      "timestamp": "2026-11-09T08:53:41.354Z",
-      "eventType": "open_vip_modal",
-      "visitorId": "vis_j5cuwg6xy",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "orderCode": "TV963252",
-        "packageName": "Báo Cáo VIP A4 Toàn Thư",
-        "amount": 49000
-      }
-    },
-    {
-      "id": "evt_1794214420803_902",
-      "timestamp": "2026-11-09T08:53:40.803Z",
-      "eventType": "page_view",
-      "visitorId": "vis_j5cuwg6xy",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214392809_667",
-      "timestamp": "2026-11-09T08:53:12.809Z",
-      "eventType": "page_view",
-      "visitorId": "vis_zlwlabejs",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214385792_471",
-      "timestamp": "2026-11-09T08:53:05.792Z",
-      "eventType": "page_view",
-      "visitorId": "vis_itkk2s1oc",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214379603_38",
-      "timestamp": "2026-11-09T08:52:59.603Z",
-      "eventType": "page_view",
-      "visitorId": "vis_tyd4xp24o",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214331220_541",
-      "timestamp": "2026-11-09T08:52:11.220Z",
-      "eventType": "page_view",
-      "visitorId": "vis_fnj1z627i",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214219181_237",
-      "timestamp": "2026-11-09T08:50:19.181Z",
-      "eventType": "page_view",
-      "visitorId": "vis_1rcgbp2mf",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214218648_205",
-      "timestamp": "2026-11-09T08:50:18.648Z",
-      "eventType": "page_view",
-      "visitorId": "vis_irx0hrakq",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214218332_419",
-      "timestamp": "2026-11-09T08:50:18.332Z",
-      "eventType": "page_view",
-      "visitorId": "vis_4o6thjmq7",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214206351_982",
-      "timestamp": "2026-11-09T08:50:06.351Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_c31y697qi",
-      "customerName": "Nguyễn Hoàng Minh Quân",
-      "details": {
-        "hoTen": "Nguyễn Hoàng Minh Quân",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214206169_947",
-      "timestamp": "2026-11-09T08:50:06.169Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_5k7pwgycz",
-      "customerName": "Nguyễn Hoàng Minh Quân",
-      "details": {
-        "hoTen": "Nguyễn Hoàng Minh Quân",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214206126_260",
-      "timestamp": "2026-11-09T08:50:06.126Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_998jg5t8a",
-      "customerName": "Nguyễn Hoàng Minh Quân",
-      "details": {
-        "hoTen": "Nguyễn Hoàng Minh Quân",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214203315_158",
-      "timestamp": "2026-11-09T08:50:03.315Z",
-      "eventType": "page_view",
-      "visitorId": "vis_5k7pwgycz",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214203148_260",
-      "timestamp": "2026-11-09T08:50:03.148Z",
-      "eventType": "page_view",
-      "visitorId": "vis_c31y697qi",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214202013_367",
-      "timestamp": "2026-11-09T08:50:02.013Z",
-      "eventType": "page_view",
-      "visitorId": "vis_998jg5t8a",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214201188_57",
-      "timestamp": "2026-11-09T08:50:01.188Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_audec5jfw",
-      "customerName": "Trần Văn Nam",
-      "details": {
-        "hoTen": "Trần Văn Nam",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214201185_794",
-      "timestamp": "2026-11-09T08:50:01.185Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_f4dsg37u8",
-      "customerName": "Trần Văn Nam",
-      "details": {
-        "hoTen": "Trần Văn Nam",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214201104_369",
-      "timestamp": "2026-11-09T08:50:01.104Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_eds7a7hkn",
-      "customerName": "Trần Văn Nam",
-      "details": {
-        "hoTen": "Trần Văn Nam",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214198050_426",
-      "timestamp": "2026-11-09T08:49:58.050Z",
-      "eventType": "page_view",
-      "visitorId": "vis_audec5jfw",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214198048_205",
-      "timestamp": "2026-11-09T08:49:58.048Z",
-      "eventType": "page_view",
-      "visitorId": "vis_f4dsg37u8",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214197964_327",
-      "timestamp": "2026-11-09T08:49:57.964Z",
-      "eventType": "page_view",
-      "visitorId": "vis_eds7a7hkn",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214195968_638",
-      "timestamp": "2026-11-09T08:49:55.968Z",
-      "eventType": "page_view",
-      "visitorId": "vis_vq9hc82ys",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214195966_559",
-      "timestamp": "2026-11-09T08:49:55.966Z",
-      "eventType": "page_view",
-      "visitorId": "vis_grl3vpakq",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214169015_48",
-      "timestamp": "2026-11-09T08:49:29.015Z",
-      "eventType": "page_view",
-      "visitorId": "vis_ub9nvljli",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214168982_42",
-      "timestamp": "2026-11-09T08:49:28.982Z",
-      "eventType": "page_view",
-      "visitorId": "vis_tbr7iatxu",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214167934_263",
-      "timestamp": "2026-11-09T08:49:27.934Z",
-      "eventType": "page_view",
-      "visitorId": "vis_okinrzkgw",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214156803_839",
-      "timestamp": "2026-11-09T08:49:16.803Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_jer3fgk96",
-      "customerName": "Nguyễn Hoàng Minh Quân",
-      "details": {
-        "hoTen": "Nguyễn Hoàng Minh Quân",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214156790_412",
-      "timestamp": "2026-11-09T08:49:16.790Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_g4h12zcdz",
-      "customerName": "Nguyễn Hoàng Minh Quân",
-      "details": {
-        "hoTen": "Nguyễn Hoàng Minh Quân",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214156755_100",
-      "timestamp": "2026-11-09T08:49:16.755Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_5l8t2owdl",
-      "customerName": "Nguyễn Hoàng Minh Quân",
-      "details": {
-        "hoTen": "Nguyễn Hoàng Minh Quân",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214153681_100",
-      "timestamp": "2026-11-09T08:49:13.681Z",
-      "eventType": "page_view",
-      "visitorId": "vis_jer3fgk96",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214153250_189",
-      "timestamp": "2026-11-09T08:49:13.250Z",
-      "eventType": "page_view",
-      "visitorId": "vis_g4h12zcdz",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214152734_246",
-      "timestamp": "2026-11-09T08:49:12.733Z",
-      "eventType": "page_view",
-      "visitorId": "vis_5l8t2owdl",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214151873_779",
-      "timestamp": "2026-11-09T08:49:11.873Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_vufbz81en",
-      "customerName": "Trần Văn Nam",
-      "details": {
-        "hoTen": "Trần Văn Nam",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214151779_492",
-      "timestamp": "2026-11-09T08:49:11.779Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_3nan919cn",
-      "customerName": "Trần Văn Nam",
-      "details": {
-        "hoTen": "Trần Văn Nam",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214151747_906",
-      "timestamp": "2026-11-09T08:49:11.747Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_dj83vrimv",
-      "customerName": "Trần Văn Nam",
-      "details": {
-        "hoTen": "Trần Văn Nam",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214148715_654",
-      "timestamp": "2026-11-09T08:49:08.715Z",
-      "eventType": "page_view",
-      "visitorId": "vis_vufbz81en",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214148169_42",
-      "timestamp": "2026-11-09T08:49:08.169Z",
-      "eventType": "page_view",
-      "visitorId": "vis_3nan919cn",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214148068_79",
-      "timestamp": "2026-11-09T08:49:08.068Z",
-      "eventType": "page_view",
-      "visitorId": "vis_dj83vrimv",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214147217_360",
-      "timestamp": "2026-11-09T08:49:07.217Z",
-      "eventType": "page_view",
-      "visitorId": "vis_zd0ahxqdv",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214147148_572",
-      "timestamp": "2026-11-09T08:49:07.148Z",
-      "eventType": "page_view",
-      "visitorId": "vis_adhc1bx5n",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214146537_402",
-      "timestamp": "2026-11-09T08:49:06.537Z",
-      "eventType": "page_view",
-      "visitorId": "vis_ee2q4hs4d",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214108081_143",
-      "timestamp": "2026-11-09T08:48:28.081Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_vl5m8qvlk",
-      "customerName": "Nguyễn Hoàng Minh Quân",
-      "details": {
-        "hoTen": "Nguyễn Hoàng Minh Quân",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214104754_788",
-      "timestamp": "2026-11-09T08:48:24.754Z",
-      "eventType": "page_view",
-      "visitorId": "vis_vl5m8qvlk",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214103614_289",
-      "timestamp": "2026-11-09T08:48:23.614Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_8m8q4dipz",
-      "customerName": "Nguyễn Hoàng Minh Quân",
-      "details": {
-        "hoTen": "Nguyễn Hoàng Minh Quân",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214103193_963",
-      "timestamp": "2026-11-09T08:48:23.193Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_ve48imqjv",
-      "customerName": "Trần Văn Nam",
-      "details": {
-        "hoTen": "Trần Văn Nam",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214102876_843",
-      "timestamp": "2026-11-09T08:48:22.876Z",
-      "eventType": "lap_la_so",
-      "visitorId": "vis_v73g2tq7r",
-      "customerName": "Trần Văn Nam",
-      "details": {
-        "hoTen": "Trần Văn Nam",
-        "gioiTinh": "nam"
-      }
-    },
-    {
-      "id": "evt_1794214101587_96",
-      "timestamp": "2026-11-09T08:48:21.587Z",
-      "eventType": "page_view",
-      "visitorId": "vis_t4cbje2g3",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214099822_131",
-      "timestamp": "2026-11-09T08:48:19.822Z",
-      "eventType": "page_view",
-      "visitorId": "vis_8m8q4dipz",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214099758_729",
-      "timestamp": "2026-11-09T08:48:19.757Z",
-      "eventType": "page_view",
-      "visitorId": "vis_ve48imqjv",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214099695_103",
-      "timestamp": "2026-11-09T08:48:19.694Z",
-      "eventType": "page_view",
-      "visitorId": "vis_v73g2tq7r",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794214099103_196",
-      "timestamp": "2026-11-09T08:48:19.103Z",
-      "eventType": "page_view",
-      "visitorId": "vis_034hxeclc",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794213320715_645",
-      "timestamp": "2026-11-09T08:35:20.715Z",
-      "eventType": "page_view",
-      "visitorId": "vis_b3vium156",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794213301838_863",
-      "timestamp": "2026-11-09T08:35:01.838Z",
-      "eventType": "page_view",
-      "visitorId": "vis_c3l5dff7g",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1794213287878_177",
-      "timestamp": "2026-11-09T08:34:47.878Z",
-      "eventType": "page_view",
-      "visitorId": "vis_c3l5dff7g",
-      "customerName": "Khách vãng lai",
-      "details": {
-        "path": "/"
-      }
-    },
-    {
-      "id": "evt_1793957790604_435",
-      "timestamp": "2026-11-06T09:36:30.604Z",
-      "eventType": "view_cung",
-      "visitorId": "vis_test_123",
+      "visitorId": "vis_nsohw4mgz",
       "customerName": "Trần Công Luyện",
       "details": {
-        "cungName": "Cung Phu Thê"
+        "hoTen": "Trần Công Luyện",
+        "gioiTinh": "nam"
       }
     },
     {
-      "id": "evt_001",
-      "timestamp": "2026-11-06T09:20:10.000Z",
-      "eventType": "open_vip_modal",
-      "visitorId": "vis_luyen_admin",
-      "customerName": "Trần Công Luyện",
+      "id": "evt_1794369234542_894",
+      "timestamp": "2026-11-11T03:53:54.542Z",
+      "eventType": "page_view",
+      "visitorId": "vis_nsohw4mgz",
+      "customerName": "Khách vãng lai",
       "details": {
-        "orderCode": "TV377099",
-        "package": "Báo Cáo VIP A4 Toàn Thư",
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794368979470_77",
+      "timestamp": "2026-11-11T03:49:39.470Z",
+      "eventType": "page_view",
+      "visitorId": "vis_7k5ocmeie",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794368978384_561",
+      "timestamp": "2026-11-11T03:49:38.384Z",
+      "eventType": "open_vip_modal",
+      "visitorId": "vis_otxr48dnk",
+      "customerName": "Nguyễn Hoàng Minh Quân",
+      "details": {
+        "orderCode": "TV295698",
+        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ Đại Hạn)",
         "amount": 49000
       }
     },
     {
-      "id": "evt_002",
-      "timestamp": "2026-11-06T09:23:00.000Z",
-      "eventType": "payment_success",
-      "visitorId": "vis_luyen_admin",
+      "id": "evt_1794368978111_766",
+      "timestamp": "2026-11-11T03:49:38.111Z",
+      "eventType": "page_view",
+      "visitorId": "vis_yyv5jzkcz",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794368978027_512",
+      "timestamp": "2026-11-11T03:49:38.027Z",
+      "eventType": "page_view",
+      "visitorId": "vis_z2ti0m677",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794368976989_245",
+      "timestamp": "2026-11-11T03:49:36.989Z",
+      "eventType": "open_vip_modal",
+      "visitorId": "vis_j4pxcfo14",
+      "customerName": "Nguyễn Hoàng Minh Quân",
+      "details": {
+        "orderCode": "TV270573",
+        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ Đại Hạn)",
+        "amount": 49000
+      }
+    },
+    {
+      "id": "evt_1794368976862_182",
+      "timestamp": "2026-11-11T03:49:36.862Z",
+      "eventType": "open_vip_modal",
+      "visitorId": "vis_xemf2ixhk",
+      "customerName": "Nguyễn Hoàng Minh Quân",
+      "details": {
+        "orderCode": "TV309708",
+        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ Đại Hạn)",
+        "amount": 49000
+      }
+    },
+    {
+      "id": "evt_1794368976721_935",
+      "timestamp": "2026-11-11T03:49:36.721Z",
+      "eventType": "lap_la_so",
+      "visitorId": "vis_otxr48dnk",
+      "customerName": "Nguyễn Hoàng Minh Quân",
+      "details": {
+        "hoTen": "Nguyễn Hoàng Minh Quân",
+        "gioiTinh": "nam"
+      }
+    },
+    {
+      "id": "evt_1794368976541_399",
+      "timestamp": "2026-11-11T03:49:36.541Z",
+      "eventType": "lap_la_so",
+      "visitorId": "vis_xemf2ixhk",
+      "customerName": "Nguyễn Hoàng Minh Quân",
+      "details": {
+        "hoTen": "Nguyễn Hoàng Minh Quân",
+        "gioiTinh": "nam"
+      }
+    },
+    {
+      "id": "evt_1794368976411_902",
+      "timestamp": "2026-11-11T03:49:36.411Z",
+      "eventType": "lap_la_so",
+      "visitorId": "vis_j4pxcfo14",
+      "customerName": "Nguyễn Hoàng Minh Quân",
+      "details": {
+        "hoTen": "Nguyễn Hoàng Minh Quân",
+        "gioiTinh": "nam"
+      }
+    },
+    {
+      "id": "evt_1794368972943_660",
+      "timestamp": "2026-11-11T03:49:32.943Z",
+      "eventType": "page_view",
+      "visitorId": "vis_otxr48dnk",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794368972894_840",
+      "timestamp": "2026-11-11T03:49:32.894Z",
+      "eventType": "page_view",
+      "visitorId": "vis_xemf2ixhk",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794368972743_856",
+      "timestamp": "2026-11-11T03:49:32.743Z",
+      "eventType": "page_view",
+      "visitorId": "vis_j4pxcfo14",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794368971676_231",
+      "timestamp": "2026-11-11T03:49:31.676Z",
+      "eventType": "page_view",
+      "visitorId": "vis_nj0dc7mvj",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794368971630_826",
+      "timestamp": "2026-11-11T03:49:31.630Z",
+      "eventType": "page_view",
+      "visitorId": "vis_fc9w4d6zj",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794368971520_664",
+      "timestamp": "2026-11-11T03:49:31.520Z",
+      "eventType": "page_view",
+      "visitorId": "vis_ue6n4fci4",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794368970199_859",
+      "timestamp": "2026-11-11T03:49:30.199Z",
+      "eventType": "page_view",
+      "visitorId": "vis_urq3a74al",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794368970186_627",
+      "timestamp": "2026-11-11T03:49:30.186Z",
+      "eventType": "page_view",
+      "visitorId": "vis_fkcp9now7",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794368970116_819",
+      "timestamp": "2026-11-11T03:49:30.116Z",
+      "eventType": "page_view",
+      "visitorId": "vis_ze2fq62ge",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794368938957_75",
+      "timestamp": "2026-11-11T03:48:58.957Z",
+      "eventType": "lap_la_so",
+      "visitorId": "vis_cjlcmvo99",
       "customerName": "Trần Công Luyện",
       "details": {
-        "orderCode": "TV377099",
-        "amount": 49000,
-        "method": "VietinBank VietQR"
+        "hoTen": "Trần Công Luyện",
+        "gioiTinh": "nam"
       }
     },
     {
-      "id": "evt_003",
-      "timestamp": "2026-11-06T09:30:15.000Z",
-      "eventType": "view_cung",
-      "visitorId": "vis_demo_01",
-      "customerName": "Khách Vãng Lai",
+      "id": "evt_1794368935081_9",
+      "timestamp": "2026-11-11T03:48:55.081Z",
+      "eventType": "page_view",
+      "visitorId": "vis_cjlcmvo99",
+      "customerName": "Khách vãng lai",
       "details": {
-        "cungName": "Cung Phu Thê",
-        "chinhTinh": "Thiên Cơ, Thái Âm",
-        "action": "Đọc phân tích tình duyên & vợ chồng"
+        "path": "/"
       }
     },
     {
-      "id": "evt_004",
-      "timestamp": "2026-11-06T09:32:40.000Z",
-      "eventType": "click_locked_feature",
-      "visitorId": "vis_demo_01",
-      "customerName": "Khách Vãng Lai",
+      "id": "evt_1794368886986_588",
+      "timestamp": "2026-11-11T03:48:06.986Z",
+      "eventType": "lap_la_so",
+      "visitorId": "vis_pfbgbsejs",
+      "customerName": "Trần Công Luyện",
       "details": {
-        "cungName": "Cung Tài Bạch",
-        "trigger": "Bấm xem tiếp phần luận giải tiền bạc bị che mờ"
+        "hoTen": "Trần Công Luyện",
+        "gioiTinh": "nam"
       }
     },
     {
-      "id": "evt_005",
-      "timestamp": "2026-11-06T09:34:10.000Z",
-      "eventType": "view_cung",
-      "visitorId": "vis_demo_02",
-      "customerName": "Khách Quan Tâm Sự Nghiệp",
+      "id": "evt_1794368883164_87",
+      "timestamp": "2026-11-11T03:48:03.164Z",
+      "eventType": "page_view",
+      "visitorId": "vis_pfbgbsejs",
+      "customerName": "Khách vãng lai",
       "details": {
-        "cungName": "Cung Quan Lộc",
-        "chinhTinh": "Vũ Khúc, Thiên Phủ",
-        "action": "Xem đường công danh & thăng tiến"
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794368797583_957",
+      "timestamp": "2026-11-11T03:46:37.583Z",
+      "eventType": "lap_la_so",
+      "visitorId": "vis_mw39avj9t",
+      "customerName": "Trần Công Luyện",
+      "details": {
+        "hoTen": "Trần Công Luyện",
+        "gioiTinh": "nam"
+      }
+    },
+    {
+      "id": "evt_1794368793956_178",
+      "timestamp": "2026-11-11T03:46:33.955Z",
+      "eventType": "page_view",
+      "visitorId": "vis_mw39avj9t",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794368764665_662",
+      "timestamp": "2026-11-11T03:46:04.665Z",
+      "eventType": "lap_la_so",
+      "visitorId": "vis_hfax6wq62",
+      "customerName": "Trần Công Luyện",
+      "details": {
+        "hoTen": "Trần Công Luyện",
+        "gioiTinh": "nam"
+      }
+    },
+    {
+      "id": "evt_1794368761029_688",
+      "timestamp": "2026-11-11T03:46:01.029Z",
+      "eventType": "page_view",
+      "visitorId": "vis_hfax6wq62",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794368749491_67",
+      "timestamp": "2026-11-11T03:45:49.491Z",
+      "eventType": "page_view",
+      "visitorId": "vis_xeghx4z3c",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794368259953_413",
+      "timestamp": "2026-11-11T03:37:39.953Z",
+      "eventType": "page_view",
+      "visitorId": "vis_pr8dl39ix",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794368258853_64",
+      "timestamp": "2026-11-11T03:37:38.852Z",
+      "eventType": "open_vip_modal",
+      "visitorId": "vis_w95h7j9bx",
+      "customerName": "Nguyễn Hoàng Minh Quân",
+      "details": {
+        "orderCode": "TV862525",
+        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ Đại Hạn)",
+        "amount": 49000
+      }
+    },
+    {
+      "id": "evt_1794368258708_400",
+      "timestamp": "2026-11-11T03:37:38.708Z",
+      "eventType": "page_view",
+      "visitorId": "vis_6smkx3dej",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794368258142_303",
+      "timestamp": "2026-11-11T03:37:38.142Z",
+      "eventType": "page_view",
+      "visitorId": "vis_c0ppm4n08",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794368257671_481",
+      "timestamp": "2026-11-11T03:37:37.671Z",
+      "eventType": "open_vip_modal",
+      "visitorId": "vis_ri12k9gcg",
+      "customerName": "Nguyễn Hoàng Minh Quân",
+      "details": {
+        "orderCode": "TV413464",
+        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ Đại Hạn)",
+        "amount": 49000
+      }
+    },
+    {
+      "id": "evt_1794368257178_974",
+      "timestamp": "2026-11-11T03:37:37.178Z",
+      "eventType": "lap_la_so",
+      "visitorId": "vis_w95h7j9bx",
+      "customerName": "Nguyễn Hoàng Minh Quân",
+      "details": {
+        "hoTen": "Nguyễn Hoàng Minh Quân",
+        "gioiTinh": "nam"
+      }
+    },
+    {
+      "id": "evt_1794368257092_666",
+      "timestamp": "2026-11-11T03:37:37.092Z",
+      "eventType": "open_vip_modal",
+      "visitorId": "vis_g3hap9xsy",
+      "customerName": "Nguyễn Hoàng Minh Quân",
+      "details": {
+        "orderCode": "TV183253",
+        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ Đại Hạn)",
+        "amount": 49000
+      }
+    },
+    {
+      "id": "evt_1794368257065_554",
+      "timestamp": "2026-11-11T03:37:37.065Z",
+      "eventType": "lap_la_so",
+      "visitorId": "vis_ri12k9gcg",
+      "customerName": "Nguyễn Hoàng Minh Quân",
+      "details": {
+        "hoTen": "Nguyễn Hoàng Minh Quân",
+        "gioiTinh": "nam"
+      }
+    },
+    {
+      "id": "evt_1794368256746_834",
+      "timestamp": "2026-11-11T03:37:36.746Z",
+      "eventType": "lap_la_so",
+      "visitorId": "vis_g3hap9xsy",
+      "customerName": "Nguyễn Hoàng Minh Quân",
+      "details": {
+        "hoTen": "Nguyễn Hoàng Minh Quân",
+        "gioiTinh": "nam"
+      }
+    },
+    {
+      "id": "evt_1794368253406_973",
+      "timestamp": "2026-11-11T03:37:33.406Z",
+      "eventType": "page_view",
+      "visitorId": "vis_ri12k9gcg",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794368253361_189",
+      "timestamp": "2026-11-11T03:37:33.361Z",
+      "eventType": "page_view",
+      "visitorId": "vis_w95h7j9bx",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794368253176_255",
+      "timestamp": "2026-11-11T03:37:33.176Z",
+      "eventType": "page_view",
+      "visitorId": "vis_g3hap9xsy",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794368252079_662",
+      "timestamp": "2026-11-11T03:37:32.079Z",
+      "eventType": "page_view",
+      "visitorId": "vis_62pwkbvv1",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794368251971_213",
+      "timestamp": "2026-11-11T03:37:31.971Z",
+      "eventType": "page_view",
+      "visitorId": "vis_pirkn2w9e",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794368251922_123",
+      "timestamp": "2026-11-11T03:37:31.922Z",
+      "eventType": "page_view",
+      "visitorId": "vis_9bkgezxyq",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794368250804_786",
+      "timestamp": "2026-11-11T03:37:30.803Z",
+      "eventType": "page_view",
+      "visitorId": "vis_83c2oz0tb",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794368250616_274",
+      "timestamp": "2026-11-11T03:37:30.616Z",
+      "eventType": "page_view",
+      "visitorId": "vis_abx3kwnzl",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794368250504_250",
+      "timestamp": "2026-11-11T03:37:30.504Z",
+      "eventType": "page_view",
+      "visitorId": "vis_ixlla55sg",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794368241567_989",
+      "timestamp": "2026-11-11T03:37:21.567Z",
+      "eventType": "lap_la_so",
+      "visitorId": "vis_y1u286k7u",
+      "customerName": "Trần Công Luyện",
+      "details": {
+        "hoTen": "Trần Công Luyện",
+        "gioiTinh": "nam"
+      }
+    },
+    {
+      "id": "evt_1794368237416_944",
+      "timestamp": "2026-11-11T03:37:17.416Z",
+      "eventType": "page_view",
+      "visitorId": "vis_y1u286k7u",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794367493513_707",
+      "timestamp": "2026-11-11T03:24:53.513Z",
+      "eventType": "page_view",
+      "visitorId": "vis_xb6b2pf2e",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794367492893_112",
+      "timestamp": "2026-11-11T03:24:52.893Z",
+      "eventType": "page_view",
+      "visitorId": "vis_341hvlr88",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794367492845_736",
+      "timestamp": "2026-11-11T03:24:52.845Z",
+      "eventType": "page_view",
+      "visitorId": "vis_255uwmis3",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794367492095_193",
+      "timestamp": "2026-11-11T03:24:52.095Z",
+      "eventType": "open_vip_modal",
+      "visitorId": "vis_5i5uzxzr2",
+      "customerName": "Nguyễn Hoàng Minh Quân",
+      "details": {
+        "orderCode": "TV291644",
+        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ Đại Hạn)",
+        "amount": 49000
+      }
+    },
+    {
+      "id": "evt_1794367491409_892",
+      "timestamp": "2026-11-11T03:24:51.409Z",
+      "eventType": "open_vip_modal",
+      "visitorId": "vis_ablyo07ue",
+      "customerName": "Nguyễn Hoàng Minh Quân",
+      "details": {
+        "orderCode": "TV241422",
+        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ Đại Hạn)",
+        "amount": 49000
+      }
+    },
+    {
+      "id": "evt_1794367491399_604",
+      "timestamp": "2026-11-11T03:24:51.399Z",
+      "eventType": "lap_la_so",
+      "visitorId": "vis_5i5uzxzr2",
+      "customerName": "Nguyễn Hoàng Minh Quân",
+      "details": {
+        "hoTen": "Nguyễn Hoàng Minh Quân",
+        "gioiTinh": "nam"
+      }
+    },
+    {
+      "id": "evt_1794367491375_634",
+      "timestamp": "2026-11-11T03:24:51.375Z",
+      "eventType": "open_vip_modal",
+      "visitorId": "vis_b5dyef3yz",
+      "customerName": "Nguyễn Hoàng Minh Quân",
+      "details": {
+        "orderCode": "TV590712",
+        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ Đại Hạn)",
+        "amount": 49000
+      }
+    },
+    {
+      "id": "evt_1794367490816_257",
+      "timestamp": "2026-11-11T03:24:50.815Z",
+      "eventType": "lap_la_so",
+      "visitorId": "vis_ablyo07ue",
+      "customerName": "Nguyễn Hoàng Minh Quân",
+      "details": {
+        "hoTen": "Nguyễn Hoàng Minh Quân",
+        "gioiTinh": "nam"
+      }
+    },
+    {
+      "id": "evt_1794367490776_368",
+      "timestamp": "2026-11-11T03:24:50.775Z",
+      "eventType": "lap_la_so",
+      "visitorId": "vis_b5dyef3yz",
+      "customerName": "Nguyễn Hoàng Minh Quân",
+      "details": {
+        "hoTen": "Nguyễn Hoàng Minh Quân",
+        "gioiTinh": "nam"
+      }
+    },
+    {
+      "id": "evt_1794367487197_509",
+      "timestamp": "2026-11-11T03:24:47.197Z",
+      "eventType": "page_view",
+      "visitorId": "vis_5i5uzxzr2",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794367487014_45",
+      "timestamp": "2026-11-11T03:24:47.014Z",
+      "eventType": "page_view",
+      "visitorId": "vis_ablyo07ue",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794367486959_737",
+      "timestamp": "2026-11-11T03:24:46.959Z",
+      "eventType": "page_view",
+      "visitorId": "vis_b5dyef3yz",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794367485646_163",
+      "timestamp": "2026-11-11T03:24:45.646Z",
+      "eventType": "page_view",
+      "visitorId": "vis_tsvp1bfx0",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794367485609_163",
+      "timestamp": "2026-11-11T03:24:45.609Z",
+      "eventType": "page_view",
+      "visitorId": "vis_w3w1s8hdu",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794367485532_407",
+      "timestamp": "2026-11-11T03:24:45.532Z",
+      "eventType": "page_view",
+      "visitorId": "vis_z5dwjq8g5",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794367484346_265",
+      "timestamp": "2026-11-11T03:24:44.346Z",
+      "eventType": "page_view",
+      "visitorId": "vis_d8ykgmolg",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794367484312_328",
+      "timestamp": "2026-11-11T03:24:44.312Z",
+      "eventType": "page_view",
+      "visitorId": "vis_fdmtp5xth",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794367484296_441",
+      "timestamp": "2026-11-11T03:24:44.296Z",
+      "eventType": "page_view",
+      "visitorId": "vis_tw3cc2i1d",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794367470478_178",
+      "timestamp": "2026-11-11T03:24:30.478Z",
+      "eventType": "open_vip_modal",
+      "visitorId": "vis_euaiwgunw",
+      "customerName": "Trần Công Luyện",
+      "details": {
+        "orderCode": "TV537294",
+        "packageName": "Gói Mở Khóa Nhanh 3 Cung Trọng Tâm (Tài - Quan - Phối)",
+        "amount": 29000
+      }
+    },
+    {
+      "id": "evt_1794367470304_751",
+      "timestamp": "2026-11-11T03:24:30.304Z",
+      "eventType": "lap_la_so",
+      "visitorId": "vis_euaiwgunw",
+      "customerName": "Trần Công Luyện",
+      "details": {
+        "hoTen": "Trần Công Luyện",
+        "gioiTinh": "nam"
+      }
+    },
+    {
+      "id": "evt_1794367466010_568",
+      "timestamp": "2026-11-11T03:24:26.010Z",
+      "eventType": "page_view",
+      "visitorId": "vis_euaiwgunw",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794367456297_123",
+      "timestamp": "2026-11-11T03:24:16.297Z",
+      "eventType": "page_view",
+      "visitorId": "vis_gbawetv9z",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794367442147_286",
+      "timestamp": "2026-11-11T03:24:02.147Z",
+      "eventType": "page_view",
+      "visitorId": "vis_5dvxddbu0",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794367441528_779",
+      "timestamp": "2026-11-11T03:24:01.528Z",
+      "eventType": "page_view",
+      "visitorId": "vis_tbuyopabh",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794367441515_495",
+      "timestamp": "2026-11-11T03:24:01.515Z",
+      "eventType": "page_view",
+      "visitorId": "vis_m876r6e4i",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794367440644_227",
+      "timestamp": "2026-11-11T03:24:00.644Z",
+      "eventType": "open_vip_modal",
+      "visitorId": "vis_nt7htp2ho",
+      "customerName": "Nguyễn Hoàng Minh Quân",
+      "details": {
+        "orderCode": "TV191037",
+        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ Đại Hạn)",
+        "amount": 49000
+      }
+    },
+    {
+      "id": "evt_1794367440144_168",
+      "timestamp": "2026-11-11T03:24:00.144Z",
+      "eventType": "open_vip_modal",
+      "visitorId": "vis_zt4rh4vsx",
+      "customerName": "Nguyễn Hoàng Minh Quân",
+      "details": {
+        "orderCode": "TV643382",
+        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ Đại Hạn)",
+        "amount": 49000
+      }
+    },
+    {
+      "id": "evt_1794367440093_200",
+      "timestamp": "2026-11-11T03:24:00.093Z",
+      "eventType": "open_vip_modal",
+      "visitorId": "vis_mbengrnia",
+      "customerName": "Nguyễn Hoàng Minh Quân",
+      "details": {
+        "orderCode": "TV239485",
+        "packageName": "Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ Đại Hạn)",
+        "amount": 49000
+      }
+    },
+    {
+      "id": "evt_1794367439692_539",
+      "timestamp": "2026-11-11T03:23:59.692Z",
+      "eventType": "lap_la_so",
+      "visitorId": "vis_nt7htp2ho",
+      "customerName": "Nguyễn Hoàng Minh Quân",
+      "details": {
+        "hoTen": "Nguyễn Hoàng Minh Quân",
+        "gioiTinh": "nam"
+      }
+    },
+    {
+      "id": "evt_1794367439434_169",
+      "timestamp": "2026-11-11T03:23:59.434Z",
+      "eventType": "lap_la_so",
+      "visitorId": "vis_mbengrnia",
+      "customerName": "Nguyễn Hoàng Minh Quân",
+      "details": {
+        "hoTen": "Nguyễn Hoàng Minh Quân",
+        "gioiTinh": "nam"
+      }
+    },
+    {
+      "id": "evt_1794367439370_549",
+      "timestamp": "2026-11-11T03:23:59.370Z",
+      "eventType": "lap_la_so",
+      "visitorId": "vis_zt4rh4vsx",
+      "customerName": "Nguyễn Hoàng Minh Quân",
+      "details": {
+        "hoTen": "Nguyễn Hoàng Minh Quân",
+        "gioiTinh": "nam"
+      }
+    },
+    {
+      "id": "evt_1794367435697_358",
+      "timestamp": "2026-11-11T03:23:55.697Z",
+      "eventType": "page_view",
+      "visitorId": "vis_mbengrnia",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794367435668_103",
+      "timestamp": "2026-11-11T03:23:55.668Z",
+      "eventType": "page_view",
+      "visitorId": "vis_nt7htp2ho",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794367435635_100",
+      "timestamp": "2026-11-11T03:23:55.635Z",
+      "eventType": "page_view",
+      "visitorId": "vis_zt4rh4vsx",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794367433913_997",
+      "timestamp": "2026-11-11T03:23:53.913Z",
+      "eventType": "page_view",
+      "visitorId": "vis_tq6b7x3g5",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794367433852_261",
+      "timestamp": "2026-11-11T03:23:53.852Z",
+      "eventType": "page_view",
+      "visitorId": "vis_8xx19a9la",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794367433817_769",
+      "timestamp": "2026-11-11T03:23:53.817Z",
+      "eventType": "page_view",
+      "visitorId": "vis_krpp77pmu",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794367432219_915",
+      "timestamp": "2026-11-11T03:23:52.219Z",
+      "eventType": "page_view",
+      "visitorId": "vis_d8w47r0q0",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794367432196_548",
+      "timestamp": "2026-11-11T03:23:52.196Z",
+      "eventType": "page_view",
+      "visitorId": "vis_p3kuqnyhz",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794367432183_493",
+      "timestamp": "2026-11-11T03:23:52.183Z",
+      "eventType": "page_view",
+      "visitorId": "vis_g10uttk63",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794366223429_852",
+      "timestamp": "2026-11-11T03:03:43.429Z",
+      "eventType": "lap_la_so",
+      "visitorId": "vis_ufe3f6uqy",
+      "customerName": "Trần Công Luyện",
+      "details": {
+        "hoTen": "Trần Công Luyện",
+        "gioiTinh": "nam"
+      }
+    },
+    {
+      "id": "evt_1794366219573_464",
+      "timestamp": "2026-11-11T03:03:39.573Z",
+      "eventType": "page_view",
+      "visitorId": "vis_ufe3f6uqy",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794366193926_127",
+      "timestamp": "2026-11-11T03:03:13.926Z",
+      "eventType": "lap_la_so",
+      "visitorId": "vis_26p0rtgtg",
+      "customerName": "Trần Công Luyện",
+      "details": {
+        "hoTen": "Trần Công Luyện",
+        "gioiTinh": "nam"
+      }
+    },
+    {
+      "id": "evt_1794366189583_941",
+      "timestamp": "2026-11-11T03:03:09.583Z",
+      "eventType": "page_view",
+      "visitorId": "vis_26p0rtgtg",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794366135083_966",
+      "timestamp": "2026-11-11T03:02:15.083Z",
+      "eventType": "page_view",
+      "visitorId": "vis_xs5rufdc7",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794366082736_288",
+      "timestamp": "2026-11-11T03:01:22.736Z",
+      "eventType": "page_view",
+      "visitorId": "vis_vldy4o4u3",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794366082695_600",
+      "timestamp": "2026-11-11T03:01:22.695Z",
+      "eventType": "page_view",
+      "visitorId": "vis_1m3mluogr",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794366082497_463",
+      "timestamp": "2026-11-11T03:01:22.497Z",
+      "eventType": "page_view",
+      "visitorId": "vis_05lb71gx6",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794366081637_0",
+      "timestamp": "2026-11-11T03:01:21.637Z",
+      "eventType": "lap_la_so",
+      "visitorId": "vis_d3b1l8t4o",
+      "customerName": "Nguyễn Hoàng Minh Quân",
+      "details": {
+        "hoTen": "Nguyễn Hoàng Minh Quân",
+        "gioiTinh": "nam"
+      }
+    },
+    {
+      "id": "evt_1794366081443_202",
+      "timestamp": "2026-11-11T03:01:21.443Z",
+      "eventType": "lap_la_so",
+      "visitorId": "vis_9ehiosu6w",
+      "customerName": "Nguyễn Hoàng Minh Quân",
+      "details": {
+        "hoTen": "Nguyễn Hoàng Minh Quân",
+        "gioiTinh": "nam"
+      }
+    },
+    {
+      "id": "evt_1794366081441_564",
+      "timestamp": "2026-11-11T03:01:21.441Z",
+      "eventType": "lap_la_so",
+      "visitorId": "vis_jmi8ujqhs",
+      "customerName": "Nguyễn Hoàng Minh Quân",
+      "details": {
+        "hoTen": "Nguyễn Hoàng Minh Quân",
+        "gioiTinh": "nam"
+      }
+    },
+    {
+      "id": "evt_1794366077848_550",
+      "timestamp": "2026-11-11T03:01:17.848Z",
+      "eventType": "page_view",
+      "visitorId": "vis_d3b1l8t4o",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794366077787_375",
+      "timestamp": "2026-11-11T03:01:17.787Z",
+      "eventType": "page_view",
+      "visitorId": "vis_jmi8ujqhs",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794366077784_923",
+      "timestamp": "2026-11-11T03:01:17.784Z",
+      "eventType": "page_view",
+      "visitorId": "vis_9ehiosu6w",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794366076670_258",
+      "timestamp": "2026-11-11T03:01:16.670Z",
+      "eventType": "page_view",
+      "visitorId": "vis_sejw2xzc4",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794366076452_231",
+      "timestamp": "2026-11-11T03:01:16.452Z",
+      "eventType": "page_view",
+      "visitorId": "vis_pe0uvb33v",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794366076384_856",
+      "timestamp": "2026-11-11T03:01:16.384Z",
+      "eventType": "page_view",
+      "visitorId": "vis_xpxgrouhu",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794366075229_697",
+      "timestamp": "2026-11-11T03:01:15.229Z",
+      "eventType": "page_view",
+      "visitorId": "vis_y7kl4zs9n",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794366075227_280",
+      "timestamp": "2026-11-11T03:01:15.227Z",
+      "eventType": "page_view",
+      "visitorId": "vis_oaec3q3kd",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794366075224_791",
+      "timestamp": "2026-11-11T03:01:15.224Z",
+      "eventType": "page_view",
+      "visitorId": "vis_76sjyi7c4",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794365452957_230",
+      "timestamp": "2026-11-11T02:50:52.957Z",
+      "eventType": "page_view",
+      "visitorId": "vis_qvrpevscr",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794365445677_208",
+      "timestamp": "2026-11-11T02:50:45.677Z",
+      "eventType": "page_view",
+      "visitorId": "vis_q13nt1qaz",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794365438075_967",
+      "timestamp": "2026-11-11T02:50:38.075Z",
+      "eventType": "lap_la_so",
+      "visitorId": "vis_jrrcma98n",
+      "customerName": "Trần Công Luyện",
+      "details": {
+        "hoTen": "Trần Công Luyện",
+        "gioiTinh": "nam"
+      }
+    },
+    {
+      "id": "evt_1794365434493_399",
+      "timestamp": "2026-11-11T02:50:34.493Z",
+      "eventType": "page_view",
+      "visitorId": "vis_jrrcma98n",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794365424242_319",
+      "timestamp": "2026-11-11T02:50:24.242Z",
+      "eventType": "page_view",
+      "visitorId": "vis_cklvxgu4m",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794365423914_251",
+      "timestamp": "2026-11-11T02:50:23.913Z",
+      "eventType": "page_view",
+      "visitorId": "vis_nv37gdkhd",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794365423864_497",
+      "timestamp": "2026-11-11T02:50:23.863Z",
+      "eventType": "page_view",
+      "visitorId": "vis_7uks6id4s",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794365422948_625",
+      "timestamp": "2026-11-11T02:50:22.948Z",
+      "eventType": "lap_la_so",
+      "visitorId": "vis_znhn2x9eg",
+      "customerName": "Nguyễn Hoàng Minh Quân",
+      "details": {
+        "hoTen": "Nguyễn Hoàng Minh Quân",
+        "gioiTinh": "nam"
+      }
+    },
+    {
+      "id": "evt_1794365422706_176",
+      "timestamp": "2026-11-11T02:50:22.706Z",
+      "eventType": "lap_la_so",
+      "visitorId": "vis_rhkk7c755",
+      "customerName": "Nguyễn Hoàng Minh Quân",
+      "details": {
+        "hoTen": "Nguyễn Hoàng Minh Quân",
+        "gioiTinh": "nam"
+      }
+    },
+    {
+      "id": "evt_1794365422561_410",
+      "timestamp": "2026-11-11T02:50:22.561Z",
+      "eventType": "lap_la_so",
+      "visitorId": "vis_i0x7aob45",
+      "customerName": "Nguyễn Hoàng Minh Quân",
+      "details": {
+        "hoTen": "Nguyễn Hoàng Minh Quân",
+        "gioiTinh": "nam"
+      }
+    },
+    {
+      "id": "evt_1794365419414_330",
+      "timestamp": "2026-11-11T02:50:19.414Z",
+      "eventType": "page_view",
+      "visitorId": "vis_i0x7aob45",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794365419208_844",
+      "timestamp": "2026-11-11T02:50:19.208Z",
+      "eventType": "page_view",
+      "visitorId": "vis_znhn2x9eg",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
+      }
+    },
+    {
+      "id": "evt_1794365419126_478",
+      "timestamp": "2026-11-11T02:50:19.126Z",
+      "eventType": "page_view",
+      "visitorId": "vis_rhkk7c755",
+      "customerName": "Khách vãng lai",
+      "details": {
+        "path": "/"
       }
     }
   ],

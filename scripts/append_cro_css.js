@@ -261,3 +261,4 @@ const cssToAdd = `
     console.log(`${path} already contains .free-psychological-dossier`);
   }
 });
+

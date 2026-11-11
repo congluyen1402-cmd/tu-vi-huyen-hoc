@@ -21,6 +21,7 @@
   "author": "Trần Công Luyện",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.65.0"
+    "@playwright/test": "^1.65.0",
+    "pdf-parse": "^2.4.5"
   }
 }

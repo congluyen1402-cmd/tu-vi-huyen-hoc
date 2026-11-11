@@ -559,6 +559,31 @@
       opacity: 1;
       transform: translateY(0);
     }
+  
+    /* Post Editor Modal */
+    .post-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.78);
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .post-modal-dialog {
+      background: var(--bg-card, #140d21);
+      border: 1px solid var(--border-color, #2d2042);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 820px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.65);
+      padding: 1.5rem;
+    }
+
   </style>
 </head>
 <body>
@@ -723,6 +748,90 @@
             </tr>
           </tbody>
         </table>
+      </div>
+    </div>
+
+    
+    <!-- HÀNG 6.5: QUẢN LÝ BÀI VIẾT BLOG & SEO GOOGLE -->
+    <div class="section-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:1rem;">
+        <div>
+          <h2 class="section-title"><i data-lucide="file-text"></i> Quản Lý Bài Viết Blog & SEO Google</h2>
+          <p style="color:var(--text-muted); font-size:0.88rem; margin-top:0.25rem;">
+            Quản trị nội dung bài viết, chuẩn SEO kỹ thuật, schema JSON-LD tự động để kéo traffic tự nhiên từ Google Search.
+          </p>
+        </div>
+        <button type="button" class="btn-export" style="background:var(--gold); color:#1a0f07; font-weight:700;" onclick="openPostModal()">
+          + Viết Bài Mới
+        </button>
+      </div>
+
+      <div class="table-responsive">
+        <table class="orders-table">
+          <thead>
+            <tr>
+              <th>Tiêu đề & Tóm tắt</th>
+              <th>Chuyên mục</th>
+              <th>Đường dẫn (Slug)</th>
+              <th style="text-align:center;">Lượt xem</th>
+              <th>Ngày đăng</th>
+              <th style="text-align:center;">Thao tác</th>
+            </tr>
+          </thead>
+          <tbody id="postsTableBody">
+            <tr>
+              <td colspan="6" style="text-align:center; color:var(--text-muted); padding:2rem;">Đang tải danh sách bài viết...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- POST EDITOR MODAL -->
+    <div id="postEditorModal" class="post-modal-backdrop" style="display:none;">
+      <div class="post-modal-dialog">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; border-bottom:1px solid var(--border-color); padding-bottom:0.75rem;">
+          <h3 id="postModalTitle" style="color:var(--gold-light); font-size:1.15rem; margin:0;">📝 Viết Bài Mới</h3>
+          <button type="button" onclick="closePostModal()" style="background:none; border:none; color:var(--text-muted); font-size:1.5rem; cursor:pointer;">&times;</button>
+        </div>
+        <form id="postEditorForm" onsubmit="event.preventDefault(); savePost();">
+          <input type="hidden" id="postIdInput" value="">
+          <div style="margin-bottom:1rem;">
+            <label style="display:block; font-size:0.85rem; color:var(--text-muted); margin-bottom:0.35rem;">Tiêu đề bài viết (Chuẩn SEO 60-70 ký tự):</label>
+            <input type="text" id="postTitleInput" required class="sepay-input" style="width:100%;" placeholder="Nhập tiêu đề bài viết...">
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:1rem;">
+            <div>
+              <label style="display:block; font-size:0.85rem; color:var(--text-muted); margin-bottom:0.35rem;">Đường dẫn tĩnh (Slug):</label>
+              <input type="text" id="postSlugInput" required class="sepay-input" style="width:100%;" placeholder="vi-du-duong-dan-bai-viet">
+            </div>
+            <div>
+              <label style="display:block; font-size:0.85rem; color:var(--text-muted); margin-bottom:0.35rem;">Chuyên mục:</label>
+              <select id="postCategorySelect" class="sepay-input" style="width:100%; background:#1c1328; color:#fff;">
+                <option value="Kiến thức tử vi">Kiến thức tử vi</option>
+                <option value="Vận hạn năm 2026">Vận hạn năm 2026</option>
+                <option value="Luận giải mẫu">Luận giải mẫu</option>
+                <option value="Phong thủy cải vận">Phong thủy cải vận</option>
+              </select>
+            </div>
+          </div>
+          <div style="margin-bottom:1rem;">
+            <label style="display:block; font-size:0.85rem; color:var(--text-muted); margin-bottom:0.35rem;">Tóm tắt Meta Description (150-160 ký tự):</label>
+            <textarea id="postSummaryInput" rows="2" class="sepay-input" style="width:100%; resize:vertical;" placeholder="Mô tả ngắn gọn nội dung bài viết hiển thị trên Google Search..."></textarea>
+          </div>
+          <div style="margin-bottom:1rem;">
+            <label style="display:block; font-size:0.85rem; color:var(--text-muted); margin-bottom:0.35rem;">Từ khóa SEO (cách nhau bởi dấu phẩy):</label>
+            <input type="text" id="postKeywordsInput" class="sepay-input" style="width:100%;" placeholder="tử vi 2026, cung mệnh, bính ngọ...">
+          </div>
+          <div style="margin-bottom:1rem;">
+            <label style="display:block; font-size:0.85rem; color:var(--text-muted); margin-bottom:0.35rem;">Nội dung bài viết (Hỗ trợ HTML/Heading h2, h3, p, strong):</label>
+            <textarea id="postContentInput" rows="10" required class="sepay-input" style="width:100%; font-family:monospace; font-size:0.88rem; resize:vertical;" placeholder="<p>Nội dung chi tiết bài viết...</p>"></textarea>
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:10px; border-top:1px solid var(--border-color); padding-top:1rem;">
+            <button type="button" class="btn-save-cfg" style="background:#374151;" onclick="closePostModal()">Hủy</button>
+            <button type="submit" class="btn-save-cfg" style="background:var(--gold); color:#1a0f07; font-weight:700;">💾 Lưu Bài Viết</button>
+          </div>
+        </form>
       </div>
     </div>
 
@@ -1106,6 +1215,168 @@
       }
     }
 
+    
+    let _adminPosts = [];
+
+    async function loadAdminPosts() {
+      try {
+        const res = await fetch(getApiUrl('/api/admin/posts'), {
+          headers: getAdminHeaders()
+        });
+        if (handleAuthError(res)) return;
+        if (res.ok) {
+          const data = await res.json();
+          _adminPosts = data.posts || [];
+          renderAdminPostsTable(_adminPosts);
+        }
+      } catch (err) {
+        console.error('Lỗi tải bài viết:', err);
+      }
+    }
+
+    function renderAdminPostsTable(posts) {
+      const tbody = document.getElementById('postsTableBody');
+      if (!tbody) return;
+      if (!posts || posts.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:var(--text-muted); padding:2rem;">Chưa có bài viết nào. Hãy bấm "+ Viết Bài Mới" để tạo.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = posts.map(p => `
+        <tr>
+          <td>
+            <strong style="color:var(--gold-light); display:block;">${escapeHtml(p.title)}</strong>
+            <span style="font-size:0.8rem; color:var(--text-muted);">${escapeHtml((p.summary || '').slice(0, 90))}...</span>
+          </td>
+          <td><span style="background:rgba(212,168,83,0.15); color:var(--gold-light); padding:2px 8px; border-radius:4px; font-size:0.8rem;">${escapeHtml(p.category || 'Tử Vi')}</span></td>
+          <td><code style="color:#60a5fa; font-size:0.8rem;">/blog/${escapeHtml(p.slug)}</code></td>
+          <td style="text-align:center; font-weight:600;">${(p.views || 0).toLocaleString('vi-VN')}</td>
+          <td style="font-size:0.8rem; color:var(--text-muted); white-space:nowrap;">${escapeHtml(p.publishedAt || p.createdAt || 'Mới')}</td>
+          <td style="text-align:center;">
+            <div style="display:flex; gap:6px; justify-content:center;">
+              <a href="/blog/${escapeHtml(p.slug)}" target="_blank" class="btn-action-view" style="text-decoration:none; padding:3px 8px; font-size:0.78rem;" title="Xem trên web">🔗</a>
+              <button type="button" class="btn-action-view" style="padding:3px 8px; font-size:0.78rem;" onclick="openPostModal('${p.id}')" title="Sửa bài">✏️</button>
+              <button type="button" class="btn-action-view" style="padding:3px 8px; font-size:0.78rem; background:rgba(239,68,68,0.15); color:#ef4444; border-color:rgba(239,68,68,0.3);" onclick="deletePost('${p.id}')" title="Xóa bài">🗑️</button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function openPostModal(id) {
+      const modal = document.getElementById('postEditorModal');
+      const titleEl = document.getElementById('postModalTitle');
+      const idInput = document.getElementById('postIdInput');
+      const titleInput = document.getElementById('postTitleInput');
+      const slugInput = document.getElementById('postSlugInput');
+      const catSelect = document.getElementById('postCategorySelect');
+      const sumInput = document.getElementById('postSummaryInput');
+      const kwInput = document.getElementById('postKeywordsInput');
+      const contentInput = document.getElementById('postContentInput');
+
+      if (id) {
+        const p = _adminPosts.find(x => x.id === id);
+        if (p) {
+          titleEl.textContent = '✏️ Chỉnh Sửa Bài Viết';
+          idInput.value = p.id;
+          titleInput.value = p.title || '';
+          slugInput.value = p.slug || '';
+          catSelect.value = p.category || 'Kiến thức tử vi';
+          sumInput.value = p.summary || '';
+          kwInput.value = (p.keywords || []).join(', ');
+          contentInput.value = p.content || '';
+        }
+      } else {
+        titleEl.textContent = '📝 Viết Bài Mới';
+        idInput.value = '';
+        titleInput.value = '';
+        slugInput.value = '';
+        catSelect.value = 'Kiến thức tử vi';
+        sumInput.value = '';
+        kwInput.value = '';
+        contentInput.value = '';
+      }
+
+      modal.style.display = 'flex';
+    }
+
+    function closePostModal() {
+      const modal = document.getElementById('postEditorModal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    async function savePost() {
+      const id = document.getElementById('postIdInput').value.trim();
+      const title = document.getElementById('postTitleInput').value.trim();
+      let slug = document.getElementById('postSlugInput').value.trim();
+      const category = document.getElementById('postCategorySelect').value;
+      const summary = document.getElementById('postSummaryInput').value.trim();
+      const keywords = document.getElementById('postKeywordsInput').value.split(',').map(s => s.trim()).filter(Boolean);
+      const content = document.getElementById('postContentInput').value.trim();
+
+      if (!title || !content) {
+        showToast('Vui lòng nhập tiêu đề và nội dung bài viết', 'error');
+        return;
+      }
+
+      if (!slug) {
+        slug = title.toLowerCase()
+          .normalize('NFD').replace(/[̀-ͯ]/g, '')
+          .replace(/[đĐ]/g, 'd')
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-+|-+$/g, '');
+      }
+
+      const post = {
+        id: id || ('post_' + Date.now()),
+        title,
+        slug,
+        category,
+        summary,
+        keywords,
+        content
+      };
+
+      try {
+        const res = await fetch(getApiUrl('/api/admin/posts/save'), {
+          method: 'POST',
+          headers: getAdminHeaders(),
+          body: JSON.stringify({ post })
+        });
+        if (handleAuthError(res)) return;
+        const data = await res.json();
+        if (data.success) {
+          showToast('✅ Đã lưu bài viết thành công!', 'success');
+          closePostModal();
+          loadAdminPosts();
+        } else {
+          showToast(data.message || 'Lỗi lưu bài viết', 'error');
+        }
+      } catch (err) {
+        showToast('Lỗi kết nối khi lưu bài viết', 'error');
+      }
+    }
+
+    async function deletePost(id) {
+      if (!confirm('Bạn có chắc chắn muốn xóa bài viết này không? Hành động này không thể hoàn tác.')) return;
+      try {
+        const res = await fetch(getApiUrl('/api/admin/posts/delete'), {
+          method: 'POST',
+          headers: getAdminHeaders(),
+          body: JSON.stringify({ id })
+        });
+        if (handleAuthError(res)) return;
+        const data = await res.json();
+        if (data.success) {
+          showToast('🗑️ Đã xóa bài viết thành công!', 'success');
+          loadAdminPosts();
+        } else {
+          showToast(data.message || 'Lỗi xóa bài viết', 'error');
+        }
+      } catch (err) {
+        showToast('Lỗi kết nối khi xóa bài viết', 'error');
+      }
+    }
+
     function refreshAllData() {
       loadOrders();
       loadAnalytics();
@@ -1116,6 +1387,7 @@
     loadOrders();
     loadAnalytics();
     loadAdminConfig();
+    loadAdminPosts();
     setInterval(loadOrders, 3500);
     setInterval(loadAnalytics, 10000);
     if (window.lucide) window.lucide.createIcons();

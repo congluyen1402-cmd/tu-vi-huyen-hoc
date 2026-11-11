@@ -19,3 +19,4 @@ files.forEach(p => {
     console.log('Already index in', p);
   }
 });
+

@@ -1,0 +1,228 @@
+[
+  {
+    "chiIndex": 0,
+    "chi": "Tý",
+    "tot": [
+      "Văn Xương (H)",
+      "Phong Cáo",
+      "Lực Sỹ",
+      "Thiên Quý",
+      "ĐV. H Khoa",
+      "L.Hóa Khoa"
+    ],
+    "xau": [
+      "Kình Dương (H)",
+      "Thiên Khốc (Đ)",
+      "Thiên Hư (H)",
+      "Tuế Phá",
+      "L.Thiên Khốc",
+      "L.Thiên Hư",
+      "Thiên Sứ",
+      "ĐV. H Kỵ",
+      "L.Hóa Kỵ"
+    ],
+    "cellText": "Văn Xương (H)\nPhong Cáo\nLực Sỹ\nThiên Quý\nĐV. H Khoa\nL.Hóa Khoa\nKình Dương (H)\nThiên Khốc (Đ)\nThiên Hư (H)\nTuế Phá\nL.Thiên Khốc\nL.Thiên Hư\nThiên Sứ\nĐV. H Kỵ\nL.Hóa Kỵ"
+  },
+  {
+    "chiIndex": 1,
+    "chi": "Sửu",
+    "tot": [
+      "Long Đức",
+      "Thanh Long",
+      "L.Long Đức",
+      "Hóa Lộc"
+    ],
+    "xau": [
+      "Địa Không (H)"
+    ],
+    "cellText": "Long Đức\nThanh Long\nL.Long Đức\nHóa Lộc\nĐịa Không (H)"
+  },
+  {
+    "chiIndex": 2,
+    "chi": "Dần",
+    "tot": [
+      "Văn Khúc (H)",
+      "Thiên Y",
+      "Ân Quang"
+    ],
+    "xau": [
+      "Thiên Diêu (Đ)",
+      "Bạch Hổ",
+      "Tiểu Hao",
+      "L.Bạch Hổ"
+    ],
+    "cellText": "Văn Khúc (H)\nThiên Y\nÂn Quang\nThiên Diêu (Đ)\nBạch Hổ\nTiểu Hao\nL.Bạch Hổ"
+  },
+  {
+    "chiIndex": 3,
+    "chi": "Mão",
+    "tot": [
+      "Thiên Khôi",
+      "Đào Hoa",
+      "Thiên Hỉ",
+      "Thiên Đức",
+      "Phúc Đức",
+      "L.Đào Hoa",
+      "L.Thiên Đức",
+      "L.Phúc Đức",
+      "ĐV. H Lộc",
+      "L.Hóa Lộc"
+    ],
+    "xau": [
+      "Tướng Quân",
+      "Đầu Quân"
+    ],
+    "cellText": "Thiên Khôi\nĐào Hoa\nThiên Hỉ\nThiên Đức\nPhúc Đức\nL.Đào Hoa\nL.Thiên Đức\nL.Phúc Đức\nĐV. H Lộc\nL.Hóa Lộc\nTướng Quân\nĐầu Quân"
+  },
+  {
+    "chiIndex": 4,
+    "chi": "Thìn",
+    "tot": [
+      "Thai Phụ",
+      "Đường Phù",
+      "Giải Thần",
+      "Phượng Các",
+      "Tấu Thư"
+    ],
+    "xau": [
+      "Quả Tú",
+      "Điếu Khách",
+      "Thiên La",
+      "ĐV. Đà La",
+      "Hóa Kỵ"
+    ],
+    "cellText": "Thai Phụ\nĐường Phù\nGiải Thần\nPhượng Các\nTấu Thư\nQuả Tú\nĐiếu Khách\nThiên La\nĐV. Đà La\nHóa Kỵ"
+  },
+  {
+    "chiIndex": 5,
+    "chi": "Tỵ",
+    "tot": [
+      "Tả Phù",
+      "Thiên Việt",
+      "L.Lộc Tồn",
+      "ĐV. Lộc Tồn",
+      "Hóa Khoa"
+    ],
+    "xau": [
+      "Linh Tinh (Đ)",
+      "Phá Toái",
+      "Trực Phù",
+      "Phi Liêm"
+    ],
+    "cellText": "Tả Phù\nThiên Việt\nL.Lộc Tồn\nĐV. Lộc Tồn\nHóa Khoa\nLinh Tinh (Đ)\nPhá Toái\nTrực Phù\nPhi Liêm"
+  },
+  {
+    "chiIndex": 6,
+    "chi": "Ngọ",
+    "tot": [
+      "Thiên Phúc",
+      "Hỷ Thần",
+      "Bát Tọa",
+      "L.Văn Khúc",
+      "ĐV. Khúc"
+    ],
+    "xau": [
+      "Thái Tuế",
+      "L.Thái Tuế",
+      "L.Kình Dương",
+      "ĐV. K Dương"
+    ],
+    "cellText": "Thiên Phúc\nHỷ Thần\nBát Tọa\nL.Văn Khúc\nĐV. Khúc\nThái Tuế\nL.Thái Tuế\nL.Kình Dương\nĐV. K Dương"
+  },
+  {
+    "chiIndex": 7,
+    "chi": "Mùi",
+    "tot": [
+      "Quốc Ấn",
+      "Thiếu Dương",
+      "Thiên Thọ",
+      "ĐV. H Quyền",
+      "L.Hóa Quyền"
+    ],
+    "xau": [
+      "Thiên Không",
+      "Bệnh Phù"
+    ],
+    "cellText": "Quốc Ấn\nThiếu Dương\nThiên Thọ\nĐV. H Quyền\nL.Hóa Quyền\nThiên Không\nBệnh Phù"
+  },
+  {
+    "chiIndex": 8,
+    "chi": "Thân",
+    "tot": [
+      "Địa Giải",
+      "Thiên Mã (H)",
+      "Tam Thai",
+      "L.Văn Xương",
+      "L.Thiên Mã",
+      "ĐV. Xương",
+      "ĐV. T Mã",
+      "Hóa Quyền"
+    ],
+    "xau": [
+      "Cô Thần",
+      "Tang Môn",
+      "Đại Hao",
+      "L.Tang Môn"
+    ],
+    "cellText": "Địa Giải\nThiên Mã (H)\nTam Thai\nL.Văn Xương\nL.Thiên Mã\nĐV. Xương\nĐV. T Mã\nHóa Quyền\nCô Thần\nTang Môn\nĐại Hao\nL.Tang Môn"
+  },
+  {
+    "chiIndex": 9,
+    "chi": "Dậu",
+    "tot": [
+      "Hữu Bật",
+      "Thiên Giải",
+      "Thiên Trù",
+      "Văn Tinh",
+      "Hồng Loan",
+      "Thiếu Âm",
+      "L.Hồng Loan",
+      "L.Thiên Việt",
+      "ĐV. T Việt"
+    ],
+    "xau": [
+      "Địa Kiếp",
+      "Phục Binh"
+    ],
+    "cellText": "Hữu Bật\nThiên Giải\nThiên Trù\nVăn Tinh\nHồng Loan\nThiếu Âm\nL.Hồng Loan\nL.Thiên Việt\nĐV. T Việt\nĐịa Kiếp\nPhục Binh"
+  },
+  {
+    "chiIndex": 10,
+    "chi": "Tuất",
+    "tot": [
+      "Thiên Quan",
+      "Long Trì",
+      "Hoa Cái"
+    ],
+    "xau": [
+      "Thiên Hình (H)",
+      "Đà La (Đ)",
+      "Quan Phù",
+      "Quan Phủ",
+      "Địa Võng",
+      "Thiên Thương"
+    ],
+    "cellText": "Thiên Quan\nLong Trì\nHoa Cái\nThiên Hình (H)\nĐà La (Đ)\nQuan Phù\nQuan Phủ\nĐịa Võng\nThiên Thương"
+  },
+  {
+    "chiIndex": 11,
+    "chi": "Hợi",
+    "tot": [
+      "Lộc Tồn",
+      "Nguyệt Đức",
+      "Bác Sỹ",
+      "Thiên Tài",
+      "L.Thiên Khôi",
+      "L.Nguyệt Đức",
+      "ĐV. T Khôi"
+    ],
+    "xau": [
+      "Hỏa Tinh (H)",
+      "Lưu Hà",
+      "Kiếp Sát",
+      "Tử Phù",
+      "L.Kiếp Sát"
+    ],
+    "cellText": "Lộc Tồn\nNguyệt Đức\nBác Sỹ\nThiên Tài\nL.Thiên Khôi\nL.Nguyệt Đức\nĐV. T Khôi\nHỏa Tinh (H)\nLưu Hà\nKiếp Sát\nTử Phù\nL.Kiếp Sát"
+  }
+]

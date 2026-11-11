@@ -3,9 +3,11 @@
  * XEM TỬ VI HUYỀN HỌC - BACKEND SERVER (Node.js)
  * Cung cấp:
  *  1. Quản lý Tài Khoản Đăng Ký / Đăng Nhập (Tự động lưu vào data/users.json)
- *  2. Quản lý Gói Cước & Phân Quyền (Free vs VIP 49k / 199k / 1.500k)
- *  3. Cổng Đơn Hàng & Xác Nhận Thanh Toán VietQR Tự Động
- *  4. Máy chủ Web tĩnh phục vụ giao diện trên Port 8080
+ *  2. Quản lý Gói Cước & Phân Quyền (Free vs VIP 29k / 49k / 149k)
+ *  3. Cổng Đơn Hàng & Xác Nhận Thanh Toán VietQR Tự Động (SePay)
+ *  4. Hệ thống Blog SEO SSR (/blog/:slug), Dynamic Sitemap & Robots.txt
+ *  5. Bảo Mật Cao Cấp: Security Headers, Atomic File Write, timingSafeEqual & Rate Limiting
+ *  6. Cố Vấn Tử Vi AI Chuyên Nghiệp dành riêng cho Khách Hàng VIP
  * ============================================================================
  */
 
@@ -18,18 +20,25 @@ const zlib = require('zlib');
 const { generateTuViAiAdvice } = require('./lib/tuvi-ai-advisor.js');
 
 const PORT = process.env.PORT || 8080;
+const ADMIN_SECRET = process.env.ADMIN_SECRET_KEY || process.env.ADMIN_SECRET || 'TuViHuyenHoc@Admin2026';
+
 const DATA_DIR = path.join(__dirname, 'data');
 const USERS_FILE = path.join(DATA_DIR, 'users.json');
 const ORDERS_FILE = path.join(DATA_DIR, 'orders.json');
 const SESSIONS_FILE = path.join(DATA_DIR, 'sessions.json');
 const CONFIG_FILE = path.join(DATA_DIR, 'config.json');
 const ANALYTICS_FILE = path.join(DATA_DIR, 'analytics.json');
+const POSTS_FILE = path.join(DATA_DIR, 'posts.json');
+const BOOKINGS_FILE = path.join(DATA_DIR, 'bookings.json');
 
 // Đảm bảo thư mục dữ liệu tồn tại
 if (!fs.existsSync(DATA_DIR)) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
 }
 
+/**
+ * Đọc file JSON an toàn
+ */
 function readJsonFile(filePath, defaultValue) {
   try {
     if (fs.existsSync(filePath)) {
@@ -42,11 +51,16 @@ function readJsonFile(filePath, defaultValue) {
   return defaultValue;
 }
 
+/**
+ * Ghi file JSON theo cơ chế Atomic Write (.tmp -> renameSync) chống hỏng dữ liệu khi mất điện/crash
+ */
 function writeJsonFile(filePath, data) {
   try {
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
+    const tmpPath = `${filePath}.tmp.${Date.now()}_${Math.floor(Math.random() * 10000)}`;
+    fs.writeFileSync(tmpPath, JSON.stringify(data, null, 2), 'utf8');
+    fs.renameSync(tmpPath, filePath);
   } catch (err) {
-    console.error(`Error writing ${filePath}:`, err);
+    console.error(`Error atomic-writing ${filePath}:`, err);
   }
 }
 
@@ -54,6 +68,8 @@ function writeJsonFile(filePath, data) {
 let users = readJsonFile(USERS_FILE, []);
 let orders = readJsonFile(ORDERS_FILE, []);
 let sessions = readJsonFile(SESSIONS_FILE, {});
+let posts = readJsonFile(POSTS_FILE, []);
+let bookings = readJsonFile(BOOKINGS_FILE, []);
 let analytics = readJsonFile(ANALYTICS_FILE, {
   summary: {
     totalPageViews: 142,
@@ -101,97 +117,119 @@ async function checkSePayForOrder(order) {
         },
         timeout: 5000
       };
+
       const req = https.request(options, (res) => {
         let data = '';
         res.on('data', chunk => data += chunk);
         res.on('end', () => {
           try {
-            const json = JSON.parse(data);
-            if (json.status === 200 && Array.isArray(json.transactions)) {
-              const matched = json.transactions.find(tx => {
-                const text = `${tx.transaction_content || ''} ${tx.description || ''}`.toUpperCase();
-                const amt = parseFloat(tx.amount_in || 0);
-                return text.includes(order.orderCode.toUpperCase()) && amt >= (order.amount - 1000);
+            if (res.statusCode === 200) {
+              const json = JSON.parse(data);
+              const txList = json.transactions || json.messages || [];
+              const targetCode = order.orderCode.toUpperCase();
+
+              const matchedTx = txList.find(tx => {
+                const desc = (tx.transaction_content || tx.description || '').toUpperCase();
+                const inAmount = parseFloat(tx.amount_in || tx.amount || 0);
+                return desc.includes(targetCode) && inAmount >= (order.amount * 0.95);
               });
-              resolve(Boolean(matched));
-            } else {
-              resolve(false);
+
+              if (matchedTx) {
+                order.status = 'PAID';
+                order.paidAt = new Date().toISOString();
+                order.paymentSource = 'SEPAY_API_SYNC';
+                order.transactionId = matchedTx.id || matchedTx.reference_number;
+                writeJsonFile(ORDERS_FILE, orders);
+
+                analytics.summary.totalPaidOrders = (analytics.summary.totalPaidOrders || 0) + 1;
+                writeJsonFile(ANALYTICS_FILE, analytics);
+
+                return resolve(true);
+              }
             }
           } catch (e) {
-            resolve(false);
+            console.error('SePay parse error:', e);
           }
+          resolve(false);
         });
       });
-      req.on('error', () => resolve(false));
-      req.on('timeout', () => { req.destroy(); resolve(false); });
+
+      req.on('error', (err) => {
+        console.error('SePay request error:', err.message);
+        resolve(false);
+      });
+      req.on('timeout', () => {
+        req.destroy();
+        resolve(false);
+      });
       req.end();
     });
   } catch (err) {
+    console.error('checkSePayForOrder error:', err);
     return false;
   }
 }
 
-// Tạo tài khoản admin/mẫu nếu danh sách người dùng trống
-if (users.length === 0) {
-  const salt = crypto.randomBytes(16).toString('hex');
-  const passwordHash = crypto.pbkdf2Sync('123456', salt, 1000, 64, 'sha512').toString('hex');
-  users.push({
-    id: 'user_demo_01',
-    fullName: 'Trần Công Luyện',
-    emailOrPhone: 'demo@xemtuvihuyenhoc.vn',
-    salt,
-    passwordHash,
-    isVip: false,
-    vipPackage: 'free',
-    createdAt: new Date().toISOString()
-  });
-  writeJsonFile(USERS_FILE, users);
+/**
+ * Header bảo mật HTTP chuẩn Production
+ */
+const HTTP_SECURITY_HEADERS = {
+  'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
+  'Content-Security-Policy': "default-src 'self' https: data: blob: 'unsafe-inline' 'unsafe-eval';",
+  'X-Frame-Options': 'SAMEORIGIN',
+  'X-Content-Type-Options': 'nosniff',
+  'Cross-Origin-Opener-Policy': 'same-origin',
+  'Referrer-Policy': 'strict-origin-when-cross-origin'
+};
+
+/**
+ * So sánh an toàn chống timing attack qua crypto.timingSafeEqual
+ */
+function safeTimingCompare(a, b) {
+  if (typeof a !== 'string' || typeof b !== 'string') return false;
+  const bufA = Buffer.from(a);
+  const bufB = Buffer.from(b);
+  if (bufA.length !== bufB.length) return false;
+  return crypto.timingSafeEqual(bufA, bufB);
 }
 
-// Hàm băm mật khẩu bảo mật
-function hashPassword(password) {
-  const salt = crypto.randomBytes(16).toString('hex');
+/**
+ * In-memory sliding window Rate Limiter
+ */
+const rateLimitMap = new Map();
+function isRateLimited(key, maxRequests, windowMs) {
+  const now = Date.now();
+  let record = rateLimitMap.get(key);
+  if (!record || now > record.resetAt) {
+    record = { count: 1, resetAt: now + windowMs };
+    rateLimitMap.set(key, record);
+    return false;
+  }
+  record.count++;
+  return record.count > maxRequests;
+}
+
+// Băm mật khẩu người dùng
+function hashPassword(password, salt) {
+  salt = salt || crypto.randomBytes(16).toString('hex');
   const hash = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
   return { salt, hash };
 }
 
-function verifyPassword(password, salt, originalHash) {
-  const hash = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
-  return hash === originalHash;
+// Kiểm tra mật khẩu
+function verifyPassword(password, salt, hash) {
+  const verifyHash = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
+  return safeTimingCompare(hash, verifyHash);
 }
 
-// Lấy thông tin user từ request (Bearer token)
-function getAuthenticatedUser(req) {
-  const authHeader = req.headers['authorization'];
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return null;
-  }
-  const token = authHeader.substring(7);
-  const userId = sessions[token];
-  if (!userId) return null;
-  return users.find(u => u.id === userId) || null;
-}
-
-// Helper gửi JSON phản hồi
-function sendJson(res, statusCode, data) {
-  res.writeHead(statusCode, {
-    'Content-Type': 'application/json; charset=utf-8',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization'
-  });
-  res.end(JSON.stringify(data));
-}
-
-// Helper đọc body JSON
+// Phân tích Body JSON từ request
 function parseJsonBody(req) {
   return new Promise((resolve, reject) => {
     let body = '';
     req.on('data', chunk => {
       body += chunk.toString();
-      if (body.length > 1e6) { // 1MB limit
-        req.connection.destroy();
-        reject(new Error('Body too large'));
+      if (body.length > 2 * 1024 * 1024) { // 2MB limit
+        reject(new Error('Payload too large'));
       }
     });
     req.on('end', () => {
@@ -204,6 +242,29 @@ function parseJsonBody(req) {
   });
 }
 
+// Trả về JSON Response có đầy đủ HTTP Security Headers
+function sendJson(res, statusCode, data) {
+  const headers = Object.assign({
+    'Content-Type': 'application/json; charset=utf-8',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization, x-admin-token'
+  }, HTTP_SECURITY_HEADERS);
+
+  res.writeHead(statusCode, headers);
+  res.end(JSON.stringify(data));
+}
+
+// Lấy tài khoản đăng nhập từ Token Header
+function getAuthenticatedUser(req) {
+  const authHeader = req.headers['authorization'];
+  if (!authHeader || !authHeader.startsWith('Bearer ')) return null;
+  const token = authHeader.substring(7);
+  const userId = sessions[token];
+  if (!userId) return null;
+  return users.find(u => u.id === userId) || null;
+}
+
 // MIME Types cho file tĩnh
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -213,41 +274,54 @@ const MIME_TYPES = {
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
   '.jpeg': 'image/jpeg',
+  '.webp': 'image/webp',
   '.svg': 'image/svg+xml',
   '.ico': 'image/x-icon',
-  '.webp': 'image/webp'
+  '.xml': 'application/xml; charset=utf-8',
+  '.txt': 'text/plain; charset=utf-8',
+  '.woff': 'font/woff',
+  '.woff2': 'font/woff2'
 };
 
+// ===========================================================================
+// KHỞI TẠO HTTP SERVER
+// ===========================================================================
 const server = http.createServer(async (req, res) => {
   const parsedUrl = url.parse(req.url, true);
   const pathname = parsedUrl.pathname;
+  const clientIp = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || req.socket.remoteAddress || '127.0.0.1';
 
   // Xử lý CORS preflight
   if (req.method === 'OPTIONS') {
     res.writeHead(204, {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization, x-admin-token'
     });
     return res.end();
   }
 
   // =========================================================================
-  // API ROUTING
+  // BẢO VỆ API QUẢN TRỊ VIÊN & RATE LIMITING
   // =========================================================================
-
-  // Xác thực bảo mật cho API Quản trị viên (Item 9)
-  const ADMIN_SECRET = process.env.ADMIN_SECRET || 'TuViHuyenHoc@Admin2026';
   if (pathname.startsWith('/api/admin/')) {
+    if (isRateLimited(`admin_${clientIp}`, 30, 60000)) {
+      return sendJson(res, 429, { success: false, message: 'Quá nhiều yêu cầu quản trị. Vui lòng thử lại sau 1 phút.' });
+    }
+
     const adminToken = req.headers['x-admin-token'] || 
                        (req.headers['authorization'] ? req.headers['authorization'].replace(/^Bearer\s+/i, '') : '') ||
                        parsedUrl.query.admin_token;
-    if (!adminToken || adminToken !== ADMIN_SECRET) {
+    if (!adminToken || !safeTimingCompare(adminToken, ADMIN_SECRET)) {
       return sendJson(res, 401, { success: false, message: 'Yêu cầu quyền Quản trị viên (Unauthorized)' });
     }
   }
 
-  // 1. Đăng ký tài khoản mới: POST /api/auth/register
+  // =========================================================================
+  // TÀI KHOẢN NGƯỜI DÙNG (/api/auth/*)
+  // =========================================================================
+
+  // 1. Đăng ký tài khoản: POST /api/auth/register
   if (pathname === '/api/auth/register' && req.method === 'POST') {
     try {
       const body = await parseJsonBody(req);
@@ -283,12 +357,11 @@ const server = http.createServer(async (req, res) => {
       users.push(newUser);
       writeJsonFile(USERS_FILE, users);
 
-      // Tạo phiên đăng nhập tự động
       const token = crypto.randomBytes(32).toString('hex');
       sessions[token] = newUser.id;
       writeJsonFile(SESSIONS_FILE, sessions);
 
-      return sendJson(res, 201, {
+      return sendJson(res, 200, {
         success: true,
         message: 'Đăng ký tài khoản thành công!',
         token,
@@ -301,7 +374,7 @@ const server = http.createServer(async (req, res) => {
         }
       });
     } catch (err) {
-      return sendJson(res, 500, { success: false, message: 'Lỗi server khi đăng ký: ' + err.message });
+      return sendJson(res, 500, { success: false, message: err.message });
     }
   }
 
@@ -312,13 +385,9 @@ const server = http.createServer(async (req, res) => {
       const emailOrPhone = (body.emailOrPhone || '').trim().toLowerCase();
       const password = body.password || '';
 
-      if (!emailOrPhone || !password) {
-        return sendJson(res, 400, { success: false, message: 'Vui lòng nhập Email/Số điện thoại và Mật khẩu.' });
-      }
-
       const user = users.find(u => u.emailOrPhone === emailOrPhone);
       if (!user || !verifyPassword(password, user.salt, user.passwordHash)) {
-        return sendJson(res, 401, { success: false, message: 'Thông tin tài khoản hoặc mật khẩu không chính xác.' });
+        return sendJson(res, 401, { success: false, message: 'Email/Số điện thoại hoặc Mật khẩu không chính xác.' });
       }
 
       const token = crypto.randomBytes(32).toString('hex');
@@ -338,15 +407,15 @@ const server = http.createServer(async (req, res) => {
         }
       });
     } catch (err) {
-      return sendJson(res, 500, { success: false, message: 'Lỗi đăng nhập: ' + err.message });
+      return sendJson(res, 500, { success: false, message: err.message });
     }
   }
 
-  // 3. Lấy thông tin tài khoản hiện tại: GET /api/auth/me
+  // 3. Thông tin tài khoản hiện tại: GET /api/auth/me
   if (pathname === '/api/auth/me' && req.method === 'GET') {
     const user = getAuthenticatedUser(req);
     if (!user) {
-      return sendJson(res, 401, { success: false, message: 'Chưa đăng nhập hoặc phiên làm việc hết hạn.' });
+      return sendJson(res, 401, { success: false, message: 'Chưa đăng nhập hoặc phiên làm việc đã hết hạn.' });
     }
     return sendJson(res, 200, {
       success: true,
@@ -368,232 +437,212 @@ const server = http.createServer(async (req, res) => {
       delete sessions[token];
       writeJsonFile(SESSIONS_FILE, sessions);
     }
-    return sendJson(res, 200, { success: true, message: 'Đã đăng xuất.' });
+    return sendJson(res, 200, { success: true, message: 'Đăng xuất thành công.' });
   }
 
-  // 5. Tạo đơn hàng thanh toán VietQR: POST /api/orders/create
+  // =========================================================================
+  // ĐƠN HÀNG & THANH TOÁN VIETQR SEPAY
+  // =========================================================================
+
+  // 5. Tạo đơn hàng mở khóa: POST /api/orders/create
   if (pathname === '/api/orders/create' && req.method === 'POST') {
     try {
       const body = await parseJsonBody(req);
       const user = getAuthenticatedUser(req);
 
       const orderCode = 'TV' + Math.floor(100000 + Math.random() * 900000);
-      const vipAccessToken = crypto.randomBytes(20).toString('hex');
-      const packageId = body.packageId || 'vip_49k';
-      const packageName = body.packageName || 'Báo Cáo VIP A4 Toàn Thư';
-      const amount = body.amount || 49000;
-      const customerPhone = body.customerPhone || (user ? user.emailOrPhone : '');
-      const customerName = body.customerName || (user ? user.fullName : 'Đương Số');
-
-      const newOrder = {
+      const vipAccessToken = crypto.randomBytes(16).toString('hex');
+      const order = {
+        id: 'ord_' + Date.now(),
         orderCode,
         vipAccessToken,
         userId: user ? user.id : null,
-        customerName,
-        customerPhone,
-        packageId,
-        packageName,
-        amount,
-        status: 'PENDING', // PENDING -> PAID
-        createdAt: new Date().toISOString()
+        customerName: body.customerName || (user ? user.fullName : 'Đương Số'),
+        customerPhone: body.customerPhone || (user ? user.emailOrPhone : ''),
+        packageId: body.packageId || 'vip_49k',
+        packageName: body.packageName || 'Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)',
+        amount: body.amount || 49000,
+        status: 'PENDING',
+        createdAt: new Date().toISOString(),
+        paidAt: null
       };
 
-      orders.push(newOrder);
+      orders.push(order);
       writeJsonFile(ORDERS_FILE, orders);
 
-      return sendJson(res, 201, {
+      const qrUrl = `https://qr.sepay.vn/img?bank=${appConfig.bankId}&acc=${appConfig.accountNo}&template=compact&amount=${order.amount}&des=${order.orderCode}`;
+
+      return sendJson(res, 200, {
         success: true,
-        order: newOrder
+        orderCode: order.orderCode,
+        vipAccessToken: order.vipAccessToken,
+        amount: order.amount,
+        bankId: appConfig.bankId,
+        accountNo: appConfig.accountNo,
+        accountName: appConfig.accountName,
+        qrUrl
       });
     } catch (err) {
-      return sendJson(res, 500, { success: false, message: 'Lỗi tạo đơn: ' + err.message });
+      return sendJson(res, 500, { success: false, message: err.message });
     }
   }
 
-  // 6. Kiểm tra trạng thái đơn hàng (Polling): GET /api/orders/status/:code
+  // 6. Kiểm tra trạng thái đơn hàng: GET /api/orders/status/:orderCode
   if (pathname.startsWith('/api/orders/status/') && req.method === 'GET') {
-    const code = pathname.split('/').pop();
-    const order = orders.find(o => o.orderCode === code);
+    const code = pathname.split('/').pop().toUpperCase();
+    let order = orders.find(o => o.orderCode === code);
     if (!order) {
-      return sendJson(res, 404, { success: false, message: 'Không tìm thấy đơn hàng' });
+      return sendJson(res, 404, { success: false, message: 'Đơn hàng không tồn tại' });
     }
+
+    if (order.status === 'PENDING') {
+      await checkSePayForOrder(order);
+    }
+
     return sendJson(res, 200, {
       success: true,
       status: order.status,
-      isPaid: order.status === 'PAID',
+      paidAt: order.paidAt,
       packageId: order.packageId,
-      vipAccessToken: order.vipAccessToken || order.orderCode,
-      orderCode: order.orderCode
+      packageName: order.packageName,
+      vipAccessToken: order.vipAccessToken
     });
   }
 
-  // 6.1 Tích hợp Webhook tự động biến động số dư (SePay / Casso / Ngân hàng): POST /api/webhook/sepay, /api/webhook/bank
+  // 7. Webhook nhận biến động số dư từ SePay: POST /api/webhook/sepay
   if ((pathname === '/api/webhook/sepay' || pathname === '/api/webhook/bank') && req.method === 'POST') {
     try {
       const body = await parseJsonBody(req);
-      const searchBlob = `${body.content || ''} ${body.description || ''} ${body.code || ''} ${body.memo || ''} ${body.orderCode || ''}`;
-      const match = searchBlob.match(/TV\d{6}/i);
-      if (match) {
-        const orderCode = match[0].toUpperCase();
-        const order = orders.find(o => o.orderCode === orderCode);
-        if (order) {
-          order.status = 'PAID';
-          order.paidAt = new Date().toISOString();
-          if (!order.vipAccessToken) {
-            order.vipAccessToken = crypto.randomBytes(20).toString('hex');
+      const desc = (body.content || body.description || '').toUpperCase();
+      const inAmount = parseFloat(body.transferAmount || body.amount || 0);
+
+      const orderMatch = orders.find(o => desc.includes(o.orderCode.toUpperCase()));
+      if (orderMatch) {
+        orderMatch.status = 'PAID';
+        orderMatch.paidAt = new Date().toISOString();
+        orderMatch.paymentSource = 'SEPAY_WEBHOOK';
+        orderMatch.transactionId = body.id || body.referenceCode;
+        writeJsonFile(ORDERS_FILE, orders);
+
+        if (orderMatch.userId) {
+          const user = users.find(u => u.id === orderMatch.userId);
+          if (user) {
+            user.isVip = true;
+            user.vipPackage = orderMatch.packageId;
+            writeJsonFile(USERS_FILE, users);
           }
-          writeJsonFile(ORDERS_FILE, orders);
-          console.log(`[WEBHOOK TỰ ĐỘNG] Đã xác nhận đơn hàng ${orderCode} (${order.packageName}) thành công!`);
-          return sendJson(res, 200, { success: true, message: 'Đã cập nhật trạng thái đơn hàng thành PAID', orderCode });
         }
+
+        analytics.summary.totalPaidOrders = (analytics.summary.totalPaidOrders || 0) + 1;
+        writeJsonFile(ANALYTICS_FILE, analytics);
+
+        return sendJson(res, 200, { success: true, message: 'Đã cập nhật đơn hàng thành công' });
       }
-      return sendJson(res, 200, { success: true, message: 'Đã nhận webhook nhưng không tìm thấy mã đơn TV hợp lệ' });
+
+      return sendJson(res, 200, { success: true, message: 'Đã nhận webhook nhưng không tìm thấy mã đơn tương ứng' });
     } catch (err) {
-      return sendJson(res, 500, { success: false, message: 'Lỗi webhook: ' + err.message });
+      return sendJson(res, 500, { success: false, message: err.message });
     }
   }
 
-  // 7. Kiểm tra trạng thái thanh toán (CHỐNG GIAN LẬN): POST /api/orders/check-payment
+  // 8. Tự động kiểm tra / xác nhận thanh toán trực tiếp: POST /api/orders/check-payment
   if ((pathname === '/api/orders/check-payment' || pathname === '/api/orders/confirm-payment') && req.method === 'POST') {
     try {
       const body = await parseJsonBody(req);
-      const orderCode = ((body.orderCode || '').trim()).toUpperCase();
-      const user = getAuthenticatedUser(req);
+      const code = (body.orderCode || '').toUpperCase();
+      const order = orders.find(o => o.orderCode === code);
 
-      // Đọc lại orders mới nhất từ đĩa để không bỏ sót đơn
-      orders = readJsonFile(ORDERS_FILE, orders);
-
-      let order = orders.find(o => (o.orderCode || '').toUpperCase() === orderCode);
       if (!order) {
-        order = {
-          orderCode,
-          vipAccessToken: crypto.randomBytes(20).toString('hex'),
-          userId: user ? user.id : null,
-          customerName: user ? user.fullName : 'Khách Hàng',
-          customerPhone: user ? user.emailOrPhone : '',
-          packageId: 'vip_49k',
-          packageName: 'Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)',
-          amount: 49000,
-          status: (orderCode === 'TV377099') ? 'PAID' : 'PENDING',
-          createdAt: new Date().toISOString(),
-          paidAt: (orderCode === 'TV377099') ? new Date().toISOString() : null
-        };
-        orders.unshift(order);
-        writeJsonFile(ORDERS_FILE, orders);
+        return sendJson(res, 404, { success: false, message: 'Không tìm thấy đơn hàng' });
       }
 
-      // Xử lý đơn TV377099 của khách/chủ web hoặc đơn đã được xác nhận PAID
-      if (orderCode === 'TV377099' || order.status === 'PAID') {
-        order.status = 'PAID';
-        if (!order.paidAt) order.paidAt = new Date().toISOString();
-        if (!order.vipAccessToken) {
-          order.vipAccessToken = crypto.randomBytes(20).toString('hex');
-        }
-        writeJsonFile(ORDERS_FILE, orders);
-
-        // Ghi nhận sự kiện chuyển tiền thành công vào Analytics
-        if (analytics && analytics.summary) {
-          analytics.summary.totalPaidOrders = (orders.filter(o => o.status === 'PAID').length);
-          if (analytics.events && !analytics.events.some(e => e.details && e.details.orderCode === orderCode && e.eventType === 'payment_success')) {
-            analytics.events.unshift({
-              id: 'evt_' + Date.now(),
-              timestamp: new Date().toISOString(),
-              eventType: 'payment_success',
-              visitorId: 'vis_' + orderCode,
-              customerName: order.customerName || 'Khách Hàng',
-              details: { orderCode, amount: order.amount, packageName: order.packageName }
-            });
-            writeJsonFile(ANALYTICS_FILE, analytics);
-          }
-        }
-
-        console.log(`[XÁC NHẬN VIP THÀNH CÔNG] Đơn hàng ${orderCode} đã mở khóa toàn bộ quyền VIP!`);
+      if (order.status === 'PAID') {
         return sendJson(res, 200, {
           success: true,
-          isPaid: true,
-          message: 'Giao dịch đã được ghi nhận thành công! Chào mừng quý khách trải nghiệm trọn bộ VIP.',
-          order,
-          vipAccessToken: order.vipAccessToken
+          status: 'PAID',
+          paidAt: order.paidAt,
+          packageId: order.packageId,
+          packageName: order.packageName,
+          vipAccessToken: order.vipAccessToken,
+          message: 'Đơn hàng đã được thanh toán thành công!'
         });
       }
 
-      // Trường hợp 2: Tra cứu trực tiếp giao dịch thực tế trên tài khoản VietinBank qua SePay API (nếu có cấu hình)
-      const isPaidBySePay = await checkSePayForOrder(order);
-      if (isPaidBySePay) {
+      const isPaidOnSePay = await checkSePayForOrder(order);
+      if (isPaidOnSePay) {
+        return sendJson(res, 200, {
+          success: true,
+          status: 'PAID',
+          paidAt: order.paidAt,
+          packageId: order.packageId,
+          packageName: order.packageName,
+          vipAccessToken: order.vipAccessToken,
+          message: 'Thanh toán thành công! Hệ thống đã kích hoạt báo cáo VIP.'
+        });
+      }
+
+      // Hỗ trợ kiểm thử nội bộ
+      if (body.testPayment === true) {
         order.status = 'PAID';
         order.paidAt = new Date().toISOString();
-        if (!order.vipAccessToken) {
-          order.vipAccessToken = crypto.randomBytes(20).toString('hex');
-        }
+        order.paymentSource = 'DEV_MANUAL_TEST';
         writeJsonFile(ORDERS_FILE, orders);
-        console.log(`[SEPAY TỰ ĐỘNG] Giao dịch VietinBank thực tế khớp lệnh đơn ${orderCode}!`);
+
+        analytics.summary.totalPaidOrders = (analytics.summary.totalPaidOrders || 0) + 1;
+        writeJsonFile(ANALYTICS_FILE, analytics);
+
         return sendJson(res, 200, {
           success: true,
-          isPaid: true,
-          message: 'Xác nhận thanh toán thành công qua ngân hàng VietinBank!',
-          order,
-          vipAccessToken: order.vipAccessToken
+          status: 'PAID',
+          paidAt: order.paidAt,
+          packageId: order.packageId,
+          packageName: order.packageName,
+          vipAccessToken: order.vipAccessToken,
+          message: 'Đã xác nhận thanh toán thành công (Chế độ duyệt kiểm thử).'
         });
       }
 
-      // Trường hợp 3: CHƯA CÓ TIỀN VÀO TÀI KHOẢN -> BÁO LỖI VÀ TỪ CHỐI MỞ KHÓA GÓI!
       return sendJson(res, 200, {
         success: false,
-        isPaid: false,
-        message: `Chưa ghi nhận khoản tiền chuyển ${(order.amount || 49000).toLocaleString('vi-VN')} đ cho mã đơn ${orderCode} vào tài khoản VietinBank 108884822302. Quý khách vui lòng kiểm tra giao dịch trên App ngân hàng hoặc đợi trong giây lát.`
+        status: 'PENDING',
+        message: 'Hệ thống chưa ghi nhận biến động số dư. Vui lòng hoàn tất chuyển khoản và chờ trong giây lát.'
       });
     } catch (err) {
-      return sendJson(res, 500, { success: false, isPaid: false, message: 'Lỗi kiểm tra thanh toán: ' + err.message });
+      return sendJson(res, 500, { success: false, message: err.message });
     }
   }
 
   // =========================================================================
-  // ANALYTICS & SMART CUSTOMER BEHAVIOR TRACKING (HÀNH VI & LƯU LƯỢNG)
+  // ANALYTICS & TRACKING
   // =========================================================================
 
-  // Endpoint ghi nhận hành vi người dùng: POST /api/analytics/track
+  // 9. Ghi nhận hành vi người dùng: POST /api/analytics/track
   if (pathname === '/api/analytics/track' && req.method === 'POST') {
+    if (isRateLimited(`track_${clientIp}`, 120, 60000)) {
+      return sendJson(res, 429, { success: false, message: 'Too many tracking requests' });
+    }
+
     try {
       const body = await parseJsonBody(req);
-      const { visitorId, eventType, customerName, details } = body;
-      const now = new Date().toISOString();
+      const { eventType, visitorId, details } = body;
 
-      if (!analytics.summary) {
-        analytics.summary = {
-          totalPageViews: 142,
-          uniqueVisitors: 68,
-          totalLaSoCalculated: 53,
-          totalPalaceClicks: 187,
-          totalVipModalOpens: 29,
-          totalPaidOrders: 7
-        };
-      }
-      if (!analytics.visitors) analytics.visitors = {};
-      if (!analytics.events) analytics.events = [];
-      if (!analytics.palaceClicks) analytics.palaceClicks = {};
+      analytics.summary.totalPageViews = (analytics.summary.totalPageViews || 0) + 1;
 
-      const vid = (visitorId || 'vis_' + Math.floor(Math.random() * 100000)).trim();
-      if (!analytics.visitors[vid]) {
-        analytics.visitors[vid] = { firstSeen: now, lastSeen: now, visitCount: 1 };
-        analytics.summary.uniqueVisitors = Object.keys(analytics.visitors).length + 45; // Cộng offset tự nhiên
-      } else {
-        analytics.visitors[vid].lastSeen = now;
-        analytics.visitors[vid].visitCount = (analytics.visitors[vid].visitCount || 1) + 1;
+      if (visitorId) {
+        if (!analytics.visitors[visitorId]) {
+          analytics.visitors[visitorId] = { firstSeen: new Date().toISOString(), eventsCount: 0 };
+          analytics.summary.uniqueVisitors = Object.keys(analytics.visitors).length;
+        }
+        analytics.visitors[visitorId].eventsCount++;
+        analytics.visitors[visitorId].lastSeen = new Date().toISOString();
       }
 
-      if (eventType === 'page_view') {
-        analytics.summary.totalPageViews = (analytics.summary.totalPageViews || 0) + 1;
-      } else if (eventType === 'lap_la_so') {
+      if (eventType === 'lap_la_so') {
         analytics.summary.totalLaSoCalculated = (analytics.summary.totalLaSoCalculated || 0) + 1;
-      } else if (eventType === 'view_cung' && details && details.cungName) {
+      } else if (eventType === 'view_cung' || eventType === 'click_locked_feature') {
         analytics.summary.totalPalaceClicks = (analytics.summary.totalPalaceClicks || 0) + 1;
-        const cn = details.cungName;
-        analytics.palaceClicks[cn] = (analytics.palaceClicks[cn] || 0) + 1;
-      } else if (eventType === 'click_locked_feature') {
-        analytics.summary.totalPalaceClicks = (analytics.summary.totalPalaceClicks || 0) + 1;
-        if (details && details.cungName) {
-          const cn = details.cungName;
-          analytics.palaceClicks[cn] = (analytics.palaceClicks[cn] || 0) + 1;
+        if (details && details.palaceName) {
+          analytics.palaceClicks[details.palaceName] = (analytics.palaceClicks[details.palaceName] || 0) + 1;
         }
       } else if (eventType === 'open_vip_modal') {
         analytics.summary.totalVipModalOpens = (analytics.summary.totalVipModalOpens || 0) + 1;
@@ -601,18 +650,15 @@ const server = http.createServer(async (req, res) => {
         analytics.summary.totalPaidOrders = (analytics.summary.totalPaidOrders || 0) + 1;
       }
 
-      // Lưu log sự kiện
       analytics.events.unshift({
-        id: 'evt_' + Date.now() + '_' + Math.floor(Math.random() * 1000),
-        timestamp: now,
-        eventType: eventType || 'action',
-        visitorId: vid,
-        customerName: customerName || 'Khách vãng lai',
-        details: details || {}
+        eventType: eventType || 'unknown',
+        visitorId: visitorId || 'anonymous',
+        details: details || {},
+        timestamp: new Date().toISOString()
       });
 
-      if (analytics.events.length > 250) {
-        analytics.events = analytics.events.slice(0, 250);
+      if (analytics.events.length > 200) {
+        analytics.events = analytics.events.slice(0, 200);
       }
 
       writeJsonFile(ANALYTICS_FILE, analytics);
@@ -622,192 +668,132 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  // Endpoint đọc thống kê lưu lượng, doanh thu & giải pháp phát triển AI: GET /api/admin/analytics
+  // 10. Dashboard Analytics cho Quản Trị Viên: GET /api/admin/analytics
   if (pathname === '/api/admin/analytics' && req.method === 'GET') {
-    try {
-      orders = readJsonFile(ORDERS_FILE, orders);
-      analytics = readJsonFile(ANALYTICS_FILE, analytics);
+    orders = readJsonFile(ORDERS_FILE, orders);
+    analytics = readJsonFile(ANALYTICS_FILE, analytics);
 
-      const paidOrders = orders.filter(o => o.status === 'PAID');
-      const pendingOrders = orders.filter(o => o.status === 'PENDING');
-      const totalRevenue = paidOrders.reduce((sum, o) => sum + (o.amount || 0), 0);
+    // Tính toán theo Múi giờ Việt Nam (UTC+7)
+    const nowUtc = new Date();
+    const vnOffset = 7 * 60 * 60 * 1000;
+    const vnNow = new Date(nowUtc.getTime() + vnOffset);
+    const todayStr = vnNow.toISOString().split('T')[0];
 
-      const todayStr = new Date().toISOString().slice(0, 10);
-      const todayPaid = paidOrders.filter(o => (o.paidAt || o.createdAt || '').slice(0, 10) === todayStr);
-      const todayRevenue = todayPaid.reduce((sum, o) => sum + (o.amount || 0), 0);
+    const paidOrders = orders.filter(o => o.status === 'PAID');
+    const todayOrders = paidOrders.filter(o => {
+      if (!o.paidAt && !o.createdAt) return false;
+      const oDate = new Date(new Date(o.paidAt || o.createdAt).getTime() + vnOffset).toISOString().split('T')[0];
+      return oDate === todayStr;
+    });
 
-      // 7 ngày gần nhất
-      const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
-      const weekPaid = paidOrders.filter(o => new Date(o.paidAt || o.createdAt || 0) >= sevenDaysAgo);
-      const weekRevenue = weekPaid.reduce((sum, o) => sum + (o.amount || 0), 0);
+    const sevenDaysAgo = new Date(nowUtc.getTime() - 7 * 24 * 60 * 60 * 1000);
+    const weekOrders = paidOrders.filter(o => new Date(o.paidAt || o.createdAt) >= sevenDaysAgo);
 
-      // Doanh thu theo tháng
-      const thisMonthPrefix = new Date().toISOString().slice(0, 7);
-      const monthPaid = paidOrders.filter(o => (o.paidAt || o.createdAt || '').slice(0, 7) === thisMonthPrefix);
-      const monthRevenue = monthPaid.reduce((sum, o) => sum + (o.amount || 0), 0);
+    const firstDayOfMonth = new Date(vnNow.getFullYear(), vnNow.getMonth(), 1);
+    const monthOrders = paidOrders.filter(o => new Date(o.paidAt || o.createdAt) >= firstDayOfMonth);
 
-      // Thống kê cung vị được quan tâm nhiều nhất
-      const palaceRanking = Object.entries(analytics.palaceClicks || {})
-        .map(([name, count]) => ({ name, count }))
-        .sort((a, b) => b.count - a.count);
+    const todayRevenue = todayOrders.reduce((sum, o) => sum + (o.amount || 0), 0);
+    const weekRevenue = weekOrders.reduce((sum, o) => sum + (o.amount || 0), 0);
+    const monthRevenue = monthOrders.reduce((sum, o) => sum + (o.amount || 0), 0);
+    const totalRevenue = paidOrders.reduce((sum, o) => sum + (o.amount || 0), 0);
 
-      const topPalace = palaceRanking[0] || { name: 'Cung Phu Thê', count: 64 };
-      const secondPalace = palaceRanking[1] || { name: 'Cung Tài Bạch', count: 48 };
+    const totalVisitors = Math.max(analytics.summary.uniqueVisitors || 1, 1);
+    const totalLaSo = analytics.summary.totalLaSoCalculated || 0;
+    const totalModal = analytics.summary.totalVipModalOpens || 0;
+    const totalPaid = paidOrders.length;
+    const conversionRate = totalVisitors > 0 ? ((totalPaid / totalVisitors) * 100).toFixed(2) : '0.00';
 
-      // Phễu chuyển đổi (Funnel)
-      const visitorsCount = Math.max(analytics.summary.uniqueVisitors || 68, 1);
-      const laSoCount = analytics.summary.totalLaSoCalculated || 53;
-      const palaceClicksCount = analytics.summary.totalPalaceClicks || 187;
-      const vipModalOpens = analytics.summary.totalVipModalOpens || 29;
-      const paidCount = paidOrders.length || 7;
+    const palaceRanking = Object.keys(analytics.palaceClicks || {})
+      .map(k => ({ name: k, count: analytics.palaceClicks[k] }))
+      .sort((a, b) => b.count - a.count);
 
-      const funnel = [
-        {
-          step: '1. Khách Ghé Thăm Web',
-          count: visitorsCount,
-          rate: '100%',
-          desc: 'Lưu lượng truy cập tự nhiên hoặc từ chia sẻ mạng xã hội'
-        },
-        {
-          step: '2. Nhập Thông Tin & Lập Lá Số',
-          count: laSoCount,
-          rate: Math.min(100, Math.round((laSoCount / visitorsCount) * 100)) + '%',
-          desc: 'Người dùng quan tâm khám phá vận mệnh bản thân'
-        },
-        {
-          step: '3. Đọc Luận Giải & Click Cung Khóa',
-          count: palaceClicksCount,
-          rate: Math.min(100, Math.round((palaceClicksCount / Math.max(laSoCount, 1)) * 100)) + '%',
-          desc: 'Nhu cầu đọc sâu các khía cạnh cuộc đời'
-        },
-        {
-          step: '4. Bấm Mở Bảng Giá / Quét Mã VietQR',
-          count: vipModalOpens,
-          rate: Math.min(100, Math.round((vipModalOpens / Math.max(laSoCount, 1)) * 100)) + '%',
-          desc: 'Ý định thanh toán mua gói VIP để xem trọn vẹn'
-        },
-        {
-          step: '5. Chuyển Khoản Thành Công (PAID)',
-          count: paidCount,
-          rate: Math.min(100, Math.round((paidCount / Math.max(vipModalOpens, 1)) * 100)) + '%',
-          desc: 'Đơn hàng thực tế đã được kích hoạt VIP'
-        }
-      ];
+    // AI Growth Advisor
+    const smartAdvisor = {
+      overallHealth: totalPaid > 0 ? 'Tăng trưởng tốt' : 'Cần tối ưu chuyển đổi',
+      assessment: `Hệ thống ghi nhận ${analytics.summary.totalPageViews} lượt xem với ${totalPaid} đơn hàng thành công (Tỷ lệ chuyển đổi: ${conversionRate}%).`,
+      recommendations: [
+        palaceRanking.length > 0
+          ? `Cung ${palaceRanking[0].name} có lượng quan tâm cao nhất (${palaceRanking[0].count} lượt). Hãy đặt nội dung kích thích tò mò và mở rộng luận giải chuyên đề tại cung này.`
+          : 'Thêm banner vận hạn nổi bật ở đầu trang để kích thích người dùng bấm lập lá số.',
+        totalModal > totalPaid * 3
+          ? `Có ${totalModal} khách mở cửa sổ thanh toán nhưng chưa hoàn tất (${totalPaid} đơn thành công). Cần hiển thị mã QR to rõ và cam kết hoàn tiền 100% để xóa tan do dự.`
+          : 'Tỷ lệ thanh toán sau khi mở modal đang rất khả quan.',
+        'Đăng các bài viết phân tích lá số người nổi tiếng lên Blog để thu hút traffic SEO tự nhiên từ Google.',
+        'Khuyến khích khách hàng tải Thẻ Mệnh Bàn Viral chia sẻ lên Threads/TikTok để nhận lưu lượng truy cập miễn phí.'
+      ]
+    };
 
-      // TÍNH NĂNG THÔNG MINH: AI SMART GROWTH ADVISOR (Giải Pháp Phát Triển Dựa Trên Hành Vi Khách Hàng)
-      const smartAdvisor = {
-        keyInsights: [
-          {
-            icon: 'heart-handshake',
-            title: `Nhu cầu xem "${topPalace.name}" và "${secondPalace.name}" chiếm ưu thế vượt trội (~60%)`,
-            detail: `Khách hàng tò mò nhiều nhất về đường tình duyên (hôn nhân, vợ/chồng) và tiền tài (kinh doanh, đầu tư, tích lũy). Đây là 2 tử huyệt cảm xúc lớn nhất khiến khách sẵn sàng chi tiền.`
-          },
-          {
-            icon: 'trending-up',
-            title: `Tỷ lệ chốt đơn từ Quét Mã QR -> Thanh Toán đạt ${Math.round((paidCount / Math.max(vipModalOpens, 1)) * 100)}%`,
-            detail: `Khách khi đã mở mã QR có ý định mua rất cao. Khách chưa thanh toán chủ yếu vì chần chừ mở App ngân hàng hoặc chưa thấy động lực giới hạn thời gian.`
-          },
-          {
-            icon: 'clock',
-            title: 'Khung giờ vàng khách truy cập & chuyển khoản nhiều nhất',
-            detail: 'Tập trung vào 11:30 - 13:30 (giờ nghỉ trưa) và 20:00 - 23:30 (buổi tối thư giãn). Đây là khung giờ vàng để đăng bài Facebook, TikTok hoặc gửi tin nhắn chăm sóc.'
-          }
-        ],
-        growthSolutions: [
-          {
-            tag: 'GỢI Ý TĂNG DOANH THU 2X - 3X',
-            badge: 'Tối Ưu Sản Phẩm',
-            title: `Đóng gói thêm "Gói Tử Vi Chuyên Sâu ${topPalace.name} & Vận Đào Hoa" (Giá 69k - 99k)`,
-            action: `Người dùng có xu hướng sẵn sàng trả nhiều hơn cho câu hỏi cụ thể (Bao giờ kết hôn? Người ấy có chung thủy không? Năm nào có hạn chia tay?). Tạo riêng 1 gói này bên cạnh gói 49k tổng quát sẽ tăng giá trị trung bình trên mỗi khách.`
-          },
-          {
-            tag: 'TỐI ƯU TỶ LỆ CHUYỂN ĐỔI (CRO)',
-            badge: 'Tăng Tốc Chốt Đơn',
-            title: 'Gắn Đồng Hồ Đếm Ngược Ưu Đãi 15 Phút & Cam Kết Hoàn Tiền Tại Modal QR',
-            action: 'Hiển thị huy hiệu "Khuyến mãi 49k (Giá gốc 199k) chỉ giữ chỗ trong 15:00 phút" kèm dòng chữ "⚡ Hệ thống quét tự động mở khóa ngay trong 3 giây". Điều này dập tắt sự chần chừ của khách.'
-          },
-          {
-            tag: 'CHIẾN LƯỢC KÉO KHÁCH MIỄN PHÍ (ORGANIC TRAFFIC)',
-            badge: 'Marketing Thực Chiến',
-            title: `Sản xuất Video ngắn TikTok / Reels đánh vào chủ đề "${topPalace.name}"`,
-            action: `Làm các video: "Xem ngay Cung Phu Thê của bạn có dính sao Không Kiếp, Hóa Kỵ không?". Để link bio dẫn về website lập lá số miễn phí -> Khách vào đọc luận giải tò mò sẽ tự bấm quét mã QR.`
-          },
-          {
-            tag: 'MỞ RỘNG DỊCH VỤ CAO CẤP (HIGH-TICKET)',
-            badge: 'Tư Vấn 1-1',
-            title: 'Upsell Gói Đàm Đạo Trực Tiếp Với Chuyên Gia (199.000đ - 499.000đ)',
-            action: 'Sau khi khách mở khóa VIP 49k xong, tự động hiển thị popup cảm ơn kèm voucher giảm 50k đặt lịch tư vấn âm dương 1-1 qua Zalo. Nhóm khách này có độ tin cậy rất cao và sẵn sàng chi trả thêm.'
-          }
-        ]
-      };
-
-      return sendJson(res, 200, {
-        success: true,
-        traffic: {
-          totalPageViews: analytics.summary.totalPageViews || 142,
-          uniqueVisitors: analytics.summary.uniqueVisitors || 68,
-          totalLaSoCalculated: analytics.summary.totalLaSoCalculated || 53,
-          totalPalaceClicks: analytics.summary.totalPalaceClicks || 187,
-          totalVipModalOpens: analytics.summary.totalVipModalOpens || 29
-        },
-        revenue: {
-          todayRevenue,
-          weekRevenue,
-          monthRevenue,
-          totalRevenue,
-          paidOrdersCount: paidCount,
-          pendingOrdersCount: pendingOrders.length,
-          conversionRate: Math.round((paidCount / visitorsCount) * 100) + '%'
-        },
-        behavior: {
-          palaceRanking,
-          funnel,
-          recentEvents: (analytics.events || []).slice(0, 30)
-        },
-        smartAdvisor
-      });
-    } catch (err) {
-      return sendJson(res, 500, { success: false, message: 'Lỗi thống kê: ' + err.message });
-    }
+    return sendJson(res, 200, {
+      success: true,
+      metrics: {
+        todayRevenue,
+        todayCount: todayOrders.length,
+        weekRevenue,
+        weekCount: weekOrders.length,
+        monthRevenue,
+        monthCount: monthOrders.length,
+        totalRevenue,
+        totalPaidCount: totalPaid,
+        conversionRate: conversionRate + '%',
+        totalVisitors,
+        totalPageViews: analytics.summary.totalPageViews || 0,
+        totalLaSoCalculated: totalLaSo,
+        totalPalaceClicks: analytics.summary.totalPalaceClicks || 0,
+        totalVipModalOpens: totalModal
+      },
+      funnel: [
+        { step: '1. Truy cập Web', count: totalVisitors, dropRate: '0%' },
+        { step: '2. Lập Lá Số', count: totalLaSo, dropRate: totalVisitors > 0 ? (100 - (totalLaSo / totalVisitors) * 100).toFixed(1) + '%' : '0%' },
+        { step: '3. Xem Luận Giải & Cung Bị Khóa', count: analytics.summary.totalPalaceClicks || 0, dropRate: '-' },
+        { step: '4. Mở Cửa Sổ Mua VIP', count: totalModal, dropRate: totalLaSo > 0 ? (100 - (totalModal / totalLaSo) * 100).toFixed(1) + '%' : '0%' },
+        { step: '5. Thanh Toán Thành Công', count: totalPaid, dropRate: totalModal > 0 ? (100 - (totalPaid / totalModal) * 100).toFixed(1) + '%' : '0%' }
+      ],
+      palaceRanking,
+      recentEvents: (analytics.events || []).slice(0, 30),
+      smartAdvisor
+    });
   }
 
   // =========================================================================
-  // ADMIN API & QUẢN TRỊ ĐƠN HÀNG (Dành cho Chủ web)
+  // ADMIN QUẢN LÝ ĐƠN HÀNG & CẤU HÌNH
   // =========================================================================
 
-  // ADMIN 1: Danh sách tất cả đơn hàng: GET /api/admin/orders
+  // Lấy danh sách đơn hàng: GET /api/admin/orders
   if (pathname === '/api/admin/orders' && req.method === 'GET') {
     orders = readJsonFile(ORDERS_FILE, orders);
-    const sorted = [...orders].sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
-    return sendJson(res, 200, { success: true, orders: sorted });
+    return sendJson(res, 200, orders);
   }
 
-  // ADMIN 2: Phê duyệt đơn hàng thủ công (khi chủ web thấy tiền về trong App VietinBank): POST /api/admin/orders/approve
+  // Duyệt thủ công đơn hàng: POST /api/admin/orders/approve
   if (pathname === '/api/admin/orders/approve' && req.method === 'POST') {
     try {
       const body = await parseJsonBody(req);
-      const order = orders.find(o => o.orderCode === (body.orderCode || '').trim());
+      const code = (body.orderCode || '').toUpperCase();
+      orders = readJsonFile(ORDERS_FILE, orders);
+      const order = orders.find(o => o.orderCode === code);
       if (!order) {
-        return sendJson(res, 404, { success: false, message: 'Không tìm thấy đơn hàng' });
+        return sendJson(res, 404, { success: false, message: 'Đơn hàng không tồn tại' });
       }
       order.status = 'PAID';
       order.paidAt = new Date().toISOString();
-      if (!order.vipAccessToken) {
-        order.vipAccessToken = crypto.randomBytes(20).toString('hex');
-      }
+      order.paymentSource = 'ADMIN_MANUAL_APPROVE';
       writeJsonFile(ORDERS_FILE, orders);
-      console.log(`[ADMIN DUYỆT ĐƠN] Đơn ${order.orderCode} đã được chủ web phê duyệt VIP!`);
-      return sendJson(res, 200, { success: true, message: 'Đã phê duyệt thành công!', order });
+
+      analytics.summary.totalPaidOrders = (analytics.summary.totalPaidOrders || 0) + 1;
+      writeJsonFile(ANALYTICS_FILE, analytics);
+
+      return sendJson(res, 200, { success: true, message: 'Đã duyệt đơn hàng thành công', order });
     } catch (err) {
       return sendJson(res, 500, { success: false, message: err.message });
     }
   }
 
-  // ADMIN 3: Xóa đơn hàng: POST /api/admin/orders/delete
+  // Xóa đơn hàng: POST /api/admin/orders/delete
   if (pathname === '/api/admin/orders/delete' && req.method === 'POST') {
     try {
       const body = await parseJsonBody(req);
-      const code = (body.orderCode || '').trim();
+      const code = (body.orderCode || '').toUpperCase();
+      orders = readJsonFile(ORDERS_FILE, orders);
       const idx = orders.findIndex(o => o.orderCode === code);
       if (idx !== -1) {
         orders.splice(idx, 1);
@@ -819,10 +805,14 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  // ADMIN 4: Cấu hình hệ thống (SePay API Key): GET & POST /api/admin/config
+  // Cấu hình hệ thống (SePay API Key): GET & POST /api/admin/config
   if (pathname === '/api/admin/config') {
     if (req.method === 'GET') {
-      return sendJson(res, 200, appConfig);
+      const masked = Object.assign({}, appConfig);
+      if (masked.sepayApiKey && masked.sepayApiKey.length > 8) {
+        masked.sepayApiKey = masked.sepayApiKey.slice(0, 4) + '••••••••••••••••' + masked.sepayApiKey.slice(-4);
+      }
+      return sendJson(res, 200, masked);
     }
     if (req.method === 'POST') {
       try {
@@ -838,7 +828,7 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  // 7.1 Xác thực Token VIP tức thì: GET /api/orders/verify-token
+  // Xác thực Token VIP tức thì: GET /api/orders/verify-token
   if (pathname === '/api/orders/verify-token' && req.method === 'GET') {
     const token = (parsedUrl.query.token || '').trim();
     if (!token) {
@@ -859,13 +849,14 @@ const server = http.createServer(async (req, res) => {
         packageName: order.packageName,
         packageId: order.packageId,
         vipAccessToken: order.vipAccessToken || order.orderCode,
-        orderCode: order.orderCode,
         paidAt: order.paidAt
       }
     });
   }
 
-  // 7.15 CỐ VẤN TỬ VI AI DÀNH RIÊNG CHO KHÁCH HÀNG VIP: POST /api/vip/ask-ai
+  // =========================================================================
+  // CỐ VẤN TỬ VI AI DÀNH CHO KHÁCH HÀNG VIP (POST /api/vip/ask-ai)
+  // =========================================================================
   if (pathname === '/api/vip/ask-ai' && req.method === 'POST') {
     try {
       const body = await parseJsonBody(req);
@@ -875,7 +866,6 @@ const server = http.createServer(async (req, res) => {
         return sendJson(res, 400, { success: false, message: 'Vui lòng nhập câu hỏi cần cố vấn.' });
       }
 
-      // 1. Kiểm tra đơn hàng VIP hợp lệ (status === 'PAID')
       orders = readJsonFile(ORDERS_FILE, orders);
       const code = (orderCode || '').trim().toUpperCase();
       const token = (vipToken || '').trim();
@@ -886,7 +876,7 @@ const server = http.createServer(async (req, res) => {
         (token && o.orderCode && o.orderCode.toUpperCase() === token.toUpperCase())
       );
 
-      // Cho phép tài khoản VIP nội bộ hoặc TV377099
+      // Hỗ trợ kiểm thử nội bộ TV377099
       if (!order && (code === 'TV377099' || token === '9a7f34bc6102da88e14cf956102a399f')) {
         order = {
           orderCode: 'TV377099',
@@ -904,7 +894,6 @@ const server = http.createServer(async (req, res) => {
         });
       }
 
-      // 2. Giới hạn tối đa 5 câu hỏi miễn phí cho mỗi đơn hàng VIP
       order.aiQuestionsCount = order.aiQuestionsCount || 0;
       if (order.aiQuestionsCount >= 5) {
         return sendJson(res, 403, {
@@ -914,11 +903,9 @@ const server = http.createServer(async (req, res) => {
         });
       }
 
-      // 3. Phân tích lá số an sao chuẩn 100% từ tuvi-engine
       const chart = (typeof chartDataJson === 'string') ? JSON.parse(chartDataJson) : (chartDataJson || {});
       const answer = await generateTuViAiAdvice(chart, userQuestion.trim());
 
-      // 4. Lưu lại lịch sử câu hỏi và tăng lượt đã hỏi
       order.aiQuestionsCount += 1;
       order.aiHistory = order.aiHistory || [];
       order.aiHistory.push({
@@ -940,8 +927,12 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  // 7.2 Khôi phục quyền VIP qua Mã Đơn hoặc Số Điện Thoại: POST /api/orders/restore
+  // Khôi phục quyền VIP qua Mã Đơn hoặc Số Điện Thoại: POST /api/orders/restore
   if (pathname === '/api/orders/restore' && req.method === 'POST') {
+    if (isRateLimited(`restore_${clientIp}`, 10, 60000)) {
+      return sendJson(res, 429, { success: false, message: 'Quá nhiều yêu cầu khôi phục. Vui lòng thử lại sau 1 phút.' });
+    }
+
     try {
       const body = await parseJsonBody(req);
       const q = (body.query || '').trim();
@@ -964,7 +955,6 @@ const server = http.createServer(async (req, res) => {
           packageName: order.packageName,
           packageId: order.packageId,
           vipAccessToken: order.vipAccessToken || order.orderCode,
-      orderCode: order.orderCode,
           paidAt: order.paidAt
         }
       });
@@ -973,7 +963,7 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  // 7.3 Tùy chọn lưu tài khoản sau thanh toán (Claim Account): POST /api/orders/claim-account
+  // Tùy chọn lưu tài khoản sau thanh toán (Claim Account): POST /api/orders/claim-account
   if (pathname === '/api/orders/claim-account' && req.method === 'POST') {
     try {
       const body = await parseJsonBody(req);
@@ -1034,7 +1024,7 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  // 8. Kiểm tra quyền truy cập tính năng: GET /api/tuvi/access-check
+  // Kiểm tra quyền truy cập tính năng: GET /api/tuvi/access-check
   if (pathname === '/api/tuvi/access-check' && req.method === 'GET') {
     const user = getAuthenticatedUser(req);
     const isVip = user ? user.isVip : false;
@@ -1045,11 +1035,167 @@ const server = http.createServer(async (req, res) => {
       package: user ? user.vipPackage : 'free',
       access: {
         chartAllowed: true,
-        maxPalaces: isVip ? 12 : 2, // Free: 2 cung đầu. VIP: 12 cung đầy đủ
-        maxDaiHan: isVip ? 6 : 1,   // Free: 1 giai đoạn (6-15 tuổi). VIP: Toàn bộ
+        maxPalaces: isVip ? 12 : 2,
+        maxDaiHan: isVip ? 6 : 1,
         canExportPdf: isVip
       }
     });
+  }
+
+  // =========================================================================
+  // BLOG SEO & PUBLIC APIS
+  // =========================================================================
+
+  // API danh sách bài viết công khai: GET /api/posts
+  if (pathname === '/api/posts' && req.method === 'GET') {
+    posts = readJsonFile(POSTS_FILE, []);
+    const publicList = posts.map(p => ({
+      id: p.id,
+      slug: p.slug,
+      title: p.title,
+      description: p.description,
+      category: p.category,
+      publishedAt: p.publishedAt,
+      readTime: p.readTime,
+      views: p.views || 0
+    }));
+    return sendJson(res, 200, publicList);
+  }
+
+  // Quản lý Blog cho Admin: GET /api/admin/posts
+  if (pathname === '/api/admin/posts' && req.method === 'GET') {
+    posts = readJsonFile(POSTS_FILE, []);
+    return sendJson(res, 200, posts);
+  }
+
+  // Thêm/Sửa bài viết Blog: POST /api/admin/posts/save
+  if (pathname === '/api/admin/posts/save' && req.method === 'POST') {
+    try {
+      const body = await parseJsonBody(req);
+      posts = readJsonFile(POSTS_FILE, []);
+      let post = posts.find(p => (body.id && p.id === body.id) || (body.slug && p.slug === body.slug));
+      if (post) {
+        Object.assign(post, body, { updatedAt: new Date().toISOString() });
+      } else {
+        post = Object.assign({
+          id: 'post-' + Date.now(),
+          slug: body.slug || ('bai-viet-' + Date.now()),
+          views: 0,
+          publishedAt: new Date().toISOString().split('T')[0]
+        }, body);
+        posts.unshift(post);
+      }
+      writeJsonFile(POSTS_FILE, posts);
+      return sendJson(res, 200, { success: true, post });
+    } catch (err) {
+      return sendJson(res, 500, { success: false, message: err.message });
+    }
+  }
+
+  // Xóa bài viết Blog: POST /api/admin/posts/delete
+  if (pathname === '/api/admin/posts/delete' && req.method === 'POST') {
+    try {
+      const body = await parseJsonBody(req);
+      posts = readJsonFile(POSTS_FILE, []);
+      posts = posts.filter(p => p.id !== body.id && p.slug !== body.slug);
+      writeJsonFile(POSTS_FILE, posts);
+      return sendJson(res, 200, { success: true, message: 'Đã xóa bài viết' });
+    } catch (err) {
+      return sendJson(res, 500, { success: false, message: err.message });
+    }
+  }
+
+  // Dynamic Sitemap: GET /sitemap.xml
+  if (pathname === '/sitemap.xml') {
+    posts = readJsonFile(POSTS_FILE, []);
+    let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+    xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>\n`;
+    xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/blog</loc><changefreq>daily</changefreq><priority>0.9</priority></url>\n`;
+    xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/chinh-sach-bao-mat</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
+    xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/chinh-sach-hoan-tien-ho-tro</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
+    xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/dieu-khoan-su-dung</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
+    posts.forEach(p => {
+      xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/blog/${p.slug}</loc><lastmod>${p.publishedAt || '2026-01-01'}</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>\n`;
+    });
+    xml += `</urlset>`;
+
+    res.writeHead(200, Object.assign({ 'Content-Type': 'application/xml; charset=utf-8' }, HTTP_SECURITY_HEADERS));
+    return res.end(xml);
+  }
+
+  // Dynamic Robots: GET /robots.txt
+  if (pathname === '/robots.txt') {
+    const robots = `User-agent: *\nAllow: /\nDisallow: /admin.html\nDisallow: /admin\nDisallow: /api/\n\nSitemap: https://www.xemtuvihuyenhoc.com/sitemap.xml\n`;
+    res.writeHead(200, Object.assign({ 'Content-Type': 'text/plain; charset=utf-8' }, HTTP_SECURITY_HEADERS));
+    return res.end(robots);
+  }
+
+  // SSR Blog Single Post: GET /blog/:slug
+  if (pathname.startsWith('/blog/')) {
+    const slug = pathname.replace(/^\/blog\//, '').replace(/\/$/, '').trim();
+    if (slug) {
+      posts = readJsonFile(POSTS_FILE, []);
+      const post = posts.find(p => p.slug === slug);
+      if (post) {
+        post.views = (post.views || 0) + 1;
+        writeJsonFile(POSTS_FILE, posts);
+
+        const blogHtmlPath = path.join(__dirname, 'blog.html');
+        fs.readFile(blogHtmlPath, 'utf8', (err, template) => {
+          if (err) {
+            res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
+            return res.end('500 Internal Server Error');
+          }
+
+          let html = template;
+          html = html.replace(/<title>.*?<\/title>/, `<title>${post.title} | Xem Tử Vi Huyền Học</title>`);
+          html = html.replace(/<meta name="description" content=".*?">/, `<meta name="description" content="${post.description}">`);
+          html = html.replace(/<meta name="keywords" content=".*?">/, `<meta name="keywords" content="${post.keywords || ''}">`);
+          html = html.replace(/<link rel="canonical" href=".*?">/, `<link rel="canonical" href="https://www.xemtuvihuyenhoc.com/blog/${post.slug}">`);
+
+          const schemaArticle = JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": post.title,
+            "description": post.description,
+            "datePublished": post.publishedAt,
+            "author": { "@type": "Organization", "name": "Xem Tử Vi Huyền Học" },
+            "publisher": { 
+              "@type": "Organization", 
+              "name": "Xem Tử Vi Huyền Học", 
+              "logo": { "@type": "ImageObject", "url": "https://www.xemtuvihuyenhoc.com/img/logo-xem-tu-vi-huyen-hoc.png" } 
+            },
+            "mainEntityOfPage": `https://www.xemtuvihuyenhoc.com/blog/${post.slug}`
+          });
+
+          html = html.replace('</head>', `<script type="application/ld+json">${schemaArticle}</script>\n</head>`);
+
+          const postArticleHtml = `
+            <article class="article-wrap">
+              <header class="article-header">
+                <span class="post-category-badge">${post.category || 'Kiến thức Tử Vi'}</span>
+                <h1 class="article-title">${post.title}</h1>
+                <div class="article-meta">
+                  <span><i data-lucide="calendar" style="width:14px;height:14px;display:inline;vertical-align:-1px;"></i> Xuất bản: ${post.publishedAt || '2026-01-01'}</span>
+                  <span><i data-lucide="clock" style="width:14px;height:14px;display:inline;vertical-align:-1px;"></i> Đọc trong: ${post.readTime || '7 phút'}</span>
+                  <span><i data-lucide="eye" style="width:14px;height:14px;display:inline;vertical-align:-1px;"></i> ${post.views} lượt đọc</span>
+                  <span><i data-lucide="award" style="width:14px;height:14px;display:inline;vertical-align:-1px;"></i> Cổ Truyền Nam Phái</span>
+                </div>
+              </header>
+              <div class="article-content">
+                ${post.contentHtml}
+              </div>
+            </article>
+          `;
+
+          html = html.replace('<div id="ssrPostOutlet">', `<div id="ssrPostOutlet">${postArticleHtml}`);
+
+          res.writeHead(200, Object.assign({ 'Content-Type': 'text/html; charset=utf-8' }, HTTP_SECURITY_HEADERS));
+          return res.end(html);
+        });
+        return;
+      }
+    }
   }
 
   // =========================================================================
@@ -1057,12 +1203,11 @@ const server = http.createServer(async (req, res) => {
   // =========================================================================
   let safePath = path.normalize(decodeURIComponent(pathname)).replace(/^(\.\.[\/\\])+/, '');
 
-  // Bảo vệ an toàn dữ liệu: Chặn truy cập trực tiếp file cấu hình và thư mục data (Item 9)
   const lowerSafePath = safePath.toLowerCase();
   if (lowerSafePath.startsWith('/data') || lowerSafePath.startsWith('\\data') || 
       lowerSafePath.includes('/data/') || lowerSafePath.includes('\\data\\') ||
       lowerSafePath.endsWith('.json') || lowerSafePath.includes('.env')) {
-    res.writeHead(403, { 'Content-Type': 'application/json; charset=utf-8' });
+    res.writeHead(403, Object.assign({ 'Content-Type': 'application/json; charset=utf-8' }, HTTP_SECURITY_HEADERS));
     return res.end(JSON.stringify({ success: false, message: 'Forbidden: Access denied to internal data files' }));
   }
 
@@ -1070,6 +1215,8 @@ const server = http.createServer(async (req, res) => {
     safePath = '/index.html';
   } else if (safePath === '/admin' || safePath === '\\admin' || safePath === '/admin/' || safePath === '\\admin\\') {
     safePath = '/admin.html';
+  } else if (safePath === '/blog' || safePath === '\\blog' || safePath === '/blog/' || safePath === '\\blog\\') {
+    safePath = '/blog.html';
   }
 
   let filePath = path.join(__dirname, safePath);
@@ -1079,14 +1226,13 @@ const server = http.createServer(async (req, res) => {
 
   fs.stat(filePath, (err, stats) => {
     if (err || !stats.isFile()) {
-      // 404 Not Found hoặc chuyển hướng về index.html
       const indexPath = path.join(__dirname, 'index.html');
       fs.readFile(indexPath, (err2, content) => {
         if (err2) {
-          res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+          res.writeHead(404, Object.assign({ 'Content-Type': 'text/plain; charset=utf-8' }, HTTP_SECURITY_HEADERS));
           res.end('404 Not Found');
         } else {
-          res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+          res.writeHead(200, Object.assign({ 'Content-Type': 'text/html; charset=utf-8' }, HTTP_SECURITY_HEADERS));
           res.end(content);
         }
       });
@@ -1095,10 +1241,9 @@ const server = http.createServer(async (req, res) => {
 
     const ext = path.extname(filePath).toLowerCase();
     const contentType = MIME_TYPES[ext] || 'application/octet-stream';
-    const isCompressible = /\.(html|css|js|json|svg)$/i.test(filePath);
+    const isCompressible = /\.(html|css|js|json|svg|xml|txt)$/i.test(filePath);
     const acceptEncoding = req.headers['accept-encoding'] || '';
 
-    // Cache-Control header strategy (Phase 3 Item 5)
     let cacheControl = 'no-cache, must-revalidate';
     if (/\.(png|jpg|jpeg|webp|ico|svg|woff2|woff)$/i.test(filePath) || req.url.includes('?v=')) {
       cacheControl = 'public, max-age=31536000, immutable';
@@ -1106,17 +1251,14 @@ const server = http.createServer(async (req, res) => {
       cacheControl = 'public, max-age=86400';
     }
 
-    const headers = {
+    const headers = Object.assign({
       'Content-Type': contentType,
-      'Cache-Control': cacheControl,
-      'X-Content-Type-Options': 'nosniff',
-      'X-Frame-Options': 'SAMEORIGIN',
-      'Referrer-Policy': 'strict-origin-when-cross-origin'
-    };
+      'Cache-Control': cacheControl
+    }, HTTP_SECURITY_HEADERS);
 
     fs.readFile(filePath, (err2, content) => {
       if (err2) {
-        res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
+        res.writeHead(500, Object.assign({ 'Content-Type': 'text/plain; charset=utf-8' }, HTTP_SECURITY_HEADERS));
         res.end('500 Internal Server Error');
       } else {
         if (isCompressible && acceptEncoding.includes('gzip')) {
@@ -1149,4 +1291,3 @@ if (require.main === module) {
 }
 
 module.exports = server;
-
