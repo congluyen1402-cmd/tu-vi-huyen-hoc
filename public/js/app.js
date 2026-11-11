@@ -875,18 +875,18 @@
 
               if (window.TuViTracker && window.TuViTracker.track) {
                 window.TuViTracker.track('lap_la_so', {
-                  hoTen: computedLaSo.hoTen || 'Khách Xem Mệnh',
-                  gioiTinh: computedLaSo.gioiTinh || 'Nam',
-                  ngayThangNam: `${computedLaSo.ngayDuong}/${computedLaSo.thangDuong}/${computedLaSo.namDuong}`,
-                  gioSinh: `${computedLaSo.gioDuong || '00'}:${computedLaSo.phutDuong || '00'}`,
+                  hoTen: hoTen || computedLaSo.hoTen || 'Khách Xem Mệnh',
+                  gioiTinh: gioiTinh || computedLaSo.gioiTinh || 'Nam',
+                  ngayThangNam: `${ngay}/${thang}/${nam}`,
+                  gioSinh: `${gio || '00'}:${phut || '00'}`,
                   banMenh: computedLaSo.menh || '',
                   cucMenh: computedLaSo.cuc || ''
                 });
               } else if (typeof TuViMonetize !== 'undefined' && TuViMonetize.trackEvent) {
                 TuViMonetize.trackEvent('lap_la_so', {
-                  hoTen: computedLaSo.hoTen,
-                  gioiTinh: computedLaSo.gioiTinh,
-                  namSinh: computedLaSo.namDuong,
+                  hoTen: hoTen || computedLaSo.hoTen,
+                  gioiTinh: gioiTinh || computedLaSo.gioiTinh,
+                  namSinh: nam,
                   cuc: computedLaSo.cuc,
                   menh: computedLaSo.menh
                 });

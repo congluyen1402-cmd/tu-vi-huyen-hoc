@@ -1,14 +1,1 @@
-[
-  {
-    "id": "bk_1794387438734_251",
-    "customerName": "Nguyễn Văn Test",
-    "customerPhone": "0912345678",
-    "bookingDate": "2026-11-15",
-    "bookingTime": "19:30 - 20:30",
-    "serviceName": "Tham Vấn 1-1 Chuyên Đề",
-    "note": "Kiểm thử đặt lịch",
-    "visitorId": "",
-    "createdAt": "2026-11-11T08:57:18.734Z",
-    "status": "PENDING"
-  }
-]
+[]

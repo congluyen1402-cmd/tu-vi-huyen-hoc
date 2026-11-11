@@ -1,23 +1,10 @@
 [
   {
-    "id": "user_demo_01",
+    "id": "usr_tran_cong_luyen",
     "fullName": "Trần Công Luyện",
-    "emailOrPhone": "demo@xemtuvihuyenhoc.vn",
-    "salt": "a225443aaeaffe6e32069ab87148b70b",
-    "passwordHash": "f024546541b9356595fd2fb6bf7e734ec5a58ff8bbbf232652c31e560e0fd6e2533152d206d8ffdab89396fd43da0d05297e73d0a65a556829a3b983259084eb",
-    "isVip": false,
-    "vipPackage": "free",
-    "createdAt": "2026-11-06T05:12:08.535Z"
-  },
-  {
-    "id": "usr_1793954804271_407",
-    "fullName": "Khách Thử Nghiệm",
-    "emailOrPhone": "0977112233",
-    "salt": "6d98a9bda15a9719af4ad8401b68afd9",
-    "passwordHash": "94c969ad5ce2ebe8f5379f5461ad400ce8b13fb95d8c539c240fe2ad884840bcfc13eb38cb7778989e0d2f7c149676c897a476e17089386caa1fe7e537007530",
+    "emailOrPhone": "0902184756",
+    "role": "admin",
     "isVip": true,
-    "vipPackage": "vip_49k",
-    "createdAt": "2026-11-06T08:46:44.271Z",
-    "vipUnlockedAt": "2026-11-06T08:46:44.271Z"
+    "createdAt": "2026-11-11T00:00:00.000Z"
   }
 ]

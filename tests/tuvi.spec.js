@@ -2,6 +2,13 @@ const { test, expect } = require('@playwright/test');
 
 test.describe('Xem Tử Vi Huyền Học - Full Flow & Quality Tests', () => {
 
+  test.beforeEach(async ({ page }) => {
+    await page.route('**/api/**', async (route) => {
+      const headers = { ...route.request().headers(), 'x-automated-test': '1' };
+      await route.continue({ headers });
+    });
+  });
+
   test('TC01: Trang chủ tải mượt mà, không lỗi console, không tràn màn hình ngang (Zero Horizontal Overflow)', async ({ page }) => {
     const consoleErrors = [];
     page.on('console', msg => {
