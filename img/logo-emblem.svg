@@ -1,0 +1,270 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Radial Outer Glow -->
+    <radialGradient id="celestialGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.35" />
+      <stop offset="60%" stop-color="#b45309" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#0f0919" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- 24K Luxury Imperial Gold Gradient -->
+    <linearGradient id="imperialGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fffbeb" />
+      <stop offset="20%" stop-color="#fde047" />
+      <stop offset="45%" stop-color="#d97706" />
+      <stop offset="75%" stop-color="#f59e0b" />
+      <stop offset="90%" stop-color="#b45309" />
+      <stop offset="100%" stop-color="#78350f" />
+    </linearGradient>
+
+    <!-- Bevel Light Gold -->
+    <linearGradient id="bevelGold" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#92400e" />
+      <stop offset="40%" stop-color="#fef08a" />
+      <stop offset="70%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#fffbeb" />
+    </linearGradient>
+
+    <!-- Dark Obsidian Enamel Gradient -->
+    <radialGradient id="obsidianEnamel" cx="40%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#2a1b3d" />
+      <stop offset="50%" stop-color="#150d22" />
+      <stop offset="85%" stop-color="#0a0512" />
+      <stop offset="100%" stop-color="#030106" />
+    </radialGradient>
+
+    <!-- Taiji White Pearl Gradient -->
+    <radialGradient id="taijiWhite" cx="35%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="45%" stop-color="#fef3c7" />
+      <stop offset="80%" stop-color="#fcd34d" />
+      <stop offset="100%" stop-color="#d97706" />
+    </radialGradient>
+
+    <!-- Taiji Dark Jade Gradient -->
+    <radialGradient id="taijiDark" cx="65%" cy="70%" r="65%">
+      <stop offset="0%" stop-color="#1e1330" />
+      <stop offset="50%" stop-color="#0e0717" />
+      <stop offset="85%" stop-color="#05020a" />
+      <stop offset="100%" stop-color="#000000" />
+    </radialGradient>
+
+    <!-- Drop Shadow Filters -->
+    <filter id="shadowHeavy" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.8" />
+    </filter>
+    <filter id="goldShine" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComponentTransfer in="blur" result="glow1">
+        <feFuncA type="linear" slope="1.5" />
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode in="glow1" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- Circular text paths -->
+    <path id="textPathTop" d="M 76,256 A 180,180 0 1,1 436,256" fill="none" />
+    <path id="textPathBottom" d="M 436,256 A 180,180 0 0,1 76,256" fill="none" />
+  </defs>
+
+  <!-- Background Halo Glow -->
+  <circle cx="256" cy="256" r="250" fill="url(#celestialGlow)" />
+
+  <!-- ============================================================ -->
+  <!-- 1. VÀNH NGOÀI: MÂY LỬA VÀNG KIM & HOA VĂN BÁT QUÁI HOÀNG GIA  -->
+  <!-- ============================================================ -->
+  <g filter="url(#shadowHeavy)">
+    <!-- Base Outer Medallion Plate -->
+    <circle cx="256" cy="256" r="236" fill="url(#imperialGold)" stroke="#451a03" stroke-width="4" />
+    
+    <!-- Outer Inset Bevel Ring -->
+    <circle cx="256" cy="256" r="226" fill="none" stroke="url(#bevelGold)" stroke-width="5" />
+    
+    <!-- 24 Celestial Dots on Outer Ring -->
+    <g fill="#451a03">
+      <!-- 24 celestial rivets around perimeter -->
+      <circle cx="256" cy="26" r="3.5" /><circle cx="316" cy="34" r="2.5" /><circle cx="372" cy="58" r="2.5" />
+      <circle cx="418" cy="95" r="2.5" /><circle cx="452" cy="144" r="2.5" /><circle cx="470" cy="199" r="2.5" />
+      <circle cx="476" cy="256" r="3.5" /><circle cx="470" cy="313" r="2.5" /><circle cx="452" cy="368" r="2.5" />
+      <circle cx="418" cy="417" r="2.5" /><circle cx="372" cy="454" r="2.5" /><circle cx="316" cy="478" r="2.5" />
+      <circle cx="256" cy="486" r="3.5" /><circle cx="196" cy="478" r="2.5" /><circle cx="140" cy="454" r="2.5" />
+      <circle cx="94" cy="417" r="2.5" /><circle cx="60" cy="368" r="2.5" /><circle cx="42" cy="313" r="2.5" />
+      <circle cx="36" cy="256" r="3.5" /><circle cx="42" cy="199" r="2.5" /><circle cx="60" cy="144" r="2.5" />
+      <circle cx="94" cy="95" r="2.5" /><circle cx="140" cy="58" r="2.5" /><circle cx="196" cy="34" r="2.5" />
+    </g>
+
+    <!-- Dark Enamel Ring (Vành cẩm thạch đen huyền bí) -->
+    <circle cx="256" cy="256" r="216" fill="url(#obsidianEnamel)" stroke="url(#bevelGold)" stroke-width="3.5" />
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- 2. CHỮ VIỀN TRÒN: XEM TỬ VI HUYỀN HỌC & CHÍNH TÔNG VIỆT NAM  -->
+  <!-- ============================================================ -->
+  <g font-family="'Cinzel Decorative', 'Be Vietnam Pro', Georgia, serif" font-weight="900" font-size="20.5" fill="url(#imperialGold)" filter="url(#goldShine)" letter-spacing="4">
+    <!-- Top Arc Text -->
+    <text>
+      <textPath href="#textPathTop" startOffset="50%" text-anchor="middle">
+        ★ XEM TỬ VI HUYỀN HỌC ★
+      </textPath>
+    </text>
+    <!-- Bottom Arc Text -->
+    <text font-size="16" letter-spacing="3.5">
+      <textPath href="#textPathBottom" startOffset="50%" text-anchor="middle">
+        ✦ CHÍNH TÔNG VIỆT NAM ✦
+      </textPath>
+    </text>
+  </g>
+
+  <!-- Left & Right Separator Royal Badges -->
+  <g fill="url(#bevelGold)" filter="url(#goldShine)">
+    <!-- Left Star Gem -->
+    <polygon points="66,256 73,251 82,256 73,261" />
+    <circle cx="73" cy="256" r="2.5" fill="#fff" />
+    <!-- Right Star Gem -->
+    <polygon points="446,256 439,251 430,256 439,261" />
+    <circle cx="439" cy="256" r="2.5" fill="#fff" />
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- 3. VÒNG BÁT QUÁI (TIÊN THIÊN BÁT QUÁI 8 HƯỚNG TRỌNG ĐIỂM)      -->
+  <!-- ============================================================ -->
+  <g filter="url(#shadowHeavy)">
+    <!-- Inner Gold Ring -->
+    <circle cx="256" cy="256" r="148" fill="url(#imperialGold)" stroke="#78350f" stroke-width="3" />
+    <!-- Octagon Border on Gold Ring -->
+    <polygon points="
+      356,215 356,297 297,356 215,356 156,297 156,215 215,156 297,156" 
+      fill="none" stroke="#78350f" stroke-width="2" stroke-dasharray="4,3" />
+
+    <!-- Center Deep Dark Well -->
+    <circle cx="256" cy="256" r="110" fill="url(#obsidianEnamel)" stroke="url(#bevelGold)" stroke-width="3" />
+  </g>
+
+  <!-- 8 Sacred Trigrams (Bát Quái Đúc Vàng Nổi) -->
+  <g stroke="url(#bevelGold)" stroke-width="3.2" stroke-linecap="round" filter="url(#goldShine)">
+    <!-- 1. BẮC (Khảm ☵: Đứt - Liền - Đứt) -> Top: Càn hoặc Khảm -->
+    <!-- Top (0 deg): CÀN ☰ (Ba hào liền) -->
+    <g transform="translate(256, 127)">
+      <line x1="-12" y1="-5" x2="12" y2="-5" />
+      <line x1="-12" y1="0" x2="12" y2="0" />
+      <line x1="-12" y1="5" x2="12" y2="5" />
+    </g>
+
+    <!-- Bottom (180 deg): KHÔN ☷ (Ba hào đứt) -->
+    <g transform="translate(256, 385)">
+      <line x1="-12" y1="-5" x2="-3" y2="-5" /><line x1="3" y1="-5" x2="12" y2="-5" />
+      <line x1="-12" y1="0" x2="-3" y2="0" /><line x1="3" y1="0" x2="12" y2="0" />
+      <line x1="-12" y1="5" x2="-3" y2="5" /><line x1="3" y1="5" x2="12" y2="5" />
+    </g>
+
+    <!-- East / Right (90 deg): KHẢM ☵ (Đứt - Liền - Đứt) -->
+    <g transform="translate(385, 256) rotate(90)">
+      <line x1="-12" y1="-5" x2="-3" y2="-5" /><line x1="3" y1="-5" x2="12" y2="-5" />
+      <line x1="-12" y1="0" x2="12" y2="0" />
+      <line x1="-12" y1="5" x2="-3" y2="5" /><line x1="3" y1="5" x2="12" y2="5" />
+    </g>
+
+    <!-- West / Left (270 deg): LY ☲ (Liền - Đứt - Liền) -->
+    <g transform="translate(127, 256) rotate(90)">
+      <line x1="-12" y1="-5" x2="12" y2="-5" />
+      <line x1="-12" y1="0" x2="-3" y2="0" /><line x1="3" y1="0" x2="12" y2="0" />
+      <line x1="-12" y1="5" x2="12" y2="5" />
+    </g>
+
+    <!-- North-East (45 deg): ĐOÀI ☱ (Đứt - Liền - Liền) -->
+    <g transform="translate(347, 165) rotate(45)">
+      <line x1="-12" y1="-5" x2="-3" y2="-5" /><line x1="3" y1="-5" x2="12" y2="-5" />
+      <line x1="-12" y1="0" x2="12" y2="0" />
+      <line x1="-12" y1="5" x2="12" y2="5" />
+    </g>
+
+    <!-- South-East (135 deg): CHẤN ☳ (Đứt - Đứt - Liền) -->
+    <g transform="translate(347, 347) rotate(135)">
+      <line x1="-12" y1="-5" x2="-3" y2="-5" /><line x1="3" y1="-5" x2="12" y2="-5" />
+      <line x1="-12" y1="0" x2="-3" y2="0" /><line x1="3" y1="0" x2="12" y2="0" />
+      <line x1="-12" y1="5" x2="12" y2="5" />
+    </g>
+
+    <!-- South-West (225 deg): CẤN ☶ (Liền - Đứt - Đứt) -->
+    <g transform="translate(165, 347) rotate(-135)">
+      <line x1="-12" y1="-5" x2="12" y2="-5" />
+      <line x1="-12" y1="0" x2="-3" y2="0" /><line x1="3" y1="0" x2="12" y2="0" />
+      <line x1="-12" y1="5" x2="-3" y2="5" /><line x1="3" y1="5" x2="12" y2="5" />
+    </g>
+
+    <!-- North-West (315 deg): TỐN ☴ (Liền - Liền - Đứt) -->
+    <g transform="translate(165, 165) rotate(-45)">
+      <line x1="-12" y1="-5" x2="12" y2="-5" />
+      <line x1="-12" y1="0" x2="12" y2="0" />
+      <line x1="-12" y1="5" x2="-3" y2="5" /><line x1="3" y1="5" x2="12" y2="5" />
+    </g>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- 4. LÕI TRUNG TÂM: THÁI CỰC ĐỒ ÂM DƯƠNG (3D LIQUID GOLD & JADE)-->
+  <!-- ============================================================ -->
+  <g transform="translate(256, 256) rotate(-28)" filter="url(#shadowHeavy)">
+    <!-- Base Taiji Outer Border -->
+    <circle cx="0" cy="0" r="92" fill="url(#imperialGold)" stroke="#451a03" stroke-width="3" />
+    
+    <!-- Inner Rim -->
+    <circle cx="0" cy="0" r="88" fill="url(#taijiDark)" stroke="url(#bevelGold)" stroke-width="2" />
+
+    <!-- Yang (White / Golden Light) Fish S-Curve -->
+    <!-- Semi-circle and curves to form the classic Yin-Yang -->
+    <path d="
+      M 0,-88 
+      A 88,88 0 0,1 0,88 
+      A 44,44 0 0,1 0,0 
+      A 44,44 0 0,0 0,-88 Z" 
+      fill="url(#taijiWhite)" />
+
+    <!-- Yin (Dark Obsidian) Fish S-Curve -->
+    <path d="
+      M 0,-88 
+      A 44,44 0 0,1 0,0 
+      A 44,44 0 0,0 0,88 
+      A 88,88 0 0,1 0,-88 Z" 
+      fill="url(#taijiDark)" />
+
+    <!-- Fine Golden S-Line Divider -->
+    <path d="M 0,-88 A 44,44 0 0,1 0,0 A 44,44 0 0,0 0,88" fill="none" stroke="url(#imperialGold)" stroke-width="2.5" />
+
+    <!-- Yin Eye (Dark Pearl in Yang Fish) -->
+    <circle cx="0" cy="-44" r="14" fill="url(#taijiDark)" stroke="url(#imperialGold)" stroke-width="2.5" filter="url(#goldShine)" />
+    <circle cx="-3" cy="-47" r="4.5" fill="#ffffff" opacity="0.8" />
+
+    <!-- Yang Eye (Golden Light Pearl in Yin Fish) -->
+    <circle cx="0" cy="44" r="14" fill="url(#taijiWhite)" stroke="#78350f" stroke-width="2.5" filter="url(#goldShine)" />
+    <circle cx="-3" cy="41" r="4.5" fill="#ffffff" />
+
+    <!-- Outer Taiji Gold Ring -->
+    <circle cx="0" cy="0" r="88" fill="none" stroke="url(#bevelGold)" stroke-width="3.5" />
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- 5. 4 NGÔI SAO TỨ TRỤ BẮC ĐẨU HÀO QUANG HOÀNG KIM (CARDINAL STARS)-->
+  <!-- ============================================================ -->
+  <!-- Top Star -->
+  <g transform="translate(256, 15)" filter="url(#goldShine)">
+    <polygon points="0,-15 4,-4 15,0 4,4 0,15 -4,4 -15,0 -4,-4" fill="url(#bevelGold)" stroke="#78350f" stroke-width="0.8" />
+    <circle cx="0" cy="0" r="3" fill="#ffffff" />
+  </g>
+  <!-- Bottom Star -->
+  <g transform="translate(256, 497)" filter="url(#goldShine)">
+    <polygon points="0,-12 3.5,-3 12,0 3.5,3 0,12 -3.5,3 -12,0 -3.5,-3" fill="url(#bevelGold)" stroke="#78350f" stroke-width="0.8" />
+    <circle cx="0" cy="0" r="2.5" fill="#ffffff" />
+  </g>
+  <!-- Left Star -->
+  <g transform="translate(15, 256)" filter="url(#goldShine)">
+    <polygon points="0,-12 3,-3.5 12,0 3,3.5 0,12 -3,3.5 -12,0 -3,-3.5" fill="url(#bevelGold)" stroke="#78350f" stroke-width="0.8" />
+    <circle cx="0" cy="0" r="2.5" fill="#ffffff" />
+  </g>
+  <!-- Right Star -->
+  <g transform="translate(497, 256)" filter="url(#goldShine)">
+    <polygon points="0,-12 3,-3.5 12,0 3,3.5 0,12 -3,3.5 -12,0 -3,-3.5" fill="url(#bevelGold)" stroke="#78350f" stroke-width="0.8" />
+    <circle cx="0" cy="0" r="2.5" fill="#ffffff" />
+  </g>
+</svg>

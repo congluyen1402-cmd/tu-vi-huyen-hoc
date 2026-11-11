@@ -1,0 +1,166 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 580 140" width="580" height="140">
+  <defs>
+    <!-- 24K Luxury Imperial Gold Gradient -->
+    <linearGradient id="imperialGoldH" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fffbeb" />
+      <stop offset="20%" stop-color="#fde047" />
+      <stop offset="45%" stop-color="#d97706" />
+      <stop offset="75%" stop-color="#f59e0b" />
+      <stop offset="90%" stop-color="#b45309" />
+      <stop offset="100%" stop-color="#78350f" />
+    </linearGradient>
+
+    <!-- Bevel Light Gold -->
+    <linearGradient id="bevelGoldH" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#92400e" />
+      <stop offset="40%" stop-color="#fef08a" />
+      <stop offset="70%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#fffbeb" />
+    </linearGradient>
+
+    <!-- Dark Obsidian Enamel Gradient -->
+    <radialGradient id="obsidianEnamelH" cx="40%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#2a1b3d" />
+      <stop offset="50%" stop-color="#150d22" />
+      <stop offset="85%" stop-color="#0a0512" />
+      <stop offset="100%" stop-color="#030106" />
+    </radialGradient>
+
+    <!-- Taiji White Pearl Gradient -->
+    <radialGradient id="taijiWhiteH" cx="35%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="45%" stop-color="#fef3c7" />
+      <stop offset="80%" stop-color="#fcd34d" />
+      <stop offset="100%" stop-color="#d97706" />
+    </radialGradient>
+
+    <!-- Taiji Dark Jade Gradient -->
+    <radialGradient id="taijiDarkH" cx="65%" cy="70%" r="65%">
+      <stop offset="0%" stop-color="#1e1330" />
+      <stop offset="50%" stop-color="#0e0717" />
+      <stop offset="85%" stop-color="#05020a" />
+      <stop offset="100%" stop-color="#000000" />
+    </radialGradient>
+
+    <!-- Drop Shadow Filters -->
+    <filter id="shadowH" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000000" flood-opacity="0.75" />
+    </filter>
+    <filter id="goldShineH" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- ============================================================ -->
+  <!-- LEFT EMBLEM (Center at x=70, y=70, radius=56)                -->
+  <!-- ============================================================ -->
+  <g transform="translate(70, 70)" filter="url(#shadowH)">
+    <!-- Outer Medallion -->
+    <circle cx="0" cy="0" r="56" fill="url(#imperialGoldH)" stroke="#451a03" stroke-width="2" />
+    <circle cx="0" cy="0" r="52" fill="none" stroke="url(#bevelGoldH)" stroke-width="1.8" />
+    <circle cx="0" cy="0" r="48" fill="url(#obsidianEnamelH)" stroke="url(#bevelGoldH)" stroke-width="1.5" />
+
+    <!-- 8 Trigrams Bagua Ring (radius ~40) -->
+    <g stroke="url(#bevelGoldH)" stroke-width="1.6" stroke-linecap="round">
+      <!-- Top: Càn ☰ -->
+      <g transform="translate(0, -40)">
+        <line x1="-5" y1="-2.5" x2="5" y2="-2.5" /><line x1="-5" y1="0" x2="5" y2="0" /><line x1="-5" y1="2.5" x2="5" y2="2.5" />
+      </g>
+      <!-- Bottom: Khôn ☷ -->
+      <g transform="translate(0, 40)">
+        <line x1="-5" y1="-2.5" x2="-1.5" y2="-2.5" /><line x1="1.5" y1="-2.5" x2="5" y2="-2.5" />
+        <line x1="-5" y1="0" x2="-1.5" y2="0" /><line x1="1.5" y1="0" x2="5" y2="0" />
+        <line x1="-5" y1="2.5" x2="-1.5" y2="2.5" /><line x1="1.5" y1="2.5" x2="5" y2="2.5" />
+      </g>
+      <!-- Right: Khảm ☵ -->
+      <g transform="translate(40, 0) rotate(90)">
+        <line x1="-5" y1="-2.5" x2="-1.5" y2="-2.5" /><line x1="1.5" y1="-2.5" x2="5" y2="-2.5" />
+        <line x1="-5" y1="0" x2="5" y2="0" />
+        <line x1="-5" y1="2.5" x2="-1.5" y2="2.5" /><line x1="1.5" y1="2.5" x2="5" y2="2.5" />
+      </g>
+      <!-- Left: Ly ☲ -->
+      <g transform="translate(-40, 0) rotate(90)">
+        <line x1="-5" y1="-2.5" x2="5" y2="-2.5" />
+        <line x1="-5" y1="0" x2="-1.5" y2="0" /><line x1="1.5" y1="0" x2="5" y2="0" />
+        <line x1="-5" y1="2.5" x2="5" y2="2.5" />
+      </g>
+      <!-- NE -->
+      <g transform="translate(28, -28) rotate(45)">
+        <line x1="-5" y1="-2.5" x2="-1.5" y2="-2.5" /><line x1="1.5" y1="-2.5" x2="5" y2="-2.5" />
+        <line x1="-5" y1="0" x2="5" y2="0" /><line x1="-5" y1="2.5" x2="5" y2="2.5" />
+      </g>
+      <!-- SE -->
+      <g transform="translate(28, 28) rotate(135)">
+        <line x1="-5" y1="-2.5" x2="-1.5" y2="-2.5" /><line x1="1.5" y1="-2.5" x2="5" y2="-2.5" />
+        <line x1="-5" y1="0" x2="-1.5" y2="0" /><line x1="1.5" y1="0" x2="5" y2="0" />
+        <line x1="-5" y1="2.5" x2="5" y2="2.5" />
+      </g>
+      <!-- SW -->
+      <g transform="translate(-28, 28) rotate(-135)">
+        <line x1="-5" y1="-2.5" x2="5" y2="-2.5" />
+        <line x1="-5" y1="0" x2="-1.5" y2="0" /><line x1="1.5" y1="0" x2="5" y2="0" />
+        <line x1="-5" y1="2.5" x2="-1.5" y2="2.5" /><line x1="1.5" y1="2.5" x2="5" y2="2.5" />
+      </g>
+      <!-- NW -->
+      <g transform="translate(-28, -28) rotate(-45)">
+        <line x1="-5" y1="-2.5" x2="5" y2="-2.5" />
+        <line x1="-5" y1="0" x2="5" y2="0" />
+        <line x1="-5" y1="2.5" x2="-1.5" y2="2.5" /><line x1="1.5" y1="2.5" x2="5" y2="2.5" />
+      </g>
+    </g>
+
+    <!-- Center Taiji Yin-Yang (radius 26) -->
+    <g transform="rotate(-28)">
+      <circle cx="0" cy="0" r="26" fill="url(#imperialGoldH)" stroke="#451a03" stroke-width="1.5" />
+      <path d="M 0,-25 A 25,25 0 0,1 0,25 A 12.5,12.5 0 0,1 0,0 A 12.5,12.5 0 0,0 0,-25 Z" fill="url(#taijiWhiteH)" />
+      <path d="M 0,-25 A 12.5,12.5 0 0,1 0,0 A 12.5,12.5 0 0,0 0,25 A 25,25 0 0,1 0,-25 Z" fill="url(#taijiDarkH)" />
+      <path d="M 0,-25 A 12.5,12.5 0 0,1 0,0 A 12.5,12.5 0 0,0 0,25" fill="none" stroke="url(#imperialGoldH)" stroke-width="1.2" />
+      <!-- Eyes -->
+      <circle cx="0" cy="-12.5" r="4" fill="url(#taijiDarkH)" stroke="url(#imperialGoldH)" stroke-width="1" />
+      <circle cx="0" cy="12.5" r="4" fill="url(#taijiWhiteH)" stroke="#78350f" stroke-width="1" />
+      <circle cx="0" cy="0" r="25" fill="none" stroke="url(#bevelGoldH)" stroke-width="1.8" />
+    </g>
+
+    <!-- 4 Cardinal Sparkles -->
+    <polygon points="0,-57 1.5,-54 4,-53 1.5,-52 0,-49 -1.5,-52 -4,-53 -1.5,-54" fill="#ffd700" />
+    <polygon points="0,49 1.5,52 4,53 1.5,54 0,57 -1.5,54 -4,53 -1.5,52" fill="#ffd700" />
+    <polygon points="-57,0 -54,-1.5 -53,-4 -52,-1.5 -49,0 -52,1.5 -53,4 -54,1.5" fill="#ffd700" />
+    <polygon points="49,0 52,-1.5 53,-4 54,-1.5 57,0 54,1.5 53,4 52,1.5" fill="#ffd700" />
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- RIGHT TYPOGRAPHY: XEM TỬ VI HUYỀN HỌC                        -->
+  <!-- ============================================================ -->
+  <g font-family="'Cinzel Decorative', 'Be Vietnam Pro', Georgia, serif">
+    <!-- Top Line: XEM TỬ VI -->
+    <text x="144" y="48" font-size="34" font-weight="900" fill="url(#imperialGoldH)" filter="url(#goldShineH)" stroke="#2b1404" stroke-width="2" paint-order="stroke fill" letter-spacing="2">
+      XEM TỬ VI
+    </text>
+
+    <!-- Bottom Line: HUYỀN HỌC -->
+    <text x="144" y="88" font-size="32" font-weight="900" fill="url(#imperialGoldH)" filter="url(#goldShineH)" stroke="#2b1404" stroke-width="2" paint-order="stroke fill" letter-spacing="3">
+      HUYỀN HỌC
+    </text>
+
+    <!-- Star Cluster on Right -->
+    <g transform="translate(425, 74)" filter="url(#goldShineH)">
+      <polygon points="0,-12 3,-3 12,0 3,3 0,12 -3,3 -12,0 -3,-3" fill="url(#bevelGoldH)" stroke="#78350f" stroke-width="0.8" />
+      <circle cx="0" cy="0" r="2.5" fill="#ffffff" />
+    </g>
+    <g transform="translate(452, 60)">
+      <polygon points="0,-6 1.8,-1.8 6,0 1.8,1.8 0,6 -1.8,1.8 -6,0 -1.8,-1.8" fill="#fde047" />
+    </g>
+    <g transform="translate(444, 90)">
+      <polygon points="0,-4 1.2,-1.2 4,0 1.2,1.2 0,4 -1.2,1.2 -4,0 -1.2,-1.2" fill="#f59e0b" />
+    </g>
+
+    <!-- Tagline: CHÍNH TÔNG VIỆT NAM · THIÊN CƠ KHỞI VẬN -->
+    <text x="146" y="115" font-family="'Be Vietnam Pro', Arial, sans-serif" font-size="11.5" font-weight="700" fill="#fbbf24" letter-spacing="1.5">
+      ✦ LẬP LÁ SỐ CHÍNH TÔNG · VẬN HẠN TOÀN THƯ ✦
+    </text>
+  </g>
+</svg>
