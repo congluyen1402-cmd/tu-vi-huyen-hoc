@@ -26,6 +26,7 @@
     },
 
     isVipUnlocked: false,
+    isTripwireUnlocked: false,
     currentOrderId: '',
     vipAccessToken: '',
     vipOrderCode: '',
@@ -115,6 +116,10 @@
 
     checkVipStatus: async function () {
       try {
+        if (localStorage.getItem('tvhh_tripwire_unlocked') === 'true') {
+          this.isTripwireUnlocked = true;
+        }
+
         // Tự động mở khóa ngay nếu là thiết bị của chủ web vừa thanh toán đơn TV377099
         const savedOrder = localStorage.getItem('tvhh_vip_order_code');
         if (savedOrder === 'TV377099' || localStorage.getItem('tvhh_vip_unlocked') === 'true') {
@@ -229,7 +234,7 @@
         },
         body: JSON.stringify({
           orderCode: this.currentOrderId,
-          packageId: this.currentPackagePrice >= 1000000 ? 'vip_1500k' : (this.currentPackagePrice >= 100000 ? 'vip_199k' : 'vip_49k'),
+          packageId: this.currentPackagePrice >= 1000000 ? 'vip_call' : (this.currentPackagePrice >= 100000 ? 'vip_149k' : (this.currentPackagePrice >= 40000 ? 'vip_49k' : 'vip_29k')),
           packageName: this.currentPackageName,
           amount: this.currentPackagePrice,
           customerName: currentUser ? currentUser.fullName : (typeof TuViChart !== 'undefined' && TuViChart._currentLaSo ? TuViChart._currentLaSo.hoTen : 'Đương Số VIP'),
@@ -253,6 +258,90 @@
       document.body.style.overflow = 'hidden';
     },
 
+    
+    /**
+     * Chuyển đổi gói trực tiếp ngay trong Modal thanh toán
+     */
+    switchModalPackage: function (pkgName, price) {
+      this.currentPackageName = pkgName;
+      this.currentPackagePrice = price;
+
+      // Cập nhật tab active
+      document.querySelectorAll('.modal-pkg-btn').forEach(btn => {
+        const btnPrice = parseInt(btn.getAttribute('data-price') || '0', 10);
+        if (btnPrice === price) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      this.updateModalDisplay();
+
+      // Cập nhật lại đơn hàng backend
+      const token = localStorage.getItem('tvhh_auth_token');
+      const currentUser = typeof TuViAuth !== 'undefined' ? TuViAuth.currentUser : null;
+      fetch(this.getApiUrl('/api/orders/create'), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { 'Authorization': 'Bearer ' + token } : {})
+        },
+        body: JSON.stringify({
+          orderCode: this.currentOrderId,
+          packageId: this.currentPackagePrice >= 100000 ? 'vip_149k' : (this.currentPackagePrice >= 40000 ? 'vip_49k' : 'vip_29k'),
+          packageName: this.currentPackageName,
+          amount: this.currentPackagePrice,
+          customerName: currentUser ? currentUser.fullName : (typeof TuViChart !== 'undefined' && TuViChart._currentLaSo ? TuViChart._currentLaSo.hoTen : 'Đương Số VIP'),
+          customerPhone: currentUser ? currentUser.emailOrPhone : ''
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && data.order) {
+          this.currentOrderId = data.order.orderCode;
+          this.vipAccessToken = data.order.vipAccessToken || '';
+          this.updateModalDisplay();
+        }
+      })
+      .catch(e => console.warn('Lỗi đổi gói modal:', e));
+    },
+
+    /**
+     * Đồng hồ đếm ngược ưu đãi Cliffhanger 15 phút
+     */
+    initCountdownTimer: function () {
+      const key = 'tvhh_cliffhanger_deadline';
+      let deadline = sessionStorage.getItem(key);
+      if (!deadline) {
+        deadline = Date.now() + 15 * 60 * 1000;
+        sessionStorage.setItem(key, deadline);
+      } else {
+        deadline = parseInt(deadline, 10);
+        if (deadline < Date.now()) {
+          deadline = Date.now() + 15 * 60 * 1000;
+          sessionStorage.setItem(key, deadline);
+        }
+      }
+
+      if (this._countdownTimerInterval) clearInterval(this._countdownTimerInterval);
+
+      const updateClocks = () => {
+        const remaining = Math.max(0, Math.floor((deadline - Date.now()) / 1000));
+        const mins = Math.floor(remaining / 60);
+        const secs = remaining % 60;
+        const timeStr = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        document.querySelectorAll('.cliffhanger-countdown-clock').forEach(el => {
+          el.textContent = timeStr;
+        });
+        if (remaining <= 0) {
+          sessionStorage.setItem(key, Date.now() + 15 * 60 * 1000);
+        }
+      };
+      updateClocks();
+      this._countdownTimerInterval = setInterval(updateClocks, 1000);
+    },
+
     updateModalDisplay: function () {
       const titleEl = document.getElementById('vipModalPackageTitle');
       if (titleEl) titleEl.textContent = this.currentPackageName;
@@ -266,6 +355,29 @@
       const priceText = this.currentPackagePrice.toLocaleString('vi-VN') + ' đ';
       const priceEl = document.getElementById('vipPriceDisplay');
       if (priceEl) priceEl.textContent = priceText;
+
+      const oldPriceEl = document.querySelector('#tuvi-vip-modal .old-price');
+      const discountEl = document.querySelector('#tuvi-vip-modal .discount-badge');
+      if (this.currentPackagePrice <= 30000) {
+        if (oldPriceEl) oldPriceEl.textContent = '99.000 đ';
+        if (discountEl) discountEl.textContent = 'TIẾT KIỆM 70%';
+      } else if (this.currentPackagePrice <= 60000) {
+        if (oldPriceEl) oldPriceEl.textContent = '199.000 đ';
+        if (discountEl) discountEl.textContent = 'TIẾT KIỆM 75%';
+      } else {
+        if (oldPriceEl) oldPriceEl.textContent = '399.000 đ';
+        if (discountEl) discountEl.textContent = 'TIẾT KIỆM 63%';
+      }
+
+      // Highlight active package button in modal
+      document.querySelectorAll('.modal-pkg-btn').forEach(btn => {
+        const p = parseInt(btn.getAttribute('data-price') || '0', 10);
+        if (p === this.currentPackagePrice) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
 
       const transferAmountEl = document.getElementById('vipTransferAmount');
       if (transferAmountEl) transferAmountEl.textContent = priceText;
@@ -459,7 +571,14 @@
 
     onPaymentSuccess: function (data) {
       this.stopOrderPolling();
-      this.isVipUnlocked = true;
+      const isTripwirePkg = (this.currentPackagePrice <= 35000);
+      if (isTripwirePkg) {
+        this.isTripwireUnlocked = true;
+        localStorage.setItem('tvhh_tripwire_unlocked', 'true');
+      } else {
+        this.isVipUnlocked = true;
+        localStorage.setItem('tvhh_vip_unlocked', 'true');
+      }
 
       const orderCode = (data && (data.orderCode || (data.order && data.order.orderCode))) || this.currentOrderId;
       const vipToken = (data && (data.vipAccessToken || (data.order && data.order.vipAccessToken))) || this.vipAccessToken || orderCode;
@@ -467,7 +586,6 @@
       this.vipOrderCode = orderCode;
       this.vipAccessToken = vipToken;
 
-      localStorage.setItem('tvhh_vip_unlocked', 'true');
       localStorage.setItem('tvhh_vip_token', vipToken);
       localStorage.setItem('tvhh_vip_order_code', orderCode);
 
@@ -485,8 +603,12 @@
         TuViChart.renderLuanGiai(TuViChart._currentLaSo);
       }
 
+      const successMsg = isTripwirePkg
+        ? `🎉 Mở khóa thành công gói 3 Cung Trọng Tâm (Tài - Quan - Phối) & Vận Hạn 2026-2027 cho đơn ${orderCode}!`
+        : `🎉 Kích hoạt VIP thành công cho đơn ${orderCode}! Toàn bộ 12 cung & PDF đã được mở khóa.`;
+
       if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
-        TuViApp.showToast(`🎉 Kích hoạt VIP thành công cho đơn ${orderCode}! Toàn bộ 12 cung & PDF đã được mở khóa.`, 'success');
+        TuViApp.showToast(successMsg, 'success');
       }
 
       // Mời người dùng đặt mật khẩu bảo vệ vĩnh viễn
@@ -1096,6 +1218,23 @@
               <span class="old-price">199.000 đ</span>
               <span class="current-price" id="vipPriceDisplay">49.000 đ</span>
               <span class="discount-badge">TIẾT KIỆM 75%</span>
+            </div>
+
+            <!-- BỘ CHUYỂN GÓI NHANH 3 CẤP ĐỘ (CRO OPTIMIZATION) -->
+            <div class="modal-package-switcher" style="display:flex; gap:8px; margin: 12px 0 16px; justify-content:center;">
+              <button type="button" class="modal-pkg-btn" data-price="29000" onclick="TuViMonetize.switchModalPackage('Gói Mở Khóa Nhanh 3 Cung Trọng Tâm (Tài - Quan - Phối)', 29000)">
+                <span class="pkg-btn-name">3 Cung Trọng Tâm</span>
+                <span class="pkg-btn-price">29.000đ</span>
+              </button>
+              <button type="button" class="modal-pkg-btn active" data-price="49000" onclick="TuViMonetize.switchModalPackage('Báo Cáo VIP Toàn Thư 12 Cung &amp; Xuất PDF A4', 49000)">
+                <span class="pkg-btn-tag" style="background:#A3281F; color:#fff; font-size:9px; padding:1px 5px; border-radius:3px; position:absolute; top:-8px; right:6px; font-weight:700;">92% CHỌN</span>
+                <span class="pkg-btn-name">VIP 12 Cung + PDF</span>
+                <span class="pkg-btn-price">49.000đ</span>
+              </button>
+              <button type="button" class="modal-pkg-btn" data-price="149000" onclick="TuViMonetize.switchModalPackage('Hồ Sơ Luận Giải Chuyên Sâu Cải Mệnh &amp; Điền Sản', 149000)">
+                <span class="pkg-btn-name">Chuyên Sâu Điền Sản</span>
+                <span class="pkg-btn-price">149.000đ</span>
+              </button>
             </div>
 
             <div class="vip-qr-section">

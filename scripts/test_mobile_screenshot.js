@@ -21,3 +21,4 @@ const path = require('path');
   console.log('Mobile grid screenshot saved to:', outPath);
   await browser.close();
 })();
+
