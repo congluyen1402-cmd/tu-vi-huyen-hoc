@@ -104,3 +104,4 @@ const { chromium } = require('playwright');
   await browser.close();
   console.log('ALL ANDROID TESTS COMPLETED SUCCESSFULLY!');
 })();
+

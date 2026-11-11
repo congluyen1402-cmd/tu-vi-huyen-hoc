@@ -6963,3 +6963,228 @@ html {
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
 }
+
+
+/* ============================================================ */
+/* FIX PAYWALL OVERFLOW & SUCCESS SCREEN                        */
+/* ============================================================ */
+
+/* 1. Paywall Cliffhanger: Tách khối rõ ràng, overflow: visible */
+.cliffhanger-blur-wrap,
+.paywall-wrapper {
+  position: relative !important;
+  overflow: visible !important;
+  height: auto !important;
+  min-height: unset !important;
+  margin-top: 1rem !important;
+  border-radius: 8px !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+.cliffhanger-blurred-content,
+.teaser-blurred-text {
+  filter: blur(5px) !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  pointer-events: none !important;
+  opacity: 0.35 !important;
+  max-height: 100px !important;
+  overflow: hidden !important;
+  margin-bottom: -40px !important;
+  mask-image: linear-gradient(to bottom, black 25%, transparent 100%) !important;
+  -webkit-mask-image: linear-gradient(to bottom, black 25%, transparent 100%) !important;
+}
+
+.cliffhanger-paywall-overlay,
+.paywall-cta-card {
+  position: relative !important;
+  inset: auto !important;
+  z-index: 10 !important;
+  margin: 16px auto 8px !important;
+  padding: 32px 24px 24px !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  background: var(--card, #FBF7EE) !important;
+  border: 1.5px solid var(--seal, #A3281F) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 6px 24px rgba(163, 40, 31, 0.12) !important;
+}
+
+.cliffhanger-timer-pill,
+.countdown-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 5px 14px !important;
+  background: rgba(163, 40, 31, 0.08) !important;
+  border: 1px solid var(--seal, #A3281F) !important;
+  border-radius: 20px !important;
+  font-size: 0.84rem !important;
+  font-weight: 600 !important;
+  color: var(--seal, #A3281F) !important;
+  margin-bottom: 0.85rem !important;
+  margin-top: 0 !important;
+  box-shadow: 0 2px 6px rgba(163, 40, 31, 0.1) !important;
+}
+
+.cliffhanger-micro-note,
+.paywall-note {
+  margin-top: 14px !important;
+  padding-bottom: 4px !important;
+  line-height: 1.5 !important;
+  display: block !important;
+  font-size: 0.82rem !important;
+  color: var(--brass, #B08A3E) !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+}
+
+/* 2. Modal VietQR: Chiều cao tối ưu <= 92vh, không tràn màn hình */
+.tuvi-vip-card {
+  max-height: 92vh !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  padding: 20px 18px 18px !important;
+  box-sizing: border-box !important;
+}
+
+.qr-code-box .qr-img {
+  width: 190px !important;
+  height: 190px !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
+  border-radius: 8px !important;
+  border: 1px solid var(--line, #CFC2A6) !important;
+}
+
+/* 3. Radar tự động kiểm tra thanh toán 24/7 */
+.vip-auto-status-radar {
+  margin-top: 16px;
+  padding: 12px 14px;
+  background: rgba(212, 175, 55, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+}
+
+.radar-ping-ring {
+  position: relative;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.radar-ping-ring::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid #D4AF37;
+  animation: radar-pulse 1.8s ease-out infinite;
+}
+
+.radar-dot {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 12px;
+  height: 12px;
+  background: #D4AF37;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.8);
+}
+
+@keyframes radar-pulse {
+  0% { transform: scale(0.6); opacity: 1; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+.radar-text {
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: var(--text);
+  margin: 0;
+}
+
+.radar-text strong {
+  color: #B45309;
+}
+
+/* 4. Màn hình xác nhận thanh toán thành công (Emerald Green Success Screen) */
+.vip-success-container {
+  padding: 30px 16px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: vip-modal-pop 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.vip-success-icon-badge {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.12);
+  border: 2.5px solid #10B981;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.35);
+  animation: scale-in 0.45s ease-out;
+}
+
+@keyframes scale-in {
+  0% { transform: scale(0.4); opacity: 0; }
+  70% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+.vip-success-heading {
+  font-family: var(--font-heading, 'Noto Serif', serif);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #10B981;
+  margin: 0 0 0.75rem;
+  letter-spacing: 0.02em;
+}
+
+.vip-success-message {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text);
+  max-width: 440px;
+  margin: 0 auto 0.85rem;
+}
+
+.vip-success-meta {
+  display: flex;
+  gap: 8px;
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  margin-bottom: 1.4rem;
+}
+
+.btn-success-dismiss {
+  padding: 0.85rem 1.8rem;
+  font-size: 0.98rem;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(163, 40, 31, 0.25);
+  transition: all 0.2s ease;
+}
+
+.vip-auto-close-countdown {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 1rem;
+}

@@ -427,10 +427,10 @@
       this.stopOrderPolling();
       this._pollTimer = setInterval(async () => {
         try {
-          const res = await fetch(this.getApiUrl(`/api/orders/status/${orderCode}`));
+          const res = await fetch(this.getApiUrl(`/api/orders/status/${orderCode}?amount=${this.currentPackagePrice}`));
           if (res.ok) {
             const data = await res.json();
-            if (data.isPaid) {
+            if (data.isPaid || data.paid || data.status === "PAID") {
               this.stopOrderPolling();
               this.onPaymentSuccess(data);
             }
@@ -478,109 +478,17 @@
      * Kiểm tra trạng thái thanh toán (CHỐNG GIAN LẬN: Chỉ mở khóa khi thực sự có tiền vào tài khoản)
      */
     confirmPayment: async function () {
-      const btn = document.getElementById('btnConfirmVipPayment');
-      const notice = document.getElementById('vipCheckNotice');
-
-      if (btn) {
-        btn.innerHTML = '⏳ Đang kiểm tra giao dịch VietinBank...';
-        btn.disabled = true;
-      }
-      if (notice) {
-        notice.style.display = 'none';
-      }
-
-      // Xử lý tức thì nếu đơn hàng là TV377099 mà khách/chủ web đã xác nhận chuyển khoản thực tế
-      if (this.currentOrderId === 'TV377099') {
-        if (btn) {
-          btn.innerHTML = '✅ Xác Nhận Thành Công! Đang Mở Khóa...';
-          btn.style.background = '#10b981';
-        }
-        if (notice) {
-          notice.style.display = 'block';
-          notice.style.background = 'rgba(16, 185, 129, 0.15)';
-          notice.style.color = '#34d399';
-          notice.style.border = '1px solid rgba(16, 185, 129, 0.4)';
-          notice.innerHTML = '🎉 Giao dịch thành công! Toàn bộ 12 cung đang được mở khóa.';
-        }
-        setTimeout(() => {
-          this.onPaymentSuccess({
-            isPaid: true,
-            orderCode: 'TV377099',
-            vipAccessToken: '9a7f34bc6102da88e14cf956102a399f',
-            order: {
-              orderCode: 'TV377099',
-              packageName: 'Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)',
-              amount: 49000
-            }
-          });
-        }, 500);
-        return;
-      }
-
       try {
         const res = await fetch(this.getApiUrl('/api/orders/check-payment'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ orderCode: this.currentOrderId })
+          body: JSON.stringify({ orderCode: this.currentOrderId, amount: this.currentPackagePrice })
         });
         const data = await res.json();
-
-        if (data.isPaid) {
-          if (btn) {
-            btn.innerHTML = '✅ Xác Nhận Thành Công! Đang Mở Khóa...';
-            btn.style.background = '#10b981';
-          }
-          if (notice) {
-            notice.style.display = 'block';
-            notice.style.background = 'rgba(16, 185, 129, 0.15)';
-            notice.style.color = '#34d399';
-            notice.style.border = '1px solid rgba(16, 185, 129, 0.4)';
-            notice.innerHTML = '🎉 Giao dịch thành công! Toàn bộ 12 cung đang được mở khóa.';
-          }
-          setTimeout(() => {
-            this.onPaymentSuccess(data);
-          }, 600);
-        } else {
-          // CHƯA CÓ TIỀN VÀO TÀI KHOẢN -> KHÔNG MỞ KHÓA, BÁO LỖI RÕ RÀNG
-          if (btn) {
-            btn.disabled = false;
-            btn.innerHTML = '🔄 Thử Kiểm Tra Lại';
-            btn.style.background = '';
-          }
-          if (notice) {
-            notice.style.display = 'block';
-            notice.style.background = 'rgba(239, 68, 68, 0.15)';
-            notice.style.color = '#fca5a5';
-            notice.style.border = '1px solid rgba(239, 68, 68, 0.4)';
-            notice.innerHTML = `
-              <strong>⚠️ Chưa ghi nhận tiền vào tài khoản VietinBank:</strong><br>
-              ${data.message || 'Hệ thống chưa tìm thấy giao dịch chuyển tiền cho mã đơn ' + this.currentOrderId + '.'}<br>
-              <small style="opacity:0.9;">👉 Quý khách vui lòng quét mã QR chuyển tiền đúng nội dung <strong>${this.currentOrderId}</strong> trên App ngân hàng. Nếu vừa chuyển, xin chờ 30 giây rồi bấm kiểm tra lại.</small>
-            `;
-          }
-          if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
-            TuViApp.showToast('Chưa ghi nhận tiền vào tài khoản VietinBank. Vui lòng chuyển khoản đúng nội dung và thử lại.', 'warning');
-          }
+        if (data.isPaid || data.paid || data.status === 'PAID') {
+          this.onPaymentSuccess(data);
         }
-      } catch (err) {
-        // Fallback: nếu vì lý do kết nối mạng tạm thời nhưng đơn hàng là TV377099
-        if (this.currentOrderId === 'TV377099') {
-          this.onPaymentSuccess({ isPaid: true, orderCode: 'TV377099', vipAccessToken: '9a7f34bc6102da88e14cf956102a399f' });
-          return;
-        }
-
-        if (btn) {
-          btn.disabled = false;
-          btn.innerHTML = '🔄 Thử Kiểm Tra Lại';
-        }
-        if (notice) {
-          notice.style.display = 'block';
-          notice.style.background = 'rgba(239, 68, 68, 0.15)';
-          notice.style.color = '#fca5a5';
-          notice.style.border = '1px solid rgba(239, 68, 68, 0.4)';
-          notice.innerHTML = '⚠️ Lỗi kiểm tra kết nối: ' + err.message + '<br><small>Vui lòng đảm bảo máy chủ backend http://localhost:8080 đang chạy.</small>';
-        }
-      }
+      } catch (err) {}
     },
 
     onPaymentSuccess: function (data) {
@@ -595,43 +503,59 @@
       }
 
       const orderCode = (data && (data.orderCode || (data.order && data.order.orderCode))) || this.currentOrderId;
-      const vipToken = (data && (data.vipAccessToken || (data.order && data.order.vipAccessToken))) || this.vipAccessToken || orderCode;
-
-      this.vipOrderCode = orderCode;
-      this.vipAccessToken = vipToken;
-
-      localStorage.setItem('tvhh_vip_token', vipToken);
+      const vipToken = (data && (data.vipToken || data.vipAccessToken || (data.order && data.order.vipAccessToken))) || 'vip_' + Date.now();
       localStorage.setItem('tvhh_vip_order_code', orderCode);
+      localStorage.setItem('tvhh_vip_token', vipToken);
 
-      // Ghi nhận sự kiện chuyển tiền thành công
-      this.trackEvent('payment_success', {
-        orderCode,
-        amount: this.currentPackagePrice,
-        packageName: this.currentPackageName
-      });
-
+      // Mở khóa UI ở trang phía sau
       this.applyVipUI();
-      this.closeVipModal();
-
       if (typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) {
         TuViChart.renderLuanGiai(TuViChart._currentLaSo);
       }
 
-      const successMsg = isTripwirePkg
-        ? `🎉 Mở khóa thành công gói 3 Cung Trọng Tâm (Tài - Quan - Phối) & Vận Hạn 2026-2027 cho đơn ${orderCode}!`
-        : `🎉 Kích hoạt VIP thành công cho đơn ${orderCode}! Toàn bộ 12 cung & PDF đã được mở khóa.`;
+      // HIỆN MÀN HÌNH "XÁC NHẬN THANH TOÁN THÀNH CÔNG" TRONG MODAL
+      const modal = document.getElementById('tuvi-vip-modal');
+      const card = modal ? modal.querySelector('.tuvi-vip-card') : null;
+      if (card) {
+        const displayAmount = (data && (data.amount || (data.order && data.order.amount))) || this.currentPackagePrice || 49000;
+        card.innerHTML = `
+          <button class="tuvi-vip-close" type="button" aria-label="Đóng" onclick="TuViMonetize.closeVipModal()">&times;</button>
+          <div class="vip-success-container">
+            <div class="vip-success-icon-badge">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+            </div>
+            <h2 class="vip-success-heading">XÁC NHẬN THANH TOÁN THÀNH CÔNG!</h2>
+            <p class="vip-success-message">
+              Hệ thống đã nhận đủ <strong>${Number(displayAmount).toLocaleString('vi-VN')} đ</strong> cho mã đơn <strong>#${orderCode}</strong>.<br>
+              Toàn bộ luận giải VIP và tính năng xuất PDF A4 của bạn đã được mở khóa!
+            </p>
+            <div class="vip-success-meta">
+              <span>Mã đơn: <strong>#${orderCode}</strong></span>
+              <span>•</span>
+              <span>Thời gian: <strong>${new Date().toLocaleTimeString('vi-VN')}</strong></span>
+            </div>
+            <button type="button" class="btn-seal btn-success-dismiss" onclick="TuViMonetize.closeVipModal();">
+              ✨ Xem Ngay Bản Luận Giải Đầy Đủ
+            </button>
+            <p class="vip-auto-close-countdown">Cửa sổ sẽ tự động đóng sau <strong id="vipSuccessCountdown">2.5</strong> giây...</p>
+          </div>
+        `;
 
-      if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
-        TuViApp.showToast(successMsg, 'success');
+        // Tự động đóng modal sau 2.5 giây
+        if (this._autoCloseTimer) clearTimeout(this._autoCloseTimer);
+        this._autoCloseTimer = setTimeout(() => {
+          this.closeVipModal();
+        }, 2500);
+      } else {
+        this.closeVipModal();
       }
 
-      // Mời người dùng đặt mật khẩu bảo vệ vĩnh viễn
-      setTimeout(() => {
-        const hasAccount = localStorage.getItem('tvhh_auth_token');
-        if (!hasAccount) {
-          this.openClaimAccountModal();
-        }
-      }, 1200);
+      if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
+        TuViApp.showToast('🎉 Thanh toán thành công! Toàn bộ 12 cung & PDF đã được mở khóa.', 'success');
+      }
     },
 
     applyVipUI: function () {
@@ -1325,17 +1249,14 @@
               <div class="vip-benefit-item">✓ <strong>Bảng tra cứu màu sắc, hướng xuất hành, con số may mắn</strong> tương sinh bản mệnh.</div>
             </div>
 
-            <!-- Thông báo kiểm tra thanh toán (chống gian lận) -->
-            <div id="vipCheckNotice" class="vip-check-notice" style="display:none; margin: 10px 0; padding: 12px; border-radius: 8px; font-size: 0.88rem; line-height: 1.5; text-align: left;"></div>
-
-            <div class="vip-actions">
-              <button class="btn-confirm-payment" id="btnConfirmVipPayment" type="button" onclick="TuViMonetize.confirmPayment()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                Kiểm Tra Trạng Thái Thanh Toán
-              </button>
-              <p class="vip-secure-note">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                Quý khách chuyển tiền xong bấm nút trên để hệ thống kiểm tra và kích hoạt VIP.
+            <!-- TRẠNG THÁI KẾT NỐI TỰ ĐỘNG VIETINBANK 24/7 (ZERO-CLICK AUTO VERIFICATION) -->
+            <div class="vip-auto-status-radar" id="vipAutoStatusRadar">
+              <div class="radar-ping-ring">
+                <span class="radar-dot"></span>
+              </div>
+              <p class="radar-text">
+                <strong>🔄 Đang kết nối tự động với VietinBank 24/7...</strong><br>
+                Hệ thống sẽ tự động mở khóa ngay tức thì khi bạn chuyển khoản thành công (không cần bấm nút).
               </p>
             </div>
           </div>

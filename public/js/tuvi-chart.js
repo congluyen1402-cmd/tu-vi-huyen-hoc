@@ -1357,8 +1357,8 @@ const TuViChart = {
                 ${tamPhuongText}
 
                 <!-- 70% CAO TRÀO TIẾP THEO: LÀM MỜ VÀ ĐÈ KHUNG PAYWALL CLIFFHANGER -->
-                <div class="cliffhanger-blur-wrap">
-                  <div class="cliffhanger-blurred-content" aria-hidden="true">
+                <div class="cliffhanger-blur-wrap paywall-wrapper">
+                  <div class="cliffhanger-blurred-content teaser-blurred-text" aria-hidden="true">
                     ${chinhTinhText}
                     ${tuHoaText}
                     ${catTinhText}
@@ -1371,8 +1371,8 @@ const TuViChart = {
                   </div>
 
                   <!-- KHUNG CTA CLIFFHANGER ĐẬM CHẤT CHUYỂN ĐỔI -->
-                  <div class="cliffhanger-paywall-overlay">
-                    <div class="cliffhanger-timer-pill">
+                  <div class="cliffhanger-paywall-overlay paywall-cta-card">
+                    <div class="cliffhanger-timer-pill countdown-pill">
                       <span class="live-pulse-dot"></span>
                       <span>Ưu đãi kích hoạt còn: <strong class="cliffhanger-countdown-clock">14:59</strong></span>
                     </div>
@@ -1394,7 +1394,7 @@ const TuViChart = {
                       </button>
                     </div>
 
-                    <div class="cliffhanger-micro-note">
+                    <div class="cliffhanger-micro-note paywall-note">
                       <span>⚡ Thanh toán VietQR tự động qua SePay • Hệ thống tự động kích hoạt trong 3 giây</span>
                     </div>
                   </div>
