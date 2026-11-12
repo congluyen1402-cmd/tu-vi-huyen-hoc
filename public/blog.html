@@ -327,6 +327,89 @@
       color: var(--seal-dark);
     }
 
+    /* Diagram & Infographic Container (Non-AI Scalable Vector Graphics) */
+    .article-diagram {
+      margin: 2rem 0;
+      padding: 1.25rem;
+      background: #FAF6EE;
+      border: 1.5px solid var(--gold);
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(42,35,28,0.06);
+      text-align: center;
+    }
+    .article-diagram svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+    .diagram-caption {
+      margin-top: 0.75rem;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* Highlight Callouts */
+    .article-callout {
+      margin: 1.5rem 0;
+      padding: 1.2rem 1.4rem;
+      border-left: 4px solid var(--gold);
+      background: rgba(194, 155, 56, 0.08);
+      border-radius: 0 6px 6px 0;
+      font-size: 0.98rem;
+    }
+    .article-callout.warning {
+      border-left-color: var(--seal);
+      background: rgba(163, 40, 31, 0.07);
+    }
+    .article-callout-title {
+      font-weight: 700;
+      color: var(--seal);
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* In-Article Midpoint CTA */
+    .in-article-cta {
+      margin: 2.2rem 0;
+      padding: 1.5rem 1.8rem;
+      background: linear-gradient(135deg, rgba(163,40,31,0.06) 0%, rgba(194,155,56,0.1) 100%);
+      border: 1px solid var(--gold);
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.8rem;
+    }
+    .in-article-cta-title {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      color: var(--seal);
+      font-weight: 700;
+    }
+    .in-article-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--seal);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 0.65rem 1.5rem;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.2s;
+      box-shadow: 0 3px 10px rgba(163,40,31,0.25);
+    }
+    .in-article-cta-btn:hover {
+      background: var(--seal-dark);
+      transform: translateY(-2px);
+    }
+
     /* Call To Action Box at bottom */
     .blog-cta-box {
       background: linear-gradient(135deg, rgba(163,40,31,0.08), rgba(194,155,56,0.12));
@@ -519,3 +602,4 @@
   </script>
 </body>
 </html>
+

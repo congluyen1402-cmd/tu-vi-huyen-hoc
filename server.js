@@ -296,7 +296,7 @@ function isAutomatedTestReq(req, payload) {
   const custName = String(
     (payload && (payload.customerName || payload.hoTen || payload.fullName)) || ''
   ).toLowerCase().trim();
-  const isTestName = /nguyễn hoàng minh quân|trần văn nam|nguyễn văn test|khách thử nghiệm|^đương số$/i.test(custName);
+  const isTestName = /nguyễn hoàng minh quân|trần văn nam|nguyễn văn test|khách thử nghiệm|đương số/i.test(custName);
   return Boolean(testHeader || isHeadless || isTestName);
 }
 
