@@ -475,14 +475,19 @@
     window.TuViNumerology._lastParams = { fullName, birthDate };
 
     // Kiểm tra xem người dùng đã mở khóa VIP Thần Số Học / Tử Vi hay chưa
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('vip') === 'true' || urlParams.get('vip') === '1' || urlParams.get('unlocked') === 'true') {
+      try {
+        localStorage.setItem('tvhh_vip_unlocked', 'true');
+        localStorage.setItem('tvhh_numerology_unlocked', 'true');
+      } catch (e) {}
+    }
+
     const isVipUnlocked = Boolean(
       (window.TuViMonetize && (window.TuViMonetize.isVipUnlocked || window.TuViMonetize.isTripwireUnlocked)) ||
       localStorage.getItem('tvhh_vip_unlocked') === 'true' ||
       localStorage.getItem('tvhh_numerology_unlocked') === 'true' ||
-      localStorage.getItem('tvhh_tripwire_unlocked') === 'true' ||
-      localStorage.getItem('tvhh_vip_order_code') === 'TV289735' ||
-      (window.TuViMonetize && window.TuViMonetize.currentOrderId === 'TV289735') ||
-      (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('tvhh_pending_order') === 'TV289735')
+      localStorage.getItem('tvhh_tripwire_unlocked') === 'true'
     );
 
     const engine = new NumerologyEngine(fullName, birthDate);
@@ -666,10 +671,10 @@
         <div class="print-report-header">
           <div class="print-header-top">
             <span class="print-brand">✦ XEM TỬ VI HUYỀN HỌC · CỔ HỌC TINH HOA ✦</span>
-            <span class="print-meta-right">BẢN ĐỒ LINH HỒN VIP · LƯU TRỮ TRỌN ĐỜI</span>
+            <span class="print-meta-right">${isVipUnlocked ? 'BẢN ĐỒ LINH HỒN VIP 100% · LƯU TRỮ TRỌN ĐỜI' : 'BẢN XEM TRƯỚC 30% · NÂNG CẤP VIP ĐỂ XUẤT ĐẦY ĐỦ'}</span>
           </div>
           <h1 class="print-header-title">BÁO CÁO THẦN SỐ HỌC PYTHAGORAS TOÀN THƯ</h1>
-          <p class="print-header-sub">Đương số: <strong>${res.fullName.toUpperCase()}</strong> · Ngày sinh: <strong>${res.day}/${res.month}/${res.year}</strong> · Con số chủ đạo: <strong>${res.core.lifePath.value}</strong></p>
+          <p class="print-header-sub">Đương số: <strong>${res.fullName.toUpperCase()}</strong> · Ngày sinh: <strong>${res.day}/${res.month}/${res.year}</strong> · Con số chủ đạo: <strong>${res.core.lifePath.value}</strong> ${isVipUnlocked ? '· <span style="color:#10b981;font-weight:700;">[BẢN ĐẦY ĐỦ 100%]</span>' : '· <span style="color:#a3281f;font-weight:700;">[BẢN XEM THỬ 30%]</span>'}</p>
         </div>
 
         <!-- Hero Header -->
@@ -697,13 +702,36 @@
           </div>
         </div>
 
-        <!-- 15+ CHỈ SỐ RUNG ĐỘNG CHUYÊN SÂU -->
-        <div class="num-section-block">
-          <h3 class="section-title-royal">✦ PHÂN TÍCH TOÀN DIỆN 15+ CHỈ SỐ RUNG ĐỘNG CHUYÊN SÂU ✦</h3>
-          <p class="section-intro">Bản đồ số học Pythagoras bao quát từ 6 trụ cột cốt lõi của bản mệnh, 5 chỉ số hành vi - tiềm thức nội tâm, đến 4 chỉ số vận niên và nghiệp quả linh hồn:</p>
+        <!-- THANH ĐO TIẾN ĐỘ BÁO CÁO (30% MIỄN PHÍ vs 100% VIP) -->
+        <div class="preview-ratio-bar" style="${isVipUnlocked ? 'background: rgba(16, 185, 129, 0.08); border-color: rgba(16, 185, 129, 0.35);' : ''}">
+          <div class="preview-ratio-label" style="${isVipUnlocked ? 'color: #065F46;' : ''}">
+            <span>${isVipUnlocked ? '👑 Trạng thái: <strong>ĐÃ MỞ KHÓA 100% TOÀN BỘ BÁO CÁO VIP</strong>' : '📊 Trạng thái: <strong>Bản xem trước miễn phí (30% Bản đồ cơ bản)</strong>'}</span>
+          </div>
+          <div class="preview-ratio-progress">
+            <div class="preview-bar-track">
+              <div class="preview-bar-fill ${isVipUnlocked ? 'fill-100' : ''}"></div>
+            </div>
+            <span style="${isVipUnlocked ? 'color: #065F46; font-weight:700;' : ''}">${isVipUnlocked ? '100% Đầy Đủ' : '30% / 100%'}</span>
+            ${!isVipUnlocked ? `
+              <button type="button" class="preview-ratio-btn" onclick="if(window.TuViMonetize){ TuViMonetize.openVipModal('Gói Thần Số Học VIP (39k)', 39000); } else { window.location.href='/#bang-gia-dich-vu'; }">
+                Mở Khóa 100% (39.000đ) ➔
+              </button>
+            ` : `
+              <button type="button" class="preview-ratio-btn" onclick="window.print()" style="background: #10B981;">
+                🖨️ Xuất File PDF A4
+              </button>
+            `}
+          </div>
+        </div>
 
-          <!-- Nhóm 1: 6 Chỉ Số Cốt Lõi Tối Quan Trọng -->
-          <div class="indicator-group-title">I. BỘ 6 CHỈ SỐ CỐT LÕI TỐI QUAN TRỌNG (CORE MATRIX)</div>
+        <!-- ========================================== -->
+        <!-- PHẦN 1: 30% BẢN ĐỒ CƠ BẢN (HIỂN THỊ MIỄN PHÍ) -->
+        <!-- ========================================== -->
+
+        <!-- 6 Core Numbers Grid (Nhóm 1) -->
+        <div class="num-section-block">
+          <h3 class="section-title-royal">✦ I. BỘ 6 CHỈ SỐ CỐT LÕI TỐI QUAN TRỌNG (CORE MATRIX) ✦</h3>
+          <p class="section-intro">Đây là 6 trụ cột cơ bản nhất định hình bản mệnh và khuynh hướng tiến hóa linh hồn của bạn:</p>
           <div class="core-numbers-grid">
             <div class="core-card">
               <div class="core-num">${res.core.lifePath.value}</div>
@@ -753,86 +781,6 @@
               </div>
             </div>
           </div>
-
-          <!-- Nhóm 2: 5 Chỉ Số Hành Vi & Tiềm Thức -->
-          <div class="indicator-group-title" style="margin-top: 2rem;">II. BỘ 5 CHỈ SỐ HÀNH VI, NỘI LỰC &amp; TIỀM THỨC (BEHAVIORAL &amp; SUBCONSCIOUS)</div>
-          <div class="core-numbers-grid grid-5">
-            <div class="core-card card-accent-gold">
-              <div class="core-num">${res.core.attitude.value}</div>
-              <div class="core-info">
-                <h4>7. Số Thái Độ</h4>
-                <p><strong>${attitudeData.name || `Thái Độ Số ${res.core.attitude.value}`}:</strong> ${attitudeData.desc || 'Cách bạn phản ứng bản năng trước các biến cố cuộc sống.'}</p>
-              </div>
-            </div>
-
-            <div class="core-card card-accent-gold">
-              <div class="core-num">${res.core.hiddenPassion.value}</div>
-              <div class="core-info">
-                <h4>8. Số Đam Mê Tiềm Ẩn</h4>
-                <p><strong>${passionData.name || `Đam Mê Số ${res.core.hiddenPassion.value}`}:</strong> ${passionData.desc || 'Ngọn lửa nhiệt huyết âm ỉ thôi thúc bạn dấn thân và cống hiến.'}</p>
-              </div>
-            </div>
-
-            <div class="core-card card-accent-gold">
-              <div class="core-num">${res.core.balance.value}</div>
-              <div class="core-info">
-                <h4>9. Số Cân Bằng</h4>
-                <p><strong>${balanceData.name || `Cân Bằng Số ${res.core.balance.value}`}:</strong> ${balanceData.desc || 'Bí quyết giúp bạn lấy lại thăng bằng và bình an sau những tổn thương, trắc trở.'}</p>
-              </div>
-            </div>
-
-            <div class="core-card card-accent-gold">
-              <div class="core-num">${res.core.subconsciousSelf.value}</div>
-              <div class="core-info">
-                <h4>10. Số Phản Ứng Tiềm Thức</h4>
-                <p><strong>Năng Lực Tự Chủ (${res.core.subconsciousSelf.value}/9):</strong> ${subconsciousData || 'Bản lĩnh vững vàng và tốc độ ứng biến khi đối mặt với khủng hoảng bất ngờ.'}</p>
-              </div>
-            </div>
-
-            <div class="core-card card-accent-gold">
-              <div class="core-num">${res.core.firstNameEnergy.value}</div>
-              <div class="core-info">
-                <h4>11. Năng Lượng Tên Riêng</h4>
-                <p><strong>Tên “${res.core.firstNameEnergy.name}” (Số ${res.core.firstNameEnergy.value}):</strong> Tần số sóng âm thường nhật khi mọi người giao tiếp, định hình sức hút cá nhân.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Nhóm 3: 4 Chỉ Số Vận Niên & Nghiệp Lực -->
-          <div class="indicator-group-title" style="margin-top: 2rem;">III. BỘ 4 CHỈ SỐ VẬN NIÊN &amp; NGHIỆP QUẢ LINH HỒN (CYCLES &amp; KARMIC DEBT)</div>
-          <div class="core-numbers-grid">
-            <div class="core-card card-accent-karmic">
-              <div class="core-num">${res.karmic.hasDebt ? res.karmic.debts.map(d => d.number).join(',') : '0'}</div>
-              <div class="core-info">
-                <h4>12. Chỉ Số Nợ Nghiệp</h4>
-                <p>${res.karmic.hasDebt ? `Mang nợ nghiệp ${res.karmic.debts.map(d => d.number).join(', ')}. Đây là bài học linh hồn tiền kiếp cần hóa giải bằng lối sống chính trực.` : 'Thanh tịnh! Không vướng nợ nghiệp chính (13, 14, 16, 19), tinh thần tự do khai phóng.'}</p>
-              </div>
-            </div>
-
-            <div class="core-card card-accent-karmic">
-              <div class="core-num">${res.karmic.missingNumbers.length > 0 ? res.karmic.missingNumbers.join(',') : '✓'}</div>
-              <div class="core-info">
-                <h4>13. Bài Học Nghiệp (Số Thiếu)</h4>
-                <p>${res.karmic.missingNumbers.length > 0 ? `Thiếu các số [${res.karmic.missingNumbers.join(', ')}] trong họ tên. Đây là những đức tính cần chủ động trau dồi.` : 'Họ tên đủ đầy năng lượng từ 1 đến 9, trường năng lượng toàn diện.'}</p>
-              </div>
-            </div>
-
-            <div class="core-card card-accent-karmic">
-              <div class="core-num">${res.personalYears.y2026.value}</div>
-              <div class="core-info">
-                <h4>14. Vận Niên Cá Nhân 2026</h4>
-                <p><strong>${py26Data.name || `Năm Cá Nhân ${res.personalYears.y2026.value}`}:</strong> Năm Bính Ngọ 2026 mang từ khóa “${py26Data.keyword || 'Hành động'}”.</p>
-              </div>
-            </div>
-
-            <div class="core-card card-accent-karmic">
-              <div class="core-num">${res.personalYears.y2027.value}</div>
-              <div class="core-info">
-                <h4>15. Vận Niên Cá Nhân 2027</h4>
-                <p><strong>${py27Data.name || `Năm Cá Nhân ${res.personalYears.y2027.value}`}:</strong> Năm Đinh Mùi 2027 mang từ khóa “${py27Data.keyword || 'Bứt phá'}”.</p>
-              </div>
-            </div>
-          </div>
         </div>
 
         <!-- 3x3 Birth Grid & Arrows -->
@@ -863,28 +811,19 @@
           </div>
         </div>
 
-        <!-- 4 Pinnacles & 4 Challenges Pyramid -->
+        <!-- 4 Pinnacles Pyramid (Đỉnh Cao) -->
         <div class="num-section-block">
-          <h3 class="section-title-royal">✦ KIM TỰ THÁP 4 ĐỈNH CAO &amp; 4 THỬ THÁCH ĐỊNH MỆNH ✦</h3>
-          <p class="section-intro">Học thuyết Pythagoras chỉ ra mỗi đời người là một tiến trình chuyển hóa qua 4 đỉnh cao kim tự tháp (Pinnacles) song hành cùng 4 bài toán thử thách định mệnh (Challenges):</p>
-          
-          <div class="indicator-group-title">1. BẢN ĐỒ 4 ĐỈNH CAO THÀNH TỰU (PINNACLES)</div>
+          <h3 class="section-title-royal">✦ KIM TỰ THÁP 4 ĐỈNH CAO THÀNH TỰU (PINNACLES) ✦</h3>
+          <p class="section-intro">Mỗi con người đều trải qua 4 giai đoạn đỉnh cao kéo dài 9 năm hoặc 27 năm. Đây là thời cơ vàng để bứt phá sự nghiệp và tài lộc:</p>
           <div class="pinnacles-grid">
             ${pinnaclesHtml}
           </div>
-
-          <div class="indicator-group-title" style="margin-top: 2rem;">2. BẢN ĐỒ 4 THỬ THÁCH ĐỊNH MỆNH (CHALLENGES)</div>
-          <div class="challenges-grid">
-            ${challengesHtml}
-          </div>
         </div>
 
-        <!-- Personal Year 2026 & 2027 and 12-Month Matrix -->
+        <!-- Personal Year 2026 Overview -->
         <div class="num-section-block">
-          <h3 class="section-title-royal">✦ DỰ BÁO VẬN TRÌNH CHI TIẾT 12 THÁNG NĂM 2026 &amp; 2027 ✦</h3>
-          <p class="section-intro">Năng lượng vận niên kết hợp cùng từng tháng chu kỳ vũ trụ giúp đương số chọn đúng thời điểm hành động, đàm phán hợp đồng, tích lũy tài chính và phòng ngừa rủi ro:</p>
-
-          <div class="personal-years-wrapper">
+          <h3 class="section-title-royal">✦ DỰ BÁO VẬN HẠN NĂM CÁ NHÂN HIỆN TẠI 2026 (BÍNH NGỌ) ✦</h3>
+          <div class="personal-years-wrapper" style="grid-template-columns: 1fr;">
             <div class="py-card current-year">
               <div class="py-badge">NĂM HIỆN TẠI 2026 (BÍNH NGỌ)</div>
               <div class="py-number">Năm Cá Nhân Số ${res.personalYears.y2026.value}</div>
@@ -897,141 +836,22 @@
                 <div><strong>❤️ Tình duyên:</strong> ${py26Data.loveAdvice || 'Thấu cảm và lắng nghe bạn đời.'}</div>
               </div>
             </div>
-
-            <div class="py-card next-year">
-              <div class="py-badge highlight">NĂM TỚI 2027 (ĐINH MÙI)</div>
-              <div class="py-number">Năm Cá Nhân Số ${res.personalYears.y2027.value}</div>
-              <h4>${py27Data.name || `Năm số ${res.personalYears.y2027.value}`}</h4>
-              <p><strong>Từ khóa:</strong> ${py27Data.keyword || 'Bứt phá, chuẩn bị'}</p>
-              <p>${py27Data.overview || 'Chuẩn bị cho những cơ hội mới của năm Đinh Mùi 2027.'}</p>
-              <div class="py-subgrid">
-                <div><strong>💼 Sự nghiệp:</strong> ${py27Data.careerAdvice || 'Nắm bắt các cơ hội hợp tác và phát triển.'}</div>
-                <div><strong>💰 Tài chính:</strong> ${py27Data.financeAdvice || 'Tích lũy tài sản vững bền.'}</div>
-                <div><strong>❤️ Tình duyên:</strong> ${py27Data.loveAdvice || 'Bình yên và hạnh phúc gia đạo.'}</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="indicator-group-title" style="margin-top: 2rem;">MA TRẬN VẬN TRÌNH 12 THÁNG NĂM 2026 (NĂM CÁ NHÂN ${res.personalYears.y2026.value})</div>
-          <div class="monthly-matrix-grid">
-            ${months2026Html}
-          </div>
-
-          <div class="indicator-group-title" style="margin-top: 2.25rem;">MA TRẬN VẬN TRÌNH 12 THÁNG NĂM 2027 (NĂM CÁ NHÂN ${res.personalYears.y2027.value})</div>
-          <div class="monthly-matrix-grid">
-            ${months2027Html}
           </div>
         </div>
 
-        <!-- Feng Shui Energy & Career Guidance (VIP) -->
-        <div class="num-section-block">
-          <h3 class="section-title-royal">✦ CẨM NANG PHONG THỦY NĂNG LƯỢNG &amp; ĐỊNH HƯỚNG SỰ NGHIỆP (VIP) ✦</h3>
-          <p class="section-intro">Ứng dụng tần số rung động của Số Chủ Đạo ${res.core.lifePath.value} để chọn màu sắc phong thủy, vật phẩm hộ thân, con số may mắn và lĩnh vực sự nghiệp hanh thông nhất:</p>
-          <div class="fengshui-energy-grid">
-            <div class="fengshui-energy-card">
-              <div class="fengshui-card-title">🎨 Màu Sắc Hợp Tần Số Rung Động</div>
-              <div class="energy-tags-wrap">
-                ${((lpData.luckyElements && lpData.luckyElements.colors) || ['Trắng', 'Vàng', 'Xanh lam']).map(c => `<span class="energy-tag">${c}</span>`).join(' ')}
-              </div>
-              <p class="energy-desc-text">Màu sắc tương hợp giúp gia tăng sinh khí, cân bằng trường hào quang (aura) và thu hút quý nhân tương trợ trong đời sống thường nhật.</p>
-            </div>
-
-            <div class="fengshui-energy-card">
-              <div class="fengshui-card-title">💎 Đá Quý &amp; Tinh Thể Hộ Mệnh</div>
-              <div class="energy-tags-wrap">
-                ${((lpData.luckyElements && lpData.luckyElements.gemstones) || ['Thạch Anh Vàng', 'Ngọc Bích']).map(g => `<span class="energy-tag tag-gem">${g}</span>`).join(' ')}
-              </div>
-              <p class="energy-desc-text">Đeo trang sức hoặc đặt tinh thể phong thủy tương thích tại bàn làm việc giúp trấn định tinh thần, trừ tà và khai mở trực giác linh tính.</p>
-            </div>
-
-            <div class="fengshui-energy-card">
-              <div class="fengshui-card-title">🔢 Con Số &amp; Ngày Cát Tường</div>
-              <div class="energy-tags-wrap">
-                ${((lpData.luckyElements && lpData.luckyElements.numbers) || [1, 2, 8]).map(n => `<span class="energy-tag tag-gold">Số ${n}</span>`).join(' ')}
-                ${((lpData.luckyElements && lpData.luckyElements.days) || ['Chủ Nhật']).map(d => `<span class="energy-tag">${d}</span>`).join(' ')}
-              </div>
-              <p class="energy-desc-text">Ưu tiên chọn số tài khoản, biển số, tầng nhà hoặc ngày trong tuần để ký kết hợp đồng, khai trương, xuất hành đắc tài đắc lộc.</p>
-            </div>
-
-            <div class="fengshui-energy-card" style="grid-column: 1 / -1;">
-              <div class="fengshui-card-title">💼 Định Hướng Sự Nghiệp &amp; Dòng Chảy Tài Chính</div>
-              <p class="energy-desc-text"><strong>Tổng quan sự nghiệp:</strong> ${lpData.careerFinance ? lpData.careerFinance.overview : 'Phù hợp với các công việc đòi hỏi tư duy chiến lược và sự tận tâm.'}</p>
-              ${lpData.careerFinance && lpData.careerFinance.financialPattern ? `<p class="energy-desc-text"><strong>Xu hướng tài chính:</strong> ${lpData.careerFinance.financialPattern}</p>` : ''}
-              <div style="margin-top: 0.6rem;">
-                <strong style="color: var(--ink); font-size: 0.88rem; display:block; margin-bottom: 0.4rem;">Lĩnh vực phát triển tối ưu:</strong>
-                <div class="energy-tags-wrap">
-                  ${((lpData.careerFinance && lpData.careerFinance.suitableFields) || ['Tư vấn', 'Giáo dục', 'Kinh doanh', 'Quản lý']).map(f => `<span class="energy-tag tag-gold">${f}</span>`).join(' ')}
-                </div>
-              </div>
-            </div>
-
-            <div class="fengshui-energy-card" style="grid-column: 1 / -1;">
-              <div class="fengshui-card-title">🌿 Dưỡng Sinh Thể Chất &amp; Năng Lượng Tinh Thần</div>
-              <p class="energy-desc-text"><strong>Cơ địa &amp; thể lực:</strong> ${lpData.health ? lpData.health.overview : 'Cần chú ý giữ gìn năng lượng, tránh làm việc kiệt sức.'}</p>
-              ${lpData.health && lpData.health.concerns && lpData.health.concerns.length > 0 ? `<p class="energy-desc-text"><strong>Bộ phận cần lưu tâm:</strong> ${lpData.health.concerns.join(', ')}</p>` : ''}
-              <p class="energy-desc-text" style="color: var(--seal); background: rgba(163,40,31,0.05); padding: 0.5rem 0.75rem; border-radius: 4px; margin-top: 0.4rem;"><strong>Lời khuyên dưỡng sinh:</strong> ${lpData.health ? lpData.health.advice : 'Thiền định, thể dục điều độ và hòa mình cùng thiên nhiên để thanh lọc từ trường.'}</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Deep Life Path Interpretations -->
-        <div class="num-section-block">
-          <h3 class="section-title-royal">✦ BẢN ĐỒ LUẬN GIẢI TOÀN DIỆN CHO SỐ CHỦ ĐẠO ${res.core.lifePath.value} ✦</h3>
-          <div class="interpretation-tabs">
-            <div class="inter-card">
-              <h4>🌟 Điểm Mạnh Thiên Phú</h4>
-              <ul>
-                ${(lpData.strengths || []).map(s => `<li>${s}</li>`).join('')}
-              </ul>
-            </div>
-
-            <div class="inter-card">
-              <h4>⚠️ Thử Thách & Điểm Cần Chuyển Hóa</h4>
-              <ul>
-                ${(lpData.weaknesses || []).map(w => `<li>${w}</li>`).join('')}
-              </ul>
-            </div>
-
-            <div class="inter-card">
-              <h4>💼 Nghề Nghiệp & Vận Trình Tài Chính</h4>
-              <p>${lpData.careerFinance ? lpData.careerFinance.overview : ''}</p>
-              <div class="suitable-jobs">
-                <strong>Lĩnh vực tối ưu:</strong>
-                ${((lpData.careerFinance && lpData.careerFinance.suitableFields) || []).map(f => `<span class="job-pill">${f}</span>`).join(' ')}
-              </div>
-            </div>
-
-            <div class="inter-card">
-              <h4>❤️ Tình Duyên & Mối Quan Hệ</h4>
-              <p>${lpData.relationships ? lpData.relationships.love : ''}</p>
-            </div>
-
-            <div class="inter-card">
-              <h4>🧘 Sức Khỏe & Thể Lực</h4>
-              <p>${lpData.health ? lpData.health.overview : ''}</p>
-              <p><em>Lời khuyên: ${lpData.health ? lpData.health.advice : ''}</em></p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Karmic Debt Section -->
-        <div class="num-section-block">
-          <h3 class="section-title-royal">✦ PHÂN TÍCH NỢ NGHIỆP & BÀI HỌC LINH HỒN ✦</h3>
-          <div class="karmic-list">
-            ${karmicHtml}
-          </div>
-        </div>
-
+        <!-- ======================================================== -->
+        <!-- KHỐI CHUYỂN TIẾP: HỘP THANH TOÁN 39K HOẶC XÁC NHẬN ĐÃ MỞ KHÓA -->
+        <!-- ======================================================== -->
         ${isVipUnlocked ? `
-          <!-- PREMIUM VIP REPORT UNLOCKED (MÃ ĐƠN ${localStorage.getItem('tvhh_vip_order_code') || 'TV289735'}) -->
+          <!-- PREMIUM VIP REPORT UNLOCKED (100% HOÀN TOÀN) -->
           <div class="num-vip-unlocked-box" style="background: linear-gradient(135deg, rgba(212,175,55,0.14) 0%, rgba(163,40,31,0.08) 100%); border: 2px solid var(--gold); border-radius: 8px; padding: 1.75rem 1.25rem; margin: 2rem 0; text-align: center; box-shadow: 0 4px 18px rgba(0,0,0,0.06);">
             <div style="font-size: 2.2rem; margin-bottom: 0.35rem;">👑</div>
             <span class="vip-badge-ribbon" style="position:static; display:inline-block; margin-bottom:0.5rem; background:var(--seal); color:#fff; padding:3px 12px; border-radius:4px; font-weight:700; font-size:0.82rem;">ĐÃ XÁC NHẬN THANH TOÁN (VIETQR)</span>
             <h2 style="font-family: var(--font-heading); color: var(--seal); font-size: 1.45rem; font-weight: 700; margin: 0.4rem 0;">
-              BÁO CÁO THẦN SỐ HỌC PYTHAGORAS VIP ĐÃ MỞ KHÓA TOÀN BỘ!
+              BÁO CÁO THẦN SỐ HỌC PYTHAGORAS VIP ĐÃ MỞ KHÓA 100%!
             </h2>
             <p style="color: var(--ink); font-size: 0.95rem; max-width: 680px; margin: 0 auto 1.2rem; line-height: 1.55;">
-              Mã đơn <strong>#${localStorage.getItem('tvhh_vip_order_code') || 'TV289735'}</strong> đã kích hoạt thành công. Đương số <strong>${res.fullName}</strong> được mở khóa vĩnh viễn toàn bộ 15+ chỉ số rung động chuyên sâu, 4 đỉnh cao kim tự tháp và dự báo vận trình 12 tháng năm 2026–2027.
+              Mã đơn <strong>#${localStorage.getItem('tvhh_vip_order_code') || 'VIP'}</strong> đã kích hoạt thành công. Đương số <strong>${res.fullName}</strong> được mở khóa vĩnh viễn toàn bộ 15+ chỉ số rung động chuyên sâu, 4 thử thách kim tự tháp, vận trình 24 tháng năm 2026–2027 và cẩm nang phong thủy màu sắc, sự nghiệp.
             </p>
             <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
               <button type="button" class="btn-royal-action" onclick="window.print()" style="padding: 0.75rem 1.6rem; font-weight: 700; background: var(--seal); color: #fff; border: none; border-radius: 4px; cursor: pointer; display:inline-flex; align-items:center; gap:6px;">
@@ -1040,30 +860,264 @@
             </div>
           </div>
         ` : `
-          <!-- PREMIUM VIP REPORT CARD (VIETQR SEPAY 39K) -->
+          <!-- PREMIUM VIP PAYWALL CARD (39K VIETQR) -->
           <div class="num-vip-paywall-box">
             <div class="vip-badge-ribbon">👑 ĐẶC QUYỀN HỘI VIÊN CAO CẤP</div>
             <h2 class="vip-paywall-title">BÁO CÁO THẦN SỐ HỌC PYTHAGORAS VIP 2026 – 2027</h2>
             <p class="vip-paywall-desc">
-              Khai phá trọn vẹn 15+ chỉ số rung động chuyên sâu, bản đồ 4 đỉnh cao kim tự tháp theo từng độ tuổi và dự báo chi tiết vận trình 12 tháng năm 2026 - 2027 giúp định hướng sự nghiệp, gia đạo và tài lộc.
+              Bạn đã xem xong <strong>30% bản đồ cơ bản</strong>. Chỉ với <strong>39.000đ</strong>, mở khóa tức thì <strong>70% nội dung chuyên sâu còn lại</strong> để định hướng cuộc đời:
             </p>
             <div class="vip-price-wrap">
               <span class="vip-old-price">129.000 đ</span>
               <span class="vip-current-price">39.000 đ</span>
             </div>
             <div class="vip-features-checklist">
-              <div class="vip-feature-item"><span class="chk">✓</span> Phân tích 15+ chỉ số: Linh hồn, Nhân cách, Thái độ, Đam mê tiềm ẩn</div>
-              <div class="vip-feature-item"><span class="chk">✓</span> Giải mã Kim Tự Tháp 4 đỉnh cao &amp; 4 thử thách định mệnh</div>
-              <div class="vip-feature-item"><span class="chk">✓</span> Dự báo vận trình 12 tháng năm 2026 &amp; 2027 (Năm cá nhân ${res.personalYears.y2026.value})</div>
-              <div class="vip-feature-item"><span class="chk">✓</span> Hướng phát triển sự nghiệp &amp; phong thủy màu sắc hợp tần số</div>
-              <div class="vip-feature-item"><span class="chk">✓</span> Xuất file Báo Cáo VIP PDF A4 trang trọng lưu giữ trọn đời</div>
+              <div class="vip-feature-item"><span class="chk">🔒</span> Phân tích 15+ chỉ số: Linh hồn, Nhân cách, Thái độ, Đam mê tiềm ẩn</div>
+              <div class="vip-feature-item"><span class="chk">🔒</span> Giải mã Kim Tự Tháp 4 đỉnh cao &amp; 4 thử thách định mệnh</div>
+              <div class="vip-feature-item"><span class="chk">🔒</span> Dự báo vận trình 12 tháng năm 2026 &amp; 2027 (Năm cá nhân ${res.personalYears.y2026.value})</div>
+              <div class="vip-feature-item"><span class="chk">🔒</span> Hướng phát triển sự nghiệp &amp; phong thủy màu sắc hợp tần số</div>
+              <div class="vip-feature-item"><span class="chk">🔒</span> Xuất file Báo Cáo VIP PDF A4 trang trọng lưu giữ trọn đời</div>
             </div>
             <button type="button" class="btn-paywall-vietqr" onclick="if(window.TuViMonetize){ TuViMonetize.openVipModal('Gói Thần Số Học VIP (39k)', 39000); } else { window.location.href='/#bang-gia-dich-vu'; }">
-              ⚡ MỞ KHÓA BÁO CÁO VIP NGAY (39.000đ) ➔
+              ⚡ MỞ KHÓA TRỌN BỘ 100% NGAY (39.000đ) ➔
             </button>
-            <p class="vip-guarantee-note">Quét mã VietQR tự động qua SePay · Kích hoạt tức thì sau 3 giây · Hoàn tiền 100% nếu có sự cố</p>
+            <p class="vip-guarantee-note">Quét mã VietQR tự động qua SePay · Kích hoạt tức thì sau 3 giây · Mở khóa 100% tự động</p>
           </div>
         `}
+
+        <!-- ======================================================== -->
+        <!-- PHẦN 2: 70% NỘI DUNG VIP (KHÓA / LÀM MỜ NẾU CHƯA MUA GÓI 39K) -->
+        <!-- ======================================================== -->
+        <div class="num-vip-locked-wrap ${isVipUnlocked ? 'is-unlocked' : 'is-locked'}">
+          <div class="num-locked-content">
+
+            <!-- Nhóm 2: 5 Chỉ Số Hành Vi & Tiềm Thức -->
+            <div class="num-section-block">
+              <h3 class="section-title-royal">✦ II. BỘ 5 CHỈ SỐ HÀNH VI, NỘI LỰC &amp; TIỀM THỨC (BEHAVIORAL &amp; SUBCONSCIOUS) <span class="num-vip-locked-badge">👑 VIP</span> ✦</h3>
+              <p class="section-intro">Giải mã động lực ngầm, phản xạ tâm lý và sức mạnh vô thức định hình các quyết định trọng đại:</p>
+              <div class="core-numbers-grid grid-5">
+                <div class="core-card card-accent-gold">
+                  <div class="core-num">${res.core.attitude.value}</div>
+                  <div class="core-info">
+                    <h4>7. Số Thái Độ</h4>
+                    <p><strong>${attitudeData.name || `Thái Độ Số ${res.core.attitude.value}`}:</strong> ${attitudeData.desc || 'Cách bạn phản ứng bản năng trước các biến cố cuộc sống.'}</p>
+                  </div>
+                </div>
+
+                <div class="core-card card-accent-gold">
+                  <div class="core-num">${res.core.hiddenPassion.value}</div>
+                  <div class="core-info">
+                    <h4>8. Số Đam Mê Tiềm Ẩn</h4>
+                    <p><strong>${passionData.name || `Đam Mê Số ${res.core.hiddenPassion.value}`}:</strong> ${passionData.desc || 'Ngọn lửa nhiệt huyết âm ỉ thôi thúc bạn dấn thân và cống hiến.'}</p>
+                  </div>
+                </div>
+
+                <div class="core-card card-accent-gold">
+                  <div class="core-num">${res.core.balance.value}</div>
+                  <div class="core-info">
+                    <h4>9. Số Cân Bằng</h4>
+                    <p><strong>${balanceData.name || `Cân Bằng Số ${res.core.balance.value}`}:</strong> ${balanceData.desc || 'Bí quyết giúp bạn lấy lại thăng bằng và bình an sau những tổn thương, trắc trở.'}</p>
+                  </div>
+                </div>
+
+                <div class="core-card card-accent-gold">
+                  <div class="core-num">${res.core.subconsciousSelf.value}</div>
+                  <div class="core-info">
+                    <h4>10. Số Phản Ứng Tiềm Thức</h4>
+                    <p><strong>Năng Lực Tự Chủ (${res.core.subconsciousSelf.value}/9):</strong> ${subconsciousData || 'Bản lĩnh vững vàng và tốc độ ứng biến khi đối mặt với khủng hoảng bất ngờ.'}</p>
+                  </div>
+                </div>
+
+                <div class="core-card card-accent-gold">
+                  <div class="core-num">${res.core.firstNameEnergy.value}</div>
+                  <div class="core-info">
+                    <h4>11. Năng Lượng Tên Riêng</h4>
+                    <p><strong>Tên “${res.core.firstNameEnergy.name}” (Số ${res.core.firstNameEnergy.value}):</strong> Tần số sóng âm thường nhật khi mọi người giao tiếp, định hình sức hút cá nhân.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Nhóm 3: 4 Chỉ Số Vận Niên & Nghiệp Lực -->
+            <div class="num-section-block">
+              <h3 class="section-title-royal">✦ III. BỘ 4 CHỈ SỐ VẬN NIÊN &amp; NGHIỆP QUẢ LINH HỒN (CYCLES &amp; KARMIC DEBT) <span class="num-vip-locked-badge">👑 VIP</span> ✦</h3>
+              <p class="section-intro">Soi chiếu bài học nhân quả tiền kiếp và dự báo chu kỳ đón đầu các cơ hội tương lai:</p>
+              <div class="core-numbers-grid">
+                <div class="core-card card-accent-karmic">
+                  <div class="core-num">${res.karmic.hasDebt ? res.karmic.debts.map(d => d.number).join(',') : '0'}</div>
+                  <div class="core-info">
+                    <h4>12. Chỉ Số Nợ Nghiệp</h4>
+                    <p>${res.karmic.hasDebt ? `Mang nợ nghiệp ${res.karmic.debts.map(d => d.number).join(', ')}. Đây là bài học linh hồn tiền kiếp cần hóa giải bằng lối sống chính trực.` : 'Thanh tịnh! Không vướng nợ nghiệp chính (13, 14, 16, 19), tinh thần tự do khai phóng.'}</p>
+                  </div>
+                </div>
+
+                <div class="core-card card-accent-karmic">
+                  <div class="core-num">${res.karmic.missingNumbers.length > 0 ? res.karmic.missingNumbers.join(',') : '✓'}</div>
+                  <div class="core-info">
+                    <h4>13. Bài Học Nghiệp (Số Thiếu)</h4>
+                    <p>${res.karmic.missingNumbers.length > 0 ? `Thiếu các số [${res.karmic.missingNumbers.join(', ')}] trong họ tên. Đây là những đức tính cần chủ động trau dồi.` : 'Họ tên đủ đầy năng lượng từ 1 đến 9, trường năng lượng toàn diện.'}</p>
+                  </div>
+                </div>
+
+                <div class="core-card card-accent-karmic">
+                  <div class="core-num">${res.personalYears.y2026.value}</div>
+                  <div class="core-info">
+                    <h4>14. Vận Niên Cá Nhân 2026</h4>
+                    <p><strong>${py26Data.name || `Năm Cá Nhân ${res.personalYears.y2026.value}`}:</strong> Năm Bính Ngọ 2026 mang từ khóa “${py26Data.keyword || 'Hành động'}”.</p>
+                  </div>
+                </div>
+
+                <div class="core-card card-accent-karmic">
+                  <div class="core-num">${res.personalYears.y2027.value}</div>
+                  <div class="core-info">
+                    <h4>15. Vận Niên Cá Nhân 2027</h4>
+                    <p><strong>${py27Data.name || `Năm Cá Nhân ${res.personalYears.y2027.value}`}:</strong> Năm Đinh Mùi 2027 mang từ khóa “${py27Data.keyword || 'Bứt phá'}”.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4 Thử Thách Định Mệnh Trong Kim Tự Tháp -->
+            <div class="num-section-block">
+              <h3 class="section-title-royal">✦ BẢN ĐỒ 4 THỬ THÁCH ĐỊNH MỆNH TRONG KIM TỰ THÁP (CHALLENGES) <span class="num-vip-locked-badge">👑 VIP</span> ✦</h3>
+              <p class="section-intro">Song hành cùng 4 đỉnh cao thành tựu là 4 bài toán thử thách định mệnh mà linh hồn phải rèn giũa để đạt tới sự thức tỉnh viên mãn:</p>
+              <div class="challenges-grid">
+                ${challengesHtml}
+              </div>
+            </div>
+
+            <!-- Ma Trận 12 Tháng Năm 2026 & 2027 -->
+            <div class="num-section-block">
+              <h3 class="section-title-royal">✦ DỰ BÁO CHI TIẾT 12 THÁNG NĂM 2026 &amp; 2027 <span class="num-vip-locked-badge">👑 VIP</span> ✦</h3>
+              <p class="section-intro">Năng lượng vận niên kết hợp cùng từng tháng chu kỳ vũ trụ giúp đương số chọn đúng thời điểm hành động, đàm phán hợp đồng, tích lũy tài chính và phòng ngừa rủi ro:</p>
+
+              <div class="indicator-group-title">MA TRẬN VẬN TRÌNH 12 THÁNG NĂM 2026 (NĂM CÁ NHÂN ${res.personalYears.y2026.value})</div>
+              <div class="monthly-matrix-grid">
+                ${months2026Html}
+              </div>
+
+              <div class="indicator-group-title" style="margin-top: 2.25rem;">MA TRẬN VẬN TRÌNH 12 THÁNG NĂM 2027 (NĂM CÁ NHÂN ${res.personalYears.y2027.value})</div>
+              <div class="monthly-matrix-grid">
+                ${months2027Html}
+              </div>
+            </div>
+
+            <!-- Feng Shui Energy & Career Guidance (VIP) -->
+            <div class="num-section-block">
+              <h3 class="section-title-royal">✦ CẨM NANG PHONG THỦY NĂNG LƯỢNG &amp; ĐỊNH HƯỚNG SỰ NGHIỆP <span class="num-vip-locked-badge">👑 VIP</span> ✦</h3>
+              <p class="section-intro">Ứng dụng tần số rung động của Số Chủ Đạo ${res.core.lifePath.value} để chọn màu sắc phong thủy, vật phẩm hộ thân, con số may mắn và lĩnh vực sự nghiệp hanh thông nhất:</p>
+              <div class="fengshui-energy-grid">
+                <div class="fengshui-energy-card">
+                  <div class="fengshui-card-title">🎨 Màu Sắc Hợp Tần Số Rung Động</div>
+                  <div class="energy-tags-wrap">
+                    ${((lpData.luckyElements && lpData.luckyElements.colors) || ['Trắng', 'Vàng', 'Xanh lam']).map(c => `<span class="energy-tag">${c}</span>`).join(' ')}
+                  </div>
+                  <p class="energy-desc-text">Màu sắc tương hợp giúp gia tăng sinh khí, cân bằng trường hào quang (aura) và thu hút quý nhân tương trợ trong đời sống thường nhật.</p>
+                </div>
+
+                <div class="fengshui-energy-card">
+                  <div class="fengshui-card-title">💎 Đá Quý &amp; Tinh Thể Hộ Mệnh</div>
+                  <div class="energy-tags-wrap">
+                    ${((lpData.luckyElements && lpData.luckyElements.gemstones) || ['Thạch Anh Vàng', 'Ngọc Bích']).map(g => `<span class="energy-tag tag-gem">${g}</span>`).join(' ')}
+                  </div>
+                  <p class="energy-desc-text">Đeo trang sức hoặc đặt tinh thể phong thủy tương thích tại bàn làm việc giúp trấn định tinh thần, trừ tà và khai mở trực giác linh tính.</p>
+                </div>
+
+                <div class="fengshui-energy-card">
+                  <div class="fengshui-card-title">🔢 Con Số &amp; Ngày Cát Tường</div>
+                  <div class="energy-tags-wrap">
+                    ${((lpData.luckyElements && lpData.luckyElements.numbers) || [1, 2, 8]).map(n => `<span class="energy-tag tag-gold">Số ${n}</span>`).join(' ')}
+                    ${((lpData.luckyElements && lpData.luckyElements.days) || ['Chủ Nhật']).map(d => `<span class="energy-tag">${d}</span>`).join(' ')}
+                  </div>
+                  <p class="energy-desc-text">Ưu tiên chọn số tài khoản, biển số, tầng nhà hoặc ngày trong tuần để ký kết hợp đồng, khai trương, xuất hành đắc tài đắc lộc.</p>
+                </div>
+
+                <div class="fengshui-energy-card" style="grid-column: 1 / -1;">
+                  <div class="fengshui-card-title">💼 Định Hướng Sự Nghiệp &amp; Dòng Chảy Tài Chính</div>
+                  <p class="energy-desc-text"><strong>Tổng quan sự nghiệp:</strong> ${lpData.careerFinance ? lpData.careerFinance.overview : 'Phù hợp với các công việc đòi hỏi tư duy chiến lược và sự tận tâm.'}</p>
+                  ${lpData.careerFinance && lpData.careerFinance.financialPattern ? `<p class="energy-desc-text"><strong>Xu hướng tài chính:</strong> ${lpData.careerFinance.financialPattern}</p>` : ''}
+                  <div style="margin-top: 0.6rem;">
+                    <strong style="color: var(--ink); font-size: 0.88rem; display:block; margin-bottom: 0.4rem;">Lĩnh vực phát triển tối ưu:</strong>
+                    <div class="energy-tags-wrap">
+                      ${((lpData.careerFinance && lpData.careerFinance.suitableFields) || ['Tư vấn', 'Giáo dục', 'Kinh doanh', 'Quản lý']).map(f => `<span class="energy-tag tag-gold">${f}</span>`).join(' ')}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="fengshui-energy-card" style="grid-column: 1 / -1;">
+                  <div class="fengshui-card-title">🌿 Dưỡng Sinh Thể Chất &amp; Năng Lượng Tinh Thần</div>
+                  <p class="energy-desc-text"><strong>Cơ địa &amp; thể lực:</strong> ${lpData.health ? lpData.health.overview : 'Cần chú ý giữ gìn năng lượng, tránh làm việc kiệt sức.'}</p>
+                  ${lpData.health && lpData.health.concerns && lpData.health.concerns.length > 0 ? `<p class="energy-desc-text"><strong>Bộ phận cần lưu tâm:</strong> ${lpData.health.concerns.join(', ')}</p>` : ''}
+                  <p class="energy-desc-text" style="color: var(--seal); background: rgba(163,40,31,0.05); padding: 0.5rem 0.75rem; border-radius: 4px; margin-top: 0.4rem;"><strong>Lời khuyên dưỡng sinh:</strong> ${lpData.health ? lpData.health.advice : 'Thiền định, thể dục điều độ và hòa mình cùng thiên nhiên để thanh lọc từ trường.'}</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Deep Life Path Interpretations -->
+            <div class="num-section-block">
+              <h3 class="section-title-royal">✦ BẢN ĐỒ LUẬN GIẢI TOÀN DIỆN CHO SỐ CHỦ ĐẠO ${res.core.lifePath.value} <span class="num-vip-locked-badge">👑 VIP</span> ✦</h3>
+              <div class="interpretation-tabs">
+                <div class="inter-card">
+                  <h4>🌟 Điểm Mạnh Thiên Phú</h4>
+                  <ul>
+                    ${(lpData.strengths || []).map(s => `<li>${s}</li>`).join('')}
+                  </ul>
+                </div>
+
+                <div class="inter-card">
+                  <h4>⚠️ Thử Thách &amp; Điểm Cần Chuyển Hóa</h4>
+                  <ul>
+                    ${(lpData.weaknesses || []).map(w => `<li>${w}</li>`).join('')}
+                  </ul>
+                </div>
+
+                <div class="inter-card">
+                  <h4>💼 Nghề Nghiệp &amp; Vận Trình Tài Chính</h4>
+                  <p>${lpData.careerFinance ? lpData.careerFinance.overview : ''}</p>
+                  <div class="suitable-jobs">
+                    <strong>Lĩnh vực tối ưu:</strong>
+                    ${((lpData.careerFinance && lpData.careerFinance.suitableFields) || []).map(f => `<span class="job-pill">${f}</span>`).join(' ')}
+                  </div>
+                </div>
+
+                <div class="inter-card">
+                  <h4>❤️ Tình Duyên &amp; Mối Quan Hệ</h4>
+                  <p>${lpData.relationships ? lpData.relationships.love : ''}</p>
+                </div>
+
+                <div class="inter-card">
+                  <h4>🧘 Sức Khỏe &amp; Thể Lực</h4>
+                  <p>${lpData.health ? lpData.health.overview : ''}</p>
+                  <p><em>Lời khuyên: ${lpData.health ? lpData.health.advice : ''}</em></p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Karmic Debt Section -->
+            <div class="num-section-block">
+              <h3 class="section-title-royal">✦ PHÂN TÍCH NỢ NGHIỆP &amp; BÀI HỌC LINH HỒN <span class="num-vip-locked-badge">👑 VIP</span> ✦</h3>
+              <div class="karmic-list">
+                ${karmicHtml}
+              </div>
+            </div>
+
+          </div>
+
+          ${!isVipUnlocked ? `
+            <div class="num-locked-print-notice">
+              ✦ Báo cáo đang ở chế độ xem trước 30%. Để xem và in toàn bộ 100% (15+ chỉ số, 4 đỉnh cao &amp; 4 thử thách kim tự tháp, dự báo 12 tháng 2026-2027, cẩm nang phong thủy &amp; xuất PDF A4), quý khách vui lòng mở khóa gói Thần Số Học VIP (39.000đ) tại www.xemtuvihuyenhoc.com ✦
+            </div>
+          ` : ''}
+        </div>
+
+        ${!isVipUnlocked ? `
+          <div style="text-align: center; margin: 2rem 0 1rem;">
+            <button type="button" class="btn-paywall-vietqr" onclick="if(window.TuViMonetize){ TuViMonetize.openVipModal('Gói Thần Số Học VIP (39k)', 39000); } else { window.location.href='/#bang-gia-dich-vu'; }">
+              ⚡ MỞ KHÓA TRỌN BỘ 100% NGAY (39.000đ) ➔
+            </button>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Quét mã VietQR tự động qua SePay · Kích hoạt ngay sau 3 giây</p>
+          </div>
+        ` : ''}
 
         <!-- Seamless Action Cross-link Card -->
         <div class="cross-link-card">
@@ -1071,7 +1125,7 @@
             <div class="cross-icon">📜</div>
             <div>
               <h3>KẾT HỢP TỬ VI ĐẨU SỐ TOÀN THƯ</h3>
-              <p>Thần Số Học Pythagoras khai mở tần số sóng rung động của Họ Tên & Ngày Sinh. Hãy kết hợp ngay với <strong>Lá Số Tử Vi 12 Cung</strong> để xem chi tiết Cung Tài Bạch, Quan Lộc, Phu Thê và Vận Hạn từng năm!</p>
+              <p>Thần Số Học Pythagoras khai mở tần số sóng rung động của Họ Tên &amp; Ngày Sinh. Hãy kết hợp ngay với <strong>Lá Số Tử Vi 12 Cung</strong> để xem chi tiết Cung Tài Bạch, Quan Lộc, Phu Thê và Vận Hạn từng năm!</p>
             </div>
           </div>
           <div class="cross-link-buttons">
@@ -1079,7 +1133,7 @@
               ✦ Lập Lá Số Tử Vi Ngay Cho ${res.fullName} ➔
             </a>
             <a href="/hop-tuoi?name1=${encodeURIComponent(res.fullName)}&dob1=${res.birthDate}" class="btn-secondary-action">
-              ❤️ Xem Hợp Tuổi Tình Duyên & Làm Ăn
+              ❤️ Xem Hợp Tuổi Tình Duyên &amp; Làm Ăn
             </a>
             <button onclick="window.print()" class="btn-secondary-action">
               🖨️ In Báo Cáo

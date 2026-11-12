@@ -7951,6 +7951,33 @@ html {
     margin-bottom: 12px !important;
   }
 
+  /* Ẩn nội dung khóa mờ khi chưa mở VIP trên bản in */
+  .num-vip-locked-wrap.is-locked .num-locked-content,
+  .num-vip-locked-wrap.is-locked::after,
+  .preview-ratio-bar,
+  .num-vip-paywall-box {
+    display: none !important;
+  }
+
+  .num-locked-print-notice {
+    display: none;
+  }
+
+  .num-vip-locked-wrap.is-locked .num-locked-print-notice {
+    display: block !important;
+    text-align: center !important;
+    padding: 16px 20px !important;
+    border: 1.5px dashed #A3281F !important;
+    background: #FFFDF9 !important;
+    margin: 20px auto !important;
+    font-size: 9.5pt !important;
+    color: #A3281F !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    max-width: 600px !important;
+    line-height: 1.5 !important;
+  }
+
   /* 7. KHỐI HỢP TUỔI BÁT TỰ (#compatibilityResultContainer) */
   #compatibilityResultContainer,
   .compatibility-report-wrap,
