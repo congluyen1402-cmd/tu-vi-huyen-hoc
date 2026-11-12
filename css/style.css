@@ -2300,11 +2300,15 @@ a:hover {
 
 .pricing-price {
   font-family: var(--font-heading);
-  font-size: 2.2rem;
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
   font-weight: 800;
-  color: var(--gold-light);
+  color: var(--seal);
   line-height: 1.2;
   letter-spacing: 0.02em;
+  white-space: nowrap !important;
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
 }
 
 .pricing-features {
@@ -5508,18 +5512,37 @@ h1, h2, h3, h4, h5, h6, .font-heading, .section-title {
   border-top: 1px solid var(--line) !important;
   border-bottom: 1px solid var(--line) !important;
   padding: 1rem 0 !important;
+  text-align: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 .pricing-price {
   font-family: var(--font-heading) !important;
-  font-size: 2rem !important;
-  font-weight: 600 !important;
-  color: var(--ink) !important;
+  font-size: clamp(1.5rem, 2.2vw, 2rem) !important;
+  font-weight: 700 !important;
+  color: var(--seal) !important;
+  white-space: nowrap !important;
+  display: inline-flex !important;
+  align-items: baseline !important;
+  justify-content: center !important;
+  line-height: 1.2 !important;
+}
+.pricing-unit {
+  font-size: 0.92rem !important;
+  font-weight: 500 !important;
+  color: var(--text-muted) !important;
+  white-space: nowrap !important;
+  margin-left: 4px !important;
 }
 .pricing-old-price {
   color: var(--text-muted) !important;
   font-size: 0.95rem !important;
   text-decoration: line-through !important;
   display: block !important;
+  white-space: nowrap !important;
+  margin-bottom: 4px !important;
 }
 .pricing-features {
   list-style: none !important;
