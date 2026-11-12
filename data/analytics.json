@@ -1,7 +1,7 @@
 {
   "summary": {
-    "totalPageViews": 84,
-    "uniqueVisitors": 21,
+    "totalPageViews": 88,
+    "uniqueVisitors": 23,
     "totalLaSoCalculated": 3,
     "totalPalaceClicks": 36,
     "totalVipModalOpens": 3,
@@ -114,9 +114,57 @@
       "firstSeen": "2026-11-12T07:01:52.004Z",
       "eventsCount": 2,
       "lastSeen": "2026-11-12T07:01:52.014Z"
+    },
+    "vis_mwd7ocg2_1d5kvhk": {
+      "firstSeen": "2026-11-12T07:13:18.664Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-12T07:13:18.674Z"
+    },
+    "vis_mwd7rkvx_65o6k24": {
+      "firstSeen": "2026-11-12T07:15:49.595Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-12T07:15:49.611Z"
     }
   },
   "events": [
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwd7rkvx_65o6k24",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-12T07:15:49.611Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwd7rkvx_65o6k24",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "390x844",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-12T07:15:49.595Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwd7ocg2_1d5kvhk",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-12T07:13:18.674Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwd7ocg2_1d5kvhk",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "390x844",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-12T07:13:18.664Z"
+    },
     {
       "eventType": "page_view",
       "visitorId": "vis_mwd79mi0_a6ombaq",
@@ -1050,7 +1098,7 @@
       "paidOrders": 2
     },
     "2026-11-12": {
-      "pageViews": 84,
+      "pageViews": 88,
       "visitors": [
         "vis_mwcy47df_5b1kbea",
         "vis_mwcy47df_ax7xzqf",
@@ -1072,7 +1120,9 @@
         "vis_mwd2unj5_dv6gr75",
         "vis_mwd2vidz_bftr754",
         "vis_mwd6tfmc_31wem6m",
-        "vis_mwd79mi0_a6ombaq"
+        "vis_mwd79mi0_a6ombaq",
+        "vis_mwd7ocg2_1d5kvhk",
+        "vis_mwd7rkvx_65o6k24"
       ],
       "laSoCount": 3,
       "vipOpens": 3,
