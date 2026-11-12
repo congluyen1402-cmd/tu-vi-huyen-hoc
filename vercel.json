@@ -31,6 +31,14 @@
   ],
   "rewrites": [
     {
+      "source": "/than-so-hoc",
+      "destination": "/than-so-hoc.html"
+    },
+    {
+      "source": "/hop-tuoi",
+      "destination": "/hop-tuoi.html"
+    },
+    {
       "source": "/admin",
       "destination": "/admin.html"
     },

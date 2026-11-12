@@ -495,6 +495,12 @@ const TuViChart = {
         <button type="button" class="btn-toolbar btn-toolbar-png" onclick="TuViChart.downloadChartPng()">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline;vertical-align:-2px;margin-right:5px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Tải lá số
         </button>
+        <button type="button" class="btn-toolbar btn-toolbar-numerology" onclick="TuViChart.openNumerologyForCurrent()" style="background: rgba(163,40,31,0.06); color: var(--seal); border-color: var(--seal); font-weight: 600;">
+          🔮 Thần Số Học
+        </button>
+        <button type="button" class="btn-toolbar btn-toolbar-compatibility" onclick="TuViChart.openCompatibilityForCurrent()" style="color: var(--text); border-color: var(--line); font-weight: 600;">
+          ❤️ Hợp Tuổi
+        </button>
         <button type="button" class="btn-toolbar btn-toolbar-viral" onclick="TuViShare.generateCard(TuViChart._currentLaSo)" style="background: rgba(163,40,31,0.08); color: var(--seal); border-color: var(--seal); font-weight: 600;">
           ✨ Thẻ Mệnh Bàn Viral
         </button>
@@ -572,6 +578,27 @@ const TuViChart = {
         <button type="button" class="btn-viral-wrapped-share" onclick="TuViShare.generateCard(TuViChart._currentLaSo)">
           ✨ Tải Thẻ Tóm Tắt Mệnh Bàn 2026 (Đăng Threads / TikTok / Story)
         </button>
+      </div>
+
+      <!-- KẾT HỢP THẦN SỐ HỌC PYTHAGORAS & BÁT TỰ (CỔ HỌC TINH HOA) -->
+      <div class="huyen-hoc-cross-banner" style="background: var(--card); border: 2px solid var(--brass); border-radius: 12px; padding: 1.25rem 1.5rem; margin: 1.5rem auto; max-width: 780px; box-shadow: var(--shadow-sm); text-align: left;">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;">
+          <div style="flex: 1; min-width: 260px;">
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--seal); letter-spacing: 1px;">✦ CỔ HỌC TINH HOA ✦</div>
+            <h4 style="font-family: var(--font-heading); font-size: 1.15rem; color: var(--ink); margin: 0.25rem 0;">Khám Phá Thần Số Học Pythagoras Cho Đương Số</h4>
+            <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">
+              Kết hợp Tử Vi Đẩu Số cùng Thần Số Học Pythagoras để khám phá <strong>Số Chủ Đạo, 4 Đỉnh Cao Cuộc Đời</strong> và <strong>Vận Hạn Năm 2026 - 2027</strong>.
+            </p>
+          </div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button type="button" class="btn-toolbar" onclick="TuViChart.openNumerologyForCurrent()" style="background: var(--seal); color: #fff; border-color: var(--seal); font-weight: 600; padding: 0.6rem 1.1rem; cursor: pointer;">
+              🔮 Tra Thần Số Học Ngay ➔
+            </button>
+            <button type="button" class="btn-toolbar" onclick="TuViChart.openCompatibilityForCurrent()" style="background: #FFFDF9; color: var(--ink); border-color: var(--line); font-weight: 600; padding: 0.6rem 1rem; cursor: pointer;">
+              ❤️ Xem Hợp Tuổi
+            </button>
+          </div>
+        </div>
       </div>
     `;
 
@@ -1081,6 +1108,22 @@ const TuViChart = {
       window.removeEventListener('keydown', this._sheetEscListener);
       this._sheetEscListener = null;
     }
+  },
+
+  openNumerologyForCurrent: function () {
+    if (!this._currentLaSo) return;
+    const name = this._currentLaSo.hoTen || '';
+    const s = this._currentLaSo.solarDate || {};
+    const dob = s.year ? `${s.year}-${String(s.month).padStart(2, '0')}-${String(s.day).padStart(2, '0')}` : '';
+    window.location.href = `/than-so-hoc?name=${encodeURIComponent(name)}&dob=${dob}`;
+  },
+
+  openCompatibilityForCurrent: function () {
+    if (!this._currentLaSo) return;
+    const name = this._currentLaSo.hoTen || '';
+    const s = this._currentLaSo.solarDate || {};
+    const dob = s.year ? `${s.year}-${String(s.month).padStart(2, '0')}-${String(s.day).padStart(2, '0')}` : '';
+    window.location.href = `/hop-tuoi?name1=${encodeURIComponent(name)}&dob1=${dob}`;
   },
 
   /**

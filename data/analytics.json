@@ -1,11 +1,13 @@
 {
   "summary": {
-    "totalPageViews": 66,
-    "uniqueVisitors": 12,
+    "totalPageViews": 74,
+    "uniqueVisitors": 16,
     "totalLaSoCalculated": 3,
     "totalPalaceClicks": 36,
     "totalVipModalOpens": 3,
-    "totalPaidOrders": 2
+    "totalPaidOrders": 2,
+    "totalNumerologyLookups": 2,
+    "totalCompatibilityLookups": 2
   },
   "visitors": {
     "vis_mwcy47df_5b1kbea": {
@@ -67,9 +69,99 @@
       "firstSeen": "2026-11-12T02:45:52.147Z",
       "eventsCount": 2,
       "lastSeen": "2026-11-12T02:45:52.314Z"
+    },
+    "vis_mwd29aei_kqy2ww": {
+      "firstSeen": "2026-11-12T04:41:37.772Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-12T04:41:38.528Z"
+    },
+    "vis_mwd29d7f_92susw": {
+      "firstSeen": "2026-11-12T04:41:41.405Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-12T04:41:42.997Z"
+    },
+    "vis_mwd2bbig_5xeh8d": {
+      "firstSeen": "2026-11-12T04:43:12.523Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-12T04:43:13.277Z"
+    },
+    "vis_mwd2bebr_9f5cw4": {
+      "firstSeen": "2026-11-12T04:43:16.169Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-12T04:43:17.796Z"
     }
   },
   "events": [
+    {
+      "eventType": "hop_tuoi_tra_cuu",
+      "visitorId": "vis_mwd2bebr_9f5cw4",
+      "details": {
+        "person1": "Nguyễn Văn Nam",
+        "person2": "Lê Thị Mai",
+        "type": "love"
+      },
+      "timestamp": "2026-11-12T04:43:17.796Z"
+    },
+    {
+      "eventType": "hop_tuoi_view",
+      "visitorId": "vis_mwd2bebr_9f5cw4",
+      "details": {
+        "path": "/hop-tuoi"
+      },
+      "timestamp": "2026-11-12T04:43:16.169Z"
+    },
+    {
+      "eventType": "than_so_hoc_tra_cuu",
+      "visitorId": "vis_mwd2bbig_5xeh8d",
+      "details": {
+        "fullName": "Trần Công Luyện",
+        "birthDate": "1995-10-14"
+      },
+      "timestamp": "2026-11-12T04:43:13.277Z"
+    },
+    {
+      "eventType": "than_so_hoc_view",
+      "visitorId": "vis_mwd2bbig_5xeh8d",
+      "details": {
+        "path": "/than-so-hoc"
+      },
+      "timestamp": "2026-11-12T04:43:12.523Z"
+    },
+    {
+      "eventType": "hop_tuoi_tra_cuu",
+      "visitorId": "vis_mwd29d7f_92susw",
+      "details": {
+        "person1": "Nguyễn Văn Nam",
+        "person2": "Lê Thị Mai",
+        "type": "love"
+      },
+      "timestamp": "2026-11-12T04:41:42.997Z"
+    },
+    {
+      "eventType": "hop_tuoi_view",
+      "visitorId": "vis_mwd29d7f_92susw",
+      "details": {
+        "path": "/hop-tuoi"
+      },
+      "timestamp": "2026-11-12T04:41:41.405Z"
+    },
+    {
+      "eventType": "than_so_hoc_tra_cuu",
+      "visitorId": "vis_mwd29aei_kqy2ww",
+      "details": {
+        "fullName": "Trần Công Luyện",
+        "birthDate": "1995-10-14"
+      },
+      "timestamp": "2026-11-12T04:41:38.528Z"
+    },
+    {
+      "eventType": "than_so_hoc_view",
+      "visitorId": "vis_mwd29aei_kqy2ww",
+      "details": {
+        "path": "/than-so-hoc"
+      },
+      "timestamp": "2026-11-12T04:41:37.772Z"
+    },
     {
       "eventType": "page_view",
       "visitorId": "vis_mwcy4eqw_az1gw49",
@@ -838,7 +930,7 @@
       "paidOrders": 2
     },
     "2026-11-12": {
-      "pageViews": 66,
+      "pageViews": 74,
       "visitors": [
         "vis_mwcy47df_5b1kbea",
         "vis_mwcy47df_ax7xzqf",
@@ -851,12 +943,18 @@
         "vis_mwcy49go_rtx41n8",
         "vis_mwcy4dty_xi63jlz",
         "vis_mwcy4dv3_n3g1112",
-        "vis_mwcy4eqw_az1gw49"
+        "vis_mwcy4eqw_az1gw49",
+        "vis_mwd29aei_kqy2ww",
+        "vis_mwd29d7f_92susw",
+        "vis_mwd2bbig_5xeh8d",
+        "vis_mwd2bebr_9f5cw4"
       ],
       "laSoCount": 3,
       "vipOpens": 3,
       "revenue": 0,
-      "paidOrders": 0
+      "paidOrders": 0,
+      "numerologyCount": 2,
+      "compatibilityCount": 2
     }
   }
 }

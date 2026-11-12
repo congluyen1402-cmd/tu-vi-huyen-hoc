@@ -970,6 +970,12 @@ const server = http.createServer(async (req, res) => {
             writeJsonFile(LASO_LOGS_FILE, lasoLogs);
           }
         }
+      } else if (eventType === 'than_so_hoc_tra_cuu') {
+        analytics.summary.totalNumerologyLookups = (analytics.summary.totalNumerologyLookups || 0) + 1;
+        analytics.dailyStats[vnDate].numerologyCount = (analytics.dailyStats[vnDate].numerologyCount || 0) + 1;
+      } else if (eventType === 'hop_tuoi_tra_cuu') {
+        analytics.summary.totalCompatibilityLookups = (analytics.summary.totalCompatibilityLookups || 0) + 1;
+        analytics.dailyStats[vnDate].compatibilityCount = (analytics.dailyStats[vnDate].compatibilityCount || 0) + 1;
       } else if (eventType === 'payment_success') {
         analytics.summary.totalPaidOrders = (analytics.summary.totalPaidOrders || 0) + 1;
         analytics.dailyStats[vnDate].paidOrders = (analytics.dailyStats[vnDate].paidOrders || 0) + 1;
@@ -1706,6 +1712,8 @@ const server = http.createServer(async (req, res) => {
     posts = readJsonFile(POSTS_FILE, []);
     let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
     xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>\n`;
+    xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/than-so-hoc</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>\n`;
+    xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/hop-tuoi</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>\n`;
     xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/blog</loc><changefreq>daily</changefreq><priority>0.9</priority></url>\n`;
     xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/chinh-sach-bao-mat</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
     xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/chinh-sach-hoan-tien-ho-tro</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
@@ -1813,6 +1821,10 @@ const server = http.createServer(async (req, res) => {
     safePath = '/admin.html';
   } else if (safePath === '/blog' || safePath === '\\blog' || safePath === '/blog/' || safePath === '\\blog\\') {
     safePath = '/blog.html';
+  } else if (safePath === '/than-so-hoc' || safePath === '\\than-so-hoc' || safePath === '/than-so-hoc/' || safePath === '\\than-so-hoc\\') {
+    safePath = '/than-so-hoc.html';
+  } else if (safePath === '/hop-tuoi' || safePath === '\\hop-tuoi' || safePath === '/hop-tuoi/' || safePath === '\\hop-tuoi\\') {
+    safePath = '/hop-tuoi.html';
   }
 
   let filePath = path.join(__dirname, safePath);

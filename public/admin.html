@@ -1818,6 +1818,14 @@
           icon = 'compass';
           color = '#fbbf24';
           text = `<strong>${ev.details?.hoTen || 'Khách'}</strong> vừa lập lá số Tử Vi`;
+        } else if (ev.eventType === 'than_so_hoc_tra_cuu') {
+          icon = 'sparkles';
+          color = '#38bdf8';
+          text = `Khách <strong>${ev.details?.fullName || ''}</strong> vừa tra cứu Thần Số Học Pythagoras`;
+        } else if (ev.eventType === 'hop_tuoi_tra_cuu') {
+          icon = 'heart';
+          color = '#f43f5e';
+          text = `Khách vừa bói hợp tuổi: <strong>${ev.details?.person1 || ''}</strong> ✕ <strong>${ev.details?.person2 || ''}</strong>`;
         } else if (ev.eventType === 'view_cung') {
           icon = 'book-open';
           color = '#a78bfa';
