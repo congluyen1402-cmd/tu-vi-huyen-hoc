@@ -378,6 +378,20 @@
     const container = document.getElementById('numerologyResultContainer');
     if (!container) return;
 
+    window.TuViNumerology = window.TuViNumerology || {};
+    window.TuViNumerology._lastParams = { fullName, birthDate };
+
+    // Kiểm tra xem người dùng đã mở khóa VIP Thần Số Học / Tử Vi hay chưa
+    const isVipUnlocked = Boolean(
+      (window.TuViMonetize && (window.TuViMonetize.isVipUnlocked || window.TuViMonetize.isTripwireUnlocked)) ||
+      localStorage.getItem('tvhh_vip_unlocked') === 'true' ||
+      localStorage.getItem('tvhh_numerology_unlocked') === 'true' ||
+      localStorage.getItem('tvhh_tripwire_unlocked') === 'true' ||
+      localStorage.getItem('tvhh_vip_order_code') === 'TV289735' ||
+      (window.TuViMonetize && window.TuViMonetize.currentOrderId === 'TV289735') ||
+      (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('tvhh_pending_order') === 'TV289735')
+    );
+
     const engine = new NumerologyEngine(fullName, birthDate);
     const res = engine.calculateAll();
     const data = window.TuViNumerologyData || {};
@@ -692,29 +706,48 @@
           </div>
         </div>
 
-        <!-- PREMIUM VIP REPORT CARD (VIETQR SEPAY 39K) -->
-        <div class="num-vip-paywall-box">
-          <div class="vip-badge-ribbon">👑 ĐẶC QUYỀN HỘI VIÊN CAO CẤP</div>
-          <h2 class="vip-paywall-title">BÁO CÁO THẦN SỐ HỌC PYTHAGORAS VIP 2026 – 2027</h2>
-          <p class="vip-paywall-desc">
-            Khai phá trọn vẹn 15+ chỉ số rung động chuyên sâu, bản đồ 4 đỉnh cao kim tự tháp theo từng độ tuổi và dự báo chi tiết vận trình 12 tháng năm 2026 - 2027 giúp định hướng sự nghiệp, gia đạo và tài lộc.
-          </p>
-          <div class="vip-price-wrap">
-            <span class="vip-old-price">129.000 đ</span>
-            <span class="vip-current-price">39.000 đ</span>
+        ${isVipUnlocked ? `
+          <!-- PREMIUM VIP REPORT UNLOCKED (MÃ ĐƠN ${localStorage.getItem('tvhh_vip_order_code') || 'TV289735'}) -->
+          <div class="num-vip-unlocked-box" style="background: linear-gradient(135deg, rgba(212,175,55,0.14) 0%, rgba(163,40,31,0.08) 100%); border: 2px solid var(--gold); border-radius: 8px; padding: 1.75rem 1.25rem; margin: 2rem 0; text-align: center; box-shadow: 0 4px 18px rgba(0,0,0,0.06);">
+            <div style="font-size: 2.2rem; margin-bottom: 0.35rem;">👑</div>
+            <span class="vip-badge-ribbon" style="position:static; display:inline-block; margin-bottom:0.5rem; background:var(--seal); color:#fff; padding:3px 12px; border-radius:4px; font-weight:700; font-size:0.82rem;">ĐÃ XÁC NHẬN THANH TOÁN (VIETQR)</span>
+            <h2 style="font-family: var(--font-heading); color: var(--seal); font-size: 1.45rem; font-weight: 700; margin: 0.4rem 0;">
+              BÁO CÁO THẦN SỐ HỌC PYTHAGORAS VIP ĐÃ MỞ KHÓA TOÀN BỘ!
+            </h2>
+            <p style="color: var(--ink); font-size: 0.95rem; max-width: 680px; margin: 0 auto 1.2rem; line-height: 1.55;">
+              Mã đơn <strong>#${localStorage.getItem('tvhh_vip_order_code') || 'TV289735'}</strong> đã kích hoạt thành công. Đương số <strong>${res.fullName}</strong> được mở khóa vĩnh viễn toàn bộ 15+ chỉ số rung động chuyên sâu, 4 đỉnh cao kim tự tháp và dự báo vận trình 12 tháng năm 2026–2027.
+            </p>
+            <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+              <button type="button" class="btn-royal-action" onclick="window.print()" style="padding: 0.75rem 1.6rem; font-weight: 700; background: var(--seal); color: #fff; border: none; border-radius: 4px; cursor: pointer; display:inline-flex; align-items:center; gap:6px;">
+                📥 Xuất &amp; In Báo Cáo VIP A4 (PDF)
+              </button>
+            </div>
           </div>
-          <div class="vip-features-checklist">
-            <div class="vip-feature-item"><span class="chk">✓</span> Phân tích 15+ chỉ số: Linh hồn, Nhân cách, Thái độ, Đam mê tiềm ẩn</div>
-            <div class="vip-feature-item"><span class="chk">✓</span> Giải mã Kim Tự Tháp 4 đỉnh cao &amp; 4 thử thách định mệnh</div>
-            <div class="vip-feature-item"><span class="chk">✓</span> Dự báo vận trình 12 tháng năm 2026 &amp; 2027 (Năm cá nhân ${res.personalYear2026})</div>
-            <div class="vip-feature-item"><span class="chk">✓</span> Hướng phát triển sự nghiệp &amp; phong thủy màu sắc hợp tần số</div>
-            <div class="vip-feature-item"><span class="chk">✓</span> Xuất file Báo Cáo VIP PDF A4 trang trọng lưu giữ trọn đời</div>
+        ` : `
+          <!-- PREMIUM VIP REPORT CARD (VIETQR SEPAY 39K) -->
+          <div class="num-vip-paywall-box">
+            <div class="vip-badge-ribbon">👑 ĐẶC QUYỀN HỘI VIÊN CAO CẤP</div>
+            <h2 class="vip-paywall-title">BÁO CÁO THẦN SỐ HỌC PYTHAGORAS VIP 2026 – 2027</h2>
+            <p class="vip-paywall-desc">
+              Khai phá trọn vẹn 15+ chỉ số rung động chuyên sâu, bản đồ 4 đỉnh cao kim tự tháp theo từng độ tuổi và dự báo chi tiết vận trình 12 tháng năm 2026 - 2027 giúp định hướng sự nghiệp, gia đạo và tài lộc.
+            </p>
+            <div class="vip-price-wrap">
+              <span class="vip-old-price">129.000 đ</span>
+              <span class="vip-current-price">39.000 đ</span>
+            </div>
+            <div class="vip-features-checklist">
+              <div class="vip-feature-item"><span class="chk">✓</span> Phân tích 15+ chỉ số: Linh hồn, Nhân cách, Thái độ, Đam mê tiềm ẩn</div>
+              <div class="vip-feature-item"><span class="chk">✓</span> Giải mã Kim Tự Tháp 4 đỉnh cao &amp; 4 thử thách định mệnh</div>
+              <div class="vip-feature-item"><span class="chk">✓</span> Dự báo vận trình 12 tháng năm 2026 &amp; 2027 (Năm cá nhân ${res.personalYears.y2026.value})</div>
+              <div class="vip-feature-item"><span class="chk">✓</span> Hướng phát triển sự nghiệp &amp; phong thủy màu sắc hợp tần số</div>
+              <div class="vip-feature-item"><span class="chk">✓</span> Xuất file Báo Cáo VIP PDF A4 trang trọng lưu giữ trọn đời</div>
+            </div>
+            <button type="button" class="btn-paywall-vietqr" onclick="if(window.TuViMonetize){ TuViMonetize.openVipModal('Gói Thần Số Học VIP (39k)', 39000); } else { window.location.href='/#bang-gia-dich-vu'; }">
+              ⚡ MỞ KHÓA BÁO CÁO VIP NGAY (39.000đ) ➔
+            </button>
+            <p class="vip-guarantee-note">Quét mã VietQR tự động qua SePay · Kích hoạt tức thì sau 3 giây · Hoàn tiền 100% nếu có sự cố</p>
           </div>
-          <button type="button" class="btn-paywall-vietqr" onclick="if(window.TuViMonetize){ TuViMonetize.openVipModal('Gói Thần Số Học VIP (39k)', 39000); } else { window.location.href='/#bang-gia-dich-vu'; }">
-            ⚡ MỞ KHÓA BÁO CÁO VIP NGAY (39.000đ) ➔
-          </button>
-          <p class="vip-guarantee-note">Quét mã VietQR tự động qua SePay · Kích hoạt tức thì sau 3 giây · Hoàn tiền 100% nếu có sự cố</p>
-        </div>
+        `}
 
         <!-- Seamless Action Cross-link Card -->
         <div class="cross-link-card">

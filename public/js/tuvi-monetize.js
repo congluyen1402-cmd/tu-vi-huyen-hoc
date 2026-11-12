@@ -592,6 +592,9 @@
       if (typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) {
         TuViChart.renderLuanGiai(TuViChart._currentLaSo);
       }
+      if (typeof TuViNumerology !== 'undefined' && TuViNumerology._lastParams) {
+        TuViNumerology.renderResult(TuViNumerology._lastParams.fullName, TuViNumerology._lastParams.birthDate);
+      }
 
       // HIỆN MÀN HÌNH "XÁC NHẬN THANH TOÁN THÀNH CÔNG" TRONG MODAL (TỰ ĐỘNG BẬT NẾU ĐANG ĐÓNG)
       let modal = document.getElementById('tuvi-vip-modal');
