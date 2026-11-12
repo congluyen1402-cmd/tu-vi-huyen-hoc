@@ -278,6 +278,85 @@
       };
     }
 
+    // 12. Số Đam Mê Tiềm Ẩn (Hidden Passion Number)
+    getHiddenPassion() {
+      const letterCounts = {};
+      for (const ch of this.normName) {
+        const v = PYTHAGOREAN_VALUES[ch];
+        if (v) letterCounts[v] = (letterCounts[v] || 0) + 1;
+      }
+      let maxC = 0;
+      let passionVal = 1;
+      for (let i = 1; i <= 9; i++) {
+        const c = letterCounts[i] || 0;
+        if (c > maxC) {
+          maxC = c;
+          passionVal = i;
+        }
+      }
+      return {
+        value: passionVal,
+        count: maxC
+      };
+    }
+
+    // 13. Số Cân Bằng (Balance Number)
+    getBalanceNumber() {
+      const words = this.rawName.split(/\s+/).filter(Boolean);
+      let sum = 0;
+      words.forEach(w => {
+        const normW = normalizeVietnamese(w);
+        if (normW.length > 0 && PYTHAGOREAN_VALUES[normW[0]]) {
+          sum += PYTHAGOREAN_VALUES[normW[0]];
+        }
+      });
+      return {
+        value: reduceNumber(sum, false) || 1,
+        total: sum
+      };
+    }
+
+    // 14. Số Phản Ứng Tiềm Thức (Subconscious Self Number)
+    getSubconsciousSelf(missingCount) {
+      const val = 9 - (missingCount || 0);
+      return {
+        value: Math.max(1, Math.min(9, val))
+      };
+    }
+
+    // 15. Năng Lượng Tên Riêng (First Name Energy)
+    getFirstNameEnergy() {
+      const words = this.rawName.split(/\s+/).filter(Boolean);
+      const firstName = words.length > 0 ? words[words.length - 1] : this.rawName;
+      const normFirst = normalizeVietnamese(firstName);
+      let sum = 0;
+      for (let i = 0; i < normFirst.length; i++) {
+        if (PYTHAGOREAN_VALUES[normFirst[i]]) {
+          sum += PYTHAGOREAN_VALUES[normFirst[i]];
+        }
+      }
+      return {
+        name: firstName,
+        value: reduceNumber(sum, true),
+        total: sum
+      };
+    }
+
+    // 16. Dự Báo 12 Tháng Cá Nhân (12 Personal Months)
+    getPersonalMonths(pyValue, year) {
+      const months = [];
+      for (let m = 1; m <= 12; m++) {
+        const total = pyValue + m;
+        const val = reduceNumber(total, false);
+        months.push({
+          month: m,
+          year: year,
+          value: val
+        });
+      }
+      return months;
+    }
+
     // Full calculation bundle
     calculateAll() {
       const lp = this.getLifePath();
@@ -292,6 +371,12 @@
       const py2027 = this.getPersonalYear(2027);
       const grid = this.getBirthGrid();
       const karmic = this.getKarmicAnalysis(lp.value, exp);
+      const hp = this.getHiddenPassion();
+      const bal = this.getBalanceNumber();
+      const sub = this.getSubconsciousSelf(karmic.missingNumbers.length);
+      const fn = this.getFirstNameEnergy();
+      const months2026 = this.getPersonalMonths(py2026.value, 2026);
+      const months2027 = this.getPersonalMonths(py2027.value, 2027);
 
       return {
         fullName: this.rawName,
@@ -306,12 +391,20 @@
           personality: per,
           birthday: bday,
           maturity: mat,
-          attitude: att
+          attitude: att,
+          hiddenPassion: hp,
+          balance: bal,
+          subconsciousSelf: sub,
+          firstNameEnergy: fn
         },
         cycles,
         personalYears: {
           y2026: py2026,
           y2027: py2027
+        },
+        personalMonths: {
+          m2026: months2026,
+          m2027: months2027
         },
         grid,
         karmic
@@ -490,6 +583,60 @@
       `;
     }).join('');
 
+    // Challenges HTML (4 Thử Thách Định Mệnh)
+    const challengesHtml = (res.cycles.challenges || []).map(c => {
+      const chInfo = (data.challengeMeanings && data.challengeMeanings[String(c.value)]) || {};
+      const period = (res.cycles.pinnacles && res.cycles.pinnacles[c.index - 1]) ? res.cycles.pinnacles[c.index - 1].period : `Giai đoạn ${c.index}`;
+      return `
+        <div class="challenge-card">
+          <div class="challenge-header">
+            <span class="c-num-badge">Thử Thách ${c.index}: Số ${c.value}</span>
+            <span class="p-age-badge">${period}</span>
+          </div>
+          <h4>${chInfo.name || `Thử Thách Số ${c.value}`}</h4>
+          <p class="c-core"><strong>Vấn đề cốt lõi:</strong> ${chInfo.coreIssue || chInfo.overview || 'Bài học rèn giũa bản lĩnh và sự tiến hóa của tâm thức.'}</p>
+          <div class="c-lesson"><strong>Bài học chuyển hóa:</strong> ${chInfo.lessonToLearn || 'Rèn luyện đức tính kiên nhẫn, thấu hiểu và hành động tự chủ.'}</div>
+          ${chInfo.affirmation ? `<div class="c-affirmation">“${chInfo.affirmation}”</div>` : ''}
+        </div>
+      `;
+    }).join('');
+
+    // 12 Monthly Matrix HTML for 2026
+    const months2026Html = (res.personalMonths && res.personalMonths.m2026 || []).map(m => {
+      const mInfo = (data.personalMonthMeanings && data.personalMonthMeanings[String(m.value)]) || {};
+      return `
+        <div class="month-matrix-card">
+          <div class="month-matrix-header">
+            <span class="month-badge">Tháng ${m.month}/2026</span>
+            <span class="month-num-pill">Tháng Cá Nhân ${m.value}</span>
+          </div>
+          <div class="month-title">${mInfo.name || `Năng Lượng Số ${m.value}`}</div>
+          <div class="month-theme">✦ Chủ đề: ${mInfo.theme || 'Vận động & phát triển'}</div>
+          <div class="month-desc-line"><strong>💼 Sự nghiệp:</strong> ${mInfo.career || 'Tập trung hoàn thành các mục tiêu công việc.'}</div>
+          <div class="month-desc-line"><strong>💰 Tài chính:</strong> ${mInfo.finance || 'Quản lý thu chi cẩn trọng.'}</div>
+          <div class="month-desc-line"><strong>⚠️ Lưu ý:</strong> ${mInfo.caution || 'Giữ bình tĩnh và kiên trì.'}</div>
+        </div>
+      `;
+    }).join('');
+
+    // 12 Monthly Matrix HTML for 2027
+    const months2027Html = (res.personalMonths && res.personalMonths.m2027 || []).map(m => {
+      const mInfo = (data.personalMonthMeanings && data.personalMonthMeanings[String(m.value)]) || {};
+      return `
+        <div class="month-matrix-card">
+          <div class="month-matrix-header">
+            <span class="month-badge">Tháng ${m.month}/2027</span>
+            <span class="month-num-pill">Tháng Cá Nhân ${m.value}</span>
+          </div>
+          <div class="month-title">${mInfo.name || `Năng Lượng Số ${m.value}`}</div>
+          <div class="month-theme">✦ Chủ đề: ${mInfo.theme || 'Vận động & phát triển'}</div>
+          <div class="month-desc-line"><strong>💼 Sự nghiệp:</strong> ${mInfo.career || 'Nắm bắt các cơ hội mới trong năm Đinh Mùi.'}</div>
+          <div class="month-desc-line"><strong>💰 Tài chính:</strong> ${mInfo.finance || 'Tích lũy và đầu tư bền vững.'}</div>
+          <div class="month-desc-line"><strong>⚠️ Lưu ý:</strong> ${mInfo.caution || 'Hòa nhã và lắng nghe cộng sự.'}</div>
+        </div>
+      `;
+    }).join('');
+
     // Karmic HTML
     let karmicHtml = '';
     if (res.karmic.hasDebt) {
@@ -507,6 +654,11 @@
     } else {
       karmicHtml = `<div class="karmic-card clean"><p>✨ Bạn không mang nợ nghiệp chính (13, 14, 16, 19). Đây là dấu hiệu của sự tự do tinh thần và thuận lợi trong việc kiến tạo tương lai!</p></div>`;
     }
+
+    const attitudeData = (data.attitudeMeanings && data.attitudeMeanings[res.core.attitude.value]) || {};
+    const passionData = (data.hiddenPassionMeanings && data.hiddenPassionMeanings[res.core.hiddenPassion.value]) || {};
+    const balanceData = (data.balanceMeanings && data.balanceMeanings[res.core.balance.value]) || {};
+    const subconsciousData = (data.subconsciousSelfMeanings && data.subconsciousSelfMeanings[res.core.subconsciousSelf.value]) || '';
 
     const html = `
       <div class="num-report-wrapper">
@@ -545,55 +697,139 @@
           </div>
         </div>
 
-        <!-- 6 Core Numbers Grid -->
+        <!-- 15+ CHỈ SỐ RUNG ĐỘNG CHUYÊN SÂU -->
         <div class="num-section-block">
-          <h3 class="section-title-royal">✦ BỘ 6 CHỈ SỐ CỐT LÕI CỦA BẢN MỆNH ✦</h3>
+          <h3 class="section-title-royal">✦ PHÂN TÍCH TOÀN DIỆN 15+ CHỈ SỐ RUNG ĐỘNG CHUYÊN SÂU ✦</h3>
+          <p class="section-intro">Bản đồ số học Pythagoras bao quát từ 6 trụ cột cốt lõi của bản mệnh, 5 chỉ số hành vi - tiềm thức nội tâm, đến 4 chỉ số vận niên và nghiệp quả linh hồn:</p>
+
+          <!-- Nhóm 1: 6 Chỉ Số Cốt Lõi Tối Quan Trọng -->
+          <div class="indicator-group-title">I. BỘ 6 CHỈ SỐ CỐT LÕI TỐI QUAN TRỌNG (CORE MATRIX)</div>
           <div class="core-numbers-grid">
             <div class="core-card">
               <div class="core-num">${res.core.lifePath.value}</div>
               <div class="core-info">
-                <h4>Số Chủ Đạo (Đường Đời)</h4>
-                <p>Mục đích sống, con đường tiến hóa và sứ mệnh lớn nhất của linh hồn.</p>
+                <h4>1. Số Chủ Đạo (Đường Đời)</h4>
+                <p>Mục đích sống, con đường tiến hóa và sứ mệnh lớn nhất của linh hồn (${lpData.name || `Số ${res.core.lifePath.value}`}).</p>
               </div>
             </div>
 
             <div class="core-card">
               <div class="core-num">${res.core.expression.value}</div>
               <div class="core-info">
-                <h4>Số Sứ Mệnh (Biểu Đạt)</h4>
-                <p>${expData.name ? expData.name : 'Tài năng thiên bẩm'}: Khả năng bẩm sinh biểu đạt qua họ tên.</p>
+                <h4>2. Số Sứ Mệnh (Biểu Đạt)</h4>
+                <p>${expData.name ? expData.name : 'Tài năng thiên bẩm'}: Năng lực bẩm sinh được kích hoạt qua họ tên đầy đủ.</p>
               </div>
             </div>
 
             <div class="core-card">
               <div class="core-num">${res.core.soulUrge.value}</div>
               <div class="core-info">
-                <h4>Số Linh Hồn (Khao Khát Nội Tâm)</h4>
-                <p>${soulData.name ? soulData.name : 'Động lực sâu kín'}: Điều trái tim bạn thực sự khao khát nhất.</p>
+                <h4>3. Số Linh Hồn (Khao Khát Nội Tâm)</h4>
+                <p>${soulData.name ? soulData.name : 'Động lực sâu kín'}: Điều trái tim và tâm hồn bạn thực sự khao khát nhất.</p>
               </div>
             </div>
 
             <div class="core-card">
               <div class="core-num">${res.core.personality.value}</div>
               <div class="core-info">
-                <h4>Số Nhân Cách (Ấn Tượng Ngoài)</h4>
-                <p>${perData.name ? perData.name : 'Hình ảnh giao tiếp'}: Cách xã hội nhìn nhận và ấn tượng về bạn.</p>
+                <h4>4. Số Nhân Cách (Ấn Tượng Ngoài)</h4>
+                <p>${perData.name ? perData.name : 'Hình ảnh giao tiếp'}: Vỏ bọc ngoại giao và cách xã hội nhìn nhận về bạn.</p>
               </div>
             </div>
 
             <div class="core-card">
               <div class="core-num">${res.core.birthday.value}</div>
               <div class="core-info">
-                <h4>Số Ngày Sinh (${res.core.birthday.raw})</h4>
-                <p>Năng khiếu đặc biệt và món quà vũ trụ ban tặng khi chào đời.</p>
+                <h4>5. Số Ngày Sinh (${res.core.birthday.raw})</h4>
+                <p>Năng khiếu đặc thù và món quà độc nhất vũ trụ ban tặng ngày bạn chào đời.</p>
               </div>
             </div>
 
             <div class="core-card">
               <div class="core-num">${res.core.maturity.value}</div>
               <div class="core-info">
-                <h4>Số Trưởng Thành (Sau Tuổi 35)</h4>
-                <p>Thành tựu và sức mạnh chín muồi nửa sau cuộc đời.</p>
+                <h4>6. Số Trưởng Thành (Sau Tuổi 35)</h4>
+                <p>Năng lực tích lũy và quả ngọt thành tựu chín muồi ở nửa sau cuộc đời.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Nhóm 2: 5 Chỉ Số Hành Vi & Tiềm Thức -->
+          <div class="indicator-group-title" style="margin-top: 2rem;">II. BỘ 5 CHỈ SỐ HÀNH VI, NỘI LỰC &amp; TIỀM THỨC (BEHAVIORAL &amp; SUBCONSCIOUS)</div>
+          <div class="core-numbers-grid grid-5">
+            <div class="core-card card-accent-gold">
+              <div class="core-num">${res.core.attitude.value}</div>
+              <div class="core-info">
+                <h4>7. Số Thái Độ</h4>
+                <p><strong>${attitudeData.name || `Thái Độ Số ${res.core.attitude.value}`}:</strong> ${attitudeData.desc || 'Cách bạn phản ứng bản năng trước các biến cố cuộc sống.'}</p>
+              </div>
+            </div>
+
+            <div class="core-card card-accent-gold">
+              <div class="core-num">${res.core.hiddenPassion.value}</div>
+              <div class="core-info">
+                <h4>8. Số Đam Mê Tiềm Ẩn</h4>
+                <p><strong>${passionData.name || `Đam Mê Số ${res.core.hiddenPassion.value}`}:</strong> ${passionData.desc || 'Ngọn lửa nhiệt huyết âm ỉ thôi thúc bạn dấn thân và cống hiến.'}</p>
+              </div>
+            </div>
+
+            <div class="core-card card-accent-gold">
+              <div class="core-num">${res.core.balance.value}</div>
+              <div class="core-info">
+                <h4>9. Số Cân Bằng</h4>
+                <p><strong>${balanceData.name || `Cân Bằng Số ${res.core.balance.value}`}:</strong> ${balanceData.desc || 'Bí quyết giúp bạn lấy lại thăng bằng và bình an sau những tổn thương, trắc trở.'}</p>
+              </div>
+            </div>
+
+            <div class="core-card card-accent-gold">
+              <div class="core-num">${res.core.subconsciousSelf.value}</div>
+              <div class="core-info">
+                <h4>10. Số Phản Ứng Tiềm Thức</h4>
+                <p><strong>Năng Lực Tự Chủ (${res.core.subconsciousSelf.value}/9):</strong> ${subconsciousData || 'Bản lĩnh vững vàng và tốc độ ứng biến khi đối mặt với khủng hoảng bất ngờ.'}</p>
+              </div>
+            </div>
+
+            <div class="core-card card-accent-gold">
+              <div class="core-num">${res.core.firstNameEnergy.value}</div>
+              <div class="core-info">
+                <h4>11. Năng Lượng Tên Riêng</h4>
+                <p><strong>Tên “${res.core.firstNameEnergy.name}” (Số ${res.core.firstNameEnergy.value}):</strong> Tần số sóng âm thường nhật khi mọi người giao tiếp, định hình sức hút cá nhân.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Nhóm 3: 4 Chỉ Số Vận Niên & Nghiệp Lực -->
+          <div class="indicator-group-title" style="margin-top: 2rem;">III. BỘ 4 CHỈ SỐ VẬN NIÊN &amp; NGHIỆP QUẢ LINH HỒN (CYCLES &amp; KARMIC DEBT)</div>
+          <div class="core-numbers-grid">
+            <div class="core-card card-accent-karmic">
+              <div class="core-num">${res.karmic.hasDebt ? res.karmic.debts.map(d => d.number).join(',') : '0'}</div>
+              <div class="core-info">
+                <h4>12. Chỉ Số Nợ Nghiệp</h4>
+                <p>${res.karmic.hasDebt ? `Mang nợ nghiệp ${res.karmic.debts.map(d => d.number).join(', ')}. Đây là bài học linh hồn tiền kiếp cần hóa giải bằng lối sống chính trực.` : 'Thanh tịnh! Không vướng nợ nghiệp chính (13, 14, 16, 19), tinh thần tự do khai phóng.'}</p>
+              </div>
+            </div>
+
+            <div class="core-card card-accent-karmic">
+              <div class="core-num">${res.karmic.missingNumbers.length > 0 ? res.karmic.missingNumbers.join(',') : '✓'}</div>
+              <div class="core-info">
+                <h4>13. Bài Học Nghiệp (Số Thiếu)</h4>
+                <p>${res.karmic.missingNumbers.length > 0 ? `Thiếu các số [${res.karmic.missingNumbers.join(', ')}] trong họ tên. Đây là những đức tính cần chủ động trau dồi.` : 'Họ tên đủ đầy năng lượng từ 1 đến 9, trường năng lượng toàn diện.'}</p>
+              </div>
+            </div>
+
+            <div class="core-card card-accent-karmic">
+              <div class="core-num">${res.personalYears.y2026.value}</div>
+              <div class="core-info">
+                <h4>14. Vận Niên Cá Nhân 2026</h4>
+                <p><strong>${py26Data.name || `Năm Cá Nhân ${res.personalYears.y2026.value}`}:</strong> Năm Bính Ngọ 2026 mang từ khóa “${py26Data.keyword || 'Hành động'}”.</p>
+              </div>
+            </div>
+
+            <div class="core-card card-accent-karmic">
+              <div class="core-num">${res.personalYears.y2027.value}</div>
+              <div class="core-info">
+                <h4>15. Vận Niên Cá Nhân 2027</h4>
+                <p><strong>${py27Data.name || `Năm Cá Nhân ${res.personalYears.y2027.value}`}:</strong> Năm Đinh Mùi 2027 mang từ khóa “${py27Data.keyword || 'Bứt phá'}”.</p>
               </div>
             </div>
           </div>
@@ -601,7 +837,7 @@
 
         <!-- 3x3 Birth Grid & Arrows -->
         <div class="num-section-block">
-          <h3 class="section-title-royal">✦ BIỂU ĐỒ NGÀY SINH 3x3 & CÁC MŨI TÊN NĂNG LƯỢNG ✦</h3>
+          <h3 class="section-title-royal">✦ BIỂU ĐỒ NGÀY SINH 3x3 &amp; CÁC MŨI TÊN NĂNG LƯỢNG ✦</h3>
           <div class="grid-analysis-container">
             <div class="grid-box-wrapper">
               <div class="lo-shu-grid">
@@ -627,21 +863,30 @@
           </div>
         </div>
 
-        <!-- 4 Pinnacles Pyramid -->
+        <!-- 4 Pinnacles & 4 Challenges Pyramid -->
         <div class="num-section-block">
-          <h3 class="section-title-royal">✦ KIM TỰ THÁP 4 ĐỈNH CAO CUỘC ĐỜI (PINNACLES) ✦</h3>
-          <p class="section-intro">Mỗi con người đều trải qua 4 giai đoạn đỉnh cao kéo dài 9 năm hoặc 27 năm. Đây là thời cơ vàng để bứt phá sự nghiệp và tài lộc:</p>
+          <h3 class="section-title-royal">✦ KIM TỰ THÁP 4 ĐỈNH CAO &amp; 4 THỬ THÁCH ĐỊNH MỆNH ✦</h3>
+          <p class="section-intro">Học thuyết Pythagoras chỉ ra mỗi đời người là một tiến trình chuyển hóa qua 4 đỉnh cao kim tự tháp (Pinnacles) song hành cùng 4 bài toán thử thách định mệnh (Challenges):</p>
+          
+          <div class="indicator-group-title">1. BẢN ĐỒ 4 ĐỈNH CAO THÀNH TỰU (PINNACLES)</div>
           <div class="pinnacles-grid">
             ${pinnaclesHtml}
           </div>
+
+          <div class="indicator-group-title" style="margin-top: 2rem;">2. BẢN ĐỒ 4 THỬ THÁCH ĐỊNH MỆNH (CHALLENGES)</div>
+          <div class="challenges-grid">
+            ${challengesHtml}
+          </div>
         </div>
 
-        <!-- Personal Year 2026 & 2027 -->
+        <!-- Personal Year 2026 & 2027 and 12-Month Matrix -->
         <div class="num-section-block">
-          <h3 class="section-title-royal">✦ DỰ BÁO VẬN HẠN NĂM CÁ NHÂN 2026 & 2027 ✦</h3>
+          <h3 class="section-title-royal">✦ DỰ BÁO VẬN TRÌNH CHI TIẾT 12 THÁNG NĂM 2026 &amp; 2027 ✦</h3>
+          <p class="section-intro">Năng lượng vận niên kết hợp cùng từng tháng chu kỳ vũ trụ giúp đương số chọn đúng thời điểm hành động, đàm phán hợp đồng, tích lũy tài chính và phòng ngừa rủi ro:</p>
+
           <div class="personal-years-wrapper">
             <div class="py-card current-year">
-              <div class="py-badge">NĂM HIỆN TẠI 2026</div>
+              <div class="py-badge">NĂM HIỆN TẠI 2026 (BÍNH NGỌ)</div>
               <div class="py-number">Năm Cá Nhân Số ${res.personalYears.y2026.value}</div>
               <h4>${py26Data.name || `Năm số ${res.personalYears.y2026.value}`}</h4>
               <p><strong>Từ khóa:</strong> ${py26Data.keyword || 'Hành động, chuyển hóa'}</p>
@@ -664,6 +909,67 @@
                 <div><strong>💰 Tài chính:</strong> ${py27Data.financeAdvice || 'Tích lũy tài sản vững bền.'}</div>
                 <div><strong>❤️ Tình duyên:</strong> ${py27Data.loveAdvice || 'Bình yên và hạnh phúc gia đạo.'}</div>
               </div>
+            </div>
+          </div>
+
+          <div class="indicator-group-title" style="margin-top: 2rem;">MA TRẬN VẬN TRÌNH 12 THÁNG NĂM 2026 (NĂM CÁ NHÂN ${res.personalYears.y2026.value})</div>
+          <div class="monthly-matrix-grid">
+            ${months2026Html}
+          </div>
+
+          <div class="indicator-group-title" style="margin-top: 2.25rem;">MA TRẬN VẬN TRÌNH 12 THÁNG NĂM 2027 (NĂM CÁ NHÂN ${res.personalYears.y2027.value})</div>
+          <div class="monthly-matrix-grid">
+            ${months2027Html}
+          </div>
+        </div>
+
+        <!-- Feng Shui Energy & Career Guidance (VIP) -->
+        <div class="num-section-block">
+          <h3 class="section-title-royal">✦ CẨM NANG PHONG THỦY NĂNG LƯỢNG &amp; ĐỊNH HƯỚNG SỰ NGHIỆP (VIP) ✦</h3>
+          <p class="section-intro">Ứng dụng tần số rung động của Số Chủ Đạo ${res.core.lifePath.value} để chọn màu sắc phong thủy, vật phẩm hộ thân, con số may mắn và lĩnh vực sự nghiệp hanh thông nhất:</p>
+          <div class="fengshui-energy-grid">
+            <div class="fengshui-energy-card">
+              <div class="fengshui-card-title">🎨 Màu Sắc Hợp Tần Số Rung Động</div>
+              <div class="energy-tags-wrap">
+                ${((lpData.luckyElements && lpData.luckyElements.colors) || ['Trắng', 'Vàng', 'Xanh lam']).map(c => `<span class="energy-tag">${c}</span>`).join(' ')}
+              </div>
+              <p class="energy-desc-text">Màu sắc tương hợp giúp gia tăng sinh khí, cân bằng trường hào quang (aura) và thu hút quý nhân tương trợ trong đời sống thường nhật.</p>
+            </div>
+
+            <div class="fengshui-energy-card">
+              <div class="fengshui-card-title">💎 Đá Quý &amp; Tinh Thể Hộ Mệnh</div>
+              <div class="energy-tags-wrap">
+                ${((lpData.luckyElements && lpData.luckyElements.gemstones) || ['Thạch Anh Vàng', 'Ngọc Bích']).map(g => `<span class="energy-tag tag-gem">${g}</span>`).join(' ')}
+              </div>
+              <p class="energy-desc-text">Đeo trang sức hoặc đặt tinh thể phong thủy tương thích tại bàn làm việc giúp trấn định tinh thần, trừ tà và khai mở trực giác linh tính.</p>
+            </div>
+
+            <div class="fengshui-energy-card">
+              <div class="fengshui-card-title">🔢 Con Số &amp; Ngày Cát Tường</div>
+              <div class="energy-tags-wrap">
+                ${((lpData.luckyElements && lpData.luckyElements.numbers) || [1, 2, 8]).map(n => `<span class="energy-tag tag-gold">Số ${n}</span>`).join(' ')}
+                ${((lpData.luckyElements && lpData.luckyElements.days) || ['Chủ Nhật']).map(d => `<span class="energy-tag">${d}</span>`).join(' ')}
+              </div>
+              <p class="energy-desc-text">Ưu tiên chọn số tài khoản, biển số, tầng nhà hoặc ngày trong tuần để ký kết hợp đồng, khai trương, xuất hành đắc tài đắc lộc.</p>
+            </div>
+
+            <div class="fengshui-energy-card" style="grid-column: 1 / -1;">
+              <div class="fengshui-card-title">💼 Định Hướng Sự Nghiệp &amp; Dòng Chảy Tài Chính</div>
+              <p class="energy-desc-text"><strong>Tổng quan sự nghiệp:</strong> ${lpData.careerFinance ? lpData.careerFinance.overview : 'Phù hợp với các công việc đòi hỏi tư duy chiến lược và sự tận tâm.'}</p>
+              ${lpData.careerFinance && lpData.careerFinance.financialPattern ? `<p class="energy-desc-text"><strong>Xu hướng tài chính:</strong> ${lpData.careerFinance.financialPattern}</p>` : ''}
+              <div style="margin-top: 0.6rem;">
+                <strong style="color: var(--ink); font-size: 0.88rem; display:block; margin-bottom: 0.4rem;">Lĩnh vực phát triển tối ưu:</strong>
+                <div class="energy-tags-wrap">
+                  ${((lpData.careerFinance && lpData.careerFinance.suitableFields) || ['Tư vấn', 'Giáo dục', 'Kinh doanh', 'Quản lý']).map(f => `<span class="energy-tag tag-gold">${f}</span>`).join(' ')}
+                </div>
+              </div>
+            </div>
+
+            <div class="fengshui-energy-card" style="grid-column: 1 / -1;">
+              <div class="fengshui-card-title">🌿 Dưỡng Sinh Thể Chất &amp; Năng Lượng Tinh Thần</div>
+              <p class="energy-desc-text"><strong>Cơ địa &amp; thể lực:</strong> ${lpData.health ? lpData.health.overview : 'Cần chú ý giữ gìn năng lượng, tránh làm việc kiệt sức.'}</p>
+              ${lpData.health && lpData.health.concerns && lpData.health.concerns.length > 0 ? `<p class="energy-desc-text"><strong>Bộ phận cần lưu tâm:</strong> ${lpData.health.concerns.join(', ')}</p>` : ''}
+              <p class="energy-desc-text" style="color: var(--seal); background: rgba(163,40,31,0.05); padding: 0.5rem 0.75rem; border-radius: 4px; margin-top: 0.4rem;"><strong>Lời khuyên dưỡng sinh:</strong> ${lpData.health ? lpData.health.advice : 'Thiền định, thể dục điều độ và hòa mình cùng thiên nhiên để thanh lọc từ trường.'}</p>
             </div>
           </div>
         </div>
@@ -803,9 +1109,11 @@
   };
 
   // Auto init on DOM ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initNumerologyApp);
-  } else {
-    initNumerologyApp();
+  if (typeof document !== 'undefined') {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initNumerologyApp);
+    } else {
+      initNumerologyApp();
+    }
   }
 })(typeof window !== 'undefined' ? window : this);

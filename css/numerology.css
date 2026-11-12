@@ -1128,3 +1128,239 @@
   justify-content: flex-end;
   padding: 1.5rem;
 }
+
+/* ============================================================
+   VIP EXPANDED NUMEROLOGY MODULES (15+ INDICATORS, 4 CHALLENGES,
+   12 MONTHLY TIMELINE, FENG SHUI CAREER & ENERGY MATRIX)
+   ============================================================ */
+
+/* ── 15+ Core & Advanced Indicators Grids ── */
+.indicator-group-title {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  color: var(--seal);
+  font-weight: 700;
+  margin: 1.25rem 0 0.75rem;
+  padding-left: 0.5rem;
+  border-left: 3px solid var(--seal);
+}
+
+.core-numbers-grid.grid-5 {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.core-card.card-accent-gold {
+  border-color: rgba(212, 175, 55, 0.45);
+  background: linear-gradient(180deg, #FFFDF9 0%, rgba(212, 175, 55, 0.05) 100%);
+}
+
+.core-card.card-accent-gold .core-num {
+  background: linear-gradient(135deg, #B45309 0%, #D4AF37 100%);
+}
+
+.core-card.card-accent-karmic {
+  border-color: rgba(163, 40, 31, 0.35);
+  background: linear-gradient(180deg, #FFFDF9 0%, rgba(163, 40, 31, 0.04) 100%);
+}
+
+.core-card.card-accent-karmic .core-num {
+  background: linear-gradient(135deg, var(--seal) 0%, #7F1D1D 100%);
+}
+
+/* ── 4 Challenges Grid ── */
+.challenges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.challenge-card {
+  background: #FFFDF9;
+  border: 1px solid rgba(176, 138, 62, 0.35);
+  border-radius: 8px;
+  padding: 1.1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+}
+
+.challenge-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.c-num-badge {
+  font-weight: 700;
+  color: #B45309;
+  background: rgba(180, 83, 9, 0.09);
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.82rem;
+}
+
+.challenge-card h4 {
+  font-size: 1rem;
+  color: var(--seal);
+  margin-bottom: 0.45rem;
+}
+
+.c-core {
+  font-size: 0.85rem;
+  color: var(--text);
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+}
+
+.c-lesson {
+  font-size: 0.82rem;
+  color: #8F6B00;
+  background: rgba(212, 175, 55, 0.08);
+  padding: 0.45rem 0.65rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  line-height: 1.45;
+}
+
+.c-affirmation {
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--text-muted);
+  border-left: 2px solid var(--seal);
+  padding-left: 0.6rem;
+  margin-top: auto;
+  padding-top: 0.25rem;
+}
+
+/* ── 12 Monthly Matrix ── */
+.monthly-matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.month-matrix-card {
+  background: #FFFDF9;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 1rem 1.1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+}
+
+.month-matrix-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(207, 194, 166, 0.4);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.month-badge {
+  font-weight: 700;
+  color: var(--seal);
+  font-size: 0.88rem;
+}
+
+.month-num-pill {
+  background: var(--seal);
+  color: #fff;
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.month-title {
+  font-size: 0.94rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 0.2rem;
+}
+
+.month-theme {
+  font-size: 0.8rem;
+  color: #B45309;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.month-desc-line {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--text);
+  margin-bottom: 0.35rem;
+}
+
+.month-desc-line strong {
+  color: var(--ink);
+}
+
+/* ── Feng Shui Energy & Career ── */
+.fengshui-energy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+.fengshui-energy-card {
+  background: #FFFDF9;
+  border: 1.5px solid var(--brass);
+  border-radius: 10px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 16px rgba(176, 138, 62, 0.08);
+}
+
+.fengshui-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--seal);
+  border-bottom: 1px dashed rgba(163, 40, 31, 0.25);
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.energy-tags-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 0.75rem;
+}
+
+.energy-tag {
+  background: rgba(163, 40, 31, 0.08);
+  color: var(--seal);
+  border: 1px solid rgba(163, 40, 31, 0.2);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.energy-tag.tag-gold {
+  background: rgba(212, 175, 55, 0.12);
+  color: #8F6B00;
+  border-color: rgba(212, 175, 55, 0.35);
+}
+
+.energy-tag.tag-gem {
+  background: rgba(16, 185, 129, 0.08);
+  color: #065F46;
+  border-color: rgba(16, 185, 129, 0.25);
+}
+
+.energy-desc-text {
+  font-size: 0.85rem;
+  color: var(--text);
+  line-height: 1.55;
+  margin-bottom: 0.5rem;
+}

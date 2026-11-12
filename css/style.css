@@ -7928,7 +7928,24 @@ html {
   .num-detail-grid,
   .num-pyramid-container,
   .num-timeline-grid,
-  .num-chart-display-card {
+  .num-chart-display-card,
+  .num-report-wrapper,
+  .num-hero-card,
+  .num-section-block,
+  .core-numbers-grid,
+  .challenges-grid,
+  .pinnacles-grid,
+  .monthly-matrix-grid,
+  .fengshui-energy-grid,
+  .interpretation-tabs,
+  .challenge-card,
+  .month-matrix-card,
+  .fengshui-energy-card,
+  .core-card,
+  .pinnacle-card,
+  .py-card,
+  .karmic-card,
+  .indicator-group-title {
     page-break-inside: avoid !important;
     break-inside: avoid !important;
     margin-bottom: 12px !important;

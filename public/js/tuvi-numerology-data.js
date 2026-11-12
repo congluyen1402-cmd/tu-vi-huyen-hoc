@@ -4547,6 +4547,120 @@
     "loveAdvice": "Học cách tha thứ, buông bỏ oán hận để trái tim thanh thản đón nhận những điều tốt đẹp.",
     "financeAdvice": "Tích cực làm từ thiện, chia sẻ phúc lành và thanh toán dứt điểm các khoản nợ cũ."
   }
+},
+
+attitudeMeanings: {
+  "1": { name: "Thái Độ Tiên Phong & Độc Lập", desc: "Bạn phản ứng trước cuộc sống bằng sự chủ động, tự tin và quyết đoán. Không thích dựa dẫm hay bị người khác áp đặt." },
+  "2": { name: "Thái Độ Hòa Nhã & Lắng Nghe", desc: "Bạn tiếp cận vấn đề bằng sự thấu cảm, cẩn trọng và tinh thần xây dựng hòa bình. Luôn chú ý đến cảm xúc của đối phương." },
+  "3": { name: "Thái Độ Lạc Quan & Hài Hước", desc: "Bạn phản ứng với thế giới bằng nguồn năng lượng tươi vui, nụ cười và sự sáng tạo, giúp xoa dịu mọi căng thẳng xung quanh." },
+  "4": { name: "Thái Độ Thực Tế & Kỷ Luật", desc: "Bạn luôn tìm kiếm giải pháp có cơ sở, chi tiết rõ ràng và quy trình trật tự. Không thích sự mơ hồ hoặc liều lĩnh." },
+  "5": { name: "Thái Độ Linh Hoạt & Thích Nghi", desc: "Bạn đón nhận thay đổi một cách tự nhiên, tò mò khám phá và nhanh chóng thích nghi với môi trường mới đầy biến động." },
+  "6": { name: "Thái Độ Ân Cần & Trách Nhiệm", desc: "Bạn luôn hướng về sự quan tâm, bảo bọc người khác và có xu hướng gánh vác trách nhiệm bảo vệ tổ ấm, đồng nghiệp." },
+  "7": { name: "Thái Độ Quan Sát & Phân Tích", desc: "Bạn kín đáo, sâu sắc và luôn dành thời gian quan sát bản chất sự việc trước khi lên tiếng hay đưa ra quyết định." },
+  "8": { name: "Thái Độ Bản Lĩnh & Mục Tiêu", desc: "Bạn phản ứng bằng sự tự tin, tập trung vào kết quả thực tế, quyền lực và không bao giờ chùn bước trước nghịch cảnh." },
+  "9": { name: "Thái Độ Bao Dung & Lý Tưởng", desc: "Bạn nhìn thế giới bằng con mắt từ bi, rộng lượng và luôn muốn đóng góp giá trị nhân văn cho cộng đồng." }
+},
+
+hiddenPassionMeanings: {
+  "1": { name: "Khát Khao Dẫn Đầu & Làm Chủ", desc: "Động lực ngầm mãnh liệt thôi thúc bạn trở thành người đứng đầu, tạo ra sự khác biệt và tự quyết định vận mệnh cá nhân." },
+  "2": { name: "Đam Mê Hòa Hợp & Tri Kỷ", desc: "Nguyện vọng sâu xa là kiến tạo những mối quan hệ chân thành, hòa bình và sự đồng điệu tâm hồn sâu sắc." },
+  "3": { name: "Đam Mê Sáng Tạo & Lan Tỏa", desc: "Nguồn cảm hứng vô tận trong việc thể hiện bản thân qua ngôn từ, nghệ thuật, sân khấu và mang lại niềm vui cho muôn người." },
+  "4": { name: "Đam Mê Xây Dựng & Bền Vững", desc: "Khát vọng kiến tạo những hệ thống vững chắc, trật tự và giá trị trường tồn cùng thời gian." },
+  "5": { name: "Đam Mê Tự Do & Phiêu Lưu", desc: "Khát khao trải nghiệm không giới hạn, khám phá những chân trời mới và phá vỡ các rào cản gò bó." },
+  "6": { name: "Đam Mê Phụng Sự & Hạnh Phúc", desc: "Động lực lớn nhất là chăm sóc, vun vén tổ ấm, nuôi dưỡng và bảo bọc những người bạn yêu thương." },
+  "7": { name: "Đam Mê Chân Lý & Huyền Học", desc: "Sự thôi thúc không ngừng trong việc tìm kiếm chân lý vũ trụ, trí tuệ tâm linh và quy luật cuộc đời." },
+  "8": { name: "Đam Mê Tài Chính & Quyền Uy", desc: "Khát vọng làm chủ thế giới vật chất, đạt được sự giàu có tột bậc và kiến thiết đế chế kinh doanh hùng mạnh." },
+  "9": { name: "Đam Mê Nhân Đạo & Cứu Thế", desc: "Nguyện lực rộng lớn muốn cống hiến cho xã hội, làm từ thiện và nâng đỡ những số phận khó khăn." }
+},
+
+balanceMeanings: {
+  "1": { name: "Lấy Lại Thăng Bằng Bằng Sự Tự Lực", desc: "Khi đối mặt khủng hoảng, hãy tin tưởng vào bản lĩnh của mình, đứng thẳng lưng và tự mình hành động dứt khoát." },
+  "2": { name: "Cân Bằng Qua Sự Hòa Giải", desc: "Tránh đối đầu gay gắt; hãy tìm kiếm sự thỏa hiệp công bằng, lắng nghe và chia sẻ chân thành để giải tỏa căng thẳng." },
+  "3": { name: "Cân Bằng Qua Sự Lạc Quan", desc: "Dùng nụ cười, viết lách, hội họa hoặc tâm sự với người bạn tin cậy để giải tỏa áp lực tâm lý tiêu cực." },
+  "4": { name: "Cân Bằng Qua Kế Hoạch Cụ Thể", desc: "Lập danh sách việc cần làm, dọn dẹp không gian sống ngăn nắp sẽ giúp tâm trí bạn lập tức bình ổn trở lại." },
+  "5": { name: "Cân Bằng Qua Sự Thay Đổi Không Gian", desc: "Đi dạo ngoài trời, du lịch ngắn ngày hoặc thay đổi góc nhìn giúp bạn thoát khỏi bế tắc tinh thần nhanh chóng." },
+  "6": { name: "Cân Bằng Qua Tình Yêu Gia Đình", desc: "Trở về bên tổ ấm, nấu một bữa ăn ấm cúng hoặc chăm sóc thú cưng sẽ chữa lành những xáo trộn trong bạn." },
+  "7": { name: "Cân Bằng Qua Tĩnh Lặng & Thiền Định", desc: "Rút lui về không gian yên tĩnh một mình, thiền định hoặc đọc sách giúp bạn tái tạo nguồn năng lượng thuần khiết." },
+  "8": { name: "Cân Bằng Bằng Tư Duy Thực Tế", desc: "Tập trung vào giải pháp cụ thể thay vì cảm xúc ủy mị; phân định rõ những gì nằm trong tầm kiểm soát." },
+  "9": { name: "Cân Bằng Bằng Lòng Tha Thứ", desc: "Buông bỏ oán giận, mở rộng lòng từ bi và tha thứ cho chính mình lẫn người khác để tâm hồn nhẹ nhõm." }
+},
+
+subconsciousSelfMeanings: {
+  "1": "Cần học cách tự tin hơn khi xảy ra biến cố bất ngờ.",
+  "2": "Có xu hướng dựa dẫm vào người khác trong cơn khủng hoảng; cần rèn luyện nội lực.",
+  "3": "Phản ứng giàu cảm xúc nhưng đôi khi thiếu kiên định; cần sự tập trung.",
+  "4": "Phản ứng thực tế, bám vào quy tắc để vượt qua giông bão an toàn.",
+  "5": "Thích nghi nhanh, linh hoạt xoay chuyển tình thế trong nghịch cảnh.",
+  "6": "Luôn ưu tiên bảo vệ người thân và đồng đội trước hiểm nguy.",
+  "7": "Bình tĩnh rút lui để quan sát, phân tích tình huống thấu đáo trước khi hành động.",
+  "8": "Nội lực mạnh mẽ, quyết đoán đứng lên làm chủ tình thế khủng hoảng.",
+  "9": "Bản lĩnh toàn diện, thấu hiểu sâu sắc quy luật đời người nên luôn giữ được tâm thái an nhiên trước mọi biến cố."
+},
+
+personalMonthMeanings: {
+  "1": {
+    name: "Tháng Khởi Đầu & Đột Phá Mới",
+    theme: "Hành Động · Tiên Phong",
+    career: "Khởi động dự án mới, ký kết hợp đồng, chủ động nắm quyền chỉ đạo.",
+    finance: "Thời điểm gieo mầm tài chính, tránh chần chừ do dự.",
+    caution: "Tự tin nhưng không được độc đoán, lắng nghe góp ý xây dựng."
+  },
+  "2": {
+    name: "Tháng Hợp Tác & Kiên Nhẫn",
+    theme: "Ngoại Giao · Gắn Kết",
+    career: "Tập trung xây dựng mối quan hệ đối tác, hòa giải mâu thuẫn nội bộ.",
+    finance: "Duy trì dòng tiền ổn định, tránh vay mượn hoặc tranh chấp lợi ích.",
+    caution: "Kiên nhẫn chờ thời cơ chín muồi, không nên nóng vội ép kết quả."
+  },
+  "3": {
+    name: "Tháng Sáng Tạo & Tỏa Sáng",
+    theme: "Lan Tỏa · Nghệ Thuật",
+    career: "Rực rỡ trong đàm phán, marketing, thuyết trình và mở rộng tệp khách hàng.",
+    finance: "Thu nhập khởi sắc, có thể chi tiêu cho quan hệ ngoại giao và nâng cấp hình ảnh.",
+    caution: "Tránh phân tán năng lượng vào quá nhiều sở thích nhất thời."
+  },
+  "4": {
+    name: "Tháng Kỷ Luật & Củng Cố Nền Tảng",
+    theme: "Chi Tiết · Trật Tự",
+    career: "Hoàn thiện quy trình, rà soát văn bản pháp lý, làm việc bền bỉ chính xác.",
+    finance: "Kiểm soát chi phí nghiêm ngặt, tiết kiệm và ưu tiên kênh tích lũy an toàn.",
+    caution: "Cẩn thận lao lực quá mức, dành thời gian nghỉ ngơi phục hồi thể lực."
+  },
+  "5": {
+    name: "Tháng Chuyển Biến & Cơ Hội Mới",
+    theme: "Tự Do · Đổi Mới",
+    career: "Xuất hiện cơ hội hợp tác mới, đi công tác xa hoặc thay đổi chiến lược kinh doanh.",
+    finance: "Có lộc bất ngờ từ nguồn mới; tuy nhiên cần tỉnh táo trước cám dỗ rủi ro cao.",
+    caution: "Thích ứng linh hoạt nhưng giữ vững kỷ luật tài chính cá nhân."
+  },
+  "6": {
+    name: "Tháng Gia Đạo & Trách Nhiệm Phụng Sự",
+    theme: "Yêu Thương · Hài Hòa",
+    career: "Gắn kết đội ngũ, tạo dựng môi trường làm việc nhân văn và uy tín vững chắc.",
+    finance: "Chi tiêu cho sửa sang nhà cửa, chăm lo sức khỏe người thân và gia đình.",
+    caution: "Cân bằng giữa công việc và đời sống cá nhân, tránh ôm đồm việc người khác."
+  },
+  "7": {
+    name: "Tháng Chiêm Nghiệm & Trí Tuệ Tâm Linh",
+    theme: "Tĩnh Lặng · Nghiên Cứu",
+    career: "Nâng cao năng lực chuyên môn, học hỏi chuyên sâu, tái định hướng mục tiêu tương lai.",
+    finance: "Giữ chặt tiền mặt, đầu tư vào tri thức là khoản đầu tư sinh lời lớn nhất.",
+    caution: "Tránh tranh cãi thị phi; dành thời gian thiền định và hòa mình vào thiên nhiên."
+  },
+  "8": {
+    name: "Tháng Gặt Hái & Quyền Lực Tài Chính",
+    theme: "Thịnh Vượng · Thành Công",
+    career: "Thu hoạch kết quả rực rỡ từ nỗ lực nhiều tháng qua; khẳng định vị thế dẫn đầu.",
+    finance: "Dòng tiền hanh thông mạnh mẽ, cơ hội ký kết hợp đồng lớn hoặc thu hồi công nợ.",
+    caution: "Lãnh đạo công tâm, giữ gìn đạo đức kinh doanh để duy trì phước đức trường tồn."
+  },
+  "9": {
+    name: "Tháng Hoàn Tất & Chuyển Giao Chu Kỳ",
+    theme: "Khép Lại · Thanh Lọc",
+    career: "Nghiệm thu và đóng gói các dự án cũ, dọn dẹp các mối quan hệ không còn phù hợp.",
+    finance: "Quyết toán sổ sách minh bạch, làm việc thiện, phóng sinh tích phúc.",
+    caution: "Học cách buông bỏ nhẹ nhàng, sẵn sàng tâm thế đón nhận chu kỳ vận hội mới."
+  }
 }
   };
 
