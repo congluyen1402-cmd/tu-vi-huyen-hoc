@@ -297,57 +297,64 @@ a:hover {
   white-space: nowrap;
 }
 
-.nav-menu {
+/* ── Desktop Navigation Bar ── */
+.desktop-nav {
   display: flex;
   align-items: center;
-  gap: clamp(4px, 0.7vw, 12px);
+  gap: clamp(4px, 0.75vw, 12px);
   flex-wrap: nowrap !important;
 }
 
+.desktop-nav .nav-link,
 .nav-menu a {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   padding: 0.5rem 0.8rem;
-  color: var(--text);
+  color: #D9CEB8 !important;
   font-size: 0.88rem;
   font-weight: 500;
   white-space: nowrap !important;
   word-break: keep-all !important;
   border-radius: 6px;
-  transition: all 0.25s ease;
+  text-decoration: none;
+  transition: all 0.2s ease;
 }
 
+.desktop-nav .nav-link i, .desktop-nav .nav-link svg,
 .nav-menu a i, .nav-menu a svg, .nav-menu a .nav-icon {
   color: var(--gold);
   width: 16px;
   height: 16px;
 }
 
-.nav-menu a:hover {
-  color: var(--gold-light) !important;
-  background: rgba(212, 175, 55, 0.12);
+.desktop-nav .nav-link:hover,
+.desktop-nav .nav-link.active,
+.nav-menu a:hover,
+.nav-menu a.active {
+  color: #FFFFFF !important;
+  background: rgba(212, 175, 55, 0.15);
   transform: translateY(-1px);
 }
 
 /* ── Visibility Rules for Desktop vs Mobile Drawer ── */
 @media (min-width: 1025px) {
+  .mobile-drawer,
+  .mobile-drawer-backdrop,
+  .hamburger,
   .drawer-header,
   .drawer-category-label,
   .mobile-only-drawer-link,
   .drawer-cta-wrap {
     display: none !important;
   }
-  .drawer-body {
+  .desktop-nav {
     display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    gap: clamp(4px, 0.7vw, 12px) !important;
-    padding: 0 !important;
   }
 }
 
 @media (max-width: 1024px) {
+  .desktop-nav,
   .nav-item-dropdown {
     display: none !important;
   }
@@ -3228,6 +3235,11 @@ footer.footer {
    RESPONSIVE DESIGN (Mobile-First)
    ============================================================ */
 @media (max-width: 1024px) {
+  .desktop-nav {
+    display: none !important;
+  }
+
+  .mobile-drawer,
   .nav-menu {
     position: fixed;
     top: 0;
@@ -3236,19 +3248,21 @@ footer.footer {
     height: 100vh;
     height: 100dvh;
     background: #1B1714 !important;
-    border-left: 1px solid var(--brass) !important;
+    border-left: 1.5px solid var(--brass) !important;
     flex-direction: column;
     align-items: stretch;
     justify-content: flex-start;
     padding: 0;
     transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     z-index: 1002;
-    box-shadow: -8px 0 32px rgba(0, 0, 0, 0.6);
+    box-shadow: -8px 0 32px rgba(0, 0, 0, 0.7);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    display: flex !important;
   }
+  .mobile-drawer.open,
   .nav-menu.open {
-    right: 0;
+    right: 0 !important;
   }
 
   /* Drawer Header */
@@ -3258,7 +3272,7 @@ footer.footer {
     justify-content: space-between;
     padding: 1.1rem 1.25rem;
     border-bottom: 1px solid rgba(207, 194, 166, 0.15);
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.35);
   }
   .drawer-brand {
     display: flex;
@@ -3297,7 +3311,7 @@ footer.footer {
 
   /* Drawer Body */
   .drawer-body {
-    padding: 1rem 1.25rem 2rem;
+    padding: 1rem 1.25rem 2.5rem;
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
@@ -3317,6 +3331,7 @@ footer.footer {
     margin-top: 0.25rem;
   }
 
+  .drawer-nav-link,
   .nav-menu a {
     width: 100%;
     padding: 0.75rem 0.8rem !important;
@@ -3331,6 +3346,8 @@ footer.footer {
     transition: background 0.15s, color 0.15s !important;
     min-height: 46px;
   }
+  .drawer-nav-link:hover,
+  .drawer-nav-link.active,
   .nav-menu a:hover,
   .nav-menu a.active {
     background: rgba(176, 138, 62, 0.18) !important;
@@ -3357,8 +3374,9 @@ footer.footer {
   }
 
   .hamburger {
-    display: flex;
+    display: flex !important;
   }
+  .mobile-drawer-backdrop,
   .nav-menu-backdrop {
     position: fixed;
     inset: 0;
@@ -3368,6 +3386,7 @@ footer.footer {
     pointer-events: none;
     transition: opacity 0.3s ease;
   }
+  .mobile-drawer-backdrop.open,
   .nav-menu-backdrop.open {
     opacity: 1;
     pointer-events: all;

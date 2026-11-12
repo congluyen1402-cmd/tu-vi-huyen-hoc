@@ -23,8 +23,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/numerology.css">
+  <link rel="stylesheet" href="/css/style.css?v=20261112_navfix2">
+  <link rel="stylesheet" href="/css/numerology.css?v=20261112_navfix2">
 
   <style>
     body {
@@ -75,6 +75,26 @@
       margin-left: 3px;
       vertical-align: middle;
     }
+
+    /* Critical Nav Layout Rule (Zero-FOUC Frame 0 Protection) */
+    @media (min-width: 1025px) {
+      .mobile-drawer, #mobileDrawer, .mobile-drawer-backdrop, #navBackdrop, .mobile-bottom-nav, .hamburger {
+        display: none !important;
+      }
+      .desktop-nav {
+        display: flex !important;
+        align-items: center;
+        gap: clamp(4px, 0.75vw, 12px);
+      }
+    }
+    @media (max-width: 1024px) {
+      .desktop-nav {
+        display: none !important;
+      }
+      .hamburger {
+        display: flex !important;
+      }
+    }
   </style>
 
   <!-- Schema.org Markup -->
@@ -101,92 +121,96 @@
         <span class="brand-text">XEM TỬ VI<br>HUYỀN HỌC</span>
       </a>
 
-      <button class="hamburger" id="hamburgerBtn" aria-label="Mở menu" aria-expanded="false" aria-controls="navMenu">
+      <!-- Desktop Navigation Menu (Chỉ hiển thị trên Desktop >= 1025px) -->
+      <div class="desktop-nav" id="desktopNav">
+        <a href="/#lap-la-so" class="nav-link">Lập Lá Số</a>
+
+        <!-- Dropdown Cổ Học Tinh Hoa (Desktop) -->
+        <div class="nav-item-dropdown">
+          <button type="button" class="nav-dropdown-toggle">
+            Cổ Học Tinh Hoa <span class="nav-dropdown-arrow">▼</span>
+          </button>
+          <div class="nav-dropdown-menu">
+            <a href="/than-so-hoc">
+              <span>🔮 Thần Số Học Pythagoras</span>
+              <span class="nav-tag-badge badge-new">Mới</span>
+            </a>
+            <a href="/hop-tuoi" class="active">
+              <span>❤️ Bói Hợp Tuổi Bát Tự</span>
+              <span class="nav-tag-badge badge-hot">Hot</span>
+            </a>
+            <a href="/#ket-qua">
+              <span>🧭 Bàn Lá Số Đã Lập</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Dropdown Dịch Vụ VIP (Desktop) -->
+        <div class="nav-item-dropdown">
+          <button type="button" class="nav-dropdown-toggle">
+            Dịch Vụ VIP <span class="nav-dropdown-arrow">▼</span>
+          </button>
+          <div class="nav-dropdown-menu">
+            <a href="/#bang-gia-dich-vu">
+              <span>👑 Bảng Giá Báo Cáo VIP</span>
+            </a>
+            <a href="/#dat-lich-tu-van">
+              <span>📞 Đặt Lịch Tư Vấn 1-1</span>
+            </a>
+            <a href="/#vat-pham-phong-thuy">
+              <span>🪷 Vật Phẩm Phong Thủy</span>
+            </a>
+            <a href="/#khong-gian-tam-linh">
+              <span>🧘 Không Gian Thiền Định</span>
+            </a>
+          </div>
+        </div>
+
+        <a href="/blog" class="nav-link">Blog Vận Hạn 2027</a>
+        <a href="javascript:void(0)" onclick="if(window.TuViMonetize) TuViMonetize.openRestoreModal(); else window.location.href='/#bang-gia-dich-vu';" class="nav-link">Xem Lại Báo Cáo VIP</a>
+      </div>
+
+      <button class="hamburger" id="hamburgerBtn" aria-label="Mở menu" aria-expanded="false" aria-controls="mobileDrawer">
         <span></span>
         <span></span>
         <span></span>
       </button>
-
-      <div class="nav-menu" id="navMenu">
-        <!-- Drawer Header on Mobile -->
-        <div class="drawer-header">
-          <a href="/" class="drawer-brand">
-            <img src="/img/logo-xem-tu-vi-huyen-hoc.png" alt="Logo" width="32" height="32">
-            <span>XEM TỬ VI HUYỀN HỌC</span>
-          </a>
-          <button type="button" class="drawer-close-btn" id="drawerCloseBtn" aria-label="Đóng menu">✕</button>
-        </div>
-
-        <div class="drawer-body">
-          <div class="drawer-category-label">✦ Tra Cứu Huyền Học</div>
-          <a href="/#lap-la-so" class="drawer-nav-link"><i data-lucide="compass"></i> Lập Lá Số Tử Vi</a>
-          
-          <!-- Dropdown Cổ Học Tinh Hoa (Desktop) -->
-          <div class="nav-item-dropdown">
-            <button type="button" class="nav-dropdown-toggle">
-              Cổ Học Tinh Hoa <span class="nav-dropdown-arrow">▼</span>
-            </button>
-            <div class="nav-dropdown-menu">
-              <a href="/than-so-hoc">
-                <span>🔮 Thần Số Học Pythagoras</span>
-                <span class="nav-tag-badge badge-new">Mới</span>
-              </a>
-              <a href="/hop-tuoi" class="active">
-                <span>❤️ Bói Hợp Tuổi Bát Tự</span>
-                <span class="nav-tag-badge badge-hot">Hot</span>
-              </a>
-              <a href="/#ket-qua">
-                <span>🧭 Bàn Lá Số Đã Lập</span>
-              </a>
-            </div>
-          </div>
-
-          <!-- Direct links inside mobile drawer -->
-          <a href="/than-so-hoc" class="mobile-only-drawer-link"><i data-lucide="sparkles"></i> Thần Số Học Pythagoras <span class="nav-tag-badge badge-new">Mới</span></a>
-          <a href="/hop-tuoi" class="mobile-only-drawer-link active"><i data-lucide="heart"></i> Bói Hợp Tuổi Bát Tự <span class="nav-tag-badge badge-hot">Hot</span></a>
-          <a href="/#ket-qua" class="mobile-only-drawer-link"><i data-lucide="layout-grid"></i> Bàn Lá Số Đã Lập</a>
-
-          <div class="drawer-category-label">✦ Dịch Vụ &amp; VIP</div>
-          
-          <!-- Dropdown Dịch Vụ VIP (Desktop) -->
-          <div class="nav-item-dropdown">
-            <button type="button" class="nav-dropdown-toggle">
-              Dịch Vụ VIP <span class="nav-dropdown-arrow">▼</span>
-            </button>
-            <div class="nav-dropdown-menu">
-              <a href="/#bang-gia-dich-vu">
-                <span>👑 Bảng Giá Báo Cáo VIP</span>
-              </a>
-              <a href="/#dat-lich-tu-van">
-                <span>📞 Đặt Lịch Tư Vấn 1-1</span>
-              </a>
-              <a href="/#vat-pham-phong-thuy">
-                <span>🪷 Vật Phẩm Phong Thủy</span>
-              </a>
-              <a href="/#khong-gian-tam-linh">
-                <span>🧘 Không Gian Thiền Định</span>
-              </a>
-            </div>
-          </div>
-
-          <!-- Direct links inside mobile drawer -->
-          <a href="/#bang-gia-dich-vu" class="mobile-only-drawer-link"><i data-lucide="crown"></i> Gói VIP &amp; Báo Cáo A4</a>
-          <a href="/#dat-lich-tu-van" class="mobile-only-drawer-link"><i data-lucide="phone-call"></i> Đặt Lịch Tư Vấn 1-1</a>
-          <a href="/#vat-pham-phong-thuy" class="mobile-only-drawer-link"><i data-lucide="gem"></i> Vật Phẩm Phong Thủy</a>
-          <a href="/#khong-gian-tam-linh" class="mobile-only-drawer-link"><i data-lucide="disc"></i> Không Gian Thiền Định</a>
-
-          <div class="drawer-category-label">✦ Cẩm Nang &amp; Hỗ Trợ</div>
-          <a href="/blog" class="drawer-nav-link"><i data-lucide="book-open"></i> Blog Vận Hạn 2027</a>
-          <a href="javascript:void(0)" onclick="if(window.TuViMonetize) TuViMonetize.openRestoreModal(); else window.location.href='/#bang-gia-dich-vu';" class="drawer-nav-link"><i data-lucide="file-check"></i> Xem Lại Báo Cáo VIP</a>
-
-          <div class="drawer-cta-wrap">
-            <a href="/#lap-la-so" class="btn-drawer-primary">✦ Lập Lá Số Ngay</a>
-          </div>
-        </div>
-      </div>
-      <div class="nav-menu-backdrop" id="navBackdrop"></div>
     </nav>
   </header>
+
+  <!-- Mobile Drawer Độc Lập -->
+  <aside class="mobile-drawer" id="mobileDrawer" aria-label="Menu di động" style="display:none;">
+    <div class="drawer-header">
+      <a href="/" class="drawer-brand">
+        <img src="/img/logo-xem-tu-vi-huyen-hoc.png" alt="Logo" width="32" height="32">
+        <span>XEM TỬ VI HUYỀN HỌC</span>
+      </a>
+      <button type="button" class="drawer-close-btn" id="drawerCloseBtn" aria-label="Đóng menu">✕</button>
+    </div>
+
+    <div class="drawer-body">
+      <div class="drawer-category-label">✦ Tra Cứu Huyền Học</div>
+      <a href="/#lap-la-so" class="drawer-nav-link"><i data-lucide="compass"></i> Lập Lá Số Tử Vi</a>
+      <a href="/than-so-hoc" class="drawer-nav-link"><i data-lucide="sparkles"></i> Thần Số Học Pythagoras <span class="nav-tag-badge badge-new">Mới</span></a>
+      <a href="/hop-tuoi" class="drawer-nav-link active"><i data-lucide="heart"></i> Bói Hợp Tuổi Bát Tự <span class="nav-tag-badge badge-hot">Hot</span></a>
+      <a href="/#ket-qua" class="drawer-nav-link"><i data-lucide="layout-grid"></i> Bàn Lá Số Đã Lập</a>
+
+      <div class="drawer-category-label">✦ Dịch Vụ &amp; VIP</div>
+      <a href="/#bang-gia-dich-vu" class="drawer-nav-link"><i data-lucide="crown"></i> Gói VIP &amp; Báo Cáo A4</a>
+      <a href="/#dat-lich-tu-van" class="drawer-nav-link"><i data-lucide="phone-call"></i> Đặt Lịch Tư Vấn 1-1</a>
+      <a href="/#vat-pham-phong-thuy" class="drawer-nav-link"><i data-lucide="gem"></i> Vật Phẩm Phong Thủy</a>
+      <a href="/#khong-gian-tam-linh" class="drawer-nav-link"><i data-lucide="disc"></i> Không Gian Thiền Định</a>
+
+      <div class="drawer-category-label">✦ Cẩm Nang &amp; Hỗ Trợ</div>
+      <a href="/blog" class="drawer-nav-link"><i data-lucide="book-open"></i> Blog Vận Hạn 2027</a>
+      <a href="javascript:void(0)" onclick="if(window.TuViMonetize) TuViMonetize.openRestoreModal(); else window.location.href='/#bang-gia-dich-vu';" class="drawer-nav-link"><i data-lucide="file-check"></i> Xem Lại Báo Cáo VIP</a>
+
+      <div class="drawer-cta-wrap">
+        <a href="/#lap-la-so" class="btn-drawer-primary">✦ Lập Lá Số Ngay</a>
+      </div>
+    </div>
+  </aside>
+  <div class="mobile-drawer-backdrop" id="navBackdrop"></div>
 
   <main class="main-content">
     <!-- Hero Header & Form Section -->
@@ -299,7 +323,7 @@
     // Mobile navigation drawer toggle
     (function initMobileDrawer() {
       const hamburgerBtn = document.getElementById('hamburgerBtn');
-      const navMenu = document.getElementById('navMenu');
+      const navMenu = document.getElementById('mobileDrawer') || document.getElementById('navMenu');
       const navBackdrop = document.getElementById('navBackdrop');
       const closeBtn = document.getElementById('drawerCloseBtn');
       const bottomMenuBtn = document.getElementById('mobileBottomMenuBtn');
@@ -375,9 +399,9 @@
     window.TuViTracker.track('hop_tuoi_view', { path: window.location.pathname });
   </script>
 
-  <script src="/js/tuvi-monetize.js"></script>
-  <script src="/js/tuvi-numerology-data.js"></script>
-  <script src="/js/tuvi-numerology.js"></script>
-  <script src="/js/tuvi-compatibility.js"></script>
+  <script src="/js/tuvi-monetize.js?v=20261112_navfix2"></script>
+  <script src="/js/tuvi-numerology-data.js?v=20261112_navfix2"></script>
+  <script src="/js/tuvi-numerology.js?v=20261112_navfix2"></script>
+  <script src="/js/tuvi-compatibility.js?v=20261112_navfix2"></script>
 </body>
 </html>

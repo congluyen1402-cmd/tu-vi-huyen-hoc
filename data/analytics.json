@@ -1,7 +1,7 @@
 {
   "summary": {
-    "totalPageViews": 80,
-    "uniqueVisitors": 19,
+    "totalPageViews": 82,
+    "uniqueVisitors": 20,
     "totalLaSoCalculated": 3,
     "totalPalaceClicks": 36,
     "totalVipModalOpens": 3,
@@ -104,9 +104,33 @@
       "firstSeen": "2026-11-12T04:58:54.856Z",
       "eventsCount": 2,
       "lastSeen": "2026-11-12T04:58:54.864Z"
+    },
+    "vis_mwd6tfmc_31wem6m": {
+      "firstSeen": "2026-11-12T06:49:16.470Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-12T06:49:16.493Z"
     }
   },
   "events": [
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwd6tfmc_31wem6m",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-12T06:49:16.493Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwd6tfmc_31wem6m",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "390x844",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-12T06:49:16.470Z"
+    },
     {
       "eventType": "page_view",
       "visitorId": "vis_mwd2vidz_bftr754",
@@ -1002,7 +1026,7 @@
       "paidOrders": 2
     },
     "2026-11-12": {
-      "pageViews": 80,
+      "pageViews": 82,
       "visitors": [
         "vis_mwcy47df_5b1kbea",
         "vis_mwcy47df_ax7xzqf",
@@ -1022,7 +1046,8 @@
         "vis_mwd2bebr_9f5cw4",
         "vis_mwd2two0_7454sel",
         "vis_mwd2unj5_dv6gr75",
-        "vis_mwd2vidz_bftr754"
+        "vis_mwd2vidz_bftr754",
+        "vis_mwd6tfmc_31wem6m"
       ],
       "laSoCount": 3,
       "vipOpens": 3,
