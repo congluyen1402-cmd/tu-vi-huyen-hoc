@@ -5,7 +5,7 @@
     "totalLaSoCalculated": 3,
     "totalPalaceClicks": 36,
     "totalVipModalOpens": 3,
-    "totalPaidOrders": 2,
+    "totalPaidOrders": 3,
     "totalNumerologyLookups": 2,
     "totalCompatibilityLookups": 2
   },
@@ -1072,6 +1072,13 @@
       "amount": 29000,
       "source": "TIMO_VIETINBANK_TRANSFER",
       "at": "2026-11-11T08:19:00.000Z"
+    },
+    {
+      "type": "payment_success",
+      "orderCode": "TV289735",
+      "amount": 39000,
+      "source": "SEPAY_WEBHOOK",
+      "at": "2026-11-12T07:28:36.164Z"
     }
   ],
   "palaceClicks": {

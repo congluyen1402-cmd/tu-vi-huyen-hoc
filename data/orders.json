@@ -7,11 +7,12 @@
     "packageName": "Gói Thần Số Học VIP (39k)",
     "amount": 39000,
     "status": "PAID",
-    "paymentSource": "VIETINBANK_TRANSFER",
+    "paymentSource": "SEPAY_WEBHOOK",
     "vipAccessToken": "TV289735",
     "createdAt": "2026-11-12T07:20:00.000Z",
-    "paidAt": "2026-11-12T07:20:00.000Z",
-    "note": "Khách hàng chuyển khoản thật 39.000đ vào VietinBank 108884822302 nội dung TV289735"
+    "paidAt": "2026-11-12T07:28:36.163Z",
+    "note": "Khách hàng chuyển khoản thật 39.000đ vào VietinBank 108884822302 nội dung TV289735",
+    "transactionId": "TEST_TX_1794468516143"
   },
   {
     "orderCode": "TV523662",

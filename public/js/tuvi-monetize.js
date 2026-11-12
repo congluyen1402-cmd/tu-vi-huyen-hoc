@@ -407,8 +407,10 @@
       const orderCodeEl = document.getElementById('vipOrderCode');
       if (orderCodeEl) orderCodeEl.textContent = this.currentOrderId;
 
+      // Cú pháp chuẩn SePay VietinBank: Bắt buộc tiền tố SEVQR để kích hoạt Open Banking API
+      const orderMemo = `SEVQR ${this.currentOrderId}`;
       const memoEl = document.getElementById('vipMemoText');
-      if (memoEl) memoEl.textContent = this.currentOrderId;
+      if (memoEl) memoEl.textContent = orderMemo;
 
       const priceText = this.currentPackagePrice.toLocaleString('vi-VN') + ' đ';
       const priceEl = document.getElementById('vipPriceDisplay');
@@ -461,12 +463,15 @@
       const accountNameEl = document.getElementById('vipAccountName');
       if (accountNameEl) accountNameEl.textContent = this.config.accountName;
 
-      // Sinh URL mã VietQR chuẩn NAPAS 24/7 trực tiếp cho VietinBank
+      // Sinh URL mã VietQR chuẩn SePay NAPAS 24/7 cho VietinBank
       const qrImg = document.getElementById('vipQrImage');
       if (qrImg) {
-        const memo = encodeURIComponent(this.currentOrderId);
+        const memo = encodeURIComponent(orderMemo);
         const accName = encodeURIComponent(this.config.accountName);
-        qrImg.src = `https://img.vietqr.io/image/${this.config.bankId}-${this.config.accountNo}-compact2.png?amount=${this.currentPackagePrice}&addInfo=${memo}&accountName=${accName}`;
+        qrImg.src = `https://qr.sepay.vn/img?acc=${this.config.accountNo}&bank=VietinBank&amount=${this.currentPackagePrice}&des=${memo}&template=compact`;
+        qrImg.onerror = () => {
+          qrImg.src = `https://img.vietqr.io/image/${this.config.bankId}-${this.config.accountNo}-compact2.png?amount=${this.currentPackagePrice}&addInfo=${memo}&accountName=${accName}`;
+        };
       }
     },
 
@@ -532,6 +537,31 @@
         }, 3500);
       } else {
         this.stopOrderPolling();
+      }
+    },
+
+    checkPaymentNow: async function () {
+      const code = this.currentOrderId || (typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('tvhh_pending_order') : null);
+      if (!code) return;
+      const btn = document.querySelector('.btn-check-manual-payment');
+      if (btn) btn.innerHTML = '<span>⏳ Đang kiểm tra đối soát ngân hàng...</span>';
+      try {
+        const price = this.currentPackagePrice || 29000;
+        const res = await fetch(this.getApiUrl(`/api/orders/status/${code}?amount=${price}&manual=1`));
+        if (res.ok) {
+          const data = await res.json();
+          if (data.isPaid || data.paid || data.status === 'PAID') {
+            this.stopOrderPolling();
+            this.onPaymentSuccess(data);
+            return;
+          }
+        }
+        if (btn) btn.innerHTML = '<span>🔄 Đang chờ ngân hàng gửi thông báo (vui lòng thử lại sau 5s)...</span>';
+        setTimeout(() => {
+          if (btn) btn.innerHTML = '<span>⚡ Đã chuyển khoản xong? Bấm vào đây để mở khóa ngay</span>';
+        }, 4000);
+      } catch (e) {
+        if (btn) btn.innerHTML = '<span>⚡ Đã chuyển khoản xong? Bấm vào đây để mở khóa ngay</span>';
       }
     },
 
@@ -1378,13 +1408,9 @@
                     </div>
                   </div>
                 </div>
-                <div class="vip-step-strip" style="margin-top: 14px; padding: 10px; background: rgba(0,0,0,0.04); border-radius: 6px; font-size: 0.85rem; display: flex; justify-content: space-around; text-align: center; border: 1px dashed var(--line, #ccc);">
-                  <div><strong>1.</strong> Chọn gói</div>
-                  <div>&rarr;</div>
-                  <div><strong>2.</strong> Quét VietQR</div>
-                  <div>&rarr;</div>
-                  <div><strong>3.</strong> Hệ thống mở khóa</div>
-                </div>
+                <button type="button" class="btn-check-manual-payment" onclick="TuViMonetize.checkPaymentNow()" style="margin-top: 10px; width: 100%; background: #1B1714; color: #E5C378; border: 1.5px solid #C29B38; padding: 10px 14px; border-radius: 4px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.9rem; transition: all 0.2s;">
+                  <span>⚡ Đã chuyển khoản xong? Bấm vào đây để mở khóa ngay</span>
+                </button>
                 <p class="bank-auto-note" style="margin-top: 8px; font-size: 0.85rem;">
                   Đã chuyển tiền nhưng chưa mở khóa? Gửi mã giao dịch qua <a href="#" id="vipZaloSupportLink" class="vip-zalo-link" target="_blank" rel="noopener" style="color:var(--seal, #A3281F); font-weight:600; text-decoration:underline;">kênh hỗ trợ</a> để được đối soát ngay.
                 </p>
