@@ -3,212 +3,233 @@ const path = require('path');
 
 const POSTS_FILE = path.join(__dirname, '..', 'data', 'posts.json');
 
-// Biểu đồ SVG 1: Tứ Hóa Can Đinh 2027 & Trục Tài Lộc
-const svg1 = `
-<svg viewBox="0 0 760 360" xmlns="http://www.w3.org/2000/svg" style="background:#FAF6EE; border-radius:6px; font-family:'Be Vietnam Pro',sans-serif;">
-  <defs>
-    <linearGradient id="goldGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#C29B38"/>
-      <stop offset="100%" stop-color="#8A6818"/>
-    </linearGradient>
-    <linearGradient id="sealGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#A3281F"/>
-      <stop offset="100%" stop-color="#6E1710"/>
-    </linearGradient>
-    <filter id="shadow1" x="-5%" y="-5%" width="110%" height="110%">
-      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.12"/>
-    </filter>
-  </defs>
+// =========================================================================
+// WIDGET ĐỒ HÌNH 1: TỨ HÓA CAN ĐINH & DÒNG CHẢY TIỀN TÀI 2027
+// 100% Responsive HTML Component - Không bao giờ lệch chữ hay tràn khung
+// =========================================================================
+const widget1 = `
+<div class="infographic-wrapper">
+  <div class="infographic-inner-frame">
+    <div class="infographic-title">✦ BẢN ĐỒ TỨ HÓA CAN ĐINH &amp; DÒNG CHẢY TIỀN TÀI NĂM 2027 ✦</div>
+    <div class="infographic-grid-4">
+      <!-- 1. HÓA LỘC -->
+      <div class="infographic-card">
+        <div class="infographic-card-header gold">1. THÁI ÂM HÓA LỘC</div>
+        <div class="infographic-card-body">
+          <div class="infographic-card-item">
+            <span class="infographic-item-tag gold">● Đệ nhất tụ tài:</span>
+            <span class="infographic-item-desc">Chủ về tiền ngầm, đất đai, bất động sản và các nguồn thu thụ động tích lũy lâu dài.</span>
+          </div>
+          <div class="infographic-card-item">
+            <span class="infographic-item-tag gold">● Nữ giới vượng tài:</span>
+            <span class="infographic-item-desc">Mô hình kinh doanh hướng tới phụ nữ hoặc do nữ lãnh đạo gặt hái doanh thu vượt bậc.</span>
+          </div>
+          <div class="infographic-card-badge">Tụ Tài Đệ Nhất</div>
+        </div>
+      </div>
 
-  <!-- Khung viền cổ điển -->
-  <rect x="8" y="8" width="744" height="344" rx="6" fill="none" stroke="#D9CEB8" stroke-width="1.5"/>
-  <rect x="14" y="14" width="732" height="332" rx="4" fill="none" stroke="#C29B38" stroke-width="0.75" stroke-dasharray="6,4"/>
+      <!-- 2. HÓA QUYỀN -->
+      <div class="infographic-card">
+        <div class="infographic-card-header amber">2. THIÊN ĐỒNG HÓA QUYỀN</div>
+        <div class="infographic-card-body">
+          <div class="infographic-card-item">
+            <span class="infographic-item-tag gold">● Dám nghĩ dám làm:</span>
+            <span class="infographic-item-desc">Chuyển hóa ý tưởng thành hành động thực tế, chủ động mở rộng quy mô kinh doanh.</span>
+          </div>
+          <div class="infographic-card-item">
+            <span class="infographic-item-tag gold">● Đổi mới tạo thời cơ:</span>
+            <span class="infographic-item-desc">Linh hoạt thích ứng thị trường giúp mở ra nhiều dòng thu nhập mới dồi dào.</span>
+          </div>
+          <div class="infographic-card-badge">Hành Động Quyết Đoán</div>
+        </div>
+      </div>
 
-  <!-- Tiêu đề Sơ đồ -->
-  <text x="380" y="42" text-anchor="middle" font-size="16" font-weight="700" fill="#A3281F" font-family="'Noto Serif',serif" letter-spacing="1">✦ BẢN ĐỒ TỨ HÓA CAN ĐINH &amp; DÒNG CHẢY TIỀN TÀI NĂM 2027 ✦</text>
+      <!-- 3. HÓA KHOA -->
+      <div class="infographic-card">
+        <div class="infographic-card-header blue">3. THIÊN CƠ HÓA KHOA</div>
+        <div class="infographic-card-body">
+          <div class="infographic-card-item">
+            <span class="infographic-item-tag navy">● Trí tuệ soi đường:</span>
+            <span class="infographic-item-desc">Dùng tri thức và thẩm định kỹ lưỡng để đầu tư, không chạy theo tâm lý đám đông.</span>
+          </div>
+          <div class="infographic-card-item">
+            <span class="infographic-item-tag navy">● Quản trị an toàn:</span>
+            <span class="infographic-item-desc">Lập kế hoạch dự phòng, rà soát pháp lý và tối ưu hóa chi phí vận hành.</span>
+          </div>
+          <div class="infographic-card-badge">Trí Tuệ Thẩm Định</div>
+        </div>
+      </div>
 
-  <!-- Vòng tròn trung tâm: Đinh Mùi 2027 -->
-  <circle cx="380" cy="180" r="48" fill="#F3ECDD" stroke="#A3281F" stroke-width="2" filter="url(#shadow1)"/>
-  <circle cx="380" cy="180" r="42" fill="none" stroke="#C29B38" stroke-width="1"/>
-  <text x="380" y="174" text-anchor="middle" font-size="14" font-weight="700" fill="#A3281F">ĐINH MÙI</text>
-  <text x="380" y="194" text-anchor="middle" font-size="12" font-weight="600" fill="#C29B38">LƯU NIÊN 2027</text>
-
-  <!-- Đường nối trục Tứ Hóa -->
-  <line x1="380" y1="132" x2="380" y2="78" stroke="#C29B38" stroke-width="2" stroke-dasharray="4,3"/>
-  <line x1="428" y1="180" x2="520" y2="180" stroke="#C29B38" stroke-width="2" stroke-dasharray="4,3"/>
-  <line x1="380" y1="228" x2="380" y2="280" stroke="#A3281F" stroke-width="2" stroke-dasharray="4,3"/>
-  <line x1="332" y1="180" x2="240" y2="180" stroke="#C29B38" stroke-width="2" stroke-dasharray="4,3"/>
-
-  <!-- 1. HÓA LỘC (Top): Thái Âm Hóa Lộc -->
-  <g transform="translate(230, 48)">
-    <rect width="300" height="58" rx="6" fill="#FFFDF8" stroke="#C29B38" stroke-width="1.5" filter="url(#shadow1)"/>
-    <rect x="0" y="0" width="8" height="58" rx="3" fill="#C29B38"/>
-    <text x="20" y="24" font-size="13" font-weight="700" fill="#8A6818">THÁI ÂM HÓA LỘC (TỤ TÀI ĐỆ NHẤT)</text>
-    <text x="20" y="44" font-size="11" fill="#4A3E31">Chủ về tiền ngầm, bất động sản, tích lũy đất đai &amp; dòng tiền bền vững</text>
-  </g>
-
-  <!-- 2. HÓA QUYỀN (Right): Thiên Đồng Hóa Quyền -->
-  <g transform="translate(500, 150)">
-    <rect width="235" height="58" rx="6" fill="#FFFDF8" stroke="#D9CEB8" stroke-width="1.2" filter="url(#shadow1)"/>
-    <rect x="0" y="0" width="6" height="58" rx="3" fill="#D97706"/>
-    <text x="16" y="24" font-size="12" font-weight="700" fill="#92400E">THIÊN ĐỒNG HÓA QUYỀN</text>
-    <text x="16" y="44" font-size="10.5" fill="#4A3E31">Hành động dứt khoát, mở rộng kinh doanh</text>
-  </g>
-
-  <!-- 3. HÓA KỴ (Bottom): Cự Môn Hóa Kỵ -->
-  <g transform="translate(230, 260)">
-    <rect width="300" height="58" rx="6" fill="#FFF8F7" stroke="#A3281F" stroke-width="1.5" filter="url(#shadow1)"/>
-    <rect x="0" y="0" width="8" height="58" rx="3" fill="#A3281F"/>
-    <text x="20" y="24" font-size="13" font-weight="700" fill="#A3281F">CỰ MÔN HÓA KỴ (CẢNH BÁO RỦI RO)</text>
-    <text x="20" y="44" font-size="11" fill="#7A1F17">Tránh tranh chấp hợp đồng, không cho vay miệng, thị phi hao tài</text>
-  </g>
-
-  <!-- 4. HÓA KHOA (Left): Thiên Cơ Hóa Khoa -->
-  <g transform="translate(25, 150)">
-    <rect width="235" height="58" rx="6" fill="#FFFDF8" stroke="#D9CEB8" stroke-width="1.2" filter="url(#shadow1)"/>
-    <rect x="0" y="0" width="6" height="58" rx="3" fill="#2563EB"/>
-    <text x="16" y="24" font-size="12" font-weight="700" fill="#1D4ED8">THIÊN CƠ HÓA KHOA</text>
-    <text x="16" y="44" font-size="10.5" fill="#4A3E31">Dùng trí tuệ thẩm định, quản trị vốn khoa học</text>
-  </g>
-
-  <!-- Chú thích chân sơ đồ -->
-  <text x="380" y="338" text-anchor="middle" font-size="10.5" fill="#8C7D6B">Nguồn: Đồ hình Tứ Hóa Nam Phái Cổ Truyền - Bản quyền nghiên cứu tại xemtuvihuyenhoc.com</text>
-</svg>
+      <!-- 4. HÓA KỴ -->
+      <div class="infographic-card">
+        <div class="infographic-card-header crimson">4. CỰ MÔN HÓA KỴ</div>
+        <div class="infographic-card-body">
+          <div class="infographic-card-item">
+            <span class="infographic-item-tag danger">● Cảnh báo thị phi:</span>
+            <span class="infographic-item-desc">Đề phòng tranh chấp hợp đồng, không cho vay miệng, cẩn trọng lời ăn tiếng nói kẻo hao tài.</span>
+          </div>
+          <div class="infographic-card-item">
+            <span class="infographic-item-tag danger">● Tránh bẫy lừa đảo:</span>
+            <span class="infographic-item-desc">Nói không với các dự án bánh vẽ cam kết lợi nhuận khủng thiếu căn cứ pháp lý.</span>
+          </div>
+          <div class="infographic-card-badge" style="background:#FFF1F0; border-color:#FECACA; color:#A3281F;">Cảnh Báo Rủi Ro</div>
+        </div>
+      </div>
+    </div>
+    <div class="infographic-footer-source">Đồ hình Tứ Hóa Nam Phái Cổ Truyền - Bản quyền nghiên cứu tại xemtuvihuyenhoc.com</div>
+  </div>
+  <div class="infographic-caption">Hình 1: Bản đồ Tứ Hóa Can Đinh 2027 &amp; Trục luân chuyển tiền tài theo Tử Vi Nam Phái.</div>
+</div>
 `;
 
-// Biểu đồ SVG 2: Ma Trận 4 Lớp Quản Trị Rủi Ro Đầu Tư 2027
-const svg2 = `
-<svg viewBox="0 0 760 360" xmlns="http://www.w3.org/2000/svg" style="background:#FAF6EE; border-radius:6px; font-family:'Be Vietnam Pro',sans-serif;">
-  <defs>
-    <filter id="shadow2" x="-5%" y="-5%" width="110%" height="110%">
-      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.12"/>
-    </filter>
-  </defs>
+// =========================================================================
+// WIDGET ĐỒ HÌNH 2: MA TRẬN 4 TẦNG BẢO VỆ TÀI CHÍNH & ĐẦU TƯ 2027
+// 100% Responsive HTML Component - Khắc phục triệt để lỗi lệch chữ ngoài khung
+// =========================================================================
+const widget2 = `
+<div class="infographic-wrapper">
+  <div class="infographic-inner-frame">
+    <div class="infographic-title">✦ MA TRẬN 4 TẦNG BẢO VỆ TÀI CHÍNH &amp; ĐẦU TƯ NĂM 2027 ✦</div>
+    <div class="infographic-grid-4">
+      <!-- Cột 1: Soi Cung Tài -->
+      <div class="infographic-card">
+        <div class="infographic-card-header gold">1. SOI CUNG TÀI</div>
+        <div class="infographic-card-body">
+          <div class="infographic-card-item">
+            <span class="infographic-item-tag crimson">● Gặp Thái Âm:</span>
+            <span class="infographic-item-desc">Thời cơ vàng gom tài sản giá tốt, bất động sản tạo dòng tiền thực.</span>
+          </div>
+          <div class="infographic-card-item">
+            <span class="infographic-item-tag danger">● Gặp Cự Môn Kỵ:</span>
+            <span class="infographic-item-desc">Dừng ngay lướt sóng, giữ chặt tiền mặt, cấm cho vay mượn.</span>
+          </div>
+          <div class="infographic-card-item">
+            <span class="infographic-item-tag gold">● Gặp Không Kiếp:</span>
+            <span class="infographic-item-desc">Tuyệt đối không dùng đòn bẩy ngân hàng quá khả năng chi trả.</span>
+          </div>
+          <div class="infographic-card-badge">Kiểm Soát Vị Thế</div>
+        </div>
+      </div>
 
-  <rect x="8" y="8" width="744" height="344" rx="6" fill="none" stroke="#D9CEB8" stroke-width="1.5"/>
-  <rect x="14" y="14" width="732" height="332" rx="4" fill="none" stroke="#A3281F" stroke-width="0.75" stroke-dasharray="6,4"/>
+      <!-- Cột 2: Rào Chắn Pháp Lý -->
+      <div class="infographic-card">
+        <div class="infographic-card-header navy">2. RÀO CHẮN PHÁP LÝ</div>
+        <div class="infographic-card-body">
+          <div class="infographic-card-item">
+            <span class="infographic-item-tag navy">● Giấy trắng mực đen:</span>
+            <span class="infographic-item-desc">Không tin thỏa thuận miệng dù là người thân hay bạn bè chí cốt.</span>
+          </div>
+          <div class="infographic-card-item">
+            <span class="infographic-item-tag navy">● Công chứng rõ ràng:</span>
+            <span class="infographic-item-desc">Hợp đồng đối tác bắt buộc có điều khoản ràng buộc và chế tài phạt.</span>
+          </div>
+          <div class="infographic-card-item">
+            <span class="infographic-item-tag danger">● Khóa van bảo lãnh:</span>
+            <span class="infographic-item-desc">Cấm tuyệt đối việc đứng tên vay mượn hoặc ký bảo lãnh hộ người khác.</span>
+          </div>
+          <div class="infographic-card-badge">Hóa Giải Cự Môn Kỵ</div>
+        </div>
+      </div>
 
-  <text x="380" y="42" text-anchor="middle" font-size="16" font-weight="700" fill="#A3281F" font-family="'Noto Serif',serif" letter-spacing="1">✦ MA TRẬN 4 TẦNG BẢO VỆ TÀI CHÍNH &amp; ĐẦU TƯ NĂM 2027 ✦</text>
+      <!-- Cột 3: Phân Bổ Tài Sản -->
+      <div class="infographic-card">
+        <div class="infographic-card-header emerald">3. PHÂN BỔ TÀI SẢN</div>
+        <div class="infographic-card-body">
+          <div class="infographic-card-item">
+            <span class="infographic-item-tag emerald">● 60% Tài sản lõi:</span>
+            <span class="infographic-item-desc">Đất sạch có sổ hồng, vàng vật chất, tài sản tạo dòng tiền thực.</span>
+          </div>
+          <div class="infographic-card-item">
+            <span class="infographic-item-tag emerald">● 30% Sản xuất KD:</span>
+            <span class="infographic-item-desc">Duy trì mô hình kinh doanh có lợi nhuận dương hàng tháng.</span>
+          </div>
+          <div class="infographic-card-item">
+            <span class="infographic-item-tag emerald">● 10% Dự phòng:</span>
+            <span class="infographic-item-desc">Thanh khoản khẩn cấp sẵn sàng ứng phó biến cố thị trường.</span>
+          </div>
+          <div class="infographic-card-badge">Bảo Toàn Sinh Khí</div>
+        </div>
+      </div>
 
-  <!-- Cột 1: Soi Cung Tài -->
-  <g transform="translate(30, 68)">
-    <rect width="160" height="235" rx="6" fill="#FFFDF8" stroke="#D9CEB8" stroke-width="1" filter="url(#shadow2)"/>
-    <rect x="0" y="0" width="160" height="34" rx="6 6 0 0" fill="#C29B38"/>
-    <text x="80" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">1. SOI CUNG TÀI</text>
-    <text x="14" y="60" font-size="11" font-weight="700" fill="#A3281F">● Gặp Thái Âm:</text>
-    <text x="14" y="78" font-size="10" fill="#4A3E31">Thời cơ vàng gom tài sản</text>
-    <text x="14" y="105" font-size="11" font-weight="700" fill="#DC2626">● Gặp Cự Môn Kỵ:</text>
-    <text x="14" y="123" font-size="10" fill="#4A3E31">Dừng ngay lướt sóng, giữ chặt tiền mặt</text>
-    <text x="14" y="152" font-size="11" font-weight="700" fill="#B45309">● Gặp Không Kiếp:</text>
-    <text x="14" y="170" font-size="10" fill="#4A3E31">Tuyệt đối không dùng đòn bẩy ngân hàng</text>
-    <rect x="14" y="196" width="132" height="24" rx="4" fill="#F3ECDD"/>
-    <text x="80" y="212" text-anchor="middle" font-size="9.5" font-weight="600" fill="#6B5E52">Kiểm soát vị thế</text>
-  </g>
-
-  <!-- Mũi tên liên kết 1->2 -->
-  <path d="M 195 185 L 215 185" stroke="#C29B38" stroke-width="2" marker-end="url(#arrow)"/>
-
-  <!-- Cột 2: Rào Chắn Pháp Lý -->
-  <g transform="translate(215, 68)">
-    <rect width="160" height="235" rx="6" fill="#FFFDF8" stroke="#D9CEB8" stroke-width="1" filter="url(#shadow2)"/>
-    <rect x="0" y="0" width="160" height="34" rx="6 6 0 0" fill="#1E3A8A"/>
-    <text x="80" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">2. RÀO CHẮN PHÁP LÝ</text>
-    <text x="14" y="60" font-size="11" font-weight="700" fill="#1E3A8A">● Giấy trắng mực đen:</text>
-    <text x="14" y="78" font-size="10" fill="#4A3E31">Không tin thỏa thuận miệng dù thân thích</text>
-    <text x="14" y="105" font-size="11" font-weight="700" fill="#1E3A8A">● Công chứng rõ ràng:</text>
-    <text x="14" y="123" font-size="10" fill="#4A3E31">Hợp đồng đối tác phải có điều khoản phạt</text>
-    <text x="14" y="152" font-size="11" font-weight="700" fill="#DC2626">● Khóa van bảo lãnh:</text>
-    <text x="14" y="170" font-size="10" fill="#4A3E31">Cấm ký bảo lãnh vay mượn hộ người khác</text>
-    <rect x="14" y="196" width="132" height="24" rx="4" fill="#F3ECDD"/>
-    <text x="80" y="212" text-anchor="middle" font-size="9.5" font-weight="600" fill="#6B5E52">Hóa giải Cự Môn Kỵ</text>
-  </g>
-
-  <!-- Cột 3: Tỷ Lệ Vốn Vàng -->
-  <g transform="translate(390, 68)">
-    <rect width="160" height="235" rx="6" fill="#FFFDF8" stroke="#D9CEB8" stroke-width="1" filter="url(#shadow2)"/>
-    <rect x="0" y="0" width="160" height="34" rx="6 6 0 0" fill="#047857"/>
-    <text x="80" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">3. PHÂN BỔ TÀI SẢN</text>
-    <text x="14" y="60" font-size="11" font-weight="700" fill="#047857">● 60% Tài sản lõi:</text>
-    <text x="14" y="78" font-size="10" fill="#4A3E31">Đất sạch, vàng vật chất, kênh phòng thủ</text>
-    <text x="14" y="105" font-size="11" font-weight="700" fill="#047857">● 30% Sản xuất KD:</text>
-    <text x="14" y="123" font-size="10" fill="#4A3E31">Duy trì mô hình kinh doanh có dòng tiền</text>
-    <text x="14" y="152" font-size="11" font-weight="700" fill="#047857">● 10% Dự phòng:</text>
-    <text x="14" y="170" font-size="10" fill="#4A3E31">Thanh khoản ứng phó biến cố bất ngờ</text>
-    <rect x="14" y="196" width="132" height="24" rx="4" fill="#F3ECDD"/>
-    <text x="80" y="212" text-anchor="middle" font-size="9.5" font-weight="600" fill="#6B5E52">Bảo toàn sinh khí</text>
-  </g>
-
-  <!-- Cột 4: Kích Hoạt Kho Điền -->
-  <g transform="translate(565, 68)">
-    <rect width="160" height="235" rx="6" fill="#FFFDF8" stroke="#D9CEB8" stroke-width="1" filter="url(#shadow2)"/>
-    <rect x="0" y="0" width="160" height="34" rx="6 6 0 0" fill="#A3281F"/>
-    <text x="80" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">4. KHO ĐIỀN SẢN</text>
-    <text x="14" y="60" font-size="11" font-weight="700" fill="#A3281F">● Soi Cung Điền Trạch:</text>
-    <text x="14" y="78" font-size="10" fill="#4A3E31">Đo lường năng lực tích lũy nhà đất</text>
-    <text x="14" y="105" font-size="11" font-weight="700" fill="#A3281F">● Gặp Lộc Tồn / Khoa:</text>
-    <text x="14" y="123" font-size="10" fill="#4A3E31">Cơ hội mua bất động sản giá đáy</text>
-    <text x="14" y="152" font-size="11" font-weight="700" fill="#DC2626">● Gặp Tang Môn / Hổ:</text>
-    <text x="14" y="170" font-size="10" fill="#4A3E31">Cẩn thận quy hoạch hoặc tranh chấp sổ đỏ</text>
-    <rect x="14" y="196" width="132" height="24" rx="4" fill="#F3ECDD"/>
-    <text x="80" y="212" text-anchor="middle" font-size="9.5" font-weight="600" fill="#6B5E52">Tích sản truyền đời</text>
-  </g>
-
-  <text x="380" y="338" text-anchor="middle" font-size="10.5" fill="#8C7D6B">Đồ hình Quản Trị Vốn 2027 Nam Phái - Thực hiện bởi Hội đồng Khoa học Xem Tử Vi Huyền Học</text>
-</svg>
+      <!-- Cột 4: Kho Điền Sản -->
+      <div class="infographic-card">
+        <div class="infographic-card-header crimson">4. KHO ĐIỀN SẢN</div>
+        <div class="infographic-card-body">
+          <div class="infographic-card-item">
+            <span class="infographic-item-tag crimson">● Soi Cung Điền:</span>
+            <span class="infographic-item-desc">Đo lường năng lực giữ đất đai và tích lũy bất động sản truyền đời.</span>
+          </div>
+          <div class="infographic-card-item">
+            <span class="infographic-item-tag crimson">● Gặp Lộc Tồn / Khoa:</span>
+            <span class="infographic-item-desc">Cơ hội vàng mua bất động sản vùng trũng giá tốt năm 2027.</span>
+          </div>
+          <div class="infographic-card-item">
+            <span class="infographic-item-tag danger">● Gặp Tang Môn / Hổ:</span>
+            <span class="infographic-item-desc">Cẩn thận quy hoạch treo hoặc kiện tụng tranh chấp ranh giới đất.</span>
+          </div>
+          <div class="infographic-card-badge">Tích Sản Truyền Đời</div>
+        </div>
+      </div>
+    </div>
+    <div class="infographic-footer-source">Đồ hình Quản Trị Vốn 2027 Nam Phái - Thực hiện bởi Hội đồng Khoa học Xem Tử Vi Huyền Học</div>
+  </div>
+  <div class="infographic-caption">Hình 2: Ma trận 4 tầng bảo vệ vốn &amp; phòng ngừa rủi ro đầu tư năm Đinh Mùi 2027.</div>
+</div>
 `;
 
-// Biểu đồ SVG 3: Sơ Đồ Hỷ Thần & Hóa Giải Xung Khắc Hôn Nhân 2027
-const svg3 = `
-<svg viewBox="0 0 760 360" xmlns="http://www.w3.org/2000/svg" style="background:#FAF6EE; border-radius:6px; font-family:'Be Vietnam Pro',sans-serif;">
-  <defs>
-    <filter id="shadow3" x="-5%" y="-5%" width="110%" height="110%">
-      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.12"/>
-    </filter>
-  </defs>
+// =========================================================================
+// WIDGET ĐỒ HÌNH 3: SƠ ĐỒ SOI CHIẾU HỶ TÍN & HÓA GIẢI CUNG PHU THÊ 2027
+// 100% Responsive HTML Component
+// =========================================================================
+const widget3 = `
+<div class="infographic-wrapper">
+  <div class="infographic-inner-frame">
+    <div class="infographic-title">✦ SƠ ĐỒ SOI CHIẾU HỶ TÍN &amp; HÓA GIẢI CUNG PHU THÊ NĂM 2027 ✦</div>
+    <div class="infographic-grid-2">
+      <!-- Cột 1: Hỷ Tín -->
+      <div class="infographic-card">
+        <div class="infographic-card-header rose">🌸 DẤU HIỆU CƯỚI HỎI &amp; THÊM NGƯỜI THÊM CỦA</div>
+        <div class="infographic-card-body">
+          <div class="infographic-card-item">
+            <span class="infographic-item-tag rose">1. Lưu Đào Hoa &amp; Lưu Hồng Loan:</span>
+            <span class="infographic-item-desc">Chiếu Cung Mệnh, Thân hoặc Cung Phu Thê: Duyên lành gõ cửa, dễ thành hôn phối danh chính ngôn thuận, tình duyên đơm hoa kết trái.</span>
+          </div>
+          <div class="infographic-card-item">
+            <span class="infographic-item-tag gold">2. Thiên Hỷ &amp; Hóa Lộc hội chiếu:</span>
+            <span class="infographic-item-desc">Gia đình đón tin vui lớn, sinh quý tử đầu lòng, vợ chồng cùng hợp lực làm ăn buôn bán vượng phát.</span>
+          </div>
+          <div class="infographic-card-item">
+            <span class="infographic-item-tag emerald">3. Top tuổi vượng hôn nhân 2027:</span>
+            <span class="infographic-item-desc">Tuổi Mão (1999, 1987), Tuổi Hợi (1995, 1983), Tuổi Ngọ (1990, 2002) gặp đại vận hỷ tín trăm năm.</span>
+          </div>
+          <div class="infographic-card-badge" style="background:#FDF2F8; border-color:#FBCFE8; color:#BE185D;">Vượng Hỷ Tín Hôn Phối</div>
+        </div>
+      </div>
 
-  <rect x="8" y="8" width="744" height="344" rx="6" fill="none" stroke="#D9CEB8" stroke-width="1.5"/>
-  <rect x="14" y="14" width="732" height="332" rx="4" fill="none" stroke="#A3281F" stroke-width="0.75" stroke-dasharray="6,4"/>
-
-  <text x="380" y="42" text-anchor="middle" font-size="16" font-weight="700" fill="#A3281F" font-family="'Noto Serif',serif" letter-spacing="1">✦ SƠ ĐỒ SOI CHIẾU HỶ TÍN &amp; HÓA GIẢI CUNG PHU THÊ NĂM 2027 ✦</text>
-
-  <!-- Nhánh Trái: Hỷ Tín & Kết Duyên -->
-  <g transform="translate(35, 75)">
-    <rect width="320" height="225" rx="6" fill="#FFFDF8" stroke="#C29B38" stroke-width="1.5" filter="url(#shadow3)"/>
-    <rect x="0" y="0" width="320" height="36" rx="6 6 0 0" fill="#BE185D"/>
-    <text x="160" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF">🌸 DẤU HIỆU CƯỚI HỎI &amp; THÊM NGƯỜI THÊM CỦA</text>
-
-    <text x="20" y="65" font-size="11.5" font-weight="700" fill="#BE185D">1. Lưu Đào Hoa &amp; Lưu Hồng Loan:</text>
-    <text x="20" y="83" font-size="10.5" fill="#4A3E31">Nhập Mệnh, Thân hoặc Cung Phu Thê: Duyên lành gõ cửa, dễ thành hôn phối danh chính ngôn thuận.</text>
-
-    <text x="20" y="118" font-size="11.5" font-weight="700" fill="#B45309">2. Thiên Hỷ &amp; Hóa Lộc hội chiếu:</text>
-    <text x="20" y="136" font-size="10.5" fill="#4A3E31">Gia đình đón tin vui lớn, sinh quý tử đầu lòng, vợ chồng cùng làm ăn vượng phát.</text>
-
-    <text x="20" y="170" font-size="11.5" font-weight="700" fill="#047857">3. Top tuổi vượng hôn nhân 2027:</text>
-    <text x="20" y="188" font-size="10.5" fill="#4A3E31">Tuổi Mão (1999, 1987), Tuổi Hợi (1995, 1983), Tuổi Ngọ (1990, 2002) gặp đại vận hỷ tín.</text>
-  </g>
-
-  <!-- Trục Tâm: Hòa Hợp Âm Dương -->
-  <circle cx="380" cy="188" r="22" fill="#FAF6EE" stroke="#A3281F" stroke-width="2"/>
-  <text x="380" y="193" text-anchor="middle" font-size="18" fill="#A3281F">☯</text>
-
-  <!-- Nhánh Phải: Sóng Gió & Cách Hóa Giải -->
-  <g transform="translate(405, 75)">
-    <rect width="320" height="225" rx="6" fill="#FFFDF8" stroke="#A3281F" stroke-width="1.5" filter="url(#shadow3)"/>
-    <rect x="0" y="0" width="320" height="36" rx="6 6 0 0" fill="#A3281F"/>
-    <text x="160" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF">⚠️ HIỂM HỌA KHẮC KHẨU &amp; PHƯƠNG PHÁP HÓA GIẢI</text>
-
-    <text x="20" y="65" font-size="11.5" font-weight="700" fill="#A3281F">1. Cự Môn Hóa Kỵ chiếu Phu Thê:</text>
-    <text x="20" y="83" font-size="10.5" fill="#4A3E31">Lời nói vô tình chém nhát kiếm đau lòng; nghi ngờ ghen tuông vô căn cứ gây rạn nứt.</text>
-
-    <text x="20" y="118" font-size="11.5" font-weight="700" fill="#7C2D12">2. Tuần Triệt / Cô Thần Quả Tú:</text>
-    <text x="20" y="136" font-size="10.5" fill="#4A3E31">Cảm giác cô đơn trong chính ngôi nhà mình; vợ chồng thiếu sự thấu hiểu và chia sẻ.</text>
-
-    <text x="20" y="170" font-size="11.5" font-weight="700" fill="#1E3A8A">3. Bí quyết Tu Dưỡng Cải Mệnh:</text>
-    <text x="20" y="188" font-size="10.5" fill="#4A3E31">"Lấy nhẫn nhịn làm vàng, lấy lắng nghe làm gốc". Bố trí phòng ngủ đúng phong thủy sinh khí.</text>
-  </g>
-
-  <text x="380" y="338" text-anchor="middle" font-size="10.5" fill="#8C7D6B">Sơ đồ Luận Đoán Cung Phu Thê 2027 - Nghiên cứu độc quyền tại xemtuvihuyenhoc.com</text>
-</svg>
+      <!-- Cột 2: Sóng Gió & Hóa Giải -->
+      <div class="infographic-card">
+        <div class="infographic-card-header crimson">⚠️ HIỂM HỌA KHẮC KHẨU &amp; PHƯƠNG PHÁP HÓA GIẢI</div>
+        <div class="infographic-card-body">
+          <div class="infographic-card-item">
+            <span class="infographic-item-tag crimson">1. Cự Môn Hóa Kỵ chiếu Phu Thê:</span>
+            <span class="infographic-item-desc">Lời nói vô tình chém nhát kiếm đau lòng; nghi ngờ ghen tuông vô căn cứ gây rạn nứt niềm tin hôn nhân.</span>
+          </div>
+          <div class="infographic-card-item">
+            <span class="infographic-item-tag danger">2. Tuần Triệt / Cô Thần Quả Tú:</span>
+            <span class="infographic-item-desc">Cảm giác cô đơn trong chính ngôi nhà mình; vợ chồng thiếu sự thấu hiểu và chia sẻ tâm sự hàng ngày.</span>
+          </div>
+          <div class="infographic-card-item">
+            <span class="infographic-item-tag navy">3. Bí quyết Tu Dưỡng Cải Mệnh:</span>
+            <span class="infographic-item-desc">"Lấy nhẫn nhịn làm vàng, lấy lắng nghe làm gốc". Bố trí phòng ngủ đúng phong thủy sinh khí, cùng nhau tích đức hành thiện.</span>
+          </div>
+          <div class="infographic-card-badge" style="background:#FFF1F0; border-color:#FECACA; color:#A3281F;">Hóa Giải Xung Khắc Gia Đạo</div>
+        </div>
+      </div>
+    </div>
+    <div class="infographic-footer-source">Sơ đồ Luận Đoán Cung Phu Thê 2027 - Nghiên cứu độc quyền tại xemtuvihuyenhoc.com</div>
+  </div>
+  <div class="infographic-caption">Hình 3: Sơ đồ soi chiếu hỷ tín cưới hỏi &amp; bí quyết hóa giải xung khắc Cung Phu Thê năm 2027.</div>
+</div>
 `;
 
 // =========================================================================
@@ -238,10 +259,7 @@ const post1 = {
     <h2>2. Bản Đồ Tứ Hóa 2027: Thái Âm Hóa Lộc - Đệ Nhất Tài Tinh Nổi Sóng</h2>
     <p>Khác với năm Bính Ngọ 2026 khi Thiên Đồng Hóa Lộc chủ về kiếm tiền từ sự thay đổi và hưởng thụ, năm <strong>Đinh Mùi 2027 đặt Thái Âm vào vị trí Hóa Lộc</strong>. Thái Âm vốn là đệ nhất sao tài tinh kiêm điền sản tinh trong 14 Chính Tinh Tử Vi. Dưới đây là sơ đồ luân chuyển năng lượng tài lộc năm 2027:</p>
 
-    <div class="article-diagram">
-      ${svg1}
-      <div class="diagram-caption">Hình 1: Đồ hình Tứ Hóa Can Đinh 2027 &amp; Trục luân chuyển tiền tài theo Tử Vi Nam Phái.</div>
-    </div>
+    ${widget1}
 
     <p>Khi Thái Âm gặp Hóa Lộc trong năm Đinh Mùi 2027:</p>
     <ul>
@@ -311,10 +329,7 @@ const post2 = {
       <li><strong>Khẩu thiệt hao tài:</strong> Một câu nói lỡ lời, một status bốc đồng trên mạng xã hội có thể kéo theo scandal ảnh hưởng trực tiếp đến uy tín kinh doanh và thiệt hại hàng trăm triệu đồng.</li>
     </ul>
 
-    <div class="article-diagram">
-      ${svg2}
-      <div class="diagram-caption">Hình 2: Ma trận 4 tầng bảo vệ vốn &amp; phòng ngừa rủi ro đầu tư năm Đinh Mùi 2027.</div>
-    </div>
+    ${widget2}
 
     <h2>2. Những Cung Vị Tuyệt Đối Cấm "Tất Tay" (All-in) Năm 2027</h2>
     <p>Khi mở lá số Tử Vi của bạn ra, hãy kiểm tra kỹ các cung vị sau để xem bạn có thuộc diện "Báo động đỏ" trong năm 2027 hay không:</p>
@@ -382,10 +397,7 @@ const post3 = {
       <li><strong>Mặt tối (Cự Môn Hóa Kỵ):</strong> Cực kỳ dễ nảy sinh "chiến tranh lạnh", khẩu chiến từ những hiểu lầm vụn vặt trong cuộc sống hàng ngày. Nếu không làm chủ được cái tôi, lời nói lúc nóng giận sẽ để lại vết thương khó lành.</li>
     </ul>
 
-    <div class="article-diagram">
-      ${svg3}
-      <div class="diagram-caption">Hình 3: Sơ đồ soi chiếu hỷ tín cưới hỏi &amp; bí quyết hóa giải xung khắc Cung Phu Thê năm 2027.</div>
-    </div>
+    ${widget3}
 
     <h2>2. Dấu Hiệu Hỷ Tín Kết Hôn &amp; Sinh Quý Tử Trong Năm 2027</h2>
     <p>Đối với các bạn trẻ đang tìm kiếm một nửa đích thực hoặc mong mỏi chuyện thành gia lập thất, năm Đinh Mùi 2027 là thời cơ vàng nếu lá số của bạn xuất hiện các dấu hiệu sau:</p>
@@ -431,7 +443,6 @@ const post3 = {
   `
 };
 
-// Đọc danh sách hiện tại
 let posts = [];
 try {
   posts = JSON.parse(fs.readFileSync(POSTS_FILE, 'utf8'));
@@ -439,17 +450,15 @@ try {
   posts = [];
 }
 
-// Thay thế hoặc thêm mới 3 bài viết
 const newPosts = [post1, post2, post3];
 newPosts.forEach(newP => {
   const idx = posts.findIndex(p => p.slug === newP.slug || p.id === newP.id);
   if (idx >= 0) {
     posts[idx] = Object.assign({}, posts[idx], newP);
   } else {
-    // Đưa 3 bài viết mới này lên đầu danh sách để độc giả thấy ngay
     posts.unshift(newP);
   }
 });
 
 fs.writeFileSync(POSTS_FILE, JSON.stringify(posts, null, 2), 'utf8');
-console.log('Đã cập nhật thành công 3 bài viết SEO 2027 vào data/posts.json! Tổng số bài viết:', posts.length);
+console.log('Cập nhật hoàn tất 3 bài viết với HTML infographic responsive! Tổng bài:', posts.length);
