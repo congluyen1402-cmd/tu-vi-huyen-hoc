@@ -692,6 +692,30 @@
           </div>
         </div>
 
+        <!-- PREMIUM VIP REPORT CARD (VIETQR SEPAY 39K) -->
+        <div class="num-vip-paywall-box">
+          <div class="vip-badge-ribbon">👑 ĐẶC QUYỀN HỘI VIÊN CAO CẤP</div>
+          <h2 class="vip-paywall-title">BÁO CÁO THẦN SỐ HỌC PYTHAGORAS VIP 2026 – 2027</h2>
+          <p class="vip-paywall-desc">
+            Khai phá trọn vẹn 15+ chỉ số rung động chuyên sâu, bản đồ 4 đỉnh cao kim tự tháp theo từng độ tuổi và dự báo chi tiết vận trình 12 tháng năm 2026 - 2027 giúp định hướng sự nghiệp, gia đạo và tài lộc.
+          </p>
+          <div class="vip-price-wrap">
+            <span class="vip-old-price">129.000 đ</span>
+            <span class="vip-current-price">39.000 đ</span>
+          </div>
+          <div class="vip-features-checklist">
+            <div class="vip-feature-item"><span class="chk">✓</span> Phân tích 15+ chỉ số: Linh hồn, Nhân cách, Thái độ, Đam mê tiềm ẩn</div>
+            <div class="vip-feature-item"><span class="chk">✓</span> Giải mã Kim Tự Tháp 4 đỉnh cao &amp; 4 thử thách định mệnh</div>
+            <div class="vip-feature-item"><span class="chk">✓</span> Dự báo vận trình 12 tháng năm 2026 &amp; 2027 (Năm cá nhân ${res.personalYear2026})</div>
+            <div class="vip-feature-item"><span class="chk">✓</span> Hướng phát triển sự nghiệp &amp; phong thủy màu sắc hợp tần số</div>
+            <div class="vip-feature-item"><span class="chk">✓</span> Xuất file Báo Cáo VIP PDF A4 trang trọng lưu giữ trọn đời</div>
+          </div>
+          <button type="button" class="btn-paywall-vietqr" onclick="if(window.TuViMonetize){ TuViMonetize.openVipModal('Gói Thần Số Học VIP (39k)', 39000); } else { window.location.href='/#bang-gia-dich-vu'; }">
+            ⚡ MỞ KHÓA BÁO CÁO VIP NGAY (39.000đ) ➔
+          </button>
+          <p class="vip-guarantee-note">Quét mã VietQR tự động qua SePay · Kích hoạt tức thì sau 3 giây · Hoàn tiền 100% nếu có sự cố</p>
+        </div>
+
         <!-- Seamless Action Cross-link Card -->
         <div class="cross-link-card">
           <div class="cross-link-content">

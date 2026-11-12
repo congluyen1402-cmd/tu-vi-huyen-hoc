@@ -252,16 +252,82 @@
       </button>
 
       <div class="nav-menu" id="navMenu">
-        <a href="#lap-la-so">Lập Lá Số</a>
-        <a href="/than-so-hoc">Thần Số Học <span style="background:var(--seal);color:#fff;font-size:0.65rem;padding:1px 5px;border-radius:3px;font-weight:700;">Mới</span></a>
-        <a href="/hop-tuoi">Xem Hợp Tuổi <span style="background:#E53E3E;color:#fff;font-size:0.65rem;padding:1px 5px;border-radius:3px;font-weight:700;">Hot</span></a>
-        <a href="#ket-qua" id="navMenuLaSo">Lá Số</a>
-        <a href="#bang-gia-dich-vu">Gói VIP</a>
-        <a href="#vat-pham-phong-thuy">Phong Thủy</a>
-        <a href="#dat-lich-tu-van">Tư Vấn 1-1</a>
-        <a href="#khong-gian-tam-linh">Thiền Định</a>
-        <a href="/blog">Blog Tử Vi</a>
-        <a href="javascript:void(0)" onclick="TuViMonetize.openRestoreModal()">Xem lại báo cáo VIP</a>
+        <!-- Drawer Header on Mobile -->
+        <div class="drawer-header">
+          <a href="#" class="drawer-brand">
+            <img src="/img/logo-xem-tu-vi-huyen-hoc.png" alt="Logo" width="32" height="32">
+            <span>XEM TỬ VI HUYỀN HỌC</span>
+          </a>
+          <button type="button" class="drawer-close-btn" id="drawerCloseBtn" aria-label="Đóng menu">✕</button>
+        </div>
+
+        <div class="drawer-body">
+          <div class="drawer-category-label">✦ Tra Cứu Huyền Học</div>
+          <a href="#lap-la-so" class="drawer-nav-link"><i data-lucide="compass"></i> Lập Lá Số Tử Vi</a>
+          
+          <!-- Dropdown Cổ Học Tinh Hoa (Desktop) -->
+          <div class="nav-item-dropdown">
+            <button type="button" class="nav-dropdown-toggle">
+              Cổ Học Tinh Hoa <span class="nav-dropdown-arrow">▼</span>
+            </button>
+            <div class="nav-dropdown-menu">
+              <a href="/than-so-hoc">
+                <span>🔮 Thần Số Học Pythagoras</span>
+                <span class="nav-tag-badge badge-new">Mới</span>
+              </a>
+              <a href="/hop-tuoi">
+                <span>❤️ Bói Hợp Tuổi Bát Tự</span>
+                <span class="nav-tag-badge badge-hot">Hot</span>
+              </a>
+              <a href="#ket-qua" id="navMenuLaSo">
+                <span>🧭 Bàn Lá Số Đã Lập</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Direct links inside mobile drawer -->
+          <a href="/than-so-hoc" class="mobile-only-drawer-link"><i data-lucide="sparkles"></i> Thần Số Học Pythagoras <span class="nav-tag-badge badge-new">Mới</span></a>
+          <a href="/hop-tuoi" class="mobile-only-drawer-link"><i data-lucide="heart"></i> Bói Hợp Tuổi Bát Tự <span class="nav-tag-badge badge-hot">Hot</span></a>
+          <a href="#ket-qua" class="mobile-only-drawer-link" id="navMenuLaSoMobile"><i data-lucide="layout-grid"></i> Bàn Lá Số Đã Lập</a>
+
+          <div class="drawer-category-label">✦ Dịch Vụ &amp; VIP</div>
+          
+          <!-- Dropdown Dịch Vụ VIP (Desktop) -->
+          <div class="nav-item-dropdown">
+            <button type="button" class="nav-dropdown-toggle">
+              Dịch Vụ VIP <span class="nav-dropdown-arrow">▼</span>
+            </button>
+            <div class="nav-dropdown-menu">
+              <a href="#bang-gia-dich-vu">
+                <span>👑 Bảng Giá Báo Cáo VIP</span>
+              </a>
+              <a href="#dat-lich-tu-van">
+                <span>📞 Đặt Lịch Tư Vấn 1-1</span>
+              </a>
+              <a href="#vat-pham-phong-thuy">
+                <span>🪷 Vật Phẩm Phong Thủy</span>
+              </a>
+              <a href="#khong-gian-tam-linh">
+                <span>🧘 Không Gian Thiền Định</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Direct links inside mobile drawer -->
+          <a href="#bang-gia-dich-vu" class="mobile-only-drawer-link"><i data-lucide="crown"></i> Gói VIP &amp; Báo Cáo A4</a>
+          <a href="#dat-lich-tu-van" class="mobile-only-drawer-link"><i data-lucide="phone-call"></i> Đặt Lịch Tư Vấn 1-1</a>
+          <a href="#vat-pham-phong-thuy" class="mobile-only-drawer-link"><i data-lucide="gem"></i> Vật Phẩm Phong Thủy</a>
+          <a href="#khong-gian-tam-linh" class="mobile-only-drawer-link"><i data-lucide="disc"></i> Không Gian Thiền Định</a>
+
+          <div class="drawer-category-label">✦ Cẩm Nang &amp; Hỗ Trợ</div>
+          <a href="/blog" class="drawer-nav-link"><i data-lucide="book-open"></i> Blog Vận Hạn 2027</a>
+          <a href="javascript:void(0)" onclick="TuViMonetize.openRestoreModal()" class="drawer-nav-link"><i data-lucide="file-check"></i> Xem Lại Báo Cáo VIP</a>
+
+          <div class="drawer-cta-wrap">
+            <a href="#lap-la-so" class="btn-drawer-primary">✦ Lập Lá Số Ngay</a>
+          </div>
+        </div>
+
         <div id="navUserContainer" class="nav-user-container"></div>
       </div>
       <div class="nav-menu-backdrop" id="navBackdrop"></div>
@@ -590,6 +656,78 @@
           </ul>
           <button class="btn-seal btn-pricing-cta" onclick="TuViMonetize.openVipModal('Hồ Sơ Luận Giải Chuyên Sâu Cải Mệnh &amp; Điền Sản', 149000)">
             Đăng Ký Luận Sâu (149.000đ)
+          </button>
+        </div>
+      </div>
+
+      <!-- NHÓM 2: CHUYÊN TRANG CỔ HỌC TINH HOA (THẦN SỐ HỌC & BÓI HỢP TUỔI) -->
+      <div class="pricing-group-header" style="margin-top: 3rem;">
+        <h3 class="pricing-group-title">Nhóm 2: Chuyên Trang Cổ Học Tinh Hoa (Pythagoras &amp; Bát Tự)</h3>
+        <p class="pricing-group-desc">File PDF A4 in màu ấn triện chuyên sâu · Kích hoạt tức thì qua VietQR tự động sau 3 giây</p>
+      </div>
+
+      <div class="pricing-grid">
+        <!-- Gói Thần Số Học: 39.000đ -->
+        <div class="pricing-card">
+          <div class="pricing-header">
+            <h3 class="pricing-title">Thần Số Học Toàn Thư A4</h3>
+            <p class="pricing-desc">Hồ sơ 35+ trang A4 giải mã 20+ chỉ số, 4 đỉnh cao &amp; 10 năm vận hạn</p>
+          </div>
+          <div class="pricing-price-wrap">
+            <span class="pricing-old-price">99.000 đ</span>
+            <span class="pricing-price">39.000 đ</span>
+          </div>
+          <ul class="pricing-features">
+            <li><span>✓ <strong>Xuất trọn bộ file PDF 35+ trang A4 đóng dấu triện bảo chứng</strong></span></li>
+            <li><span>✓ Giải mã chi tiết 12 tháng năm 2026 &amp; 12 tháng năm 2027</span></li>
+            <li><span>✓ Bản đồ chu kỳ 9 năm tiếp theo &amp; 4 đỉnh cao cuộc đời</span></li>
+            <li><span>✓ Bộ số kích hoạt Tài Lộc &amp; Tên danh xưng kinh doanh đổi vận</span></li>
+          </ul>
+          <button class="btn-seal btn-pricing-cta" onclick="TuViMonetize.openVipModal('Báo Cáo Thần Số Học Pythagoras Toàn Thư A4', 39000)">
+            Mở Khóa Thần Số (39.000đ)
+          </button>
+        </div>
+
+        <!-- Gói Hợp Tuổi: 49.000đ -->
+        <div class="pricing-card">
+          <div class="pricing-header">
+            <h3 class="pricing-title">Hợp Tuổi &amp; Hóa Giải Xung Khắc</h3>
+            <p class="pricing-desc">Hồ sơ tương hợp Phu Thê, Bát Tự &amp; Phương pháp sinh con hợp tuổi</p>
+          </div>
+          <div class="pricing-price-wrap">
+            <span class="pricing-old-price">149.000 đ</span>
+            <span class="pricing-price">49.000 đ</span>
+          </div>
+          <ul class="pricing-features">
+            <li><span>✓ <strong>Hồ sơ tương hợp Phu Thê &amp; Bát Tự chuyên sâu 25+ trang A4</strong></span></li>
+            <li><span>✓ Phương pháp chọn năm sinh con hợp tuổi để hóa giải xung khắc</span></li>
+            <li><span>✓ Hướng phòng ngủ &amp; phong thủy gia đạo chiêu tài hòa hợp</span></li>
+            <li><span>✓ Chọn ngày giờ hoàng đạo cho cưới hỏi &amp; hợp tác làm ăn</span></li>
+          </ul>
+          <button class="btn-seal btn-pricing-cta" onclick="TuViMonetize.openVipModal('Báo Cáo Hợp Tuổi &amp; Hóa Giải Xung Khắc A4', 49000)">
+            Mở Khóa Hợp Tuổi (49.000đ)
+          </button>
+        </div>
+
+        <!-- Gói Combo Đại Cát: 99.000đ -->
+        <div class="pricing-card featured">
+          <div class="pricing-plan-badge">Combo Đại Cát · Tiết Kiệm 67%</div>
+          <div class="pricing-header">
+            <h3 class="pricing-title">Combo Huyền Học Toàn Diện</h3>
+            <p class="pricing-desc">Mở toàn bộ Tử Vi 12 Cung + Báo Cáo Thần Số Học + Bói Hợp Tuổi Đôi Lứa</p>
+          </div>
+          <div class="pricing-price-wrap">
+            <span class="pricing-old-price">299.000 đ</span>
+            <span class="pricing-price">99.000 đ</span>
+          </div>
+          <ul class="pricing-features">
+            <li><span>✓ <strong>Toàn bộ quyền lợi Báo Cáo VIP Tử Vi Toàn Thư A4 (12 cung)</strong></span></li>
+            <li><span>✓ <strong>Tặng Báo Cáo Thần Số Học Pythagoras Toàn Thư 35+ trang</strong></span></li>
+            <li><span>✓ <strong>Tặng 01 lượt Bói Hợp Tuổi &amp; Hóa Giải Xung Khắc cho bạn đời</strong></span></li>
+            <li><span>✓ Ưu tiên xếp lịch tham vấn 1-1 với Chuyên Gia</span></li>
+          </ul>
+          <button class="btn-seal btn-pricing-cta" onclick="TuViMonetize.openVipModal('Gói Combo Huyền Học Toàn Diện (Tử Vi + Thần Số + Hợp Tuổi)', 99000)">
+            Mở Combo Toàn Diện (99.000đ)
           </button>
         </div>
       </div>
@@ -1213,6 +1351,15 @@
 
       if (btn) btn.addEventListener('click', toggleMenu);
       if (backdrop) backdrop.addEventListener('click', closeMenu);
+      document.addEventListener('click', function(e) {
+        if (e.target.closest('#mobileBottomMenuBtn')) {
+          e.preventDefault();
+          toggleMenu();
+        } else if (e.target.closest('#drawerCloseBtn')) {
+          e.preventDefault();
+          closeMenu();
+        }
+      });
       if (menu) {
         menu.querySelectorAll('a').forEach(function(a) {
           a.addEventListener('click', closeMenu);
@@ -1261,6 +1408,30 @@
       }
     })();
   </script>
+
+  <!-- Fixed Mobile Bottom Navigation Bar (iOS & Android Native App Feel) -->
+  <nav class="mobile-bottom-nav" aria-label="Thanh điều hướng nhanh">
+    <a href="/#lap-la-so" class="active">
+      <span class="b-icon">🧭</span>
+      <span>Tử Vi</span>
+    </a>
+    <a href="/than-so-hoc">
+      <span class="b-icon">🔮</span>
+      <span>Thần Số</span>
+    </a>
+    <a href="/hop-tuoi">
+      <span class="b-icon">❤️</span>
+      <span>Hợp Tuổi</span>
+    </a>
+    <a href="/#bang-gia-dich-vu" class="highlight-tab">
+      <span class="b-icon">👑</span>
+      <span>Gói VIP</span>
+    </a>
+    <button type="button" id="mobileBottomMenuBtn" aria-label="Mở tất cả menu">
+      <span class="b-icon">☰</span>
+      <span>Menu</span>
+    </button>
+  </nav>
 
   <!-- External JS modules with version cache busting (Deferred for non-blocking paint) -->
   <script src="/js/tuvi-engine.js?v=20261111_v5" defer></script>

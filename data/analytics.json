@@ -1,7 +1,7 @@
 {
   "summary": {
-    "totalPageViews": 74,
-    "uniqueVisitors": 16,
+    "totalPageViews": 80,
+    "uniqueVisitors": 19,
     "totalLaSoCalculated": 3,
     "totalPalaceClicks": 36,
     "totalVipModalOpens": 3,
@@ -89,9 +89,81 @@
       "firstSeen": "2026-11-12T04:43:16.169Z",
       "eventsCount": 2,
       "lastSeen": "2026-11-12T04:43:17.796Z"
+    },
+    "vis_mwd2two0_7454sel": {
+      "firstSeen": "2026-11-12T04:57:40.067Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-12T04:57:40.077Z"
+    },
+    "vis_mwd2unj5_dv6gr75": {
+      "firstSeen": "2026-11-12T04:58:14.873Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-12T04:58:14.881Z"
+    },
+    "vis_mwd2vidz_bftr754": {
+      "firstSeen": "2026-11-12T04:58:54.856Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-12T04:58:54.864Z"
     }
   },
   "events": [
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwd2vidz_bftr754",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-12T04:58:54.864Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwd2vidz_bftr754",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "390x844",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-12T04:58:54.856Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwd2unj5_dv6gr75",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-12T04:58:14.881Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwd2unj5_dv6gr75",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "390x844",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-12T04:58:14.873Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwd2two0_7454sel",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-12T04:57:40.077Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwd2two0_7454sel",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "390x844",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-12T04:57:40.067Z"
+    },
     {
       "eventType": "hop_tuoi_tra_cuu",
       "visitorId": "vis_mwd2bebr_9f5cw4",
@@ -930,7 +1002,7 @@
       "paidOrders": 2
     },
     "2026-11-12": {
-      "pageViews": 74,
+      "pageViews": 80,
       "visitors": [
         "vis_mwcy47df_5b1kbea",
         "vis_mwcy47df_ax7xzqf",
@@ -947,7 +1019,10 @@
         "vis_mwd29aei_kqy2ww",
         "vis_mwd29d7f_92susw",
         "vis_mwd2bbig_5xeh8d",
-        "vis_mwd2bebr_9f5cw4"
+        "vis_mwd2bebr_9f5cw4",
+        "vis_mwd2two0_7454sel",
+        "vis_mwd2unj5_dv6gr75",
+        "vis_mwd2vidz_bftr754"
       ],
       "laSoCount": 3,
       "vipOpens": 3,

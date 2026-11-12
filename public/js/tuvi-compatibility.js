@@ -547,6 +547,30 @@
           </div>
         </div>
 
+        <!-- PREMIUM VIP COMPATIBILITY REPORT (VIETQR SEPAY 49K) -->
+        <div class="num-vip-paywall-box">
+          <div class="vip-badge-ribbon">👑 ĐẶC QUYỀN HỘI VIÊN CAO CẤP</div>
+          <h2 class="vip-paywall-title">BÁO CÁO HỢP TUỔI &amp; HÔN PHỐI BÁT TỰ ĐẠI CÁT</h2>
+          <p class="vip-paywall-desc">
+            Bản luận giải thấu đáo 5 tầng tương hợp Bát Tự chuyên sâu, dự báo vận trình gia đạo 5 năm tới và cẩm nang phong thủy hóa giải xung khắc dành riêng cho <strong>${res.p1.name}</strong> và <strong>${res.p2.name}</strong>.
+          </p>
+          <div class="vip-price-wrap">
+            <span class="vip-old-price">149.000 đ</span>
+            <span class="vip-current-price">49.000 đ</span>
+          </div>
+          <div class="vip-features-checklist">
+            <div class="vip-feature-item"><span class="chk">✓</span> Luận giải 5 tầng Bát Tự chi tiết: Can, Chi, Nạp Âm, Cung Phi, Thập Thần</div>
+            <div class="vip-feature-item"><span class="chk">✓</span> Dự báo vận hạn hôn nhân &amp; tài chính gia đạo 5 năm liên tiếp (2026 - 2030)</div>
+            <div class="vip-feature-item"><span class="chk">✓</span> Bộ pháp thế hóa giải cung Tuyệt Mệnh, Họa Hại, Ngũ Quỷ chuẩn phong thủy</div>
+            <div class="vip-feature-item"><span class="chk">✓</span> Định hướng năm sinh con hợp tuổi mang lại bình an, hưng vượng</div>
+            <div class="vip-feature-item"><span class="chk">✓</span> Xuất file Báo Cáo A4 song bản trang trọng lưu giữ trọn đời</div>
+          </div>
+          <button type="button" class="btn-paywall-vietqr" onclick="if(window.TuViMonetize){ TuViMonetize.openVipModal('Gói Hợp Tuổi Bát Tự VIP (49k)', 49000); } else { window.location.href='/#bang-gia-dich-vu'; }">
+            ⚡ MỞ KHÓA BÁO CÁO HỢP TUỔI VIP (49.000đ) ➔
+          </button>
+          <p class="vip-guarantee-note">Quét mã VietQR tự động qua SePay · Kích hoạt tức thì sau 3 giây · Bảo mật thông tin tuyệt đối</p>
+        </div>
+
         <!-- Cross Links -->
         <div class="cross-link-card">
           <div class="cross-link-content">
