@@ -510,6 +510,16 @@
 
     const html = `
       <div class="num-report-wrapper">
+        <!-- BẢN IN: TIÊU ĐỀ BÁO CÁO THẦN SỐ HỌC VIP (CHỈ HIỂN THỊ KHI IN / XUẤT PDF A4) -->
+        <div class="print-report-header">
+          <div class="print-header-top">
+            <span class="print-brand">✦ XEM TỬ VI HUYỀN HỌC · CỔ HỌC TINH HOA ✦</span>
+            <span class="print-meta-right">BẢN ĐỒ LINH HỒN VIP · LƯU TRỮ TRỌN ĐỜI</span>
+          </div>
+          <h1 class="print-header-title">BÁO CÁO THẦN SỐ HỌC PYTHAGORAS TOÀN THƯ</h1>
+          <p class="print-header-sub">Đương số: <strong>${res.fullName.toUpperCase()}</strong> · Ngày sinh: <strong>${res.day}/${res.month}/${res.year}</strong> · Con số chủ đạo: <strong>${res.core.lifePath.value}</strong></p>
+        </div>
+
         <!-- Hero Header -->
         <div class="num-hero-card">
           <div class="num-seal-tag">✦ THẦN SỐ HỌC PYTHAGORAS TOÀN THƯ ✦</div>
@@ -769,6 +779,12 @@
               🖨️ In Báo Cáo
             </button>
           </div>
+        </div>
+
+        <!-- BẢN IN: CHÂN TRANG BÁO CÁO THẦN SỐ HỌC VIP (CHỈ HIỂN THỊ KHI IN / XUẤT FILE PDF) -->
+        <div class="print-report-footer">
+          <p class="print-footer-brand">✦ HỘI ĐỒNG KHOA HỌC XEM TỬ VI HUYỀN HỌC (www.xemtuvihuyenhoc.com) ✦</p>
+          <p class="print-footer-copy">Bản Báo Cáo Thần Số Học Pythagoras VIP in màu trang trọng lưu giữ trọn đời · Bản quyền thuộc tác giả Trần Công Luyện.</p>
         </div>
       </div>
     `;

@@ -486,7 +486,24 @@ const TuViChart = {
     const chartWrapper = document.getElementById('la-so-chart');
     if (!chartWrapper) return;
 
+    const isVip = Boolean(
+      (typeof TuViAuth !== 'undefined' && TuViAuth.isVip && TuViAuth.isVip()) ||
+      (typeof TuViMonetize !== 'undefined' && TuViMonetize.isVipUnlocked) ||
+      (typeof window !== 'undefined' && window.TuViMonetize && window.TuViMonetize.isVipUnlocked)
+    );
+    const orderDisplay = (typeof TuViMonetize !== 'undefined' && TuViMonetize.vipOrderCode) || (typeof localStorage !== 'undefined' && localStorage.getItem('tvhh_vip_order_code')) || 'TV289735';
+
     let html = `
+      <!-- BẢN IN: TIÊU ĐỀ BÁO CÁO VIP TRANG TRỌNG (CHỈ HIỂN THỊ KHI IN / LƯU PDF A4) -->
+      <div class="print-report-header">
+        <div class="print-header-top">
+          <span class="print-brand">✦ XEM TỬ VI HUYỀN HỌC · BÁO CÁO TOÀN THƯ ✦</span>
+          <span class="print-meta-right">BẢN LƯU TRỮ TRỌN ĐỜI · MÃ HỒ SƠ: #${orderDisplay}</span>
+        </div>
+        <h1 class="print-header-title">BÁO CÁO LUẬN GIẢI TỬ VI ĐẨU SỐ TOÀN THƯ</h1>
+        <p class="print-header-sub">Hệ thống an sao phái Trung Châu &amp; Thái Thứ Lang · Lịch thiên văn UTC+7 · Chuẩn cổ truyền Việt Nam</p>
+      </div>
+
       ${this.renderSummaryCard(laSo)}
       ${this.renderSeasonalBanner(laSo)}
       ${this.renderGioSinhVerification(laSo)}
@@ -513,9 +530,15 @@ const TuViChart = {
         <button type="button" class="btn-toolbar btn-toolbar-luan" onclick="TuViChart.toggleLuanGiaiVisibility()">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline;vertical-align:-2px;margin-right:5px;"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Xem / Ẩn Luận Giải
         </button>
-        <button type="button" class="btn-toolbar btn-toolbar-vip" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)', 49000)">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline;vertical-align:-2px;margin-right:5px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Tải Báo Cáo VIP A4 (49k)
-        </button>
+        ${isVip ? `
+          <button type="button" class="btn-toolbar btn-toolbar-vip btn-toolbar-unlocked" onclick="TuViMonetize.printVipReport()" style="background:#10b981; color:#fff; border-color:#10b981; font-weight:700;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline;vertical-align:-2px;margin-right:5px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>📥 Xuất Báo Cáo VIP A4
+          </button>
+        ` : `
+          <button type="button" class="btn-toolbar btn-toolbar-vip" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)', 49000)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline;vertical-align:-2px;margin-right:5px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Tải Báo Cáo VIP A4 (49k)
+          </button>
+        `}
       </div>
 
       <!-- THANH CHUYỂN ĐỔI CHẾ ĐỘ XEM TRÊN ĐIỆN THOẠI (Auto-fit & Zoom) -->
@@ -1601,6 +1624,14 @@ const TuViChart = {
     if (typeof TuViLuanGiaiEngine !== 'undefined' && TuViLuanGiaiEngine.generateAiAdvisorHtml) {
       html += TuViLuanGiaiEngine.generateAiAdvisorHtml(laSo, isVip);
     }
+
+    // BẢN IN: CHÂN TRANG BÁO CÁO VIP A4 (CHỈ HIỂN THỊ KHI IN / XUẤT FILE PDF)
+    html += `
+      <div class="print-report-footer">
+        <p class="print-footer-brand">✦ HỘI ĐỒNG KHOA HỌC XEM TỬ VI HUYỀN HỌC (www.xemtuvihuyenhoc.com) ✦</p>
+        <p class="print-footer-copy">Bản Báo Cáo Luận Giải Tử Vi Đẩu Số VIP lưu giữ trọn đời · Bản quyền thuộc tác giả Trần Công Luyện · Bảo mật hồ sơ tuyệt đối.</p>
+      </div>
+    `;
 
     listEl.innerHTML = html;
 

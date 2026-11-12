@@ -457,6 +457,16 @@
 
     const html = `
       <div class="comp-report-wrapper">
+        <!-- BẢN IN: TIÊU ĐỀ BÁO CÁO HỢP TUỔI VIP (CHỈ HIỂN THỊ KHI IN / XUẤT PDF A4) -->
+        <div class="print-report-header">
+          <div class="print-header-top">
+            <span class="print-brand">✦ XEM TỬ VI HUYỀN HỌC · CỔ HỌC TINH HOA ✦</span>
+            <span class="print-meta-right">BÁO CÁO HỢP TUỔI &amp; HÔN PHỐI BÁT TỰ · VIP A4</span>
+          </div>
+          <h1 class="print-header-title">BÁO CÁO HỢP TUỔI &amp; HÔN PHỐI BÁT TỰ ĐẠI CÁT</h1>
+          <p class="print-header-sub">Đương số 1: <strong>${res.p1.name.toUpperCase()}</strong> (${res.p1.astro.fullCanChi}) ✕ Đương số 2: <strong>${res.p2.name.toUpperCase()}</strong> (${res.p2.astro.fullCanChi})</p>
+        </div>
+
         <!-- Hero Header -->
         <div class="comp-hero-card">
           <div class="comp-seal-tag">✦ BẢN ĐỒ TƯƠNG HỢP BÁT TỰ & THẦN SỐ HỌC ✦</div>
@@ -590,7 +600,16 @@
             <a href="/than-so-hoc?name=${encodeURIComponent(res.p1.name)}&dob=${res.p1.birthDate}" class="btn-secondary-action">
               🔮 Xem Thần Số Học Chi Tiết
             </a>
+            <button onclick="window.print()" class="btn-secondary-action">
+              🖨️ In Báo Cáo
+            </button>
           </div>
+        </div>
+
+        <!-- BẢN IN: CHÂN TRANG BÁO CÁO HỢP TUỔI VIP (CHỈ HIỂN THỊ KHI IN / XUẤT FILE PDF) -->
+        <div class="print-report-footer">
+          <p class="print-footer-brand">✦ HỘI ĐỒNG KHOA HỌC XEM TỬ VI HUYỀN HỌC (www.xemtuvihuyenhoc.com) ✦</p>
+          <p class="print-footer-copy">Bản Báo Cáo Hợp Tuổi Bát Tự &amp; Thần Số Học Song Bản lưu giữ trọn đời · Bản quyền thuộc tác giả Trần Công Luyện.</p>
         </div>
       </div>
     `;

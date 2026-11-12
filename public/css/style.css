@@ -7579,3 +7579,370 @@ html {
   color: var(--text-muted);
   margin-top: 1rem;
 }
+
+/* ============================================================ */
+/* MEDIA PRINT - BÁO CÁO LUẬN GIẢI CHUYÊN SÂU VIP A4             */
+/* Chỉ xuất nội dung cốt lõi của Báo Cáo VIP - Ẩn toàn bộ UI web */
+/* ============================================================ */
+@page {
+  size: A4 portrait;
+  margin: 10mm 12mm 12mm 12mm;
+}
+
+/* 1. Mặc định ẩn Print Header & Footer trên màn hình thiết bị */
+.print-report-header,
+.print-report-footer {
+  display: none !important;
+}
+
+@media print {
+  /* Thiết lập chuẩn in màu sắc nét */
+  *, *::before, *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  html, body {
+    background: #FFFFFF !important;
+    color: #1A1A1A !important;
+    font-size: 10.5pt !important;
+    line-height: 1.55 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    min-height: auto !important;
+  }
+
+  /* 2. TRIỆT ĐỂ ẨN TẤT CẢ GIAO DIỆN KHÔNG THUỘC BÁO CÁO */
+  /* Topbar, Header, Navigation */
+  header, nav, footer,
+  .site-header, .navbar, #navbar, .desktop-nav, .mobile-bottom-nav,
+  .mobile-drawer, .mobile-drawer-backdrop, .hamburger,
+  #drawerMenu, #mobileDrawer, #navBackdrop, #tuviAuthDropdown,
+
+  /* Hero & Biểu mẫu nhập liệu (Lập lá số, Thần số học, Hợp tuổi) */
+  .hero, .hero-section, .lookup-first-section, #lap-la-so,
+  #tuviForm, .tracuu-form-card, .form-row, .btn-submit-full,
+  .gio-ty-choice-wrap, .gio-sinh-verification-wrap, .form-plain-note,
+  .num-page-hero, .hop-tuoi-hero, .num-form-card,
+  #numFormCard, #hopTuoiFormCard, #tuviNumerologyForm, #tuviCompatibilityForm,
+  .an-sao-overlay, #anSaoRitualOverlay,
+
+  /* Thanh công cụ, nút thao tác giao diện */
+  .la-so-toolbar, .mobile-chart-scale-bar, #mobileChartScaleBar,
+  .btn-toolbar, .btn-sticky-unlock, .chart-bottom-sticky-cta, #chartStickyCta,
+  .viral-wrapped-cta-wrap, .btn-viral-wrapped-share, .huyen-hoc-cross-banner,
+  .cross-link-card, .cross-link-buttons,
+  .btn-royal-action, .btn-secondary-action, .btn-paywall-vietqr,
+  .btn-cliffhanger-main, .btn-cliffhanger-sub, .btn-seal, .btn-pricing-cta,
+  .btn-dropdown-upgrade, .toggle-icon, .btn-scale-toggle,
+
+  /* Toàn bộ các phân đoạn dịch vụ khác trên trang chủ */
+  #bang-gia-dich-vu, .pricing-section, .pricing-seasonal-banner, .pricing-grid, .pricing-card,
+  #dat-lich-tu-van, .consultation-section, #tuviBookingForm,
+  #vat-pham-phong-thuy, .fengshui-section,
+  #khong-gian-tam-linh, .mystical-video-section,
+  #tinh-nang, .features-section,
+  #cau-hoi-thuong-gap, .faq-section,
+  #blog-tu-vi, .home-blog-section, .blog-section,
+
+  /* Chân trang Footer website */
+  .site-footer, .footer, #footer,
+
+  /* Tiện ích nổi, popup, toast, banners */
+  .floating-zalo, #floatingVipCta, .floating-vip-cta, #floatingVipReportBtn,
+  .tuvi-toast, #toastNotification,
+  .tuvi-vip-modal-wrap, #tuvi-vip-modal, .tuvi-auth-modal-wrap, #tuvi-auth-modal,
+  #restoreVipModal, #zoomModal, #tuviPalaceSheet,
+  .cliffhanger-paywall-overlay, .cliffhanger-timer-pill, .cliffhanger-cta-group, .cliffhanger-micro-note,
+  .num-vip-paywall-box, .num-vip-unlocked-box, .vip-unlocked-banner,
+  .locked-period .paywall-card,
+  .no-print, .print-hide {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+
+  /* 3. HIỂN THỊ ĐẸP MẮT HEADER & FOOTER DÀNH RIÊNG CHO BÁO CÁO IN */
+  .print-report-header {
+    display: block !important;
+    text-align: center !important;
+    border-bottom: 2px solid #8F6B00 !important;
+    padding-bottom: 8px !important;
+    margin-bottom: 12px !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .print-header-top {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    font-size: 8.5pt !important;
+    color: #8F6B00 !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.05em !important;
+    margin-bottom: 4px !important;
+    text-transform: uppercase !important;
+  }
+
+  .print-header-title {
+    font-family: var(--font-heading, "Merriweather", "Noto Serif", serif) !important;
+    color: #A3281F !important;
+    font-size: 16pt !important;
+    font-weight: 800 !important;
+    margin: 4px 0 !important;
+    letter-spacing: 0.02em !important;
+  }
+
+  .print-header-sub {
+    font-size: 8.5pt !important;
+    color: #555555 !important;
+    margin: 0 !important;
+    font-style: italic !important;
+  }
+
+  .print-report-footer {
+    display: block !important;
+    text-align: center !important;
+    font-size: 8pt !important;
+    color: #666666 !important;
+    border-top: 1px dashed #8F6B00 !important;
+    padding-top: 8px !important;
+    margin-top: 20px !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .print-footer-brand {
+    font-weight: 700 !important;
+    color: #A3281F !important;
+    margin-bottom: 2px !important;
+  }
+
+  .print-footer-copy {
+    color: #777777 !important;
+    margin: 0 !important;
+  }
+
+  /* 4. KHỐI BÁO CÁO TỬ VI (#ket-qua) */
+  #resultMountPoint,
+  #ket-qua,
+  .la-so-outer-wrap,
+  #la-so-chart,
+  #luan-giai {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    overflow: visible !important;
+  }
+
+  .la-so-summary-card {
+    display: block !important;
+    background: #FFFDF9 !important;
+    border: 1.5px solid #8F6B00 !important;
+    border-radius: 6px !important;
+    padding: 8px 12px !important;
+    margin-bottom: 10px !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .la-so-scroll-wrapper {
+    overflow: visible !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .la-so-paper-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto 12px auto !important;
+    border: 1.5px solid #8F6B00 !important;
+    background-color: #FBF7EE !important;
+    border-radius: 4px !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    page-break-after: always !important;
+    break-after: page !important;
+    transform: none !important;
+  }
+
+  .la-so-classical-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 1px !important;
+    background: rgba(143, 107, 0, 0.4) !important;
+  }
+
+  .cung-palace-cell {
+    min-height: 175px !important;
+    background: #FFFFFF !important;
+    padding: 4px 6px !important;
+  }
+
+  .center-classical-box {
+    background: #FFFDF9 !important;
+  }
+
+  .center-brand-header .center-website-link {
+    font-size: 7.5pt !important;
+    color: #8F6B00 !important;
+  }
+
+  .la-so-legend-footer {
+    display: flex !important;
+    justify-content: space-between !important;
+    font-size: 7.5pt !important;
+    padding: 4px 8px !important;
+    background: #F4EAD4 !important;
+    border-top: 1px solid #8F6B00 !important;
+  }
+
+  /* 5. KHỐI LUẬN GIẢI 12 CUNG & ĐẠI VẬN TRỌN ĐỜI */
+  .luan-giai-section {
+    display: block !important;
+    page-break-before: always !important;
+    break-before: page !important;
+    margin-top: 0 !important;
+    padding-top: 6px !important;
+  }
+
+  .luan-giai-header-title {
+    font-family: var(--font-heading, "Merriweather", serif) !important;
+    color: #A3281F !important;
+    font-size: 15pt !important;
+    text-align: center !important;
+    margin-bottom: 12px !important;
+    border-bottom: 2px solid #8F6B00 !important;
+    padding-bottom: 6px !important;
+  }
+
+  .accordion-list {
+    display: block !important;
+  }
+
+  .accordion-item {
+    display: block !important;
+    margin-bottom: 12px !important;
+    border: 1px solid #D8CBB5 !important;
+    border-radius: 4px !important;
+    background: #FFFFFF !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .accordion-header {
+    background: #FBF7EE !important;
+    border-bottom: 1px solid #D8CBB5 !important;
+    padding: 6px 10px !important;
+    cursor: default !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+  }
+
+  .palace-name {
+    font-weight: 700 !important;
+    color: #A3281F !important;
+    font-size: 10.5pt !important;
+  }
+
+  .accordion-body {
+    display: block !important;
+    max-height: none !important;
+    overflow: visible !important;
+    opacity: 1 !important;
+    padding: 8px 12px !important;
+  }
+
+  /* Mở mờ mọi cliffhanger */
+  .cliffhanger-blurred-content,
+  .teaser-blurred-text {
+    filter: none !important;
+    -webkit-filter: none !important;
+    opacity: 1 !important;
+    user-select: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .paywall-wrapper {
+    position: static !important;
+  }
+
+  /* Đại Vận Timeline */
+  .daihan-overview-box {
+    display: block !important;
+    margin-top: 14px !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    background: #FFFDF9 !important;
+    border: 1.5px solid #8F6B00 !important;
+    padding: 12px !important;
+    border-radius: 6px !important;
+  }
+
+  .daihan-vertical-timeline {
+    display: block !important;
+  }
+
+  .timeline-item {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    margin-bottom: 8px !important;
+  }
+
+  .timeline-card {
+    background: #FFFFFF !important;
+    border: 1px solid #E0D3C1 !important;
+    box-shadow: none !important;
+    padding: 8px 10px !important;
+  }
+
+  /* 6. KHỐI THẦN SỐ HỌC (#numerologyResultContainer) */
+  #numerologyResultContainer {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .numerology-report-wrap {
+    display: block !important;
+  }
+
+  .num-core-grid,
+  .num-detail-grid,
+  .num-pyramid-container,
+  .num-timeline-grid,
+  .num-chart-display-card {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    margin-bottom: 12px !important;
+  }
+
+  /* 7. KHỐI HỢP TUỔI BÁT TỰ (#compatibilityResultContainer) */
+  #compatibilityResultContainer,
+  .compatibility-report-wrap,
+  .match-overview-card,
+  .match-five-pillars-grid,
+  .match-remedy-card {
+    display: block !important;
+    width: 100% !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+}

@@ -232,6 +232,20 @@
             if (document.visibilityState === 'visible') checkOnActive();
           });
           window.addEventListener('focus', checkOnActive);
+          window.addEventListener('beforeprint', () => {
+            const items = document.querySelectorAll('.accordion-item');
+            items.forEach(it => {
+              it.classList.add('open');
+              const toggleIcon = it.querySelector('.toggle-icon');
+              if (toggleIcon) toggleIcon.textContent = '▲';
+              const btn = it.querySelector('.accordion-header');
+              if (btn) btn.setAttribute('aria-expanded', 'true');
+            });
+            const bodies = document.querySelectorAll('.accordion-body');
+            bodies.forEach(b => {
+              b.style.display = 'block';
+            });
+          });
         }
       } catch (e) {
         this.isVipUnlocked = false;
@@ -719,6 +733,17 @@
       vipBtns.forEach(b => {
         b.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Xuất File PDF VIP (Đã Kích Hoạt)';
         b.classList.add('unlocked');
+        b.onclick = () => TuViMonetize.printVipReport();
+      });
+
+      const toolbarVips = document.querySelectorAll('.btn-toolbar-vip');
+      toolbarVips.forEach(b => {
+        b.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline;vertical-align:-2px;margin-right:5px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>📥 Xuất Báo Cáo VIP A4';
+        b.style.background = '#10b981';
+        b.style.color = '#ffffff';
+        b.style.borderColor = '#10b981';
+        b.style.fontWeight = '700';
+        b.onclick = () => TuViMonetize.printVipReport();
       });
 
       // Mở khóa toàn bộ nhãn VIP
@@ -726,6 +751,7 @@
       const floatBtn = document.getElementById('floatingVipCta');
       if (floatBtn) {
         floatBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>Xuất Báo Cáo VIP A4</span>';
+        floatBtn.onclick = () => TuViMonetize.printVipReport();
       }
 
       this.renderVipUnlockedBanner();
@@ -795,18 +821,41 @@
     },
 
     /**
-     * Xuất Báo Cáo Tử Vi VIP A4 Hoàng Gia
+     * Xuất Báo Cáo Tử Vi VIP A4 Hoàng Gia (Chỉ in nội dung báo cáo cốt lõi)
      */
     printVipReport: function () {
-      // Mở bung tất cả accordion luận giải để khi in file PDF có đầy đủ nội dung
-      const items = document.querySelectorAll('.accordion-item');
-      items.forEach(it => it.classList.add('open'));
-
+      // 1. Kiểm tra lá số đã lập chưa
       const chartSection = document.getElementById('ket-qua');
-      if (chartSection) chartSection.style.display = 'block';
+      if (!chartSection || chartSection.style.display === 'none') {
+        if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
+          TuViApp.showToast('Vui lòng nhập thông tin và bấm LẬP LÁ SỐ trước khi xuất báo cáo.', 'info');
+        }
+        const formEl = document.getElementById('lap-la-so');
+        if (formEl) formEl.scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
 
-      // Kích hoạt hộp thoại in / lưu PDF của trình duyệt
-      window.print();
+      // 2. Mở bung tất cả 12 cung luận giải để khi in PDF có đầy đủ 100% nội dung
+      const items = document.querySelectorAll('.accordion-item');
+      items.forEach(it => {
+        it.classList.add('open');
+        const toggleIcon = it.querySelector('.toggle-icon');
+        if (toggleIcon) toggleIcon.textContent = '▲';
+        const btn = it.querySelector('.accordion-header');
+        if (btn) btn.setAttribute('aria-expanded', 'true');
+      });
+
+      const bodies = document.querySelectorAll('.accordion-body');
+      bodies.forEach(b => {
+        b.style.display = 'block';
+      });
+
+      chartSection.style.display = 'block';
+
+      // 3. Kích hoạt hộp thoại in / xuất file PDF A4
+      setTimeout(() => {
+        window.print();
+      }, 100);
     },
 
     /**
