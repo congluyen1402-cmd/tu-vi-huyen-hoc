@@ -43,6 +43,31 @@ const os = require('os');
 const TMP_DIR = path.join(os.tmpdir(), 'tuvi_data');
 try { if (!fs.existsSync(TMP_DIR)) fs.mkdirSync(TMP_DIR, { recursive: true }); } catch (e) {}
 
+// Tự động đồng bộ các trường dữ liệu cập nhật từ codebase (như ảnh bài viết mới) vào /tmp
+try {
+  const repoPostsPath = path.join(DATA_DIR, 'posts.json');
+  const tmpPostsPath = path.join(TMP_DIR, 'posts.json');
+  if (fs.existsSync(repoPostsPath) && fs.existsSync(tmpPostsPath)) {
+    const repoData = JSON.parse(fs.readFileSync(repoPostsPath, 'utf8'));
+    const tmpData = JSON.parse(fs.readFileSync(tmpPostsPath, 'utf8'));
+    let updated = false;
+    repoData.forEach(rp => {
+      const tp = tmpData.find(t => t.id === rp.id || t.slug === rp.slug);
+      if (tp && rp.image && tp.image !== rp.image) {
+        tp.image = rp.image;
+        updated = true;
+      }
+      if (!tp) {
+        tmpData.push(rp);
+        updated = true;
+      }
+    });
+    if (updated) {
+      fs.writeFileSync(tmpPostsPath, JSON.stringify(tmpData, null, 2), 'utf8');
+    }
+  }
+} catch (e) {}
+
 /**
  * Đọc file JSON an toàn (hỗ trợ đọc từ /tmp nếu chạy trên Vercel Serverless)
  */
