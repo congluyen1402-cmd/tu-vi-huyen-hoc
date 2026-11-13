@@ -31,16 +31,16 @@
   ],
   "rewrites": [
     {
-      "source": "/blog/(.*)",
-      "destination": "/api/[...path]"
+      "source": "/blog/:slug",
+      "destination": "/api?blog_slug=:slug"
     },
     {
       "source": "/sitemap.xml",
-      "destination": "/api/[...path]"
+      "destination": "/api?render_sitemap=true"
     },
     {
       "source": "/robots.txt",
-      "destination": "/api/[...path]"
+      "destination": "/api?render_robots=true"
     },
     {
       "source": "/than-so-hoc",

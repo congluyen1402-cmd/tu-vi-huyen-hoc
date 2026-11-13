@@ -1941,7 +1941,7 @@ const server = http.createServer(async (req, res) => {
   }
 
   // Dynamic Sitemap: GET /sitemap.xml
-  if (pathname === '/sitemap.xml') {
+  if (pathname === '/sitemap.xml' || (parsedUrl.query && parsedUrl.query.render_sitemap === 'true')) {
     posts = readJsonFile(POSTS_FILE, []);
     const xml = generateSitemapXml(posts);
     syncSitemapFile(posts);
@@ -1950,15 +1950,16 @@ const server = http.createServer(async (req, res) => {
   }
 
   // Dynamic Robots: GET /robots.txt
-  if (pathname === '/robots.txt') {
+  if (pathname === '/robots.txt' || (parsedUrl.query && parsedUrl.query.render_robots === 'true')) {
     const robots = `User-agent: *\nAllow: /\nDisallow: /admin.html\nDisallow: /admin\nDisallow: /api/\n\nSitemap: https://www.xemtuvihuyenhoc.com/sitemap.xml\n`;
     res.writeHead(200, Object.assign({ 'Content-Type': 'text/plain; charset=utf-8' }, HTTP_SECURITY_HEADERS));
     return res.end(robots);
   }
 
-  // SSR Blog Single Post: GET /blog/:slug
-  if (pathname.startsWith('/blog/')) {
-    const slug = pathname.replace(/^\/blog\//, '').replace(/\/$/, '').trim();
+  // SSR Blog Single Post: GET /blog/:slug OR Vercel Rewrite ?blog_slug=:slug
+  const blogSlugParam = (parsedUrl.query && parsedUrl.query.blog_slug) || (pathname.startsWith('/blog/') ? pathname.replace(/^\/blog\//, '').replace(/\/$/, '').trim() : null);
+  if (blogSlugParam) {
+    const slug = decodeURIComponent(blogSlugParam).trim();
     if (slug) {
       posts = readJsonFile(POSTS_FILE, []);
       const post = posts.find(p => p.slug === slug);
