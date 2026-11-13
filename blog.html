@@ -735,94 +735,115 @@
     }
 
     /* VIP Report Teaser Box (Khối Kích Cầu Báo Cáo VIP A4) */
-    .vip-report-teaser {
-      margin: 2.75rem 0;
-      padding: 1.75rem 2rem;
-      background: linear-gradient(135deg, #2A231C 0%, #1A1510 100%);
-      border: 2px solid var(--gold);
-      border-radius: 10px;
-      color: #F3ECDD;
-      box-shadow: 0 8px 26px rgba(42, 35, 28, 0.2);
-      position: relative;
+    .vip-report-teaser,
+    .article-content .vip-report-teaser {
+      margin: 2.75rem 0 !important;
+      padding: 1.85rem 2rem !important;
+      background: linear-gradient(135deg, #221A14 0%, #140F0B 100%) !important;
+      border: 2px solid var(--gold) !important;
+      border-radius: 12px !important;
+      color: #F3ECDD !important;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+      position: relative !important;
     }
     .vip-teaser-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      background: var(--gold);
-      color: #1A1510;
-      font-size: 0.74rem;
-      font-weight: 800;
-      padding: 2px 8px;
-      border-radius: 3px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 0.65rem;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 5px !important;
+      background: var(--gold) !important;
+      color: #1A1510 !important;
+      font-size: 0.74rem !important;
+      font-weight: 800 !important;
+      padding: 3px 10px !important;
+      border-radius: 4px !important;
+      letter-spacing: 1px !important;
+      text-transform: uppercase !important;
+      margin-bottom: 0.75rem !important;
     }
-    .vip-teaser-title {
-      font-family: var(--font-heading);
-      font-size: 1.35rem;
-      color: #FFE6A3;
-      margin-bottom: 0.65rem;
+    .article-content .vip-report-teaser h3,
+    .vip-report-teaser .vip-teaser-title {
+      font-family: var(--font-heading) !important;
+      font-size: 1.35rem !important;
+      color: #FFE6A3 !important;
+      margin: 0.5rem 0 0.75rem 0 !important;
+      padding: 0 !important;
+      border: none !important;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6) !important;
     }
-    .vip-teaser-desc {
-      font-size: 0.92rem;
-      color: #D9CEB8;
-      line-height: 1.65;
-      margin-bottom: 1.25rem;
+    .article-content .vip-report-teaser p,
+    .vip-report-teaser .vip-teaser-desc {
+      font-size: 0.95rem !important;
+      color: #E2D7C3 !important;
+      line-height: 1.65 !important;
+      margin-bottom: 1.25rem !important;
     }
     .vip-teaser-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 0.75rem;
-      margin-bottom: 1.35rem;
+      display: grid !important;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
+      gap: 0.75rem !important;
+      margin-bottom: 1.35rem !important;
     }
     .vip-teaser-check {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.84rem;
-      color: #FAF6ED;
+      display: flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      font-size: 0.88rem !important;
+      color: #FAF6ED !important;
     }
     .vip-teaser-check i {
-      color: var(--gold);
-      flex-shrink: 0;
+      color: var(--gold) !important;
+      flex-shrink: 0 !important;
     }
     .vip-teaser-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-top: 1px dashed rgba(194, 155, 56, 0.4);
-      padding-top: 1.15rem;
-      flex-wrap: wrap;
-      gap: 1rem;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      border-top: 1px dashed rgba(194, 155, 56, 0.4) !important;
+      padding-top: 1.15rem !important;
+      flex-wrap: wrap !important;
+      gap: 1rem !important;
     }
-    .vip-price-tag {
-      font-size: 0.86rem;
-      color: #D9CEB8;
+    .vip-price-tag,
+    .vip-teaser-price-wrap {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      background: rgba(255, 255, 255, 0.08) !important;
+      border: 1px solid rgba(194, 155, 56, 0.45) !important;
+      border-radius: 8px !important;
+      padding: 0.55rem 1.15rem !important;
+      color: #D9CEB8 !important;
+      font-size: 0.92rem !important;
+      margin: 0 !important;
     }
     .vip-price-highlight {
-      font-family: var(--font-heading);
-      font-size: 1.35rem;
-      color: #FFE6A3;
-      font-weight: 700;
-      margin-left: 4px;
+      font-family: var(--font-heading) !important;
+      font-size: 1.35rem !important;
+      color: #FFD56B !important;
+      font-weight: 800 !important;
+      margin-left: 4px !important;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) !important;
     }
     .btn-vip-action {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: linear-gradient(135deg, #C29B38 0%, #D4A853 100%);
-      color: #1A1510;
-      font-weight: 800;
-      font-size: 0.95rem;
-      padding: 0.7rem 1.6rem;
-      border-radius: 6px;
-      text-decoration: none;
-      box-shadow: 0 4px 14px rgba(194, 155, 56, 0.4);
-      transition: all 0.2s;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      background: linear-gradient(135deg, #C29B38 0%, #E5BA5C 100%) !important;
+      color: #1A1510 !important;
+      font-weight: 800 !important;
+      font-size: 0.95rem !important;
+      padding: 0.75rem 1.6rem !important;
+      border-radius: 6px !important;
+      text-decoration: none !important;
+      box-shadow: 0 4px 14px rgba(194, 155, 56, 0.45) !important;
+      transition: all 0.2s !important;
     }
     .btn-vip-action:hover {
+      background: linear-gradient(135deg, #D4A853 0%, #F5CF75 100%) !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 6px 18px rgba(194, 155, 56, 0.55) !important;
+      color: #1A1510 !important;
+    }
       transform: translateY(-2px);
       box-shadow: 0 6px 18px rgba(194, 155, 56, 0.55);
       background: #FFE6A3;
