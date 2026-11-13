@@ -1363,7 +1363,7 @@ a:hover {
 /* Individual Palace Cell */
 .cung-classical-cell {
   min-width: 0;
-  overflow: hidden;
+  overflow: visible;
   background: rgba(255, 254, 249, 0.95) !important;
   color: #3A322A !important;
   padding: clamp(3px, 1.2cqw, 8px);
@@ -1402,15 +1402,20 @@ a:hover {
 }
 
 /* Tuần & Triệt Badges - Chuẩn Tra Cứu Tử Vi & AiTuVi: đặt chính xác trên đường phân giới giữa 2 ô */
+.cung-classical-cell.has-tuan-triet {
+  overflow: visible !important;
+  z-index: 30 !important;
+}
+
 .tuan-triet-badge {
   background: #111111 !important;
   color: #ffffff !important;
   font-size: clamp(8.5px, 2cqw, 11px);
   font-weight: 800;
   letter-spacing: 0.05em;
-  padding: 1px 8px;
+  padding: 1.5px 8px;
   border-radius: 3px;
-  z-index: 25;
+  z-index: 40 !important;
   line-height: 1.25;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
   pointer-events: none;
@@ -1419,7 +1424,7 @@ a:hover {
 
 .tuan-triet-badge.divider-horizontal {
   position: absolute;
-  top: -8px;
+  top: -9px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -7227,10 +7232,10 @@ footer.footer {
 
 .cung-classical-cell.has-tuan-triet .cung-top-bar,
 .cung-cell.has-tuan-triet .cung-header {
-  padding-top: 14px !important;
+  padding-top: 8px !important;
 }
 .cung-classical-cell.has-tuan-triet .cung-top-bar {
-  padding-top: 14px !important;
+  padding-top: 8px !important;
 }
 
 .than-badge {

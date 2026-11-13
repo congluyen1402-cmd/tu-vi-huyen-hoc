@@ -732,7 +732,11 @@ const TuViChart = {
     function getDividerBadge(pair, badgeText) {
       if (!pair || pair.length < 2) return '';
       const p = [pair[0], pair[1]].sort((a, b) => a - b);
+      // Ranh giới ngang (cột trái và cột phải)
       if (p[0] === 2 && p[1] === 3 && chiIndex === 2) {
+        return `<div class="tuan-triet-badge divider-horizontal">${badgeText}</div>`;
+      }
+      if (p[0] === 3 && p[1] === 4 && chiIndex === 3) {
         return `<div class="tuan-triet-badge divider-horizontal">${badgeText}</div>`;
       }
       if (p[0] === 4 && p[1] === 5 && chiIndex === 4) {
@@ -741,13 +745,29 @@ const TuViChart = {
       if (p[0] === 8 && p[1] === 9 && chiIndex === 9) {
         return `<div class="tuan-triet-badge divider-horizontal">${badgeText}</div>`;
       }
+      if (p[0] === 9 && p[1] === 10 && chiIndex === 10) {
+        return `<div class="tuan-triet-badge divider-horizontal">${badgeText}</div>`;
+      }
       if (p[0] === 10 && p[1] === 11 && chiIndex === 11) {
         return `<div class="tuan-triet-badge divider-horizontal">${badgeText}</div>`;
+      }
+      // Ranh giới dọc (hàng trên và hàng dưới)
+      if (p[0] === 5 && p[1] === 6 && chiIndex === 5) {
+        return `<div class="tuan-triet-badge divider-vertical-right">${badgeText}</div>`;
       }
       if (p[0] === 6 && p[1] === 7 && chiIndex === 6) {
         return `<div class="tuan-triet-badge divider-vertical-right">${badgeText}</div>`;
       }
+      if (p[0] === 7 && p[1] === 8 && chiIndex === 7) {
+        return `<div class="tuan-triet-badge divider-vertical-right">${badgeText}</div>`;
+      }
       if (p[0] === 0 && p[1] === 1 && chiIndex === 1) {
+        return `<div class="tuan-triet-badge divider-vertical-right">${badgeText}</div>`;
+      }
+      if (p[0] === 1 && p[1] === 2 && chiIndex === 2) {
+        return `<div class="tuan-triet-badge divider-vertical-right">${badgeText}</div>`;
+      }
+      if (p[0] === 0 && p[1] === 11 && chiIndex === 0) {
         return `<div class="tuan-triet-badge divider-vertical-right">${badgeText}</div>`;
       }
       return '';
