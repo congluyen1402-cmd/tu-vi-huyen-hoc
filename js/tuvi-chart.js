@@ -728,20 +728,35 @@ const TuViChart = {
       });
     }
 
-    // Kiểm tra Tuần / Triệt (Đặt GỌN GÀNG BÊN TRONG đường viền ô)
-    const hasTuan = laSo.tuan && laSo.tuan.includes(chiIndex);
-    const hasTriet = laSo.triet && laSo.triet.includes(chiIndex);
-    const isTuanCell = hasTuan && chiIndex === laSo.tuan[0];
-    const isTrietCell = hasTriet && chiIndex === laSo.triet[0];
-    const hasTuanTriet = isTuanCell || isTrietCell;
+    // Xác định ô neo và vị trí của Tuần & Triệt trên đường ranh giới giữa 2 cung (chuẩn Tra Cứu Tử Vi & AiTuVi)
+    function getDividerBadge(pair, badgeText) {
+      if (!pair || pair.length < 2) return '';
+      const p = [pair[0], pair[1]].sort((a, b) => a - b);
+      if (p[0] === 2 && p[1] === 3 && chiIndex === 2) {
+        return `<div class="tuan-triet-badge divider-horizontal">${badgeText}</div>`;
+      }
+      if (p[0] === 4 && p[1] === 5 && chiIndex === 4) {
+        return `<div class="tuan-triet-badge divider-horizontal">${badgeText}</div>`;
+      }
+      if (p[0] === 8 && p[1] === 9 && chiIndex === 9) {
+        return `<div class="tuan-triet-badge divider-horizontal">${badgeText}</div>`;
+      }
+      if (p[0] === 10 && p[1] === 11 && chiIndex === 11) {
+        return `<div class="tuan-triet-badge divider-horizontal">${badgeText}</div>`;
+      }
+      if (p[0] === 6 && p[1] === 7 && chiIndex === 6) {
+        return `<div class="tuan-triet-badge divider-vertical-right">${badgeText}</div>`;
+      }
+      if (p[0] === 0 && p[1] === 1 && chiIndex === 1) {
+        return `<div class="tuan-triet-badge divider-vertical-right">${badgeText}</div>`;
+      }
+      return '';
+    }
 
     let tuanTrietBanner = '';
-    if (hasTuan && chiIndex === laSo.tuan[0]) {
-      tuanTrietBanner = '<div class="tuan-triet-ribbon tuan-triet-badge ribbon-tuan">Tuần</div>';
-    }
-    if (hasTriet && chiIndex === laSo.triet[0]) {
-      tuanTrietBanner = '<div class="tuan-triet-ribbon tuan-triet-badge ribbon-triet">Triệt</div>';
-    }
+    if (laSo.tuan) tuanTrietBanner += getDividerBadge(laSo.tuan, 'Tuần');
+    if (laSo.triet) tuanTrietBanner += getDividerBadge(laSo.triet, 'Triệt');
+    const hasTuanTriet = !!tuanTrietBanner;
 
     // Tiêu đề cung và màu sắc đặc trưng
     const titleColor = this.PALACE_COLORS[cung.cungName] || '#7A1F17';

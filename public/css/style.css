@@ -1401,28 +1401,34 @@ a:hover {
   border: 1.5px solid #8F6B00 !important;
 }
 
-/* Tuần & Triệt Ribbons - Gọn gàng BÊN TRONG ô, không bao giờ bị cắt */
-.tuan-triet-ribbon,
+/* Tuần & Triệt Badges - Chuẩn Tra Cứu Tử Vi & AiTuVi: đặt chính xác trên đường phân giới giữa 2 ô */
 .tuan-triet-badge {
-  position: absolute;
-  top: 2px;
-  background: #111111;
-  color: #ffffff;
-  font-size: clamp(8px, 1.8cqw, 10px);
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  padding: 1px 6px;
-  border-radius: 2px;
-  z-index: 15;
-  line-height: 1.2;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  background: #111111 !important;
+  color: #ffffff !important;
+  font-size: clamp(8.5px, 2cqw, 11px);
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  padding: 1px 8px;
+  border-radius: 3px;
+  z-index: 25;
+  line-height: 1.25;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
   pointer-events: none;
+  white-space: nowrap;
 }
-.ribbon-tuan {
-  right: 2px;
+
+.tuan-triet-badge.divider-horizontal {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
 }
-.ribbon-triet {
-  left: 2px;
+
+.tuan-triet-badge.divider-vertical-right {
+  position: absolute;
+  top: 50%;
+  right: -14px;
+  transform: translateY(-50%);
 }
 
 /* Cell Header */
