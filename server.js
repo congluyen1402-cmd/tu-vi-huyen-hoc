@@ -1869,6 +1869,10 @@ const server = http.createServer(async (req, res) => {
       const xml = generateSitemapXml(allPosts);
       const sitemapPath = path.join(__dirname, 'sitemap.xml');
       fs.writeFileSync(sitemapPath, xml, 'utf8');
+      const publicDir = path.join(__dirname, 'public');
+      if (fs.existsSync(publicDir)) {
+        fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), xml, 'utf8');
+      }
     } catch (e) {
       // Safe fallback trên Vercel read-only
     }

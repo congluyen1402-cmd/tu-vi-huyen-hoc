@@ -11,12 +11,45 @@
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-  <!-- Open Graph -->
+  <!-- Open Graph / Facebook / Zalo -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Blog Tử Vi Đẩu Số & Huyền Học Khải Vận">
-  <meta property="og:description" content="Chuyên trang giải mã 12 cung số, Tứ Hóa và Vận Hạn cổ truyền Nam Phái chuẩn xác.">
+  <meta property="og:site_name" content="Xem Tử Vi Huyền Học">
+  <meta property="og:locale" content="vi_VN">
+  <meta property="og:title" content="Blog Tử Vi Đẩu Số & Huyền Học Khải Vận - Xem Tử Vi Huyền Học">
+  <meta property="og:description" content="Chuyên trang kiến thức Tử Vi Đẩu Số Nam Phái, giải mã bí ẩn 14 Chính Tinh, Tứ Hóa, Vận Hạn và phương pháp Tu Dưỡng Cải Mệnh từ các bậc danh gia cổ truyền.">
   <meta property="og:url" content="https://www.xemtuvihuyenhoc.com/blog">
-  <meta property="og:image" content="https://www.xemtuvihuyenhoc.com/img/logo-xem-tu-vi-huyen-hoc.png">
+  <meta property="og:image" content="https://www.xemtuvihuyenhoc.com/img/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Blog Tử Vi Đẩu Số & Huyền Học Khải Vận">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@xemtuvihuyenhoc">
+  <meta name="twitter:title" content="Blog Tử Vi Đẩu Số & Huyền Học Khải Vận - Xem Tử Vi Huyền Học">
+  <meta name="twitter:description" content="Chuyên trang giải mã 12 cung số, Tứ Hóa và Vận Hạn cổ truyền Nam Phái chuẩn xác.">
+  <meta name="twitter:image" content="https://www.xemtuvihuyenhoc.com/img/og-image.jpg">
+
+  <!-- JSON-LD Structured Data: Blog Listing Schema -->
+  <script type="application/ld+json" id="listingJsonLd">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Blog Tử Vi Đẩu Số & Huyền Học Khải Vận",
+    "url": "https://www.xemtuvihuyenhoc.com/blog",
+    "description": "Chuyên trang kiến thức Tử Vi Đẩu Số Nam Phái, giải mã bí ẩn 14 Chính Tinh, Tứ Hóa, Vận Hạn và phương pháp Tu Dưỡng Cải Mệnh từ các bậc danh gia cổ truyền.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Xem Tử Vi Huyền Học",
+      "url": "https://www.xemtuvihuyenhoc.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.xemtuvihuyenhoc.com/img/logo-xem-tu-vi-huyen-hoc.png"
+      }
+    },
+    "inLanguage": "vi-VN"
+  }
+  </script>
 
   <!-- Fonts Google -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -173,103 +206,703 @@
       margin: 0 auto;
     }
 
+    /* =========================================================================
+       BLOG CONTROLS: SEARCH & CATEGORY FILTER
+       ========================================================================= */
+    .blog-controls-wrap {
+      margin-bottom: 2.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .blog-search-box {
+      position: relative;
+      max-width: 640px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .blog-search-input {
+      width: 100%;
+      padding: 0.85rem 1rem 0.85rem 2.85rem;
+      border-radius: 9999px;
+      border: 1.5px solid var(--line);
+      background: #FFFDF9;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--text);
+      outline: none;
+      transition: all 0.25s;
+      box-shadow: 0 2px 8px rgba(42,35,28,0.04);
+    }
+    .blog-search-input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(194, 155, 56, 0.18), 0 4px 16px rgba(42,35,28,0.06);
+      background: #fff;
+    }
+    .blog-search-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gold);
+      pointer-events: none;
+    }
+    .blog-search-clear {
+      position: absolute;
+      right: 0.9rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--paper-2);
+      border: none;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .blog-search-clear:hover {
+      background: var(--seal);
+      color: #fff;
+    }
+    .search-counter-bar {
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: -0.5rem;
+    }
+
     /* Filter Pills */
     .filter-pills-bar {
       display: flex;
-      gap: 0.6rem;
+      gap: 0.55rem;
       overflow-x: auto;
-      padding-bottom: 0.75rem;
-      margin-bottom: 2rem;
+      padding-bottom: 0.5rem;
+      scrollbar-width: thin;
+      scrollbar-color: var(--line) transparent;
+      justify-content: flex-start;
+    }
+    .filter-pills-bar::-webkit-scrollbar {
+      height: 4px;
+    }
+    .filter-pills-bar::-webkit-scrollbar-thumb {
+      background: var(--line);
+      border-radius: 4px;
     }
     .filter-pill {
       white-space: nowrap;
-      padding: 0.4rem 1rem;
+      padding: 0.45rem 1.1rem;
       border-radius: 9999px;
-      font-size: 0.85rem;
+      font-size: 0.86rem;
+      font-weight: 500;
       background: var(--paper-card);
       border: 1px solid var(--line);
       color: var(--text-muted);
       cursor: pointer;
       transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
     }
-    .filter-pill:hover, .filter-pill.active {
+    .filter-pill:hover {
+      border-color: var(--gold);
+      color: var(--text);
+      background: #FFFDF9;
+      transform: translateY(-1px);
+    }
+    .filter-pill.active {
       background: var(--seal);
       color: #fff;
       border-color: var(--seal);
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(163, 40, 31, 0.25);
     }
 
-    /* Posts List Grid */
+    /* =========================================================================
+       POSTS GRID & MODERN CARD DESIGN (CÓ THUMBNAIL)
+       ========================================================================= */
     .posts-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 3rem;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.75rem;
+      margin-bottom: 3.5rem;
     }
     .post-card {
       background: var(--paper-card);
       border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 1.4rem;
+      border-radius: 10px;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 4px 12px rgba(42, 35, 28, 0.04);
-      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 14px rgba(42, 35, 28, 0.05);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
     }
     .post-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 24px rgba(42, 35, 28, 0.08);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(42, 35, 28, 0.1);
       border-color: var(--gold);
     }
-    .post-category-badge {
-      display: inline-block;
-      align-self: flex-start;
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--seal);
-      background: rgba(163, 40, 31, 0.08);
-      padding: 2px 8px;
+    .post-card-thumb-link {
+      position: relative;
+      display: block;
+      width: 100%;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      background: var(--paper-2);
+    }
+    .post-card-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .post-card:hover .post-card-thumb {
+      transform: scale(1.05);
+    }
+    .post-card-badge-floating {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(163, 40, 31, 0.92);
+      color: #fff;
+      padding: 3px 9px;
       border-radius: 4px;
-      margin-bottom: 0.75rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+      text-transform: uppercase;
+    }
+    .post-card-body {
+      padding: 1.25rem 1.35rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .post-card-meta-top {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 0.65rem;
+      flex-wrap: wrap;
     }
     .post-card-title {
       font-family: var(--font-heading);
-      font-size: 1.25rem;
+      font-size: 1.18rem;
       color: var(--text);
-      line-height: 1.4;
-      margin-bottom: 0.75rem;
+      line-height: 1.42;
+      margin-bottom: 0.65rem;
+      font-weight: 700;
     }
     .post-card-title a {
       color: inherit;
       text-decoration: none;
+      transition: color 0.2s;
     }
     .post-card-title a:hover {
       color: var(--seal);
     }
     .post-card-desc {
       color: var(--text-muted);
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       line-height: 1.6;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.15rem;
       flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
-    .post-card-meta {
+    .post-card-footer {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: 0.8rem;
-      color: var(--text-muted);
       border-top: 1px dashed var(--line);
       padding-top: 0.85rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
     }
-    .post-card-read-more {
+    .post-card-author {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 500;
+    }
+    .post-card-cta {
       color: var(--seal);
-      font-weight: 600;
+      font-weight: 700;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 3px;
+      gap: 4px;
+      transition: gap 0.2s, color 0.2s;
+    }
+    .post-card-cta:hover {
+      gap: 7px;
+      color: var(--seal-dark);
+    }
+
+    /* Empty state */
+    .empty-state-box {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3.5rem 1.5rem;
+      background: var(--paper-card);
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+    }
+    .empty-state-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    /* =========================================================================
+       SINGLE POST: TABLE OF CONTENTS (TOC), AUTHOR BIO & SOCIAL SHARE
+       ========================================================================= */
+    .article-toc-box {
+      background: #FAF6ED;
+      border: 1.5px solid var(--gold);
+      border-radius: 8px;
+      padding: 1.15rem 1.35rem;
+      margin: 1.5rem 0 2rem 0;
+      box-shadow: 0 4px 14px rgba(42,35,28,0.04);
+    }
+    .article-toc-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      color: var(--seal);
+      font-size: 1.05rem;
+      cursor: pointer;
+      user-select: none;
+    }
+    .article-toc-list {
+      margin: 0.85rem 0 0 1.25rem;
+      padding: 0;
+      font-size: 0.92rem;
+      line-height: 1.75;
+    }
+    .article-toc-list li {
+      margin-bottom: 0.35rem;
+    }
+    .article-toc-list a {
+      color: #3d3228;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .article-toc-list a:hover {
+      color: var(--seal);
+      text-decoration: underline;
+    }
+    .article-toc-sub {
+      margin-left: 1.25rem;
+      font-size: 0.86rem;
+      color: var(--text-muted);
+    }
+
+    /* Author Bio Box (Chuẩn E-E-A-T Google) */
+    .author-bio-card {
+      margin: 2.75rem 0 2rem 0;
+      padding: 1.5rem 1.6rem;
+      background: #FAF6ED;
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--seal);
+      border-radius: 8px;
+      display: flex;
+      gap: 1.35rem;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(42,35,28,0.04);
+    }
+    .author-avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      border: 2px solid var(--gold);
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .author-info-wrap {
+      flex: 1;
+    }
+    .author-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .author-name {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      color: var(--seal);
+      font-weight: 700;
+      margin: 2px 0 2px 0;
+    }
+    .author-sub {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 0.45rem;
+    }
+    .author-desc {
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Social Share Bar */
+    .article-share-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 0;
+      margin: 2rem 0;
+      border-top: 1px dashed var(--line);
+      border-bottom: 1px dashed var(--line);
+      flex-wrap: wrap;
+    }
+    .share-label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-share {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0.42rem 0.95rem;
+      border-radius: 4px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: #fff;
+      cursor: pointer;
+      border: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-share:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+    .btn-share-fb { background: #1877F2; }
+    .btn-share-zalo { background: #0068FF; }
+    .btn-share-copy { background: #574B3F; }
+
+    /* Related Posts Section */
+    .related-posts-section {
+      margin: 3rem 0;
+      padding-top: 2rem;
+      border-top: 2px solid var(--line);
+    }
+    .related-title {
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      color: var(--seal);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    /* =========================================================================
+       STAGE 3: CONVERSION FUNNEL & SMART CONTEXTUAL CTAS
+       ========================================================================= */
+    .smart-cta-card {
+      margin: 2.75rem 0;
+      padding: 1.75rem 2rem;
+      background: linear-gradient(135deg, #FFFDF8 0%, #FAF2DE 100%);
+      border: 1.5px solid var(--gold);
+      border-radius: 10px;
+      box-shadow: 0 6px 20px rgba(194, 155, 56, 0.12);
+      position: relative;
+      overflow: hidden;
+    }
+    .smart-cta-card::before {
+      content: "✦";
+      position: absolute;
+      right: 15px;
+      bottom: -15px;
+      font-size: 7rem;
+      color: rgba(194, 155, 56, 0.06);
+      font-family: var(--font-heading);
+      pointer-events: none;
+    }
+    .smart-cta-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--seal);
+      background: rgba(163, 40, 31, 0.08);
+      padding: 3px 10px;
+      border-radius: 4px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 0.65rem;
+    }
+    .smart-cta-title {
+      font-family: var(--font-heading);
+      font-size: 1.45rem;
+      color: var(--seal);
+      margin-bottom: 0.5rem;
+      line-height: 1.35;
+    }
+    .smart-cta-desc {
+      color: var(--text);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1.35rem;
+      max-width: 720px;
+    }
+    .smart-cta-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn-smart-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--seal);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 0.75rem 1.75rem;
+      border-radius: 6px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(163, 40, 31, 0.28);
+      transition: all 0.2s;
+    }
+    .btn-smart-primary:hover {
+      background: var(--seal-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(163, 40, 31, 0.35);
+      color: #fff;
+    }
+    .btn-smart-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      color: var(--seal);
+      font-weight: 600;
+      font-size: 0.92rem;
+      padding: 0.65rem 1.25rem;
+      border-radius: 6px;
+      border: 1px solid var(--seal);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-smart-secondary:hover {
+      background: rgba(163, 40, 31, 0.06);
+      transform: translateY(-1px);
+    }
+    .smart-cta-features {
+      display: flex;
+      gap: 1.25rem;
+      margin-top: 1.15rem;
+      padding-top: 1rem;
+      border-top: 1px dashed rgba(194, 155, 56, 0.35);
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+    }
+    .smart-cta-feat-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* VIP Report Teaser Box (Khối Kích Cầu Báo Cáo VIP A4) */
+    .vip-report-teaser {
+      margin: 2.75rem 0;
+      padding: 1.75rem 2rem;
+      background: linear-gradient(135deg, #2A231C 0%, #1A1510 100%);
+      border: 2px solid var(--gold);
+      border-radius: 10px;
+      color: #F3ECDD;
+      box-shadow: 0 8px 26px rgba(42, 35, 28, 0.2);
+      position: relative;
+    }
+    .vip-teaser-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--gold);
+      color: #1A1510;
+      font-size: 0.74rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 3px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 0.65rem;
+    }
+    .vip-teaser-title {
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      color: #FFE6A3;
+      margin-bottom: 0.65rem;
+    }
+    .vip-teaser-desc {
+      font-size: 0.92rem;
+      color: #D9CEB8;
+      line-height: 1.65;
+      margin-bottom: 1.25rem;
+    }
+    .vip-teaser-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.35rem;
+    }
+    .vip-teaser-check {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.84rem;
+      color: #FAF6ED;
+    }
+    .vip-teaser-check i {
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+    .vip-teaser-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px dashed rgba(194, 155, 56, 0.4);
+      padding-top: 1.15rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .vip-price-tag {
+      font-size: 0.86rem;
+      color: #D9CEB8;
+    }
+    .vip-price-highlight {
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      color: #FFE6A3;
+      font-weight: 700;
+      margin-left: 4px;
+    }
+    .btn-vip-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #C29B38 0%, #D4A853 100%);
+      color: #1A1510;
+      font-weight: 800;
+      font-size: 0.95rem;
+      padding: 0.7rem 1.6rem;
+      border-radius: 6px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(194, 155, 56, 0.4);
+      transition: all 0.2s;
+    }
+    .btn-vip-action:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(194, 155, 56, 0.55);
+      background: #FFE6A3;
+      color: #1A1510;
+    }
+
+    /* Mobile Sticky Bottom Floating CTA */
+    .blog-sticky-bottom-cta {
+      display: none;
+      position: fixed;
+      bottom: 60px;
+      left: 12px;
+      right: 12px;
+      background: rgba(30, 23, 17, 0.95);
+      border: 1.5px solid var(--gold);
+      border-radius: 8px;
+      padding: 0.65rem 0.95rem;
+      z-index: 95;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      animation: slideUpFloating 0.3s ease forwards;
+    }
+    @keyframes slideUpFloating {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .sticky-cta-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+    .sticky-cta-icon {
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .sticky-cta-text {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+    .sticky-cta-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #FFE6A3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .sticky-cta-sub {
+      font-size: 0.72rem;
+      color: #D9CEB8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .btn-sticky-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--seal);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.45rem 0.85rem;
+      border-radius: 4px;
+      text-decoration: none;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(163,40,31,0.4);
+    }
+    .sticky-close-btn {
+      background: none;
+      border: none;
+      color: #8C7D6B;
+      font-size: 1rem;
+      cursor: pointer;
+      padding: 0 3px;
     }
 
     /* Single Post SSR Container */
@@ -781,13 +1414,24 @@
         <p class="hero-subtitle">Nghiên cứu nguyên lý âm dương ngũ hành, 14 Chính Tinh, Tứ Hóa và phương pháp Cải Mệnh từ các bậc danh gia cổ truyền Việt Nam.</p>
       </header>
 
-      <!-- Category Filter -->
-      <div class="filter-pills-bar">
-        <button class="filter-pill active" onclick="filterCategory('all', this)">Tất cả bài viết</button>
-        <button class="filter-pill" onclick="filterCategory('Kiến thức Tử Vi', this)">Kiến thức Tử Vi</button>
-        <button class="filter-pill" onclick="filterCategory('Vận hạn năm', this)">Vận hạn năm</button>
-        <button class="filter-pill" onclick="filterCategory('Hôn nhân & Gia đạo', this)">Hôn nhân &amp; Gia đạo</button>
-        <button class="filter-pill" onclick="filterCategory('Tài lộc & Sự nghiệp', this)">Tài lộc &amp; Sự nghiệp</button>
+      <!-- Search & Category Filter Controls -->
+      <div class="blog-controls-wrap">
+        <div class="blog-search-box">
+          <i data-lucide="search" class="blog-search-icon" style="width:18px;height:18px;"></i>
+          <input type="text" id="blogSearchInput" class="blog-search-input" placeholder="Tìm kiếm bài viết, con giáp, cung sao, vận hạn 2026 - 2027..." oninput="handleSearch(this.value)">
+          <button id="searchClearBtn" class="blog-search-clear" onclick="clearSearch()" style="display:none;" aria-label="Xóa tìm kiếm">✕</button>
+        </div>
+        <div id="searchCounter" class="search-counter-bar" style="display:none;"></div>
+
+        <div class="filter-pills-bar">
+          <button class="filter-pill active" onclick="filterCategory('all', this)">✦ Tất cả bài viết</button>
+          <button class="filter-pill" onclick="filterCategory('Kiến thức Tử Vi', this)">🔮 Tử Vi Nam Phái</button>
+          <button class="filter-pill" onclick="filterCategory('Vận hạn năm', this)">⏳ Vận Hạn 2026 - 2027</button>
+          <button class="filter-pill" onclick="filterCategory('Hôn nhân & Gia đạo', this)">❤️ Hôn Nhân Tình Duyên</button>
+          <button class="filter-pill" onclick="filterCategory('Tài lộc & Sự nghiệp', this)">💰 Tài Lộc & Đầu Tư</button>
+          <button class="filter-pill" onclick="filterCategory('Thần Số Học', this)">🔢 Thần Số Pitago</button>
+          <button class="filter-pill" onclick="filterCategory('Phong Thủy & Cải Vận', this)">🌿 Phong Thủy Khải Vận</button>
+        </div>
       </div>
 
       <!-- Post List Grid -->
@@ -817,8 +1461,9 @@
   </footer>
 
   <script>
-    // Client-side category filtering and fallback list loader
     let allPosts = [];
+    let currentCategory = 'all';
+    let currentSearchQuery = '';
 
     async function loadPostList() {
       const grid = document.getElementById('postsGrid');
@@ -828,7 +1473,7 @@
         const res = await fetch('/api/posts');
         if (res.ok) {
           allPosts = await res.json();
-          renderPosts(allPosts);
+          applyFilterAndSearch();
         }
       } catch (e) {
         grid.innerHTML = '<p style="color:var(--text-muted); grid-column: 1/-1; text-align:center;">Đang tải danh sách bài viết...</p>';
@@ -840,45 +1485,207 @@
       if (!grid) return;
 
       if (!posts || posts.length === 0) {
-        grid.innerHTML = '<p style="color:var(--text-muted); grid-column: 1/-1; text-align:center;">Chưa có bài viết trong chuyên mục này.</p>';
+        grid.innerHTML = `
+          <div class="empty-state-box">
+            <div class="empty-state-icon">📜</div>
+            <h3 style="font-family:var(--font-heading);color:var(--seal);margin-bottom:0.5rem;font-size:1.3rem;">Không tìm thấy bài viết phù hợp</h3>
+            <p style="color:var(--text-muted);font-size:0.92rem;max-width:480px;margin:0 auto;">Hãy thử tìm kiếm với từ khóa khác hoặc bấm nút bên dưới để xem lại toàn bộ kho tàng bài viết.</p>
+            <button class="filter-pill active" style="margin-top:1.25rem;" onclick="resetSearchAndFilters()">✦ Xem tất cả bài viết</button>
+          </div>
+        `;
+        if (window.lucide) window.lucide.createIcons();
         return;
       }
 
-      grid.innerHTML = posts.map(p => `
-        <article class="post-card">
-          <span class="post-category-badge">${p.category || 'Tử Vi'}</span>
-          <h2 class="post-card-title"><a href="/blog/${p.slug}">${p.title}</a></h2>
-          <p class="post-card-desc">${p.description}</p>
-          <div class="post-card-meta">
-            <span><i data-lucide="clock" style="width:13px;height:13px;display:inline;vertical-align:-1px;"></i> ${p.readTime || '6 phút'} · ${p.views || 0} lượt đọc</span>
-            <a href="/blog/${p.slug}" class="post-card-read-more">Đọc tiếp ➔</a>
-          </div>
-        </article>
-      `).join('');
+      grid.innerHTML = posts.map(p => {
+        const imgUrl = p.image || '/img/og-image.jpg';
+        const dateStr = p.publishedAt || '2026-01-01';
+        const authorStr = p.author || 'Đại Sư Nam Phái';
+        return `
+          <article class="post-card">
+            <a href="/blog/${p.slug}" class="post-card-thumb-link">
+              <img src="${imgUrl}" alt="${p.title}" class="post-card-thumb" loading="lazy" onerror="this.src='/img/og-image.jpg'">
+              <span class="post-card-badge-floating">${p.category || 'Tử Vi'}</span>
+            </a>
+            <div class="post-card-body">
+              <div class="post-card-meta-top">
+                <span><i data-lucide="calendar" style="width:13px;height:13px;display:inline;vertical-align:-1px;"></i> ${dateStr}</span>
+                <span>•</span>
+                <span><i data-lucide="clock" style="width:13px;height:13px;display:inline;vertical-align:-1px;"></i> ${p.readTime || '7 phút'}</span>
+                <span>•</span>
+                <span><i data-lucide="eye" style="width:13px;height:13px;display:inline;vertical-align:-1px;"></i> ${p.views || 0}</span>
+              </div>
+              <h2 class="post-card-title"><a href="/blog/${p.slug}">${p.title}</a></h2>
+              <p class="post-card-desc">${p.description}</p>
+              <div class="post-card-footer">
+                <span class="post-card-author"><i data-lucide="user-check" style="width:13px;height:13px;display:inline;vertical-align:-1px;"></i> ${authorStr}</span>
+                <a href="/blog/${p.slug}" class="post-card-cta">Đọc luận giải ➔</a>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
 
       if (window.lucide) window.lucide.createIcons();
     }
 
+    function handleSearch(q) {
+      currentSearchQuery = (q || '').trim().toLowerCase();
+      const clearBtn = document.getElementById('searchClearBtn');
+      if (clearBtn) clearBtn.style.display = currentSearchQuery ? 'flex' : 'none';
+      applyFilterAndSearch();
+    }
+
+    function clearSearch() {
+      const input = document.getElementById('blogSearchInput');
+      if (input) input.value = '';
+      currentSearchQuery = '';
+      const clearBtn = document.getElementById('searchClearBtn');
+      if (clearBtn) clearBtn.style.display = 'none';
+      applyFilterAndSearch();
+    }
+
+    function applyFilterAndSearch() {
+      let filtered = allPosts;
+      if (currentCategory !== 'all') {
+        filtered = filtered.filter(p => p.category === currentCategory);
+      }
+      if (currentSearchQuery) {
+        filtered = filtered.filter(p => {
+          const t = (p.title || '').toLowerCase();
+          const d = (p.description || '').toLowerCase();
+          const c = (p.category || '').toLowerCase();
+          const tags = Array.isArray(p.tags) ? p.tags.join(' ').toLowerCase() : '';
+          return t.includes(currentSearchQuery) || d.includes(currentSearchQuery) || c.includes(currentSearchQuery) || tags.includes(currentSearchQuery);
+        });
+      }
+
+      const counter = document.getElementById('searchCounter');
+      if (counter) {
+        if (currentSearchQuery) {
+          counter.style.display = 'block';
+          counter.innerHTML = `Tìm thấy <strong>${filtered.length}</strong> bài viết phù hợp cho từ khóa: "<em>${currentSearchQuery}</em>"`;
+        } else {
+          counter.style.display = 'none';
+        }
+      }
+      renderPosts(filtered);
+    }
+
     function filterCategory(cat, btn) {
+      currentCategory = cat;
       document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
       if (btn) btn.classList.add('active');
+      applyFilterAndSearch();
+    }
 
-      if (cat === 'all') {
-        renderPosts(allPosts);
+    function resetSearchAndFilters() {
+      clearSearch();
+      currentCategory = 'all';
+      document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+      const allBtn = document.querySelector('.filter-pill');
+      if (allBtn) allBtn.classList.add('active');
+      applyFilterAndSearch();
+    }
+
+    function toggleToc() {
+      const list = document.getElementById('tocList');
+      const txt = document.getElementById('tocToggleText');
+      if (!list) return;
+      if (list.style.display === 'none') {
+        list.style.display = 'block';
+        if (txt) txt.textContent = '[Thu gọn]';
       } else {
-        const filtered = allPosts.filter(p => p.category === cat);
-        renderPosts(filtered);
+        list.style.display = 'none';
+        if (txt) txt.textContent = '[Mở rộng]';
       }
+    }
+
+    function copyArticleLink(url) {
+      const link = url || window.location.href;
+      navigator.clipboard.writeText(link).then(() => {
+        alert('Đã sao chép liên kết bài viết vào bộ nhớ tạm!');
+      }).catch(() => {
+        prompt('Sao chép liên kết:', link);
+      });
+    }
+
+    let stickyDismissed = false;
+    function dismissStickyCta() {
+      const el = document.getElementById('blogStickyCta');
+      if (el) el.style.display = 'none';
+      stickyDismissed = true;
+    }
+
+    function initStickyCta() {
+      const isArticle = !!document.querySelector('.article-wrap');
+      if (!isArticle) return;
+
+      const badge = document.querySelector('.post-category-badge');
+      const category = badge ? badge.textContent.trim() : '';
+      const ctaBtn = document.getElementById('stickyCtaBtn');
+      const ctaTitle = document.getElementById('stickyCtaTitle');
+      const ctaSub = document.getElementById('stickyCtaSub');
+      const ctaIcon = document.getElementById('stickyCtaIcon');
+
+      if (category.includes('Hôn nhân') || category.includes('Gia đạo')) {
+        if (ctaIcon) ctaIcon.textContent = '❤️';
+        if (ctaTitle) ctaTitle.textContent = 'Bói Hợp Tuổi Vợ Chồng';
+        if (ctaSub) ctaSub.textContent = 'Soi cung Phu Thê Bát Tự';
+        if (ctaBtn) { ctaBtn.href = '/hop-tuoi'; ctaBtn.textContent = 'Bói ngay ➔'; }
+      } else if (category.includes('Thần Số')) {
+        if (ctaIcon) ctaIcon.textContent = '🔢';
+        if (ctaTitle) ctaTitle.textContent = 'Tra Cứu Thần Số Học VIP';
+        if (ctaSub) ctaSub.textContent = 'Giải mã 15+ chỉ số Pitago';
+        if (ctaBtn) { ctaBtn.href = '/than-so-hoc'; ctaBtn.textContent = 'Tra cứu ➔'; }
+      } else if (category.includes('Tài lộc') || category.includes('Sự nghiệp')) {
+        if (ctaIcon) ctaIcon.textContent = '💰';
+        if (ctaTitle) ctaTitle.textContent = 'Soi Cung Tài Bạch & Đại Vận';
+        if (ctaSub) ctaSub.textContent = 'Quản trị rủi ro đầu tư';
+        if (ctaBtn) { ctaBtn.href = '/#lap-la-so'; ctaBtn.textContent = 'Soi ngay ➔'; }
+      }
+
+      window.addEventListener('scroll', () => {
+        if (stickyDismissed || window.innerWidth > 768) return;
+        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (totalHeight <= 0) return;
+        const scrollPercent = (window.scrollY / totalHeight) * 100;
+        const el = document.getElementById('blogStickyCta');
+        if (el) {
+          if (scrollPercent > 22 && scrollPercent < 92) {
+            el.style.display = 'flex';
+          } else {
+            el.style.display = 'none';
+          }
+        }
+      }, { passive: true });
     }
 
     document.addEventListener('DOMContentLoaded', () => {
       // Only load via API if outlet does NOT contain SSR article
       if (!document.querySelector('.article-wrap')) {
         loadPostList();
+      } else {
+        initStickyCta();
       }
       if (window.lucide) window.lucide.createIcons();
     });
   </script>
+
+  <!-- Mobile Sticky Floating Quick CTA for Readers -->
+  <div id="blogStickyCta" class="blog-sticky-bottom-cta">
+    <div class="sticky-cta-left">
+      <span class="sticky-cta-icon" id="stickyCtaIcon">🧭</span>
+      <div class="sticky-cta-text">
+        <span class="sticky-cta-title" id="stickyCtaTitle">Lập Lá Số Tử Vi Của Riêng Bạn</span>
+        <span class="sticky-cta-sub" id="stickyCtaSub">Luận giải 12 cung số miễn phí</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;">
+      <a href="/#lap-la-so" id="stickyCtaBtn" class="btn-sticky-cta">Lập ngay ➔</a>
+      <button class="sticky-close-btn" onclick="dismissStickyCta()" aria-label="Đóng">✕</button>
+    </div>
+  </div>
 
   <!-- Fixed Mobile Bottom Navigation Bar (iOS & Android Native App Feel) -->
   <nav class="mobile-bottom-nav" aria-label="Thanh điều hướng nhanh">

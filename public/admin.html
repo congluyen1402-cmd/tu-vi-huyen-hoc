@@ -1310,13 +1310,29 @@
               <input type="text" id="postSlugInput" required class="sepay-input" style="width:100%;" placeholder="vi-du-duong-dan-bai-viet">
             </div>
             <div>
-              <label style="display:block; font-size:0.82rem; color:var(--text-muted); margin-bottom:0.35rem;">Chuyên mục:</label>
+              <label style="display:block; font-size:0.82rem; color:var(--text-muted); margin-bottom:0.35rem;">Chuyên mục (Chuẩn SEO 6 phân hệ):</label>
               <select id="postCategorySelect" class="sepay-input" style="width:100%; background:#14112c; color:#fff;">
-                <option value="Kiến thức tử vi">Kiến thức tử vi</option>
-                <option value="Vận hạn năm 2026">Vận hạn năm 2026</option>
-                <option value="Luận giải mẫu">Luận giải mẫu</option>
-                <option value="Phong thủy cải vận">Phong thủy cải vận</option>
+                <option value="Kiến thức Tử Vi">🔮 Kiến thức Tử Vi (Nam Phái)</option>
+                <option value="Vận hạn năm">⏳ Vận hạn năm (2026 - 2027)</option>
+                <option value="Hôn nhân & Gia đạo">❤️ Hôn nhân & Gia đạo</option>
+                <option value="Tài lộc & Sự nghiệp">💰 Tài lộc & Sự nghiệp</option>
+                <option value="Thần Số Học">🔢 Thần Số Học (Pitago)</option>
+                <option value="Phong Thủy & Cải Vận">🌿 Phong Thủy & Cải Vận</option>
               </select>
+            </div>
+          </div>
+          <div style="display:grid; grid-template-columns:2fr 1fr 1fr; gap:12px; margin-bottom:0.9rem;">
+            <div>
+              <label style="display:block; font-size:0.82rem; color:var(--text-muted); margin-bottom:0.35rem;">Ảnh bìa / Thumbnail URL:</label>
+              <input type="text" id="postImageInput" class="sepay-input" style="width:100%;" placeholder="/img/hero-temple-bg.jpg">
+            </div>
+            <div>
+              <label style="display:block; font-size:0.82rem; color:var(--text-muted); margin-bottom:0.35rem;">Tác giả (E-E-A-T):</label>
+              <input type="text" id="postAuthorInput" class="sepay-input" style="width:100%;" placeholder="Đại Sư Nam Phái">
+            </div>
+            <div>
+              <label style="display:block; font-size:0.82rem; color:var(--text-muted); margin-bottom:0.35rem;">Thời gian đọc:</label>
+              <input type="text" id="postReadTimeInput" class="sepay-input" style="width:100%;" placeholder="8 phút">
             </div>
           </div>
           <div style="margin-bottom:0.9rem;">
@@ -1889,7 +1905,10 @@
           const matchCode = (o.orderCode || '').toLowerCase().includes(search);
           const matchName = (o.customerName || '').toLowerCase().includes(search);
           const matchPhone = (o.customerPhone || '').toLowerCase().includes(search);
-          if (!matchCode && !matchName && !matchPhone) return false;
+          const matchNote = (o.note || '').toLowerCase().includes(search);
+          const matchTx = (String(o.transactionId || '')).toLowerCase().includes(search);
+          const matchMemo = ('sevqr ' + (o.orderCode || '')).toLowerCase().includes(search);
+          if (!matchCode && !matchName && !matchPhone && !matchNote && !matchTx && !matchMemo) return false;
         }
         return true;
       });
@@ -2391,6 +2410,9 @@
       const titleInput = document.getElementById('postTitleInput');
       const slugInput = document.getElementById('postSlugInput');
       const catSelect = document.getElementById('postCategorySelect');
+      const imageInput = document.getElementById('postImageInput');
+      const authorInput = document.getElementById('postAuthorInput');
+      const readTimeInput = document.getElementById('postReadTimeInput');
       const sumInput = document.getElementById('postSummaryInput');
       const kwInput = document.getElementById('postKeywordsInput');
       const contentInput = document.getElementById('postContentInput');
@@ -2402,9 +2424,12 @@
           idInput.value = p.id;
           titleInput.value = p.title || '';
           slugInput.value = p.slug || '';
-          catSelect.value = p.category || 'Kiến thức tử vi';
+          catSelect.value = p.category || 'Kiến thức Tử Vi';
+          if (imageInput) imageInput.value = p.image || '';
+          if (authorInput) authorInput.value = p.author || 'Đại Sư Nam Phái';
+          if (readTimeInput) readTimeInput.value = p.readTime || '8 phút';
           sumInput.value = p.description || p.summary || '';
-          kwInput.value = (p.keywords || []).join(', ');
+          kwInput.value = Array.isArray(p.keywords) ? p.keywords.join(', ') : (p.keywords || '');
           contentInput.value = p.contentHtml || p.content || '';
         }
       } else {
@@ -2412,7 +2437,10 @@
         idInput.value = '';
         titleInput.value = '';
         slugInput.value = '';
-        catSelect.value = 'Kiến thức tử vi';
+        catSelect.value = 'Kiến thức Tử Vi';
+        if (imageInput) imageInput.value = '/img/hero-temple-bg.jpg';
+        if (authorInput) authorInput.value = 'Đại Sư Nam Phái';
+        if (readTimeInput) readTimeInput.value = '7 phút';
         sumInput.value = '';
         kwInput.value = '';
         contentInput.value = '';
@@ -2431,6 +2459,9 @@
       const title = document.getElementById('postTitleInput').value.trim();
       let slug = document.getElementById('postSlugInput').value.trim();
       const category = document.getElementById('postCategorySelect').value;
+      const image = document.getElementById('postImageInput') ? document.getElementById('postImageInput').value.trim() : '/img/og-image.jpg';
+      const author = document.getElementById('postAuthorInput') ? document.getElementById('postAuthorInput').value.trim() : 'Đại Sư Nam Phái';
+      const readTime = document.getElementById('postReadTimeInput') ? document.getElementById('postReadTimeInput').value.trim() : '7 phút';
       const description = document.getElementById('postSummaryInput').value.trim();
       const keywords = document.getElementById('postKeywordsInput').value.split(',').map(s => s.trim()).filter(Boolean);
       const contentHtml = document.getElementById('postContentInput').value.trim();
@@ -2453,6 +2484,9 @@
         title,
         slug,
         category,
+        image,
+        author,
+        readTime,
         description,
         keywords,
         contentHtml,
