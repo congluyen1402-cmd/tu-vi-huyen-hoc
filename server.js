@@ -1945,10 +1945,12 @@ const server = http.createServer(async (req, res) => {
   }
 
   // Google Site Verification File
-  if (pathname.includes('google9f78d3cac1ee8064.html') || /^\/google[a-zA-Z0-9]+\.html$/.test(pathname)) {
-    const filename = path.basename(pathname);
+  if (pathname.includes('google9f78d3cac1ee8064') || /^\/google[a-zA-Z0-9]+(\.html)?$/.test(pathname) || (parsedUrl.query && parsedUrl.query.google_verify)) {
+    let filename = (parsedUrl.query && parsedUrl.query.google_verify) ? parsedUrl.query.google_verify : path.basename(pathname);
+    if (!filename.endsWith('.html')) filename += '.html';
+    if (!filename.startsWith('google')) filename = 'google' + filename;
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-    return res.end(`google-site-verification: ${filename}`);
+    return res.end(`google-site-verification: ${filename}\n`);
   }
 
   // Dynamic Sitemap: GET /sitemap.xml
