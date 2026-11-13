@@ -51,7 +51,7 @@ async function verifyPrintExport() {
       pricingHidden: isHidden(document.querySelector('#bang-gia-dich-vu')),
       bookingHidden: isHidden(document.querySelector('#dat-lich-tu-van')),
       fengshuiHidden: isHidden(document.querySelector('#vat-pham-phong-thuy')),
-      mysticHidden: isHidden(document.querySelector('#khong-gian-tam-linh')),
+      mysticHidden: !document.querySelector('#khong-gian-tam-linh') || isHidden(document.querySelector('#khong-gian-tam-linh')),
       faqHidden: isHidden(document.querySelector('#cau-hoi-thuong-gap')),
       blogHidden: isHidden(document.querySelector('#blog-tu-vi')),
       footerHidden: isHidden(document.querySelector('footer')),

@@ -1821,22 +1821,26 @@ a:hover {
 }
 
 .luan-giai-nhandinh-badge {
-  background: linear-gradient(90deg, rgba(212, 175, 55, 0.18) 0%, rgba(30, 27, 63, 0.4) 100%);
-  border-left: 3px solid var(--gold);
-  padding: 0.6rem 1rem;
-  color: var(--gold-light);
-  font-weight: 700;
-  font-size: 0.95rem;
-  border-radius: 0 6px 6px 0;
-  margin-bottom: 1rem;
+  background: linear-gradient(90deg, #FDF7EA 0%, #F5ECDA 100%) !important;
+  border: 1px solid rgba(194, 155, 56, 0.4) !important;
+  border-left: 4px solid var(--seal, #A3281F) !important;
+  padding: 0.65rem 1.15rem !important;
+  color: #7A1C14 !important; /* Deep rich cinnabar red, high contrast, elegant spiritual tone */
+  font-weight: 800 !important;
+  font-size: 0.98rem !important;
+  border-radius: 0 8px 8px 0 !important;
+  margin-bottom: 1rem !important;
+  box-shadow: 0 2px 6px rgba(163, 40, 31, 0.08) !important;
+  letter-spacing: 0.3px !important;
 }
 
 .luan-giai-block {
   margin-bottom: 1rem;
-  color: var(--text);
+  color: var(--text) !important;
 }
 .luan-giai-block strong {
-  color: var(--gold-light);
+  color: var(--ink, #1B1612) !important;
+  font-weight: 700 !important;
 }
 
 .luan-giai-star-card {
@@ -3578,16 +3582,16 @@ footer.footer {
    VIP UNLOCKED BANNER (Xuất hiện ngay trên Lá Số khi khách thanh toán thành công)
    ========================================================================== */
 .vip-unlocked-banner {
-  background: linear-gradient(135deg, rgba(30, 27, 63, 0.95), rgba(21, 19, 48, 0.98));
-  border: 1.5px solid rgba(212, 175, 55, 0.5);
-  border-radius: 12px;
-  padding: 1.25rem 1.5rem;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(212, 175, 55, 0.12);
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  animation: bannerSlideIn 0.4s ease-out;
+  background: linear-gradient(135deg, #1C172B 0%, #100C1B 100%) !important;
+  border: 1.5px solid #D4AF37 !important;
+  border-radius: 12px !important;
+  padding: 1.25rem 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), inset 0 0 20px rgba(212, 175, 55, 0.12) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1rem !important;
+  animation: bannerSlideIn 0.4s ease-out !important;
 }
 
 @keyframes bannerSlideIn {
@@ -3596,48 +3600,56 @@ footer.footer {
 }
 
 .vip-banner-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 1rem !important;
 }
 
 .vip-banner-headline {
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.85rem !important;
 }
 
 .vip-banner-crown {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #f3d98b, #d4af37, #a67c1a);
-  color: #0b0a1a;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.4rem;
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
-  flex-shrink: 0;
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle, #FFE6A3, #D4AF37, #A67C1A) !important;
+  color: #0b0a1a !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 1.4rem !important;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.5) !important;
+  flex-shrink: 0 !important;
 }
 
 .vip-banner-text-group h3 {
-  font-family: var(--font-heading);
-  color: var(--gold-light);
-  font-size: 1.25rem;
-  margin: 0 0 0.2rem 0;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  font-family: var(--font-heading, serif) !important;
+  color: #FFE6A3 !important;
+  font-size: 1.22rem !important;
+  font-weight: 700 !important;
+  margin: 0 0 0.25rem 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8) !important;
+  letter-spacing: 0.4px !important;
 }
 
 .vip-banner-text-group p {
-  color: var(--text-muted);
-  font-size: 0.88rem;
-  margin: 0;
-  line-height: 1.4;
+  color: #F3ECDD !important;
+  font-size: 0.92rem !important;
+  margin: 0 !important;
+  line-height: 1.5 !important;
+}
+
+.vip-banner-text-group p strong {
+  color: #FFD56B !important;
+  font-weight: 800 !important;
 }
 
 .vip-banner-actions-row {
@@ -3661,31 +3673,32 @@ footer.footer {
 }
 
 .btn-banner-pdf {
-  background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-deep));
-  color: #0b0a1a;
-  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+  background: linear-gradient(135deg, #FFE6A3 0%, #D4AF37 50%, #B3861B 100%) !important;
+  color: #1A1510 !important;
+  font-weight: 800 !important;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35) !important;
 }
 
 .btn-banner-pdf:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.55) !important;
 }
 
 .btn-banner-magic {
-  background: rgba(21, 19, 48, 0.85);
-  color: var(--gold-light);
-  border-color: rgba(212, 175, 55, 0.45);
+  background: #231E35 !important;
+  color: #FAF6ED !important;
+  border: 1px solid rgba(212, 175, 55, 0.6) !important;
 }
 
 .btn-banner-magic:hover {
-  background: rgba(212, 175, 55, 0.15);
-  border-color: var(--gold);
+  background: rgba(212, 175, 55, 0.25) !important;
+  border-color: #D4AF37 !important;
 }
 
 .btn-banner-claim {
-  background: rgba(76, 175, 125, 0.15);
-  color: #4caf7d;
-  border-color: rgba(76, 175, 125, 0.4);
+  background: rgba(16, 185, 129, 0.2) !important;
+  color: #6EE7B7 !important;
+  border: 1px solid rgba(16, 185, 129, 0.55) !important;
 }
 
 .btn-banner-claim:hover {
@@ -7988,5 +8001,354 @@ html {
     width: 100% !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
+  }
+}
+
+
+/* ==========================================================================
+   CỐ VẤN TỬ VI AI (ĐẶC QUYỀN VIP) - THIẾT KẾ HOÀNG GIA & TỐI ƯU TOÀN DIỆN MOBILE
+   ========================================================================== */
+.vip-ai-advisor-section {
+  background: #FCFBF7 !important;
+  border: 1.5px solid #C29B38 !important;
+  border-top: 4px solid var(--seal, #A3281F) !important;
+  border-radius: 12px !important;
+  padding: 1.6rem 1.75rem !important;
+  margin-top: 2.25rem !important;
+  margin-bottom: 2rem !important;
+  box-shadow: 0 6px 24px rgba(42, 35, 28, 0.08) !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.ai-advisor-header-wrap {
+  text-align: center !important;
+  margin-bottom: 1.35rem !important;
+  border-bottom: 1px dashed rgba(194, 155, 56, 0.4) !important;
+  padding-bottom: 1.15rem !important;
+}
+
+.ai-header-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  background: #FAF0E6 !important;
+  border: 1px solid #A3281F !important;
+  border-radius: 20px !important;
+  padding: 4px 14px !important;
+  font-size: 0.8rem !important;
+  font-weight: 700 !important;
+  color: #7A1C14 !important;
+  margin-bottom: 0.6rem !important;
+  letter-spacing: 0.5px !important;
+}
+
+.ai-advisor-main-title {
+  font-family: var(--font-heading, serif) !important;
+  font-size: 1.25rem !important;
+  color: #7A1C14 !important;
+  margin: 0 0 0.5rem 0 !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.3px !important;
+}
+
+.ai-advisor-main-desc {
+  font-size: 0.92rem !important;
+  color: #4A3E30 !important;
+  line-height: 1.65 !important;
+  max-width: 680px !important;
+  margin: 0 auto !important;
+}
+
+/* KHỐI TRẠNG THÁI & HẠN MỨC VIP */
+.ai-advisor-unlocked-box {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1rem !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.ai-quota-status-row {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 0.75rem 1.1rem !important;
+  background: #F5EDDF !important;
+  border: 1px solid #D8CBB5 !important;
+  border-radius: 8px !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+}
+
+.ai-quota-info {
+  font-size: 0.92rem !important;
+  color: #1B1612 !important;
+  font-weight: 600 !important;
+}
+
+.ai-online-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  background: #ECFDF5 !important;
+  border: 1px solid #A7F3D0 !important;
+  padding: 3px 10px !important;
+  border-radius: 20px !important;
+  color: #047857 !important;
+  font-size: 0.8rem !important;
+  font-weight: 700 !important;
+}
+
+.live-pulse-dot {
+  width: 8px !important;
+  height: 8px !important;
+  border-radius: 50% !important;
+  background-color: #10B981 !important;
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7) !important;
+  animation: pulseGreen 1.8s infinite !important;
+}
+
+@keyframes pulseGreen {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+/* GỢI Ý CÂU HỎI NHANH */
+.ai-quick-suggest-row {
+  margin-bottom: 0.35rem !important;
+}
+
+.ai-quick-lbl {
+  display: block !important;
+  font-size: 0.86rem !important;
+  color: #5C4E3D !important;
+  font-weight: 700 !important;
+  margin-bottom: 0.55rem !important;
+}
+
+.ai-quick-btns {
+  display: flex !important;
+  gap: 8px !important;
+  flex-wrap: wrap !important;
+}
+
+.btn-quick-q {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  padding: 7px 14px !important;
+  font-size: 0.84rem !important;
+  background: #FFFFFF !important;
+  color: #2A2118 !important;
+  border: 1px solid #C29B38 !important;
+  border-radius: 20px !important;
+  cursor: pointer !important;
+  font-weight: 600 !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05) !important;
+  transition: all 0.2s ease !important;
+}
+
+.btn-quick-q:hover {
+  background: #FDF3D8 !important;
+  border-color: #A3281F !important;
+  color: #7A1C14 !important;
+  transform: translateY(-1px) !important;
+}
+
+/* LỊCH SỬ CHAT VỚI AI */
+.ai-chat-thread {
+  background: #FFFFFF !important;
+  border: 1px solid #D8CBB5 !important;
+  border-radius: 8px !important;
+  padding: 1.15rem !important;
+  max-height: 480px !important;
+  overflow-y: auto !important;
+  margin-bottom: 0.65rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+}
+
+.ai-chat-bubble {
+  border-radius: 8px !important;
+  padding: 0.95rem 1.15rem !important;
+  font-size: 0.92rem !important;
+  line-height: 1.7 !important;
+  box-sizing: border-box !important;
+}
+
+.bubble-user {
+  background: #FDF7EA !important;
+  border: 1px solid #E5D5B8 !important;
+  border-left: 4px solid #C29B38 !important;
+  align-self: flex-start !important;
+  width: 96% !important;
+  max-width: 96% !important;
+}
+
+.bubble-user .bubble-sender {
+  font-weight: 700 !important;
+  color: #8C6514 !important;
+  margin-bottom: 0.35rem !important;
+  font-size: 0.88rem !important;
+}
+
+.bubble-user .bubble-text {
+  color: #1B1612 !important;
+  font-weight: 600 !important;
+}
+
+.bubble-ai {
+  background: #FCFAF6 !important;
+  border: 1px solid #D8CBB5 !important;
+  border-left: 4px solid #A3281F !important;
+  align-self: stretch !important;
+}
+
+.bubble-ai .bubble-sender {
+  font-family: var(--font-heading, serif) !important;
+  font-weight: 800 !important;
+  color: #7A1C14 !important;
+  margin-bottom: 0.5rem !important;
+  font-size: 0.95rem !important;
+}
+
+.bubble-ai .bubble-text {
+  color: #1B1612 !important;
+  line-height: 1.75 !important;
+}
+
+.bubble-error {
+  background: #FEF2F2 !important;
+  border: 1px solid #FECACA !important;
+  border-left: 4px solid #DC2626 !important;
+}
+
+.bubble-error .bubble-sender {
+  color: #B91C1C !important;
+}
+
+/* KHUNG NHẬP LIỆU CÂU HỎI (TEXTAREA & SEND ACTION) */
+.ai-input-container {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.ai-textarea {
+  width: 100% !important;
+  min-height: 85px !important;
+  box-sizing: border-box !important;
+  border: 1.5px solid #C29B38 !important;
+  border-radius: 8px !important;
+  padding: 12px 14px !important;
+  font-family: var(--font-body, system-ui, sans-serif) !important;
+  font-size: 16px !important; /* Chuẩn 16px để iOS Safari không tự động phóng to màn hình */
+  color: #1B1612 !important;
+  background: #FFFFFF !important;
+  line-height: 1.6 !important;
+  resize: vertical !important;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05) !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.ai-textarea:focus {
+  border-color: #A3281F !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(163, 40, 31, 0.15) !important;
+}
+
+.ai-action-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.ai-note-text {
+  color: #6B5E4F !important;
+  font-size: 0.85rem !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+}
+
+.btn-send-ai {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  background: linear-gradient(135deg, #A3281F 0%, #7A1C14 100%) !important;
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+  font-size: 0.95rem !important;
+  padding: 0.75rem 1.6rem !important;
+  border-radius: 6px !important;
+  border: none !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 12px rgba(163, 40, 31, 0.35) !important;
+  transition: all 0.2s ease !important;
+}
+
+.btn-send-ai:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 16px rgba(163, 40, 31, 0.45) !important;
+}
+
+/* TỐI ƯU TOÀN DIỆN CHO MÀN HÌNH DỌC (PORTRAIT SMARTPHONES - iOS & ANDROID) */
+@media (max-width: 640px) {
+  .vip-ai-advisor-section {
+    padding: 1.15rem 0.95rem !important;
+    border-radius: 8px !important;
+    margin-top: 1.75rem !important;
+  }
+  .ai-advisor-main-title {
+    font-size: 1.1rem !important;
+  }
+  .ai-quota-status-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+    padding: 0.65rem 0.85rem !important;
+  }
+  .ai-quick-btns {
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 6px !important;
+  }
+  .btn-quick-q {
+    width: 100% !important;
+    justify-content: flex-start !important;
+    padding: 8px 12px !important;
+    font-size: 0.86rem !important;
+  }
+  .bubble-user {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .ai-action-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+  }
+  .btn-send-ai {
+    width: 100% !important;
+    padding: 0.85rem 1rem !important;
+    font-size: 1rem !important;
+  }
+  .ai-note-text {
+    justify-content: center !important;
+    text-align: center !important;
+    font-size: 0.82rem !important;
   }
 }

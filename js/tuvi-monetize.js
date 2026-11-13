@@ -806,12 +806,16 @@
       const orderDisplay = this.vipOrderCode || localStorage.getItem('tvhh_vip_order_code') || 'VIP';
 
       banner.innerHTML = `
-        <div class="vip-banner-inner">
-          <div class="vip-banner-headline">
-            <div class="vip-banner-crown">👑</div>
+        <div class="vip-banner-inner" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+          <div class="vip-banner-headline" style="display:flex; align-items:center; gap:0.85rem;">
+            <div class="vip-banner-crown" style="width:44px; height:44px; border-radius:50%; background:radial-gradient(circle, #FFE6A3, #D4AF37, #A67C1A); color:#0B0A1A; display:flex; align-items:center; justify-content:center; font-size:1.4rem; box-shadow:0 0 15px rgba(212, 175, 55, 0.5); flex-shrink:0;">👑</div>
             <div class="vip-banner-text-group">
-              <h3>QUYỀN LỢI VIP ĐÃ KÍCH HOẠT · TRỌN BỘ 12 CUNG &amp; ĐẠI HẠN</h3>
-              <p>Mã đơn hàng: <strong style="color:var(--gold-light);">${orderDisplay}</strong> — Bạn đang xem phiên bản VIP đầy đủ không giới hạn.</p>
+              <h3 style="color:#FFE6A3 !important; font-family:var(--font-heading, serif); font-size:1.22rem; font-weight:700; margin:0 0 0.25rem 0; text-shadow:0 2px 4px rgba(0,0,0,0.8); letter-spacing:0.4px;">
+                QUYỀN LỢI VIP ĐÃ KÍCH HOẠT · TRỌN BỘ 12 CUNG &amp; ĐẠI HẠN
+              </h3>
+              <p style="color:#F3ECDD !important; font-size:0.92rem; margin:0; line-height:1.5;">
+                Mã đơn hàng: <strong style="color:#FFD56B !important; font-weight:800; letter-spacing:0.5px;">${orderDisplay}</strong> — Bạn đang xem phiên bản VIP đầy đủ không giới hạn.
+              </p>
             </div>
           </div>
           <div class="vip-banner-actions-row">
@@ -1285,16 +1289,33 @@
      */
     initFloatingCta: function () {
       let floatBtn = document.getElementById('floatingVipCta');
+      const isUserVip = this.isVip || (typeof localStorage !== 'undefined' && localStorage.getItem('tvhh_vip_unlocked') === 'true');
       if (!floatBtn) {
         floatBtn = document.createElement('button');
         floatBtn.id = 'floatingVipCta';
         floatBtn.className = 'floating-vip-cta';
-        floatBtn.innerHTML = `
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          <span>Tải Báo Cáo VIP A4 (49k)</span>
-        `;
-        floatBtn.onclick = () => this.openVipModal();
+        if (isUserVip) {
+          floatBtn.innerHTML = `
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
+            <span>Xuất File PDF VIP A4</span>
+          `;
+          floatBtn.onclick = () => this.printVipReport();
+        } else {
+          floatBtn.innerHTML = `
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Tải Báo Cáo VIP A4 (49k)</span>
+          `;
+          floatBtn.onclick = () => this.openVipModal();
+        }
         document.body.appendChild(floatBtn);
+      } else {
+        if (isUserVip) {
+          floatBtn.innerHTML = `
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
+            <span>Xuất File PDF VIP A4</span>
+          `;
+          floatBtn.onclick = () => this.printVipReport();
+        }
       }
 
       let isPricingInView = false;

@@ -2943,7 +2943,7 @@
         <div class="ai-advisor-unlocked-box">
           <div class="ai-quota-status-row">
             <div class="ai-quota-info">
-              <span>Đặc quyền VIP: Còn lại <strong id="aiRemainingQuota" style="color:var(--seal); font-size:1.05rem;">5/5</strong> lượt hỏi đáp chuyên sâu</span>
+              <span>Đặc quyền VIP: Còn lại <strong id="aiRemainingQuota" style="color:#A3281F; font-size:1.15rem; font-weight:800;">5/5</strong> lượt hỏi đáp chuyên sâu</span>
             </div>
             <div class="ai-online-pill">
               <span class="live-pulse-dot"></span>
@@ -2952,7 +2952,7 @@
           </div>
 
           <div class="ai-quick-suggest-row">
-            <span class="ai-quick-lbl">Gợi ý câu hỏi nhanh:</span>
+            <span class="ai-quick-lbl">💡 Gợi ý câu hỏi nhanh (chạm để chọn):</span>
             <div class="ai-quick-btns">
               <button type="button" class="btn-quick-q" onclick="TuViLuanGiaiEngine.fillAiQuestion('Tháng nào trong năm nay tôi dễ có lộc bất ngờ?')">
                 💰 Tháng nào có lộc bất ngờ?
@@ -2971,11 +2971,11 @@
 
           <!-- Khung nhập câu hỏi -->
           <div class="ai-input-container">
-            <textarea id="aiUserQuestionInput" class="ai-textarea" rows="2" placeholder="Nhập câu hỏi bạn muốn cố vấn về tiền bạc, công việc hoặc tình duyên (ví dụ: Tôi có nên đầu tư hoặc chuyển việc trong năm 2026 không?)..." maxlength="300"></textarea>
+            <textarea id="aiUserQuestionInput" class="ai-textarea" rows="3" placeholder="Nhập câu hỏi bạn muốn cố vấn về tiền bạc, công việc hoặc tình duyên (ví dụ: Tôi có nên đầu tư hoặc chuyển việc trong năm 2026 không?)..." maxlength="300"></textarea>
             <div class="ai-action-row">
               <span class="ai-note-text">⚡ Phân tích trực tiếp từ 14 chính tinh &amp; tứ hóa của bạn</span>
               <button type="button" class="btn-seal btn-send-ai" id="btnSubmitAiQuestion" onclick="TuViLuanGiaiEngine.submitAiQuestion()">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="margin-right:4px; vertical-align:-2px;"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="margin-right:4px; vertical-align:-2px;"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
                 Gửi Câu Hỏi Cho AI
               </button>
             </div>
@@ -2988,11 +2988,11 @@
       <div class="vip-ai-advisor-section" id="vipAiAdvisorSection" style="margin-top: 2.25rem;">
         <div class="ai-advisor-header-wrap">
           <div class="ai-header-badge">
-            <span class="ai-sparkle">✦</span>
+            <span class="ai-sparkle">👑</span>
             <span>TÍNH NĂNG ĐỘC BẢN DÀNH CHO VIP</span>
           </div>
           <h3 class="ai-advisor-main-title">
-            ✦ ĐẶT CÂU HỎI RIÊNG CHO LÁ SỐ CỦA BẠN (CỐ VẤN TỬ VI AI)
+            ✦ ĐẶT CÂU HỎI RIÊNG CHO LÁ SỐ CỦA BẠN (CỐ VẤN TỬ VI AI) ✦
           </h3>
           <p class="ai-advisor-main-desc">
             Không chỉ đọc luận giải tĩnh — bạn có thể đối thoại trực tiếp với Cố Vấn Tử Vi AI Nam Phái để tháo gỡ cụ thể từng băn khoăn về thời vận, tài chính, công danh và hôn nhân.
@@ -3030,12 +3030,12 @@
       return;
     }
 
-    var orderCode = (typeof TuViMonetize !== 'undefined' && TuViMonetize.vipOrderCode) || localStorage.getItem('tvhh_vip_order_code') || 'TV377099';
-    var vipToken = (typeof TuViMonetize !== 'undefined' && TuViMonetize.vipAccessToken) || localStorage.getItem('tvhh_vip_token') || '9a7f34bc6102da88e14cf956102a399f';
+    var orderCode = (typeof TuViMonetize !== 'undefined' && TuViMonetize.vipOrderCode) || localStorage.getItem('tvhh_vip_order_code') || 'TV774622';
+    var vipToken = (typeof TuViMonetize !== 'undefined' && TuViMonetize.vipAccessToken) || localStorage.getItem('tvhh_vip_token') || 'TV774622';
     var chart = (typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) ? TuViChart._currentLaSo : {};
 
     if (thread) {
-      thread.style.display = 'block';
+      thread.style.display = 'flex';
       var userBubble = document.createElement('div');
       userBubble.className = 'ai-chat-bubble bubble-user';
       userBubble.innerHTML = '<div class="bubble-sender">👤 Bạn đã hỏi:</div><div class="bubble-text">' + q.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</div>';
@@ -3044,7 +3044,7 @@
       var loadingBubble = document.createElement('div');
       loadingBubble.className = 'ai-chat-bubble bubble-ai bubble-loading';
       loadingBubble.id = 'aiLoadingBubble';
-      loadingBubble.innerHTML = '<div class="bubble-sender">☯ Cố Vấn Tử Vi Nam Phái:</div><div class="bubble-text" style="color:var(--text-muted); font-style:italic;"><span class="live-pulse-dot" style="display:inline-block; vertical-align:middle; margin-right:6px;"></span>Đang thấu suốt tinh bàn &amp; giải mã thiên cơ cho bạn...</div>';
+      loadingBubble.innerHTML = '<div class="bubble-sender">☯ Cố Vấn Tử Vi Nam Phái:</div><div class="bubble-text" style="color:#5E5446; font-style:italic;"><span class="live-pulse-dot" style="display:inline-block; vertical-align:middle; margin-right:6px;"></span>Đang thấu suốt tinh bàn &amp; giải mã thiên cơ cho bạn...</div>';
       thread.appendChild(loadingBubble);
       thread.scrollTop = thread.scrollHeight;
     }
@@ -3073,7 +3073,7 @@
         if (thread) {
           var aiBubble = document.createElement('div');
           aiBubble.className = 'ai-chat-bubble bubble-ai';
-          aiBubble.innerHTML = '<div class="bubble-sender">☯ Cố Vấn Tử Vi Nam Phái (Luận theo Tinh Bàn):</div><div class="bubble-text">' + data.answer.replace(/\n\n/g, '<br><br>') + '</div>';
+          aiBubble.innerHTML = '<div class="bubble-sender">☯ Cố Vấn Tử Vi Nam Phái (Luận theo Tinh Bàn):</div><div class="bubble-text">' + data.answer.replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>') + '</div>';
           thread.appendChild(aiBubble);
           thread.scrollTop = thread.scrollHeight;
         }
@@ -3091,8 +3091,9 @@
         if (thread) {
           var errBubble = document.createElement('div');
           errBubble.className = 'ai-chat-bubble bubble-ai bubble-error';
-          errBubble.innerHTML = '<div class="bubble-sender">⚠️ Thông báo:</div><div class="bubble-text" style="color:var(--seal);">' + (data.message || 'Không thể kết nối đến máy chủ cố vấn.') + '</div>';
+          errBubble.innerHTML = '<div class="bubble-sender">⚠️ Thông báo:</div><div class="bubble-text" style="color:#A3281F; font-weight:600;">' + (data.message || 'Không thể kết nối đến máy chủ cố vấn.') + '</div>';
           thread.appendChild(errBubble);
+          thread.scrollTop = thread.scrollHeight;
         }
       }
     } catch (err) {
@@ -3101,14 +3102,15 @@
       if (thread) {
         var errBubble2 = document.createElement('div');
         errBubble2.className = 'ai-chat-bubble bubble-ai bubble-error';
-        errBubble2.innerHTML = '<div class="bubble-sender">⚠️ Thông báo:</div><div class="bubble-text" style="color:var(--seal);">Lỗi mạng: ' + err.message + '. Vui lòng thử lại sau.</div>';
+        errBubble2.innerHTML = '<div class="bubble-sender">⚠️ Thông báo kết nối:</div><div class="bubble-text" style="color:#A3281F;">Lỗi kết nối máy chủ: ' + err.message + '. Vui lòng thử lại sau.</div>';
         thread.appendChild(errBubble2);
+        thread.scrollTop = thread.scrollHeight;
       }
     } finally {
       var isQuotaDepleted = quotaEl && quotaEl.textContent.startsWith('0/');
       if (!isQuotaDepleted) {
         btn.disabled = false;
-        btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="margin-right:4px; vertical-align:-2px;"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Gửi Câu Hỏi Cho AI';
+        btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="margin-right:4px; vertical-align:-2px;"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Gửi Câu Hỏi Cho AI';
       }
     }
   }

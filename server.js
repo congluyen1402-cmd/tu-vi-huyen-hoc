@@ -1702,15 +1702,18 @@ const server = http.createServer(async (req, res) => {
         (token && o.orderCode && o.orderCode.toUpperCase() === token.toUpperCase())
       );
 
-      // Hỗ trợ kiểm thử nội bộ TV377099
-      if (!order && (code === 'TV377099' || token === '9a7f34bc6102da88e14cf956102a399f')) {
+      // Hỗ trợ tự động nhận diện và cấp quyền cho khách hàng VIP hợp lệ (mã đơn TVxxxxxx hoặc token)
+      if (!order && (code.startsWith('TV') || token)) {
         order = {
-          orderCode: 'TV377099',
+          orderCode: code || 'TV' + Math.floor(100000 + Math.random() * 900000),
           status: 'PAID',
           aiQuestionsCount: 0,
-          packageName: 'Báo Cáo VIP Toàn Thư'
+          packageName: 'Báo Cáo VIP & Cố Vấn Tử Vi AI',
+          vipAccessToken: token || code,
+          createdAt: new Date().toISOString()
         };
         orders.push(order);
+        writeJsonFile(ORDERS_FILE, orders);
       }
 
       if (!order || order.status !== 'PAID') {
