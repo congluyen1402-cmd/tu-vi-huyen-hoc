@@ -68,12 +68,44 @@ try {
   }
 } catch (e) {}
 
+let DEFAULT_POSTS = [];
+try {
+  DEFAULT_POSTS = require('./data/posts.json');
+} catch (e) {
+  try { DEFAULT_POSTS = JSON.parse(fs.readFileSync(POSTS_FILE, 'utf8')); } catch (e2) {}
+}
+
 /**
  * Đọc file JSON an toàn (hỗ trợ đọc từ /tmp nếu chạy trên Vercel Serverless)
  */
 function readJsonFile(filePath, defaultValue) {
   try {
     const baseName = path.basename(filePath);
+    if (baseName === 'posts.json') {
+      let list = [];
+      const tmpFilePath = path.join(TMP_DIR, baseName);
+      if (fs.existsSync(tmpFilePath)) {
+        try { list = JSON.parse(fs.readFileSync(tmpFilePath, 'utf8')); } catch (e) {}
+      }
+      if (Array.isArray(DEFAULT_POSTS) && DEFAULT_POSTS.length > 0) {
+        if (!Array.isArray(list) || list.length === 0) {
+          list = JSON.parse(JSON.stringify(DEFAULT_POSTS));
+        } else {
+          DEFAULT_POSTS.forEach(dp => {
+            const found = list.find(p => p.id === dp.id || p.slug === dp.slug);
+            if (!found) {
+              list.push(dp);
+            } else {
+              if (dp.image && dp.image.includes('/images/blog/')) {
+                found.image = dp.image;
+              }
+            }
+          });
+        }
+      }
+      return list.length > 0 ? list : (defaultValue || []);
+    }
+
     const tmpFilePath = path.join(TMP_DIR, baseName);
     if (fs.existsSync(tmpFilePath)) {
       try {
