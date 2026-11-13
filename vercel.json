@@ -36,11 +36,11 @@
   ],
   "rewrites": [
     {
-      "source": "/(google[a-zA-Z0-9]+)(?:\\.html)?",
-      "destination": "/api?google_verify=$1"
+      "source": "/google9f78d3cac1ee8064",
+      "destination": "/api?google_verify=google9f78d3cac1ee8064"
     },
     {
-      "source": "/(.*)google9f78d3cac1ee8064.html",
+      "source": "/google9f78d3cac1ee8064.html",
       "destination": "/api?google_verify=google9f78d3cac1ee8064"
     },
     {
