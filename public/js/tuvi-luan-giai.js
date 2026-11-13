@@ -1278,6 +1278,76 @@
     "TỬ TỨC": "Nuôi con thuở nhỏ hay lo nghĩ vì con ốm sốt; con cái tính tình nhạy cảm, dễ tủi thân hờn dỗi, cha mẹ cần kiên nhẫn vỗ về thấu hiểu.",
     "PHU THÊ": "Vợ chồng dễ nảy sinh nghi ngờ, ghen tuông vô cớ hoặc lời qua tiếng lại làm tổn thương nhau; cần sự tin tưởng tuyệt đối và bao dung độ lượng.",
     "HUYNH ĐỆ": "Anh em dễ có sự hiểu lầm nghi kỵ lẫn nhau; nên phân minh rõ ràng trong việc tiền bạc và trách nhiệm để giữ hòa khí gia đình."
+  },
+  "Thiên Đức": {
+    "MỆNH": "Tâm tính từ bi, độ lượng, nhân hậu, được thần linh gia hộ, gặp nguy biến hóa an lành.",
+    "PHỤ MẪU": "Cha mẹ hiền từ, đức độ, thương yêu con cái hết lòng, tích âm đức lớn cho con cháu.",
+    "PHÚC ĐỨC": "Dòng họ tích thiện phùng thiện, tổ tiên phù hộ độ trì, đương số hưởng cuộc sống an yên.",
+    "ĐIỀN TRẠCH": "Nhà cửa yên tĩnh, đất lành chim đậu, phong thủy an lành, gia đạo hòa thuận.",
+    "QUAN LỘC": "Làm việc công chính liêm minh, sự nghiệp hanh thông nhờ đạo đức và uy tín, được đồng nghiệp kính nể.",
+    "NÔ BỘC": "Bạn bè lương thiện, cấp dưới trung thành, nhận được sự giúp đỡ chí tình khi gặp khó khăn.",
+    "THIÊN DI": "Ra ngoài được quý nhân yêu mến, gặp may mắn trên đường đời, tai qua nạn khỏi khi xuất hành.",
+    "TẬT ÁCH": "Đại phúc tinh giải ách, tiêu trừ tật bệnh, ốm đau mau khỏi, gặp thầy thuốc giỏi cứu chữa.",
+    "TÀI BẠCH": "Kiếm tiền bằng chính đạo, tài lộc bền vững, không tham của phi nghĩa, càng thiện tâm càng tụ lộc.",
+    "TỬ TỨC": "Con cái ngoan ngoãn, hiếu thảo, tính tình thiện lương, sớm biết yêu thương giúp đỡ cha mẹ.",
+    "PHU THÊ": "Vợ chồng hòa thuận, tương kính như tân, người phối ngẫu hiền thục đức độ, cùng nhau vun đắp tổ ấm.",
+    "HUYNH ĐỆ": "Anh em ruột thịt yêu thương đùm bọc, không toan tính thiệt hơn, sẵn sàng giúp nhau lúc hoạn nạn."
+  },
+  "Nguyệt Đức": {
+    "MỆNH": "Dung mạo đoan trang thanh tú, tính tình nhu thuận, hòa nhã, được mọi người quý mến, giải trừ mọi oán hờn.",
+    "PHỤ MẪU": "Mẹ hiền từ dịu dàng, cha mẹ mẫu mực, gia phong nề nếp, con cái lớn lên trong sự ấm áp.",
+    "PHÚC ĐỨC": "Phúc ấm nữ phái dòng họ thịnh vượng, đời sống tâm hồn thanh thản, tinh thần an định không vướng bụi trần.",
+    "ĐIỀN TRẠCH": "Chốn ở êm đềm, ngập tràn sinh khí thanh sạch, gia đình sum vầy yên vui.",
+    "QUAN LỘC": "Môi trường làm việc chan hòa, công danh thăng tiến vững chắc nhờ tính cách điềm đạm và đức hạnh.",
+    "NÔ BỘC": "Kết giao với những người bạn tri kỷ chân thành, cấp dưới hết lòng phò trợ, không lo phản trắc.",
+    "THIÊN DI": "Ra ngoài xã hội có duyên ăn nói, được mọi người nâng đỡ, đi xa gặp nhiều điều lành bất ngờ.",
+    "TẬT ÁCH": "Hóa giải ưu tư phiền muộn, thân tâm an lạc, bệnh tật hiểm nghèo đều có cơ may qua khỏi.",
+    "TÀI BẠCH": "Tiền tài hanh thông, nguồn thu trong sạch, được quý nhân phái nữ giúp đỡ về kinh tế.",
+    "TỬ TỨC": "Sinh con thông minh, diện mạo khôi ngô tuấn tú, con cái hiếu kính và có đạo đức mẫu mực.",
+    "PHU THÊ": "Người phối ngẫu đoan trang, dịu hiền, là hậu phương vững chắc giúp đương số an tâm phát triển.",
+    "HUYNH ĐỆ": "Tình cảm chị em, anh em hòa thuận, không tranh chấp tài sản, luôn giữ trọn đạo nghĩa gia đình."
+  },
+  "Hóa Khoa": {
+    "MỆNH": "Trí tuệ siêu việt, học rộng tài cao, danh tiếng thanh bạch, là bậc học giả hoặc chuyên gia uy tín; gặp nạn hóa an.",
+    "PHỤ MẪU": "Cha mẹ có học thức cao, có danh tiếng xã hội, nuôi dạy con cái bằng phương pháp khoa học khai minh.",
+    "PHÚC ĐỨC": "Dòng họ vẻ vang truyền thống khoa bảng, nhiều bậc trí thức hiền tài, đương số hưởng tinh hoa trí tuệ.",
+    "ĐIỀN TRẠCH": "Nhà cửa gia giáo, bài trí thanh nhã, gần trường học hoặc cơ quan văn hóa, phong thủy vượng khí học hành.",
+    "QUAN LỘC": "Thi cử đăng khoa, thăng tiến bằng tài năng chuyên môn thực thụ, được xã hội tôn vinh, sự nghiệp lẫy lừng.",
+    "NÔ BỘC": "Bè bạn toàn bậc trí thức danh giá, cộng sự đắc lực có học vấn cao giúp ích to lớn cho sự nghiệp.",
+    "THIÊN DI": "Ra ngoài xã hội uy danh vang dội, đi xa đỗ đạt thành tài, ngoại giao bằng tri thức và văn hóa đỉnh cao.",
+    "TẬT ÁCH": "Đệ nhất giải ách tinh, mọi bệnh tật hiểm nghèo đều tìm được thần y diệu dược, tai qua nạn khỏi kỳ diệu.",
+    "TÀI BẠCH": "Kiếm tiền bằng tri thức, bằng cấp và danh tiếng chuyên gia; tài chính minh bạch, bền vững trọn đời.",
+    "TỬ TỨC": "Con cái đỗ đạt khoa bảng, thông minh xuất chúng, học hành xuất sắc, rạng danh dòng tộc.",
+    "PHU THÊ": "Người phối ngẫu có học thức uyên bác, văn hóa cao, cùng chung chí hướng và nâng đỡ danh tiếng của nhau.",
+    "HUYNH ĐỆ": "Anh em có người thành đạt rực rỡ trên con đường học vấn, tương trợ nhau bằng tri thức và uy tín."
+  },
+  "Hóa Quyền": {
+    "MỆNH": "Tính cách quyết đoán, có tố chất lãnh đạo bẩm sinh, nắm quyền chỉ huy, nói có người nghe đe có người sợ.",
+    "PHỤ MẪU": "Cha mẹ nắm giữ vị thế lãnh đạo hoặc có quyền uy lớn trong gia đình và xã hội; gia giáo nghiêm cẩn.",
+    "PHÚC ĐỨC": "Dòng họ có nhiều người nắm chức quyền hiển hách, dòng họ có uy thế lớn, đương số thừa hưởng uy phong.",
+    "ĐIỀN TRẠCH": "Nắm quyền sở hữu nhiều điền sản lớn, tự tay quyết định quy hoạch nhà cửa, đứng tên bất động sản độc lập.",
+    "QUAN LỘC": "Nắm giữ thực quyền, chức vụ cao trong cơ quan tổ chức, năng lực chỉ huy sắc bén, sự nghiệp thăng tiến thần tốc.",
+    "NÔ BỘC": "Có uy quyền điều hành cấp dưới, nhân viên tuân lệnh phục tùng, kết giao với nhiều nhân vật có địa vị cao.",
+    "THIÊN DI": "Ra ngoài nắm quyền chủ động trong mọi tình thế, ngoại giao quyết đoán, được xã hội vị nể và trao quyền lực.",
+    "TẬT ÁCH": "Thể chất mạnh mẽ, ý chí quật cường chiến thắng bệnh tật, cần chú ý huyết áp và tính nóng vội gây tổn thương.",
+    "TÀI BẠCH": "Nắm quyền chi phối dòng tiền lớn, quyết đoán trong đầu tư kinh doanh, làm chủ nguồn tài chính vững vàng.",
+    "TỬ TỨC": "Con cái có cá tính mạnh, có chí tiến thủ cao, tương lai nắm giữ quyền hành và chức vụ lãnh đạo.",
+    "PHU THÊ": "Vợ/chồng là người tài giỏi, có uy thế xã hội lớn; hai bên cần tôn trọng nhau tránh tranh giành quyền làm chủ.",
+    "HUYNH ĐỆ": "Anh em ruột thịt có người nắm giữ chức quyền hiển vinh, hỗ trợ nhau về mặt thế lực và uy tín xã hội."
+  },
+  "Hóa Lộc": {
+    "MỆNH": "Bản mệnh giàu phúc lộc, tính tình hào sảng vui vẻ, cơ hội làm giàu luôn tự tìm đến, cả đời không lo thiếu thốn.",
+    "PHỤ MẪU": "Cha mẹ làm ăn phát đạt, kinh tế sung túc, để lại nhiều tài sản giá trị và nền tảng tài chính vững chắc cho con.",
+    "PHÚC ĐỨC": "Dòng họ hưng vượng tài lộc, hưởng phúc ấm tổ tiên dư dả, đương số có số hưởng thụ an nhàn, giàu sang.",
+    "ĐIỀN TRẠCH": "Điền sản màu mỡ sinh lời lớn, mua may bán đắt nhà đất, nơi ở khang trang phú quý, tài lộc tích tụ đầy nhà.",
+    "QUAN LỘC": "Công việc sinh nhiều bổng lộc, sự nghiệp hanh thông, dễ kiếm tiền từ chuyên môn và các dự án kinh doanh lớn.",
+    "NÔ BỘC": "Bạn bè mang lại nhiều cơ hội làm ăn béo bở, cấp dưới tạo ra doanh thu lớn, đôi bên cùng thắng lợi.",
+    "THIÊN DI": "Càng đi xa càng phát tài, xuất ngoại làm ăn tiền vào như nước, cơ hội làm giàu rộng mở trên mọi miền.",
+    "TẬT ÁCH": "Tiêu trừ ách nạn về tiền bạc, bệnh tật có điều kiện kinh tế chữa trị bằng những dịch vụ y tế tốt nhất.",
+    "TÀI BẠCH": "Cung vị hoàng kim của Hóa Lộc: tiền bạc cuồn cuộn đổ về, đa dạng nguồn thu, kinh doanh đại phát, phú quý tự nhiên thành.",
+    "TỬ TỨC": "Sinh con mang lại tài lộc cho cha mẹ, hậu duệ khá giả giàu có, con cái sau này phụng dưỡng cha mẹ chu đáo.",
+    "PHU THÊ": "Kết hôn xong kinh tế phất lên nhanh chóng, người phối ngẫu có tài kiếm tiền hoặc đem lại của cải cho đương số.",
+    "HUYNH ĐỆ": "Anh em làm ăn phát đạt, giúp đỡ nhau về vốn liếng, cùng nhau hùn hạp kinh doanh thịnh vượng."
   }
 };
 
@@ -1363,7 +1433,12 @@
       'thiên sứ': 'Thiên Sứ', 'thien su': 'Thiên Sứ',
       'đẩu quân': 'Đẩu Quân', 'dau quan': 'Đẩu Quân',
       'tướng quân': 'Tướng Quân', 'tuong quan': 'Tướng Quân',
-      'hóa kỵ': 'Hóa Kỵ', 'hoa ky': 'Hóa Kỵ'
+      'hóa kỵ': 'Hóa Kỵ', 'hoa ky': 'Hóa Kỵ',
+      'thiên đức': 'Thiên Đức', 'thien duc': 'Thiên Đức',
+      'nguyệt đức': 'Nguyệt Đức', 'nguyet duc': 'Nguyệt Đức',
+      'hóa khoa': 'Hóa Khoa', 'hoa khoa': 'Hóa Khoa',
+      'hóa quyền': 'Hóa Quyền', 'hoa quyen': 'Hóa Quyền',
+      'hóa lộc': 'Hóa Lộc', 'hoa loc': 'Hóa Lộc'
     };
     return canonMap[lower] || clean;
   }
@@ -1710,6 +1785,406 @@
     };
   }
 
+  // ============================================================================
+  // 4.5. PHỐI HỢP TINH HỆ & BỐ CỤC QUẦN TINH (CÁT TINH, SÁT TINH & GIAO TRANH CÂN BẰNG)
+  // ============================================================================
+
+  function synthesizeCatTinhCombination(cung, rawPalaceName, laSo) {
+    const catStars = cung.phuTinhLeft || [];
+    const cungName = normalizePalaceName(rawPalaceName);
+    if (catStars.length === 0) {
+      return {
+        title: 'BÌNH HÒA TIẾT CHẾ · TỰ LỰC TÍCH NỘI LỰC',
+        content: `Tại cung ${cungName}, không có trợ tinh cát diệu độc lập đóng nội bộ. Cung vị này hoàn toàn phụ thuộc vào nội lực của chính tinh và lực chiếu từ Tam phương Tứ chính, đòi hỏi đương số phải tự lực cánh sinh, tích lũy năng lực từng bước vững chắc.`
+      };
+    }
+
+    const starNames = catStars.map(s => s.name);
+    const normNames = starNames.map(s => normalizeStarName(s).toLowerCase());
+    const luuStars = catStars.filter(s => s.isLuu || s.name.startsWith('L.'));
+
+    // Phát hiện các thế cục kinh điển
+    const hasHyThan = normNames.includes('hỷ thần');
+    const hasThienPhuc = normNames.includes('thiên phúc');
+    const hasBatToa = normNames.includes('bát tọa');
+    const hasTamThai = normNames.includes('tam thai');
+    const hasVanKhuc = normNames.includes('văn khúc');
+    const hasVanXuong = normNames.includes('văn xương');
+    const hasKhoi = normNames.includes('thiên khôi');
+    const hasViet = normNames.includes('thiên việt');
+    const hasTaPhu = normNames.includes('tả phù');
+    const hasHuuBat = normNames.includes('hữu bật');
+    const hasQuang = normNames.includes('ân quang');
+    const hasQuy = normNames.includes('thiên quý');
+    const hasQuan = normNames.includes('thiên quan');
+    const hasLocTon = normNames.includes('lộc tồn');
+    const hasThienMa = normNames.includes('thiên mã');
+    const hasHongLoan = normNames.includes('hồng loan');
+    const hasDaoHoa = normNames.includes('đào hoa');
+    const hasThienHy = normNames.includes('thiên hỷ');
+    const hasLongTri = normNames.includes('long trì');
+    const hasPhuongCac = normNames.includes('phượng các');
+    const hasHoaCai = normNames.includes('hoa cái');
+    const hasGiaiThan = normNames.includes('giải thần') || normNames.includes('thiên giải') || normNames.includes('địa giải');
+
+    const isPhucThien = hasThienPhuc || hasQuan || hasQuang || hasQuy || hasGiaiThan || normNames.includes('thiên y') || normNames.includes('thiên thọ') || normNames.includes('phúc đức') || normNames.includes('long đức') || hasTamThai || hasBatToa;
+    const isHyDuyen = hasHyThan || hasHongLoan || hasDaoHoa || hasThienHy || hasLongTri || hasPhuongCac || hasHoaCai;
+    const isVanHoa = hasVanKhuc || hasVanXuong || normNames.includes('tấu thư') || normNames.includes('bác sỹ') || normNames.includes('thiếu dương') || normNames.includes('văn tinh');
+    const isQuyNhan = hasKhoi || hasViet || hasTaPhu || hasHuuBat || normNames.includes('quốc ấn') || normNames.includes('phong cáo') || normNames.includes('thai phụ') || normNames.includes('đường phù');
+    const isPhuTai = hasLocTon || hasThienMa || normNames.includes('thiên trù') || normNames.includes('lực sỹ');
+
+    let title = '';
+    if (hasHyThan && hasThienPhuc && (hasBatToa || hasTamThai || hasVanKhuc)) {
+      title = 'PHÚC TRẠCH AN LẠC & HỶ KHÍ LÂM MÔN';
+    } else if (hasHongLoan && hasDaoHoa) {
+      title = 'ĐÀO HỒNG TƯƠNG NGỘ · DUYÊN SẮC NỒNG THẮM & PHONG LƯU TÀI TỬ';
+    } else if ((hasHongLoan || hasDaoHoa) && (hasThienHy || hasHyThan)) {
+      title = 'LOAN HỶ TƯƠNG PHÙNG · HỶ SỰ TƯƠI VUI & DUYÊN LÀNH NỞ RỘ';
+    } else if ((hasKhoi || hasViet) && (hasTaPhu || hasHuuBat)) {
+      title = 'QUẦN HIỀN HỘI TỤ · QUÝ NHÂN TƯƠNG TRỢ ĐẮC LỰC';
+    } else if (hasKhoi && hasViet) {
+      title = 'TỌA QUÝ HƯỚNG QUÝ · THIÊN ẤT NÂNG ĐỠ TOÀN DIỆN';
+    } else if (hasTaPhu && hasHuuBat) {
+      title = 'TẢ PHÙ HỮU BẬT · TAY CHÂN ĐẮC LỰC & BÈ BẠN GIÚP SỨC';
+    } else if (hasVanXuong && hasVanKhuc) {
+      title = 'XƯƠNG KHÚC ĐỒNG LÂM · KHOA GIÁP THÔNG SUỐT & VĂN NGHỆ TÀI HOA';
+    } else if ((hasVanXuong || hasVanKhuc) && (isVanHoa || isQuyNhan)) {
+      title = 'KHOA GIÁP VĂN HOA · BÚT TÚI NỞ HOA & TRÍ TUỆ KHAI MỞ';
+    } else if ((hasLocTon || hasThienMa) && isPhuTai) {
+      title = 'LỘC MÃ GIAO TRÌ · TÀI KHÍ TÍCH TỤ DỒI DÀO';
+    } else if (hasQuang && hasQuy) {
+      title = 'ÂN QUANG THIÊN QUÝ · PHẬT ĐỘ THẦN CHE & ĐẠI PHÚC TRỢ';
+    } else if (hasQuan && hasThienPhuc) {
+      title = 'THIÊN QUAN THIÊN PHÚC · TÍCH THIỆN PHÙNG THIỆN & TIÊU TRỪ TAI ÁCH';
+    } else if (hasTamThai && hasBatToa) {
+      title = 'TAM THAI BÁT TỌA · PHONG THÁI UNG DUNG & GIA ĐẠO AN ĐỊNH';
+    } else if (hasLongTri && hasPhuongCac) {
+      title = 'LONG PHƯỢNG TRÌNH TƯỜNG · THANH CAO QUÝ HIỂN & KHÍ CHẤT ĐOAN TRANG';
+    } else if (normNames.includes('thai phụ') && normNames.includes('phong cáo')) {
+      title = 'CÁO PHỤ ĐỒNG CUNG · SẮC PHONG TƯỚC LỘC & DANH TIẾNG NỞ RỘ';
+    } else if (isPhucThien && isHyDuyen) {
+      title = 'ÂM ĐỨC DÀY DẶN · HỶ KHÍ VƯỢNG PHÁT';
+    } else if (isQuyNhan && isVanHoa) {
+      title = 'VĂN BÕNG TƯỚC LỘC · KHÍ CHẤT ĐOAN TRANG';
+    } else if (isPhuTai) {
+      title = 'TÀI LỘC DỒI DÀO · SINH KẾ THUẬN LỢI';
+    } else if (isPhucThien) {
+      title = 'PHÚC TINH PHÒ TRỢ · TAI QUA NẠN KHỎI';
+    } else if (isHyDuyen) {
+      title = 'HỶ KHÍ NGẬP TRÀN · GIA ĐẠO HÒA VUI';
+    } else if (isVanHoa) {
+      title = 'VĂN TINH CHIẾU MỆNH · TRÍ TUỆ THÔNG MINH';
+    } else {
+      title = 'CÁT TINH QUẦN TỤ · TRỢ LỰC BẢN CUNG HANH THÔNG';
+    }
+
+    let palaceImpact = '';
+    switch (cungName) {
+      case 'PHỤ MẪU':
+        palaceImpact = `Khi tổ hợp cát tinh này cùng giáng tại cung Phụ Mẫu, thể hiện đấng sinh thành là bậc hiền thiện, phúc hậu, gia đình có nếp sống văn hóa lành mạnh và ấm áp tình thương. ` +
+          (isPhucThien ? `Sự hiện diện của các phúc tinh như ${starNames.filter(s => ['Thiên Phúc','Thiên Quan','Bát Tọa','Tam Thai','Ân Quang','Thiên Quý','Phúc Đức'].includes(normalizeStarName(s))).join(', ')} mang lại phúc thọ trường tồn cho cha mẹ, con cái được bảo bọc trong sự yêu thương và che chở của tổ tiên. ` : '') +
+          (isHyDuyen ? `Hỷ khí từ các sao như ${starNames.filter(s => ['Hỷ Thần','Thiên Hỷ','Hồng Loan','Đào Hoa','Long Trì','Phượng Các'].includes(normalizeStarName(s))).join(', ')} giúp không khí gia đạo luôn chan hòa tiếng cười, gắn kết tình thân mật thiết giữa các thế hệ. ` : '') +
+          (luuStars.length > 0 ? `Đặc biệt, sự xuất hiện của lưu tinh (${luuStars.map(s => s.name).join(', ')}) trong năm hạn kích hoạt nguồn cảm xúc, sự tinh tế và mang đến những tin vui hân hoan liên quan đến cha mẹ hoặc đời sống tinh thần của gia đình.` : '');
+        break;
+
+      case 'MỆNH':
+        palaceImpact = `Quần cát tinh này hội tụ tại bản Mệnh hun đúc nên cốt cách thanh cao, phẩm hạnh đường hoàng và nhân cách thu hút lòng người. ` +
+          (isQuyNhan ? `Đương số có tướng lãnh đạo, uy tín vững vàng, ra đời luôn gặp người nâng đỡ, khó khăn tự có lối thoát. ` : '') +
+          (isVanHoa ? `Trí tuệ mẫn tiệp, chữ nghĩa thông suốt, có khả năng tư duy sáng tạo và đỗ đạt trong các kỳ thi danh giá. ` : '') +
+          (isPhucThien ? `Tâm tính hướng thiện, có trực giác tâm linh nhạy bén, tai ương hiểm họa tự nhiên tiêu tán như mây khói.` : '');
+        break;
+
+      case 'TÀI BẠCH':
+        palaceImpact = `Các cát tinh này hội chiếu và tọa thủ tại Tài Bạch bảo chứng cho một dòng tiền thanh bạch, chính đạo và bền vững. ` +
+          (isPhuTai ? `Tiền bạc tích tụ thuận lợi từ tài năng và cơ hội kinh doanh độc đáo, càng làm ăn chân chính càng tụ tài tụ lộc. ` : '') +
+          (isQuyNhan ? `Có quý nhân chỉ lối dẫn đường cho các cơ hội kiếm tiền lớn, đối tác tin cậy, không lo lâm vào cảnh cùng quẫn.` : '');
+        break;
+
+      case 'QUAN LỘC':
+        palaceImpact = `Sự phò tá của quần cát tinh biến Quan Lộc thành mảnh đất mỡ màu cho danh vọng và chức vị. ` +
+          (isVanHoa || isQuyNhan ? `Đường quan lộ hanh thông, công tác chuyên môn được đánh giá cao, thi cử dễ ghi danh bảng vàng, nhận được sự tín nhiệm từ cấp trên. ` : '') +
+          `Mọi bước tiến trong sự nghiệp đều được chuẩn bị kỹ lưỡng và phát triển theo hướng vững chắc, lâu bền.`;
+        break;
+
+      case 'PHU THÊ':
+        palaceImpact = `Tổ hợp cát tinh tại Phu Thê báo hiệu người phối ngẫu đoan trang, hiền đức, có duyên lành tiền định. ` +
+          (isHyDuyen ? `Vợ chồng tương kính như tân, nhân duyên thắm thiết, cuộc sống hôn nhân ngập tràn niềm vui và sự thấu cảm. ` : '') +
+          (isQuyNhan || isPhucThien ? `Người bạn đời chính là quý nhân lớn nhất trong cuộc đời, đồng lòng hỗ trợ đương số vượt qua muôn vàn thử thách đời thường.` : '');
+        break;
+
+      case 'TỬ TỨC':
+        palaceImpact = `Cát tinh lâm Tử Tức là phúc báo cho dòng dõi hậu sinh. ` +
+          `Con cái ngoan ngoãn, thông tuệ, sớm bộc lộ năng khiếu và hiếu kính với cha mẹ; tương lai đỗ đạt làm rạng danh dòng tộc.`;
+        break;
+
+      case 'PHÚC ĐỨC':
+        palaceImpact = `Cung Phúc Đức được quần cát tinh che chở chứng minh dòng họ có âm đức sâu dày, mồ mả tổ tiên kết phát êm ấm. ` +
+          `Đương số có đời sống nội tâm an nhiên, biết đủ là vui, trong nghịch cảnh luôn nhận được sự bảo hộ vô hình của gia tiên.` ;
+        break;
+
+      case 'ĐIỀN TRẠCH':
+        palaceImpact = `Tổ hợp cát tinh tại Điền Trạch mang lại sự thịnh vượng cho chốn an cư lạc nghiệp. Nhà cửa khang trang, phong thủy vượng khí, xóm giềng văn minh, điền sản tích lũy tăng trưởng theo năm tháng.`;
+        break;
+
+      case 'THIÊN DI':
+        palaceImpact = `Ra ngoài xã hội gặp muôn vàn cơ duyên may mắn. Quần cát tinh chiếu Thiên Di giúp đương số đi đâu cũng có người giúp đỡ, ngoại giao thuận buồm xuôi gió, biến tha hương thành đất phát tài phát danh.`;
+        break;
+
+      case 'TẬT ÁCH':
+        palaceImpact = `Đây là tấm khiên hộ mệnh vô giá. Các cát tinh giải ách biến dữ hóa lành, bệnh tật gặp đúng thầy đúng thuốc, cơ thể nhanh chóng phục hồi sinh lực, tiêu trừ mọi sát khí ám hại.`;
+        break;
+
+      case 'NÔ BỘC':
+        palaceImpact = `Đương số có mạng lưới bạn bè chí cốt, đồng nghiệp và cấp dưới trung thành, tận tụy phò tá. Ít khi bị kẻ tiểu nhân phản trắc, kết giao toàn những người có trình độ và đạo đức.`;
+        break;
+
+      case 'HUYNH ĐỆ':
+        palaceImpact = `Anh chị em trong gia đình hòa thuận, yêu thương đùm bọc lẫn nhau. Tình cảm ruột thịt bền chặt, sẵn sàng dang tay tương trợ khi gặp hoạn nạn, không để vật chất làm rạn nứt tình thân.`;
+        break;
+
+      default:
+        palaceImpact = `Quần cát tinh (${starNames.join(', ')}) hội tụ tạo nên trường khí cát lành mạnh mẽ, trợ giúp cung ${cungName} phát huy tối đa tiềm năng, che chở và nâng đỡ đương số trên mọi phương diện.`;
+    }
+
+    const content = `Sự cộng hưởng của các cát tinh [${starNames.join(', ')}] tại cung ${cungName} tạo nên thế trận phò tá đắc lực. ${palaceImpact}`;
+    return { title, content };
+  }
+
+  function synthesizeSatTinhCombination(cung, rawPalaceName, laSo) {
+    const satStars = cung.phuTinhRight || [];
+    const cungName = normalizePalaceName(rawPalaceName);
+    if (satStars.length === 0) {
+      return {
+        title: 'VÔ ÁCH VÔ SÁT · TRƯỜNG KHÍ THANH THUẦN',
+        content: `Tại cung ${cungName}, không có hung sát tinh trực tiếp tọa thủ nội bộ. Cung vị này được hưởng sự bình an, ít chịu sóng gió bất ngờ hay đao kiếm khẩu thiệt, tạo điều kiện thuận lợi để đương số phát huy trọn vẹn tài năng và duy trì sự ổn định lâu dài.`
+      };
+    }
+
+    const starNames = satStars.map(s => s.name);
+    const normNames = starNames.map(s => normalizeStarName(s).toLowerCase());
+    const luuStars = satStars.filter(s => s.isLuu || s.name.startsWith('L.'));
+
+    const hasThaiTue = normNames.includes('thái tuế');
+    const hasLuuThaiTue = starNames.some(s => s.toLowerCase().includes('l.thái tuế'));
+    const hasKinhDuong = normNames.includes('kình dương');
+    const hasLuuKinh = starNames.some(s => s.toLowerCase().includes('l.kình dương'));
+    const hasDaLa = normNames.includes('đà la');
+    const hasLuuDa = starNames.some(s => s.toLowerCase().includes('l.đà la'));
+    const hasDiaKhong = normNames.includes('địa không');
+    const hasDiaKiep = normNames.includes('địa kiếp');
+    const hasHoaTinh = normNames.includes('hỏa tinh');
+    const hasLinhTinh = normNames.includes('linh tinh');
+    const hasTangMon = normNames.includes('tang môn');
+    const hasBachHo = normNames.includes('bạch hổ');
+    const hasLuuTang = starNames.some(s => s.toLowerCase().includes('l.tang môn'));
+    const hasLuuHo = starNames.some(s => s.toLowerCase().includes('l.bạch hổ'));
+    const hasThienKhoc = normNames.includes('thiên khốc');
+    const hasThienHu = normNames.includes('thiên hư');
+    const hasLuuKhoc = starNames.some(s => s.toLowerCase().includes('l.thiên khốc'));
+    const hasLuuHu = starNames.some(s => s.toLowerCase().includes('l.thiên hư'));
+    const hasHoaKy = normNames.includes('hóa kỵ') || (cung.tuHoa || []).some(th => th.hoa === 'Hóa Kỵ');
+    const hasCoThan = normNames.includes('cô thần');
+    const hasQuaTu = normNames.includes('quả tú');
+    const hasThienHinh = normNames.includes('thiên hình');
+    const hasDaiHao = normNames.includes('đại hao');
+    const hasTieuHao = normNames.includes('tiểu hao');
+    const hasKiepSat = normNames.includes('kiếp sát');
+    const hasPhaToai = normNames.includes('phá toái');
+    const hasPhiLiem = normNames.includes('phi liêm');
+    const hasLuuHa = normNames.includes('lưu hà');
+    const hasQuanPhu = normNames.includes('quan phù') || normNames.includes('quan phủ');
+    const hasPhucBinh = normNames.includes('phục binh');
+    const hasTuePha = normNames.includes('tuế phá');
+    const hasDieuKhach = normNames.includes('điếu khách');
+
+    const isHinhSat = hasKinhDuong || hasLuuKinh || hasThienHinh || hasBachHo || hasLuuHo || hasKiepSat;
+    const isTriTre = hasDaLa || hasLuuDa || hasHoaKy || hasLinhTinh || hasPhucBinh || normNames.includes('thiên la') || normNames.includes('địa võng');
+    const isKhauThiet = hasThaiTue || hasLuuThaiTue || hasTuePha || hasDieuKhach || hasQuanPhu || hasHoaKy;
+    const isKhongKiep = hasDiaKhong || hasDiaKiep || normNames.includes('thiên không');
+    const isHoaLinh = hasHoaTinh || hasLinhTinh;
+    const isTangKhoc = hasTangMon || hasLuuTang || hasThienKhoc || hasThienHu || hasLuuKhoc || hasLuuHu || normNames.includes('bệnh phù') || normNames.includes('tử phù');
+    const isCoQua = hasCoThan || hasQuaTu || normNames.includes('thiên thương') || normNames.includes('thiên sứ');
+    const isHaoBai = hasDaiHao || hasTieuHao || hasPhaToai || hasPhiLiem || hasLuuHa || normNames.includes('trực phù');
+
+    let title = '';
+    if ((hasThaiTue || hasLuuThaiTue) && (hasKinhDuong || hasLuuKinh)) {
+      title = 'TUẾ KÌNH TRÙNG PHÙNG (PHỤC NGÂM) · SỨC ÉP KỶ CƯƠNG & KHẨU KHÍ CƯƠNG TRỰC';
+    } else if (hasThaiTue && hasLuuThaiTue) {
+      title = 'TUẾ PHỤC NGÂM TRÙNG TỤ · DANH NGHĨA KỶ CƯƠNG & SỨC ÉP LỜI NÓI';
+    } else if (hasDiaKhong && hasDiaKiep) {
+      title = 'KHÔNG KIẾP ĐỒNG HÀNH · BÃO TÁP THĂNG TRẦM & BÀI HỌC VÔ THƯỜNG';
+    } else if ((hasKinhDuong || hasLuuKinh) && (hasDaLa || hasLuuDa)) {
+      title = 'KÌNH ĐÀ HIỆP SÁT · MŨI ĐAO LƯỠI KIẾM & CHÔNG GAI RÌNH RẬP';
+    } else if (hasHoaTinh && hasLinhTinh) {
+      title = 'HỎA LINH THIÊU ĐỐT · NGỌN LỬA CUỒNG NỘ & BIẾN CỐ BẤT NGỜ';
+    } else if ((hasTangMon || hasLuuTang) && (hasBachHo || hasLuuHo)) {
+      title = 'TANG HỔ TRÙNG PHÙNG · NỖI NIỀM TANG TÓC & ÁP LỰC ƯU LO';
+    } else if ((hasThienKhoc || hasLuuKhoc) && (hasThienHu || hasLuuHu)) {
+      title = 'KHỐC HƯ ĐỒNG PHÙNG · LỆ LẠC BI AI & TIẾNG LÒNG TRĂN TRỞ';
+    } else if (hasHoaKy && (hasThaiTue || hasQuanPhu)) {
+      title = 'KỴ TUẾ TƯƠNG TRANH · KHẨU THIỆT THỊ PHI & RỦI RO KIỆN TỤNG';
+    } else if (hasCoThan && hasQuaTu) {
+      title = 'CÔ QUẢ ĐƠN HÀNH · HÀNG RÀO TÂM LÝ & NỖI NIỀM CÔ ĐỘC';
+    } else if (hasDaiHao && hasTieuHao) {
+      title = 'SONG HAO TÁN THỦY · ĐỒNG TIỀN BẤT TỤ & TIÊU HAO KHÍ LỰC';
+    } else if (hasThienHinh && (hasKinhDuong || hasLuuKinh || hasBachHo)) {
+      title = 'HÌNH KÌNH GIAO PHONG · SÁT KHÍ ĐAO KIẾM & NGUY CƠ HUYẾT QUANG';
+    } else if (hasPhucBinh && (hasHoaKy || hasDiaKiep)) {
+      title = 'BINH KỴ RÌNH RẬP · TIỂU NHÂN PHẢN TRẮC & ÁM TOÁN';
+    } else if (isHinhSat) {
+      title = 'HÌNH THƯƠNG KIM SÁT · THỬ THÁCH VA CHẠM & TỔN THƯƠNG';
+    } else if (isKhauThiet) {
+      title = 'THỊ PHI KHẨU KHÍ · BẤT ĐỒNG QUAN ĐIỂM & ĐIỀU TIẾNG';
+    } else if (isTriTre) {
+      title = 'TRÌ TRỆ ÁM KỴ · TRỞ LỰC DÂY DƯA & BÀI HỌC KIÊN NHẪN';
+    } else if (isKhongKiep) {
+      title = 'KHÔNG KIẾP PHÁ BẠI · BIẾN ĐỘNG BẤT THƯỜNG & HAO TỔN';
+    } else if (isTangKhoc) {
+      title = 'ƯU TƯ KHẮC KHOẢI · NỖI BUỒN NỘI TÂM & BẤT AN THỂ CHẤT';
+    } else if (isHaoBai) {
+      title = 'HAO TỔN TÁN KHÍ · TRỞ NGẠI NGANG TRÁI VÀ HAO HỤT';
+    } else if (isCoQua) {
+      title = 'CÁCH TRỞ CÔ QUẠNH · KHOẢNG CÁCH TÂM HỒN';
+    } else {
+      title = 'SÁT BẠI TINH HỘI TỤ · THỬ THÁCH Ý CHÍ & RÈN LUYỆN BẢN LĨNH';
+    }
+
+    let palaceImpact = '';
+    switch (cungName) {
+      case 'PHỤ MẪU':
+        palaceImpact = `Khi tổ hợp sát bại tinh này đóng tại Phụ Mẫu, phản ánh rất rõ cá tính cương trực, khắt khe và giàu tính kỷ luật của đấng sinh thành. Cha mẹ có lời nói đanh thép, nguyên tắc thép, đôi khi thiếu sự mềm mỏng khiến con cái cảm thấy bị gò bó hoặc áp lực. ` +
+          ((hasThaiTue || hasLuuThaiTue) && (hasKinhDuong || hasLuuKinh) ? `Đặc biệt, sự va chạm giữa khẩu khí của Thái Tuế (nhất là thế Lưu Thái Tuế phục ngâm) và tính cương mãnh của Kình Dương (Lưu Kình Dương) rất dễ dẫn đến sự khắc khẩu thế hệ: người lớn thì cương quyết áp đặt kinh nghiệm, người trẻ thì có tư tưởng tự lập phản kháng; hai bên yêu thương nhau nhưng rất khó tìm được tiếng nói chung trong lúc nóng giận. ` : '') +
+          (luuStars.length > 0 ? `Sự xuất hiện của các lưu sát tinh (${luuStars.map(s => s.name).join(', ')}) báo hiệu trong năm nay năng lượng căng thẳng bị kích hoạt mạnh mẽ, đòi hỏi đương số phải nhún nhường, uốn mình lắng nghe để tránh làm tổn thương tình cảm cha con, mẹ con.` : '');
+        break;
+
+      case 'MỆNH':
+        palaceImpact = `Các sát tinh này hội tụ tại bản Mệnh như những ngọn lửa tôi rèn thép nguội. Đương số có cá tính mạnh mẽ, kiên cường nhưng cuộc đời dễ trải qua thăng trầm, va chạm thị phi hoặc chấn thương thân thể nếu hành sự bốc đồng. Cần rèn luyện chữ 'Nhẫn' và giữ tâm trong sáng để chế ngự sát khí.`;
+        break;
+
+      case 'TÀI BẠCH':
+        palaceImpact = `Hội tụ sát bại tinh tại Tài Bạch là lời cảnh báo về sự biến động dữ dội của đồng tiền. Tiền bạc vào nhanh ra nhanh, dễ vướng tranh chấp hoặc hao hụt vì đầu cơ phiêu lưu. Tuyệt đối không tham lam của bất chính, phải quản lý tài chính bằng kỷ luật thép.`;
+        break;
+
+      case 'QUAN LỘC':
+        palaceImpact = `Đường công danh gặp nhiều đối thủ cạnh tranh khốc liệt, môi trường làm việc chịu áp lực cực cao và dễ bị tiểu nhân đố kỵ. Cần hành sự minh bạch theo pháp luật, không đi đường tắt để tránh nguy cơ vướng vào rắc rối hành chính hoặc kỷ luật.`;
+        break;
+
+      case 'PHU THÊ':
+        palaceImpact = `Vợ chồng cá tính đều mạnh mẽ, cái tôi quá lớn dễ dẫn đến khẩu khí khắc khẩu, bất đồng quan điểm trong gia đình. Cả hai cần học cách lắng nghe, nhường nhịn nhau một bước, không đem chuyện cãi vã ra ngoài xã hội để giữ gìn tổ ấm.`;
+        break;
+
+      case 'TỬ TỨC':
+        palaceImpact = `Con cái tính cách hiếu động, cương bướng và sớm có tư tưởng tự lập. Cha mẹ không nên dùng đòn roi thô bạo hay kỷ luật áp đặt, mà cần kiên nhẫn làm bạn, hướng năng lượng hiếu thắng của con vào thể thao, võ thuật hoặc nghiên cứu khoa học.`;
+        break;
+
+      case 'PHÚC ĐỨC':
+        palaceImpact = `Tâm trí đương số hay phải trăn trở ưu lo, dòng họ có nhánh bất hòa hoặc ly tán. Đương số cần tìm về sự thanh tịnh trong tâm thức, năng làm việc thiện hồi hướng cho tổ tiên để giải tỏa bớt trường năng lượng u uất này.`;
+        break;
+
+      case 'ĐIỀN TRẠCH':
+        palaceImpact = `Chốn an cư dễ gặp chuyện phiền lòng, hàng xóm thiếu hòa hợp hoặc nhà ở hay phải sửa chữa, cẩn trọng tranh chấp giấy tờ pháp lý đất đai. Cần giữ nhà cửa sạch sẽ, thanh tịnh để hóa giải tạp khí.`;
+        break;
+
+      case 'THIÊN DI':
+        palaceImpact = `Bước chân ra ngoài xã hội phải luôn đề cao cảnh giác: cẩn thận va chạm giao thông, tránh tranh cãi với người lạ nơi công cộng và tuân thủ tuyệt đối luật lệ sở tại để bảo vệ bản thân.`;
+        break;
+
+      case 'TẬT ÁCH':
+        palaceImpact = `Cảnh báo các nguy cơ về viêm nhiễm, chấn thương, huyết quang dao kéo phẫu thuật hoặc bệnh do căng thẳng thần kinh kéo dài. Pháp môn hóa giải hàng đầu là định kỳ tham gia hiến máu nhân đạo và duy trì lối sống điều độ.`;
+        break;
+
+      case 'NÔ BỘC':
+        palaceImpact = `Trong quan hệ bạn bè và cấp dưới dễ có người đố kỵ, phản trắc hoặc thất hứa gây thiệt hại cho đương số. Tuyệt đối không bảo lãnh tài chính, chọn bạn mà chơi và phân minh ranh giới công việc.`;
+        break;
+
+      case 'HUYNH ĐỆ':
+        palaceImpact = `Anh chị em trong nhà tính khí độc lập, mạnh ai nấy làm, dễ nảy sinh bất hòa vì tranh chấp quyền lợi hoặc khẩu khí không hợp. Tốt nhất nên phân định rõ ràng về tài chính để duy trì tình cảm ruột thịt bền lâu.`;
+        break;
+
+      default:
+        palaceImpact = `Tổ hợp sát bại tinh (${starNames.join(', ')}) tạo nên trường năng lượng xung khắc, thử thách bản lĩnh và ý chí vượt khó của đương số tại cung ${cungName}.`;
+    }
+
+    const content = `Sự cộng hưởng của các sát bại tinh [${starNames.join(', ')}] tại cung ${cungName} tạo nên thế trận thử thách nghiệp lực. ${palaceImpact}`;
+    return { title, content };
+  }
+
+  function synthesizeCatSatInteraction(cung, rawPalaceName, laSo, catCombo, satCombo) {
+    const catStars = cung.phuTinhLeft || [];
+    const satStars = cung.phuTinhRight || [];
+    const cungName = normalizePalaceName(rawPalaceName);
+
+    if (catStars.length === 0 && satStars.length === 0) {
+      return {
+        title: 'TRƯỜNG KHÍ THANH TĨNH · THUẦN THEO NỘI LỰC',
+        content: `Cung ${cungName} không có sự hiện diện của quần cát tinh lẫn sát bại tinh nội bộ. Sự biến chuyển của cung vị hoàn toàn phụ thuộc vào bản chất của các chính tinh và lực giao hội từ Tam phương Tứ chính chiếu về.`
+      };
+    }
+
+    if (satStars.length === 0) {
+      return {
+        title: 'CÁT KHÍ ĐỘC TÔN · THUẬN BUỒM XUÔI GIÓ',
+        content: `Tại cung ${cungName}, cát khí chiếm thế thượng phong tuyệt đối khi hoàn toàn không có sát bại tinh xâm phạm. Đương số được đón nhận nguồn năng lượng thuần khiết, quý nhân nâng đỡ, gia đạo và sự nghiệp có nền tảng vững vàng để thăng hoa.`
+      };
+    }
+
+    if (catStars.length === 0) {
+      return {
+        title: 'SÁT KHÍ ÁP ĐẢO · RÈN LUYỆN Ý CHÍ TRONG NGHỊCH CẢNH',
+        content: `Cung ${cungName} phải chịu sức ép đơn độc từ các sát bại tinh mà không có cát tinh trực tiếp đóng nội bộ để giải cứu. Đây là bài học nghiệp lực đòi hỏi đương số phải tuyệt đối cẩn trọng, kiên nhẫn, không manh động, lấy sự chính trực và ý chí kiên định làm khiên chắn vững chắc nhất.`
+      };
+    }
+
+    let catWeight = 0;
+    catStars.forEach(s => {
+      const n = normalizeStarName(s.name).toLowerCase();
+      if (['thiên khôi','thiên việt','tả phù','hữu bật','lộc tồn','hóa lộc','thiên phúc','thiên quan','ân quang','thiên quý'].includes(n)) catWeight += 3;
+      else if (['văn xương','văn khúc','tam thai','bát tọa','long trì','phượng các','hỷ thần','hồng loan','thiên hỷ','hóa khoa'].includes(n)) catWeight += 2;
+      else catWeight += 1;
+    });
+
+    let satWeight = 0;
+    satStars.forEach(s => {
+      const n = normalizeStarName(s.name).toLowerCase();
+      if (['địa không','địa kiếp','kình dương','đà la','hỏa tinh','linh tinh'].includes(n)) satWeight += 3.5;
+      else if (['thái tuế','tang môn','bạch hổ','hóa kỵ','thiên hình'].includes(n)) satWeight += 3;
+      else if (['thiên khốc','thiên hư','cô thần','quả tú','đại hao','tiểu hao'].includes(n)) satWeight += 2;
+      else satWeight += 1;
+      if (s.isLuu || s.name.startsWith('L.')) satWeight += 0.5;
+    });
+
+    const catNames = catStars.map(s => s.name).join(', ');
+    const satNames = satStars.map(s => s.name).join(', ');
+
+    const hasThienPhucOrPhucTinh = catStars.some(s => ['thiên phúc','thiên quan','ân quang','thiên quý','giải thần','thiên giải'].includes(normalizeStarName(s.name).toLowerCase()));
+    const hasKinhOrHinhOrTue = satStars.some(s => ['kình dương','thiên hình','thái tuế','bạch hổ'].includes(normalizeStarName(s.name).toLowerCase()));
+    const isPhucHoaGiai = hasThienPhucOrPhucTinh && hasKinhOrHinhOrTue;
+
+    let title = '';
+    let content = '';
+
+    if (isPhucHoaGiai) {
+      title = 'NGOẠI CƯƠNG NỘI NHU · LẤY THIỆN ĐỨC TIÊU TRỪ SÁT KHÍ (CÁT HUNG GIAO HỘI)';
+      content = `Tại cung ${cungName}, thế trận diễn ra vô cùng đặc biệt: Nhóm sát bại tinh (${satNames}) mang sắc thái đao kiếm cương mãnh và kỷ cương nghiêm cẩn, nhưng lại gặp ngay nhóm cát tinh phúc thiện (${catNames}) tọa trấn. ` +
+        `Trong phép biện chứng Đẩu Số, 'Thiện Đức ngộ Kình Tuế' như thanh kiếm sắc được đặt vào vỏ bọc nhung gấm; dòng nước mát cam lộ của Thiên Phúc và nụ cười của Hỷ Thần làm nguội đi sự nóng nảy của Kình Dương và tính khắt khe của Thái Tuế. ` +
+        `Điều này phản ánh: Dù hoàn cảnh bên ngoài hay tính khí đôi lúc có sự gay gắt, kỷ luật thép hoặc khắc khẩu thế hệ, nhưng bản chất sâu thẳm vẫn tràn đầy tình thương và trách nhiệm. ` +
+        `Đạo xử thế tối ưu: Đương số hãy dùng thái độ hòa ái, nụ cười vui vẻ và sự hiếu kính mềm mỏng (thuận theo Hỷ Thần, Thiên Phúc) để đón nhận sự rèn giũa từ cha mẹ; khi ấy mọi mũi nhọn xung khắc đều trở thành chất xúc tác tôi rèn ý chí tự lập phi thường.`;
+    } else if (catWeight >= satWeight) {
+      title = 'CÁT KHÍ CHIẾM ƯU · LẤY ĐỨC THẮNG SỐ & CHUYỂN HUNG THÀNH CÁT';
+      content = `Tại cung ${cungName}, dù xuất hiện các sát bại tinh mang tính thử thách (${satNames}), nhưng sự hiện diện hùng hậu của quần cát tinh (${catNames}) đã tạo nên một thế trận phò tá áp đảo. ` +
+        `Năng lượng cát lành đóng vai trò che chở, hóa giải phần lớn chông gai và thị phi mà sát tinh gây ra. ` +
+        `Đạo xử thế tối ưu: Phát huy tối đa sở trường chuyên môn, giữ tâm chính trực và đối đãi nhân hậu; khi đó quý nhân sẽ luôn xuất hiện đúng lúc để che chở, chuyển nguy thành an.`;
+    } else {
+      title = 'SÁT TRỌNG CÁT SUY · LỬA THỬ VÀNG & BÀI HỌC BẢN LĨNH PHÒNG THỦ';
+      content = `Trường khí tại cung ${cungName} đang có sự lấn át của sát bại tinh (${satNames}) trước nhóm cát tinh (${catNames}). ` +
+        `Tuy nhiên, các cát tinh hiện diện không hề vô dụng; chúng chính là chiếc neo giữ vững con thuyền vận mệnh trong cơn sóng lớn. ` +
+        `Sự kết hợp này nhắc nhở đương số rằng cung vị này không cho phép sự chủ quan, buông thả hay đối đầu trực diện. ` +
+        `Đạo xử thế tối ưu: Lấy tĩnh chế động, lấy chữ 'Nhẫn' làm đầu. Biến những va chạm, áp lực từ sát tinh thành bài học trui rèn bản lĩnh thép, kiên trì tích tụ âm đức để từng bước chuyển hóa nghịch cảnh thành thành tựu lâu bền.`;
+    }
+
+    return { title, content };
+  }
+
   // 5. CÔNG THỨC ĐỘNG TẠO BÀI BIỆN GIẢI CHUYÊN SÂU TỪNG CUNG
   function generatePalaceDeepAnalysis(cung, laSo) {
     const chi = cung.chi;
@@ -1797,6 +2272,7 @@
 
     // 4. Phân tích Chi tiết Cát Tinh
     let catTinhDetailHtml = '';
+    const catCombo = synthesizeCatTinhCombination(cung, cungName, laSo);
     if (cung.phuTinhLeft && cung.phuTinhLeft.length > 0) {
       catTinhDetailHtml += `<h5 style="color: var(--ink); margin-top: 0.8rem;">✦ Quần Cát Tinh Trợ Mệnh Phò Trì:</h5><ul style="padding-left: 1.2rem; color: var(--text); font-size: 0.88rem; line-height: 1.65;">`;
       cung.phuTinhLeft.forEach(pt => {
@@ -1804,10 +2280,27 @@
         catTinhDetailHtml += `<li><strong style="color: #D4AF37;">${pt.name}:</strong> ${desc}</li>`;
       });
       catTinhDetailHtml += `</ul>`;
+
+      if (catCombo && catCombo.title) {
+        catTinhDetailHtml += `
+          <div class="star-combo-card cat-combo-card" style="margin: 0.75rem 0 0.9rem; background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(251, 247, 238, 0.95)); border: 1.5px solid rgba(212, 175, 55, 0.4); border-radius: 8px; padding: 0.85rem 1.05rem; box-shadow: 0 2px 6px rgba(0,0,0,0.02);">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 0.35rem;">
+              <span style="color: #B45309; font-size: 1rem;">❖</span>
+              <strong style="color: #926A06; font-size: 0.92rem; font-family: var(--font-heading, serif); text-transform: uppercase; letter-spacing: 0.3px;">
+                PHỐI HỢP QUẦN CÁT TINH: ${catCombo.title}
+              </strong>
+            </div>
+            <p style="margin: 0; font-size: 0.88rem; line-height: 1.65; color: var(--text);">
+              ${catCombo.content}
+            </p>
+          </div>
+        `;
+      }
     }
 
     // 5. Phân tích Chi tiết Sát Tinh
     let satTinhDetailHtml = '';
+    const satCombo = synthesizeSatTinhCombination(cung, cungName, laSo);
     if (cung.phuTinhRight && cung.phuTinhRight.length > 0) {
       satTinhDetailHtml += `<h5 style="color: #F87171; margin-top: 0.8rem;"><i data-lucide="alert-triangle" style="width:14px;height:14px;display:inline-block;vertical-align:-2px;"></i> Sát Bại Tinh &amp; Thử Thách Nghiệp Lực:</h5><ul style="padding-left: 1.2rem; color: var(--text); font-size: 0.88rem; line-height: 1.65;">`;
       cung.phuTinhRight.forEach(pt => {
@@ -1815,6 +2308,44 @@
         satTinhDetailHtml += `<li><strong style="color: #FCA5A5;">${pt.name}:</strong> ${desc}</li>`;
       });
       satTinhDetailHtml += `</ul>`;
+
+      if (satCombo && satCombo.title) {
+        satTinhDetailHtml += `
+          <div class="star-combo-card sat-combo-card" style="margin: 0.75rem 0 0.9rem; background: linear-gradient(135deg, rgba(220, 38, 38, 0.06), rgba(254, 242, 242, 0.95)); border: 1.5px solid rgba(220, 38, 38, 0.35); border-radius: 8px; padding: 0.85rem 1.05rem; box-shadow: 0 2px 6px rgba(0,0,0,0.02);">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 0.35rem;">
+              <span style="color: #DC2626; font-size: 1rem;">⚠</span>
+              <strong style="color: #B91C1C; font-size: 0.92rem; font-family: var(--font-heading, serif); text-transform: uppercase; letter-spacing: 0.3px;">
+                HỢP LỰC SÁT BẠI TINH: ${satCombo.title}
+              </strong>
+            </div>
+            <p style="margin: 0; font-size: 0.88rem; line-height: 1.65; color: var(--text);">
+              ${satCombo.content}
+            </p>
+          </div>
+        `;
+      }
+    }
+
+    // 5.5. Tổng Luận Tương Tác Cát - Hung (Giao Tranh & Thế Cân Bằng Năng Lượng)
+    let catSatInteractionHtml = '';
+    const interaction = synthesizeCatSatInteraction(cung, cungName, laSo, catCombo, satCombo);
+    if (interaction && (cung.phuTinhLeft.length > 0 || cung.phuTinhRight.length > 0)) {
+      catSatInteractionHtml = `
+        <div class="star-combo-card cat-sat-balance-card" style="margin: 0.9rem 0; background: #FFFFFF; border-left: 4px solid #3B82F6; border: 1.5px solid rgba(59, 130, 246, 0.3); border-radius: 8px; padding: 0.9rem 1.15rem; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 0.35rem;">
+            <span style="color: #2563EB; font-size: 1.05rem;">⚖</span>
+            <strong style="color: #1E40AF; font-size: 0.92rem; font-family: var(--font-heading, serif); text-transform: uppercase; letter-spacing: 0.3px;">
+              TỔNG LUẬN TƯƠNG TÁC CÁT - HUNG (GIAO TRANH &amp; THẾ CÂN BẰNG):
+            </strong>
+          </div>
+          <div style="font-weight: 600; color: #1E3A8A; font-size: 0.89rem; margin-bottom: 0.25rem;">
+            ${interaction.title}
+          </div>
+          <p style="margin: 0; font-size: 0.88rem; line-height: 1.65; color: var(--text);">
+            ${interaction.content}
+          </p>
+        </div>
+      `;
     }
 
     // 6. Phân tích Vòng Tràng Sinh & Thái Tuế
@@ -1937,6 +2468,7 @@
       tuHoaDetailHtml: tuHoaDetailHtml,
       catTinhDetailHtml: catTinhDetailHtml,
       satTinhDetailHtml: satTinhDetailHtml,
+      catSatInteractionHtml: catSatInteractionHtml,
       vongKhiHtml: vongKhiHtml,
       khongVongHtml: khongVongHtml,
       caiSoHtml: caiSoHtml
@@ -2380,6 +2912,9 @@
   // 6. XUẤT RA TOÀN BỘ API
   var TuViLuanGiaiEngine = {
     generatePalaceDeepAnalysis: generatePalaceDeepAnalysis,
+    synthesizeCatTinhCombination: synthesizeCatTinhCombination,
+    synthesizeSatTinhCombination: synthesizeSatTinhCombination,
+    synthesizeCatSatInteraction: synthesizeCatSatInteraction,
     generateFreePsychologicalTeaserHtml: generateFreePsychologicalTeaserHtml,
     generatePalaceCliffhangerTeaser: generatePalaceCliffhangerTeaser,
     generateAiAdvisorHtml: generateAiAdvisorHtml,

@@ -1046,6 +1046,7 @@ const TuViChart = {
             ${deepAnalysis.chinhTinhDetailHtml ? `<div class="sheet-analysis-block">${deepAnalysis.chinhTinhDetailHtml}</div>` : ''}
             ${deepAnalysis.catTinhDetailHtml ? `<div class="sheet-analysis-block">${deepAnalysis.catTinhDetailHtml}</div>` : ''}
             ${deepAnalysis.satTinhDetailHtml ? `<div class="sheet-analysis-block">${deepAnalysis.satTinhDetailHtml}</div>` : ''}
+            ${deepAnalysis.catSatInteractionHtml ? `<div class="sheet-analysis-block">${deepAnalysis.catSatInteractionHtml}</div>` : ''}
             ${deepAnalysis.loiKhuyenHtml ? `<div class="sheet-analysis-block sheet-advice-box">${deepAnalysis.loiKhuyenHtml}</div>` : ''}
           </div>
         `;
@@ -1359,6 +1360,7 @@ const TuViChart = {
       const tuHoaText = analysis ? analysis.tuHoaDetailHtml : '';
       const catTinhText = analysis ? analysis.catTinhDetailHtml : '';
       const satTinhText = analysis ? analysis.satTinhDetailHtml : '';
+      const catSatInteractionText = (analysis && analysis.catSatInteractionHtml) ? analysis.catSatInteractionHtml : '';
       const vongKhiText = analysis ? analysis.vongKhiHtml : '';
       const khongVongText = analysis ? analysis.khongVongHtml : '';
       const caiSoText = analysis ? analysis.caiSoHtml : 'Giữ tâm thái an hòa, tích cực hành thiện tích đức, thận trọng trong các quyết định lớn để hóa giải ách nạn, vươn tới thành công.';
@@ -1396,6 +1398,9 @@ const TuViChart = {
 
                 <!-- 6. Sát Tinh Thử Thách -->
                 ${satTinhText}
+
+                <!-- 6.5. Tổng Luận Tương Tác Cát Hung -->
+                ${catSatInteractionText}
 
                 <!-- 7. Vòng Tràng Sinh & Thái Tuế -->
                 ${vongKhiText}
