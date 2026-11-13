@@ -2331,9 +2331,9 @@ const server = http.createServer(async (req, res) => {
 
           // 12. Khối Giới Thiệu Báo Cáo VIP A4 (VIP Report Teaser Box)
           const vipTeaserHtml = `
-            <div class="vip-report-teaser">
-              <span class="vip-teaser-badge">👑 DỊCH VỤ ĐỘC QUYỀN CAO CẤP</span>
-              <h3 class="vip-teaser-title" style="color:#FFE6A3 !important;font-family:var(--font-heading);font-size:1.35rem;margin:0.5rem 0 0.75rem 0;font-weight:700;border:none;text-shadow:0 1px 3px rgba(0,0,0,0.8);">✦ BÁO CÁO LUẬN GIẢI CHUYÊN SÂU VIP (FILE PDF A4 TRỌNG LƯỢNG CAO) ✦</h3>
+            <div class="vip-report-teaser" style="margin: 2.75rem 0 !important; padding: 1.85rem 2rem !important; background: linear-gradient(135deg, #221A14 0%, #140F0B 100%) !important; border: 2px solid #C29B38 !important; border-radius: 12px !important; color: #F3ECDD !important; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;">
+              <span class="vip-teaser-badge" style="display:inline-flex;align-items:center;gap:5px;background:#C29B38;color:#1A1510;font-size:0.75rem;font-weight:800;padding:4px 10px;border-radius:4px;letter-spacing:1px;text-transform:uppercase;margin-bottom:0.75rem;">👑 DỊCH VỤ ĐỘC QUYỀN CAO CẤP</span>
+              <h3 class="vip-teaser-title" style="color:#FFE6A3 !important;font-family:var(--font-heading, serif);font-size:1.35rem;margin:0.5rem 0 0.75rem 0;font-weight:700;border:none;text-shadow:0 1px 3px rgba(0,0,0,0.8);">✦ BÁO CÁO LUẬN GIẢI CHUYÊN SÂU VIP (FILE PDF A4 CHẤT LƯỢNG CAO) ✦</h3>
               <p class="vip-teaser-desc" style="color:#E2D7C3 !important;font-size:0.95rem;line-height:1.65;margin-bottom:1.25rem;">
                 Nếu bạn muốn nắm giữ trong tay cẩm nang vận mệnh chi tiết đến từng cung bậc cuộc đời, hãy đăng ký bản Báo Cáo VIP được lập luận công phu từ tinh hoa Tử Vi Nam Phái và khoa học nhân trắc học:
               </p>
@@ -2343,9 +2343,9 @@ const server = http.createServer(async (req, res) => {
                 <div class="vip-teaser-check" style="color:#FAF6ED !important;"><i data-lucide="check-circle-2" style="color:#D4A853 !important;"></i> Phương pháp Khải Vận, Tu Dưỡng &amp; Hóa Giải Sát Tinh</div>
                 <div class="vip-teaser-check" style="color:#FAF6ED !important;"><i data-lucide="check-circle-2" style="color:#D4A853 !important;"></i> Xuất bản file PDF A4 trình bày trang nhã lưu giữ trọn đời</div>
               </div>
-              <div class="vip-teaser-footer" style="border-top:1px dashed rgba(194, 155, 56, 0.4);padding-top:1.15rem;">
+              <div class="vip-teaser-footer" style="border-top:1px dashed rgba(194, 155, 56, 0.4);padding-top:1.15rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
                 <div class="vip-teaser-price-wrap" style="display:inline-flex;align-items:center;gap:8px;background:#2A2118 !important;border:1px solid #C29B38 !important;border-radius:8px;padding:0.55rem 1.15rem;color:#FAF6ED !important;font-size:0.92rem;margin:0;">
-                  <span style="color:#FAF6ED !important;">Chi phí trợ duyên chỉ từ:</span> <span class="vip-price-highlight" style="font-family:var(--font-heading);font-size:1.35rem;color:#FFD56B !important;font-weight:800;letter-spacing:0.5px;">29.000đ – 39.000đ</span>
+                  <span style="color:#FAF6ED !important;">Chi phí trợ duyên chỉ từ:</span> <span class="vip-price-highlight" style="font-family:var(--font-heading, serif);font-size:1.35rem;color:#FFD56B !important;font-weight:800;letter-spacing:0.5px;text-shadow:0 1px 2px rgba(0,0,0,0.5);">29.000đ – 39.000đ</span>
                 </div>
                 <a href="/#bang-gia-dich-vu" class="btn-vip-action" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg, #C29B38 0%, #E5BA5C 100%);color:#1A1510 !important;font-weight:800;font-size:0.95rem;padding:0.75rem 1.6rem;border-radius:6px;text-decoration:none;box-shadow:0 4px 14px rgba(194, 155, 56, 0.45);">
                   <i data-lucide="crown"></i> MỞ KHÓA BÁO CÁO VIP NGAY

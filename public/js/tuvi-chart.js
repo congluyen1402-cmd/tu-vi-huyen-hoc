@@ -1507,57 +1507,10 @@ const TuViChart = {
     const nextCanChi = this.getCanChiYear(nextYear);
 
     // Thêm Khối Vận Hạn Từng Giai Đoạn & Phương Pháp Hóa Giải
-    const daiHanList = [
-      {
-        phase: '6 – 15 Tuổi',
-        cung: 'MỆNH tại Tỵ',
-        chuDe: 'Thời Thơ Ấu · Khởi Đầu Nhân Cách',
-        luanGiai: 'Đại hạn đầu đời tại Mệnh cung (Thái Dương miếu địa). Đương số là đứa trẻ thông minh, sáng dạ, tính cách tự tin, có tố chất lãnh đạo bạn bè đồng trang lứa. Tuy có Linh Tinh, Trực Phù nên đôi khi dễ nóng nảy, tính khí bướng bỉnh hoặc ốm sốt nhiệt thuở nhỏ, nhưng căn bản phát triển thể chất và học vấn đều thuận lợi rực rỡ.',
-        hoaGiai: 'Gia đình cần rèn luyện tính kiên nhẫn, lễ phép, hướng đương số tham gia các hoạt động ngoại khóa để giải tỏa bớt nhiệt khí dư thừa của Thái Dương.'
-      },
-      {
-        phase: '16 – 25 Tuổi',
-        cung: 'PHỤ MẪU tại Ngọ',
-        chuDe: 'Thử Thách Tuổi Trẻ · Định Hình Con Đường Tự Lập',
-        luanGiai: 'Đại hạn ngộ Phá Quân miếu địa, Thái Tuế, Đại Hao. Đây là 10 năm của những bước ngoặt lớn về học vấn, công việc và thay đổi môi trường sống. Đại Hao chủ về sự biến động, đầu tư học tập và chi tiêu nhiều. Thời điểm chuyển giao đại hạn tâm tư trăn trở về định hướng tương lai, công việc có sự đổi mới hoặc cơ hội đột phá.',
-        hoaGiai: 'Tập trung trau dồi chuyên môn cốt lõi, không nên vội vã đầu cơ rủi ro. Học cách quản trị tài chính cá nhân chặt chẽ. Hóa giải Thái tuế bằng cách đi xa, thay đổi không gian sống hoặc khởi động dự án mới.'
-      },
-      {
-        phase: `Lưu Niên ${curYear} (${curCanChi}) & ${nextYear} (${nextCanChi})`,
-        cung: 'LƯU NIÊN TOÀN DIỆN',
-        chuDe: `Vận Khí ${curYear} (${curCanChi}) & Tiếp Nối ${nextYear} (${nextCanChi})`,
-        luanGiai: `Năm ${curYear} (${curCanChi}): Vận số mở ra chu kỳ tài lộc và chuyển biến tích cực trong sự nghiệp lẫn nhân duyên. Các cát tinh hội tụ mang lại cơ hội hợp tác mới, kinh doanh hanh thông, song cần cẩn trọng trong các cam kết pháp lý. Bước sang năm ${nextYear} (${nextCanChi}): Tiếp đà sinh vượng, đương số đón nhận cát tinh trợ lực, thuận bề tích lũy tài sản và củng cố vị thế cá nhân vững chắc.`,
-        hoaGiai: `Chủ động lập kế hoạch tài chính rõ ràng cho cả năm ${curYear} và chuẩn bị nền tảng đón vận khí năm ${nextYear}. Tích cực tu tâm dưỡng tính, làm việc thiện, phóng sinh để kích hoạt phúc đức trường tồn.`
-      },
-      {
-        phase: '26 – 35 Tuổi',
-        cung: 'PHÚC ĐỨC tại Mùi',
-        chuDe: 'Thời Kỳ Vàng Khởi Nghiệp · Trí Tuệ Tỏa Sáng',
-        luanGiai: 'Bước sang đại hạn cung Phúc Đức tại Mùi (Thiên Cơ đắc địa, Thiếu Dương, Quốc Ấn, Thiên Không). Đây là đại vận khai sáng trí tuệ phi thường! Thiên Cơ chủ về mưu lược, chiến lược và sáng tạo kết hợp Quốc Ấn báo hiệu đương số sẽ thiết lập được địa vị xã hội, xây dựng uy tín nghề nghiệp vững chắc và lập gia đình bền lâu.',
-        hoaGiai: 'Tránh tự cao tự đại vì Thiên Không luôn là lưỡi dao thử thách tâm tính. Hãy lấy sự chân thành, phụng sự khách hàng và nhân viên làm gốc để giữ vững thành tựu kinh doanh/công danh.'
-      },
-      {
-        phase: '36 – 45 Tuổi',
-        cung: 'ĐIỀN TRẠCH tại Thân',
-        chuDe: 'Đỉnh Cao Tài Sản · Phú Quý Song Toàn',
-        luanGiai: 'Đại hạn Tử Vi - Thiên Phủ miếu địa đồng cung hóa Quyền, hội Thiên Mã, Tam Thai. Đây là 10 năm rực rỡ nhất trong đời về mặt tích lũy tài sản, bất động sản và danh vọng xã hội! Thiên Phủ là ngân khố nhà trời mở ra, việc mua đất dựng nhà, đầu tư kinh doanh gặt hái thành công vang dội. Đương số trở thành trụ cột vững chãi.',
-        hoaGiai: 'Duy trì đạo đức kinh doanh, "tích đức tồn phúc". Cẩn trọng Tang Môn Cô Thần báo hiệu trong dòng họ có người cao tuổi tạ thế, cần chu tất việc hiếu nghĩa.'
-      },
-      {
-        phase: '46 – 55 Tuổi',
-        cung: 'QUAN LỘC tại Dậu',
-        chuDe: 'Củng Cố Vị Thế · Cảnh Giác Rủi Ro Ẩn Tàng',
-        luanGiai: 'Đại hạn Thái Âm miếu địa ngộ Hữu Bật, Hồng Loan nhưng có Địa Kiếp hung sát. Sự nghiệp tiếp tục gặt hái thành quả lớn, nhưng bước vào giai đoạn này cần đặc biệt cảnh giác với sự đố kỵ, tranh đoạt quyền lợi từ đối thủ hoặc thị trường biến động.',
-        hoaGiai: 'Chuyển dịch sang mô hình kinh doanh an toàn, giữ thế thủ vững chắc hơn là công phá liều lĩnh. Chia nhỏ nguồn vốn đầu tư, tuyệt đối không bảo lãnh nợ nần cho người khác.'
-      },
-      {
-        phase: '56 – 65 Tuổi Trở Đi',
-        cung: 'NÔ BỘC (Tuất) & THIÊN DI (Hợi)',
-        chuDe: 'Hậu Vận An Nhàn · Hưởng Phúc Tử Tôn',
-        luanGiai: 'Bước vào các cung vị hậu vận, đương số lui về hậu trường, cố vấn cho thế hệ trẻ hoặc tận hưởng thú điền viên, nghiên cứu huyền học, triết đạo. Con cháu thành đạt, hiếu thảo. Cuộc đời đạt cảnh giới thanh thản, viên mãn tròn vẹn.',
-        hoaGiai: 'Thực hành dưỡng sinh, thiền định, buông bỏ chấp niệm thế sự để thân tâm an lạc trường thọ.'
-      }
-    ];
+    let daiHanList = [];
+    if (typeof TuViLuanGiaiEngine !== 'undefined' && TuViLuanGiaiEngine.generateDaiHanList) {
+      daiHanList = TuViLuanGiaiEngine.generateDaiHanList(laSo, curYear, nextYear);
+    }
 
     html += `
       <div class="daihan-overview-box glass-card" style="margin-top:2rem;">
@@ -1572,7 +1525,7 @@ const TuViChart = {
         <div class="daihan-vertical-timeline">
           <div class="timeline-axis"></div>
           ${daiHanList.map((dh, dIndex) => {
-            // isTripwire mở 6-15, 16-25 và Lưu Niên 2026-2027 (dIndex <= 2)
+            // isTripwire mở 2 đại hạn đầu và Lưu Niên (dIndex <= 2)
             const isPhaseUnlocked = isVip || (dIndex === 0) || (isTripwire && dIndex <= 2);
 
             if (!isPhaseUnlocked) {
@@ -1582,13 +1535,13 @@ const TuViChart = {
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                   </div>
                   <div class="timeline-card-wrap">
-                    <div class="timeline-card glass-surface locked-surface">
-                      <div class="timeline-card-header">
+                    <div class="timeline-card glass-surface locked-surface" style="padding: 1.25rem 1.45rem; border-radius: 10px; margin-bottom: 1.5rem;">
+                      <div class="timeline-card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 0.6rem;">
                         <strong class="timeline-phase-title">Đại Hạn: ${dh.phase} (${dh.cung})</strong>
                         <span class="seal-badge" style="background:rgba(163,40,31,0.08); color:var(--seal, #A3281F); border:1px solid var(--seal, #A3281F); padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:700;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Khóa · 49.000đ</span>
                       </div>
                       <div class="timeline-locked-blur-preview">
-                        <div class="timeline-blur-text">${dh.luanGiai.substring(0, 110)}... ma trận hung cát vận hạn bảo mật trong gói VIP...</div>
+                        <div class="timeline-blur-text">${(dh.khiTuong || dh.congDanh || '').replace(/<[^>]*>/g, '').substring(0, 110)}... ma trận hung cát vận hạn bảo mật trong gói VIP...</div>
                         <div class="timeline-locked-cta-overlay">
                           <button type="button" class="btn-seal btn-lock-upgrade-sm" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ Đại Hạn)', 49000)">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
@@ -1608,15 +1561,63 @@ const TuViChart = {
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
                 </div>
                 <div class="timeline-card-wrap">
-                  <div class="timeline-card glass-surface gold-highlight-card">
-                    <div class="timeline-card-header">
-                      <strong class="timeline-phase-title text-gold">Đại Hạn: ${dh.phase} (${dh.cung})</strong>
-                      <span class="timeline-badge-gold">${dh.chuDe}</span>
+                  <div class="timeline-card glass-surface gold-highlight-card" style="padding: 1.25rem 1.45rem; border-radius: 10px; margin-bottom: 1.6rem; background: var(--paper-2, #FBF7EE); border: ${dh.isCurrent ? '2px solid #D4AF37' : '1.5px solid var(--line, #E5E7EB)'}; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+                    <div class="timeline-card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 0.8rem; border-bottom: 1px dashed var(--line); padding-bottom: 0.6rem;">
+                      <div>
+                        <strong class="timeline-phase-title" style="color: var(--seal, #A3281F); font-size: 1.05rem; font-family: var(--font-heading, serif);">
+                          ${dh.type === 'luu_nien' ? dh.phase : `Đại Hạn: ${dh.phase} (${dh.cung})`}
+                        </strong>
+                        ${dh.isCurrent ? `<span style="margin-left: 8px; background: #FEF3C7; color: #B45309; border: 1px solid #F59E0B; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; display: inline-block;">★ ${dh.type === 'luu_nien' ? 'VẬN KHÍ TRỌNG TÂM' : 'ĐẠI VẬN HIỆN TẠI'}</span>` : ''}
+                      </div>
+                      <span class="timeline-badge-gold" style="background: rgba(212, 175, 55, 0.15); color: #926A06; border: 1px solid rgba(212, 175, 55, 0.4); font-size: 0.82rem; font-weight: 600; padding: 0.25rem 0.75rem; border-radius: 9999px;">
+                        ${dh.chuDe}
+                      </span>
                     </div>
-                    <p class="timeline-desc">${dh.luanGiai}</p>
-                    <div class="timeline-advice-box">
-                      <strong class="text-gold"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline; vertical-align:-2px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Phương Pháp Hóa Giải &amp; Tu Dưỡng:</strong>
-                      <span> ${dh.hoaGiai}</span>
+
+                    <!-- 1. Khí Tượng & Tinh Hệ Đại Vận -->
+                    <div style="font-size: 0.88rem; line-height: 1.65; color: var(--text); margin-bottom: 0.75rem;">
+                      ${dh.khiTuong}
+                    </div>
+
+                    <!-- 2. Bốn Trọng Điểm Đời Người -->
+                    <div class="daihan-pillars-grid" style="display: grid; grid-template-columns: 1fr; gap: 0.6rem; margin-bottom: 0.85rem;">
+                      <div style="background: #FFFFFF; border-left: 3px solid #3B82F6; padding: 0.6rem 0.85rem; border-radius: 6px; border: 1px solid var(--line);">
+                        <strong style="color: #1D4ED8; font-size: 0.86rem;">💼 ${dh.type === 'luu_nien' ? 'Quý 1 (Xuân): Khởi Đầu &amp; Định Hướng' : 'Công Danh, Học Vấn &amp; Sự Nghiệp'}:</strong>
+                        <p style="margin: 0.2rem 0 0; font-size: 0.86rem; line-height: 1.6; color: var(--text);">${dh.congDanh}</p>
+                      </div>
+                      <div style="background: #FFFFFF; border-left: 3px solid #10B981; padding: 0.6rem 0.85rem; border-radius: 6px; border: 1px solid var(--line);">
+                        <strong style="color: #047857; font-size: 0.86rem;">💰 ${dh.type === 'luu_nien' ? 'Quý 2 (Hạ): Tăng Tốc &amp; Bứt Phá Công Danh' : 'Tài Chính, Điền Sản &amp; Sinh Kế'}:</strong>
+                        <p style="margin: 0.2rem 0 0; font-size: 0.86rem; line-height: 1.6; color: var(--text);">${dh.taiChinh}</p>
+                      </div>
+                      <div style="background: #FFFFFF; border-left: 3px solid #EC4899; padding: 0.6rem 0.85rem; border-radius: 6px; border: 1px solid var(--line);">
+                        <strong style="color: #BE185D; font-size: 0.86rem;">❤️ ${dh.type === 'luu_nien' ? 'Quý 3 (Thu): Thu Hoạch &amp; Kiểm Soát Rủi Ro' : 'Tình Duyên, Hôn Nhân &amp; Gia Đạo'}:</strong>
+                        <p style="margin: 0.2rem 0 0; font-size: 0.86rem; line-height: 1.6; color: var(--text);">${dh.tinhDuyen}</p>
+                      </div>
+                      <div style="background: #FFFFFF; border-left: 3px solid #F59E0B; padding: 0.6rem 0.85rem; border-radius: 6px; border: 1px solid var(--line);">
+                        <strong style="color: #B45309; font-size: 0.86rem;">🛡️ ${dh.type === 'luu_nien' ? 'Quý 4 (Đông): Tổng Kết Tài Chính &amp; An Gia' : 'Sức Khỏe, Tinh Thần &amp; Hạn Ách'}:</strong>
+                        <p style="margin: 0.2rem 0 0; font-size: 0.86rem; line-height: 1.6; color: var(--text);">${dh.sucKhoe}</p>
+                      </div>
+                    </div>
+
+                    <!-- 3. Các Cột Mốc Then Chốt -->
+                    ${dh.milestones && dh.milestones.length > 0 ? `
+                      <div style="background: rgba(243, 244, 246, 0.7); border: 1px solid var(--line); border-radius: 6px; padding: 0.6rem 0.85rem; margin-bottom: 0.85rem; font-size: 0.84rem; line-height: 1.6; color: var(--text);">
+                        <strong style="color: var(--ink);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline; vertical-align:-2px; margin-right:4px;"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Bước Ngoặt &amp; Các Mốc Năm Then Chốt:</strong>
+                        <ul style="margin: 0.25rem 0 0; padding-left: 1.2rem;">
+                          ${dh.milestones.map(m => `<li>${m}</li>`).join('')}
+                        </ul>
+                      </div>
+                    ` : ''}
+
+                    <!-- 4. Phương Pháp Hóa Giải & Tu Dưỡng -->
+                    <div class="timeline-advice-box" style="background: rgba(212, 175, 55, 0.08); border: 1.5px dashed rgba(212, 175, 55, 0.45); padding: 0.75rem 0.95rem; border-radius: 8px; font-size: 0.86rem; line-height: 1.65; color: var(--text);">
+                      <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 0.3rem;">
+                        <span style="color: #B45309; font-size: 1rem;">💡</span>
+                        <strong style="color: #926A06; font-size: 0.89rem; font-family: var(--font-heading, serif); text-transform: uppercase;">
+                          ${dh.type === 'luu_nien' ? 'PHÁP MÔN NGHÊNH CÁT ĐÓN TÀI &amp; HÓA GIẢI HUNG HẠN:' : 'PHƯƠNG PHÁP HÓA GIẢI, CẢI MỆNH &amp; TU DƯỠNG (THEO CỤ NGUYỄN PHÁT LỘC):'}
+                        </strong>
+                      </div>
+                      <p style="margin: 0;">${dh.hoaGiai}</p>
                     </div>
                   </div>
                 </div>

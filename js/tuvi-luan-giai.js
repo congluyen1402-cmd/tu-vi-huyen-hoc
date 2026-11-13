@@ -2475,6 +2475,210 @@
     };
   }
 
+  // ============================================================================
+  // 5.8. HỆ THỐNG LUẬN ĐOÁN VẬN HẠN TỪNG GIAI ĐOẠN (ĐẠI HẠN 10 NĂM & LƯU NIÊN) CHUYÊN SÂU
+  // ============================================================================
+
+  function getCanChiYearHelper(year) {
+    const CAN = ['Canh', 'Tân', 'Nhâm', 'Quý', 'Giáp', 'Ất', 'Bính', 'Đinh', 'Mậu', 'Kỷ'];
+    const CHI = ['Thân', 'Dậu', 'Tuất', 'Hợi', 'Tý', 'Sửu', 'Dần', 'Mão', 'Thìn', 'Tỵ', 'Ngọ', 'Mùi'];
+    return CAN[year % 10] + ' ' + CHI[year % 12];
+  }
+
+  function getDaiHanThemeHelper(cung, dIndex) {
+    const mainNames = (cung.chinhTinh || []).map(s => s.name);
+    if (dIndex === 0) {
+      return 'Thời Thơ Ấu · Khởi Đầu Nhân Cách & Ươm Mầm Trí Tuệ';
+    } else if (dIndex === 1) {
+      return 'Thiếu Niên Lập Thân · Đèn Sách Khoa Cử & Bước Đầu Tự Lập';
+    } else if (dIndex === 2) {
+      if (mainNames.some(s => ['Thất Sát', 'Phá Quân', 'Tham Lang'].includes(s))) {
+        return 'Bão Táp Lập Nghiệp · Khai Phá Thị Trường & Bước Ngoặt Vận Số';
+      } else if (mainNames.some(s => ['Tử Vi', 'Thiên Phủ', 'Vũ Khúc', 'Thái Dương'].includes(s))) {
+        return 'Thời Kỳ Vàng Khởi Nghiệp · Tài Lộc Hanh Thông & Uy Danh Sơ Lập';
+      } else {
+        return 'Thời Kỳ Vàng Xây Dựng Sự Nghiệp & Định Hình Tổ Ấm';
+      }
+    } else if (dIndex === 3) {
+      if (mainNames.some(s => ['Tử Vi', 'Thiên Phủ', 'Vũ Khúc'].includes(s))) {
+        return 'Đỉnh Cao Tài Sản · Phú Quý Song Toàn & Cơ Ngơi Hiển Vang';
+      } else if (mainNames.some(s => ['Thái Dương', 'Thái Âm', 'Hóa Lộc'].includes(s))) {
+        return 'Quang Minh Rực Rỡ · Tài Lộc Dồi Dào & Vị Thế Xã Hội';
+      } else {
+        return 'Chín Muồi Công Danh · Tích Lũy Điền Sản & Trụ Cột Vững Chắc';
+      }
+    } else if (dIndex === 4) {
+      return 'Củng Cố Cơ Đồ · Mở Rộng Quy Mô & Quản Trị Rủi Ro Cốt Lõi';
+    } else if (dIndex === 5) {
+      return 'Chuyển Giao Quyền Lực · Giữ Vững Thành Quả & Dưỡng Thân Tâm';
+    } else if (dIndex === 6) {
+      return 'Hậu Vận An Nhàn · Thượng Thọ Miên Trường & Phúc Trạch Tử Tôn';
+    } else {
+      return 'Phúc Lạc Vãn Niên · Thanh Thản Tự Tại & Di Sản Truyền Thừa';
+    }
+  }
+
+  function generateDaiHanList(laSo, curYear, nextYear) {
+    if (!laSo || !laSo.cung) return [];
+
+    curYear = curYear || new Date().getFullYear();
+    nextYear = nextYear || (curYear + 1);
+
+    const curCanChi = getCanChiYearHelper(curYear);
+    const nextCanChi = getCanChiYearHelper(nextYear);
+
+    const birthYear = (laSo.solarDate && laSo.solarDate.year) || 1990;
+    const curAge = curYear - birthYear + 1;
+
+    const sortedCung = [...laSo.cung].filter(c => c.daiHan).sort((a, b) => a.daiHan.startAge - b.daiHan.startAge);
+    const result = [];
+
+    sortedCung.slice(0, 8).forEach((cung, dIndex) => {
+      const startAge = cung.daiHan.startAge;
+      const endAge = cung.daiHan.endAge;
+      const cungName = cung.cungName.replace('<THÂN>', '').trim();
+      const chi = cung.chi;
+      const can = cung.can;
+
+      const mainStars = cung.chinhTinh || [];
+      const catStars = cung.phuTinhLeft || [];
+      const satStars = cung.phuTinhRight || [];
+      const tuHoa = cung.tuHoa || [];
+
+      const mainNames = mainStars.map(s => `${s.name} (${s.dacHam})`);
+      const catNames = catStars.map(s => s.name);
+      const satNames = satStars.map(s => s.name);
+
+      const isCurrent = curAge >= startAge && curAge <= endAge;
+      const chuDe = getDaiHanThemeHelper(cung, dIndex);
+
+      // 1. Khí Tượng & Tinh Hệ Đại Vận
+      let khiTuong = '';
+      if (mainStars.length === 0) {
+        khiTuong = `Đại vận 10 năm lâm vào thế <strong>Vô Chính Diệu</strong> tại cung ${chi} (${can}). Đây là thập niên đòi hỏi sự mềm mỏng, linh hoạt tối đa, 'tùy cơ ứng biến', nương nhờ ngoại lực và sức nâng đỡ từ các cung Tam phương Tứ chính chiếu về. Đương số không nên chủ quan tự mãn, mà cần lắng nghe cộng sự, học hỏi tiền bối để thích nghi với mọi biến động.`;
+      } else {
+        khiTuong = `Đại vận 10 năm được ngự trị bởi <strong>${mainNames.join(' phối chiếu cùng ')}</strong> tại phương vị <strong>${chi} (${can})</strong>. Đây là hạt nhân chỉ huy toàn bộ trường khí của đại hạn, quyết định chiều hướng thịnh suy, cơ hội thăng tiến cũng như những thử thách lớn mà đương số phải trải qua.`;
+      }
+
+      // 2. Bình Giải 4 Trọng Điểm Đời Sống
+      let congDanh = '';
+      let taiChinh = '';
+      let tinhDuyen = '';
+      let sucKhoe = '';
+
+      // Công Danh
+      if (dIndex === 0) {
+        congDanh = `Giai đoạn ấu thơ chủ về sự thông minh sáng dạ, tiếp thu kiến thức nhanh nhạy và hình thành tư chất học tập ban đầu. Đương số bộc lộ năng khiếu tự nhiên, được thầy cô và gia đình hết lòng bồi dưỡng.`;
+      } else if (dIndex === 1) {
+        congDanh = `Thời kỳ đèn sách khoa cử trọng đại. Trải qua các kỳ thi bước ngoặt chuyển cấp, đại học và định hướng chuyên môn. Giai đoạn này đòi hỏi sự tập trung cao độ, kiên trì trau dồi tri thức cốt lõi, mở rộng mối quan hệ bạn hữu để làm bệ phóng cho tương lai.`;
+      } else {
+        if (mainStars.some(s => ['Tử Vi', 'Thiên Phủ', 'Vũ Khúc', 'Hóa Quyền', 'Quốc Ấn', 'Tướng Quân'].includes(s.name))) {
+          congDanh = `Khí thế sự nghiệp bừng sáng rực rỡ! Có cơ hội thăng tiến mạnh mẽ lên các vị trí quản lý, chỉ huy hoặc tự tay khởi lập mô hình kinh doanh riêng. Uy tín nghề nghiệp gia tăng, được cấp trên tín nhiệm, đối tác kính nể và có tiếng nói trọng lượng trong ngành.`;
+        } else if (mainStars.some(s => ['Thất Sát', 'Phá Quân', 'Tham Lang'].includes(s.name))) {
+          congDanh = `Thập niên của những bước ngoặt mang tính cách mạng! Đương số dám dấn thân vào các lĩnh vực mới mẻ, mở rộng thị trường, thay đổi công việc hoặc môi trường sống. Cơ hội đột phá cực kỳ lớn nhưng đòi hỏi phải chuẩn bị kế hoạch tỉ mỉ, tránh quyết định nóng vội trong lúc cảm xúc dâng cao.`;
+        } else if (mainStars.some(s => ['Cự Môn', 'Thiên Cơ'].includes(s.name))) {
+          congDanh = `Thời kỳ phát huy tối đa trí tuệ, mưu lược, tài hùng biện và khả năng đàm phán thương mại. Công danh gắn liền với các dự án nghiên cứu, cố vấn chiến lược, giảng dạy hoặc quan hệ công chúng. Cần lưu tâm cẩn trọng lời ăn tiếng nói, tránh va chạm khẩu thiệt với cấp trên.`;
+        } else {
+          congDanh = `Công việc duy trì nhịp độ ổn định, tích lũy kinh nghiệm chuyên môn dày dặn. Đương số tiến bước chậm mà chắc, không tham vọng liều lĩnh, chú trọng vào việc nâng cao tay nghề và xây dựng uy tín cá nhân bền vững.`;
+        }
+      }
+
+      // Tài Chính
+      if (dIndex === 0) {
+        taiChinh = `Chưa trực tiếp làm ra tiền bạc; tài chính hoàn toàn phụ thuộc vào phúc lộc của cha mẹ và sự chu cấp đủ đầy của gia đình.`;
+      } else if (dIndex === 1) {
+        taiChinh = `Giai đoạn tiêu hao tiền của cho việc học tập, học phí, mua sắm tài liệu và trang bị công nghệ. Bắt đầu có những khoản thu nhập phụ đầu tiên từ học bổng hoặc việc làm thêm, bước đầu rèn luyện kỹ năng quản lý tài chính cá nhân.`;
+      } else {
+        if (catStars.some(s => ['Lộc Tồn', 'Hóa Lộc', 'Thiên Mã', 'Thiên Trù'].includes(s.name)) || mainStars.some(s => ['Thiên Phủ', 'Vũ Khúc', 'Thái Âm'].includes(s.name))) {
+          taiChinh = `Vận hội tài lộc cuồn cuộn đổ về! Dòng tiền sinh sôi nảy nở từ các dự án kinh doanh, đầu tư hoặc thu nhập chuyên môn vượt bậc. Cơ hội rất lớn để mua sắm nhà đất, tích lũy bất động sản và các tài sản có giá trị cao, thiết lập nền tảng giàu có vững chắc cho cả gia đình.`;
+        } else if (satStars.some(s => ['Đại Hao', 'Tiểu Hao', 'Địa Không', 'Địa Kiếp'].includes(s.name))) {
+          taiChinh = `Dòng tiền biến động dữ dội: vào nhiều nhưng ra cũng lắm. Có nhiều khoản chi tiêu lớn bắt buộc cho việc tái đầu tư kinh doanh, xây sửa nhà cửa hoặc giúp đỡ người thân. Tuyệt đối không tham gia các phi vụ đầu cơ lừa đảo, tiền ảo rủi ro cao; phải lập quỹ dự phòng khẩn cấp.`;
+        } else {
+          taiChinh = `Thu nhập ổn định và tăng trưởng đều đặn theo năng lực chuyên môn. Chi tiêu có kế hoạch, biết tích lũy từng bước để tạo dựng sự tự chủ tài chính lâu dài.`;
+        }
+      }
+
+      // Tình Duyên & Gia Đạo
+      if (dIndex <= 1) {
+        tinhDuyen = `Tình cảm gia đình ấm áp, mối quan hệ hòa thuận với cha mẹ và anh chị em ruột thịt là điểm tựa tinh thần vững chắc. Có những rung động trong sáng đầu đời tuổi học trò nhưng việc học vấn vẫn là trọng tâm hàng đầu.`;
+      } else if (dIndex === 2) {
+        tinhDuyen = `Thập niên bản lề của nhân duyên! Gặp gỡ đối tượng phù hợp, tính chuyện trăm năm kết tóc se duyên và chào đón quý tử đầu lòng. Gia đạo bước đầu có những bỡ ngỡ cần hai vợ chồng cùng thấu hiểu, chia sẻ việc nhà và nhường nhịn nhau để giữ gìn ngọn lửa hạnh phúc.`;
+      } else {
+        if (satStars.some(s => ['Kình Dương', 'Đà La', 'Thái Tuế', 'Hóa Kỵ', 'Cô Thần', 'Quả Tú'].includes(s.name))) {
+          tinhDuyen = `Đời sống hôn nhân đòi hỏi sự nỗ lực gìn giữ rất lớn. Do áp lực công việc và cái tôi cá nhân, hai vợ chồng dễ có những lúc khắc khẩu, bất đồng quan điểm trong cách nuôi dạy con cái hoặc quản lý tài chính. Cần lấy chữ 'Kính' và chữ 'Nhẫn' làm đầu, thường xuyên hâm nóng tình cảm để tránh tạo ra khoảng cách vô hình.`;
+        } else {
+          tinhDuyen = `Gia đạo hòa thuận yên vui, vợ chồng đồng lòng chung sức vun đắp tổ ấm. Con cái chăm ngoan học giỏi, hiếu kính phụng dưỡng. Không khí gia đình tràn ngập tiếng cười và sự an lạc.`;
+        }
+      }
+
+      // Sức Khỏe & Vận Hạn
+      if (satStars.some(s => ['Kình Dương', 'Thiên Hình', 'Bạch Hổ', 'Kiếp Sát'].includes(s.name))) {
+        sucKhoe = `Cảnh báo các nguy cơ liên quan đến huyết quang, phẫu thuật dao kéo, chấn thương tay chân hoặc va chạm khi tham gia giao thông. Cần chú ý an toàn lao động, không thức khuya làm việc quá sức gây suy kiệt khí huyết. Phương pháp hóa giải tối ưu là định kỳ tham gia hiến máu nhân đạo.`;
+      } else if (satStars.some(s => ['Hỏa Tinh', 'Linh Tinh', 'Hóa Kỵ', 'Đà La'].includes(s.name))) {
+        sucKhoe = `Lưu ý các bệnh liên quan đến hệ thần kinh, căng thẳng mất ngủ, đau nửa đầu, nhiệt hỏa tạng phủ hoặc bệnh về mắt, gan mật. Cần duy trì lối sống thanh tịnh, ngủ sớm trước 23h và thực hành thiền định dưỡng khí.`;
+      } else {
+        sucKhoe = `Thể chất nhìn chung khang kiện, sức đề kháng tốt. Cần duy trì thói quen tập luyện thể thao điều độ, ăn uống thanh đạm để bồi bổ nguyên khí trường thọ.`;
+      }
+
+      // 3. Các Năm Trọng Điểm
+      const milestoneYears = [
+        `Năm thứ 1 & 2 (${startAge} - ${startAge + 1} tuổi): Thời điểm chuyển giao trường khí đại hạn, tâm tư trăn trở, có những biến động hoặc cơ hội thử thách mới xuất hiện.`,
+        `Năm thứ 5 & 6 (${startAge + 4} - ${startAge + 5} tuổi): Đỉnh cao phong độ của đại vận, thời cơ vàng để bứt phá công danh, thu hoạch tài lộc hoặc thực hiện các dự án trọng đại.`,
+        `Năm thứ 9 & 10 (${endAge - 1} - ${endAge} tuổi): Giai đoạn thu hoạch thành quả, kiểm soát rủi ro, củng cố vị thế và chuẩn bị hành trang đón nhận trường khí của đại vận kế tiếp.`
+      ];
+
+      // 4. Phương Pháp Hóa Giải & Tu Dưỡng
+      let hoaGiai = '';
+      if (satStars.length > 0) {
+        hoaGiai = `<strong>Tâm Pháp:</strong> Lấy Nhu thắng Cương, kiên trì nhẫn nại trước nghịch cảnh; cổ nhân dạy: <em>"Ngọc bất trác, bất thành khí"</em>, coi thử thách là lò luyện tôi rèn bản lĩnh thép. ` +
+          `<strong>Thực Hành:</strong> Minh bạch tài chính, giấy trắng mực đen trong mọi hợp đồng kinh doanh; tuyệt đối không đứng tên bảo lãnh nợ nần. ` +
+          `<strong>Giải Nghiệp:</strong> Tích cực tham gia các hoạt động thiện nguyện, phóng sinh, định kỳ hiến máu nhân đạo (1-2 lần/năm) để tiêu trừ sát khí huyết quang, tích lũy âm đức bền vững cho hậu duệ.`;
+      } else {
+        hoaGiai = `<strong>Tâm Pháp:</strong> Thuận buồm xuôi gió nhưng không được kiêu ngạo tự mãn; giữ tâm chính trực, khiêm tốn học hỏi. ` +
+          `<strong>Thực Hành:</strong> Tận dụng thời vận để mở rộng kiến thức, trau dồi chuyên môn cốt lõi, đối đãi nhân hậu với cộng sự và cấp dưới. ` +
+          `<strong>Giải Nghiệp:</strong> Mỗi khi gặt hái được tài lộc lớn, hãy chủ động trích từ 5% - 10% làm việc phúc thiện để hồi hướng công đức, giữ cho mạch phúc của gia tộc luôn trường tồn lưu truyền.`;
+      }
+
+      result.push({
+        type: 'dai_han',
+        phase: `${startAge} – ${endAge} Tuổi`,
+        cung: `${cungName} tại ${chi} (${can})`,
+        chuDe: chuDe,
+        isCurrent: isCurrent,
+        khiTuong: khiTuong,
+        congDanh: congDanh,
+        taiChinh: taiChinh,
+        tinhDuyen: tinhDuyen,
+        sucKhoe: sucKhoe,
+        milestones: milestoneYears,
+        hoaGiai: hoaGiai
+      });
+
+      // Chèn khối Lưu Niên Toàn Diện sau giai đoạn 2
+      if (dIndex === 1) {
+        result.push({
+          type: 'luu_nien',
+          phase: `Lưu Niên Năm ${curYear} (${curCanChi}) & ${nextYear} (${nextCanChi})`,
+          cung: 'LƯU NIÊN TOÀN DIỆN',
+          chuDe: `Vận Khí Trọng Tâm 2 Năm Kế Tiếp`,
+          isCurrent: true,
+          khiTuong: `Dự báo trường khí Lưu Niên dựa trên sự dịch chuyển của <strong>Lưu Thái Tuế, Tiểu Hạn và 9 Lưu Tinh Đẩu</strong> (${curYear} ${curCanChi} &amp; ${nextYear} ${nextCanChi}) tác động trực tiếp vào các cung vị bản mệnh:`,
+          congDanh: `<strong>Quý 1 (Xuân):</strong> Khởi đầu &amp; Định hướng mới. Công việc thuận lợi xuất hành mở mang quan hệ. Các dự định ấp ủ bắt đầu được triển khai vào thực tế. Cần chú ý chi tiêu đầu năm và tránh cả nể cho vay mượn.`,
+          taiChinh: `<strong>Quý 2 (Hạ):</strong> Tăng tốc &amp; Bứt phá công danh. Thời điểm sinh khí vượng nhất trong năm! Dòng tiền thu về khả quan, ký kết hợp đồng thuận lợi hoặc có tin vui thăng tiến chuyên môn.`,
+          tinhDuyen: `<strong>Quý 3 (Thu):</strong> Thu hoạch &amp; Kiểm soát rủi ro. Giai đoạn chuyển mùa nhạy cảm, công việc có nhiều sự cạnh tranh hoặc áp lực giấy tờ pháp lý. Tránh nóng vội bốc đồng, giữ mồm miệng kín kẽ.`,
+          sucKhoe: `<strong>Quý 4 (Đông):</strong> Tổng kết tài chính &amp; An gia. Dòng tiền cuối năm tích tụ bền vững, hoàn tất các mục tiêu lớn và chuẩn bị bàn đạp vững chắc đón vận khí năm mới ${nextYear}. Gia đình sum họp yên vui.`,
+          milestones: [
+            `Năm ${curYear} (${curCanChi}): Vận số mở ra chu kỳ tài lộc và chuyển biến tích cực trong sự nghiệp lẫn nhân duyên. Các cát tinh hội tụ mang lại cơ hội hợp tác mới, kinh doanh hanh thông, song cần cẩn trọng trong các cam kết pháp lý.`,
+            `Năm ${nextYear} (${nextCanChi}): Tiếp đà sinh vượng, đương số đón nhận cát tinh trợ lực, thuận bề tích lũy tài sản và củng cố vị thế cá nhân vững chắc.`
+          ],
+          hoaGiai: `<strong>Tâm Pháp &amp; Thực Hành:</strong> Chủ động lập kế hoạch tài chính rõ ràng cho cả năm ${curYear} và chuẩn bị nguồn lực đón vận khí năm ${nextYear}. <strong>Giải Nghiệp:</strong> Định kỳ đầu năm và rằm tháng 7 tham gia lễ cầu an, phóng sinh, hiến máu nhân đạo để tiêu trừ sát khí của Lưu Kình Dương và Lưu Đà La, tích tụ âm đức muôn đời.`
+        });
+      }
+    });
+
+    return result;
+  }
+
 
   // ============================================================================
   // 6. TẦNG MIỄN PHÍ: BẢN ĐỒ TÍNH CÁCH NGẦM & NGHIỆM LÝ VẬN TRÌNH ĐÃ QUA
@@ -2915,6 +3119,7 @@
     synthesizeCatTinhCombination: synthesizeCatTinhCombination,
     synthesizeSatTinhCombination: synthesizeSatTinhCombination,
     synthesizeCatSatInteraction: synthesizeCatSatInteraction,
+    generateDaiHanList: generateDaiHanList,
     generateFreePsychologicalTeaserHtml: generateFreePsychologicalTeaserHtml,
     generatePalaceCliffhangerTeaser: generatePalaceCliffhangerTeaser,
     generateAiAdvisorHtml: generateAiAdvisorHtml,

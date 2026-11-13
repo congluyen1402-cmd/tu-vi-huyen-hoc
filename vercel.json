@@ -1,5 +1,5 @@
 {
-  "cleanUrls": true,
+  "cleanUrls": false,
   "functions": {
     "api/**": {
       "includeFiles": "data/**"
@@ -35,6 +35,14 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/sitemap.xml/google9f78d3cac1ee8064",
+      "destination": "/api?google_verify=google9f78d3cac1ee8064"
+    },
+    {
+      "source": "/sitemap.xml/google9f78d3cac1ee8064.html",
+      "destination": "/api?google_verify=google9f78d3cac1ee8064"
+    },
     {
       "source": "/google9f78d3cac1ee8064",
       "destination": "/api?google_verify=google9f78d3cac1ee8064"
