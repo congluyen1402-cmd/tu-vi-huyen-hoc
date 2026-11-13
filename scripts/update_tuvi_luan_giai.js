@@ -1,238 +1,274 @@
 const fs = require('fs');
+const dict = require('./build_phu_tinh_dict.js');
 
-let code = fs.readFileSync('js/tuvi-luan-giai.js', 'utf8');
+console.log("Loaded DICT with", Object.keys(dict).length, "stars.");
 
-const injection = `
-  // ============================================================================
-  // 6. TẦNG MIỄN PHÍ: BẢN ĐỒ TÍNH CÁCH NGẦM & NGHIỆM LÝ VẬN TRÌNH ĐÃ QUA
-  // ============================================================================
+// Read original tuvi-luan-giai.js
+let content = fs.readFileSync('js/tuvi-luan-giai.js', 'utf8');
 
-  function generateFreePsychologicalTeaserHtml(laSo) {
-    if (!laSo || !laSo.cung) return '';
+// Build the code string for PHU_TINH_PALACE_DICT and helper functions
+const dictJson = JSON.stringify(dict, null, 2);
 
-    const pMenh = laSo.cung[laSo.cungMenh.chiIndex];
-    const pThan = laSo.cung[laSo.cungThan.chiIndex];
-    const pTai = laSo.cung.find(p => p.cungName.includes('TÀI BẠCH')) || laSo.cung[1];
-    const pQuan = laSo.cung.find(p => p.cungName.includes('QUAN LỘC')) || laSo.cung[9];
-    const pPhuThe = laSo.cung.find(p => p.cungName.includes('PHU THÊ')) || laSo.cung[3];
-    const pDi = laSo.cung.find(p => p.cungName.includes('THIÊN DI')) || laSo.cung[11];
+const replacementBlock = `
+  // 3. KHO PHÂN TÍCH CHUYÊN SÂU 12 CUNG CHO TOÀN BỘ PHỤ TINH, CÁT TINH & SÁT BẠI TINH
+  const PHU_TINH_PALACE_DICT = ${dictJson};
 
-    const ctMenh = (pMenh.chinhTinh || []).map(s => s.name + (s.dacHam ? ' (' + s.dacHam + ')' : '')).join(', ') || 'Vô Chính Diệu';
-    const ctThan = (pThan.chinhTinh || []).map(s => s.name + (s.dacHam ? ' (' + s.dacHam + ')' : '')).join(', ') || 'Vô Chính Diệu';
-    const thanCuName = (laSo.thanCu || 'tài bạch').toUpperCase();
-
-    // 1. Góc khuất nội tâm & Điểm yếu chí mạng
-    let gockhuatText = '';
-    if (ctMenh.includes('Thái Dương')) {
-      gockhuatText = \`Mệnh tọa thủ <strong>Thái Dương</strong> tại cung \${pMenh.chi}, bản chất là ngọn lửa quang minh, hào sảng, trọng danh dự và luôn có xu hướng gánh vác trách nhiệm cho người khác. Tuy nhiên, Thân cư <strong>\${thanCuName}</strong> (tọa thủ <strong>\${ctThan}</strong>) lại khiến nội tâm đương số có sự giằng xé sâu sắc: Bên ngoài tỏ ra kiên định, bản lĩnh, nói cười xởi lởi nhưng khi màn đêm buông xuống là lúc những trăn trở về tiền tài, sự nghiệp và vị thế tương lai bủa vây dồn dập. Đương số rất ghét cảm giác mang ơn hay phụ thuộc, thà cắn răng chịu thiệt còn hơn hạ mình cầu cạnh. Điểm yếu chí mạng là <em>cả nể, dễ mủi lòng trước lời hứa của người thân cận</em>, dẫn đến việc nhiều lần làm ơn mắc oán hoặc gánh thiệt thòi thay cho người khác.\`;
-    } else if (ctMenh.includes('Tử Vi') || ctMenh.includes('Thiên Phủ')) {
-      gockhuatText = \`Mệnh ngự <strong>\${ctMenh}</strong> — bậc Đế Vương, Lệnh Tinh nắm giữ uy quyền và lòng tự tôn cực cao. Tuy nhiên, Thân cư <strong>\${thanCuName}</strong> tạo nên một góc khuất cô đơn tột cùng: Không ai hiểu hết những toan tính và áp lực trên vai đương số. Bên ngoài luôn giữ hình tượng chỉn chu, thành đạt nhưng bên trong là sự thận trọng quá mức, đôi khi khó mở lòng chia sẻ thật sự với bất kỳ ai. Điểm yếu chí mạng là <em>sợ cảm giác thất bại, cái tôi lớn đôi khi bỏ lỡ thời cơ đổi vận nhanh chóng</em>.\`;
-    } else if (ctMenh.includes('Vũ Khúc') || ctMenh.includes('Thất Sát')) {
-      gockhuatText = \`Mệnh tọa thủ <strong>\${ctMenh}</strong> mang khí chất gang thép, quyết liệt, hành động sắc bén và đầu óc kinh tài thực tế. Góc khuất nội tâm là cảm giác cô quả, ít khi biểu lộ sự yếu mềm nên người ngoài dễ nhìn nhận đương số là lạnh lùng, khó gần. Điểm yếu chí mạng là <em>tính nóng nảy bộc phát ngầm, khó thỏa hiệp</em>, khi niềm tin bị phản bội sẽ lập tức đoạn tuyệt dứt khoát không để đường lui.\`;
-    } else if (ctMenh.includes('Thiên Cơ') || ctMenh.includes('Thiên Đồng') || ctMenh.includes('Thái Âm')) {
-      gockhuatText = \`Mệnh tọa thủ <strong>\${ctMenh}</strong> tại cung \${pMenh.chi}, tương tác với Thân cư <strong>\${thanCuName}</strong> (\${ctThan}) tạo nên mẫu người có trực giác nhạy bén, thông minh và giàu lòng trắc ẩn. Góc khuất là nội tâm suy nghĩ quá nhiều, tâm trạng biến đổi theo hoàn cảnh bên ngoài. Điểm yếu chí mạng là <em>hay do dự ở thời khắc quyết định</em>, suy nghĩ bao quát nhưng đôi khi thiếu tính quyết đoán dứt khoát, dễ bỏ lỡ vận may lớn.\`;
-    } else {
-      gockhuatText = \`Mệnh tọa thủ <strong>\${ctMenh}</strong> tại cung \${pMenh.chi}, tương tác cùng Thân cư <strong>\${thanCuName}</strong> (\${ctThan}) tạo nên mẫu người độc lập, tự lực cánh sinh từ sớm. Đương số có lòng tự trọng cao, không thích nhờ vả người khác. Điểm yếu chí mạng là <em>dễ bị chi phối bởi cảm xúc nội tâm dồn nén</em>, một khi đã mất niềm tin vào ai đó thì vĩnh viễn không thể khôi phục lại tình cảm như thuở ban đầu.\`;
-    }
-
-    // Quét sát tinh tại Mệnh & Thân & Tài
-    const satTinhList = [];
-    [pMenh, pThan, pTai].forEach(p => {
-      (p.phuTinhRight || []).forEach(s => {
-        if (['Kình dương', 'Đà la', 'Hỏa tinh', 'Linh tinh', 'Địa không', 'Địa kiếp', 'Thiên hình', 'Hóa kỵ'].includes(s.name)) {
-          satTinhList.push(\`<strong>\${s.name}</strong> (cung \${p.cungName.replace('<THÂN>', '')})\`);
-        }
-      });
-    });
-    if (satTinhList.length > 0) {
-      gockhuatText += \`<br><span style="display:inline-block; margin-top:6px; font-size:0.88rem; color:#A3281F;">⚠ <em>Cảnh báo nghiệp lực tinh đẩu:</em> Sự hiện diện của \${[...new Set(satTinhList)].slice(0, 3).join(', ')} nhắc nhở bạn cần đặc biệt cẩn trọng trước các cạm bẫy hùn hạp tài chính và thói quen cả nể dĩ hòa vi quý.</span>\`;
-    }
-
-    // 2. Nghiệm lý biến cố 2 năm gần đây (2024 - 2025)
-    const bienCoText = \`
-      Năm <strong>Giáp Thìn 2024</strong> và <strong>Ất Tỵ 2025</strong> vừa qua là giai đoạn chuyển giao đầy chao đảo trong chu kỳ vận hạn của bạn. Trục Lưu Thái Tuế và Lưu Kình Đà liên tục kích hoạt vào bản cung và tam hợp chiếu:<br>
-      • <strong>Về Tài chính &amp; Công danh:</strong> Đương số chắc chắn đã trải qua ít nhất một phen hao hụt tiền bạc ngoài dự tính, công việc gặp điểm nghẽn hoặc phải gánh vác các khoản chi tiêu lớn bất khả kháng. Nhiều dự định ấp ủ tưởng chừng nắm chắc lại bị đình trệ vào phút chót.<br>
-      • <strong>Về Tâm lý &amp; Mối quan hệ:</strong> Xuất hiện sự rạn nứt hoặc xa cách trong các mối quan hệ thân cận. Có những thời điểm đương số cảm thấy cô độc tuyệt đối, nỗ lực hy sinh cho người khác nhưng nhận lại sự thờ ơ hoặc thiếu thấu hiểu.<br>
-      <div style="margin-top:8px; padding:8px 12px; background:rgba(163,40,31,0.06); border-left:3px solid #A3281F; border-radius:4px; font-style:italic;">
-        “Cụ Nguyễn Phát Lộc đúc kết: Đây không phải là sự xui xẻo ngẫu nhiên, mà là vũ trụ đang 'thanh lọc mặt bằng' tâm thức, giúp bạn nhận diện rõ kẻ giả người thật trước khi bước vào chu kỳ đón nhận đại vận tài lộc mới 2026 – 2027.”
-      </div>
-    \`;
-
-    // 3. Điểm sáng Cát Tinh cứu giải
-    const catTinhItems = [];
-    [pMenh, pThan, pTai, pQuan, pDi].forEach(p => {
-      (p.phuTinhLeft || []).forEach(s => {
-        if (['Hóa Khoa', 'Hóa Lộc', 'Hóa Quyền', 'Thiên khôi', 'Thiên việt', 'Tả phù', 'Hữu bật', 'Ân quang', 'Thiên quý', 'Giải thần', 'Long đức', 'Nguyệt đức', 'Thiên đức', 'Phúc đức', 'Thanh long', 'Lộc tồn'].includes(s.name) || s.tuHoa) {
-          catTinhItems.push(\`<strong>\${s.name}\${s.tuHoa ? ' [' + s.tuHoa + ']' : ''}</strong> (\${p.cungName.replace('<THÂN>', '')})\`);
-        }
-      });
-      (p.chinhTinh || []).forEach(s => {
-        if (s.tuHoa) {
-          catTinhItems.push(\`<strong>\${s.name} [\${s.tuHoa}]</strong> (\${p.cungName.replace('<THÂN>', '')})\`);
-        }
-      });
-    });
-    const uniqueCatTinh = [...new Set(catTinhItems)].slice(0, 4);
-
-    const catTinhText = \`
-      Dù đi qua nhiều khúc quanh gian nan, lá số của bạn sở hữu <strong>bộ ba quý tinh phò trợ cực mạnh</strong>: \${uniqueCatTinh.length > 0 ? uniqueCatTinh.join(', ') : 'Hội tụ Tứ Đức &amp; Khoa Quyền Lộc'}.<br>
-      Đây là bố cục <em>"Tiền bần hậu phú — Đại khí vãn thành"</em>. Càng trải qua thử thách thì bản lĩnh và giá trị của bạn càng nhân lên gấp bội. Bước sang năm <strong>2026 (Bính Ngọ)</strong>, thiên vận bắt đầu mở ra chiếc chìa khóa lật ngược tình thế, đặc biệt là cơ hội tài chính đột phá vào nửa cuối năm nếu bạn biết cách kích hoạt đúng phong thủy tinh đẩu và hóa giải triệt để các sát tinh ngầm.
-    \`;
-
-    return \`
-      <div class="free-psychological-dossier" style="margin-bottom: 2rem; background: #FDFBF7; border: 1.5px solid var(--seal, #A3281F); border-radius: 8px; padding: 1.4rem; box-shadow: 0 4px 15px rgba(27,23,20,0.06);">
-        <div style="display:flex; align-items:center; gap:8px; margin-bottom:1rem; border-bottom:1px dashed var(--line, #CFC2A6); padding-bottom:0.75rem;">
-          <span style="background:var(--seal, #A3281F); color:#fff; font-size:0.78rem; font-weight:700; padding:3px 10px; border-radius:4px; text-transform:uppercase; letter-spacing:0.5px;">Miễn Phí</span>
-          <h3 style="font-family:'Noto Serif', serif; font-size:1.15rem; color:var(--seal, #A3281F); margin:0; font-weight:700;">
-            ✦ BẢN ĐỒ TÍNH CÁCH NGẦM &amp; NGHIỆM LÝ VẬN TRÌNH ĐÃ QUA
-          </h3>
-        </div>
-        <p style="font-size:0.88rem; color:var(--text-muted, #5E5446); margin-bottom:1.2rem; font-style:italic;">
-          Biện giải tâm lý học thực chứng tổng hợp từ tổ hợp Chính Tinh, Tứ Hóa &amp; Lục Sát Tinh tọa thủ tại Mệnh, Thân, Tài, Quan của đương số <strong>\${laSo.hoTen || 'Đương Số'}</strong>:
-        </p>
-
-        <!-- Mục 1 -->
-        <div class="dossier-card" style="background:#fff; border:1px solid var(--line, #CFC2A6); border-radius:6px; padding:1rem 1.1rem; margin-bottom:1rem;">
-          <h4 style="font-size:0.98rem; font-weight:700; color:var(--ink, #1B1714); margin:0 0 0.5rem; display:flex; align-items:center; gap:6px;">
-            <span style="color:var(--seal, #A3281F);">1.</span> Góc Khuất Nội Tâm &amp; Điểm Yếu Chí Mạng
-          </h4>
-          <div style="font-size:0.9rem; line-height:1.68; color:var(--text, #2A231C);">
-            \${gockhuatText}
-          </div>
-        </div>
-
-        <!-- Mục 2 -->
-        <div class="dossier-card" style="background:#fff; border:1px solid var(--line, #CFC2A6); border-radius:6px; padding:1rem 1.1rem; margin-bottom:1rem;">
-          <h4 style="font-size:0.98rem; font-weight:700; color:var(--ink, #1B1714); margin:0 0 0.5rem; display:flex; align-items:center; gap:6px;">
-            <span style="color:var(--seal, #A3281F);">2.</span> Nghiệm Lý Biến Cố 2 Năm Gần Đây (2024 – 2025)
-          </h4>
-          <div style="font-size:0.9rem; line-height:1.68; color:var(--text, #2A231C);">
-            \${bienCoText}
-          </div>
-        </div>
-
-        <!-- Mục 3 -->
-        <div class="dossier-card" style="background:#fff; border:1px solid var(--line, #CFC2A6); border-radius:6px; padding:1rem 1.1rem;">
-          <h4 style="font-size:0.98rem; font-weight:700; color:var(--ink, #1B1714); margin:0 0 0.5rem; display:flex; align-items:center; gap:6px;">
-            <span style="color:var(--seal, #A3281F);">3.</span> Điểm Sáng Cát Tinh Cứu Giải &amp; Lối Thoát Thịnh Vượng
-          </h4>
-          <div style="font-size:0.9rem; line-height:1.68; color:var(--text, #2A231C);">
-            \${catTinhText}
-          </div>
-        </div>
-
-        <div style="text-align:center; margin-top:1.2rem; padding:0.8rem; background:rgba(176,138,62,0.08); border-radius:6px;">
-          <p style="margin:0 0 0.5rem; font-size:0.88rem; color:var(--text, #2A231C); font-weight:600;">
-            👇 Dưới đây là luận giải chi tiết từng Cung Vị &amp; Thời Khắc Vàng chuyển mình trong Đại Vận 2026 – 2027:
-          </p>
-        </div>
-      </div>
-    \`;
-  }
-
-  // ============================================================================
-  // 7. CLIFFHANGER TEASER GENERATOR (CHO 10 CUNG CHƯA MỞ KHÓA)
-  // ============================================================================
-
-  function generatePalaceCliffhangerTeaser(cung, laSo) {
-    const cungName = cung.cungName.replace('<THÂN>', '').trim();
-    const chinhTinhNames = (cung.chinhTinh || []).map(s => s.name + (s.dacHam ? ' ' + s.dacHam : '')).join(', ') || 'Vô Chính Diệu';
-    
-    const satTinhNames = (cung.phuTinhRight || []).map(s => s.name).slice(0, 3).join(', ');
-    const catTinhNames = (cung.phuTinhLeft || []).map(s => s.name).slice(0, 3).join(', ');
-
-    let bullets = [];
-
-    switch (cungName) {
-      case 'TÀI BẠCH':
-        bullets = [
-          \`Bí pháp kích hoạt nguồn tiền đại cát từ <strong>[\${chinhTinhNames}]</strong> trong năm Bính Ngọ 2026.\`,
-          \`Tháng âm lịch trong năm 2026 – 2027 cần đề phòng hao tài lớn nhất do tác động của <strong>[\${satTinhNames || 'Địa Không, Tiểu Hao'}]</strong>.\`,
-          \`Định hướng phân bổ dòng vốn: Lá số của bạn hợp đầu tư Bất Động Sản, Chứng Khoán hay kinh doanh dịch vụ?\`,
-          \`Toàn văn phương pháp Cải Mệnh &amp; Tích Phúc Tụ Tài kinh điển của cụ Nguyễn Phát Lộc cho Cung Tài Bạch.\`
-        ];
-        break;
-      case 'QUAN LỘC':
-        bullets = [
-          \`Ngành nghề &amp; lĩnh vực đại vận giúp bạn đột phá công danh với thế đứng của <strong>[\${chinhTinhNames}]</strong>.\`,
-          \`Thời điểm vàng chuyển việc, thăng chức hoặc mở rộng quy mô kinh doanh trong 2 năm 2026 – 2027.\`,
-          \`Bí quyết chế ngự tiểu nhân ganh ghét và kích hoạt quý nhân nâng đỡ trên con đường thăng tiến.\`
-        ];
-        break;
-      case 'PHU THÊ':
-        bullets = [
-          \`Chân dung, tính cách &amp; nghề nghiệp của người bạn đời tiền định qua bộ sao <strong>[\${chinhTinhNames}]</strong>.\`,
-          \`Thời điểm kết hôn hoặc giai đoạn thử thách hôn nhân cần hóa giải để gia đạo hòa thuận bền lâu.\`,
-          \`Phương pháp hóa giải triệt để ảnh hưởng của <strong>[\${satTinhNames || 'Sát Tinh ngầm / Không Vong'}]</strong> để giữ trọn lửa ấm gia đình.\`
-        ];
-        break;
-      case 'ĐIỀN TRẠCH':
-        bullets = [
-          \`Quy mô và thời điểm tích lũy bất động sản lớn nhất trong đời theo thế đứng của <strong>[\${chinhTinhNames}]</strong>.\`,
-          \`Năm nào trong đại vận là thời điểm vàng để mua bán nhà đất không lo tranh chấp, sinh lời tối đa?\`,
-          \`Bí quyết phong thủy nhà ở kích hoạt cung Tài Lộc tương sinh với bản mệnh.\`
-        ];
-        break;
-      case 'THIÊN DI':
-        bullets = [
-          \`Vận số xuất ngoại, đi xa lập nghiệp: Cơ hội thăng tiến và đắc thời đắc vị ngoài xã hội.\`,
-          \`Phương vị xuất hành đại cát và các tháng cần cẩn trọng an toàn giao thông năm 2026.\`,
-          \`Cách biến môi trường xã hội bên ngoài thành bàn đạp làm giàu nhanh chóng.\`
-        ];
-        break;
-      case 'PHÚC ĐỨC':
-        bullets = [
-          \`Mức độ thụ hưởng phúc ấm tổ tiên và chiều sâu nội tâm theo bộ sao <strong>[\${chinhTinhNames}]</strong>.\`,
-          \`Nguồn năng lượng tâm linh và nghiệp lực dòng họ tác động đến hậu vận như thế nào?\`,
-          \`Phương pháp tu dưỡng tâm tính &amp; tích lũy âm đức giúp tiêu trừ vận hạn lớn.\`
-        ];
-        break;
-      case 'TỬ TỨC':
-        bullets = [
-          \`Số lượng, giới tính và đường công danh hiển đạt của con cái sau này theo <strong>[\${chinhTinhNames}]</strong>.\`,
-          \`Tính cách con cái và phương pháp giáo dục phù hợp để con thành tài, hiếu thuận.\`,
-          \`Hóa giải các hung tinh chiếu cung con cái để gia đạo bình an.\`
-        ];
-        break;
-      case 'TẬT ÁCH':
-        bullets = [
-          \`Bản đồ sức khỏe: Các cơ quan tạng phủ dễ suy yếu cần chú ý bảo dưỡng theo ngũ hành bản mệnh.\`,
-          \`Năm hạn và tháng âm lịch cần đề phòng tai nạn, bệnh tật bất ngờ trong đại vận.\`,
-          \`Pháp hóa giải huyết quang và cách ăn uống dưỡng sinh khoa học của cụ Nguyễn Phát Lộc.\`
-        ];
-        break;
-      default:
-        bullets = [
-          \`Toàn bộ ma trận Tam Phương Tứ Chính hội chiếu tương tác vào Cung <strong>\${cungName}</strong>.\`,
-          \`Dự báo cơ hội bứt phá và rủi ro tiềm ẩn trong chu kỳ 2 năm tới (2026 – 2027).\`,
-          \`Lời khuyên Cải Mệnh &amp; Hóa Giải sát tinh chi tiết từ các bậc tiền bối Tử Vi Lý Số.\`
-        ];
-    }
-
-    return {
-      cungName,
-      chinhTinhNames,
-      bullets
+  function normalizeStarName(name) {
+    if (!name) return '';
+    let clean = name.replace(/^L\\./i, '').trim().replace(/\\s+/g, ' ');
+    const lower = clean.toLowerCase();
+    const canonMap = {
+      'tả phù': 'Tả Phù', 'tả phụ': 'Tả Phù', 'ta phu': 'Tả Phù',
+      'hữu bật': 'Hữu Bật', 'huu bat': 'Hữu Bật',
+      'thiên khôi': 'Thiên Khôi', 'thien khoi': 'Thiên Khôi',
+      'thiên việt': 'Thiên Việt', 'thien viet': 'Thiên Việt',
+      'văn xương': 'Văn Xương', 'van xuong': 'Văn Xương',
+      'văn khúc': 'Văn Khúc', 'van khuc': 'Văn Khúc',
+      'lộc tồn': 'Lộc Tồn', 'loc ton': 'Lộc Tồn',
+      'thiên mã': 'Thiên Mã', 'thien ma': 'Thiên Mã',
+      'đào hoa': 'Đào Hoa', 'dao hoa': 'Đào Hoa',
+      'hồng loan': 'Hồng Loan', 'hong loan': 'Hồng Loan',
+      'thiên hỷ': 'Thiên Hỷ', 'thien hy': 'Thiên Hỷ',
+      'ân quang': 'Ân Quang', 'an quang': 'Ân Quang',
+      'thiên quý': 'Thiên Quý', 'thien quy': 'Thiên Quý',
+      'tam thai': 'Tam Thai',
+      'bát tọa': 'Bát Tọa', 'bat toa': 'Bát Tọa',
+      'long trì': 'Long Trì', 'long tri': 'Long Trì',
+      'phượng các': 'Phượng Các', 'phuong cac': 'Phượng Các',
+      'giải thần': 'Giải Thần', 'giai than': 'Giải Thần',
+      'thiên quan': 'Thiên Quan', 'thien quan': 'Thiên Quan',
+      'thiên phúc': 'Thiên Phúc', 'thien phuc': 'Thiên Phúc',
+      'hoa cái': 'Hoa Cái', 'hoa cai': 'Hoa Cái',
+      'quốc ấn': 'Quốc Ấn', 'quoc an': 'Quốc Ấn',
+      'đường phù': 'Đường Phù', 'duong phu': 'Đường Phù',
+      'thiên trù': 'Thiên Trù', 'thien tru': 'Thiên Trù',
+      'thai phụ': 'Thai Phụ', 'thai phu': 'Thai Phụ',
+      'phong cáo': 'Phong Cáo', 'phong cao': 'Phong Cáo',
+      'thiên y': 'Thiên Y',
+      'địa giải': 'Địa Giải', 'dia giai': 'Địa Giải',
+      'thiên giải': 'Thiên Giải', 'thien giải': 'Thiên Giải',
+      'văn tinh': 'Văn Tinh', 'van tinh': 'Văn Tinh',
+      'thiên tài': 'Thiên Tài', 'thien tai': 'Thiên Tài',
+      'thiên thọ': 'Thiên Thọ', 'thien tho': 'Thiên Thọ',
+      'bác sỹ': 'Bác Sỹ', 'bac sy': 'Bác Sỹ', 'bác sĩ': 'Bác Sỹ',
+      'lực sỹ': 'Lực Sỹ', 'luc sy': 'Lực Sỹ', 'lực sĩ': 'Lực Sỹ',
+      'thanh long': 'Thanh Long',
+      'tấu thư': 'Tấu Thư', 'tau thu': 'Tấu Thư',
+      'hỷ thần': 'Hỷ Thần', 'hy than': 'Hỷ Thần',
+      'thiếu dương': 'Thiếu Dương', 'thieu duong': 'Thiếu Dương',
+      'thiếu âm': 'Thiếu Âm', 'thieu am': 'Thiếu Âm',
+      'long đức': 'Long Đức', 'long duc': 'Long Đức',
+      'phúc đức': 'Phúc Đức', 'phuc duc': 'Phúc Đức',
+      'kình dương': 'Kình Dương', 'kinh duong': 'Kình Dương',
+      'đà la': 'Đà La', 'da la': 'Đà La',
+      'hỏa tinh': 'Hỏa Tinh', 'hoa tinh': 'Hỏa Tinh',
+      'linh tinh': 'Linh Tinh',
+      'địa không': 'Địa Không', 'dia khong': 'Địa Không',
+      'địa kiếp': 'Địa Kiếp', 'dia kiep': 'Địa Kiếp',
+      'thiên hình': 'Thiên Hình', 'thien hinh': 'Thiên Hình',
+      'thiên diêu': 'Thiên Diêu', 'thien dieu': 'Thiên Diêu',
+      'thiên khốc': 'Thiên Khốc', 'thien khoc': 'Thiên Khốc',
+      'thiên hư': 'Thiên Hư', 'thien hu': 'Thiên Hư',
+      'tang môn': 'Tang Môn', 'tang mon': 'Tang Môn',
+      'bạch hổ': 'Bạch Hổ', 'bach ho': 'Bạch Hổ',
+      'đại hao': 'Đại Hao', 'dai hao': 'Đại Hao',
+      'tiểu hao': 'Tiểu Hao', 'tieu hao': 'Tiểu Hao',
+      'cô thần': 'Cô Thần', 'co than': 'Cô Thần',
+      'quả tú': 'Quả Tú', 'qua tu': 'Quả Tú',
+      'kiếp sát': 'Kiếp Sát', 'kiep sat': 'Kiếp Sát',
+      'phá toái': 'Phá Toái', 'pha toai': 'Phá Toái',
+      'phi liêm': 'Phi Liêm', 'phi liem': 'Phi Liêm',
+      'phục binh': 'Phục Binh', 'phuc binh': 'Phục Binh',
+      'điếu khách': 'Điếu Khách', 'dieu khach': 'Điếu Khách',
+      'trực phù': 'Trực Phù', 'truc phu': 'Trực Phù',
+      'tử phù': 'Tử Phù', 'tu phu': 'Tử Phù',
+      'bệnh phù': 'Bệnh Phù', 'benh phu': 'Bệnh Phù',
+      'quan phù': 'Quan Phù', 'quan phu': 'Quan Phù',
+      'quan phủ': 'Quan Phủ',
+      'thái tuế': 'Thái Tuế', 'thai tue': 'Thái Tuế',
+      'tuế phá': 'Tuế Phá', 'tue pha': 'Tuế Phá',
+      'thiên không': 'Thiên Không', 'thien khong': 'Thiên Không',
+      'lưu hà': 'Lưu Hà', 'luu ha': 'Lưu Hà',
+      'thiên la': 'Thiên La',
+      'địa võng': 'Địa Võng', 'dia vong': 'Địa Võng',
+      'thiên thương': 'Thiên Thương', 'thien thuong': 'Thiên Thương',
+      'thiên sứ': 'Thiên Sứ', 'thien su': 'Thiên Sứ',
+      'đẩu quân': 'Đẩu Quân', 'dau quan': 'Đẩu Quân',
+      'tướng quân': 'Tướng Quân', 'tuong quan': 'Tướng Quân',
+      'hóa kỵ': 'Hóa Kỵ', 'hoa ky': 'Hóa Kỵ'
     };
+    return canonMap[lower] || clean;
   }
+
+  function normalizePalaceName(palace) {
+    if (!palace) return 'MỆNH';
+    let p = palace.replace(/<[^>]*>/g, '').trim().toUpperCase();
+    if (p.includes('MỆNH') || p.includes('MENH')) return 'MỆNH';
+    if (p.includes('PHỤ MẪU') || p.includes('PHU MAU')) return 'PHỤ MẪU';
+    if (p.includes('PHÚC') || p.includes('PHUC')) return 'PHÚC ĐỨC';
+    if (p.includes('ĐIỀN') || p.includes('DIEN')) return 'ĐIỀN TRẠCH';
+    if (p.includes('QUAN') || p.includes('SU NGHIEP')) return 'QUAN LỘC';
+    if (p.includes('NÔ') || p.includes('NO BOC') || p.includes('BAN BE')) return 'NÔ BỘC';
+    if (p.includes('DI') || p.includes('THIEN DI')) return 'THIÊN DI';
+    if (p.includes('TẬT') || p.includes('TAT ACH') || p.includes('SUC KHOE')) return 'TẬT ÁCH';
+    if (p.includes('TÀI') || p.includes('TAI BACH') || p.includes('TIEN BAC')) return 'TÀI BẠCH';
+    if (p.includes('TỬ') || p.includes('TU TUC') || p.includes('CON CAI')) return 'TỬ TỨC';
+    if (p.includes('PHU') || p.includes('PHU THE') || p.includes('HON NHAN')) return 'PHU THÊ';
+    if (p.includes('HUYNH') || p.includes('HUYNH DE') || p.includes('ANH EM')) return 'HUYNH ĐỆ';
+    return 'MỆNH';
+  }
+
+  function getPhuTinhPalaceMeaning(rawStarName, rawPalaceName, isSat, dacHam, isLuu) {
+    const starName = (rawStarName || '').trim();
+    const isLuuStar = isLuu || starName.startsWith('L.');
+    const cleanStar = normalizeStarName(starName);
+    const cleanPalace = normalizePalaceName(rawPalaceName);
+
+    // 1. Direct 12-palace lookup
+    let meaning = '';
+    if (PHU_TINH_PALACE_DICT[cleanStar] && PHU_TINH_PALACE_DICT[cleanStar][cleanPalace]) {
+      meaning = PHU_TINH_PALACE_DICT[cleanStar][cleanPalace];
+    } else if (PHU_TINH_ANALYST[cleanStar]) {
+      meaning = PHU_TINH_ANALYST[cleanStar];
+    }
+
+    // 2. If it is an annual transit (Lưu Tinh)
+    if (isLuuStar) {
+      const luuMeanings = {
+        'Lộc Tồn': {
+          'MỆNH': 'Lưu Lộc Tồn kích hoạt cơ hội tài chính bất ngờ trong năm hạn, đón nhận nhiều bổng lộc; song cẩn trọng Kình Đà lưu chiếu gây đố kỵ ngầm.',
+          'TÀI BẠCH': 'Năm nay kích hoạt đại lộc tài chính, có khoản thu nhập ngoài dự kiến, tiền bạc vào nhà như nước.',
+          'QUAN LỘC': 'Công danh trong năm khởi sắc mạnh mẽ, được giao phụ trách nguồn ngân sách lớn hoặc thăng chức tăng lương.',
+          'ĐIỀN TRẠCH': 'Năm nay thuận lợi mua sắm tài sản lớn, tân trang nhà đất hoặc sinh lời từ bất động sản.',
+          'PHU THÊ': 'Người phối ngẫu năm nay làm ăn phát tài, gia đạo có thêm nguồn tài chính dồi dào.'
+        },
+        'Kình Dương': {
+          'MỆNH': 'Lưu Kình Dương nhập Mệnh: năm nay tính khí dễ nóng nảy cương cường; đề phòng va chạm xe cộ, tai nạn thương tích hoặc phẫu thuật dao kéo.',
+          'TẬT ÁCH': 'Năm nay đề phòng tai nạn thương tích kim khí đổ máu hoặc phải can thiệp tiểu phẫu; cần hết sức cẩn thận khi lái xe.',
+          'PHU THÊ': 'Vợ chồng năm nay dễ xảy ra tranh cãi nảy lửa; cần học cách nhẫn nhịn để giữ hòa khí gia đình.'
+        },
+        'Đà La': {
+          'MỆNH': 'Lưu Đà La nhập Mệnh: năm nay mưu sự hay gặp cảnh dùng dằng, chậm trễ giấy tờ hoặc tiểu nhân ngấm ngầm cản trở; cần kiên nhẫn.',
+          'QUAN LỘC': 'Công việc trong năm hay bị đình trệ, vướng mắc thủ tục kéo dài; cần rà soát kỹ lưỡng hồ sơ pháp lý.'
+        },
+        'Tang Môn': {
+          'MỆNH': 'Lưu Tang Môn hội chiếu: trong năm tâm trạng hay trăn trở ưu tư; đề phòng trong gia đình dòng họ có người già đau ốm.',
+          'PHỤ MẪU': 'Năm nay cần đặc biệt chú ý quan tâm sức khỏe của cha mẹ song thân, chu đáo thuốc men thăm hỏi.'
+        },
+        'Bạch Hổ': {
+          'MỆNH': 'Lưu Bạch Hổ hội tụ: gia tăng quyết tâm và nghị lực vượt khó; song đề phòng tai nạn đổ máu, bệnh huyết áp hoặc thị phi khẩu thiệt.',
+          'TẬT ÁCH': 'Cẩn trọng tai nạn va chạm hoặc bệnh về máu huyết trong năm nay; nên đi hiến máu nhân đạo để giải bớt sát khí.'
+        },
+        'Thiên Mã': {
+          'MỆNH': 'Lưu Thiên Mã xung khởi: năm nay bôn ba di chuyển nhiều, có cơ hội xuất ngoại, công tác xa hoặc chuyển đổi môi trường thuận lợi.',
+          'QUAN LỘC': 'Công việc trong năm có sự thuyên chuyển, đi công tác xa nhiều hoặc mở rộng chi nhánh thị trường mới.'
+        },
+        'Thái Tuế': {
+          'MỆNH': 'Lưu Thái Tuế đáo Mệnh: một năm chuyển biến trọng đại, công danh và đời sống có nhiều bước ngoặt lớn; cần cẩn trọng lời ăn tiếng nói.',
+          'QUAN LỘC': 'Năm nay sự nghiệp đối mặt với sự thay đổi lớn hoặc thanh tra kiểm tra; làm việc minh bạch sẽ vươn lên đỉnh cao.'
+        }
+      };
+
+      if (luuMeanings[cleanStar] && luuMeanings[cleanStar][cleanPalace]) {
+        return \`<em>(Lưu niên hạn)</em> \${luuMeanings[cleanStar][cleanPalace]}\`;
+      } else if (meaning) {
+        return \`<em>(Lưu niên hội chiếu)</em> Trong năm hạn tác động mạnh đến cung \${cleanPalace}: \${meaning}\`;
+      }
+    }
+
+    if (dacHam && (dacHam === 'M' || dacHam === 'V' || dacHam === 'Đ')) {
+      if (isSat) {
+        return \`\${meaning} Đắc địa tại bản cung giúp biến hung thành dũng, rèn đúc ý chí kiên cường và khả năng bứt phá ngoạn mục.\`;
+      }
+    }
+
+    return meaning;
+  }
+
+  // Fallback general dictionary
+  const PHU_TINH_ANALYST = {
+    'Tả Phù': 'Có bề tôi trung thành, bạn bè đồng nghiệp hết lòng phò tá, tăng thêm sức mạnh tổ chức.',
+    'Hữu Bật': 'Có quý nhân âm thầm giúp đỡ, kết nối các mối quan hệ xã hội thuận buồm xuôi gió.',
+    'Thiên Khôi': 'Tọa Quý hướng Quý, gặp được bậc tiền bối, cấp trên có thẩm quyền nâng đỡ tận tình.',
+    'Thiên Việt': 'Khôi Việt xuất chúng, dễ nổi danh trong tập thể, luôn có lối thoát hiểm kỳ diệu khi khó khăn.',
+    'Văn Xương': 'Tài hoa văn chương, chữ nghĩa thanh thoát, bằng cấp sáng lạn, tư duy nhạy bén.',
+    'Văn Khúc': 'Tài nghệ cầm kỳ thi họa, khiếu thẩm mỹ tinh tế, giỏi giao tiếp và nắm bắt tâm lý người khác.',
+    'Lộc Tồn': 'Thiên lộc trời ban, của cải tích lũy vững vàng, có của ăn của để; song đi liền Kình Đà kẹp hai bên.',
+    'Thiên Mã': 'Nghị lực vươn lên mạnh mẽ, năng động, thích bôn ba xuất ngoại, phát tài trên đường thiên lý.',
+    'Đào Hoa': 'Duyên ngầm quyến rũ, nhiều người theo đuổi, tâm hồn trẻ trung, thành công nhờ nhân duyên.',
+    'Hồng Loan': 'Duyên phận tốt đẹp, cuộc đời có nhiều niềm vui tao nhã, vợ chồng tương kính như tân.',
+    'Thiên Hỷ': 'Niềm vui rạng rỡ, hỷ tín liên miên, tính tình vui tươi xua tan u ám.',
+    'Ân Quang': 'Được thần linh và tổ tiên che chở, tính tình nhân hậu, luôn biết ơn và đền đáp.',
+    'Thiên Quý': 'Lòng dạ thánh thiện, có quý nhân vô hình phù hộ những lúc ngặt nghèo nhất.',
+    'Tam Thai': 'Phong thái ung dung đĩnh đạc, danh tiếng lan tỏa nhẹ nhàng, cuộc sống an nhiên.',
+    'Bát Tọa': 'Nền tảng vững chắc, có người hầu kẻ hạ, vị trí xã hội ổn định.',
+    'Long Trì': 'Nhan sắc thanh tú, nhà cửa phong thủy đắc địa, tai thính mũi nhạy.',
+    'Phượng Các': 'Văn phong cao nhã, tiếng thơm bay xa, thông minh lễ độ.',
+    'Hoa Cái': 'Khí chất kiêu sa, có khiếu nghệ thuật tâm linh, phong cách quý phái.',
+    'Quốc Ấn': 'Nắm giữ con dấu, quyền ký duyệt, văn bằng chứng nhận uy tín trong chức vụ.',
+    'Thiên Phúc': 'Phúc đức tổ phụ, tính tình hiền lành, tai ương tiêu trừ.',
+    'Thiên Quan': 'Tấm lòng bồ tát, hay làm việc phúc thiện, giảm trừ tà khí sát tinh.',
+    'Kình Dương': 'Thanh kiếm sắc nhọn: tính tình cương liệt, táo bạo nhưng dễ gây hình thương đao kiếm, phẫu thuật, va chạm xung đột.',
+    'Đà La': 'Mũi khoan ngầm: sự trắc trở dây dưa, âm mưu đố kỵ ngầm, bệnh mãn tính khó dứt điểm.',
+    'Địa Không': 'Lỗ đen vũ trụ: bạo phát bạo tàn, ảo mộng vô thường, phá tan tiền tài nếu tham lam; song khai mở tư duy dị biệt vượt thời đại.',
+    'Địa Kiếp': 'Cơn sóng thần: biến động khôn lường, tai ách bất ngờ, thị trường sụp đổ hoặc tiểu nhân đâm lén sau lưng.',
+    'Hỏa Tinh': 'Ngọn lửa cuồng nộ: nóng nảy bốc đồng, biến cố phát sinh chớp nhoáng, hỏa hoạn bỏng rát.',
+    'Linh Tinh': 'Tiếng sét trong đêm: ưu sầu lo lắng ngầm, thù dai, thần kinh căng thẳng hoặc bệnh tật về gân cốt.',
+    'Thiên Hình': 'Thanh đao công lý: nghiêm khắc kỷ luật, cẩn trọng pháp luật kiện tụng hoặc vết tích thương tật trên người.',
+    'Bạch Hổ': 'Hổ trắng uy phong: nghị lực phi thường gánh vác trách nhiệm; song chủ về máu huyết, tai nạn, ưu tư.',
+    'Tang Môn': 'Nỗi sầu muộn: trong lòng hay lo nghĩ xa xôi, tang tóc ưu phiền trong dòng họ.',
+    'Cô Thần': 'Sự cô độc, khó trải lòng với người khác, thích một mình suy ngẫm.',
+    'Quả Tú': 'Khép kín tâm tư, duyên phận muộn màng, tự tay xây đắp giang sơn.',
+    'Đại Hao': 'Đại lộ tiêu tài: tiền của luân chuyển rất lớn, đầu tư mạo hiểm hoặc chi tiêu hào phóng không tiếc tay.',
+    'Tiểu Hao': 'Hao tán nhỏ giọt: hay mất mát vặt, mua sắm lặt vặt tốn kém.',
+    'Thiên Khốc': 'Tiếng khóc oan khiên: nội tâm nhiều trăn trở cay đắng thuở thiếu thời.',
+    'Thiên Hư': 'Hư danh hao tổn: sức khỏe yếu về phổi, khí hư, hay lo âu hão huyền.',
+    'Kiếp Sát': 'Sát khí phục kích: đề phòng thương tích tay chân, mất cắp hoặc tiểu nhân mưu toan.',
+    'Phục Binh': 'Kẻ mai phục sau lưng: cẩn trọng khẩu thiệt đâm thọc, lừa gạt hợp đồng.',
+    'Điếu Khách': 'Thích ngao du nói chuyện, cẩn trọng cờ bạc cá cược hoặc chi tiêu quá đà.'
+  };
 `;
 
-// Insert injection right before "  // 6. XUẤT RA TOÀN BỘ API"
-const targetStr = "  // 6. XUẤT RA TOÀN BỘ API";
-if (code.includes(targetStr)) {
-  code = code.replace(targetStr, injection + "\n" + targetStr);
-} else {
-  console.error("Target string not found!");
+// Replace in content
+const targetRegex = /\/\/ 3\. KHO PHÂN TÍCH CHI TIẾT TỪNG PHỤ TINH[\s\S]*?const PHU_TINH_ANALYST = \{[\s\S]*?\};\n/;
+
+if (!targetRegex.test(content)) {
+  console.error("Target regex NOT matched in content!");
   process.exit(1);
 }
 
-// Update export block
-const exportOld = "global.TuViLuanGiaiEngine = {\n    generatePalaceDeepAnalysis: generatePalaceDeepAnalysis,";
-const exportNew = "global.TuViLuanGiaiEngine = {\n    generatePalaceDeepAnalysis: generatePalaceDeepAnalysis,\n    generateFreePsychologicalTeaserHtml: generateFreePsychologicalTeaserHtml,\n    generatePalaceCliffhangerTeaser: generatePalaceCliffhangerTeaser,";
+content = content.replace(targetRegex, replacementBlock);
 
-code = code.replace(exportOld, exportNew);
+// Now update the loop calls in section 4 & 5
+const oldCatLoop = `      cung.phuTinhLeft.forEach(pt => {
+        const desc = PHU_TINH_ANALYST[pt.name] || 'Gia tăng may mắn, hỗ trợ bản cung phát triển thuận lợi.';
+        catTinhDetailHtml += \`<li><strong style="color: #D4AF37;">\${pt.name}:</strong> \${desc}</li>\`;
+      });`;
 
-fs.writeFileSync('js/tuvi-luan-giai.js', code, 'utf8');
-fs.writeFileSync('public/js/tuvi-luan-giai.js', code, 'utf8');
-console.log('Successfully updated js/tuvi-luan-giai.js and public/js/tuvi-luan-giai.js!');
+const newCatLoop = `      cung.phuTinhLeft.forEach(pt => {
+        const desc = getPhuTinhPalaceMeaning(pt.name, cungName, false, pt.dacHam, pt.isLuu);
+        catTinhDetailHtml += \`<li><strong style="color: #D4AF37;">\${pt.name}:</strong> \${desc}</li>\`;
+      });`;
 
+const oldSatLoop = `      cung.phuTinhRight.forEach(pt => {
+        const desc = PHU_TINH_ANALYST[pt.name] || 'Mang theo chông gai, đòi hỏi ý chí kiên định vượt qua.';
+        satTinhDetailHtml += \`<li><strong style="color: #FCA5A5;">\${pt.name}:</strong> \${desc}</li>\`;
+      });`;
+
+const newSatLoop = `      cung.phuTinhRight.forEach(pt => {
+        const desc = getPhuTinhPalaceMeaning(pt.name, cungName, true, pt.dacHam, pt.isLuu);
+        satTinhDetailHtml += \`<li><strong style="color: #FCA5A5;">\${pt.name}:</strong> \${desc}</li>\`;
+      });`;
+
+content = content.replace(oldCatLoop, newCatLoop);
+content = content.replace(oldSatLoop, newSatLoop);
+
+// Also expose PHU_TINH_PALACE_DICT and getPhuTinhPalaceMeaning in engine export
+content = content.replace(
+  `PHU_TINH_ANALYST: PHU_TINH_ANALYST,`,
+  `PHU_TINH_ANALYST: PHU_TINH_ANALYST,\n    PHU_TINH_PALACE_DICT: PHU_TINH_PALACE_DICT,\n    getPhuTinhPalaceMeaning: getPhuTinhPalaceMeaning,`
+);
+
+fs.writeFileSync('js/tuvi-luan-giai.js', content, 'utf8');
+fs.writeFileSync('public/js/tuvi-luan-giai.js', content, 'utf8');
+console.log("Successfully updated js/tuvi-luan-giai.js and public/js/tuvi-luan-giai.js!");

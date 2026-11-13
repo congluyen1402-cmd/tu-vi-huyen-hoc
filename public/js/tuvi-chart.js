@@ -1044,6 +1044,8 @@ const TuViChart = {
           <div class="sheet-free-analysis">
             ${deepAnalysis.cachCucHtml ? `<div class="sheet-analysis-block">${deepAnalysis.cachCucHtml}</div>` : ''}
             ${deepAnalysis.chinhTinhDetailHtml ? `<div class="sheet-analysis-block">${deepAnalysis.chinhTinhDetailHtml}</div>` : ''}
+            ${deepAnalysis.catTinhDetailHtml ? `<div class="sheet-analysis-block">${deepAnalysis.catTinhDetailHtml}</div>` : ''}
+            ${deepAnalysis.satTinhDetailHtml ? `<div class="sheet-analysis-block">${deepAnalysis.satTinhDetailHtml}</div>` : ''}
             ${deepAnalysis.loiKhuyenHtml ? `<div class="sheet-analysis-block sheet-advice-box">${deepAnalysis.loiKhuyenHtml}</div>` : ''}
           </div>
         `;
