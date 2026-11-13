@@ -1354,6 +1354,12 @@ a:hover {
   background: rgba(143, 107, 0, 0.4);
 }
 
+#ket-qua,
+#la-so-chart,
+.la-so-paper-container {
+  scroll-margin-top: 95px !important;
+}
+
 /* Individual Palace Cell */
 .cung-classical-cell {
   min-width: 0;
@@ -1429,10 +1435,31 @@ a:hover {
 }
 
 .cung-can-chi {
+  display: inline-flex;
+  align-items: center;
   font-weight: 700;
   color: #222222;
   font-size: clamp(8px, 2vw, 12px);
   font-size: clamp(8px, 2cqw, 12px);
+}
+
+.cung-fixed-chi-badge {
+  display: inline-block;
+  font-weight: 800;
+  color: #1C172B;
+  background: rgba(143, 107, 0, 0.12);
+  border: 1px solid rgba(143, 107, 0, 0.28);
+  padding: 0 4px;
+  border-radius: 3px;
+  font-size: 1.05em;
+  line-height: 1.2;
+}
+
+.cung-can-dot {
+  font-size: 0.9em;
+  color: #64748b;
+  font-weight: 600;
+  margin-left: 1px;
 }
 
 .cung-main-title {
@@ -1581,6 +1608,19 @@ a:hover {
   color: #475569;
   font-size: clamp(7.5px, 2vw, 11px);
   font-size: clamp(7.5px, 2cqw, 11px);
+}
+
+.cung-tieu-han-wrap {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+}
+
+.cung-tieu-han-prefix {
+  font-size: 0.76em;
+  opacity: 0.72;
+  font-weight: 500;
+  color: #64748b;
 }
 
 .cung-chi-label {

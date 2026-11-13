@@ -809,12 +809,14 @@ const TuViChart = {
         
         <!-- Header Cung -->
         <div class="cung-top-bar cung-header">
-          <span class="cung-can-chi">${cung.canShort}.${cung.chi}</span>
+          <span class="cung-can-chi" title="Cung ${cung.chi} (Thiên Can ${cung.can})">
+            <span class="cung-fixed-chi-badge">${cung.chi}</span><span class="cung-can-dot">.${cung.canShort}</span>
+          </span>
           <span class="cung-main-title" style="color: ${titleColor};">
             ${palaceTitle}
             ${isLocked ? '<span class="cell-lock-icon" title="Cung bị khóa"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>' : ''}
           </span>
-          <span class="cung-dai-han-num">${cung.daiHan ? cung.daiHan.num : ''}</span>
+          <span class="cung-dai-han-num" title="Khởi Đại Hạn">${cung.daiHan ? cung.daiHan.num : ''}</span>
         </div>
 
         <!-- Khối Chính Tinh ở GIỮA -->
@@ -833,9 +835,11 @@ const TuViChart = {
 
         <!-- Footer Cung -->
         <div class="cung-bottom-bar">
-          <span class="cung-chi-label" title="Tiểu Hạn">${cung.tieuHan || cung.chi}</span>
-          <span class="cung-trang-sinh">${cung.trangSinh || ''}</span>
-          <span class="cung-thang-han" title="Tháng Hạn">${cung.thangHan || ''}</span>
+          <span class="cung-tieu-han-wrap" title="Lưu Tiểu Hạn năm ${laSo.viewYear || 2026}: ${cung.tieuHan || cung.chi}">
+            <span class="cung-tieu-han-prefix">Hạn</span><b class="cung-chi-label">${cung.tieuHan || cung.chi}</b>
+          </span>
+          <span class="cung-trang-sinh" title="Vòng Tràng Sinh">${cung.trangSinh || ''}</span>
+          <span class="cung-thang-han" title="Nguyệt Hạn (Tháng ${cung.thangHan ? cung.thangHan.replace('Th.', '') : ''} Âm Lịch)">${cung.thangHan || ''}</span>
         </div>
       </div>
     `;

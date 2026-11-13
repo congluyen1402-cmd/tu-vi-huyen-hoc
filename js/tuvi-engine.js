@@ -545,6 +545,17 @@
       hoTen = opt.hoTen || '';
       thang = opt.thang || opt.thangSinh;
       nam = opt.nam || opt.namSinh;
+      var rawG = opt.gioIndex !== undefined ? opt.gioIndex : (opt.gio !== undefined ? opt.gio : opt.gioSinh);
+      if (rawG !== undefined && typeof rawG === 'string' && rawG.includes(':')) {
+        var parts = rawG.split(':');
+        opt.gio = parseInt(parts[0], 10);
+        opt.phut = parseInt(parts[1], 10);
+      } else if (rawG !== undefined && typeof rawG === 'number' && !Number.isInteger(rawG)) {
+        opt.gio = Math.floor(rawG);
+        opt.phut = Math.round((rawG - Math.floor(rawG)) * 60);
+      } else if (opt.gio === undefined && rawG !== undefined) {
+        opt.gio = parseInt(rawG, 10);
+      }
       gioIndex = opt.gioIndex !== undefined ? opt.gioIndex : (opt.gio !== undefined ? (opt.gio === 23 || opt.gio === 0 ? 0 : Math.floor((parseInt(opt.gio, 10) + 1) / 2)) : 0);
       gioiTinh = opt.gioiTinh || 'nam';
       isLunar = (opt.isLunar === true || opt.loaiLich === 'am');

@@ -870,7 +870,10 @@
 
               const resultEl = document.getElementById('ket-qua');
               if (resultEl) {
-                resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                const navHeight = 90;
+                const rect = resultEl.getBoundingClientRect();
+                const targetY = window.pageYOffset + rect.top - navHeight;
+                window.scrollTo({ top: Math.max(0, targetY), behavior: 'smooth' });
               }
 
               if (window.TuViTracker && window.TuViTracker.track) {
