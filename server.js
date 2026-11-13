@@ -1944,6 +1944,13 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
+  // Google Site Verification File
+  if (pathname.includes('google9f78d3cac1ee8064.html') || /^\/google[a-zA-Z0-9]+\.html$/.test(pathname)) {
+    const filename = path.basename(pathname);
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    return res.end(`google-site-verification: ${filename}`);
+  }
+
   // Dynamic Sitemap: GET /sitemap.xml
   if (pathname === '/sitemap.xml' || (parsedUrl.query && parsedUrl.query.render_sitemap === 'true')) {
     posts = readJsonFile(POSTS_FILE, []);

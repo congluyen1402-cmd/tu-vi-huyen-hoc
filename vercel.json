@@ -31,6 +31,10 @@
   ],
   "rewrites": [
     {
+      "source": "/(.*)google9f78d3cac1ee8064.html",
+      "destination": "/google9f78d3cac1ee8064.html"
+    },
+    {
       "source": "/blog/:slug",
       "destination": "/api?blog_slug=:slug"
     },
