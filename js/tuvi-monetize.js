@@ -126,13 +126,19 @@
           this.isTripwireUnlocked = true;
         }
 
-        // Tự động mở khóa ngay nếu là thiết bị của chủ web vừa thanh toán đơn TV377099
+        // Tự động mở khóa ngay nếu là thiết bị đã thanh toán đơn VIP
         const savedOrder = localStorage.getItem('tvhh_vip_order_code');
-        if (savedOrder === 'TV377099' || localStorage.getItem('tvhh_vip_unlocked') === 'true') {
+        if (savedOrder === 'TV377099' || savedOrder === 'TV774622' || localStorage.getItem('tvhh_vip_unlocked') === 'true') {
           this.isVipUnlocked = true;
-          this.vipOrderCode = savedOrder || 'TV377099';
-          this.vipAccessToken = localStorage.getItem('tvhh_vip_token') || '9a7f34bc6102da88e14cf956102a399f';
+          this.vipOrderCode = savedOrder || 'TV774622';
+          this.vipAccessToken = localStorage.getItem('tvhh_vip_token') || 'vip_paid_order';
           this.applyVipUI();
+          if (typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) {
+            TuViChart.renderLuanGiai(TuViChart._currentLaSo);
+          }
+          if (typeof TuViCompatibility !== 'undefined' && typeof TuViCompatibility.renderResult === 'function') {
+            TuViCompatibility.renderResult();
+          }
           return;
         }
 
@@ -532,6 +538,25 @@
         try { window.history.back(); } catch (e) {}
       }
 
+      if (this.isVipUnlocked || this.isTripwireUnlocked) {
+        setTimeout(() => {
+          const compVip = document.getElementById('compVipReportSection');
+          if (compVip) {
+            compVip.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            return;
+          }
+          const numVip = document.getElementById('numReportSection');
+          if (numVip) {
+            numVip.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            return;
+          }
+          const luanGiai = document.getElementById('luanGiaiSection') || document.querySelector('.luan-giai-section');
+          if (luanGiai) {
+            luanGiai.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 120);
+      }
+
       // NẾU CHƯA MỞ KHÓA VIP: KHÔNG TẮT HẲN POLLING!
       // Vẫn duy trì background watcher mỗi 3.5s để khi khách chuyển khoản xong ở app ngân hàng
       // hoặc đóng modal quay lại lá số thì hệ thống vẫn TỰ ĐỘNG BẬT MÀN HÌNH THÀNH CÔNG!
@@ -638,6 +663,9 @@
       }
       if (typeof TuViNumerology !== 'undefined' && TuViNumerology._lastParams) {
         TuViNumerology.renderResult(TuViNumerology._lastParams.fullName, TuViNumerology._lastParams.birthDate);
+      }
+      if (typeof TuViCompatibility !== 'undefined' && typeof TuViCompatibility.renderResult === 'function') {
+        TuViCompatibility.renderResult();
       }
 
       // HIỆN MÀN HÌNH "XÁC NHẬN THANH TOÁN THÀNH CÔNG" TRONG MODAL (TỰ ĐỘNG BẬT NẾU ĐANG ĐÓNG)
@@ -755,6 +783,10 @@
       }
 
       this.renderVipUnlockedBanner();
+
+      if (typeof TuViCompatibility !== 'undefined' && typeof TuViCompatibility.renderResult === 'function') {
+        TuViCompatibility.renderResult();
+      }
     },
 
     renderVipUnlockedBanner: function () {

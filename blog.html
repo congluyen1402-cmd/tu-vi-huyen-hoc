@@ -808,11 +808,11 @@
       display: inline-flex !important;
       align-items: center !important;
       gap: 8px !important;
-      background: rgba(255, 255, 255, 0.08) !important;
-      border: 1px solid rgba(194, 155, 56, 0.45) !important;
+      background: #2A2118 !important;
+      border: 1px solid #C29B38 !important;
       border-radius: 8px !important;
       padding: 0.55rem 1.15rem !important;
-      color: #D9CEB8 !important;
+      color: #FAF6ED !important;
       font-size: 0.92rem !important;
       margin: 0 !important;
     }
@@ -1519,13 +1519,13 @@
       }
 
       grid.innerHTML = posts.map(p => {
-        const imgUrl = p.image || '/img/og-image.jpg';
+        const imgUrl = p.image || '/images/og-image.jpg';
         const dateStr = p.publishedAt || '2026-01-01';
         const authorStr = p.author || 'Đại Sư Nam Phái';
         return `
           <article class="post-card">
             <a href="/blog/${p.slug}" class="post-card-thumb-link">
-              <img src="${imgUrl}" alt="${p.title}" class="post-card-thumb" loading="lazy" onerror="this.src='/img/og-image.jpg'">
+              <img src="${imgUrl}" alt="${p.title}" class="post-card-thumb" loading="lazy" onerror="this.onerror=null; this.src='/images/og-image.jpg';">
               <span class="post-card-badge-floating">${p.category || 'Tử Vi'}</span>
             </a>
             <div class="post-card-body">
