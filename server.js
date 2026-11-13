@@ -38,11 +38,28 @@ if (!fs.existsSync(DATA_DIR)) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
 }
 
+// Thư mục dữ liệu tạm trên Vercel Serverless (khi file system gốc bị Read-Only)
+const os = require('os');
+const TMP_DIR = path.join(os.tmpdir(), 'tuvi_data');
+try { if (!fs.existsSync(TMP_DIR)) fs.mkdirSync(TMP_DIR, { recursive: true }); } catch (e) {}
+
 /**
- * Đọc file JSON an toàn
+ * Đọc file JSON an toàn (hỗ trợ đọc từ /tmp nếu chạy trên Vercel Serverless)
  */
 function readJsonFile(filePath, defaultValue) {
   try {
+    const baseName = path.basename(filePath);
+    const tmpFilePath = path.join(TMP_DIR, baseName);
+    if (fs.existsSync(tmpFilePath)) {
+      try {
+        const tmpStats = fs.statSync(tmpFilePath);
+        const origStats = fs.existsSync(filePath) ? fs.statSync(filePath) : null;
+        if (!origStats || tmpStats.mtimeMs >= origStats.mtimeMs) {
+          const data = fs.readFileSync(tmpFilePath, 'utf8');
+          return JSON.parse(data);
+        }
+      } catch (e) {}
+    }
     if (fs.existsSync(filePath)) {
       const data = fs.readFileSync(filePath, 'utf8');
       return JSON.parse(data);
@@ -54,16 +71,32 @@ function readJsonFile(filePath, defaultValue) {
 }
 
 /**
- * Ghi file JSON theo cơ chế Atomic Write (.tmp -> renameSync) chống hỏng dữ liệu khi mất điện/crash
+ * Ghi file JSON theo cơ chế Atomic Write, tự động fallback sang /tmp trên Vercel
  */
 function writeJsonFile(filePath, data) {
+  const jsonStr = JSON.stringify(data, null, 2);
+  let written = false;
+
+  // 1. Thử ghi vào thư mục dữ liệu chính
   try {
     const tmpPath = `${filePath}.tmp.${Date.now()}_${Math.floor(Math.random() * 10000)}`;
-    fs.writeFileSync(tmpPath, JSON.stringify(data, null, 2), 'utf8');
+    fs.writeFileSync(tmpPath, jsonStr, 'utf8');
     fs.renameSync(tmpPath, filePath);
+    written = true;
   } catch (err) {
-    console.error(`Error atomic-writing ${filePath}:`, err);
+    // Không log lỗi nếu chạy trên môi trường Read-Only Vercel
   }
+
+  // 2. Luôn ghi dự phòng vào TMP_DIR để lưu trạng thái phiên serverless
+  try {
+    const baseName = path.basename(filePath);
+    const tmpFilePath = path.join(TMP_DIR, baseName);
+    fs.writeFileSync(tmpFilePath, jsonStr, 'utf8');
+    written = true;
+  } catch (err) {
+    console.error(`Error fallback-writing ${filePath}:`, err);
+  }
+  return written;
 }
 
 // Khởi tạo các file dữ liệu nếu chưa có
@@ -230,6 +263,93 @@ async function checkSePayForOrder(order) {
 }
 
 /**
+ * Tự động đồng bộ toàn bộ giao dịch từ SePay API vào cơ sở dữ liệu đơn hàng
+ */
+async function syncOrdersWithSePay() {
+  try {
+    const sepayData = await fetchSePayTransactions(100);
+    const txList = (sepayData && (sepayData.transactions || sepayData.messages)) || [];
+    if (!Array.isArray(txList) || txList.length === 0) return 0;
+
+    orders = readJsonFile(ORDERS_FILE, orders);
+    analytics = readJsonFile(ANALYTICS_FILE, analytics);
+    lasoLogs = readJsonFile(LASO_LOGS_FILE, lasoLogs);
+    let updatedCount = 0;
+
+    for (const tx of txList) {
+      const rawContent = String(tx.transaction_content || tx.content || tx.description || '').toUpperCase();
+      const cleanContent = rawContent.replace(/[\s.\-_]/g, '');
+      const amountIn = Number(tx.amount_in || tx.transferAmount || tx.amount || 0);
+      if (amountIn < 2000) continue;
+
+      // Tìm mã đơn TV... trong nội dung chuyển khoản
+      let matchedCode = null;
+      const codeMatch = cleanContent.match(/TV\d{5,8}/) || rawContent.match(/SEVQR\s*(\d{5,8})/i) || cleanContent.match(/SEVQR(\d{5,8})/);
+      if (codeMatch) {
+        matchedCode = codeMatch[0].startsWith('TV') ? codeMatch[0] : ('TV' + (codeMatch[1] || codeMatch[0]));
+      }
+
+      // Kiểm tra đơn hàng đã tồn tại chưa
+      let order = orders.find(o => {
+        if (!o.orderCode) return false;
+        const cleanCode = String(o.orderCode).replace(/[\s.\-_]/g, '').toUpperCase();
+        const digits = cleanCode.replace(/^TV/, '');
+        return cleanContent.includes(cleanCode) || (digits.length >= 5 && cleanContent.includes(digits)) || (o.transactionId && String(o.transactionId) === String(tx.id));
+      });
+
+      if (order) {
+        if (order.status !== 'PAID' || !order.transactionId) {
+          order.status = 'PAID';
+          order.paidAt = tx.transaction_date || order.paidAt || new Date().toISOString();
+          order.paymentSource = 'SEPAY_AUTO_SYNC';
+          order.transactionId = String(tx.id);
+          order.amount = amountIn;
+          order.vipAccessToken = order.vipAccessToken || order.orderCode;
+          updatedCount++;
+        }
+      } else if (matchedCode) {
+        // Tự động tạo mới đơn hàng PAID từ giao dịch ngân hàng
+        const pkgId = amountIn >= 150000 ? 'vip_199k' : (amountIn >= 80000 ? 'combo_99k' : (amountIn >= 40000 ? 'vip_49k' : (amountIn >= 35000 ? 'vip_39k' : 'vip_29k')));
+        const pkgName = pkgId === 'vip_199k' ? 'Gói Luận Sâu Đại Vận & Cải Mệnh Chuyên Sâu (199.000đ)' :
+          (pkgId === 'combo_99k' ? 'Combo Huyền Học Toàn Diện (Tử Vi + Thần Số + Bát Tự) (99.000đ)' :
+          (pkgId === 'vip_49k' ? 'Báo Cáo Tử Vi VIP A4 Toàn Thư (49.000đ)' :
+          (pkgId === 'vip_39k' ? 'Gói Thần Số Học VIP Toàn Thư A4 (39.000đ)' : 'Gói Mở Khóa Nhanh 3 Cung Trọng Tâm (29.000đ)')));
+
+        const newOrder = {
+          orderCode: matchedCode,
+          customerName: rawContent.includes('TRAN CONG LUYEN') ? 'Trần Công Luyện' : 'Khách Chuyển Khoản VietinBank',
+          customerPhone: '108884822302',
+          packageId: pkgId,
+          packageName: pkgName,
+          amount: amountIn,
+          status: 'PAID',
+          paymentSource: 'SEPAY_AUTO_SYNC',
+          vipAccessToken: matchedCode,
+          createdAt: tx.transaction_date ? new Date(tx.transaction_date).toISOString() : new Date().toISOString(),
+          paidAt: tx.transaction_date ? new Date(tx.transaction_date).toISOString() : new Date().toISOString(),
+          note: `Đồng bộ từ SePay VietinBank: ${tx.transaction_content}`,
+          transactionId: String(tx.id),
+          referenceNumber: tx.reference_number || ''
+        };
+        orders.unshift(newOrder);
+        updatedCount++;
+      }
+    }
+
+    if (updatedCount > 0) {
+      writeJsonFile(ORDERS_FILE, orders);
+      const paidList = orders.filter(o => o.status === 'PAID');
+      analytics.summary.totalPaidOrders = paidList.length;
+      writeJsonFile(ANALYTICS_FILE, analytics);
+    }
+    return updatedCount;
+  } catch (err) {
+    console.error('syncOrdersWithSePay error:', err);
+    return 0;
+  }
+}
+
+/**
  * Header bảo mật HTTP chuẩn Production
  */
 const HTTP_SECURITY_HEADERS = {
@@ -300,8 +420,18 @@ function isAutomatedTestReq(req, payload) {
   return Boolean(testHeader || isHeadless || isTestName);
 }
 
-// Phân tích Body JSON từ request
+// Phân tích Body JSON từ request (hỗ trợ cả Stream Node.js và Body đã parse từ Vercel/Connect)
 function parseJsonBody(req) {
+  if (req.body !== undefined && req.body !== null) {
+    if (typeof req.body === 'object') return Promise.resolve(req.body);
+    if (typeof req.body === 'string' && req.body.length > 0) {
+      try {
+        return Promise.resolve(JSON.parse(req.body));
+      } catch (err) {
+        return Promise.resolve({});
+      }
+    }
+  }
   return new Promise((resolve, reject) => {
     let body = '';
     req.on('data', chunk => {
@@ -316,6 +446,9 @@ function parseJsonBody(req) {
       } catch (err) {
         reject(err);
       }
+    });
+    req.on('error', (err) => {
+      reject(err);
     });
   });
 }
@@ -367,7 +500,7 @@ const MIME_TYPES = {
 const server = http.createServer(async (req, res) => {
   const parsedUrl = url.parse(req.url, true);
   const pathname = parsedUrl.pathname;
-  const clientIp = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || req.socket.remoteAddress || '127.0.0.1';
+  const clientIp = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || (req.socket && req.socket.remoteAddress) || req.ip || '127.0.0.1';
 
   // Xử lý CORS preflight
   if (req.method === 'OPTIONS') {
@@ -675,18 +808,21 @@ const server = http.createServer(async (req, res) => {
       const cleanContent = rawContent.replace(/[\s.\-_]/g, '');
       const inAmount = parseFloat(body.transferAmount || body.amount_in || body.amount || 0);
 
+      orders = readJsonFile(ORDERS_FILE, orders);
+
       const orderMatch = orders.find(o => {
         const cleanCode = String(o.orderCode || '').replace(/[\s.\-_]/g, '').toUpperCase();
         const digitsOnly = cleanCode.replace(/^TV/, '');
-        return cleanContent.includes(cleanCode) || (digitsOnly.length >= 6 && cleanContent.includes(digitsOnly));
+        return cleanContent.includes(cleanCode) || (digitsOnly.length >= 5 && cleanContent.includes(digitsOnly));
       });
 
       if (orderMatch) {
         orderMatch.status = 'PAID';
         orderMatch.paidAt = new Date().toISOString();
         orderMatch.paymentSource = 'SEPAY_WEBHOOK';
-        orderMatch.transactionId = body.id || body.referenceCode;
+        orderMatch.transactionId = String(body.id || body.referenceCode || Date.now());
         if (inAmount > 0) orderMatch.amount = inAmount;
+        orderMatch.vipAccessToken = orderMatch.vipAccessToken || orderMatch.orderCode;
         writeJsonFile(ORDERS_FILE, orders);
 
         if (orderMatch.userId) {
@@ -698,9 +834,11 @@ const server = http.createServer(async (req, res) => {
           }
         }
 
-        analytics.summary.totalPaidOrders = (analytics.summary.totalPaidOrders || 0) + 1;
+        analytics = readJsonFile(ANALYTICS_FILE, analytics);
+        const paidOrdersList = orders.filter(o => o.status === 'PAID');
+        analytics.summary.totalPaidOrders = paidOrdersList.length;
         if (!Array.isArray(analytics.events)) analytics.events = [];
-        analytics.events.push({
+        analytics.events.unshift({
           type: 'payment_success',
           orderCode: orderMatch.orderCode,
           amount: orderMatch.amount,
@@ -709,39 +847,65 @@ const server = http.createServer(async (req, res) => {
         });
         writeJsonFile(ANALYTICS_FILE, analytics);
 
+        // Cập nhật lasoLogs
+        lasoLogs = readJsonFile(LASO_LOGS_FILE, []);
+        const matchedLog = lasoLogs.find(l => (orderMatch.visitorId && l.visitorId === orderMatch.visitorId) || (l.hoTen && l.hoTen === orderMatch.customerName));
+        if (matchedLog) {
+          matchedLog.hasOpenedQr = true;
+          matchedLog.isPaid = true;
+          writeJsonFile(LASO_LOGS_FILE, lasoLogs);
+        }
+
         return sendJson(res, 200, { success: true, message: 'Đã cập nhật đơn hàng thành công' });
       }
 
       // Nếu webhook đến nhưng mã đơn chưa có trong orders, tự động khởi tạo đơn và ghi nhận PAID
-      const matchedCodeMatch = cleanContent.match(/TV\d{6}/);
+      const matchedCodeMatch = cleanContent.match(/TV\d{5,8}/) || cleanContent.match(/SEVQR\s*(\d{5,8})/i) || cleanContent.match(/SEVQR(\d{5,8})/);
       if (matchedCodeMatch && inAmount >= 2000) {
-        const newCode = matchedCodeMatch[0];
+        const rawCode = matchedCodeMatch[0].toUpperCase();
+        const newCode = rawCode.startsWith('TV') ? rawCode : ('TV' + (matchedCodeMatch[1] || rawCode));
+        const pkgId = inAmount >= 150000 ? 'vip_199k' : (inAmount >= 80000 ? 'combo_99k' : (inAmount >= 40000 ? 'vip_49k' : (inAmount >= 35000 ? 'vip_39k' : 'vip_29k')));
+        const pkgName = pkgId === 'vip_199k' ? 'Gói Luận Sâu Đại Vận & Cải Mệnh Chuyên Sâu (199.000đ)' :
+          (pkgId === 'combo_99k' ? 'Combo Huyền Học Toàn Diện (Tử Vi + Thần Số + Bát Tự) (99.000đ)' :
+          (pkgId === 'vip_49k' ? 'Báo Cáo Tử Vi VIP A4 Toàn Thư (49.000đ)' :
+          (pkgId === 'vip_39k' ? 'Gói Thần Số Học VIP Toàn Thư A4 (39.000đ)' : 'Gói Mở Khóa Nhanh 3 Cung Trọng Tâm (29.000đ)')));
+
         const newOrder = {
           id: 'ord_' + Date.now(),
           orderCode: newCode,
-          vipAccessToken: crypto.randomBytes(16).toString('hex'),
+          vipAccessToken: newCode,
           userId: null,
-          customerName: 'Đương Số',
-          customerPhone: '',
-          packageId: inAmount >= 100000 ? 'vip_149k' : (inAmount >= 40000 ? 'vip_49k' : 'vip_29k'),
-          packageName: inAmount >= 100000 ? 'Gói Luận Sâu & Cải Mệnh' : (inAmount >= 40000 ? 'Báo Cáo VIP A4 Toàn Thư' : 'Gói Mở Khóa Nhanh 3 Cung'),
+          customerName: rawContent.includes('TRAN CONG LUYEN') ? 'Trần Công Luyện' : 'Khách Chuyển Khoản SePay',
+          customerPhone: '108884822302',
+          packageId: pkgId,
+          packageName: pkgName,
           amount: inAmount,
           status: 'PAID',
           paidAt: new Date().toISOString(),
           paymentSource: 'SEPAY_WEBHOOK_AUTO_INIT',
-          transactionId: body.id || body.referenceCode,
+          transactionId: String(body.id || body.referenceCode || Date.now()),
+          note: `Khách hàng chuyển khoản qua SePay VietinBank: ${body.content || body.description || ''}`,
           createdAt: new Date().toISOString()
         };
-        orders.push(newOrder);
+        orders.unshift(newOrder);
         writeJsonFile(ORDERS_FILE, orders);
-        analytics.summary.totalPaidOrders = (analytics.summary.totalPaidOrders || 0) + 1;
+
+        analytics = readJsonFile(ANALYTICS_FILE, analytics);
+        const paidOrdersList = orders.filter(o => o.status === 'PAID');
+        analytics.summary.totalPaidOrders = paidOrdersList.length;
         writeJsonFile(ANALYTICS_FILE, analytics);
+
         return sendJson(res, 200, { success: true, message: 'Đã tự động khởi tạo và kích hoạt đơn hàng từ webhook' });
       }
 
-      return sendJson(res, 200, { success: true, message: 'Đã nhận webhook' });
+      // Kích hoạt đồng bộ tổng thể từ SePay để đảm bảo không sót giao dịch
+      syncOrdersWithSePay().catch(() => {});
+
+      return sendJson(res, 200, { success: true, message: 'Đã nhận webhook thành công' });
     } catch (err) {
-      return sendJson(res, 500, { success: false, message: err.message });
+      console.error('Webhook error:', err);
+      // Luôn trả về 200 OK để SePay không retry dồn dập
+      return sendJson(res, 200, { success: true, message: 'Webhook processed with notice: ' + err.message });
     }
   }
 
@@ -1061,6 +1225,7 @@ const server = http.createServer(async (req, res) => {
 
   // 10. Dashboard Analytics cho Quản Trị Viên: GET /api/admin/analytics
   if (pathname === '/api/admin/analytics' && req.method === 'GET') {
+    await syncOrdersWithSePay().catch(() => {});
     orders = readJsonFile(ORDERS_FILE, orders);
     analytics = readJsonFile(ANALYTICS_FILE, analytics);
 
@@ -1204,7 +1369,9 @@ const server = http.createServer(async (req, res) => {
 
   // Lấy danh sách đơn hàng: GET /api/admin/orders
   if (pathname === '/api/admin/orders' && req.method === 'GET') {
+    await syncOrdersWithSePay().catch(() => {});
     orders = readJsonFile(ORDERS_FILE, orders);
+    orders.sort((a, b) => new Date(b.paidAt || b.createdAt || 0) - new Date(a.paidAt || a.createdAt || 0));
     return sendJson(res, 200, { success: true, orders, total: orders.length });
   }
 
@@ -1648,6 +1815,65 @@ const server = http.createServer(async (req, res) => {
   // BLOG SEO & PUBLIC APIS
   // =========================================================================
 
+  // Helper escape text for XML / HTML Attributes
+  function escapeAttr(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  function escapeXml(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&apos;');
+  }
+
+  // Khởi tạo XML sitemap chuẩn Google News & Image Extension
+  function generateSitemapXml(allPosts) {
+    let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n`;
+    xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/</loc><lastmod>2026-11-13</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>\n`;
+    xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/than-so-hoc</loc><lastmod>2026-11-13</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>\n`;
+    xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/hop-tuoi</loc><lastmod>2026-11-13</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>\n`;
+    xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/blog</loc><lastmod>2026-11-13</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>\n`;
+    xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/chinh-sach-bao-mat</loc><lastmod>2026-11-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
+    xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/chinh-sach-hoan-tien-ho-tro</loc><lastmod>2026-11-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
+    xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/dieu-khoan-su-dung</loc><lastmod>2026-11-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
+    (allPosts || []).forEach(p => {
+      const postImg = p.image ? (p.image.startsWith('http') ? p.image : 'https://www.xemtuvihuyenhoc.com' + p.image) : 'https://www.xemtuvihuyenhoc.com/img/og-image.jpg';
+      const lastModDate = p.updatedAt ? p.updatedAt.split('T')[0] : (p.publishedAt || '2026-11-13');
+      xml += `  <url>\n`;
+      xml += `    <loc>https://www.xemtuvihuyenhoc.com/blog/${p.slug}</loc>\n`;
+      xml += `    <lastmod>${lastModDate}</lastmod>\n`;
+      xml += `    <changefreq>weekly</changefreq>\n`;
+      xml += `    <priority>0.85</priority>\n`;
+      xml += `    <image:image>\n`;
+      xml += `      <image:loc>${postImg}</image:loc>\n`;
+      xml += `      <image:title>${escapeXml(p.title)}</image:title>\n`;
+      xml += `    </image:image>\n`;
+      xml += `  </url>\n`;
+    });
+    xml += `</urlset>`;
+    return xml;
+  }
+
+  function syncSitemapFile(allPosts) {
+    try {
+      const xml = generateSitemapXml(allPosts);
+      const sitemapPath = path.join(__dirname, 'sitemap.xml');
+      fs.writeFileSync(sitemapPath, xml, 'utf8');
+    } catch (e) {
+      // Safe fallback trên Vercel read-only
+    }
+  }
+
   // API danh sách bài viết công khai: GET /api/posts
   if (pathname === '/api/posts' && req.method === 'GET') {
     posts = readJsonFile(POSTS_FILE, []);
@@ -1658,8 +1884,12 @@ const server = http.createServer(async (req, res) => {
       description: p.description,
       category: p.category,
       publishedAt: p.publishedAt,
+      updatedAt: p.updatedAt || p.publishedAt,
       readTime: p.readTime,
-      views: p.views || 0
+      views: p.views || 0,
+      image: p.image || '/img/og-image.jpg',
+      tags: p.tags || (typeof p.keywords === 'string' ? p.keywords.split(',').map(s => s.trim()).filter(Boolean) : []),
+      author: p.author || 'Đại Sư Nam Phái'
     }));
     return sendJson(res, 200, publicList);
   }
@@ -1683,11 +1913,13 @@ const server = http.createServer(async (req, res) => {
           id: 'post-' + Date.now(),
           slug: body.slug || ('bai-viet-' + Date.now()),
           views: 0,
-          publishedAt: new Date().toISOString().split('T')[0]
+          publishedAt: new Date().toISOString().split('T')[0],
+          updatedAt: new Date().toISOString()
         }, body);
         posts.unshift(post);
       }
       writeJsonFile(POSTS_FILE, posts);
+      syncSitemapFile(posts);
       return sendJson(res, 200, { success: true, post });
     } catch (err) {
       return sendJson(res, 500, { success: false, message: err.message });
@@ -1701,6 +1933,7 @@ const server = http.createServer(async (req, res) => {
       posts = readJsonFile(POSTS_FILE, []);
       posts = posts.filter(p => p.id !== body.id && p.slug !== body.slug);
       writeJsonFile(POSTS_FILE, posts);
+      syncSitemapFile(posts);
       return sendJson(res, 200, { success: true, message: 'Đã xóa bài viết' });
     } catch (err) {
       return sendJson(res, 500, { success: false, message: err.message });
@@ -1710,19 +1943,8 @@ const server = http.createServer(async (req, res) => {
   // Dynamic Sitemap: GET /sitemap.xml
   if (pathname === '/sitemap.xml') {
     posts = readJsonFile(POSTS_FILE, []);
-    let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
-    xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>\n`;
-    xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/than-so-hoc</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>\n`;
-    xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/hop-tuoi</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>\n`;
-    xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/blog</loc><changefreq>daily</changefreq><priority>0.9</priority></url>\n`;
-    xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/chinh-sach-bao-mat</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
-    xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/chinh-sach-hoan-tien-ho-tro</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
-    xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/dieu-khoan-su-dung</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
-    posts.forEach(p => {
-      xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/blog/${p.slug}</loc><lastmod>${p.publishedAt || '2026-01-01'}</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>\n`;
-    });
-    xml += `</urlset>`;
-
+    const xml = generateSitemapXml(posts);
+    syncSitemapFile(posts);
     res.writeHead(200, Object.assign({ 'Content-Type': 'application/xml; charset=utf-8' }, HTTP_SECURITY_HEADERS));
     return res.end(xml);
   }
@@ -1752,43 +1974,369 @@ const server = http.createServer(async (req, res) => {
           }
 
           let html = template;
-          html = html.replace(/<title>.*?<\/title>/, `<title>${post.title} | Xem Tử Vi Huyền Học</title>`);
-          html = html.replace(/<meta name="description" content=".*?">/, `<meta name="description" content="${post.description}">`);
-          html = html.replace(/<meta name="keywords" content=".*?">/, `<meta name="keywords" content="${post.keywords || ''}">`);
-          html = html.replace(/<link rel="canonical" href=".*?">/, `<link rel="canonical" href="https://www.xemtuvihuyenhoc.com/blog/${post.slug}">`);
+          const postImageUrl = post.image ? (post.image.startsWith('http') ? post.image : `https://www.xemtuvihuyenhoc.com${post.image}`) : 'https://www.xemtuvihuyenhoc.com/img/og-image.jpg';
+          const postCanonicalUrl = `https://www.xemtuvihuyenhoc.com/blog/${post.slug}`;
+          const cleanText = (post.contentHtml || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+          const wordCount = cleanText ? cleanText.split(' ').length : 1200;
+          const pubDate = post.publishedAt || '2026-01-01';
+          const modDate = post.updatedAt ? post.updatedAt.split('T')[0] : pubDate;
 
-          const schemaArticle = JSON.stringify({
+          // 1. Cập nhật thẻ tiêu đề và meta cơ bản
+          html = html.replace(/<title>.*?<\/title>/, `<title>${escapeAttr(post.title)} | Xem Tử Vi Huyền Học</title>`);
+          html = html.replace(/<meta name="description" content=".*?">/, `<meta name="description" content="${escapeAttr(post.description)}">`);
+          html = html.replace(/<meta name="keywords" content=".*?">/, `<meta name="keywords" content="${escapeAttr(post.keywords || '')}">`);
+          html = html.replace(/<link rel="canonical" href=".*?">/, `<link rel="canonical" href="${postCanonicalUrl}">`);
+
+          // 2. Cập nhật Open Graph (Facebook, Zalo, LinkedIn) cho bài viết cụ thể
+          html = html.replace(/<meta property="og:type" content=".*?">/, `<meta property="og:type" content="article">`);
+          html = html.replace(/<meta property="og:title" content=".*?">/, `<meta property="og:title" content="${escapeAttr(post.title)} | Xem Tử Vi Huyền Học">`);
+          html = html.replace(/<meta property="og:description" content=".*?">/, `<meta property="og:description" content="${escapeAttr(post.description)}">`);
+          html = html.replace(/<meta property="og:url" content=".*?">/, `<meta property="og:url" content="${postCanonicalUrl}">`);
+          html = html.replace(/<meta property="og:image" content=".*?">/, `<meta property="og:image" content="${postImageUrl}">`);
+
+          // 3. Cập nhật Twitter Card
+          html = html.replace(/<meta name="twitter:title" content=".*?">/, `<meta name="twitter:title" content="${escapeAttr(post.title)} | Xem Tử Vi Huyền Học">`);
+          html = html.replace(/<meta name="twitter:description" content=".*?">/, `<meta name="twitter:description" content="${escapeAttr(post.description)}">`);
+          html = html.replace(/<meta name="twitter:image" content=".*?">/, `<meta name="twitter:image" content="${postImageUrl}">`);
+
+          // 4. Bổ sung Article Meta Tags cho Rich Snippets
+          const articleMetaExtra = `
+  <meta property="article:published_time" content="${pubDate}T08:00:00+07:00">
+  <meta property="article:modified_time" content="${modDate}T08:00:00+07:00">
+  <meta property="article:section" content="${escapeAttr(post.category || 'Kiến thức Tử Vi')}">
+  <meta property="article:author" content="${escapeAttr(post.author || 'Xem Tử Vi Huyền Học')}">
+`;
+          html = html.replace('<!-- Twitter Card -->', `${articleMetaExtra}\n  <!-- Twitter Card -->`);
+
+          // 5. Cấu trúc dữ liệu có cấu trúc Google Schema JSON-LD (BlogPosting + BreadcrumbList + FAQPage)
+          const schemaBlogPosting = {
             "@context": "https://schema.org",
-            "@type": "Article",
+            "@type": "BlogPosting",
             "headline": post.title,
             "description": post.description,
-            "datePublished": post.publishedAt,
-            "author": { "@type": "Organization", "name": "Xem Tử Vi Huyền Học" },
-            "publisher": { 
-              "@type": "Organization", 
-              "name": "Xem Tử Vi Huyền Học", 
-              "logo": { "@type": "ImageObject", "url": "https://www.xemtuvihuyenhoc.com/img/logo-xem-tu-vi-huyen-hoc.png" } 
+            "image": [postImageUrl],
+            "datePublished": `${pubDate}T08:00:00+07:00`,
+            "dateModified": `${modDate}T08:00:00+07:00`,
+            "inLanguage": "vi-VN",
+            "wordCount": wordCount,
+            "articleSection": post.category || "Kiến thức Tử Vi",
+            "keywords": post.keywords || "",
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": postCanonicalUrl
             },
-            "mainEntityOfPage": `https://www.xemtuvihuyenhoc.com/blog/${post.slug}`
+            "author": {
+              "@type": "Person",
+              "name": post.author || "Đại Sư Nam Phái - Xem Tử Vi Huyền Học",
+              "url": "https://www.xemtuvihuyenhoc.com"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Xem Tử Vi Huyền Học",
+              "url": "https://www.xemtuvihuyenhoc.com",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://www.xemtuvihuyenhoc.com/img/logo-xem-tu-vi-huyen-hoc.png"
+              }
+            }
+          };
+
+          const schemaBreadcrumb = {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Trang Chủ",
+                "item": "https://www.xemtuvihuyenhoc.com"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Blog Huyền Học",
+                "item": "https://www.xemtuvihuyenhoc.com/blog"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": post.category || "Kiến thức Tử Vi",
+                "item": `https://www.xemtuvihuyenhoc.com/blog#cat-${encodeURIComponent(post.category || 'all')}`
+              },
+              {
+                "@type": "ListItem",
+                "position": 4,
+                "name": post.title,
+                "item": postCanonicalUrl
+              }
+            ]
+          };
+
+          let dynamicJsonLdHtml = `
+  <script type="application/ld+json">
+  ${JSON.stringify(schemaBlogPosting, null, 2)}
+  </script>
+  <script type="application/ld+json">
+  ${JSON.stringify(schemaBreadcrumb, null, 2)}
+  </script>
+`;
+
+          if (Array.isArray(post.faq) && post.faq.length > 0) {
+            const schemaFaq = {
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": post.faq.map(f => ({
+                "@type": "Question",
+                "name": f.question,
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": f.answer
+                }
+              }))
+            };
+            dynamicJsonLdHtml += `
+  <script type="application/ld+json">
+  ${JSON.stringify(schemaFaq, null, 2)}
+  </script>
+`;
+          }
+
+          // Thay thế schema danh sách mặc định bằng schema bài viết SSR
+          html = html.replace(/<script type="application\/ld\+json" id="listingJsonLd">[\s\S]*?<\/script>/, dynamicJsonLdHtml.trim());
+
+          // 6. Xử lý Mục Lục Tự Động (TOC) & gắn ID vào tiêu đề
+          let headingIndex = 0;
+          const tocItems = [];
+          const processedContent = (post.contentHtml || '').replace(/<(h[23])([^>]*)>(.*?)<\/\1>/gi, (match, tag, attrs, text) => {
+            headingIndex++;
+            const headingId = `muc-${headingIndex}`;
+            const cleanHeadingText = text.replace(/<[^>]*>/g, '').trim();
+            tocItems.push({
+              tag: tag.toLowerCase(),
+              id: headingId,
+              text: cleanHeadingText
+            });
+            return `<${tag}${attrs} id="${headingId}">${text}</${tag}>`;
           });
 
-          html = html.replace('</head>', `<script type="application/ld+json">${schemaArticle}</script>\n</head>`);
+          let tocHtml = '';
+          if (tocItems.length >= 2) {
+            const listHtml = tocItems.map(item => {
+              const isSub = item.tag === 'h3';
+              return `<li class="${isSub ? 'article-toc-sub' : ''}"><a href="#${item.id}">${item.text}</a></li>`;
+            }).join('');
+            tocHtml = `
+              <div class="article-toc-box">
+                <div class="article-toc-header" onclick="toggleToc()">
+                  <span><i data-lucide="list" style="width:16px;height:16px;display:inline;vertical-align:-2px;"></i> ✦ MỤC LỤC BÀI VIẾT ✦</span>
+                  <span id="tocToggleText" style="font-size:0.8rem;color:var(--text-muted);font-weight:normal;">[Thu gọn]</span>
+                </div>
+                <ol class="article-toc-list" id="tocList">
+                  ${listHtml}
+                </ol>
+              </div>
+            `;
+          }
 
+          // 7. Dựng khối Breadcrumb HTML cho người dùng trên trang
+          const breadcrumbHtml = `
+            <nav class="blog-breadcrumbs" aria-label="Breadcrumb" style="display:flex;align-items:center;gap:6px;font-size:0.86rem;color:var(--text-muted);margin-bottom:1.25rem;flex-wrap:wrap;">
+              <a href="/" style="color:var(--seal);text-decoration:none;"><i data-lucide="home" style="width:13px;height:13px;display:inline;vertical-align:-1px;"></i> Trang Chủ</a>
+              <span>/</span>
+              <a href="/blog" style="color:var(--seal);text-decoration:none;">Blog Huyền Học</a>
+              <span>/</span>
+              <span style="color:var(--text-muted);">${escapeAttr(post.category || 'Tử Vi')}</span>
+            </nav>
+          `;
+
+          // 8. Khối Ảnh Bìa Đại Diện (Featured Image)
+          const featuredImgHtml = post.image ? `
+            <div class="article-featured-image-wrap" style="margin: 1.5rem 0 2rem 0; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 4px 16px rgba(42,35,28,0.06);">
+              <img src="${postImageUrl}" alt="${escapeAttr(post.title)}" style="width:100%; max-height:460px; object-fit:cover; display:block;">
+            </div>
+          ` : '';
+
+          // 9. Khối Chia Sẻ Mạng Xã Hội (Social Share)
+          const socialShareHtml = `
+            <div class="article-share-bar">
+              <span class="share-label"><i data-lucide="share-2" style="width:15px;height:15px;"></i> Chia sẻ bài viết:</span>
+              <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(postCanonicalUrl)}" target="_blank" rel="noopener" class="btn-share btn-share-fb">
+                <i data-lucide="facebook" style="width:14px;height:14px;"></i> Facebook
+              </a>
+              <a href="https://zalo.me/share?url=${encodeURIComponent(postCanonicalUrl)}" target="_blank" rel="noopener" class="btn-share btn-share-zalo">
+                💬 Zalo
+              </a>
+              <button class="btn-share btn-share-copy" onclick="copyArticleLink('${postCanonicalUrl}')">
+                <i data-lucide="link" style="width:14px;height:14px;"></i> Sao chép link
+              </button>
+            </div>
+          `;
+
+          // 10. Khối Tác Giả Chuẩn E-E-A-T Google
+          const authorBoxHtml = `
+            <div class="author-bio-card">
+              <img src="/img/logo-master-emblem.jpg" alt="${escapeAttr(post.author || 'Đại Sư Nam Phái')}" class="author-avatar" onerror="this.src='/img/logo-xem-tu-vi-huyen-hoc.png'">
+              <div class="author-info-wrap">
+                <div class="author-badge">✦ THẨM ĐỊNH HỌC THUẬT ✦</div>
+                <div class="author-name">${escapeAttr(post.author || 'Đại Sư Nam Phái')}</div>
+                <div class="author-sub">Hội Đồng Nghiên Cứu &amp; Bảo Tồn Tử Vi Cổ Truyền Việt Nam</div>
+                <p class="author-desc">Nội dung được nghiên cứu và đối chiếu dựa trên hệ thống Tử Vi Nam Phái và tri thức phương Đông chuẩn mực. Tôn chỉ: <em>"Đức năng thắng số - Khởi tâm thiện lành để cải biến vận mệnh."</em></p>
+              </div>
+            </div>
+          `;
+
+          // 11. Khối Smart Contextual CTA theo chuyên mục (Phễu Chuyển Đổi)
+          let smartCtaHtml = '';
+          const postCat = post.category || '';
+          if (postCat === 'Hôn nhân & Gia đạo') {
+            smartCtaHtml = `
+              <div class="smart-cta-card">
+                <span class="smart-cta-badge">✦ BÓI HỢP TUỔI BÁT TỰ &amp; CUNG PHU THÊ ✦</span>
+                <h3 class="smart-cta-title">Kiểm Tra Độ Hòa Hợp Vợ Chồng &amp; Hạn Kết Hôn</h3>
+                <p class="smart-cta-desc">Bạn và người ấy có phạm Tuyệt Mệnh, Ngũ Quỷ hay Lục Sát? Khám phá bức tranh hòa hợp tình duyên, cách hóa giải xung khắc và chọn năm đẹp thành hôn chuẩn Bát Tự cổ truyền.</p>
+                <div class="smart-cta-actions">
+                  <a href="/hop-tuoi" class="btn-smart-primary"><i data-lucide="heart"></i> BÓI HỢP TUỔI VỢ CHỒNG NGAY</a>
+                  <a href="/#lap-la-so" class="btn-smart-secondary"><i data-lucide="compass"></i> Soi Cung Phu Thê Trên Lá Số</a>
+                </div>
+                <div class="smart-cta-features">
+                  <span class="smart-cta-feat-item"><i data-lucide="check" style="width:13px;height:13px;color:var(--gold);"></i> Luận ngũ hành bản mệnh</span>
+                  <span class="smart-cta-feat-item"><i data-lucide="check" style="width:13px;height:13px;color:var(--gold);"></i> Soi cung phi bát trạch</span>
+                  <span class="smart-cta-feat-item"><i data-lucide="check" style="width:13px;height:13px;color:var(--gold);"></i> Phương pháp hóa giải xung khắc</span>
+                </div>
+              </div>
+            `;
+          } else if (postCat === 'Thần Số Học') {
+            smartCtaHtml = `
+              <div class="smart-cta-card">
+                <span class="smart-cta-badge">✦ GIẢI MÃ BẢN THÂN PYTHAGORAS ✦</span>
+                <h3 class="smart-cta-title">Tra Cứu Con Số Chủ Đạo &amp; 4 Đỉnh Cao Cuộc Đời</h3>
+                <p class="smart-cta-desc">Mỗi con số trong ngày sinh và họ tên mang trong mình tần số rung động định hình sứ mệnh và đường đời của bạn. Tra cứu ngay để thấu hiểu bản thân và đón đầu cơ hội vàng.</p>
+                <div class="smart-cta-actions">
+                  <a href="/than-so-hoc" class="btn-smart-primary"><i data-lucide="sparkles"></i> TRA CỨU THẦN SỐ HỌC NGAY</a>
+                  <a href="/#bang-gia-dich-vu" class="btn-smart-secondary"><i data-lucide="crown"></i> Mở Khóa Báo Cáo VIP 39k</a>
+                </div>
+                <div class="smart-cta-features">
+                  <span class="smart-cta-feat-item"><i data-lucide="check" style="width:13px;height:13px;color:var(--gold);"></i> Phân tích 15+ chỉ số cốt lõi</span>
+                  <span class="smart-cta-feat-item"><i data-lucide="check" style="width:13px;height:13px;color:var(--gold);"></i> Bản đồ 4 đỉnh cao kim tự tháp</span>
+                  <span class="smart-cta-feat-item"><i data-lucide="check" style="width:13px;height:13px;color:var(--gold);"></i> Dự báo vận trình từng tháng</span>
+                </div>
+              </div>
+            `;
+          } else if (postCat === 'Tài lộc & Sự nghiệp') {
+            smartCtaHtml = `
+              <div class="smart-cta-card">
+                <span class="smart-cta-badge">✦ QUẢN TRỊ TÀI CHÍNH &amp; THỜI VẬN ✦</span>
+                <h3 class="smart-cta-title">Soi Cung Tài Bạch, Quan Lộc &amp; Đại Vận 10 Năm</h3>
+                <p class="smart-cta-desc">Biết trước chu kỳ đắc Lộc Tồn hay gặp Hóa Kỵ để giữ chặt tài sản, tránh bẫy đầu tư thua lỗ và chủ động nắm bắt cơ hội bứt phá công danh tiền tài.</p>
+                <div class="smart-cta-actions">
+                  <a href="/#lap-la-so" class="btn-smart-primary"><i data-lucide="compass"></i> SOI CUNG TÀI BẠCH MIỄN PHÍ</a>
+                  <a href="/#bang-gia-dich-vu" class="btn-smart-secondary"><i data-lucide="shield-alert"></i> Nhận Báo Cáo Rủi Ro VIP</a>
+                </div>
+                <div class="smart-cta-features">
+                  <span class="smart-cta-feat-item"><i data-lucide="check" style="width:13px;height:13px;color:var(--gold);"></i> Định vị sao tài tinh miếu hãm</span>
+                  <span class="smart-cta-feat-item"><i data-lucide="check" style="width:13px;height:13px;color:var(--gold);"></i> Cảnh báo Địa Không, Địa Kiếp</span>
+                  <span class="smart-cta-feat-item"><i data-lucide="check" style="width:13px;height:13px;color:var(--gold);"></i> 4 tầng bảo vệ vốn kinh doanh</span>
+                </div>
+              </div>
+            `;
+          } else {
+            smartCtaHtml = `
+              <div class="smart-cta-card">
+                <span class="smart-cta-badge">✦ BẢN ĐỒ VẬN MỆNH CỔ TRUYỀN ✦</span>
+                <h3 class="smart-cta-title">Lập Lá Số Tử Vi Chính Tông Nam Phái Miễn Phí</h3>
+                <p class="smart-cta-desc">An định 12 cung số, 14 chính tinh và hệ thống Tứ Hóa chuẩn xác theo ngày giờ sinh âm dương. Nhìn thấu Mệnh, Thân, vận hạn từng năm để làm chủ tương lai.</p>
+                <div class="smart-cta-actions">
+                  <a href="/#lap-la-so" class="btn-smart-primary"><i data-lucide="compass"></i> LẬP LÁ SỐ TỬ VI MIỄN PHÍ</a>
+                  <a href="/#bang-gia-dich-vu" class="btn-smart-secondary"><i data-lucide="crown"></i> Xem Báo Cáo VIP PDF</a>
+                </div>
+                <div class="smart-cta-features">
+                  <span class="smart-cta-feat-item"><i data-lucide="check" style="width:13px;height:13px;color:var(--gold);"></i> An sao 100% Nam Phái chuẩn xác</span>
+                  <span class="smart-cta-feat-item"><i data-lucide="check" style="width:13px;height:13px;color:var(--gold);"></i> Luận giải chi tiết 12 cung chức</span>
+                  <span class="smart-cta-feat-item"><i data-lucide="check" style="width:13px;height:13px;color:var(--gold);"></i> Tự động tính toán sao lưu năm mới</span>
+                </div>
+              </div>
+            `;
+          }
+
+          // 12. Khối Giới Thiệu Báo Cáo VIP A4 (VIP Report Teaser Box)
+          const vipTeaserHtml = `
+            <div class="vip-report-teaser">
+              <span class="vip-teaser-badge">👑 DỊCH VỤ ĐỘC QUYỀN CAO CẤP</span>
+              <h3 class="vip-teaser-title">✦ BÁO CÁO LUẬN GIẢI CHUYÊN SÂU VIP (FILE PDF A4 TRỌNG LƯỢNG CAO) ✦</h3>
+              <p class="vip-teaser-desc">
+                Nếu bạn muốn nắm giữ trong tay cẩm nang vận mệnh chi tiết đến từng cung bậc cuộc đời, hãy đăng ký bản Báo Cáo VIP được lập luận công phu từ tinh hoa Tử Vi Nam Phái và khoa học nhân trắc học:
+              </p>
+              <div class="vip-teaser-grid">
+                <div class="vip-teaser-check"><i data-lucide="check-circle-2"></i> Phân tích cặn kẽ 12 Cung Số &amp; Tam Phương Tứ Chính</div>
+                <div class="vip-teaser-check"><i data-lucide="check-circle-2"></i> Dự báo Đại Vận 10 năm &amp; Tiểu Hạn 12 tháng năm mới</div>
+                <div class="vip-teaser-check"><i data-lucide="check-circle-2"></i> Phương pháp Khải Vận, Tu Dưỡng &amp; Hóa Giải Sát Tinh</div>
+                <div class="vip-teaser-check"><i data-lucide="check-circle-2"></i> Xuất bản file PDF A4 trình bày trang nhã lưu giữ trọn đời</div>
+              </div>
+              <div class="vip-teaser-footer">
+                <div class="vip-price-tag">
+                  Chi phí trợ duyên chỉ từ: <span class="vip-price-highlight">29.000đ – 39.000đ</span>
+                </div>
+                <a href="/#bang-gia-dich-vu" class="btn-vip-action">
+                  <i data-lucide="crown"></i> MỞ KHÓA BÁO CÁO VIP NGAY
+                </a>
+              </div>
+            </div>
+          `;
+
+          // 13. Khối Bài Viết Cùng Chuyên Mục (Related Posts)
+          const otherPosts = posts.filter(p => p.slug !== post.slug);
+          const sameCatPosts = otherPosts.filter(p => p.category === post.category);
+          const relatedSelection = (sameCatPosts.length >= 3 ? sameCatPosts : otherPosts).slice(0, 3);
+          const relatedCardsHtml = relatedSelection.map(r => {
+            const rImg = r.image ? (r.image.startsWith('http') ? r.image : `https://www.xemtuvihuyenhoc.com${r.image}`) : 'https://www.xemtuvihuyenhoc.com/img/og-image.jpg';
+            return `
+              <article class="post-card" style="box-shadow:none;">
+                <a href="/blog/${r.slug}" class="post-card-thumb-link">
+                  <img src="${rImg}" alt="${escapeAttr(r.title)}" class="post-card-thumb" loading="lazy">
+                  <span class="post-card-badge-floating">${escapeAttr(r.category || 'Tử Vi')}</span>
+                </a>
+                <div class="post-card-body" style="padding:1.1rem;">
+                  <h3 class="post-card-title" style="font-size:1.05rem;"><a href="/blog/${r.slug}">${escapeAttr(r.title)}</a></h3>
+                  <p class="post-card-desc" style="font-size:0.86rem;margin-bottom:0.75rem;">${escapeAttr(r.description || '')}</p>
+                  <a href="/blog/${r.slug}" class="post-card-cta" style="font-size:0.82rem;">Đọc luận giải ➔</a>
+                </div>
+              </article>
+            `;
+          }).join('');
+
+          const relatedPostsSectionHtml = relatedCardsHtml ? `
+            <section class="related-posts-section">
+              <h3 class="related-title"><i data-lucide="sparkles" style="width:18px;height:18px;"></i> BÀI VIẾT CÙNG CHUYÊN MỤC</h3>
+              <div class="related-grid">
+                ${relatedCardsHtml}
+              </div>
+            </section>
+          ` : '';
+
+          // 14. Dựng toàn bộ khung bài viết hoàn chỉnh
           const postArticleHtml = `
+            ${breadcrumbHtml}
             <article class="article-wrap">
               <header class="article-header">
                 <span class="post-category-badge">${post.category || 'Kiến thức Tử Vi'}</span>
                 <h1 class="article-title">${post.title}</h1>
                 <div class="article-meta">
-                  <span><i data-lucide="calendar" style="width:14px;height:14px;display:inline;vertical-align:-1px;"></i> Xuất bản: ${post.publishedAt || '2026-01-01'}</span>
+                  <span><i data-lucide="calendar" style="width:14px;height:14px;display:inline;vertical-align:-1px;"></i> Xuất bản: ${pubDate}</span>
                   <span><i data-lucide="clock" style="width:14px;height:14px;display:inline;vertical-align:-1px;"></i> Đọc trong: ${post.readTime || '7 phút'}</span>
                   <span><i data-lucide="eye" style="width:14px;height:14px;display:inline;vertical-align:-1px;"></i> ${post.views} lượt đọc</span>
-                  <span><i data-lucide="award" style="width:14px;height:14px;display:inline;vertical-align:-1px;"></i> Cổ Truyền Nam Phái</span>
+                  <span><i data-lucide="user-check" style="width:14px;height:14px;display:inline;vertical-align:-1px;"></i> ${escapeAttr(post.author || 'Đại Sư Nam Phái')}</span>
                 </div>
               </header>
+              ${featuredImgHtml}
+              ${tocHtml}
               <div class="article-content">
-                ${post.contentHtml}
+                ${processedContent}
               </div>
+              ${smartCtaHtml}
+              ${vipTeaserHtml}
+              ${socialShareHtml}
+              ${authorBoxHtml}
+              ${relatedPostsSectionHtml}
             </article>
           `;
 
@@ -1897,6 +2445,9 @@ if (require.main === module) {
     console.log(`✦ XEM TỬ VI HUYỀN HỌC - BACKEND ĐANG CHẠY TRÊN PORT ${PORT} ✦`);
     console.log(`✦ Truy cập trực tiếp: http://localhost:${PORT}/ ✦`);
     console.log(`=======================================================`);
+    syncOrdersWithSePay().then(count => {
+      if (count > 0) console.log(`[SePay Sync] Đã đồng bộ thành công ${count} đơn hàng từ SePay.`);
+    }).catch(() => {});
   });
 }
 

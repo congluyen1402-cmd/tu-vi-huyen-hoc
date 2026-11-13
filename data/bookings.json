@@ -1,1 +1,31 @@
-[]
+[
+  {
+    "id": "bk_1794538001",
+    "customerName": "Trần Công Luyện",
+    "customerPhone": "0988848223",
+    "customerZalo": "0988848223",
+    "packageName": "Luận Đàm 1-1 Toàn Đồ (60 phút)",
+    "amount": 990000,
+    "preferredDate": "2026-11-15",
+    "preferredTime": "20:00",
+    "contactMethod": "Zalo Video",
+    "notes": "Muốn xem sâu cung Quan Lộc và đường sự nghiệp tài lộc đại vận 2026-2035",
+    "status": "CONTACTED",
+    "createdAt": "2026-11-12T19:00:00.000Z",
+    "updatedAt": "2026-11-12T19:30:00.000Z"
+  },
+  {
+    "id": "bk_1794538002",
+    "customerName": "Nguyễn Văn Thành",
+    "customerPhone": "0912345678",
+    "customerZalo": "0912345678",
+    "packageName": "Tham Vấn 1-1 Chuyên Đề (30 phút)",
+    "amount": 490000,
+    "preferredDate": "2026-11-16",
+    "preferredTime": "19:30",
+    "contactMethod": "Zoom",
+    "notes": "Tư vấn mở cửa hàng phong thủy và thời điểm khởi nghiệp 2026",
+    "status": "PENDING",
+    "createdAt": "2026-11-13T08:30:00.000Z"
+  }
+]
