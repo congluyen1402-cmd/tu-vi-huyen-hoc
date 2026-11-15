@@ -1115,11 +1115,12 @@ const TuViChart = {
         const tamPhuongBlock = isTamPhuongUnlocked
           ? (deepAnalysis.tamPhuongHtml ? `<div class="sheet-analysis-block">${deepAnalysis.tamPhuongHtml}</div>` : '')
           : `
-            <div style="margin: 10px 0; padding: 10px 12px; background: linear-gradient(135deg, #1C172B, #120D1E); border: 1.5px solid #D4AF37; border-radius: 6px; text-align: center; color: #F3ECDD;">
-              <span style="font-size:0.85rem; color:#FFE6A3; font-weight:700; display:block;">🔒 Tam Phương Tứ Chính &amp; Tứ Hóa Phi Tinh (Gói VIP 99k)</span>
-              <p style="font-size:0.8rem; margin:4px 0 8px; opacity:0.85;">Ma trận tương tác đa chiều được bảo mật trong gói VIP Toàn Thư.</p>
-              <button type="button" class="btn-seal" style="padding:4px 12px; font-size:0.8rem;" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung &amp; Đại Hạn)', 99000)">
-                Mở Khóa (99.000đ)
+            <div class="tam-phuong-locked-box" style="margin: 12px 0; padding: 14px 14px;">
+              <div class="locked-badge-icon" style="width:34px; height:34px; font-size:1.1rem; margin-bottom:0.4rem;">🔒</div>
+              <strong class="tam-phuong-locked-title" style="font-size:0.98rem; margin-bottom:0.4rem;">Ma Trận Tam Phương Tứ Chính &amp; Tứ Hóa Phi Tinh</strong>
+              <p class="tam-phuong-locked-desc" style="font-size:0.86rem; margin-bottom:0.85rem; line-height:1.6;">Phân tích tương tác ma trận Tam Phương Tứ Chính (Tam Hợp, Xung Chiếu) &amp; Tứ Hóa Phi Tinh thuộc đặc quyền Gói VIP 99k.</p>
+              <button type="button" class="btn-seal" style="padding: 7px 18px; font-size: 0.86rem; font-weight: 700;" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung &amp; Đại Hạn)', 99000)">
+                ⚡ Mở Khóa Tam Phương &amp; Tứ Hóa (99.000đ)
               </button>
             </div>
           `;
@@ -1563,15 +1564,15 @@ const TuViChart = {
 
                 <!-- 2. Tương Tác Tam Phương Tứ Chính & Đại Cách Cục -->
                 ${isTamPhuongUnlocked ? tamPhuongText : `
-                  <div class="tam-phuong-locked-box" style="margin: 1.15rem 0; padding: 1.15rem; background: linear-gradient(135deg, #1C172B, #120D1E); border: 1.5px solid #D4AF37; border-radius: 8px; color: #F3ECDD; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.25);">
-                    <div style="font-size: 1.25rem; margin-bottom: 0.35rem;">🔒</div>
-                    <strong style="color: #FFE6A3; font-size: 0.98rem; display:block; margin-bottom: 0.35rem; font-family: var(--font-heading, serif);">
+                  <div class="tam-phuong-locked-box">
+                    <div class="locked-badge-icon">🔒</div>
+                    <strong class="tam-phuong-locked-title">
                       Ma Trận Tam Phương Tứ Chính &amp; Tứ Hóa Phi Tinh (Lộc - Quyền - Khoa - Kỵ)
                     </strong>
-                    <p style="font-size: 0.86rem; color: #E5E0D5; margin-bottom: 0.85rem; max-width: 540px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+                    <p class="tam-phuong-locked-desc">
                       Phân tích tương tác ma trận Tam Phương Tứ Chính (Tam Hợp, Xung Chiếu) &amp; Tứ Hóa Phi Tinh biến hóa thuộc đặc quyền Báo Cáo VIP Toàn Thư (99.000đ).
                     </p>
-                    <button type="button" class="btn-seal" style="padding: 7px 18px; font-size: 0.85rem; font-weight: 700;" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung &amp; Đại Hạn)', 99000)">
+                    <button type="button" class="btn-seal" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung &amp; Đại Hạn)', 99000)">
                       ⚡ Mở Khóa Tam Phương &amp; Tứ Hóa (99.000đ)
                     </button>
                   </div>

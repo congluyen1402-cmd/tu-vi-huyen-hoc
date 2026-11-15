@@ -1969,8 +1969,92 @@ a:hover {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* ============================================================
+   LOCKED BOXES: TAM PHƯƠNG TỨ CHÍNH & TỨ HÓA (VIP)
+   Phong cách Giấy Hoàng Triều - Chữ Đỏ Chu Sa & Mực Tàu Rõ Nét 100%
+   Đạt chuẩn tương phản WCAG AAA, sắc nét trên mọi màn hình di động
+   ============================================================ */
 .tam-phuong-locked-box {
   animation: fadeIn 0.35s ease-out;
+  background: linear-gradient(180deg, #FFFDF8 0%, #FAF5E8 100%) !important;
+  border: 1.5px solid #D4AF37 !important;
+  border-radius: 12px !important;
+  padding: 1.35rem 1.25rem !important;
+  margin: 1.25rem 0 !important;
+  text-align: center !important;
+  box-shadow: 0 4px 18px rgba(212, 175, 55, 0.2), 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.tam-phuong-locked-box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #D4AF37, #B91C1C, #D4AF37) !important;
+}
+
+.tam-phuong-locked-box .locked-badge-icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  background: rgba(185, 28, 28, 0.08) !important;
+  border: 1px solid rgba(212, 175, 55, 0.45) !important;
+  font-size: 1.25rem !important;
+  margin: 0 auto 0.65rem auto !important;
+}
+
+.tam-phuong-locked-box strong,
+.tam-phuong-locked-box .tam-phuong-locked-title {
+  color: #991B1B !important; /* Đỏ chu sa hoàng triều rõ nét */
+  font-size: 1.08rem !important;
+  font-family: var(--font-heading, "Cinzel", "Playfair Display", serif) !important;
+  font-weight: 700 !important;
+  display: block !important;
+  margin-bottom: 0.5rem !important;
+  line-height: 1.45 !important;
+  letter-spacing: 0.2px !important;
+}
+
+.tam-phuong-locked-box p,
+.tam-phuong-locked-box .tam-phuong-locked-desc {
+  color: #1F2937 !important; /* Chữ than mực Tàu rõ nét, tương phản tối đa */
+  font-size: 0.92rem !important;
+  line-height: 1.65 !important;
+  margin: 0 auto 1.15rem auto !important;
+  max-width: 580px !important;
+  opacity: 1 !important;
+}
+
+.tam-phuong-locked-box button,
+.tam-phuong-locked-box .btn-seal {
+  background: linear-gradient(135deg, #B91C1C 0%, #881337 100%) !important;
+  color: #FFFFFF !important;
+  border: 1px solid #D4AF37 !important;
+  font-size: 0.92rem !important;
+  font-weight: 700 !important;
+  padding: 10px 22px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 14px rgba(185, 28, 28, 0.35) !important;
+  cursor: pointer !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  margin: 0 auto !important;
+}
+
+.tam-phuong-locked-box button:hover,
+.tam-phuong-locked-box .btn-seal:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 18px rgba(185, 28, 28, 0.45) !important;
 }
 
 /* ============================================================
@@ -2237,10 +2321,16 @@ a:hover {
   color: var(--text);
 }
 
-/* Locked Period Timeline */
+/* Locked Period Timeline - Đồng bộ phong cách Mực & Giấy, độ tương phản cao */
 .locked-surface {
-  background: rgba(18, 15, 35, 0.8) !important;
-  border-left: 3px solid rgba(200, 54, 45, 0.6) !important;
+  background: #FFFDF8 !important;
+  border: 1px solid rgba(212, 175, 55, 0.4) !important;
+  border-left: 4px solid var(--seal, #A3281F) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04) !important;
+}
+.locked-surface .timeline-phase-title {
+  color: var(--ink, #1A1612) !important;
+  font-weight: 700 !important;
 }
 
 .timeline-locked-blur-preview {
@@ -3034,24 +3124,80 @@ footer.footer {
 }
 
 .vip-benefits-list {
-  background: rgba(30, 27, 63, 0.6);
-  border: 1px dashed rgba(212, 175, 55, 0.3);
-  border-radius: 10px;
-  padding: 0.75rem 1rem;
-  margin-bottom: 1.2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+  background: #FFFFFF !important;
+  border: 1.5px solid rgba(212, 175, 55, 0.45) !important;
+  border-radius: 12px !important;
+  padding: 1rem 1.15rem !important;
+  margin-bottom: 1.25rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
 }
 
 .vip-benefit-item {
-  font-size: 0.82rem;
-  color: var(--text);
-  line-height: 1.4;
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 10px !important;
+  font-size: 0.92rem !important;
+  line-height: 1.55 !important;
+  color: #1F2937 !important;
+  padding: 3px 0 !important;
+}
+
+.vip-benefit-item .benefit-content {
+  flex: 1 !important;
+  color: #1F2937 !important;
 }
 
 .vip-benefit-item strong {
-  color: var(--gold-light);
+  color: #111827 !important;
+  font-weight: 700 !important;
+}
+
+.vip-benefit-item .benefit-icon-check {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  border-radius: 50% !important;
+  background: #ECFDF5 !important;
+  color: #047857 !important;
+  font-weight: 800 !important;
+  font-size: 0.85rem !important;
+  border: 1px solid #A7F3D0 !important;
+  margin-top: 2px !important;
+  flex-shrink: 0 !important;
+}
+
+.vip-benefit-item .benefit-icon-lock {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  border-radius: 50% !important;
+  background: #FEF2F2 !important;
+  color: #B91C1C !important;
+  font-weight: 800 !important;
+  font-size: 0.85rem !important;
+  border: 1px solid #FECACA !important;
+  margin-top: 2px !important;
+  flex-shrink: 0 !important;
+}
+
+.vip-benefit-item.is-locked .benefit-content {
+  color: #4B5563 !important;
+}
+
+.vip-benefit-item .benefit-lock-tag {
+  color: #B91C1C !important;
+  font-weight: 700 !important;
+  font-style: normal !important;
+  margin-right: 4px !important;
 }
 
 .vip-price-tag {
@@ -6292,6 +6438,47 @@ footer.footer {
   line-height: 1.65 !important;
 }
 
+/* Tam Phương Tứ Chính Locked Box Override inside Scholarly Content - Hiển thị chữ đỏ chu sa và văn bản than mực rõ nét 100% */
+.luan-giai-scholarly-content .tam-phuong-locked-box {
+  background: linear-gradient(180deg, #FFFDF8 0%, #FAF5E8 100%) !important;
+  border: 1.5px solid #D4AF37 !important;
+  border-radius: 12px !important;
+  padding: 1.35rem 1.25rem !important;
+  margin: 1.25rem 0 !important;
+  text-align: center !important;
+  box-shadow: 0 4px 18px rgba(212, 175, 55, 0.2), 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+}
+.luan-giai-scholarly-content .tam-phuong-locked-box strong,
+.luan-giai-scholarly-content .tam-phuong-locked-box .tam-phuong-locked-title {
+  color: #991B1B !important;
+  font-size: 1.08rem !important;
+  font-family: var(--font-heading, "Cinzel", "Playfair Display", serif) !important;
+  font-weight: 700 !important;
+  display: block !important;
+  margin-bottom: 0.5rem !important;
+  line-height: 1.45 !important;
+}
+.luan-giai-scholarly-content .tam-phuong-locked-box p,
+.luan-giai-scholarly-content .tam-phuong-locked-box .tam-phuong-locked-desc {
+  color: #1F2937 !important;
+  font-size: 0.92rem !important;
+  line-height: 1.65 !important;
+  margin: 0 auto 1.15rem auto !important;
+  max-width: 580px !important;
+  opacity: 1 !important;
+}
+.luan-giai-scholarly-content .tam-phuong-locked-box .btn-seal {
+  background: linear-gradient(135deg, #B91C1C 0%, #881337 100%) !important;
+  color: #FFFFFF !important;
+  border: 1px solid #D4AF37 !important;
+  font-size: 0.92rem !important;
+  font-weight: 700 !important;
+  padding: 10px 22px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 14px rgba(185, 28, 28, 0.35) !important;
+  cursor: pointer !important;
+}
+
 /* Locked Palace Header Title Text - Crisp & Readable */
 .accordion-item.item-locked .palace-name,
 .accordion-item.item-locked .palace-title-clean,
@@ -8436,5 +8623,54 @@ html {
     justify-content: center !important;
     text-align: center !important;
     font-size: 0.82rem !important;
+  }
+
+  /* Tối ưu Modal VIP & Bảng quyền lợi trên Mobile dọc */
+  #tuvi-vip-modal .tuvi-vip-card,
+  .tuvi-vip-card {
+    padding: 1.25rem 1rem !important;
+    border-radius: 12px !important;
+    max-height: 94vh !important;
+  }
+  .vip-benefits-list {
+    padding: 0.85rem 0.95rem !important;
+    gap: 8px !important;
+  }
+  .vip-benefit-item {
+    font-size: 0.88rem !important;
+    line-height: 1.5 !important;
+    gap: 8px !important;
+  }
+  .vip-benefit-item .benefit-icon-check,
+  .vip-benefit-item .benefit-icon-lock {
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    font-size: 0.8rem !important;
+  }
+
+  /* Tối ưu Khung Khóa Tam Phương Tứ Chính trên Mobile */
+  .tam-phuong-locked-box {
+    padding: 1.15rem 1rem !important;
+    margin: 1rem 0 !important;
+  }
+  .tam-phuong-locked-box strong,
+  .tam-phuong-locked-box .tam-phuong-locked-title,
+  .luan-giai-scholarly-content .tam-phuong-locked-box strong {
+    font-size: 1rem !important;
+    line-height: 1.4 !important;
+  }
+  .tam-phuong-locked-box p,
+  .tam-phuong-locked-box .tam-phuong-locked-desc,
+  .luan-giai-scholarly-content .tam-phuong-locked-box p {
+    font-size: 0.88rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 1rem !important;
+  }
+  .tam-phuong-locked-box button,
+  .tam-phuong-locked-box .btn-seal {
+    width: 100% !important;
+    padding: 10px 14px !important;
+    font-size: 0.9rem !important;
   }
 }

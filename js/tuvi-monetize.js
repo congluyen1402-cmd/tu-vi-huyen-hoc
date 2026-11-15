@@ -754,19 +754,69 @@
       if (benefitsEl) {
         if (this.currentPackagePrice < 80000) {
           benefitsEl.innerHTML = `
-            <div class="vip-benefit-item" style="color:#059669;">✓ <strong>Tự chọn 3 cung yêu thích</strong> luận giải chi tiết (sau khi chọn đủ 3 cung thì 7 cung còn lại tự động khóa).</div>
-            <div class="vip-benefit-item" style="color:#059669;">✓ <strong>Phân tích chi tiết chính tinh, cát tinh, sát tinh</strong> &amp; Đạo trị mệnh trong 3 cung.</div>
-            <div class="vip-benefit-item" style="color:#059669;">✓ <strong>Tặng kèm miễn phí Cung Mệnh &amp; Cung Phụ Mẫu</strong> (không tính vào 3 lượt chọn).</div>
-            <div class="vip-benefit-item" style="color:#DC2626; opacity:0.88;">✗ <em>Khóa</em>: Không bao gồm Luận giải Đại Hạn các thập niên 6 - 75+ tuổi (thuộc Gói VIP 99k).</div>
-            <div class="vip-benefit-item" style="color:#DC2626; opacity:0.88;">✗ <em>Khóa</em>: Không bao gồm Tam Phương Tứ Chính &amp; Tứ Hóa Phi Tinh (thuộc Gói VIP 99k).</div>
+            <div class="vip-benefit-item">
+              <span class="benefit-icon-check">✓</span>
+              <div class="benefit-content">
+                <strong>Tự chọn 3 cung yêu thích</strong> luận giải chi tiết (sau khi chọn đủ 3 cung thì các cung còn lại tự động khóa).
+              </div>
+            </div>
+            <div class="vip-benefit-item">
+              <span class="benefit-icon-check">✓</span>
+              <div class="benefit-content">
+                <strong>Phân tích chi tiết chính tinh, cát tinh, sát tinh</strong> &amp; Đạo trị mệnh trong 3 cung đã chọn.
+              </div>
+            </div>
+            <div class="vip-benefit-item">
+              <span class="benefit-icon-check">✓</span>
+              <div class="benefit-content">
+                <strong>Tặng kèm miễn phí Cung Mệnh &amp; Cung Phụ Mẫu</strong> (không tính vào 3 lượt chọn).
+              </div>
+            </div>
+            <div class="vip-benefit-item is-locked">
+              <span class="benefit-icon-lock">✗</span>
+              <div class="benefit-content">
+                <span class="benefit-lock-tag">Khóa:</span> Không bao gồm Luận giải Đại Hạn các thập niên 6 – 75+ tuổi (thuộc Gói VIP 99k).
+              </div>
+            </div>
+            <div class="vip-benefit-item is-locked">
+              <span class="benefit-icon-lock">✗</span>
+              <div class="benefit-content">
+                <span class="benefit-lock-tag">Khóa:</span> Không bao gồm Tam Phương Tứ Chính &amp; Tứ Hóa Phi Tinh (thuộc Gói VIP 99k).
+              </div>
+            </div>
           `;
         } else {
           benefitsEl.innerHTML = `
-            <div class="vip-benefit-item" style="color:#059669;">✓ <strong>Mở khóa toàn bộ 12 cung</strong> luận giải chi tiết (không che mờ).</div>
-            <div class="vip-benefit-item" style="color:#059669;">✓ <strong>Luận giải Đại Hạn các thập niên (từ 6 đến 75+ tuổi)</strong> &amp; Phương pháp Hóa giải.</div>
-            <div class="vip-benefit-item" style="color:#059669;">✓ <strong>Phân tích Tam Phương Tứ Chính &amp; Tứ Hóa Phi Tinh</strong> (Lộc - Quyền - Khoa - Kỵ).</div>
-            <div class="vip-benefit-item" style="color:#059669;">✓ <strong>Xuất trọn bộ File PDF VIP A4</strong> đóng dấu mộc phong thủy lưu trữ trọn đời.</div>
-            <div class="vip-benefit-item" style="color:#059669;">✓ <strong>Tích hợp Cố Vấn Tử Vi AI</strong> giải đáp mở rộng mọi băn khoăn.</div>
+            <div class="vip-benefit-item">
+              <span class="benefit-icon-check">✓</span>
+              <div class="benefit-content">
+                <strong>Mở khóa toàn bộ 12 cung</strong> luận giải chi tiết (không che mờ).
+              </div>
+            </div>
+            <div class="vip-benefit-item">
+              <span class="benefit-icon-check">✓</span>
+              <div class="benefit-content">
+                <strong>Luận giải Đại Hạn các thập niên (từ 6 đến 75+ tuổi)</strong> &amp; Phương pháp Hóa giải vận hạn.
+              </div>
+            </div>
+            <div class="vip-benefit-item">
+              <span class="benefit-icon-check">✓</span>
+              <div class="benefit-content">
+                <strong>Phân tích Tam Phương Tứ Chính &amp; Tứ Hóa Phi Tinh</strong> (Lộc - Quyền - Khoa - Kỵ).
+              </div>
+            </div>
+            <div class="vip-benefit-item">
+              <span class="benefit-icon-check">✓</span>
+              <div class="benefit-content">
+                <strong>Xuất trọn bộ File PDF VIP A4</strong> đóng dấu mộc phong thủy lưu trữ trọn đời.
+              </div>
+            </div>
+            <div class="vip-benefit-item">
+              <span class="benefit-icon-check">✓</span>
+              <div class="benefit-content">
+                <strong>Tích hợp Cố Vấn Tử Vi AI</strong> giải đáp mở rộng mọi băn khoăn vận mệnh.
+              </div>
+            </div>
           `;
         }
       }
@@ -1934,11 +1984,36 @@
             </div>
 
             <div class="vip-benefits-list">
-              <div class="vip-benefit-item" style="color:#059669;">✓ <strong>Mở khóa toàn bộ 12 cung</strong> luận giải chi tiết (không che mờ).</div>
-              <div class="vip-benefit-item" style="color:#059669;">✓ <strong>Luận giải Đại Hạn các thập niên (từ 6 đến 75+ tuổi)</strong> &amp; Phương pháp Hóa giải.</div>
-              <div class="vip-benefit-item" style="color:#059669;">✓ <strong>Phân tích Tam Phương Tứ Chính &amp; Tứ Hóa Phi Tinh</strong> (Lộc - Quyền - Khoa - Kỵ).</div>
-              <div class="vip-benefit-item" style="color:#059669;">✓ <strong>Dự báo Vận Hạn Lưu Niên ${curYear} (${curCanChi}) &amp; ${nextYear} (${nextCanChi})</strong> chi tiết.</div>
-              <div class="vip-benefit-item" style="color:#059669;">✓ <strong>Xuất trọn bộ File PDF VIP A4</strong> lưu trữ trọn đời &amp; Cố vấn Tử Vi AI.</div>
+              <div class="vip-benefit-item">
+                <span class="benefit-icon-check">✓</span>
+                <div class="benefit-content">
+                  <strong>Mở khóa toàn bộ 12 cung</strong> luận giải chi tiết (không che mờ).
+                </div>
+              </div>
+              <div class="vip-benefit-item">
+                <span class="benefit-icon-check">✓</span>
+                <div class="benefit-content">
+                  <strong>Luận giải Đại Hạn các thập niên (từ 6 đến 75+ tuổi)</strong> &amp; Phương pháp Hóa giải vận hạn.
+                </div>
+              </div>
+              <div class="vip-benefit-item">
+                <span class="benefit-icon-check">✓</span>
+                <div class="benefit-content">
+                  <strong>Phân tích Tam Phương Tứ Chính &amp; Tứ Hóa Phi Tinh</strong> (Lộc - Quyền - Khoa - Kỵ).
+                </div>
+              </div>
+              <div class="vip-benefit-item">
+                <span class="benefit-icon-check">✓</span>
+                <div class="benefit-content">
+                  <strong>Dự báo Vận Hạn Lưu Niên ${curYear} (${curCanChi}) &amp; ${nextYear} (${nextCanChi})</strong> chi tiết.
+                </div>
+              </div>
+              <div class="vip-benefit-item">
+                <span class="benefit-icon-check">✓</span>
+                <div class="benefit-content">
+                  <strong>Xuất trọn bộ File PDF VIP A4</strong> lưu trữ trọn đời &amp; Cố vấn Tử Vi AI.
+                </div>
+              </div>
             </div>
 
             <!-- TRẠNG THÁI KẾT NỐI TỰ ĐỘNG VIETINBANK 24/7 (ZERO-CLICK AUTO VERIFICATION) -->
