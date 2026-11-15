@@ -30,8 +30,137 @@
     currentOrderId: '',
     vipAccessToken: '',
     vipOrderCode: '',
+    activeChartKey: '',
     currentPackageName: 'Báo Cáo VIP A4 Toàn Thư',
     currentPackagePrice: 49000,
+
+    getChartKey: function (laSoOrInput) {
+      if (!laSoOrInput) return '';
+      if (typeof TuViEngine !== 'undefined' && TuViEngine.getChartKey) {
+        return TuViEngine.getChartKey(laSoOrInput);
+      }
+      var inp = laSoOrInput._input || laSoOrInput;
+      var rawName = String(laSoOrInput.hoTen || inp.hoTen || '')
+        .trim()
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/đ/g, 'd')
+        .replace(/[^a-z0-9]/g, '_')
+        .replace(/_+/g, '_')
+        .replace(/^_|_$/g, '');
+      var gStr = String(laSoOrInput.gioiTinh || inp.gioiTinh || 'nam').toLowerCase();
+      var gender = (gStr.indexOf('n') !== -1 && !gStr.startsWith('nam') && !gStr.startsWith('1') && !gStr.startsWith('true')) ? 'nu' : 'nam';
+      var d = parseInt(inp.ngay || laSoOrInput.ngaySinh || laSoOrInput.ngay || 1, 10);
+      var m = parseInt(inp.thang || laSoOrInput.thangSinh || laSoOrInput.thang || 1, 10);
+      var y = parseInt(inp.nam || laSoOrInput.namSinh || laSoOrInput.nam || 2000, 10);
+      var g = parseInt(inp.gio !== undefined ? inp.gio : (inp.gioIndex !== undefined ? inp.gioIndex : 0), 10);
+      var p = parseInt(inp.phut !== undefined ? inp.phut : 0, 10);
+      var isL = (inp.isLunar === true || inp.loaiLich === 'am' || laSoOrInput.isLunar === true) ? 1 : 0;
+      return 'laso_' + (rawName || 'vodanh') + '_' + gender + '_' + d + '_' + m + '_' + y + '_' + g + '_' + p + '_' + isL;
+    },
+
+    getUnlockedCharts: function () {
+      try {
+        var raw = localStorage.getItem('tvhh_unlocked_charts');
+        return raw ? JSON.parse(raw) : {};
+      } catch (e) {
+        return {};
+      }
+    },
+
+    saveUnlockedChart: function (chartKey, orderInfo) {
+      if (!chartKey) return;
+      try {
+        var charts = this.getUnlockedCharts();
+        charts[chartKey] = Object.assign({
+          unlockedAt: new Date().toISOString()
+        }, charts[chartKey] || {}, orderInfo || {});
+        localStorage.setItem('tvhh_unlocked_charts', JSON.stringify(charts));
+      } catch (e) {
+        console.warn('Lỗi lưu lá số đã mở khóa:', e);
+      }
+    },
+
+    getUnlockedChartInfo: function (laSoOrKey) {
+      if (!laSoOrKey) return null;
+      var key = typeof laSoOrKey === 'string' ? laSoOrKey : this.getChartKey(laSoOrKey);
+      if (!key) return null;
+      var charts = this.getUnlockedCharts();
+      return charts[key] || null;
+    },
+
+    isChartUnlocked: function (laSoOrKey) {
+      return Boolean(this.getUnlockedChartInfo(laSoOrKey));
+    },
+
+    isChartVip: function (laSoOrKey) {
+      var info = this.getUnlockedChartInfo(laSoOrKey);
+      if (!info) return false;
+      return Boolean(!info.isTripwire && info.packageId !== 'vip_29k');
+    },
+
+    isChartTripwire: function (laSoOrKey) {
+      var info = this.getUnlockedChartInfo(laSoOrKey);
+      if (!info) return false;
+      return Boolean(info.isTripwire || info.packageId === 'vip_29k');
+    },
+
+    updateActiveChartStatus: function (laSo) {
+      if (!laSo) return false;
+      var key = this.getChartKey(laSo);
+      var info = this.getUnlockedChartInfo(key);
+
+      if (info) {
+        var isTripwire = Boolean(info.isTripwire || info.packageId === 'vip_29k');
+        this.isVipUnlocked = !isTripwire;
+        this.isTripwireUnlocked = isTripwire;
+        this.vipOrderCode = info.orderCode || '';
+        this.vipAccessToken = info.vipAccessToken || info.vipToken || '';
+        this.activeChartKey = key;
+        this.applyVipUI();
+        return true;
+      } else {
+        this.isVipUnlocked = false;
+        this.isTripwireUnlocked = false;
+        this.vipOrderCode = '';
+        this.vipAccessToken = '';
+        this.activeChartKey = key;
+        this.removeVipUI();
+        return false;
+      }
+    },
+
+    removeVipUI: function () {
+      if (typeof document === 'undefined') return;
+      document.body.classList.remove('vip-activated');
+      var banner = document.getElementById('vipUnlockedBanner');
+      if (banner) {
+        banner.remove();
+      }
+      var floatBtn = document.getElementById('floatingVipCta');
+      if (floatBtn) {
+        floatBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span>Mở Khóa Toàn Thư (49.000đ)</span>';
+        floatBtn.onclick = () => TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)', 49000);
+      }
+      var vipBtns = document.querySelectorAll('.btn-action-vip');
+      vipBtns.forEach(b => {
+        b.classList.remove('unlocked');
+        b.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Mở Khóa VIP (49.000đ)';
+        b.onclick = () => TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)', 49000);
+      });
+      var toolbarVips = document.querySelectorAll('.btn-toolbar-vip');
+      toolbarVips.forEach(b => {
+        b.style.background = '';
+        b.style.color = '';
+        b.style.borderColor = '';
+        b.style.fontWeight = '';
+        b.onclick = () => TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)', 49000);
+      });
+      if (typeof TuViChart !== 'undefined' && TuViChart.initStickyBottomCta) {
+        TuViChart.initStickyBottomCta(false);
+      }
+    },
 
     getApiUrl: function (path) {
       if (typeof window !== 'undefined') {
@@ -122,25 +251,11 @@
 
     checkVipStatus: async function () {
       try {
-        if (localStorage.getItem('tvhh_tripwire_unlocked') === 'true') {
-          this.isTripwireUnlocked = true;
-        }
-
-        // Tự động mở khóa ngay nếu là thiết bị đã thanh toán đơn VIP
-        const savedOrder = localStorage.getItem('tvhh_vip_order_code');
-        if (savedOrder === 'TV377099' || savedOrder === 'TV774622' || localStorage.getItem('tvhh_vip_unlocked') === 'true') {
-          this.isVipUnlocked = true;
-          this.vipOrderCode = savedOrder || 'TV774622';
-          this.vipAccessToken = localStorage.getItem('tvhh_vip_token') || 'vip_paid_order';
-          this.applyVipUI();
-          if (typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) {
-            TuViChart.renderLuanGiai(TuViChart._currentLaSo);
-          }
-          if (typeof TuViCompatibility !== 'undefined' && typeof TuViCompatibility.renderResult === 'function') {
-            TuViCompatibility.renderResult();
-          }
-          return;
-        }
+        // Dọn dẹp cờ mở khóa toàn cục cũ để đảm bảo mỗi lá số phải thanh toán độc lập
+        try {
+          localStorage.removeItem('tvhh_vip_unlocked');
+          localStorage.removeItem('tvhh_tripwire_unlocked');
+        } catch (e) {}
 
         // 1. Kiểm tra Magic Link trên URL (?vip_token=... hoặc ?order=...)
         if (typeof window !== 'undefined' && window.location && window.location.search) {
@@ -151,16 +266,14 @@
               const res = await fetch(this.getApiUrl('/api/orders/verify-token?token=' + encodeURIComponent(magicToken)));
               if (res.ok) {
                 const data = await res.json();
-                if (data.success && data.isVip) {
-                  this.isVipUnlocked = true;
-                  this.vipAccessToken = data.order.vipAccessToken || magicToken;
-                  this.vipOrderCode = data.order.orderCode;
-                  localStorage.setItem('tvhh_vip_unlocked', 'true');
-                  localStorage.setItem('tvhh_vip_token', this.vipAccessToken);
-                  localStorage.setItem('tvhh_vip_order_code', this.vipOrderCode);
-                  this.applyVipUI();
+                if (data.success && data.isVip && data.order) {
+                  const cKey = data.order.chartKey;
+                  if (cKey) {
+                    this.saveUnlockedChart(cKey, data.order);
+                  }
                   if (typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) {
-                    TuViChart.renderLuanGiai(TuViChart._currentLaSo);
+                    this.updateActiveChartStatus(TuViChart._currentLaSo);
+                    TuViChart.render(TuViChart._currentLaSo);
                   }
                   return;
                 }
@@ -171,19 +284,15 @@
           }
         }
 
-        // 2. Kiểm tra Token VIP đã lưu trong localStorage (Guest Instant Checkout)
-        const storedToken = localStorage.getItem('tvhh_vip_token');
+        // 2. Kiểm tra token VIP đã lưu để cập nhật vào danh sách lá số đã mua
+        const storedToken = localStorage.getItem('tvhh_vip_token') || localStorage.getItem('tvhh_vip_order_code');
         if (storedToken) {
           try {
             const res = await fetch(this.getApiUrl('/api/orders/verify-token?token=' + encodeURIComponent(storedToken)));
             if (res.ok) {
               const data = await res.json();
-              if (data.success && data.isVip) {
-                this.isVipUnlocked = true;
-                this.vipAccessToken = storedToken;
-                this.vipOrderCode = data.order.orderCode || localStorage.getItem('tvhh_vip_order_code') || '';
-                this.applyVipUI();
-                return;
+              if (data.success && data.isVip && data.order && data.order.chartKey) {
+                this.saveUnlockedChart(data.order.chartKey, data.order);
               }
             }
           } catch (err) {
@@ -191,23 +300,18 @@
           }
         }
 
-        // 3. Kiểm tra tài khoản thành viên đăng nhập truyền thống
-        const authToken = localStorage.getItem('tvhh_auth_token');
-        const userStr = localStorage.getItem('tvhh_user');
-        if (authToken && userStr) {
-          const user = JSON.parse(userStr);
-          if (user && user.isVip) {
-            this.isVipUnlocked = true;
-            this.applyVipUI();
-            return;
-          }
+        // 3. Cập nhật quyền theo lá số hiện tại đang hiển thị
+        if (typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) {
+          this.updateActiveChartStatus(TuViChart._currentLaSo);
+        } else {
+          this.isVipUnlocked = false;
+          this.isTripwireUnlocked = false;
+          this.vipOrderCode = '';
+          this.vipAccessToken = '';
+          this.removeVipUI();
         }
 
-        // 4. Người dùng vãng lai hoặc chưa nâng cấp VIP -> Khóa đúng chuẩn
-        this.isVipUnlocked = false;
-        localStorage.removeItem('tvhh_vip_unlocked');
-
-        // 5. Phục hồi và kích hoạt quét tự động nếu trước đó có đơn hàng đang chờ
+        // 4. Phục hồi và kích hoạt quét tự động nếu trước đó có đơn hàng đang chờ
         try {
           const pendingOrder = sessionStorage.getItem('tvhh_pending_order');
           if (pendingOrder && !this.isVipUnlocked) {
@@ -216,7 +320,7 @@
           }
         } catch (e) {}
 
-        // 6. Lắng nghe sự kiện khách quay lại tab (từ app ngân hàng hoặc màn hình khóa)
+        // 5. Lắng nghe sự kiện khách quay lại tab (từ app ngân hàng hoặc màn hình khóa)
         if (typeof document !== 'undefined') {
           const checkOnActive = () => {
             const code = this.currentOrderId || (typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('tvhh_pending_order') : null);
@@ -248,13 +352,11 @@
               if (btn) btn.setAttribute('aria-expanded', 'true');
             });
             const bodies = document.querySelectorAll('.accordion-body');
-            bodies.forEach(b => {
-              b.style.display = 'block';
-            });
+            bodies.forEach(b => b.style.display = 'block');
           });
         }
-      } catch (e) {
-        this.isVipUnlocked = false;
+      } catch (err) {
+        console.warn('Lỗi checkVipStatus:', err);
       }
     },
 
@@ -275,6 +377,15 @@
         sessionStorage.setItem('tvhh_pending_order', this.currentOrderId);
         sessionStorage.setItem('tvhh_pending_price', String(this.currentPackagePrice));
       } catch (e) {}
+
+      // Xác định lá số mục tiêu và chartKey để ràng buộc đơn hàng với lá số này
+      const activeLaSo = (typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) ? TuViChart._currentLaSo : null;
+      const activeChartKey = activeLaSo ? this.getChartKey(activeLaSo) : '';
+      if (activeChartKey) {
+        try {
+          sessionStorage.setItem('tvhh_pending_chart_key', activeChartKey);
+        } catch (e) {}
+      }
 
       let modal = document.getElementById('tuvi-vip-modal');
       if (!modal) {
@@ -306,10 +417,21 @@
         },
         body: JSON.stringify({
           orderCode: this.currentOrderId,
+          chartKey: activeChartKey,
+          chartInfo: activeLaSo ? {
+            hoTen: activeLaSo.hoTen || (activeLaSo._input && activeLaSo._input.hoTen) || '',
+            gioiTinh: activeLaSo.gioiTinh || (activeLaSo._input && activeLaSo._input.gioiTinh) || 'nam',
+            ngay: (activeLaSo._input && activeLaSo._input.ngay) || activeLaSo.ngay,
+            thang: (activeLaSo._input && activeLaSo._input.thang) || activeLaSo.thang,
+            nam: (activeLaSo._input && activeLaSo._input.nam) || activeLaSo.nam,
+            gio: (activeLaSo._input && activeLaSo._input.gio) !== undefined ? activeLaSo._input.gio : activeLaSo.gio,
+            phut: (activeLaSo._input && activeLaSo._input.phut) !== undefined ? activeLaSo._input.phut : activeLaSo.phut,
+            isLunar: Boolean(activeLaSo.isLunar || (activeLaSo._input && activeLaSo._input.isLunar))
+          } : null,
           packageId: this.currentPackagePrice >= 1000000 ? 'vip_call' : (this.currentPackagePrice >= 100000 ? 'vip_149k' : (this.currentPackagePrice >= 40000 ? 'vip_49k' : 'vip_29k')),
           packageName: this.currentPackageName,
           amount: this.currentPackagePrice,
-          customerName: currentUser ? currentUser.fullName : (typeof TuViChart !== 'undefined' && TuViChart._currentLaSo ? TuViChart._currentLaSo.hoTen : 'Đương Số VIP'),
+          customerName: currentUser ? currentUser.fullName : (activeLaSo ? activeLaSo.hoTen : 'Đương Số VIP'),
           customerPhone: currentUser ? currentUser.emailOrPhone : ''
         })
       })
@@ -334,7 +456,6 @@
       document.body.style.overflow = 'hidden';
     },
 
-    
     /**
      * Chuyển đổi gói trực tiếp ngay trong Modal thanh toán
      */
@@ -357,6 +478,9 @@
       // Cập nhật lại đơn hàng backend
       const token = localStorage.getItem('tvhh_auth_token');
       const currentUser = typeof TuViAuth !== 'undefined' ? TuViAuth.currentUser : null;
+      const activeLaSo = (typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) ? TuViChart._currentLaSo : null;
+      const activeChartKey = activeLaSo ? this.getChartKey(activeLaSo) : '';
+
       fetch(this.getApiUrl('/api/orders/create'), {
         method: 'POST',
         headers: {
@@ -365,10 +489,21 @@
         },
         body: JSON.stringify({
           orderCode: this.currentOrderId,
+          chartKey: activeChartKey,
+          chartInfo: activeLaSo ? {
+            hoTen: activeLaSo.hoTen || (activeLaSo._input && activeLaSo._input.hoTen) || '',
+            gioiTinh: activeLaSo.gioiTinh || (activeLaSo._input && activeLaSo._input.gioiTinh) || 'nam',
+            ngay: (activeLaSo._input && activeLaSo._input.ngay) || activeLaSo.ngay,
+            thang: (activeLaSo._input && activeLaSo._input.thang) || activeLaSo.thang,
+            nam: (activeLaSo._input && activeLaSo._input.nam) || activeLaSo.nam,
+            gio: (activeLaSo._input && activeLaSo._input.gio) !== undefined ? activeLaSo._input.gio : activeLaSo.gio,
+            phut: (activeLaSo._input && activeLaSo._input.phut) !== undefined ? activeLaSo._input.phut : activeLaSo.phut,
+            isLunar: Boolean(activeLaSo.isLunar || (activeLaSo._input && activeLaSo._input.isLunar))
+          } : null,
           packageId: this.currentPackagePrice >= 100000 ? 'vip_149k' : (this.currentPackagePrice >= 40000 ? 'vip_49k' : 'vip_29k'),
           packageName: this.currentPackageName,
           amount: this.currentPackagePrice,
-          customerName: currentUser ? currentUser.fullName : (typeof TuViChart !== 'undefined' && TuViChart._currentLaSo ? TuViChart._currentLaSo.hoTen : 'Đương Số VIP'),
+          customerName: currentUser ? currentUser.fullName : (activeLaSo ? activeLaSo.hoTen : 'Đương Số VIP'),
           customerPhone: currentUser ? currentUser.emailOrPhone : ''
         })
       })
@@ -639,27 +774,62 @@
 
     onPaymentSuccess: function (data) {
       this.stopOrderPolling();
-      const isTripwirePkg = (this.currentPackagePrice <= 35000);
-      if (isTripwirePkg) {
-        this.isTripwireUnlocked = true;
-        localStorage.setItem('tvhh_tripwire_unlocked', 'true');
-      } else {
-        this.isVipUnlocked = true;
-        localStorage.setItem('tvhh_vip_unlocked', 'true');
-      }
-
+      const isTripwirePkg = (this.currentPackagePrice <= 35000) || (data && (data.packageId === 'vip_29k' || (data.order && data.order.packageId === 'vip_29k')));
       const orderCode = (data && (data.orderCode || (data.order && data.order.orderCode))) || this.currentOrderId;
       const vipToken = (data && (data.vipToken || data.vipAccessToken || (data.order && data.order.vipAccessToken))) || 'vip_' + Date.now();
+      const displayAmount = (data && (data.amount || (data.order && data.order.amount))) || this.currentPackagePrice || 29000;
+      const packageId = (data && (data.packageId || (data.order && data.order.packageId))) || (isTripwirePkg ? 'vip_29k' : 'vip_49k');
+      const packageName = (data && (data.packageName || (data.order && data.order.packageName))) || this.currentPackageName || 'Báo Cáo VIP A4 Toàn Thư';
+
+      // Xác định lá số tương ứng để mở khóa độc lập
+      const currentChart = (typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) ? TuViChart._currentLaSo : null;
+      let targetChartKey = (data && (data.chartKey || (data.order && data.order.chartKey)));
+      if (!targetChartKey) {
+        try {
+          targetChartKey = sessionStorage.getItem('tvhh_pending_chart_key');
+        } catch (e) {}
+      }
+      if (!targetChartKey && currentChart) {
+        targetChartKey = this.getChartKey(currentChart);
+      }
+
+      // Lưu quyền mở khóa RIÊNG BIỆT cho lá số này
+      if (targetChartKey) {
+        this.saveUnlockedChart(targetChartKey, {
+          orderCode: orderCode,
+          vipAccessToken: vipToken,
+          vipToken: vipToken,
+          packageId: packageId,
+          packageName: packageName,
+          amount: displayAmount,
+          isTripwire: isTripwirePkg,
+          unlockedAt: new Date().toISOString()
+        });
+      }
+
+      // Cập nhật trạng thái theo lá số đang hiển thị
+      if (currentChart) {
+        this.updateActiveChartStatus(currentChart);
+      } else {
+        this.isVipUnlocked = !isTripwirePkg;
+        this.isTripwireUnlocked = isTripwirePkg;
+        this.vipOrderCode = orderCode;
+        this.vipAccessToken = vipToken;
+      }
+
       localStorage.setItem('tvhh_vip_order_code', orderCode);
       localStorage.setItem('tvhh_vip_token', vipToken);
       try {
         sessionStorage.removeItem('tvhh_pending_order');
+        sessionStorage.removeItem('tvhh_pending_chart_key');
       } catch (e) {}
 
       // Mở khóa UI ở trang phía sau
-      this.applyVipUI();
+      if (this.isVipUnlocked) {
+        this.applyVipUI();
+      }
       if (typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) {
-        TuViChart.renderLuanGiai(TuViChart._currentLaSo);
+        TuViChart.render(TuViChart._currentLaSo);
       }
       if (typeof TuViNumerology !== 'undefined' && TuViNumerology._lastParams) {
         TuViNumerology.renderResult(TuViNumerology._lastParams.fullName, TuViNumerology._lastParams.birthDate);
@@ -790,7 +960,7 @@
     },
 
     renderVipUnlockedBanner: function () {
-      if (!this.isVipUnlocked) return;
+      if (!this.isVipUnlocked || typeof document === 'undefined' || !document.querySelector) return;
       const resultWrap = document.querySelector('.la-so-outer-wrap');
       const chartEl = document.getElementById('la-so-chart');
       if (!resultWrap || !chartEl) return;
@@ -1289,7 +1459,7 @@
      */
     initFloatingCta: function () {
       let floatBtn = document.getElementById('floatingVipCta');
-      const isUserVip = this.isVip || (typeof localStorage !== 'undefined' && localStorage.getItem('tvhh_vip_unlocked') === 'true');
+      const isUserVip = Boolean(this.isVipUnlocked);
       if (!floatBtn) {
         floatBtn = document.createElement('button');
         floatBtn.id = 'floatingVipCta';
@@ -1627,11 +1797,15 @@
         const data = await res.json();
 
         if (data.success && data.isVip) {
-          this.isVipUnlocked = true;
-          this.vipAccessToken = data.order.vipAccessToken || data.order.orderCode;
-          this.vipOrderCode = data.order.orderCode;
+          const oCode = data.order.orderCode;
+          const vTok = data.order.vipAccessToken || data.order.orderCode;
+          const cKey = data.order.chartKey;
+          if (cKey) {
+            this.saveUnlockedChart(cKey, data.order);
+          }
+          this.vipAccessToken = vTok;
+          this.vipOrderCode = oCode;
 
-          localStorage.setItem('tvhh_vip_unlocked', 'true');
           localStorage.setItem('tvhh_vip_token', this.vipAccessToken);
           localStorage.setItem('tvhh_vip_order_code', this.vipOrderCode);
 
@@ -1642,14 +1816,14 @@
           } catch (e) {}
 
           this.closeRestoreModal();
-          this.applyVipUI();
 
           if (typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) {
-            TuViChart.renderLuanGiai(TuViChart._currentLaSo);
+            this.updateActiveChartStatus(TuViChart._currentLaSo);
+            TuViChart.render(TuViChart._currentLaSo);
           }
 
           if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
-            TuViApp.showToast(`🎉 Khôi phục thành công đơn hàng ${data.order.orderCode}! Toàn bộ 12 cung đã được mở khóa.`, 'success');
+            TuViApp.showToast(`🎉 Khôi phục thành công đơn hàng ${data.order.orderCode}!`, 'success');
           }
         } else {
           if (errEl) {
@@ -1825,4 +1999,7 @@
   };
 
   global.TuViMonetize = Monetize;
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = Monetize;
+  }
 })(typeof window !== 'undefined' ? window : this);

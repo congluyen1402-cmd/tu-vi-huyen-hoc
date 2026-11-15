@@ -437,13 +437,6 @@
   function isVipActive() {
     if (typeof window !== 'undefined') {
       if (window.TuViMonetize && window.TuViMonetize.isVipUnlocked) return true;
-      try {
-        const order = localStorage.getItem('tvhh_vip_order_code');
-        if (order === 'TV774622' || order === 'TV377099') return true;
-        if (localStorage.getItem('tvhh_vip_unlocked') === 'true' ||
-            localStorage.getItem('tvhh_vip_token') || 
-            localStorage.getItem('tvhh_tripwire_unlocked') === 'true') return true;
-      } catch (e) {}
     }
     return false;
   }

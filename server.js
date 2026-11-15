@@ -772,6 +772,8 @@ const server = http.createServer(async (req, res) => {
           id: 'ord_' + Date.now(),
           orderCode,
           vipAccessToken,
+          chartKey: body.chartKey || null,
+          chartInfo: body.chartInfo || null,
           userId: user ? user.id : null,
           customerName: body.customerName || (user ? user.fullName : 'Khách Vãng Lai VIP'),
           customerPhone: body.customerPhone || (user ? user.emailOrPhone : ''),
@@ -786,6 +788,8 @@ const server = http.createServer(async (req, res) => {
         };
         orders.push(order);
       } else {
+        if (body.chartKey) order.chartKey = body.chartKey;
+        if (body.chartInfo) order.chartInfo = body.chartInfo;
         if (body.amount && order.status !== 'PAID') order.amount = Number(body.amount);
         if (body.packageName && order.status !== 'PAID') order.packageName = body.packageName;
         if (body.packageId && order.status !== 'PAID') order.packageId = body.packageId;
@@ -798,6 +802,8 @@ const server = http.createServer(async (req, res) => {
         success: true,
         orderCode: order.orderCode,
         vipAccessToken: order.vipAccessToken,
+        chartKey: order.chartKey || null,
+        chartInfo: order.chartInfo || null,
         amount: order.amount,
         bankId: appConfig.bankId,
         accountNo: appConfig.accountNo,
@@ -848,6 +854,8 @@ const server = http.createServer(async (req, res) => {
       isPaid: isPaid,
       status: order ? order.status : 'PENDING',
       orderCode: order ? order.orderCode : code,
+      chartKey: order ? (order.chartKey || null) : null,
+      chartInfo: order ? (order.chartInfo || null) : null,
       vipToken: order ? order.vipAccessToken : '',
       vipAccessToken: order ? order.vipAccessToken : '',
       paidAt: order ? order.paidAt : null,
@@ -1002,6 +1010,8 @@ const server = http.createServer(async (req, res) => {
           paid: true,
           isPaid: true,
           status: 'PAID',
+          chartKey: order.chartKey || null,
+          chartInfo: order.chartInfo || null,
           paidAt: order.paidAt,
           packageId: order.packageId,
           packageName: order.packageName,
@@ -1672,6 +1682,8 @@ const server = http.createServer(async (req, res) => {
       isVip: true,
       order: {
         orderCode: order.orderCode,
+        chartKey: order.chartKey || null,
+        chartInfo: order.chartInfo || null,
         packageName: order.packageName,
         packageId: order.packageId,
         vipAccessToken: order.vipAccessToken || order.orderCode,
@@ -1781,6 +1793,8 @@ const server = http.createServer(async (req, res) => {
         message: 'Khôi phục quyền VIP thành công!',
         order: {
           orderCode: order.orderCode,
+          chartKey: order.chartKey || null,
+          chartInfo: order.chartInfo || null,
           packageName: order.packageName,
           packageId: order.packageId,
           vipAccessToken: order.vipAccessToken || order.orderCode,

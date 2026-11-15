@@ -353,6 +353,9 @@ const TuViChart = {
     }
 
     // 2. Render Lá Số dạng Trống Đồng Đông Sơn
+    if (typeof TuViMonetize !== 'undefined' && typeof TuViMonetize.updateActiveChartStatus === 'function') {
+      TuViMonetize.updateActiveChartStatus(laSo);
+    }
     this.renderTraditionalChart(laSo);
 
     // 3. Render Luận Giải Chi Tiết
@@ -360,9 +363,9 @@ const TuViChart = {
 
     // Khởi tạo thanh CTA dính đáy nếu chưa là VIP
     const isVip = Boolean(
-      (typeof TuViAuth !== 'undefined' && TuViAuth.isVip && TuViAuth.isVip()) ||
-      (typeof TuViMonetize !== 'undefined' && TuViMonetize.isVipUnlocked) ||
-      (typeof window !== 'undefined' && window.TuViMonetize && window.TuViMonetize.isVipUnlocked)
+      (typeof TuViAuth !== 'undefined' && TuViAuth.isVip && TuViAuth.isVip(laSo)) ||
+      (typeof TuViMonetize !== 'undefined' && TuViMonetize.isChartVip && TuViMonetize.isChartVip(laSo)) ||
+      (typeof TuViMonetize !== 'undefined' && TuViMonetize.isVipUnlocked)
     );
     this.initStickyBottomCta(isVip);
 
@@ -487,9 +490,9 @@ const TuViChart = {
     if (!chartWrapper) return;
 
     const isVip = Boolean(
-      (typeof TuViAuth !== 'undefined' && TuViAuth.isVip && TuViAuth.isVip()) ||
-      (typeof TuViMonetize !== 'undefined' && TuViMonetize.isVipUnlocked) ||
-      (typeof window !== 'undefined' && window.TuViMonetize && window.TuViMonetize.isVipUnlocked)
+      (typeof TuViAuth !== 'undefined' && TuViAuth.isVip && TuViAuth.isVip(laSo)) ||
+      (typeof TuViMonetize !== 'undefined' && TuViMonetize.isChartVip && TuViMonetize.isChartVip(laSo)) ||
+      (typeof TuViMonetize !== 'undefined' && TuViMonetize.isVipUnlocked)
     );
     const orderDisplay = (typeof TuViMonetize !== 'undefined' && TuViMonetize.vipOrderCode) || (typeof localStorage !== 'undefined' && localStorage.getItem('tvhh_vip_order_code')) || 'TV289735';
 
@@ -711,9 +714,9 @@ const TuViChart = {
     const isThan = chiIndex === laSo.cungThan.chiIndex;
 
     const isVip = Boolean(
-      (typeof TuViAuth !== 'undefined' && TuViAuth.isVip && TuViAuth.isVip()) ||
-      (typeof TuViMonetize !== 'undefined' && TuViMonetize.isVipUnlocked) ||
-      (typeof window !== 'undefined' && window.TuViMonetize && window.TuViMonetize.isVipUnlocked)
+      (typeof TuViAuth !== 'undefined' && TuViAuth.isVip && TuViAuth.isVip(laSo)) ||
+      (typeof TuViMonetize !== 'undefined' && TuViMonetize.isChartVip && TuViMonetize.isChartVip(laSo)) ||
+      (typeof TuViMonetize !== 'undefined' && TuViMonetize.isVipUnlocked)
     );
     const isFreePalace = cung.cungName.startsWith('MỆNH') || cung.cungName.startsWith('PHỤ MẪU');
     const isLocked = !isVip && !isFreePalace;
@@ -1000,9 +1003,9 @@ const TuViChart = {
     }
 
     const isVip = Boolean(
-      (typeof TuViAuth !== 'undefined' && TuViAuth.isVip && TuViAuth.isVip()) ||
-      (typeof TuViMonetize !== 'undefined' && TuViMonetize.isVipUnlocked) ||
-      (typeof window !== 'undefined' && window.TuViMonetize && window.TuViMonetize.isVipUnlocked)
+      (typeof TuViAuth !== 'undefined' && TuViAuth.isVip && TuViAuth.isVip(laSo)) ||
+      (typeof TuViMonetize !== 'undefined' && TuViMonetize.isChartVip && TuViMonetize.isChartVip(laSo)) ||
+      (typeof TuViMonetize !== 'undefined' && TuViMonetize.isVipUnlocked)
     );
     const isFreePalace = cung.cungName.startsWith('MỆNH') || cung.cungName.startsWith('PHỤ MẪU');
     const isLocked = !isVip && !isFreePalace;
@@ -1341,12 +1344,13 @@ const TuViChart = {
 
     // Xác thực quyền VIP: VIP trọn gói hoặc gói tripwire 29k
     const isVip = Boolean(
-      (typeof TuViAuth !== 'undefined' && TuViAuth.isVip && TuViAuth.isVip()) ||
-      (typeof TuViMonetize !== 'undefined' && TuViMonetize.isVipUnlocked) ||
-      (typeof window !== 'undefined' && window.TuViMonetize && window.TuViMonetize.isVipUnlocked)
+      (typeof TuViAuth !== 'undefined' && TuViAuth.isVip && TuViAuth.isVip(laSo)) ||
+      (typeof TuViMonetize !== 'undefined' && TuViMonetize.isChartVip && TuViMonetize.isChartVip(laSo)) ||
+      (typeof TuViMonetize !== 'undefined' && TuViMonetize.isVipUnlocked)
     );
 
     const isTripwire = Boolean(
+      (typeof TuViMonetize !== 'undefined' && TuViMonetize.isChartTripwire && TuViMonetize.isChartTripwire(laSo)) ||
       (typeof TuViMonetize !== 'undefined' && TuViMonetize.isTripwireUnlocked) ||
       (typeof window !== 'undefined' && window.TuViMonetize && window.TuViMonetize.isTripwireUnlocked)
     );

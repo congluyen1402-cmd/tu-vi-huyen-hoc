@@ -533,6 +533,33 @@
     return [(offset - 2 + 12) % 12, (offset - 1 + 12) % 12];
   }
 
+  function normalizeKeyString(str) {
+    return String(str || '')
+      .trim()
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/đ/g, 'd')
+      .replace(/[^a-z0-9]/g, '_')
+      .replace(/_+/g, '_')
+      .replace(/^_|_$/g, '');
+  }
+
+  function getChartKey(obj) {
+    if (!obj) return '';
+    var inp = obj._input || obj;
+    var rawName = normalizeKeyString(obj.hoTen || inp.hoTen || '');
+    var gStr = String(obj.gioiTinh || inp.gioiTinh || 'nam').toLowerCase();
+    var gender = (gStr.indexOf('n') !== -1 && !gStr.startsWith('nam') && !gStr.startsWith('1') && !gStr.startsWith('true')) ? 'nu' : 'nam';
+    var d = parseInt(inp.ngay || obj.ngaySinh || obj.ngay || 1, 10);
+    var m = parseInt(inp.thang || obj.thangSinh || obj.thang || 1, 10);
+    var y = parseInt(inp.nam || obj.namSinh || obj.nam || 2000, 10);
+    var g = parseInt(inp.gio !== undefined ? inp.gio : (inp.gioIndex !== undefined ? inp.gioIndex : 0), 10);
+    var p = parseInt(inp.phut !== undefined ? inp.phut : 0, 10);
+    var isL = (inp.isLunar === true || inp.loaiLich === 'am' || obj.isLunar === true) ? 1 : 0;
+    return 'laso_' + (rawName || 'vodanh') + '_' + gender + '_' + d + '_' + m + '_' + y + '_' + g + '_' + p + '_' + isL;
+  }
+
   // ==========================================================================
   // 6. MAIN ENGINE: LẬP LÁ SỐ TỬ VI CHÍNH TÔNG
   // ==========================================================================
@@ -1035,7 +1062,7 @@
       thanCu: thanCuText
     });
 
-    return {
+    var chartObj = {
       hoTen: hoTen || '',
       solarDate: solarDate || { day: ngay, month: thang, year: nam },
       lunarDate: lunar,
@@ -1083,6 +1110,12 @@
         gioTyMode: gioTyMode
       }
     };
+
+    var computedKey = getChartKey(chartObj);
+    chartObj.key = computedKey;
+    chartObj._chartKey = computedKey;
+
+    return chartObj;
   }
 
   /**
@@ -1255,6 +1288,7 @@
     getCungMenh: getCungMenh,
     getCungThan: getCungThan,
     getCuc: getCuc,
+    getChartKey: getChartKey,
     lapLaSo: lapLaSo,
     trace: trace,
     THIEN_CAN: THIEN_CAN,

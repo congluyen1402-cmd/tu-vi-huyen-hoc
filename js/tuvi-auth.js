@@ -82,13 +82,10 @@
       this.syncVipStatus();
     },
 
-    isVip: function () {
-      if (this.currentUser && this.currentUser.isVip) {
-        return true;
-      }
-      const savedOrder = localStorage.getItem('tvhh_vip_order_code');
-      if (savedOrder === 'TV377099' || localStorage.getItem('tvhh_vip_unlocked') === 'true') {
-        return true;
+    isVip: function (laSo) {
+      const target = laSo || (typeof TuViChart !== 'undefined' ? TuViChart._currentLaSo : null);
+      if (typeof TuViMonetize !== 'undefined' && TuViMonetize.isChartVip && target) {
+        return TuViMonetize.isChartVip(target);
       }
       const monetize = (typeof TuViMonetize !== 'undefined' ? TuViMonetize : (typeof window !== 'undefined' ? window.TuViMonetize : null));
       if (monetize && monetize.isVipUnlocked) {
@@ -98,16 +95,8 @@
     },
 
     syncVipStatus: function () {
-      const isVip = this.isVip();
-      if (typeof TuViMonetize !== 'undefined') {
-        TuViMonetize.isVipUnlocked = isVip;
-        if (isVip) {
-          TuViMonetize.applyVipUI();
-        }
-      }
-
-      // Tự động re-render lại accordion 12 cung nếu đã có lá số
-      if (typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) {
+      if (typeof TuViMonetize !== 'undefined' && typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) {
+        TuViMonetize.updateActiveChartStatus(TuViChart._currentLaSo);
         TuViChart.renderLuanGiai(TuViChart._currentLaSo);
       }
     },
