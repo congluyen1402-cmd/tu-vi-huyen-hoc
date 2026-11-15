@@ -1068,9 +1068,9 @@
         <div class="trend">Click khám phá 12 cung</div>
       </div>
       <div class="stat-card">
-        <div class="lbl"><span>Bật Quét Mã QR</span> <i data-lucide="qr-code"></i></div>
+        <div class="lbl"><span>Định Thanh Toán (Mở QR)</span> <i data-lucide="qr-code"></i></div>
         <div class="val" id="statVipOpens" style="color:var(--gold-light);">0</div>
-        <div class="trend">Ý định thanh toán gói VIP</div>
+        <div class="trend" id="statPendingTrend">Đang chờ chuyển tiền: 0 đơn</div>
       </div>
     </div>
 
@@ -1583,11 +1583,17 @@
         const rev = data.revenue || {};
         const me = data.metrics || {};
 
+        const it = data.intent || {};
+        const pendingCount = (it.pendingOrdersCount !== undefined) ? it.pendingOrdersCount : (me.pendingOrdersCount || 0);
         document.getElementById('statTotalPageViews').textContent = (tr.totalPageViews || me.totalPageViews || 0).toLocaleString('vi-VN');
         document.getElementById('statUniqueVisitors').textContent = (tr.uniqueVisitors || me.totalVisitors || 0).toLocaleString('vi-VN');
         document.getElementById('statTotalLaSo').textContent = (be.totalLaSoCalculated || me.totalLaSoCalculated || 0).toLocaleString('vi-VN');
         document.getElementById('statPalaceClicks').textContent = (be.totalPalaceClicks || me.totalPalaceClicks || 0).toLocaleString('vi-VN');
         document.getElementById('statVipOpens').textContent = (be.totalVipModalOpens || me.totalVipModalOpens || 0).toLocaleString('vi-VN');
+        const pendingTrendEl = document.getElementById('statPendingTrend');
+        if (pendingTrendEl) {
+          pendingTrendEl.textContent = `Chờ chuyển tiền: ${pendingCount} đơn`;
+        }
 
         // Render Doanh Thu theo bộ lọc
         document.getElementById('statTodayRevenue').textContent = (me.todayRevenue || rev.today || 0).toLocaleString('vi-VN') + ' đ';

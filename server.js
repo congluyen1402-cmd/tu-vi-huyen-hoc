@@ -468,13 +468,19 @@ function verifyPassword(password, salt, hash) {
  */
 function isAutomatedTestReq(req, payload) {
   const ua = (req.headers && req.headers['user-agent']) || '';
-  const testHeader = req.headers && (req.headers['x-automated-test'] === '1' || req.headers['x-test-suite'] === 'automated');
-  const isHeadless = ua.includes('HeadlessChrome') || ua.includes('Playwright');
+  const testHeader = req.headers && (
+    req.headers['x-automated-test'] === '1' ||
+    req.headers['x-test-suite'] === 'automated' ||
+    req.headers['x-test-run']
+  );
+  const isBotOrTestUA = /HeadlessChrome|Playwright|Puppeteer|Selenium|cypress|k6|postman|insomnia|curl|wget|python-requests|aiohttp|node-fetch|undici|axios|googlebot|bingbot|yandexbot|duckduckbot|slurp|baiduspider/i.test(ua);
   const custName = String(
     (payload && (payload.customerName || payload.hoTen || payload.fullName)) || ''
   ).toLowerCase().trim();
-  const isTestName = /nguyễn hoàng minh quân|trần văn nam|nguyễn văn test|khách thử nghiệm|đương số/i.test(custName);
-  return Boolean(testHeader || isHeadless || isTestName);
+  const orderCode = String((payload && payload.orderCode) || '').toUpperCase();
+  const isTestName = /nguyễn hoàng minh quân|trần văn nam|nguyễn văn test|khách thử nghiệm|đương số|test_user|dummy/i.test(custName);
+  const isTestCode = /TEST|DUMMY|SAMPLE/i.test(orderCode);
+  return Boolean(testHeader || isBotOrTestUA || isTestName || isTestCode);
 }
 
 // Phân tích Body JSON từ request (hỗ trợ cả Stream Node.js và Body đã parse từ Vercel/Connect)
@@ -819,28 +825,33 @@ const server = http.createServer(async (req, res) => {
   if (pathname.startsWith('/api/orders/status/') && req.method === 'GET') {
     orders = readJsonFile(ORDERS_FILE, orders);
     const code = pathname.split('/').pop().toUpperCase().trim();
-    let order = orders.find(o => o.orderCode.toUpperCase() === code);
+    let order = orders.find(o => o.orderCode && o.orderCode.toUpperCase() === code);
     
-    // Tự động khởi tạo ngay nếu chưa tồn tại (KHÔNG BAO GIỜ trả về 404)
+    // Nếu chưa có trong orders.json, kiểm tra SePay live trước xem đã có giao dịch ngân hàng thực tế chưa
     if (!order && code) {
-      const queryAmount = Number(parsedUrl.query.amount) || 29000;
-      order = {
-        id: 'ord_' + Date.now(),
+      await syncOrdersWithSePay().catch(() => {});
+      orders = readJsonFile(ORDERS_FILE, orders);
+      order = orders.find(o => o.orderCode && o.orderCode.toUpperCase() === code);
+    }
+
+    // Nếu vẫn không có: Tuyệt đối KHÔNG tự động lưu đơn PENDING ảo vào orders.json!
+    if (!order) {
+      const queryAmount = Number(parsedUrl.query.amount) || 49000;
+      return sendJson(res, 200, {
+        success: true,
+        paid: false,
+        isPaid: false,
+        status: 'NOT_FOUND',
         orderCode: code,
-        vipAccessToken: crypto.randomBytes(16).toString('hex'),
-        userId: null,
-        customerName: 'Khách Vãng Lai',
-        customerPhone: '',
-        packageId: queryAmount >= 80000 ? 'vip_99k' : (queryAmount >= 40000 ? 'vip_49k' : 'vip_29k'),
-        packageName: queryAmount >= 80000 ? 'Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung & Đại Hạn)' : (queryAmount >= 40000 ? 'Gói Luận 3 Cung Tự Chọn' : 'Gói Mở Khóa Nhanh 3 Cung'),
-        amount: queryAmount,
-        status: 'PENDING',
-        createdAt: new Date().toISOString()
-      };
-      if (!isAutomatedTestReq(req)) {
-        orders.push(order);
-        writeJsonFile(ORDERS_FILE, orders);
-      }
+        chartKey: null,
+        chartInfo: null,
+        vipToken: '',
+        vipAccessToken: '',
+        paidAt: null,
+        packageId: queryAmount >= 80000 ? 'vip_99k' : 'vip_49k',
+        packageName: '',
+        amount: queryAmount
+      });
     }
 
     if (order && order.status === 'PENDING') {
@@ -852,16 +863,16 @@ const server = http.createServer(async (req, res) => {
       success: true,
       paid: isPaid,
       isPaid: isPaid,
-      status: order ? order.status : 'PENDING',
-      orderCode: order ? order.orderCode : code,
-      chartKey: order ? (order.chartKey || null) : null,
-      chartInfo: order ? (order.chartInfo || null) : null,
-      vipToken: order ? order.vipAccessToken : '',
-      vipAccessToken: order ? order.vipAccessToken : '',
-      paidAt: order ? order.paidAt : null,
-      packageId: order ? order.packageId : 'vip_29k',
-      packageName: order ? order.packageName : '',
-      amount: order ? order.amount : 29000
+      status: order.status,
+      orderCode: order.orderCode,
+      chartKey: order.chartKey || null,
+      chartInfo: order.chartInfo || null,
+      vipToken: order.vipAccessToken,
+      vipAccessToken: order.vipAccessToken,
+      paidAt: order.paidAt,
+      packageId: order.packageId || 'vip_49k',
+      packageName: order.packageName || '',
+      amount: order.amount || 49000
     });
   }
 
@@ -980,28 +991,25 @@ const server = http.createServer(async (req, res) => {
       orders = readJsonFile(ORDERS_FILE, orders);
       const body = await parseJsonBody(req);
       const code = (body.orderCode || '').toUpperCase().trim();
-      let order = orders.find(o => o.orderCode.toUpperCase() === code);
+      let order = orders.find(o => o.orderCode && o.orderCode.toUpperCase() === code);
 
-      // Tự động khởi tạo ngay nếu chưa tồn tại (TUYỆT ĐỐI KHÔNG BAO GIỜ trả về 404)
+      // Nếu chưa có trong orders.json, kiểm tra trực tiếp từ SePay xem đã có giao dịch ngân hàng thực tế chưa
       if (!order && code) {
-        const bodyAmount = Number(body.amount) || 29000;
-        order = {
-          id: 'ord_' + Date.now(),
+        await syncOrdersWithSePay().catch(() => {});
+        orders = readJsonFile(ORDERS_FILE, orders);
+        order = orders.find(o => o.orderCode && o.orderCode.toUpperCase() === code);
+      }
+
+      // Nếu vẫn chưa có: Tuyệt đối KHÔNG TẠO ĐƠN ẢO vào orders.json!
+      if (!order) {
+        return sendJson(res, 200, {
+          success: true,
+          paid: false,
+          isPaid: false,
+          status: 'NOT_FOUND',
           orderCode: code,
-          vipAccessToken: crypto.randomBytes(16).toString('hex'),
-          userId: null,
-          customerName: 'Khách Vãng Lai',
-          customerPhone: '',
-          packageId: bodyAmount >= 80000 ? 'vip_99k' : (bodyAmount >= 40000 ? 'vip_49k' : 'vip_29k'),
-          packageName: bodyAmount >= 80000 ? 'Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung & Đại Hạn)' : (bodyAmount >= 40000 ? 'Gói Luận 3 Cung Tự Chọn' : 'Gói Mở Khóa Nhanh 3 Cung'),
-          amount: bodyAmount,
-          status: 'PENDING',
-          createdAt: new Date().toISOString()
-        };
-        if (!isAutomatedTestReq(req, body)) {
-          orders.push(order);
-          writeJsonFile(ORDERS_FILE, orders);
-        }
+          message: 'Chưa tìm thấy thông tin đơn hàng này.'
+        });
       }
 
       if (order && order.status === 'PAID') {
@@ -1022,58 +1030,40 @@ const server = http.createServer(async (req, res) => {
         });
       }
 
-      // Khách hàng cung cấp mã giao dịch (VD: 934840) khi SePay chưa kịp đồng bộ
+      // Nếu khách hàng cung cấp mã giao dịch ngân hàng, kiểm tra với SePay xem có thật không
       if (body.transactionId && order) {
-        order.status = 'PAID';
-        order.paidAt = new Date().toISOString();
-        order.paymentSource = 'CUSTOMER_TRANSACTION_ID_VERIFIED';
-        order.transactionId = String(body.transactionId).trim();
-        writeJsonFile(ORDERS_FILE, orders);
+        const txCheck = await fetchSePayTransactions(30);
+        const txList = (txCheck && (txCheck.transactions || txCheck.messages)) || [];
+        const realTx = txList.find(t => String(t.id) === String(body.transactionId).trim() || String(t.reference_number) === String(body.transactionId).trim());
+        if (realTx) {
+          order.status = 'PAID';
+          order.paidAt = realTx.transaction_date || new Date().toISOString();
+          order.paymentSource = 'CUSTOMER_TRANSACTION_ID_VERIFIED';
+          order.transactionId = String(realTx.id);
+          order.referenceNumber = realTx.reference_number || '';
+          writeJsonFile(ORDERS_FILE, orders);
 
-        analytics.summary.totalPaidOrders = (analytics.summary.totalPaidOrders || 0) + 1;
-        writeJsonFile(ANALYTICS_FILE, analytics);
+          analytics = readJsonFile(ANALYTICS_FILE, analytics);
+          analytics.summary.totalPaidOrders = orders.filter(o => o.status === 'PAID').length;
+          writeJsonFile(ANALYTICS_FILE, analytics);
 
-        return sendJson(res, 200, {
-          success: true,
-          paid: true,
-          isPaid: true,
-          status: 'PAID',
-          paidAt: order.paidAt,
-          packageId: order.packageId,
-          packageName: order.packageName,
-          vipToken: order.vipAccessToken,
-          vipAccessToken: order.vipAccessToken,
-          amount: order.amount,
-          message: 'Đã xác nhận thanh toán thành công với mã giao dịch ' + body.transactionId
-        });
+          return sendJson(res, 200, {
+            success: true,
+            paid: true,
+            isPaid: true,
+            status: 'PAID',
+            paidAt: order.paidAt,
+            packageId: order.packageId,
+            packageName: order.packageName,
+            vipToken: order.vipAccessToken,
+            vipAccessToken: order.vipAccessToken,
+            amount: order.amount,
+            message: 'Đã xác thực giao dịch thành công từ SePay!'
+          });
+        }
       }
 
-      // Hỗ trợ kiểm thử nội bộ
-      if (body.testPayment === true && order) {
-        order.status = 'PAID';
-        order.paidAt = new Date().toISOString();
-        order.paymentSource = 'DEV_MANUAL_TEST';
-        writeJsonFile(ORDERS_FILE, orders);
-
-        analytics.summary.totalPaidOrders = (analytics.summary.totalPaidOrders || 0) + 1;
-        writeJsonFile(ANALYTICS_FILE, analytics);
-
-        return sendJson(res, 200, {
-          success: true,
-          paid: true,
-          isPaid: true,
-          status: 'PAID',
-          paidAt: order.paidAt,
-          packageId: order.packageId,
-          packageName: order.packageName,
-          vipToken: order.vipAccessToken,
-          vipAccessToken: order.vipAccessToken,
-          amount: order.amount,
-          message: 'Đã xác nhận thanh toán thành công (Chế độ duyệt kiểm thử).'
-        });
-      }
-
-      // Chủ động đối soát SePay API trực tiếp
+      // Chủ động đối soát SePay API trực tiếp cho đơn hàng PENDING
       if (order && order.status === 'PENDING') {
         await checkSePayForOrder(order);
       }
@@ -1088,9 +1078,9 @@ const server = http.createServer(async (req, res) => {
         vipToken: order ? order.vipAccessToken : '',
         vipAccessToken: order ? order.vipAccessToken : '',
         paidAt: order ? order.paidAt : null,
-        packageId: order ? order.packageId : 'vip_29k',
+        packageId: order ? order.packageId : 'vip_49k',
         packageName: order ? order.packageName : '',
-        amount: order ? order.amount : 29000,
+        amount: order ? order.amount : 49000,
         message: isPaid
           ? 'Thanh toán thành công! Hệ thống đã kích hoạt báo cáo VIP.'
           : 'Hệ thống đang tự động kết nối VietinBank 24/7 để xác nhận biến động số dư...'
@@ -1303,6 +1293,9 @@ const server = http.createServer(async (req, res) => {
     const todayStr = vnNow.toISOString().split('T')[0];
 
     const paidOrders = orders.filter(o => o.status === 'PAID');
+    const pendingOrders = orders.filter(o => o.status === 'PENDING');
+    const pendingRevenue = pendingOrders.reduce((sum, o) => sum + (o.amount || 0), 0);
+
     const todayOrders = paidOrders.filter(o => {
       if (!o.paidAt && !o.createdAt) return false;
       const oDate = new Date(new Date(o.paidAt || o.createdAt).getTime() + vnOffset).toISOString().split('T')[0];
@@ -1320,7 +1313,8 @@ const server = http.createServer(async (req, res) => {
     const monthRevenue = monthOrders.reduce((sum, o) => sum + (o.amount || 0), 0);
     const totalRevenue = paidOrders.reduce((sum, o) => sum + (o.amount || 0), 0);
 
-    const totalVisitors = analytics.summary.uniqueVisitors || 0;
+    const totalVisitors = Object.keys(analytics.visitors || {}).length;
+    analytics.summary.uniqueVisitors = totalVisitors;
     const totalLaSo = analytics.summary.totalLaSoCalculated || 0;
     const totalModal = analytics.summary.totalVipModalOpens || 0;
     const totalPaid = paidOrders.length;
@@ -1387,6 +1381,12 @@ const server = http.createServer(async (req, res) => {
         avgTimeOnSite: totalVisitors > 0 ? '2m 15s' : '0s',
         bounceRate: totalVisitors > 0 ? '0%' : '0%'
       },
+      intent: {
+        totalVipModalOpens: totalModal,
+        pendingOrdersCount: pendingOrders.length,
+        pendingRevenue,
+        pendingOrders: pendingOrders.slice(0, 50)
+      },
       revenue: {
         today: todayRevenue,
         week: weekRevenue,
@@ -1410,6 +1410,8 @@ const server = http.createServer(async (req, res) => {
         monthCount: monthOrders.length,
         totalRevenue,
         totalPaidCount: totalPaid,
+        pendingOrdersCount: pendingOrders.length,
+        pendingRevenue,
         conversionRate: conversionRate + '%',
         totalVisitors,
         totalPageViews: analytics.summary.totalPageViews || 0,
@@ -1421,8 +1423,8 @@ const server = http.createServer(async (req, res) => {
         { step: '1. Truy cập Web', count: totalVisitors, dropRate: '0%' },
         { step: '2. Lập Lá Số', count: totalLaSo, dropRate: totalVisitors > 0 ? (100 - (totalLaSo / totalVisitors) * 100).toFixed(1) + '%' : '0%' },
         { step: '3. Xem Luận Giải & Cung Bị Khóa', count: analytics.summary.totalPalaceClicks || 0, dropRate: '-' },
-        { step: '4. Mở Cửa Sổ Mua VIP', count: totalModal, dropRate: totalLaSo > 0 ? (100 - (totalModal / totalLaSo) * 100).toFixed(1) + '%' : '0%' },
-        { step: '5. Thanh Toán Thành Công', count: totalPaid, dropRate: totalModal > 0 ? (100 - (totalPaid / totalModal) * 100).toFixed(1) + '%' : '0%' }
+        { step: '4. Mở Cửa Sổ Mua VIP (Định Thanh Toán)', count: Math.max(totalModal, pendingOrders.length + totalPaid), dropRate: totalLaSo > 0 ? Math.max(0, (100 - (Math.max(totalModal, pendingOrders.length + totalPaid) / totalLaSo) * 100)).toFixed(1) + '%' : '0%' },
+        { step: '5. Thanh Toán Thành Công (VietinBank)', count: totalPaid, dropRate: Math.max(totalModal, pendingOrders.length + totalPaid) > 0 ? (100 - (totalPaid / Math.max(totalModal, pendingOrders.length + totalPaid)) * 100).toFixed(1) + '%' : '0%' }
       ],
       palaceRanking,
       recentEvents: (analytics.events || []).slice(0, 30),

@@ -1,567 +1,198 @@
 {
   "summary": {
-    "totalPageViews": 244,
-    "uniqueVisitors": 42,
-    "totalLaSoCalculated": 67,
-    "totalPalaceClicks": 142,
-    "totalVipModalOpens": 41,
-    "totalPaidOrders": 18,
-    "totalNumerologyLookups": 37,
-    "totalCompatibilityLookups": 24
+    "totalPageViews": 0,
+    "uniqueVisitors": 0,
+    "totalLaSoCalculated": 0,
+    "totalPalaceClicks": 0,
+    "totalVipModalOpens": 0,
+    "totalPaidOrders": 14,
+    "totalRevenue": 1239000
   },
-  "palaceClicks": {
-    "Mệnh": 38,
-    "Tài Bạch": 32,
-    "Quan Lộc": 26,
-    "Phu Thê": 21,
-    "Thiên Di": 14,
-    "Tật Ách": 11
-  },
-  "visitors": {
-    "vis_20261112_01": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261112_02": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261112_03": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261111_01": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261111_02": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261111_03": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261022_01": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261022_02": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261022_03": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261020_01": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261020_02": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261020_03": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20260922_01": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20260922_02": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20260922_03": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20260921_01": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20260921_02": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20260921_03": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261113_a": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261113_b": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261110_a": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261110_b": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261109_a": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261109_b": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261108_a": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261108_b": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261107_a": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261107_b": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261106_a": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261106_b": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261105_a": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261105_b": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261104_a": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261104_b": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261103_a": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261103_b": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261102_a": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261102_b": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261101_a": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261101_b": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261031_a": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    },
-    "vis_20261031_b": {
-      "firstSeen": "2026-11-13T02:52:19.146Z",
-      "eventsCount": 3,
-      "lastSeen": "2026-11-13T02:52:19.146Z"
-    }
-  },
+  "palaceClicks": {},
+  "visitors": {},
   "dailyStats": {
-    "2026-11-12": {
-      "pageViews": 15,
+    "2026-11-15": {
+      "pageViews": 2,
       "visitors": [
-        "vis_20261112_01",
-        "vis_20261112_02",
-        "vis_20261112_03"
+        "vis_user_real_998877"
       ],
-      "laSoCount": 5,
-      "vipOpens": 4,
-      "numerologyCount": 3,
-      "compatibilityCount": 2,
-      "revenue": 137000,
+      "laSoCount": 1,
+      "vipOpens": 0,
+      "revenue": 49000,
+      "paidOrders": 1
+    },
+    "2026-11-14": {
+      "pageViews": 0,
+      "visitors": [],
+      "laSoCount": 0,
+      "vipOpens": 0,
+      "revenue": 49000,
+      "paidOrders": 1
+    },
+    "2026-11-13": {
+      "pageViews": 0,
+      "visitors": [],
+      "laSoCount": 0,
+      "vipOpens": 0,
+      "revenue": 147000,
       "paidOrders": 3
     },
-    "2026-11-11": {
-      "pageViews": 15,
-      "visitors": [
-        "vis_20261111_01",
-        "vis_20261111_02",
-        "vis_20261111_03"
-      ],
-      "laSoCount": 5,
-      "vipOpens": 4,
-      "numerologyCount": 3,
-      "compatibilityCount": 2,
-      "revenue": 58000,
+    "2026-11-12": {
+      "pageViews": 0,
+      "visitors": [],
+      "laSoCount": 0,
+      "vipOpens": 0,
+      "revenue": 98000,
       "paidOrders": 2
     },
     "2026-10-22": {
-      "pageViews": 15,
-      "visitors": [
-        "vis_20261022_01",
-        "vis_20261022_02",
-        "vis_20261022_03"
-      ],
-      "laSoCount": 5,
-      "vipOpens": 4,
-      "numerologyCount": 3,
-      "compatibilityCount": 2,
+      "pageViews": 0,
+      "visitors": [],
+      "laSoCount": 0,
+      "vipOpens": 0,
       "revenue": 99000,
       "paidOrders": 1
     },
     "2026-10-20": {
-      "pageViews": 15,
-      "visitors": [
-        "vis_20261020_01",
-        "vis_20261020_02",
-        "vis_20261020_03"
-      ],
-      "laSoCount": 5,
-      "vipOpens": 4,
-      "numerologyCount": 3,
-      "compatibilityCount": 2,
+      "pageViews": 0,
+      "visitors": [],
+      "laSoCount": 0,
+      "vipOpens": 0,
       "revenue": 198000,
       "paidOrders": 2
     },
     "2026-09-22": {
-      "pageViews": 15,
-      "visitors": [
-        "vis_20260922_01",
-        "vis_20260922_02",
-        "vis_20260922_03"
-      ],
-      "laSoCount": 5,
-      "vipOpens": 4,
-      "numerologyCount": 3,
-      "compatibilityCount": 2,
+      "pageViews": 0,
+      "visitors": [],
+      "laSoCount": 0,
+      "vipOpens": 0,
       "revenue": 398000,
       "paidOrders": 2
     },
     "2026-09-21": {
-      "pageViews": 15,
-      "visitors": [
-        "vis_20260921_01",
-        "vis_20260921_02",
-        "vis_20260921_03"
-      ],
-      "laSoCount": 5,
-      "vipOpens": 4,
-      "numerologyCount": 3,
-      "compatibilityCount": 2,
+      "pageViews": 0,
+      "visitors": [],
+      "laSoCount": 0,
+      "vipOpens": 0,
       "revenue": 201000,
       "paidOrders": 2
-    },
-    "2026-11-13": {
-      "pageViews": 14,
-      "visitors": [
-        "vis_20261113_a",
-        "vis_20261113_b"
-      ],
-      "laSoCount": 2,
-      "vipOpens": 2,
-      "numerologyCount": 1,
-      "compatibilityCount": 1,
-      "revenue": 0,
-      "paidOrders": 0
-    },
-    "2026-11-10": {
-      "pageViews": 10,
-      "visitors": [
-        "vis_20261110_a",
-        "vis_20261110_b"
-      ],
-      "laSoCount": 4,
-      "vipOpens": 1,
-      "numerologyCount": 1,
-      "compatibilityCount": 1,
-      "revenue": 0,
-      "paidOrders": 0
-    },
-    "2026-11-09": {
-      "pageViews": 16,
-      "visitors": [
-        "vis_20261109_a",
-        "vis_20261109_b"
-      ],
-      "laSoCount": 2,
-      "vipOpens": 2,
-      "numerologyCount": 2,
-      "compatibilityCount": 1,
-      "revenue": 0,
-      "paidOrders": 0
-    },
-    "2026-11-08": {
-      "pageViews": 10,
-      "visitors": [
-        "vis_20261108_a",
-        "vis_20261108_b"
-      ],
-      "laSoCount": 4,
-      "vipOpens": 1,
-      "numerologyCount": 1,
-      "compatibilityCount": 1,
-      "revenue": 0,
-      "paidOrders": 0
-    },
-    "2026-11-07": {
-      "pageViews": 12,
-      "visitors": [
-        "vis_20261107_a",
-        "vis_20261107_b"
-      ],
-      "laSoCount": 4,
-      "vipOpens": 2,
-      "numerologyCount": 1,
-      "compatibilityCount": 1,
-      "revenue": 0,
-      "paidOrders": 0
-    },
-    "2026-11-06": {
-      "pageViews": 10,
-      "visitors": [
-        "vis_20261106_a",
-        "vis_20261106_b"
-      ],
-      "laSoCount": 3,
-      "vipOpens": 1,
-      "numerologyCount": 2,
-      "compatibilityCount": 1,
-      "revenue": 0,
-      "paidOrders": 0
-    },
-    "2026-11-05": {
-      "pageViews": 14,
-      "visitors": [
-        "vis_20261105_a",
-        "vis_20261105_b"
-      ],
-      "laSoCount": 3,
-      "vipOpens": 1,
-      "numerologyCount": 2,
-      "compatibilityCount": 1,
-      "revenue": 0,
-      "paidOrders": 0
-    },
-    "2026-11-04": {
-      "pageViews": 16,
-      "visitors": [
-        "vis_20261104_a",
-        "vis_20261104_b"
-      ],
-      "laSoCount": 2,
-      "vipOpens": 1,
-      "numerologyCount": 2,
-      "compatibilityCount": 1,
-      "revenue": 0,
-      "paidOrders": 0
-    },
-    "2026-11-03": {
-      "pageViews": 10,
-      "visitors": [
-        "vis_20261103_a",
-        "vis_20261103_b"
-      ],
-      "laSoCount": 4,
-      "vipOpens": 1,
-      "numerologyCount": 1,
-      "compatibilityCount": 1,
-      "revenue": 0,
-      "paidOrders": 0
-    },
-    "2026-11-02": {
-      "pageViews": 15,
-      "visitors": [
-        "vis_20261102_a",
-        "vis_20261102_b"
-      ],
-      "laSoCount": 3,
-      "vipOpens": 2,
-      "numerologyCount": 2,
-      "compatibilityCount": 1,
-      "revenue": 0,
-      "paidOrders": 0
-    },
-    "2026-11-01": {
-      "pageViews": 15,
-      "visitors": [
-        "vis_20261101_a",
-        "vis_20261101_b"
-      ],
-      "laSoCount": 3,
-      "vipOpens": 1,
-      "numerologyCount": 2,
-      "compatibilityCount": 1,
-      "revenue": 0,
-      "paidOrders": 0
-    },
-    "2026-10-31": {
-      "pageViews": 12,
-      "visitors": [
-        "vis_20261031_a",
-        "vis_20261031_b"
-      ],
-      "laSoCount": 3,
-      "vipOpens": 2,
-      "numerologyCount": 2,
-      "compatibilityCount": 1,
-      "revenue": 0,
-      "paidOrders": 0
     }
   },
   "events": [
     {
+      "eventType": "lap_la_so",
+      "visitorId": "vis_user_real_998877",
+      "details": {
+        "hoTen": "Lê Minh Tuấn",
+        "ngayThangNam": "15/08/1995"
+      },
+      "timestamp": "2026-11-15T07:20:10.075Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_user_real_998877",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-15T07:20:10.059Z"
+    },
+    {
       "type": "payment_success",
-      "orderCode": "TV244402",
+      "orderCode": "TV844994",
       "amount": 49000,
-      "source": "SEPAY_WEBHOOK",
-      "at": "2026-11-13T02:54:49.281Z"
+      "source": "SEPAY_AUTO_SYNC",
+      "at": "2026-11-14T17:32:08.000Z"
+    },
+    {
+      "type": "payment_success",
+      "orderCode": "TV169121",
+      "amount": 49000,
+      "source": "SEPAY_AUTO_SYNC",
+      "at": "2026-11-14T05:21:32.000Z"
+    },
+    {
+      "type": "payment_success",
+      "orderCode": "TV571283",
+      "amount": 49000,
+      "source": "SEPAY_AUTO_SYNC",
+      "at": "2026-11-13T16:30:03.000Z"
+    },
+    {
+      "type": "payment_success",
+      "orderCode": "TV104571",
+      "amount": 49000,
+      "source": "SEPAY_AUTO_SYNC",
+      "at": "2026-11-13T04:27:37.000Z"
+    },
+    {
+      "type": "payment_success",
+      "orderCode": "TV774622",
+      "amount": 49000,
+      "source": "SEPAY_AUTO_SYNC",
+      "at": "2026-11-13T04:04:15.000Z"
     },
     {
       "type": "payment_success",
       "orderCode": "TV244402",
       "amount": 49000,
       "source": "SEPAY_VIETINBANK",
-      "at": "2026-11-12T18:44:49.000Z"
+      "at": "2026-11-12T11:44:49.000Z"
     },
     {
       "type": "payment_success",
       "orderCode": "TV167918",
       "amount": 49000,
       "source": "SEPAY_VIETINBANK",
-      "at": "2026-11-12T14:46:44.000Z"
-    },
-    {
-      "type": "payment_success",
-      "orderCode": "TV289735",
-      "amount": 39000,
-      "source": "SEPAY_WEBHOOK_VERIFIED",
-      "at": "2026-11-12T07:28:36.000Z"
-    },
-    {
-      "type": "payment_success",
-      "orderCode": "TV523662",
-      "amount": 29000,
-      "source": "TIMO_VIETINBANK_TRANSFER",
-      "at": "2026-11-11T08:19:00.000Z"
-    },
-    {
-      "type": "payment_success",
-      "orderCode": "TV715225",
-      "amount": 29000,
-      "source": "VIETINBANK_SEPAY_VERIFIED",
-      "at": "2026-11-11T08:08:38.000Z"
+      "at": "2026-11-12T07:46:44.000Z"
     },
     {
       "type": "payment_success",
       "orderCode": "TV77365",
       "amount": 99000,
       "source": "SEPAY_MOMO_VIETINBANK",
-      "at": "2026-10-22T19:56:25.000Z"
+      "at": "2026-10-22T12:56:25.000Z"
     },
     {
       "type": "payment_success",
       "orderCode": "TV75218",
       "amount": 99000,
       "source": "SEPAY_VCB_VIETINBANK",
-      "at": "2026-10-20T10:18:19.000Z"
+      "at": "2026-10-20T03:18:19.000Z"
     },
     {
       "type": "payment_success",
       "orderCode": "TV70079",
       "amount": 99000,
       "source": "SEPAY_MOMO_VIETINBANK",
-      "at": "2026-10-20T09:52:24.000Z"
+      "at": "2026-10-20T02:52:24.000Z"
     },
     {
       "type": "payment_success",
       "orderCode": "TV23713",
       "amount": 199000,
       "source": "SEPAY_VIETINBANK",
-      "at": "2026-09-22T08:43:35.000Z"
+      "at": "2026-09-22T01:43:35.000Z"
     },
     {
       "type": "payment_success",
       "orderCode": "TV59865",
       "amount": 199000,
       "source": "SEPAY_VIETINBANK",
-      "at": "2026-09-22T08:37:13.000Z"
+      "at": "2026-09-22T01:37:13.000Z"
     },
     {
       "type": "payment_success",
       "orderCode": "TV79252",
       "amount": 199000,
       "source": "SEPAY_VIETINBANK",
-      "at": "2026-09-21T17:15:20.000Z"
+      "at": "2026-09-21T10:15:20.000Z"
     },
     {
       "type": "payment_success",
       "orderCode": "TV002000",
       "amount": 2000,
       "source": "SEPAY_VIETINBANK",
-      "at": "2026-09-21T16:21:54.000Z"
+      "at": "2026-09-21T09:21:54.000Z"
     }
   ]
 }
