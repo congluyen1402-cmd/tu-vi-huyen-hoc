@@ -8674,3 +8674,132 @@ html {
     font-size: 0.9rem !important;
   }
 }
+
+
+/* ============================================================
+   MÀAN HÌNH CHỌN 3 CUNG GÓI 49K - VIP PALACE SELECTOR
+   Thiết kế tương thích WCAG AAA, rõ ràng trên mọi màn hình
+   ============================================================ */
+.vip-palace-selector-container {
+  padding: 0.5rem 0.25rem;
+}
+
+/* Mỗi hàng cung có thể tích chọn */
+.palace-select-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border: 1.5px solid #E5D9B6;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #FFFDF8;
+  transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.palace-select-row:hover {
+  background: #FEF9EE;
+  border-color: #D4AF37;
+}
+
+.palace-select-row.checked-row {
+  background: #ECFDF5 !important;
+  border-color: #059669 !important;
+  box-shadow: 0 2px 8px rgba(5, 150, 105, 0.15) !important;
+}
+
+.palace-select-cb {
+  width: 20px;
+  height: 20px;
+  accent-color: #991B1B;
+  cursor: pointer;
+  flex-shrink: 0;
+  border-radius: 4px;
+}
+
+.psrow-check {
+  display: none;
+  color: #059669;
+  font-weight: 700;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+/* Container danh sách cung */
+#palace49kList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 340px;
+  overflow-y: auto;
+  padding-right: 2px;
+  margin-bottom: 1rem;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #D4AF37 #F5F0E8;
+}
+
+#palace49kList::-webkit-scrollbar {
+  width: 4px;
+}
+
+#palace49kList::-webkit-scrollbar-track {
+  background: #F5F0E8;
+  border-radius: 4px;
+}
+
+#palace49kList::-webkit-scrollbar-thumb {
+  background: #D4AF37;
+  border-radius: 4px;
+}
+
+/* Bộ đếm cung đã chọn */
+#palace49kCounter {
+  background: #991B1B;
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 3px 12px;
+  border-radius: 9999px;
+  transition: background 0.2s;
+}
+
+/* Nút xác nhận chọn cung */
+#palace49kConfirmBtn {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  min-height: 50px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#palace49kConfirmBtn:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(185, 28, 28, 0.45) !important;
+}
+
+/* Responsive Mobile dọc cho màn hình chọn cung */
+@media (max-width: 640px) {
+  #palace49kList {
+    max-height: 280px !important;
+    gap: 6px !important;
+  }
+  .palace-select-row {
+    padding: 9px 10px !important;
+    gap: 10px !important;
+  }
+  .palace-select-cb {
+    width: 18px !important;
+    height: 18px !important;
+  }
+  #palace49kConfirmBtn {
+    font-size: 0.95rem !important;
+    padding: 11px 14px !important;
+  }
+}

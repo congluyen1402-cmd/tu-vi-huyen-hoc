@@ -1476,9 +1476,14 @@ const TuViChart = {
                 BẢNG CHỌN 3 CUNG TỰ CHỌN (GÓI 49.000đ)
               </h4>
             </div>
-            <span style="background:${selectedPalaces.length === 3 ? '#059669' : '#C2410C'}; color:#fff; font-weight:700; font-size:0.82rem; padding:3px 10px; border-radius:9999px;">
-              ${selectedPalaces.length === 3 ? '✓ ĐÃ CHỌN ĐỦ 3/3 CUNG' : `ĐÃ CHỌN: ${selectedPalaces.length}/3 CUNG`}
-            </span>
+            <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+              <span style="background:${selectedPalaces.length === 3 ? '#059669' : '#C2410C'}; color:#fff; font-weight:700; font-size:0.82rem; padding:3px 10px; border-radius:9999px;">
+                ${selectedPalaces.length === 3 ? '✓ ĐÃ CHỌN ĐỦ 3/3 CUNG' : `ĐÃ CHỌN: ${selectedPalaces.length}/3 CUNG`}
+              </span>
+              <button type="button" class="btn-seal" style="padding:3px 10px; font-size:0.78rem; background:#059669; border-color:#10B981;" onclick="TuViMonetize.openPalaceSelectorModal()">
+                📋 Mở Bảng Chọn
+              </button>
+            </div>
           </div>
           <p style="font-size:0.88rem; color:var(--text, #333); margin:0 0 0.85rem 0; line-height:1.55;">
             Cung <strong>Mệnh</strong> &amp; <strong>Phụ Mẫu</strong> đã được mở MIỄN PHÍ sẵn. Quý khách vui lòng chọn 3 cung quan trọng nhất bên dưới (sau khi chọn đủ 3 cung thì 7 cung còn lại sẽ được khóa bảo mật):

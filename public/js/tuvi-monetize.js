@@ -357,8 +357,8 @@
             customerName,
             details: details || {}
           })
-        }).catch(() => {});
-      } catch (e) {}
+        }).catch(() => { });
+      } catch (e) { }
     },
 
     init: function () {
@@ -397,14 +397,14 @@
           }
           this.config = Object.assign(this.config, parsed);
         }
-      } catch (e) {}
+      } catch (e) { }
     },
 
     saveConfig: function (newConfig) {
       this.config = Object.assign(this.config, newConfig);
       try {
         localStorage.setItem('tvhh_bank_config', JSON.stringify(this.config));
-      } catch (e) {}
+      } catch (e) { }
     },
 
     checkVipStatus: async function () {
@@ -413,7 +413,7 @@
         try {
           localStorage.removeItem('tvhh_vip_unlocked');
           localStorage.removeItem('tvhh_tripwire_unlocked');
-        } catch (e) {}
+        } catch (e) { }
 
         // 1. Kiểm tra Magic Link trên URL (?vip_token=... hoặc ?order=...)
         if (typeof window !== 'undefined' && window.location && window.location.search) {
@@ -476,7 +476,7 @@
             this.currentOrderId = pendingOrder;
             this.startOrderPolling(pendingOrder);
           }
-        } catch (e) {}
+        } catch (e) { }
 
         // 5. Lắng nghe sự kiện khách quay lại tab (từ app ngân hàng hoặc màn hình khóa)
         if (typeof document !== 'undefined') {
@@ -492,7 +492,7 @@
                     this.onPaymentSuccess(data);
                   }
                 })
-                .catch(() => {});
+                .catch(() => { });
             }
           };
 
@@ -527,14 +527,14 @@
         if (window.history && window.history.pushState) {
           window.history.pushState({ tuviVipModal: true }, '');
         }
-      } catch (e) {}
+      } catch (e) { }
       this.currentPackagePrice = (price && price > 0) ? price : this.config.vipPrice;
 
       this.currentOrderId = 'TV' + Math.floor(100000 + Math.random() * 900000);
       try {
         sessionStorage.setItem('tvhh_pending_order', this.currentOrderId);
         sessionStorage.setItem('tvhh_pending_price', String(this.currentPackagePrice));
-      } catch (e) {}
+      } catch (e) { }
 
       // Xác định lá số mục tiêu và chartKey để ràng buộc đơn hàng với lá số này
       const activeLaSo = (typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) ? TuViChart._currentLaSo : null;
@@ -542,7 +542,7 @@
       if (activeChartKey) {
         try {
           sessionStorage.setItem('tvhh_pending_chart_key', activeChartKey);
-        } catch (e) {}
+        } catch (e) { }
       }
 
       let modal = document.getElementById('tuvi-vip-modal');
@@ -593,22 +593,22 @@
           customerPhone: currentUser ? currentUser.emailOrPhone : ''
         })
       })
-      .then(res => res.json())
-      .then(data => {
-        if (data && data.success) {
-          const finalCode = (data.order && data.order.orderCode) || data.orderCode || this.currentOrderId;
-          this.currentOrderId = finalCode;
-          this.vipAccessToken = (data.order && data.order.vipAccessToken) || data.vipAccessToken || '';
-          try {
-            sessionStorage.setItem('tvhh_pending_order', this.currentOrderId);
-          } catch (e) {}
-          this.updateModalDisplay();
-          this.startOrderPolling(this.currentOrderId);
-        }
-      })
-      .catch(err => {
-        console.warn('Lưu ý: Không kết nối được API backend, sử dụng mã cục bộ:', err);
-      });
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.success) {
+            const finalCode = (data.order && data.order.orderCode) || data.orderCode || this.currentOrderId;
+            this.currentOrderId = finalCode;
+            this.vipAccessToken = (data.order && data.order.vipAccessToken) || data.vipAccessToken || '';
+            try {
+              sessionStorage.setItem('tvhh_pending_order', this.currentOrderId);
+            } catch (e) { }
+            this.updateModalDisplay();
+            this.startOrderPolling(this.currentOrderId);
+          }
+        })
+        .catch(err => {
+          console.warn('Lưu ý: Không kết nối được API backend, sử dụng mã cục bộ:', err);
+        });
 
       modal.classList.add('active');
       document.body.style.overflow = 'hidden';
@@ -665,17 +665,17 @@
           customerPhone: currentUser ? currentUser.emailOrPhone : ''
         })
       })
-      .then(res => res.json())
-      .then(data => {
-        if (data && data.success) {
-          const finalCode = (data.order && data.order.orderCode) || data.orderCode || this.currentOrderId;
-          this.currentOrderId = finalCode;
-          this.vipAccessToken = (data.order && data.order.vipAccessToken) || data.vipAccessToken || '';
-          this.updateModalDisplay();
-          this.startOrderPolling(this.currentOrderId);
-        }
-      })
-      .catch(e => console.warn('Lỗi đổi gói modal:', e));
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.success) {
+            const finalCode = (data.order && data.order.orderCode) || data.orderCode || this.currentOrderId;
+            this.currentOrderId = finalCode;
+            this.vipAccessToken = (data.order && data.order.vipAccessToken) || data.vipAccessToken || '';
+            this.updateModalDisplay();
+            this.startOrderPolling(this.currentOrderId);
+          }
+        })
+        .catch(e => console.warn('Lỗi đổi gói modal:', e));
     },
 
     /**
@@ -873,7 +873,7 @@
               this.onPaymentSuccess(data);
             }
           }
-        } catch (e) {}
+        } catch (e) { }
       };
 
       // Quét ngay lập tức 1 lần không chờ độ trễ
@@ -897,7 +897,7 @@
         document.body.style.overflow = '';
       }
       if (!fromPopstate && window.history && window.history.state && window.history.state.tuviVipModal) {
-        try { window.history.back(); } catch (e) {}
+        try { window.history.back(); } catch (e) { }
       }
 
       if (this.isVipUnlocked || this.isTripwireUnlocked) {
@@ -922,7 +922,8 @@
       // NẾU CHƯA MỞ KHÓA VIP: KHÔNG TẮT HẲN POLLING!
       // Vẫn duy trì background watcher mỗi 3.5s để khi khách chuyển khoản xong ở app ngân hàng
       // hoặc đóng modal quay lại lá số thì hệ thống vẫn TỰ ĐỘNG BẬT MÀN HÌNH THÀNH CÔNG!
-      if (!this.isVipUnlocked && this.currentOrderId) {
+      // Lưu ý: isTripwireUnlocked (gói 49k) cũng coi như đã thanh toán - không cần poll nữa
+      if (!this.isVipUnlocked && !this.isTripwireUnlocked && this.currentOrderId) {
         if (this._pollTimer) clearInterval(this._pollTimer);
         this._pollTimer = setInterval(async () => {
           try {
@@ -934,7 +935,7 @@
                 this.onPaymentSuccess(data);
               }
             }
-          } catch (e) {}
+          } catch (e) { }
         }, 3500);
       } else {
         this.stopOrderPolling();
@@ -996,7 +997,7 @@
         if (data.isPaid || data.paid || data.status === 'PAID') {
           this.onPaymentSuccess(data);
         }
-      } catch (err) {}
+      } catch (err) { }
     },
 
     onPaymentSuccess: function (data) {
@@ -1017,7 +1018,7 @@
       if (!targetChartKey) {
         try {
           targetChartKey = sessionStorage.getItem('tvhh_pending_chart_key');
-        } catch (e) {}
+        } catch (e) { }
       }
       if (!targetChartKey && currentChart) {
         targetChartKey = this.getChartKey(currentChart);
@@ -1055,7 +1056,7 @@
       try {
         sessionStorage.removeItem('tvhh_pending_order');
         sessionStorage.removeItem('tvhh_pending_chart_key');
-      } catch (e) {}
+      } catch (e) { }
 
       // Mở khóa UI ở trang phía sau
       if (this.isVipUnlocked) {
@@ -1084,36 +1085,11 @@
         const card = modal.querySelector('.tuvi-vip-card');
         if (card) {
           const displayAmount = (data && (data.amount || (data.order && data.order.amount))) || this.currentPackagePrice || 29000;
-          card.innerHTML = `
-            <button class="tuvi-vip-close" type="button" aria-label="Đóng" onclick="TuViMonetize.closeVipModal()">&times;</button>
-            <div class="vip-success-container">
-              <div class="vip-success-icon-badge">
-                <svg width="68" height="68" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg>
-              </div>
-              <h2 class="vip-success-heading">XÁC NHẬN THANH TOÁN THÀNH CÔNG!</h2>
-              <p class="vip-success-message">
-                Hệ thống đã nhận đủ <strong>${Number(displayAmount).toLocaleString('vi-VN')} đ</strong> cho mã đơn <strong>#${orderCode}</strong>.<br>
-                Toàn bộ luận giải VIP và tính năng xuất PDF A4 của bạn đã được mở khóa tự động!
-              </p>
-              <div class="vip-success-meta">
-                <span>Mã đơn: <strong>#${orderCode}</strong></span>
-                <span>•</span>
-                <span>Thời gian: <strong>${new Date().toLocaleTimeString('vi-VN')}</strong></span>
-              </div>
-              <button type="button" class="btn-seal btn-success-dismiss" onclick="TuViMonetize.closeVipModal();">
-                ✨ Xem Ngay Bản Luận Giải Đầy Đủ
-              </button>
-              <p class="vip-auto-close-countdown">Cửa sổ sẽ tự động đóng sau <strong id="vipSuccessCountdown">3</strong> giây...</p>
-            </div>
-          `;
 
           // Rung nhẹ haptic trên điện thoại di động
           try {
             if (navigator && navigator.vibrate) navigator.vibrate([100, 50, 150]);
-          } catch (e) {}
+          } catch (e) { }
 
           // Âm thanh chúc mừng thanh toán thành công (Web Audio API)
           try {
@@ -1134,29 +1110,369 @@
               osc.start();
               osc.stop(ctx.currentTime + 0.8);
             }
-          } catch (e) {}
+          } catch (e) { }
 
-          // Đếm ngược 3 giây tự động đóng modal
-          let secondsLeft = 3;
-          if (this._autoCloseTimer) clearInterval(this._autoCloseTimer);
-          this._autoCloseTimer = setInterval(() => {
-            secondsLeft -= 1;
-            const cdEl = document.getElementById('vipSuccessCountdown');
-            if (cdEl) cdEl.textContent = secondsLeft;
-            if (secondsLeft <= 0) {
-              clearInterval(this._autoCloseTimer);
-              this._autoCloseTimer = null;
-              this.closeVipModal();
+          if (isTripwirePkg) {
+            // ========================================================
+            // GÓI 49K: HIỆN MÀN HÌNH CHỌN 3 CUNG NGAY SAU THANH TOÁN
+            // ========================================================
+            this._palace49kChartKey = targetChartKey;
+            this._palace49kSelectedTemp = [];
+            const SELECTABLE = [
+              { key: 'tai-bach',  name: 'Tài Bạch',  icon: '💰', desc: 'Tiền tài, thu nhập, đầu tư' },
+              { key: 'quan-loc',  name: 'Quan Lộc',  icon: '💼', desc: 'Sự nghiệp, chức vụ, danh vọng' },
+              { key: 'phu-the',   name: 'Phu Thê',   icon: '💍', desc: 'Hôn nhân, tình duyên, vợ chồng' },
+              { key: 'phuc-duc',  name: 'Phúc Đức',  icon: '🌟', desc: 'Phúc phận, tổ tiên, may mắn' },
+              { key: 'dien-trach',name: 'Điền Trạch', icon: '🏡', desc: 'Nhà cửa, bất động sản' },
+              { key: 'tu-tuc',    name: 'Tử Tức',    icon: '👶', desc: 'Con cái, học trò, sáng tạo' },
+              { key: 'thien-di',  name: 'Thiên Di',  icon: '✈️', desc: 'Xuất ngoại, di chuyển, giao du' },
+              { key: 'tat-ach',   name: 'Tật Ách',   icon: '🏥', desc: 'Sức khoẻ, tai nạn, bệnh tật' },
+              { key: 'no-boc',    name: 'Nô Bộc',    icon: '🤝', desc: 'Nhân viên, bạn bè, quan hệ' },
+              { key: 'huynh-de',  name: 'Huynh Đệ',  icon: '👥', desc: 'Anh chị em, đồng liêu, đối tác' }
+            ];
+
+            const palaceRowsHtml = SELECTABLE.map(p => `
+              <label class="palace-select-row" id="psrow-${p.key}" style="display:flex; align-items:center; gap:12px; padding:10px 14px; border:1.5px solid #E5D9B6; border-radius:8px; cursor:pointer; background:#FFFDF8; transition:all 0.15s; margin-bottom:0;">
+                <input type="checkbox" class="palace-select-cb" value="${p.key}" style="width:18px; height:18px; accent-color:#991B1B; cursor:pointer; flex-shrink:0;" onchange="TuViMonetize._on49kCheckboxChange(this)">
+                <span style="font-size:1.3rem; line-height:1; flex-shrink:0;">${p.icon}</span>
+                <span style="flex:1; min-width:0;">
+                  <strong style="display:block; color:#1F2937; font-size:0.95rem;">${p.name}</strong>
+                  <span style="font-size:0.8rem; color:#6B7280;">${p.desc}</span>
+                </span>
+                <span class="psrow-check" style="display:none; color:#059669; font-weight:700; font-size:1.1rem; flex-shrink:0;">✓</span>
+              </label>
+            `).join('');
+
+            card.innerHTML = `
+              <button class="tuvi-vip-close" type="button" aria-label="Đóng" onclick="TuViMonetize.closeVipModal()">&times;</button>
+              <div class="vip-palace-selector-container" style="padding: 0.5rem 0.25rem;">
+
+                <!-- Header xác nhận thanh toán -->
+                <div style="text-align:center; margin-bottom:1.25rem;">
+                  <div style="display:inline-flex; align-items:center; justify-content:center; width:52px; height:52px; border-radius:50%; background:#ECFDF5; margin-bottom:0.6rem;">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                      <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                  </div>
+                  <h2 style="margin:0 0 0.3rem; font-size:1.15rem; color:#991B1B; font-family:var(--font-heading,serif); font-weight:700;">✅ Thanh Toán 49.000đ Thành Công!</h2>
+                  <p style="margin:0; font-size:0.86rem; color:#6B7280;">Mã đơn: <strong style="color:#1F2937;">#${orderCode}</strong></p>
+                </div>
+
+                <!-- Hướng dẫn chọn cung -->
+                <div style="background:linear-gradient(135deg,#FFF7ED,#FEF3C7); border:1.5px solid #D4AF37; border-radius:10px; padding:12px 14px; margin-bottom:1rem;">
+                  <p style="margin:0 0 4px; font-weight:700; color:#92400E; font-size:0.95rem;">📋 Bước tiếp theo: Chọn 3 cung bạn muốn xem</p>
+                  <p style="margin:0; font-size:0.84rem; color:#78350F; line-height:1.5;">Cung <strong>Mệnh</strong> &amp; <strong>Phụ Mẫu</strong> đã được mở miễn phí. Tick vào đúng 3 cung bạn quan tâm nhất rồi bấm <strong>Xác Nhận</strong> để mở khóa.</p>
+                </div>
+
+                <!-- Bộ đếm đã chọn -->
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+                  <span style="font-size:0.88rem; color:#1F2937; font-weight:600;">Chọn cung để mở khóa:</span>
+                  <span id="palace49kCounter" style="background:#991B1B; color:#fff; font-size:0.82rem; font-weight:700; padding:3px 12px; border-radius:9999px;">ĐÃ CHỌN: 0/3</span>
+                </div>
+
+                <!-- Danh sách 10 cung có thể chọn -->
+                <div id="palace49kList" style="display:flex; flex-direction:column; gap:8px; max-height:340px; overflow-y:auto; padding-right:2px; margin-bottom:1rem;">
+                  ${palaceRowsHtml}
+                </div>
+
+                <!-- Nút xác nhận -->
+                <button type="button" id="palace49kConfirmBtn"
+                  style="width:100%; padding:12px 16px; font-size:1rem; font-weight:700; background:#E5E7EB; color:#9CA3AF; border:none; border-radius:8px; cursor:not-allowed; transition:all 0.2s;"
+                  disabled
+                  onclick="TuViMonetize.confirmPalaceSelection49k()">
+                  Vui lòng chọn đủ 3 cung để xác nhận
+                </button>
+
+                <p style="text-align:center; margin:0.75rem 0 0; font-size:0.8rem; color:#9CA3AF;">
+                  Sau khi xác nhận, lựa chọn sẽ được <strong>khóa cố định</strong> và 7 cung còn lại sẽ được ẩn.
+                </p>
+              </div>
+            `;
+
+            if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
+              TuViApp.showToast('🎉 Thanh toán 49k thành công! Hãy chọn 3 cung bạn muốn xem.', 'success');
             }
-          }, 1000);
+
+          } else {
+            // ========================================================
+            // GÓI 99K: MÀN HÌNH SUCCESS THÔNG THƯỜNG
+            // ========================================================
+            card.innerHTML = `
+              <button class="tuvi-vip-close" type="button" aria-label="Đóng" onclick="TuViMonetize.closeVipModal()">&times;</button>
+              <div class="vip-success-container">
+                <div class="vip-success-icon-badge">
+                  <svg width="68" height="68" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                  </svg>
+                </div>
+                <h2 class="vip-success-heading">XÁC NHẬN THANH TOÁN THÀNH CÔNG!</h2>
+                <p class="vip-success-message">
+                  Hệ thống đã nhận đủ <strong>${Number(displayAmount).toLocaleString('vi-VN')} đ</strong> cho mã đơn <strong>#${orderCode}</strong>.<br>
+                  Toàn bộ luận giải VIP và tính năng xuất PDF A4 của bạn đã được mở khóa tự động!
+                </p>
+                <div class="vip-success-meta">
+                  <span>Mã đơn: <strong>#${orderCode}</strong></span>
+                  <span>•</span>
+                  <span>Thời gian: <strong>${new Date().toLocaleTimeString('vi-VN')}</strong></span>
+                </div>
+                <button type="button" class="btn-seal btn-success-dismiss" onclick="TuViMonetize.closeVipModal();">
+                  ✨ Xem Ngay Bản Luận Giải Đầy Đủ
+                </button>
+                <p class="vip-auto-close-countdown">Cửa sổ sẽ tự động đóng sau <strong id="vipSuccessCountdown">3</strong> giây...</p>
+              </div>
+            `;
+
+            // Đếm ngược 3 giây tự động đóng modal (chỉ dùng cho gói 99k)
+            let secondsLeft = 3;
+            if (this._autoCloseTimer) clearInterval(this._autoCloseTimer);
+            this._autoCloseTimer = setInterval(() => {
+              secondsLeft -= 1;
+              const cdEl = document.getElementById('vipSuccessCountdown');
+              if (cdEl) cdEl.textContent = secondsLeft;
+              if (secondsLeft <= 0) {
+                clearInterval(this._autoCloseTimer);
+                this._autoCloseTimer = null;
+                this.closeVipModal();
+              }
+            }, 1000);
+
+            if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
+              TuViApp.showToast('🎉 Thanh toán thành công! Toàn bộ 12 cung & PDF đã được mở khóa.', 'success');
+            }
+          }
         }
       } else {
         this.closeVipModal();
       }
+    },
+
+    /**
+     * Callback khi khách tick / bỏ tick 1 cung trong màn hình chọn cung 49k
+     */
+    _on49kCheckboxChange: function (checkbox) {
+      const MAX = 3;
+      const list = document.getElementById('palace49kList');
+      if (!list) return;
+      const allCbs = list.querySelectorAll('.palace-select-cb');
+      const checked = Array.from(allCbs).filter(cb => cb.checked);
+      const count = checked.length;
+
+      // Cập nhật style từng hàng
+      allCbs.forEach(cb => {
+        const row = cb.closest('.palace-select-row');
+        const checkMark = row && row.querySelector('.psrow-check');
+        if (cb.checked) {
+          if (row) {
+            row.style.background = '#ECFDF5';
+            row.style.borderColor = '#059669';
+            row.style.boxShadow = '0 2px 8px rgba(5,150,105,0.15)';
+          }
+          if (checkMark) checkMark.style.display = 'block';
+        } else {
+          if (row) {
+            if (count >= MAX && !cb.checked) {
+              // disabled các ô chưa chọn khi đủ 3
+              row.style.background = '#F9FAFB';
+              row.style.borderColor = '#E5E7EB';
+              row.style.opacity = '0.6';
+              cb.disabled = true;
+            } else {
+              row.style.background = '#FFFDF8';
+              row.style.borderColor = '#E5D9B6';
+              row.style.opacity = '1';
+              cb.disabled = false;
+            }
+          }
+          if (checkMark) checkMark.style.display = 'none';
+        }
+      });
+
+      // Cập nhật counter
+      const counter = document.getElementById('palace49kCounter');
+      if (counter) {
+        counter.textContent = `ĐÃ CHỌN: ${count}/3`;
+        counter.style.background = count === MAX ? '#059669' : '#991B1B';
+      }
+
+      // Cập nhật nút xác nhận
+      const confirmBtn = document.getElementById('palace49kConfirmBtn');
+      if (confirmBtn) {
+        if (count === MAX) {
+          confirmBtn.disabled = false;
+          confirmBtn.style.background = 'linear-gradient(135deg, #B91C1C 0%, #881337 100%)';
+          confirmBtn.style.color = '#FFFFFF';
+          confirmBtn.style.cursor = 'pointer';
+          confirmBtn.style.border = '1px solid #D4AF37';
+          confirmBtn.style.boxShadow = '0 4px 14px rgba(185,28,28,0.35)';
+          confirmBtn.textContent = '✅ Xác Nhận Mở Khóa 3 Cung Đã Chọn';
+        } else {
+          confirmBtn.disabled = true;
+          confirmBtn.style.background = '#E5E7EB';
+          confirmBtn.style.color = '#9CA3AF';
+          confirmBtn.style.cursor = 'not-allowed';
+          confirmBtn.style.border = 'none';
+          confirmBtn.style.boxShadow = 'none';
+          confirmBtn.textContent = `Vui lòng chọn đủ 3 cung (còn thiếu ${MAX - count})`;
+        }
+      }
+
+      // Lưu tạm vào biến internal
+      this._palace49kSelectedTemp = checked.map(cb => cb.value);
+    },
+
+    /**
+     * Xác nhận lựa chọn 3 cung cho gói 49k và mở khóa chính thức
+     */
+    confirmPalaceSelection49k: function () {
+      const selected = this._palace49kSelectedTemp || [];
+      if (selected.length !== 3) {
+        if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
+          TuViApp.showToast('Vui lòng tick đúng 3 cung trước khi xác nhận!', 'warning');
+        }
+        return;
+      }
+
+      const chartKey = this._palace49kChartKey || this.activeChartKey || '';
+      if (chartKey) {
+        const info = this.getUnlockedChartInfo(chartKey) || {};
+        info.selectedPalaces = selected.slice();
+        this.saveUnlockedChart(chartKey, info);
+      }
+
+      // Cập nhật trạng thái
+      if (typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) {
+        this.updateActiveChartStatus(TuViChart._currentLaSo);
+        TuViChart.render(TuViChart._currentLaSo);
+      }
+
+      this.applyVipUI();
+
+      // Đóng modal và scroll xuống phần luận giải
+      this.closeVipModal();
 
       if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
-        TuViApp.showToast('🎉 Thanh toán thành công! Toàn bộ 12 cung & PDF đã được mở khóa.', 'success');
+        const PALACE_NAMES = {
+          'tai-bach': 'Tài Bạch', 'quan-loc': 'Quan Lộc', 'phu-the': 'Phu Thê',
+          'phuc-duc': 'Phúc Đức', 'dien-trach': 'Điền Trạch', 'tu-tuc': 'Tử Tức',
+          'thien-di': 'Thiên Di', 'tat-ach': 'Tật Ách', 'no-boc': 'Nô Bộc', 'huynh-de': 'Huynh Đệ'
+        };
+        const names = selected.map(k => PALACE_NAMES[k] || k).join(', ');
+        TuViApp.showToast(`🔓 Đã mở khóa thành công: Mệnh, Phụ Mẫu và ${names}!`, 'success');
       }
+
+      // Reset biến tạm
+      this._palace49kSelectedTemp = [];
+      this._palace49kChartKey = null;
+    },
+
+    /**
+     * Mở modal chọn 3 cung dạng bảng tick chọn cho gói 49k bất cứ lúc nào
+     */
+    openPalaceSelectorModal: function (customChartKey) {
+      let modal = document.getElementById('tuvi-vip-modal');
+      if (!modal) {
+        this.createVipModalDOM();
+        modal = document.getElementById('tuvi-vip-modal');
+      }
+      if (!modal) return;
+
+      const currentChart = (typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) ? TuViChart._currentLaSo : null;
+      const targetKey = customChartKey || (currentChart ? this.getChartKey(currentChart) : (this.activeChartKey || ''));
+      if (!targetKey) {
+        if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
+          TuViApp.showToast('Vui lòng lập lá số trước khi chọn cung!', 'warning');
+        }
+        return;
+      }
+
+      const info = this.getUnlockedChartInfo(targetKey) || {};
+      const orderCode = info.orderCode || this.vipOrderCode || localStorage.getItem('tvhh_vip_order_code') || 'VIP49K';
+      const currentSelected = Array.isArray(info.selectedPalaces) ? info.selectedPalaces : [];
+
+      this._palace49kChartKey = targetKey;
+      this._palace49kSelectedTemp = currentSelected.slice();
+
+      const SELECTABLE = [
+        { key: 'tai-bach',  name: 'Tài Bạch',  icon: '💰', desc: 'Tiền tài, thu nhập, đầu tư' },
+        { key: 'quan-loc',  name: 'Quan Lộc',  icon: '💼', desc: 'Sự nghiệp, chức vụ, danh vọng' },
+        { key: 'phu-the',   name: 'Phu Thê',   icon: '💍', desc: 'Hôn nhân, tình duyên, vợ chồng' },
+        { key: 'phuc-duc',  name: 'Phúc Đức',  icon: '🌟', desc: 'Phúc phận, tổ tiên, may mắn' },
+        { key: 'dien-trach',name: 'Điền Trạch', icon: '🏡', desc: 'Nhà cửa, bất động sản' },
+        { key: 'tu-tuc',    name: 'Tử Tức',    icon: '👶', desc: 'Con cái, học trò, sáng tạo' },
+        { key: 'thien-di',  name: 'Thiên Di',  icon: '✈️', desc: 'Xuất ngoại, di chuyển, giao du' },
+        { key: 'tat-ach',   name: 'Tật Ách',   icon: '🏥', desc: 'Sức khoẻ, tai nạn, bệnh tật' },
+        { key: 'no-boc',    name: 'Nô Bộc',    icon: '🤝', desc: 'Nhân viên, bạn bè, quan hệ' },
+        { key: 'huynh-de',  name: 'Huynh Đệ',  icon: '👥', desc: 'Anh chị em, đồng liêu, đối tác' }
+      ];
+
+      const palaceRowsHtml = SELECTABLE.map(p => {
+        const isChecked = currentSelected.includes(p.key);
+        return `
+          <label class="palace-select-row ${isChecked ? 'checked-row' : ''}" id="psrow-${p.key}" style="display:flex; align-items:center; gap:12px; padding:10px 14px; border:1.5px solid ${isChecked ? '#059669' : '#E5D9B6'}; border-radius:8px; cursor:pointer; background:${isChecked ? '#ECFDF5' : '#FFFDF8'}; transition:all 0.15s; margin-bottom:0;">
+            <input type="checkbox" class="palace-select-cb" value="${p.key}" ${isChecked ? 'checked' : ''} style="width:18px; height:18px; accent-color:#991B1B; cursor:pointer; flex-shrink:0;" onchange="TuViMonetize._on49kCheckboxChange(this)">
+            <span style="font-size:1.3rem; line-height:1; flex-shrink:0;">${p.icon}</span>
+            <span style="flex:1; min-width:0;">
+              <strong style="display:block; color:#1F2937; font-size:0.95rem;">${p.name}</strong>
+              <span style="font-size:0.8rem; color:#6B7280;">${p.desc}</span>
+            </span>
+            <span class="psrow-check" style="display:${isChecked ? 'block' : 'none'}; color:#059669; font-weight:700; font-size:1.1rem; flex-shrink:0;">✓</span>
+          </label>
+        `;
+      }).join('');
+
+      const card = modal.querySelector('.tuvi-vip-card');
+      if (card) {
+        card.innerHTML = `
+          <button class="tuvi-vip-close" type="button" aria-label="Đóng" onclick="TuViMonetize.closeVipModal()">&times;</button>
+          <div class="vip-palace-selector-container" style="padding: 0.5rem 0.25rem;">
+            <!-- Header -->
+            <div style="text-align:center; margin-bottom:1.25rem;">
+              <div style="display:inline-flex; align-items:center; justify-content:center; width:52px; height:52px; border-radius:50%; background:#ECFDF5; margin-bottom:0.6rem;">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+              </div>
+              <h2 style="margin:0 0 0.3rem; font-size:1.15rem; color:#991B1B; font-family:var(--font-heading,serif); font-weight:700;">✅ Bảng Chọn 3 Cung (Gói 49.000đ)</h2>
+              <p style="margin:0; font-size:0.86rem; color:#6B7280;">Mã đơn: <strong style="color:#1F2937;">#${orderCode}</strong></p>
+            </div>
+
+            <!-- Hướng dẫn chọn cung -->
+            <div style="background:linear-gradient(135deg,#FFF7ED,#FEF3C7); border:1.5px solid #D4AF37; border-radius:10px; padding:12px 14px; margin-bottom:1rem;">
+              <p style="margin:0 0 4px; font-weight:700; color:#92400E; font-size:0.95rem;">📋 Chọn 3 cung bạn quan tâm nhất</p>
+              <p style="margin:0; font-size:0.84rem; color:#78350F; line-height:1.5;">Cung <strong>Mệnh</strong> &amp; <strong>Phụ Mẫu</strong> đã được mở MIỄN PHÍ sẵn. Tick đúng 3 cung rồi bấm <strong>Xác Nhận</strong> để mở khóa luận giải chi tiết.</p>
+            </div>
+
+            <!-- Bộ đếm đã chọn -->
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+              <span style="font-size:0.88rem; color:#1F2937; font-weight:600;">Chọn cung để mở khóa:</span>
+              <span id="palace49kCounter" style="background:${currentSelected.length === 3 ? '#059669' : '#991B1B'}; color:#fff; font-size:0.82rem; font-weight:700; padding:3px 12px; border-radius:9999px;">ĐÃ CHỌN: ${currentSelected.length}/3</span>
+            </div>
+
+            <!-- Danh sách 10 cung có thể chọn -->
+            <div id="palace49kList" style="display:flex; flex-direction:column; gap:8px; max-height:340px; overflow-y:auto; padding-right:2px; margin-bottom:1rem;">
+              ${palaceRowsHtml}
+            </div>
+
+            <!-- Nút xác nhận -->
+            <button type="button" id="palace49kConfirmBtn"
+              style="width:100%; padding:12px 16px; font-size:1rem; font-weight:700; ${currentSelected.length === 3 ? 'background:linear-gradient(135deg, #B91C1C 0%, #881337 100%); color:#FFFFFF; cursor:pointer; border:1px solid #D4AF37; box-shadow:0 4px 14px rgba(185,28,28,0.35);' : 'background:#E5E7EB; color:#9CA3AF; cursor:not-allowed; border:none; box-shadow:none;'}"
+              ${currentSelected.length === 3 ? '' : 'disabled'}
+              onclick="TuViMonetize.confirmPalaceSelection49k()">
+              ${currentSelected.length === 3 ? '✅ Xác Nhận Mở Khóa 3 Cung Đã Chọn' : `Vui lòng chọn đủ 3 cung (còn thiếu ${3 - currentSelected.length})`}
+            </button>
+
+            <p style="text-align:center; margin:0.75rem 0 0; font-size:0.8rem; color:#9CA3AF;">
+              Sau khi xác nhận, 3 cung này sẽ được mở khóa toàn diện và 7 cung còn lại sẽ được bảo mật.
+            </p>
+          </div>
+        `;
+      }
+
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
     },
 
     applyVipUI: function () {
@@ -1289,11 +1605,14 @@
               </div>
             </div>
             <div class="vip-banner-actions-row">
+              <button class="btn-banner-action" style="background:#059669; color:#fff; border:1px solid #10B981; font-weight:700;" type="button" onclick="TuViMonetize.openPalaceSelectorModal()">
+                📋 ${selected.length === 3 ? 'Đổi 3 Cung Đã Chọn' : `Chọn Cung (${selected.length}/3)`}
+              </button>
               <button class="btn-banner-action" style="background:linear-gradient(135deg, #A3281F, #7A1C14); color:#FFE6A3; border:1px solid #D4AF37; font-weight:700;" type="button" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung &amp; Đại Hạn)', 99000)">
                 👑 Nâng Cấp VIP Toàn Thư (99.000đ)
               </button>
               <button class="btn-banner-action btn-banner-magic" type="button" onclick="TuViMonetize.copyMagicLink()">
-                🔗 Sao Chép Link Xem Lại
+                🔗 Sao Chép Link
               </button>
             </div>
           </div>
@@ -1707,7 +2026,7 @@
         let bookings = JSON.parse(localStorage.getItem('tvhh_bookings') || '[]');
         bookings.unshift(bookingData);
         localStorage.setItem('tvhh_bookings', JSON.stringify(bookings));
-      } catch (e) {}
+      } catch (e) { }
 
       // Gửi dữ liệu đặt lịch trực tiếp về Backend Server để Admin quản lý
       fetch(this.getApiUrl('/api/bookings/create'), {
@@ -1722,7 +2041,7 @@
           note: note,
           visitorId: (window.TuViTracker ? window.TuViTracker.visitorId : localStorage.getItem('tvhh_visitor_id')) || ''
         })
-      }).catch(function(err) { console.warn('Lỗi lưu lịch tư vấn:', err); });
+      }).catch(function (err) { console.warn('Lỗi lưu lịch tư vấn:', err); });
 
       if (window.TuViTracker && window.TuViTracker.track) {
         window.TuViTracker.track('booking_submit', {
@@ -1870,7 +2189,7 @@
         if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
           TuViApp.showToast(`Đã sao chép ${labelName}: ${text}`, 'success');
         }
-      } catch (e) {}
+      } catch (e) { }
       document.body.removeChild(input);
     },
 
@@ -2133,7 +2452,7 @@
             const url = new URL(window.location.href);
             url.searchParams.set('vip_token', this.vipAccessToken);
             window.history.replaceState({}, '', url.toString());
-          } catch (e) {}
+          } catch (e) { }
 
           this.closeRestoreModal();
 
