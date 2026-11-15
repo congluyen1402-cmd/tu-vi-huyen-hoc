@@ -366,10 +366,10 @@ async function syncOrdersWithSePay() {
         }
       } else if (matchedCode) {
         // Tự động tạo mới đơn hàng PAID từ giao dịch ngân hàng
-        const pkgId = amountIn >= 150000 ? 'vip_199k' : (amountIn >= 80000 ? 'combo_99k' : (amountIn >= 40000 ? 'vip_49k' : (amountIn >= 35000 ? 'vip_39k' : 'vip_29k')));
+        const pkgId = amountIn >= 150000 ? 'vip_199k' : (amountIn >= 80000 ? 'vip_99k' : (amountIn >= 40000 ? 'vip_49k' : (amountIn >= 35000 ? 'vip_39k' : 'vip_29k')));
         const pkgName = pkgId === 'vip_199k' ? 'Gói Luận Sâu Đại Vận & Cải Mệnh Chuyên Sâu (199.000đ)' :
-          (pkgId === 'combo_99k' ? 'Combo Huyền Học Toàn Diện (Tử Vi + Thần Số + Bát Tự) (99.000đ)' :
-          (pkgId === 'vip_49k' ? 'Báo Cáo Tử Vi VIP A4 Toàn Thư (49.000đ)' :
+          (pkgId === 'vip_99k' ? 'Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung & Đại Hạn) (99.000đ)' :
+          (pkgId === 'vip_49k' ? 'Gói Luận 3 Cung Tự Chọn (49.000đ)' :
           (pkgId === 'vip_39k' ? 'Gói Thần Số Học VIP Toàn Thư A4 (39.000đ)' : 'Gói Mở Khóa Nhanh 3 Cung Trọng Tâm (29.000đ)')));
 
         const newOrder = {
@@ -831,8 +831,8 @@ const server = http.createServer(async (req, res) => {
         userId: null,
         customerName: 'Khách Vãng Lai',
         customerPhone: '',
-        packageId: queryAmount >= 100000 ? 'vip_149k' : (queryAmount >= 40000 ? 'vip_49k' : 'vip_29k'),
-        packageName: queryAmount >= 100000 ? 'Gói Luận Sâu & Cải Mệnh' : (queryAmount >= 40000 ? 'Báo Cáo VIP A4 Toàn Thư' : 'Gói Mở Khóa Nhanh 3 Cung'),
+        packageId: queryAmount >= 80000 ? 'vip_99k' : (queryAmount >= 40000 ? 'vip_49k' : 'vip_29k'),
+        packageName: queryAmount >= 80000 ? 'Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung & Đại Hạn)' : (queryAmount >= 40000 ? 'Gói Luận 3 Cung Tự Chọn' : 'Gói Mở Khóa Nhanh 3 Cung'),
         amount: queryAmount,
         status: 'PENDING',
         createdAt: new Date().toISOString()
@@ -929,10 +929,10 @@ const server = http.createServer(async (req, res) => {
       if (matchedCodeMatch && inAmount >= 2000) {
         const rawCode = matchedCodeMatch[0].toUpperCase();
         const newCode = rawCode.startsWith('TV') ? rawCode : ('TV' + (matchedCodeMatch[1] || rawCode));
-        const pkgId = inAmount >= 150000 ? 'vip_199k' : (inAmount >= 80000 ? 'combo_99k' : (inAmount >= 40000 ? 'vip_49k' : (inAmount >= 35000 ? 'vip_39k' : 'vip_29k')));
+        const pkgId = inAmount >= 150000 ? 'vip_199k' : (inAmount >= 80000 ? 'vip_99k' : (inAmount >= 40000 ? 'vip_49k' : (inAmount >= 35000 ? 'vip_39k' : 'vip_29k')));
         const pkgName = pkgId === 'vip_199k' ? 'Gói Luận Sâu Đại Vận & Cải Mệnh Chuyên Sâu (199.000đ)' :
-          (pkgId === 'combo_99k' ? 'Combo Huyền Học Toàn Diện (Tử Vi + Thần Số + Bát Tự) (99.000đ)' :
-          (pkgId === 'vip_49k' ? 'Báo Cáo Tử Vi VIP A4 Toàn Thư (49.000đ)' :
+          (pkgId === 'vip_99k' ? 'Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung & Đại Hạn) (99.000đ)' :
+          (pkgId === 'vip_49k' ? 'Gói Luận 3 Cung Tự Chọn (49.000đ)' :
           (pkgId === 'vip_39k' ? 'Gói Thần Số Học VIP Toàn Thư A4 (39.000đ)' : 'Gói Mở Khóa Nhanh 3 Cung Trọng Tâm (29.000đ)')));
 
         const newOrder = {
@@ -992,8 +992,8 @@ const server = http.createServer(async (req, res) => {
           userId: null,
           customerName: 'Khách Vãng Lai',
           customerPhone: '',
-          packageId: bodyAmount >= 100000 ? 'vip_149k' : (bodyAmount >= 40000 ? 'vip_49k' : 'vip_29k'),
-          packageName: bodyAmount >= 100000 ? 'Gói Luận Sâu & Cải Mệnh' : (bodyAmount >= 40000 ? 'Báo Cáo VIP A4 Toàn Thư' : 'Gói Mở Khóa Nhanh 3 Cung'),
+          packageId: bodyAmount >= 80000 ? 'vip_99k' : (bodyAmount >= 40000 ? 'vip_49k' : 'vip_29k'),
+          packageName: bodyAmount >= 80000 ? 'Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung & Đại Hạn)' : (bodyAmount >= 40000 ? 'Gói Luận 3 Cung Tự Chọn' : 'Gói Mở Khóa Nhanh 3 Cung'),
           amount: bodyAmount,
           status: 'PENDING',
           createdAt: new Date().toISOString()

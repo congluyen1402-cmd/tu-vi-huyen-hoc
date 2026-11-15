@@ -20,8 +20,10 @@
       accountNo: '108884822302',
       accountName: 'TRAN CONG LUYEN',
       bankBranch: 'CN Nam Sài Gòn - PGD Phú Mỹ Hưng',
-      vipPrice: 49000,
-      vipOriginalPrice: 199000,
+      vipPrice: 99000,
+      vipOriginalPrice: 299000,
+      tripwirePrice: 49000,
+      tripwireOriginalPrice: 149000,
       zaloPhone: ''
     },
 
@@ -31,8 +33,8 @@
     vipAccessToken: '',
     vipOrderCode: '',
     activeChartKey: '',
-    currentPackageName: 'Báo Cáo VIP A4 Toàn Thư',
-    currentPackagePrice: 49000,
+    currentPackageName: 'Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung & Đại Hạn)',
+    currentPackagePrice: 99000,
 
     getChartKey: function (laSoOrInput) {
       if (!laSoOrInput) return '';
@@ -94,16 +96,171 @@
       return Boolean(this.getUnlockedChartInfo(laSoOrKey));
     },
 
-    isChartVip: function (laSoOrKey) {
+    /**
+     * GÓI 99K: Báo Cáo VIP A4 Toàn Thư (Mở khóa toàn bộ 12 cung + Đại Hạn + Tam Phương Tứ Chính)
+     */
+    isChart99k: function (laSoOrKey) {
       var info = this.getUnlockedChartInfo(laSoOrKey);
       if (!info) return false;
-      return Boolean(!info.isTripwire && info.packageId !== 'vip_29k');
+      if (info.packageId === 'vip_99k' || info.packageId === 'combo_99k' || info.packageId === 'vip_call') return true;
+      var amt = Number(info.amount || 0);
+      if (amt >= 80000 && !info.isTripwire && !info.is3Cung) return true;
+      return false;
+    },
+
+    /**
+     * GÓI 49K: Gói Luận 3 Cung Tự Chọn (Chỉ mở 3 cung khách tự chọn, KHÔNG có Đại Hạn & Tam Phương)
+     */
+    isChart49k: function (laSoOrKey) {
+      var info = this.getUnlockedChartInfo(laSoOrKey);
+      if (!info) return false;
+      if (this.isChart99k(laSoOrKey)) return false; // 99k cao hơn 49k
+      if (info.is3Cung || info.isTripwire) return true;
+      if (info.packageId === 'vip_49k' || info.packageId === 'vip_29k') return true;
+      var amt = Number(info.amount || 0);
+      return amt >= 20000 && amt < 80000;
+    },
+
+    isChartVip: function (laSoOrKey) {
+      // Giữ tương thích: VIP tương đương gói toàn bộ (99k)
+      return this.isChart99k(laSoOrKey);
     },
 
     isChartTripwire: function (laSoOrKey) {
+      // Giữ tương thích: Tripwire tương đương gói 3 cung (49k)
+      return this.isChart49k(laSoOrKey);
+    },
+
+    /**
+     * Lấy danh sách key các cung mà khách đã chọn cho Gói 49k
+     * Mệnh & Phụ Mẫu mặc định miễn phí, không chiếm slot.
+     */
+    getSelectedPalaces: function (laSoOrKey) {
       var info = this.getUnlockedChartInfo(laSoOrKey);
-      if (!info) return false;
-      return Boolean(info.isTripwire || info.packageId === 'vip_29k');
+      if (!info) return [];
+      if (Array.isArray(info.selectedPalaces)) {
+        return info.selectedPalaces;
+      }
+      return [];
+    },
+
+    /**
+     * Chuẩn hóa tên cung sang palace key
+     */
+    normalizePalaceKey: function (rawNameOrKey) {
+      if (!rawNameOrKey) return '';
+      var s = String(rawNameOrKey).toLowerCase().trim();
+      if (s.indexOf('menh') !== -1 || s.indexOf('mệnh') !== -1) return 'menh';
+      if (s.indexOf('phu-mau') !== -1 || s.indexOf('phụ mẫu') !== -1) return 'phu-mau';
+      if (s.indexOf('phuc-duc') !== -1 || s.indexOf('phúc đức') !== -1) return 'phuc-duc';
+      if (s.indexOf('dien-trach') !== -1 || s.indexOf('điền trạch') !== -1) return 'dien-trach';
+      if (s.indexOf('quan-loc') !== -1 || s.indexOf('quan lộc') !== -1) return 'quan-loc';
+      if (s.indexOf('no-boc') !== -1 || s.indexOf('nô bộc') !== -1) return 'no-boc';
+      if (s.indexOf('thien-di') !== -1 || s.indexOf('thiên di') !== -1) return 'thien-di';
+      if (s.indexOf('tat-ach') !== -1 || s.indexOf('tật ách') !== -1) return 'tat-ach';
+      if (s.indexOf('tai-bach') !== -1 || s.indexOf('tài bạch') !== -1) return 'tai-bach';
+      if (s.indexOf('tu-tuc') !== -1 || s.indexOf('tử tức') !== -1) return 'tu-tuc';
+      if (s.indexOf('phu-the') !== -1 || s.indexOf('phu thê') !== -1 || s.indexOf('phối') !== -1) return 'phu-the';
+      if (s.indexOf('huynh-de') !== -1 || s.indexOf('huynh đệ') !== -1) return 'huynh-de';
+      return s;
+    },
+
+    /**
+     * Tự chọn / Bỏ chọn 1 cung trong Gói 49k (Tối đa 3 cung tự chọn)
+     */
+    selectPalaceFor49k: function (rawNameOrKey, laSoOrKey) {
+      var currentLaSo = (typeof laSoOrKey === 'object' && laSoOrKey) ? laSoOrKey : ((typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) ? TuViChart._currentLaSo : null);
+      var key = this.getChartKey(laSoOrKey || currentLaSo);
+      if (!key) return false;
+
+      var info = this.getUnlockedChartInfo(key);
+      if (!info) {
+        if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
+          TuViApp.showToast('Vui lòng kích hoạt Gói Luận 3 Cung Tự Chọn (49.000đ) để bắt đầu chọn cung!', 'warning');
+        }
+        this.openVipModal('Gói Luận 3 Cung Tự Chọn', 49000);
+        return false;
+      }
+
+      var palaceKey = this.normalizePalaceKey(rawNameOrKey);
+      if (palaceKey === 'menh' || palaceKey === 'phu-mau') {
+        if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
+          TuViApp.showToast('Cung Mệnh và Phụ Mẫu đã được mở khóa MIỄN PHÍ sẵn, không tính vào 3 lượt chọn!', 'info');
+        }
+        return true;
+      }
+
+      var selected = Array.isArray(info.selectedPalaces) ? info.selectedPalaces.slice() : [];
+      var idx = selected.indexOf(palaceKey);
+
+      if (idx !== -1) {
+        // Đã chọn -> Bỏ chọn để khách có thể đổi sang cung khác
+        selected.splice(idx, 1);
+        info.selectedPalaces = selected;
+        this.saveUnlockedChart(key, info);
+        if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
+          TuViApp.showToast(`Đã bỏ chọn cung. Bạn còn ${3 - selected.length}/3 lượt chọn cung cho gói 49k.`, 'info');
+        }
+      } else {
+        // Chưa chọn -> Kiểm tra giới hạn 3 cung
+        if (selected.length >= 3) {
+          if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
+            TuViApp.showToast('Bạn đã chọn tối đa 3 cung cho gói 49k! Hãy bỏ chọn 1 cung để đổi, hoặc nâng cấp VIP Toàn Thư (99k) để xem cả 12 cung.', 'warning');
+          } else if (typeof alert !== 'undefined') {
+            alert('Bạn đã chọn tối đa 3 cung cho gói 49k!\nHãy bấm bỏ chọn 1 cung để đổi, hoặc nâng cấp VIP Toàn Thư (99.000đ) để mở toàn bộ 12 cung + Đại Hạn.');
+          }
+          return false;
+        }
+        selected.push(palaceKey);
+        info.selectedPalaces = selected;
+        this.saveUnlockedChart(key, info);
+        if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
+          TuViApp.showToast(`Đã chọn thành công [${selected.length}/3 cung]! ${selected.length === 3 ? 'Đã đủ 3 cung, các cung còn lại sẽ được khóa bảo mật.' : `Còn ${3 - selected.length} lượt chọn.`}`, 'success');
+        }
+      }
+
+      // Re-render chart để cập nhật trạng thái mở/khóa các ô và accordion
+      if (typeof TuViChart !== 'undefined' && currentLaSo) {
+        TuViChart.render(currentLaSo);
+      }
+      return true;
+    },
+
+    /**
+     * Kiểm tra xem 1 cung cụ thể có được mở khóa toàn diện hay không
+     */
+    isPalaceUnlocked: function (rawPalaceNameOrKey, laSoOrKey) {
+      var palaceKey = this.normalizePalaceKey(rawPalaceNameOrKey);
+      // Cung Mệnh & Cung Phụ Mẫu luôn luôn miễn phí!
+      if (palaceKey === 'menh' || palaceKey === 'phu-mau') {
+        return true;
+      }
+      // Gói 99k VIP Toàn Thư: Mở khóa trọn bộ 12 cung
+      if (this.isChart99k(laSoOrKey)) {
+        return true;
+      }
+      // Gói 49k: Chỉ mở đúng 3 cung khách tự chọn
+      if (this.isChart49k(laSoOrKey)) {
+        var selected = this.getSelectedPalaces(laSoOrKey);
+        return selected.includes(palaceKey);
+      }
+      return false;
+    },
+
+    /**
+     * Luận giải Đại Hạn các thập niên (từ 6 đến 75+ tuổi)
+     * Quyền lợi độc quyền của Gói 99k (Gói 49k KHÓA toàn bộ Đại Hạn!)
+     */
+    isDaiHanUnlocked: function (laSoOrKey) {
+      return this.isChart99k(laSoOrKey);
+    },
+
+    /**
+     * Phân tích ma trận Tam Phương Tứ Chính & Tứ Hóa Phi Tinh
+     * Quyền lợi độc quyền của Gói 99k (Gói 49k KHÓA!)
+     */
+    isTamPhuongUnlocked: function (laSoOrKey) {
+      return this.isChart99k(laSoOrKey);
     },
 
     updateActiveChartStatus: function (laSo) {
@@ -112,9 +269,10 @@
       var info = this.getUnlockedChartInfo(key);
 
       if (info) {
-        var isTripwire = Boolean(info.isTripwire || info.packageId === 'vip_29k');
-        this.isVipUnlocked = !isTripwire;
-        this.isTripwireUnlocked = isTripwire;
+        var is99k = this.isChart99k(key);
+        var is49k = this.isChart49k(key);
+        this.isVipUnlocked = is99k;
+        this.isTripwireUnlocked = is49k;
         this.vipOrderCode = info.orderCode || '';
         this.vipAccessToken = info.vipAccessToken || info.vipToken || '';
         this.activeChartKey = key;
@@ -140,14 +298,14 @@
       }
       var floatBtn = document.getElementById('floatingVipCta');
       if (floatBtn) {
-        floatBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span>Mở Khóa Toàn Thư (49.000đ)</span>';
-        floatBtn.onclick = () => TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)', 49000);
+        floatBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span>Mở Khóa VIP (99.000đ)</span>';
+        floatBtn.onclick = () => TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung & Đại Hạn)', 99000);
       }
       var vipBtns = document.querySelectorAll('.btn-action-vip');
       vipBtns.forEach(b => {
         b.classList.remove('unlocked');
-        b.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Mở Khóa VIP (49.000đ)';
-        b.onclick = () => TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)', 49000);
+        b.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Mở Khóa VIP (99.000đ)';
+        b.onclick = () => TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung & Đại Hạn)', 99000);
       });
       var toolbarVips = document.querySelectorAll('.btn-toolbar-vip');
       toolbarVips.forEach(b => {
@@ -155,7 +313,7 @@
         b.style.color = '';
         b.style.borderColor = '';
         b.style.fontWeight = '';
-        b.onclick = () => TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung)', 49000);
+        b.onclick = () => TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung & Đại Hạn)', 99000);
       });
       if (typeof TuViChart !== 'undefined' && TuViChart.initStickyBottomCta) {
         TuViChart.initStickyBottomCta(false);
@@ -428,7 +586,7 @@
             phut: (activeLaSo._input && activeLaSo._input.phut) !== undefined ? activeLaSo._input.phut : activeLaSo.phut,
             isLunar: Boolean(activeLaSo.isLunar || (activeLaSo._input && activeLaSo._input.isLunar))
           } : null,
-          packageId: this.currentPackagePrice >= 1000000 ? 'vip_call' : (this.currentPackagePrice >= 100000 ? 'vip_149k' : (this.currentPackagePrice >= 40000 ? 'vip_49k' : 'vip_29k')),
+          packageId: this.currentPackagePrice >= 1000000 ? 'vip_call' : (this.currentPackagePrice >= 80000 ? 'vip_99k' : (this.currentPackagePrice >= 40000 ? 'vip_49k' : 'vip_29k')),
           packageName: this.currentPackageName,
           amount: this.currentPackagePrice,
           customerName: currentUser ? currentUser.fullName : (activeLaSo ? activeLaSo.hoTen : 'Đương Số VIP'),
@@ -500,7 +658,7 @@
             phut: (activeLaSo._input && activeLaSo._input.phut) !== undefined ? activeLaSo._input.phut : activeLaSo.phut,
             isLunar: Boolean(activeLaSo.isLunar || (activeLaSo._input && activeLaSo._input.isLunar))
           } : null,
-          packageId: this.currentPackagePrice >= 100000 ? 'vip_149k' : (this.currentPackagePrice >= 40000 ? 'vip_49k' : 'vip_29k'),
+          packageId: this.currentPackagePrice >= 80000 ? 'vip_99k' : (this.currentPackagePrice >= 40000 ? 'vip_49k' : 'vip_29k'),
           packageName: this.currentPackageName,
           amount: this.currentPackagePrice,
           customerName: currentUser ? currentUser.fullName : (activeLaSo ? activeLaSo.hoTen : 'Đương Số VIP'),
@@ -573,15 +731,12 @@
 
       const oldPriceEl = document.querySelector('#tuvi-vip-modal .old-price');
       const discountEl = document.querySelector('#tuvi-vip-modal .discount-badge');
-      if (this.currentPackagePrice <= 30000) {
-        if (oldPriceEl) oldPriceEl.textContent = '99.000 đ';
-        if (discountEl) discountEl.textContent = 'TIẾT KIỆM 70%';
-      } else if (this.currentPackagePrice <= 60000) {
-        if (oldPriceEl) oldPriceEl.textContent = '199.000 đ';
-        if (discountEl) discountEl.textContent = 'TIẾT KIỆM 75%';
+      if (this.currentPackagePrice <= 60000) {
+        if (oldPriceEl) oldPriceEl.textContent = '149.000 đ';
+        if (discountEl) discountEl.textContent = 'TIẾT KIỆM 67%';
       } else {
-        if (oldPriceEl) oldPriceEl.textContent = '399.000 đ';
-        if (discountEl) discountEl.textContent = 'TIẾT KIỆM 63%';
+        if (oldPriceEl) oldPriceEl.textContent = '299.000 đ';
+        if (discountEl) discountEl.textContent = 'TIẾT KIỆM 67%';
       }
 
       // Highlight active package button in modal
@@ -593,6 +748,28 @@
           btn.classList.remove('active');
         }
       });
+
+      // Cập nhật danh sách quyền lợi thích ứng theo gói đang chọn
+      const benefitsEl = document.querySelector('#tuvi-vip-modal .vip-benefits-list');
+      if (benefitsEl) {
+        if (this.currentPackagePrice < 80000) {
+          benefitsEl.innerHTML = `
+            <div class="vip-benefit-item" style="color:#059669;">✓ <strong>Tự chọn 3 cung yêu thích</strong> luận giải chi tiết (sau khi chọn đủ 3 cung thì 7 cung còn lại tự động khóa).</div>
+            <div class="vip-benefit-item" style="color:#059669;">✓ <strong>Phân tích chi tiết chính tinh, cát tinh, sát tinh</strong> &amp; Đạo trị mệnh trong 3 cung.</div>
+            <div class="vip-benefit-item" style="color:#059669;">✓ <strong>Tặng kèm miễn phí Cung Mệnh &amp; Cung Phụ Mẫu</strong> (không tính vào 3 lượt chọn).</div>
+            <div class="vip-benefit-item" style="color:#DC2626; opacity:0.88;">✗ <em>Khóa</em>: Không bao gồm Luận giải Đại Hạn các thập niên 6 - 75+ tuổi (thuộc Gói VIP 99k).</div>
+            <div class="vip-benefit-item" style="color:#DC2626; opacity:0.88;">✗ <em>Khóa</em>: Không bao gồm Tam Phương Tứ Chính &amp; Tứ Hóa Phi Tinh (thuộc Gói VIP 99k).</div>
+          `;
+        } else {
+          benefitsEl.innerHTML = `
+            <div class="vip-benefit-item" style="color:#059669;">✓ <strong>Mở khóa toàn bộ 12 cung</strong> luận giải chi tiết (không che mờ).</div>
+            <div class="vip-benefit-item" style="color:#059669;">✓ <strong>Luận giải Đại Hạn các thập niên (từ 6 đến 75+ tuổi)</strong> &amp; Phương pháp Hóa giải.</div>
+            <div class="vip-benefit-item" style="color:#059669;">✓ <strong>Phân tích Tam Phương Tứ Chính &amp; Tứ Hóa Phi Tinh</strong> (Lộc - Quyền - Khoa - Kỵ).</div>
+            <div class="vip-benefit-item" style="color:#059669;">✓ <strong>Xuất trọn bộ File PDF VIP A4</strong> đóng dấu mộc phong thủy lưu trữ trọn đời.</div>
+            <div class="vip-benefit-item" style="color:#059669;">✓ <strong>Tích hợp Cố Vấn Tử Vi AI</strong> giải đáp mở rộng mọi băn khoăn.</div>
+          `;
+        }
+      }
 
       const transferAmountEl = document.getElementById('vipTransferAmount');
       if (transferAmountEl) transferAmountEl.textContent = priceText;
@@ -774,12 +951,15 @@
 
     onPaymentSuccess: function (data) {
       this.stopOrderPolling();
-      const isTripwirePkg = (this.currentPackagePrice <= 35000) || (data && (data.packageId === 'vip_29k' || (data.order && data.order.packageId === 'vip_29k')));
+      const rawPkgId = (data && (data.packageId || (data.order && data.order.packageId))) || '';
+      const displayAmount = Number((data && (data.amount || (data.order && data.order.amount))) || this.currentPackagePrice || 49000);
+      const is99k = rawPkgId === 'vip_99k' || rawPkgId === 'combo_99k' || rawPkgId === 'vip_call' || displayAmount >= 80000;
+      const packageId = is99k ? 'vip_99k' : 'vip_49k';
+      const isTripwirePkg = !is99k;
+      const is3Cung = !is99k;
+      const packageName = (data && (data.packageName || (data.order && data.order.packageName))) || (is99k ? 'Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung & Đại Hạn)' : 'Gói Luận 3 Cung Tự Chọn');
       const orderCode = (data && (data.orderCode || (data.order && data.order.orderCode))) || this.currentOrderId;
       const vipToken = (data && (data.vipToken || data.vipAccessToken || (data.order && data.order.vipAccessToken))) || 'vip_' + Date.now();
-      const displayAmount = (data && (data.amount || (data.order && data.order.amount))) || this.currentPackagePrice || 29000;
-      const packageId = (data && (data.packageId || (data.order && data.order.packageId))) || (isTripwirePkg ? 'vip_29k' : 'vip_49k');
-      const packageName = (data && (data.packageName || (data.order && data.order.packageName))) || this.currentPackageName || 'Báo Cáo VIP A4 Toàn Thư';
 
       // Xác định lá số tương ứng để mở khóa độc lập
       const currentChart = (typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) ? TuViChart._currentLaSo : null;
@@ -795,6 +975,7 @@
 
       // Lưu quyền mở khóa RIÊNG BIỆT cho lá số này
       if (targetChartKey) {
+        const existingInfo = this.getUnlockedChartInfo(targetChartKey) || {};
         this.saveUnlockedChart(targetChartKey, {
           orderCode: orderCode,
           vipAccessToken: vipToken,
@@ -803,6 +984,8 @@
           packageName: packageName,
           amount: displayAmount,
           isTripwire: isTripwirePkg,
+          is3Cung: is3Cung,
+          selectedPalaces: Array.isArray(existingInfo.selectedPalaces) ? existingInfo.selectedPalaces : [],
           unlockedAt: new Date().toISOString()
         });
       }
@@ -811,8 +994,8 @@
       if (currentChart) {
         this.updateActiveChartStatus(currentChart);
       } else {
-        this.isVipUnlocked = !isTripwirePkg;
-        this.isTripwireUnlocked = isTripwirePkg;
+        this.isVipUnlocked = is99k;
+        this.isTripwireUnlocked = !is99k;
         this.vipOrderCode = orderCode;
         this.vipAccessToken = vipToken;
       }
@@ -927,29 +1110,58 @@
     },
 
     applyVipUI: function () {
+      const currentChart = (typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) ? TuViChart._currentLaSo : null;
+      const chartKey = currentChart ? this.getChartKey(currentChart) : (this.activeChartKey || '');
+      const is99k = this.isChart99k(chartKey);
+      const is49k = this.isChart49k(chartKey);
+
+      if (!is99k && !is49k && !this.isVipUnlocked && !this.isTripwireUnlocked) {
+        return;
+      }
+
       const vipBtns = document.querySelectorAll('.btn-action-vip');
       vipBtns.forEach(b => {
-        b.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Xuất File PDF VIP (Đã Kích Hoạt)';
-        b.classList.add('unlocked');
-        b.onclick = () => TuViMonetize.printVipReport();
+        if (is99k || this.isVipUnlocked) {
+          b.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Xuất File PDF VIP (Đã Kích Hoạt)';
+          b.classList.add('unlocked');
+          b.onclick = () => TuViMonetize.printVipReport();
+        } else {
+          b.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Nâng Cấp VIP Toàn Thư (99.000đ)';
+          b.classList.remove('unlocked');
+          b.onclick = () => TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung & Đại Hạn)', 99000);
+        }
       });
 
       const toolbarVips = document.querySelectorAll('.btn-toolbar-vip');
       toolbarVips.forEach(b => {
-        b.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline;vertical-align:-2px;margin-right:5px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>📥 Xuất Báo Cáo VIP A4';
-        b.style.background = '#10b981';
-        b.style.color = '#ffffff';
-        b.style.borderColor = '#10b981';
-        b.style.fontWeight = '700';
-        b.onclick = () => TuViMonetize.printVipReport();
+        if (is99k || this.isVipUnlocked) {
+          b.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline;vertical-align:-2px;margin-right:5px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>📥 Xuất Báo Cáo VIP A4';
+          b.style.background = '#10b981';
+          b.style.color = '#ffffff';
+          b.style.borderColor = '#10b981';
+          b.style.fontWeight = '700';
+          b.onclick = () => TuViMonetize.printVipReport();
+        } else {
+          b.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline;vertical-align:-2px;margin-right:5px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>👑 Lên VIP Toàn Thư 99k';
+          b.style.background = '#8F1D14';
+          b.style.color = '#FFE6A3';
+          b.style.borderColor = '#C29B38';
+          b.style.fontWeight = '700';
+          b.onclick = () => TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung & Đại Hạn)', 99000);
+        }
       });
 
       // Mở khóa toàn bộ nhãn VIP
       document.body.classList.add('vip-activated');
       const floatBtn = document.getElementById('floatingVipCta');
       if (floatBtn) {
-        floatBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>Xuất Báo Cáo VIP A4</span>';
-        floatBtn.onclick = () => TuViMonetize.printVipReport();
+        if (is99k || this.isVipUnlocked) {
+          floatBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>Xuất Báo Cáo VIP A4</span>';
+          floatBtn.onclick = () => TuViMonetize.printVipReport();
+        } else {
+          floatBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span>Nâng Cấp VIP (99.000đ)</span>';
+          floatBtn.onclick = () => TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung & Đại Hạn)', 99000);
+        }
       }
 
       this.renderVipUnlockedBanner();
@@ -960,7 +1172,14 @@
     },
 
     renderVipUnlockedBanner: function () {
-      if (!this.isVipUnlocked || typeof document === 'undefined' || !document.querySelector) return;
+      if (typeof document === 'undefined' || !document.querySelector) return;
+      const currentChart = (typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) ? TuViChart._currentLaSo : null;
+      const chartKey = currentChart ? this.getChartKey(currentChart) : (this.activeChartKey || '');
+      const is99k = this.isChart99k(chartKey);
+      const is49k = this.isChart49k(chartKey);
+
+      if (!is99k && !is49k && !this.isVipUnlocked && !this.isTripwireUnlocked) return;
+
       const resultWrap = document.querySelector('.la-so-outer-wrap');
       const chartEl = document.getElementById('la-so-chart');
       if (!resultWrap || !chartEl) return;
@@ -975,32 +1194,61 @@
 
       const orderDisplay = this.vipOrderCode || localStorage.getItem('tvhh_vip_order_code') || 'VIP';
 
-      banner.innerHTML = `
-        <div class="vip-banner-inner" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
-          <div class="vip-banner-headline" style="display:flex; align-items:center; gap:0.85rem;">
-            <div class="vip-banner-crown" style="width:44px; height:44px; border-radius:50%; background:radial-gradient(circle, #FFE6A3, #D4AF37, #A67C1A); color:#0B0A1A; display:flex; align-items:center; justify-content:center; font-size:1.4rem; box-shadow:0 0 15px rgba(212, 175, 55, 0.5); flex-shrink:0;">👑</div>
-            <div class="vip-banner-text-group">
-              <h3 style="color:#FFE6A3 !important; font-family:var(--font-heading, serif); font-size:1.22rem; font-weight:700; margin:0 0 0.25rem 0; text-shadow:0 2px 4px rgba(0,0,0,0.8); letter-spacing:0.4px;">
-                QUYỀN LỢI VIP ĐÃ KÍCH HOẠT · TRỌN BỘ 12 CUNG &amp; ĐẠI HẠN
-              </h3>
-              <p style="color:#F3ECDD !important; font-size:0.92rem; margin:0; line-height:1.5;">
-                Mã đơn hàng: <strong style="color:#FFD56B !important; font-weight:800; letter-spacing:0.5px;">${orderDisplay}</strong> — Bạn đang xem phiên bản VIP đầy đủ không giới hạn.
-              </p>
+      if (is99k || this.isVipUnlocked) {
+        // GÓI 99K: TOÀN BỘ 12 CUNG & ĐẠI HẠN
+        banner.innerHTML = `
+          <div class="vip-banner-inner" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+            <div class="vip-banner-headline" style="display:flex; align-items:center; gap:0.85rem;">
+              <div class="vip-banner-crown" style="width:44px; height:44px; border-radius:50%; background:radial-gradient(circle, #FFE6A3, #D4AF37, #A67C1A); color:#0B0A1A; display:flex; align-items:center; justify-content:center; font-size:1.4rem; box-shadow:0 0 15px rgba(212, 175, 55, 0.5); flex-shrink:0;">👑</div>
+              <div class="vip-banner-text-group">
+                <h3 style="color:#FFE6A3 !important; font-family:var(--font-heading, serif); font-size:1.22rem; font-weight:700; margin:0 0 0.25rem 0; text-shadow:0 2px 4px rgba(0,0,0,0.8); letter-spacing:0.4px;">
+                  QUYỀN LỢI VIP ĐÃ KÍCH HOẠT · TRỌN BỘ 12 CUNG &amp; ĐẠI HẠN
+                </h3>
+                <p style="color:#F3ECDD !important; font-size:0.92rem; margin:0; line-height:1.5;">
+                  Mã đơn hàng: <strong style="color:#FFD56B !important; font-weight:800; letter-spacing:0.5px;">#${orderDisplay}</strong> — Bạn đang xem phiên bản VIP Toàn Thư 12 Cung &amp; Đại Hạn không giới hạn.
+                </p>
+              </div>
+            </div>
+            <div class="vip-banner-actions-row">
+              <button class="btn-banner-action btn-banner-pdf" type="button" onclick="TuViMonetize.printVipReport()">
+                🖨️ Xuất File PDF VIP A4
+              </button>
+              <button class="btn-banner-action btn-banner-magic" type="button" onclick="TuViMonetize.copyMagicLink()">
+                🔗 Sao Chép Link Xem Lại (Magic Link)
+              </button>
+              <button class="btn-banner-action btn-banner-claim" type="button" onclick="TuViMonetize.openClaimAccountModal()">
+                🛡️ Tạo Mật Khẩu Bảo Vệ (Tùy Chọn)
+              </button>
             </div>
           </div>
-          <div class="vip-banner-actions-row">
-            <button class="btn-banner-action btn-banner-pdf" type="button" onclick="TuViMonetize.printVipReport()">
-              🖨️ Xuất File PDF VIP A4
-            </button>
-            <button class="btn-banner-action btn-banner-magic" type="button" onclick="TuViMonetize.copyMagicLink()">
-              🔗 Sao Chép Link Xem Lại (Magic Link)
-            </button>
-            <button class="btn-banner-action btn-banner-claim" type="button" onclick="TuViMonetize.openClaimAccountModal()">
-              🛡️ Tạo Mật Khẩu Bảo Vệ (Tùy Chọn)
-            </button>
+        `;
+      } else {
+        // GÓI 49K: 3 CUNG TỰ CHỌN
+        const selected = this.getSelectedPalaces(chartKey);
+        banner.innerHTML = `
+          <div class="vip-banner-inner" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+            <div class="vip-banner-headline" style="display:flex; align-items:center; gap:0.85rem;">
+              <div class="vip-banner-crown" style="width:44px; height:44px; border-radius:50%; background:radial-gradient(circle, #FFE6A3, #C29B38, #8F6B00); color:#0B0A1A; display:flex; align-items:center; justify-content:center; font-size:1.4rem; box-shadow:0 0 15px rgba(212, 175, 55, 0.4); flex-shrink:0;">✨</div>
+              <div class="vip-banner-text-group">
+                <h3 style="color:#FFE6A3 !important; font-family:var(--font-heading, serif); font-size:1.18rem; font-weight:700; margin:0 0 0.25rem 0; text-shadow:0 2px 4px rgba(0,0,0,0.8); letter-spacing:0.4px;">
+                  GÓI 49K ĐÃ KÍCH HOẠT · TỰ CHỌN 3 CUNG [ĐÃ CHỌN: ${selected.length}/3]
+                </h3>
+                <p style="color:#F3ECDD !important; font-size:0.92rem; margin:0; line-height:1.5;">
+                  Mã đơn hàng: <strong style="color:#FFD56B !important; font-weight:800; letter-spacing:0.5px;">#${orderDisplay}</strong> — Bạn có quyền tự chọn 3 cung yêu thích. Sau khi chọn đủ 3 cung thì 7 cung còn lại sẽ được khóa.
+                </p>
+              </div>
+            </div>
+            <div class="vip-banner-actions-row">
+              <button class="btn-banner-action" style="background:linear-gradient(135deg, #A3281F, #7A1C14); color:#FFE6A3; border:1px solid #D4AF37; font-weight:700;" type="button" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung &amp; Đại Hạn)', 99000)">
+                👑 Nâng Cấp VIP Toàn Thư (99.000đ)
+              </button>
+              <button class="btn-banner-action btn-banner-magic" type="button" onclick="TuViMonetize.copyMagicLink()">
+                🔗 Sao Chép Link Xem Lại
+              </button>
+            </div>
           </div>
-        </div>
-      `;
+        `;
+      }
 
       if (typeof window !== 'undefined' && window.lucide) {
         setTimeout(() => window.lucide.createIcons(), 50);
@@ -1599,30 +1847,26 @@
               <span class="vip-crown">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.562 3.266a.5.5 0 0 1 .876 0L15.39 8.87a1 1 0 0 0 1.516.294L21.183 5.5a.5.5 0 0 1 .798.519l-2.834 10.246a1 1 0 0 1-.956.735H5.81a1 1 0 0 1-.957-.735L2.02 6.02a.5.5 0 0 1 .798-.519l4.276 3.664a1 1 0 0 0 1.516-.294z"/><path d="M5 21h14"/></svg>
               </span>
-              <h3 id="vipModalPackageTitle">MỞ KHÓA BÁO CÁO TỬ VI VIP 49.000đ</h3>
-              <p class="vip-sub">Quét mã VietQR hoặc chuyển khoản theo thông tin STK dưới đây để mở khóa tự động toàn bộ 12 cung &amp; đại vận trọn đời</p>
+              <h3 id="vipModalPackageTitle">MỞ KHÓA BÁO CÁO TỬ VI CHUYÊN SÂU</h3>
+              <p class="vip-sub">Quét mã VietQR hoặc chuyển khoản theo thông tin STK dưới đây để hệ thống tự động kích hoạt ngay tức thì</p>
             </div>
 
             <div class="vip-price-tag">
-              <span class="old-price">199.000 đ</span>
-              <span class="current-price" id="vipPriceDisplay">49.000 đ</span>
-              <span class="discount-badge">TIẾT KIỆM 75%</span>
+              <span class="old-price">299.000 đ</span>
+              <span class="current-price" id="vipPriceDisplay">99.000 đ</span>
+              <span class="discount-badge">TIẾT KIỆM 67%</span>
             </div>
 
-            <!-- BỘ CHUYỂN GÓI NHANH 3 CẤP ĐỘ (CRO OPTIMIZATION) -->
-            <div class="modal-package-switcher" style="display:flex; gap:8px; margin: 12px 0 16px; justify-content:center;">
-              <button type="button" class="modal-pkg-btn" data-price="29000" onclick="TuViMonetize.switchModalPackage('Gói Mở Khóa Nhanh 3 Cung Trọng Tâm (Tài - Quan - Phối)', 29000)">
-                <span class="pkg-btn-name">3 Cung Trọng Tâm</span>
-                <span class="pkg-btn-price">29.000đ</span>
-              </button>
-              <button type="button" class="modal-pkg-btn active" data-price="49000" onclick="TuViMonetize.switchModalPackage('Báo Cáo VIP Toàn Thư 12 Cung &amp; Xuất PDF A4', 49000)">
-                <span class="pkg-btn-tag" style="background:#A3281F; color:#fff; font-size:9px; padding:1px 5px; border-radius:3px; position:absolute; top:-8px; right:6px; font-weight:700;">92% CHỌN</span>
-                <span class="pkg-btn-name">VIP 12 Cung + PDF</span>
+            <!-- BỘ CHUYỂN GÓI: 49K (3 CUNG TỰ CHỌN) HOẶC 99K (VIP TOÀN THƯ) -->
+            <div class="modal-package-switcher" style="display:flex; gap:10px; margin: 12px 0 16px; justify-content:center;">
+              <button type="button" class="modal-pkg-btn" data-price="49000" onclick="TuViMonetize.switchModalPackage('Gói Luận 3 Cung Tự Chọn', 49000)" style="position:relative;">
+                <span class="pkg-btn-name">3 Cung Tự Chọn</span>
                 <span class="pkg-btn-price">49.000đ</span>
               </button>
-              <button type="button" class="modal-pkg-btn" data-price="149000" onclick="TuViMonetize.switchModalPackage('Hồ Sơ Luận Giải Chuyên Sâu Cải Mệnh &amp; Điền Sản', 149000)">
-                <span class="pkg-btn-name">Chuyên Sâu Điền Sản</span>
-                <span class="pkg-btn-price">149.000đ</span>
+              <button type="button" class="modal-pkg-btn active" data-price="99000" onclick="TuViMonetize.switchModalPackage('Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung &amp; Đại Hạn)', 99000)" style="position:relative;">
+                <span class="pkg-btn-tag" style="background:#A3281F; color:#fff; font-size:9px; padding:1px 6px; border-radius:3px; position:absolute; top:-8px; right:6px; font-weight:700;">★ 92% CHỌN</span>
+                <span class="pkg-btn-name">VIP 12 Cung + Đại Hạn</span>
+                <span class="pkg-btn-price">99.000đ</span>
               </button>
             </div>
 
@@ -1690,10 +1934,11 @@
             </div>
 
             <div class="vip-benefits-list">
-              <div class="vip-benefit-item">✓ <strong>Xuất trọn bộ File PDF A4</strong> đóng dấu mộc phong thủy lưu trữ trọn đời.</div>
-              <div class="vip-benefit-item">✓ <strong>Mở khóa toàn bộ luận giải</strong> Tam Phương Tứ Chính không che.</div>
-              <div class="vip-benefit-item">✓ <strong>Bản phân tích đặc biệt Lưu Niên ${curYear} (${curCanChi}) &amp; ${nextYear} (${nextCanChi})</strong> &amp; phương pháp hóa giải chi tiết.</div>
-              <div class="vip-benefit-item">✓ <strong>Bảng tra cứu màu sắc, hướng xuất hành, con số may mắn</strong> tương sinh bản mệnh.</div>
+              <div class="vip-benefit-item" style="color:#059669;">✓ <strong>Mở khóa toàn bộ 12 cung</strong> luận giải chi tiết (không che mờ).</div>
+              <div class="vip-benefit-item" style="color:#059669;">✓ <strong>Luận giải Đại Hạn các thập niên (từ 6 đến 75+ tuổi)</strong> &amp; Phương pháp Hóa giải.</div>
+              <div class="vip-benefit-item" style="color:#059669;">✓ <strong>Phân tích Tam Phương Tứ Chính &amp; Tứ Hóa Phi Tinh</strong> (Lộc - Quyền - Khoa - Kỵ).</div>
+              <div class="vip-benefit-item" style="color:#059669;">✓ <strong>Dự báo Vận Hạn Lưu Niên ${curYear} (${curCanChi}) &amp; ${nextYear} (${nextCanChi})</strong> chi tiết.</div>
+              <div class="vip-benefit-item" style="color:#059669;">✓ <strong>Xuất trọn bộ File PDF VIP A4</strong> lưu trữ trọn đời &amp; Cố vấn Tử Vi AI.</div>
             </div>
 
             <!-- TRẠNG THÁI KẾT NỐI TỰ ĐỘNG VIETINBANK 24/7 (ZERO-CLICK AUTO VERIFICATION) -->

@@ -1938,6 +1938,41 @@ a:hover {
   line-height: 1.7;
 }
 
+/* ==========================================================================
+   BẢNG CHỌN 3 CUNG TỰ CHỌN (GÓI 49.000đ) & KHÓA MA TRẬN TAM PHƯƠNG TỨ CHÍNH
+   ========================================================================== */
+.palace-selector-card-49k {
+  animation: fadeIn 0.3s ease-out;
+  transition: all 0.25s ease;
+}
+
+.palace-chips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 8px;
+}
+
+@media (max-width: 640px) {
+  .palace-chips-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 6px !important;
+  }
+  .palace-picker-chip {
+    padding: 8px 6px !important;
+    font-size: 0.82rem !important;
+  }
+}
+
+.palace-picker-chip {
+  min-height: 42px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tam-phuong-locked-box {
+  animation: fadeIn 0.35s ease-out;
+}
+
 /* ============================================================
    5. LOCKED PALACES (VIP) - Item 2: Light Gold on #151330 Surface
    ============================================================ */
