@@ -7,50 +7,52 @@
 :root {
   --header-h: 72px;
 
-  /* "Mực & Giấy" Core Tokens */
-  --ink: #1B1714;
-  --paper: #F3ECDD;
-  --paper-2: #EAE0CB;
-  --card: #FBF7EE;
-  --line: #CFC2A6;
-  --text: #2A231C;
-  --text-muted: #5E5446;
-  --seal: #A3281F;
-  --seal-dark: #861F18;
-  --brass: #B08A3E;
+  /* ═══ IMPERIAL DARK TOKENS ═══ */
+  --bg: #090A0F;
+  --bg-glow: radial-gradient(ellipse at 50% 0%, #1E1B2E 0%, #090A0F 70%);
+  --paper: #090A0F;
+  --paper-2: #0D0E18;
+  --ink: #E2E8F0;
+  --surface: rgba(18, 21, 30, 0.85);
+  --surface-2: rgba(22, 25, 36, 0.9);
+  --card: rgba(18, 21, 30, 0.85);
+  --card-border: 1px solid rgba(212, 175, 55, 0.3);
+  --card-glow: inset 0 0 15px rgba(212, 175, 55, 0.05);
+  --text: #E2E8F0;
+  --text-muted: #94A3B8;
+  --line: rgba(212, 175, 55, 0.2);
+  --border: rgba(212, 175, 55, 0.3);
+  --gold: #D4AF37;
+  --gold-gradient: linear-gradient(135deg, #BF953F 0%, #FCF6BA 35%, #B38728 70%, #FBF5B7 100%);
+  --gold-light: #FCF6BA;
+  --gold-deep: #B38728;
+  --seal: #C0392B;
+  --seal-dark: #96281B;
+  --seal-red: #C0392B;
+  --brass: rgba(212, 175, 55, 0.5);
 
-  /* Legacy aliases mapped to "Mực & Giấy" for cascade safety */
-  --bg: #F3ECDD;
-  --surface: #FBF7EE;
-  --surface-2: #EAE0CB;
-  --gold: #B08A3E;
-  --gold-light: #FBF7EE;
-  --gold-deep: #861F18;
-  --seal-red: #A3281F;
-  --border: #CFC2A6;
+  /* Ngũ Hành Jewel Tones for dark background */
+  --elem-kim: #E5E7EB;
+  --elem-moc: #10B981;
+  --elem-thuy: #38BDF8;
+  --elem-hoa: #F43F5E;
+  --elem-tho: #F59E0B;
+  --element-kim: #E5E7EB;
+  --element-moc: #10B981;
+  --element-thuy: #38BDF8;
+  --element-hoa: #F43F5E;
+  --element-tho: #F59E0B;
 
-  /* Ngũ Hành Five Elements (Kim #7A5C00, Mộc #1A6B35, Thủy #164273, Hỏa #A3281F, Thổ #7D4814) - WCAG >= 4.5:1 trên #FBF7EE và #F3ECDD */
-  --elem-kim: #7A5C00;
-  --elem-moc: #1A6B35;
-  --elem-thuy: #164273;
-  --elem-hoa: #A3281F;
-  --elem-tho: #7D4814;
-  --element-kim: #7A5C00;
-  --element-moc: #1A6B35;
-  --element-thuy: #164273;
-  --element-hoa: #A3281F;
-  --element-tho: #7D4814;
-
-  /* Typography - Noto Serif 600 with Be Vietnam Pro 400/500/600 */
-  --font-heading: 'Noto Serif', Georgia, serif;
+  /* Typography */
+  --font-heading: 'Noto Serif Display', 'Noto Serif', Georgia, serif;
   --font-body: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-  /* Elevations - Subtle, non-glowing */
-  --shadow-sm: 0 1px 3px rgba(27, 23, 20, 0.08);
-  --shadow-md: 0 4px 12px rgba(27, 23, 20, 0.12);
-  --shadow-lg: 0 10px 30px rgba(27, 23, 20, 0.16);
-  --shadow-gold: none;
-  --shadow-gold-glow: none;
+  /* Shadows */
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.5);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.6);
+  --shadow-lg: 0 10px 40px rgba(0,0,0,0.7);
+  --shadow-gold: 0 4px 20px rgba(212, 175, 55, 0.3);
+  --shadow-gold-glow: 0 6px 30px rgba(252, 246, 186, 0.5);
 }
 
 /* ── Reset & Base (Remove small-caps to fix Vietnamese diacritics) ───────────── */
@@ -69,15 +71,13 @@ html {
 }
 
 body {
-  background-color: var(--paper) !important;
-  background-image: none !important;
-  color: var(--text) !important;
   font-family: var(--font-body);
-  font-weight: 400;
   font-size: 16px;
   line-height: 1.65;
+  color: var(--text);
+  background-color: var(--bg) !important;
+  background-image: var(--bg-glow) !important;
   min-height: 100vh;
-  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -9027,4 +9027,173 @@ html {
     font-size: 0.95rem !important;
     padding: 11px 14px !important;
   }
+}
+
+/* ══════════════════════════════════════════════════════════
+   IMPERIAL ORIENTAL LUXURY — Utility Classes
+   ══════════════════════════════════════════════════════════ */
+
+/* Royal Card */
+.royal-card {
+  background: var(--card) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: var(--card-border) !important;
+  box-shadow: var(--card-glow), var(--shadow-md) !important;
+  border-radius: 12px;
+}
+
+/* Royal Title — gold gradient text */
+.royal-title {
+  font-family: var(--font-heading) !important;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Royal Button */
+.royal-btn {
+  background: var(--gold-gradient) !important;
+  color: #0B0A1A !important;
+  font-weight: 700;
+  border: none !important;
+  border-radius: 9999px;
+  box-shadow: var(--shadow-gold) !important;
+  transition: box-shadow 0.25s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+.royal-btn:hover {
+  box-shadow: var(--shadow-gold-glow) !important;
+  transform: translateY(-2px);
+  color: #0B0A1A !important;
+}
+
+/* Dark form inputs for Imperial theme */
+.form-input,
+.form-select,
+input[type="text"],
+input[type="date"],
+input[type="email"],
+input[type="number"],
+select,
+textarea {
+  background: #12151E !important;
+  color: var(--text) !important;
+  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+  border-radius: 8px;
+}
+.form-input:focus,
+.form-select:focus,
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+select:focus,
+textarea:focus {
+  border-color: rgba(212, 175, 55, 0.7) !important;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15) !important;
+  outline: none;
+}
+
+/* Chart palace cells */
+.cung-cell,
+.palace-cell,
+[class*="cung-"],
+.chart-cell {
+  background: #161924 !important;
+  border: 1px solid rgba(212, 175, 55, 0.25) !important;
+}
+
+/* Luận giải scroll style */
+.luan-giai-section,
+.luan-giai-container,
+#luan-giai-output {
+  border-top: 2px solid var(--gold);
+  border-bottom: 2px solid var(--gold);
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+.luan-giai-section blockquote,
+.luan-giai-container blockquote,
+#luan-giai-output blockquote,
+.verse-block,
+.tu-vi-verse {
+  background: #2A0810 !important;
+  border-left: 3px solid var(--gold) !important;
+  color: #FDDCDC !important;
+  padding: 1rem 1.25rem;
+  border-radius: 4px;
+  margin: 1rem 0;
+}
+
+/* General card/surface overrides for dark theme */
+.glass-card,
+.info-card,
+.price-card,
+.feature-card,
+.stat-card {
+  background: var(--card) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+  color: var(--text) !important;
+}
+
+/* Section backgrounds */
+section,
+.section,
+.hero-section,
+.features-section,
+.pricing-section,
+.blog-section,
+.expert-section,
+.testimonial-section {
+  background-color: transparent !important;
+}
+
+/* Headings gold gradient */
+h1, h2, h3 {
+  color: var(--gold) !important;
+}
+h1.royal-title, h2.royal-title, h3.royal-title {
+  color: transparent !important;
+}
+
+/* Links */
+a {
+  color: var(--gold-light);
+}
+a:hover {
+  color: #fff;
+}
+
+/* Table/grid borders */
+table, th, td {
+  border-color: rgba(212, 175, 55, 0.2) !important;
+}
+th {
+  background: rgba(212, 175, 55, 0.08) !important;
+  color: var(--gold-light) !important;
+}
+td {
+  background: rgba(18, 21, 30, 0.6) !important;
+  color: var(--text) !important;
+}
+
+/* Badges / labels override */
+.badge,
+.element-badge,
+.wax-seal-badge {
+  border: 1px solid rgba(212, 175, 55, 0.4) !important;
+}
+
+/* Pricing card special */
+.price-card.featured,
+.price-card--featured {
+  border: 2px solid var(--gold) !important;
+  box-shadow: 0 0 30px rgba(212, 175, 55, 0.2) !important;
 }
