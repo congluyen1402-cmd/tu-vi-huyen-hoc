@@ -41,8 +41,8 @@
   --element-hoa: #A3281F;
   --element-tho: #7D4814;
 
-  /* Typography - Noto Serif 600 with Be Vietnam Pro 400/500/600 */
-  --font-heading: 'Noto Serif', Georgia, serif;
+  /* Typography - Noto Serif Display with Be Vietnam Pro */
+  --font-heading: 'Noto Serif Display', 'Noto Serif', Georgia, serif;
   --font-body: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   /* Elevations - Subtle, non-glowing */
@@ -9027,4 +9027,106 @@ html {
     font-size: 0.95rem !important;
     padding: 11px 14px !important;
   }
+}
+
+/* ══════════════════════════════════════════════════════════
+   NỀN VŨ TRỤ HUYỀN HỌC & TINH BÀN KHÂM THIÊN GIÁM (ĐỘC BẢN)
+   Phong cách Quý Tộc Hoàng Gia - 100% Đồng bộ màu gốc
+   ══════════════════════════════════════════════════════════ */
+.kham-thien-cosmic-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background-color: var(--paper, #F3ECDD);
+}
+
+.kham-thien-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(176, 138, 62, 0.14) 0%, rgba(176, 138, 62, 0.05) 45%, transparent 75%),
+              radial-gradient(ellipse at 50% 15%, rgba(176, 138, 62, 0.12) 0%, transparent 65%);
+}
+
+.kham-thien-astrolabe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(90vw, 850px);
+  height: min(90vw, 850px);
+  transform: translate(-50%, -50%);
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+/* Vòng ngoài: 24 Tiết Khí xoay thuận 180s */
+.astrolabe-ring-outer {
+  transform-origin: 400px 400px;
+  animation: astrolabeRotateClockwise 180s linear infinite;
+}
+
+/* Vòng giữa: Bát Giác Hoàng Gia xoay ngược 130s */
+.astrolabe-ring-mid {
+  transform-origin: 400px 400px;
+  animation: astrolabeRotateCounterClockwise 130s linear infinite;
+}
+
+/* Tâm tinh bàn: Chòm sao Bắc Đẩu Thất Tinh đứng yên */
+.astrolabe-core-dipper {
+  transform-origin: 400px 400px;
+}
+
+@keyframes astrolabeRotateClockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes astrolabeRotateCounterClockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+#cosmic-dust-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* NÂNG CẤP GIAO DIỆN CHÍNH (z-index: 1) */
+#siteHeader,
+main,
+.app-container,
+.site-footer,
+.modal-overlay,
+#appErrorBoundary {
+  position: relative;
+  z-index: 1;
+}
+
+/* Khung thẻ / Form Quý Tộc Hoàng Gia với kính mờ & viền mảnh phát sáng */
+.glass-card,
+.card,
+.form-card,
+.tuvi-form-card,
+.price-card,
+.feature-card,
+.info-card,
+.expert-profile-card,
+.selection-box,
+.modal-content,
+.luan-giai-box {
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(176, 138, 62, 0.35) !important;
+  box-shadow: 0 4px 20px rgba(176, 138, 62, 0.08), inset 0 0 15px rgba(176, 138, 62, 0.04) !important;
+}
+
+/* Tiêu đề Noto Serif Display, in hoa, giãn chữ 0.06em */
+h1, h2, h3, .heading-royal, .section-title {
+  font-family: var(--font-heading) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
 }
