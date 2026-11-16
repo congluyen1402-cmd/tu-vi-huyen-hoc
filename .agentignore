@@ -1,0 +1,13 @@
+# Ignore heavy dependency & build artifacts from AI indexing to save tokens
+node_modules/
+.git/
+test-results/
+playwright-report/
+lh-*.json
+*.log
+*.png
+*.jpg
+*.jpeg
+*.pdf
+public/images/
+public/img/

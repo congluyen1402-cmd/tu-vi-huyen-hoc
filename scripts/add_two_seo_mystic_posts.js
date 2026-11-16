@@ -36,8 +36,8 @@ const post1 = {
     <p>Để tìm kiếm sự an tâm, đa số mọi người thường mở cuốn <strong>Lịch Vạn Niên</strong> hoặc tra cứu trên mạng các ngày có sao <em>Hoàng Đạo, Thanh Long, Minh Đường, Hoàng Ân</em>... Thế nhưng, một thực tế phũ phàng đã xảy ra với không ít người: <strong>Dù đã chọn đúng ngày đẹp nhất trong tháng theo lịch phổ thông, công việc làm ăn vẫn trắc trở, đối tác lật lọng, hoặc chỉ sau vài tháng đã phải đóng cửa phá sản</strong>. Vì sao lại có nghịch lý đau lòng này? Hãy cùng bóc tách cốt lõi huyền học dưới góc nhìn Tử Vi Đẩu Số và nghệ thuật Trạch Cát Nam Phái chuyên sâu.</p>
 
     <div style="margin: 2.2rem 0; text-align: center;">
-      <img src="/images/blog/xem-ngay-tot-theo-tuoi-trach-cat-huyen-hoc.jpg" alt="Bàn cờ huyền học la bàn phong thủy và nghệ thuật xem ngày tốt theo tuổi khởi sự bách chiến bách thắng" style="width: 100%; max-width: 780px; border-radius: 10px; box-shadow: 0 6px 24px rgba(0,0,0,0.35);" loading="lazy" />
-      <p style="font-size: 0.88rem; color: #a1a1aa; margin-top: 0.6rem; font-style: italic;">Hình ảnh thực tế: Nghệ thuật Trạch Cát cổ truyền — Không gian huyền bí kết hợp la bàn phong thủy và hương trầm định tâm để chọn đúng thiên thời khởi sự.</p>
+      <img src="/images/blog/xem-ngay-tot-theo-tuoi-trach-cat-huyen-hoc.jpg" alt="La Bàn Bát Quái Phong Thủy cổ truyền và thư tịch huyền học trạch cát chọn ngày giờ đại cát khởi sự" style="width: 100%; max-width: 780px; border-radius: 10px; box-shadow: 0 6px 24px rgba(0,0,0,0.35);" loading="lazy" />
+      <p style="font-size: 0.88rem; color: #a1a1aa; margin-top: 0.6rem; font-style: italic;">Hình ảnh thực tế: Nghệ thuật Trạch Cát cổ truyền — Bộ La Bàn Bát Quái Phong Thủy (La Kinh) và thư tịch cổ định vị trường khí chọn ngày đại cát khởi sự.</p>
     </div>
 
     <h2>1. Nghịch Lý Lịch Vạn Niên: Vì Sao "Ngày Đẹp Của Cả Thiên Hạ" Lại Là Ngày Đại Hung Của Bạn?</h2>
@@ -62,8 +62,8 @@ const post1 = {
     </ol>
 
     <div style="margin: 2.2rem 0; text-align: center;">
-      <img src="/images/blog/thoi-khac-hoang-dao-dai-cat-tu-vi.jpg" alt="Ánh nến huyền học tâm linh và thời khắc hoàng đạo đại cát khởi sự theo bản mệnh tử vi" style="width: 100%; max-width: 780px; border-radius: 10px; box-shadow: 0 6px 24px rgba(0,0,0,0.35);" loading="lazy" />
-      <p style="font-size: 0.88rem; color: #a1a1aa; margin-top: 0.6rem; font-style: italic;">Hình ảnh thực tế: Ánh nến linh thiêng trong không gian thiền tịnh — Biểu tượng của thời khắc Hoàng Đạo khai thông trí tuệ và khơi mở tài lộc cá nhân.</p>
+      <img src="/images/blog/thoi-khac-hoang-dao-dai-cat-tu-vi.jpg" alt="Dâng hương bái Phật khấn nguyện thời khắc hoàng đạo đại cát khởi sự theo bản mệnh tử vi" style="width: 100%; max-width: 780px; border-radius: 10px; box-shadow: 0 6px 24px rgba(0,0,0,0.35);" loading="lazy" />
+      <p style="font-size: 0.88rem; color: #a1a1aa; margin-top: 0.6rem; font-style: italic;">Hình ảnh thực tế: Dâng hương bái Phật tại đền chùa linh thiêng — Thành tâm khấn nguyện thiên thời địa lợi nhân hòa, khai thông cát khí và đón thời khắc hoàng đạo bách chiến bách thắng.</p>
     </div>
 
     <h2>3. Đọc Đúng Tâm Lý Đương Số: Nỗi Sợ Vô Hình Khi Đứng Trước Ngưỡng Cửa Tương Lai</h2>
@@ -80,40 +80,68 @@ const post1 = {
     <h2>4. Bảng So Sánh Chi Tiết: Xem Lịch Vạn Niên Đại Trà vs. Trạch Cát Cá Nhân Hóa Chuẩn Tử Vi</h2>
     <p>Để thấy rõ vì sao hàng nghìn doanh nhân và người kinh doanh thành đạt không bao giờ dùng lịch vạn niên thông thường, hãy cùng đối chiếu bảng so sánh dưới đây:</p>
 
-    <div style="overflow-x: auto; margin: 1.5rem 0;">
-      <table style="width: 100%; border-collapse: collapse; background: #14112c; border: 1px solid rgba(212,175,55,0.3); border-radius: 8px; overflow: hidden; font-size: 0.92rem;">
+    <div style="overflow-x: auto; margin: 2rem 0; background: #FFFDF9; border: 1.5px solid #CFC2A6; border-radius: 10px; box-shadow: 0 4px 18px rgba(42, 35, 28, 0.05);">
+      <table style="width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.94rem; text-align: left; line-height: 1.6;">
         <thead>
-          <tr style="background: rgba(212,175,55,0.15); color: #f59e0b; border-bottom: 2px solid rgba(212,175,55,0.4);">
-            <th style="padding: 12px 14px; text-align: left; width: 22%;">Tiêu Chí Đối Chiếu</th>
-            <th style="padding: 12px 14px; text-align: left; width: 38%;">Lịch Vạn Niên Đại Trà (Xem Chung)</th>
-            <th style="padding: 12px 14px; text-align: left; width: 40%; color: #34d399;">Trạch Cát Theo Bản Mệnh Tử Vi (Cá Nhân Hóa)</th>
+          <tr>
+            <th style="padding: 14px 16px; background: #FAF5EB; color: #1B1714; font-family: 'Noto Serif', Georgia, serif; font-size: 0.98rem; font-weight: 700; border-bottom: 2px solid #B08A3E; width: 22%;">
+              Tiêu Chí Đối Chiếu
+            </th>
+            <th style="padding: 14px 16px; background: #FDF2F2; color: #861F18; font-family: 'Noto Serif', Georgia, serif; font-size: 0.98rem; font-weight: 700; border-bottom: 2px solid #A3281F; border-left: 1px solid #EAE0CB; width: 38%;">
+              Lịch Vạn Niên Đại Trà
+              <span style="display: block; font-size: 0.78rem; font-family: 'Be Vietnam Pro', sans-serif; font-weight: 500; color: #A3281F; margin-top: 3px;">⚠️ Xem chung — Chưa đối chiếu tuổi</span>
+            </th>
+            <th style="padding: 14px 16px; background: #F0FDF4; color: #166534; font-family: 'Noto Serif', Georgia, serif; font-size: 0.98rem; font-weight: 700; border-bottom: 2px solid #16A34A; border-left: 1px solid #EAE0CB; width: 40%;">
+              Trạch Cát Theo Bản Mệnh Tử Vi
+              <span style="display: block; font-size: 0.78rem; font-family: 'Be Vietnam Pro', sans-serif; font-weight: 600; color: #15803D; margin-top: 3px;">⭐ Cá nhân hóa 100% theo lá số</span>
+            </th>
           </tr>
         </thead>
         <tbody>
-          <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);">
-            <td style="padding: 11px 14px; font-weight: 600; color: #e4e4e7;">1. Đối tượng áp dụng</td>
-            <td style="padding: 11px 14px; color: #a1a1aa;">Áp dụng chung cho 100 triệu dân, ai mở lịch ra cũng thấy giống hệt nhau.</td>
-            <td style="padding: 11px 14px; color: #fef08a; font-weight: 600;">Độc bản 100% dựa trên Năm - Tháng - Ngày - Giờ sinh của riêng bạn.</td>
+          <tr style="border-bottom: 1px solid #EAE0CB; background: #FFFDF9;">
+            <td style="padding: 13px 16px; font-weight: 700; color: #1B1714; border-bottom: 1px solid #EAE0CB;">1. Đối tượng áp dụng</td>
+            <td style="padding: 13px 16px; color: #5E5446; border-left: 1px solid #EAE0CB; border-bottom: 1px solid #EAE0CB;">
+              <span style="color: #DC2626; font-weight: 700;">✕</span> Dùng chung cho 100 triệu dân, ai tra cứu cũng thấy kết quả giống nhau.
+            </td>
+            <td style="padding: 13px 16px; color: #1B1714; font-weight: 600; border-left: 1px solid #EAE0CB; border-bottom: 1px solid #EAE0CB; background: rgba(240, 253, 244, 0.45);">
+              <span style="color: #16A34A; font-weight: 700;">✓</span> <strong>Độc bản 100%:</strong> Bóc tách chính xác dựa trên Năm - Tháng - Ngày - Giờ sinh của riêng bạn.
+            </td>
           </tr>
-          <tr style="border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.02);">
-            <td style="padding: 11px 14px; font-weight: 600; color: #e4e4e7;">2. Xung khắc bản mệnh</td>
-            <td style="padding: 11px 14px; color: #f87171;">Hoàn toàn bỏ qua. Dễ rơi vào bẫy Thiên Khắc Địa Xung với tuổi chủ sự.</td>
-            <td style="padding: 11px 14px; color: #34d399; font-weight: 600;">Loại bỏ 100% ngày xung can, khắc chi, xung Thái Tuế và cung Mệnh.</td>
+          <tr style="border-bottom: 1px solid #EAE0CB; background: #FAF7F0;">
+            <td style="padding: 13px 16px; font-weight: 700; color: #1B1714; border-bottom: 1px solid #EAE0CB;">2. Xung khắc bản mệnh</td>
+            <td style="padding: 13px 16px; color: #861F18; border-left: 1px solid #EAE0CB; border-bottom: 1px solid #EAE0CB;">
+              <span style="color: #DC2626; font-weight: 700;">✕</span> Hoàn toàn bỏ qua. Rất dễ rơi vào bẫy <strong>Thiên Khắc Địa Xung</strong> với tuổi chủ sự gây hao tài, đổ vỡ.
+            </td>
+            <td style="padding: 13px 16px; color: #1B1714; font-weight: 600; border-left: 1px solid #EAE0CB; border-bottom: 1px solid #EAE0CB; background: rgba(240, 253, 244, 0.45);">
+              <span style="color: #16A34A; font-weight: 700;">✓</span> <strong>Bảo vệ tuyệt đối:</strong> Loại bỏ 100% ngày xung Can, khắc Chi, xung Thái Tuế và tương khắc Ngũ Hành bản mệnh.
+            </td>
           </tr>
-          <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);">
-            <td style="padding: 11px 14px; font-weight: 600; color: #e4e4e7;">3. Soi chiếu cung Tài & Quan</td>
-            <td style="padding: 11px 14px; color: #a1a1aa;">Không thể xem được vì không có dữ liệu lá số cá nhân.</td>
-            <td style="padding: 11px 14px; color: #fef08a;">Kích hoạt đúng ngày có Hóa Lộc, Lộc Tồn chiếu cung Tài Bạch & Quan Lộc.</td>
+          <tr style="border-bottom: 1px solid #EAE0CB; background: #FFFDF9;">
+            <td style="padding: 13px 16px; font-weight: 700; color: #1B1714; border-bottom: 1px solid #EAE0CB;">3. Soi chiếu Cung Tài & Quan</td>
+            <td style="padding: 13px 16px; color: #5E5446; border-left: 1px solid #EAE0CB; border-bottom: 1px solid #EAE0CB;">
+              <span style="color: #DC2626; font-weight: 700;">✕</span> Không thể xem được vì lịch vạn niên không có cơ sở dữ liệu lá số cá nhân.
+            </td>
+            <td style="padding: 13px 16px; color: #1B1714; border-left: 1px solid #EAE0CB; border-bottom: 1px solid #EAE0CB; background: rgba(240, 253, 244, 0.45);">
+              <span style="color: #16A34A; font-weight: 700;">✓</span> <strong>Kích hoạt cung vị:</strong> Chọn đúng ngày giờ có <em>Hóa Lộc, Lộc Tồn, Thiên Mã, Hóa Quyền</em> chiếu Cung Tài Bạch & Quan Lộc.
+            </td>
           </tr>
-          <tr style="border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.02);">
-            <td style="padding: 11px 14px; font-weight: 600; color: #e4e4e7;">4. Thời vận đương số</td>
-            <td style="padding: 11px 14px; color: #a1a1aa;">Xem tách rời, không biết năm nay đương số đang ở Đại Hạn phát hay Hạn trũng.</td>
-            <td style="padding: 11px 14px; color: #34d399; font-weight: 600;">Kết hợp xem vận trình 10 năm và lưu niên để đưa ra chiến thuật tấn công/phòng thủ.</td>
+          <tr style="border-bottom: 1px solid #EAE0CB; background: #FAF7F0;">
+            <td style="padding: 13px 16px; font-weight: 700; color: #1B1714; border-bottom: 1px solid #EAE0CB;">4. Thời vận đương số</td>
+            <td style="padding: 13px 16px; color: #5E5446; border-left: 1px solid #EAE0CB; border-bottom: 1px solid #EAE0CB;">
+              <span style="color: #DC2626; font-weight: 700;">✕</span> Xem tách rời cục bộ, không xác định được năm nay đương số đang ở Đại Vận phát hay Năm Hạn trũng.
+            </td>
+            <td style="padding: 13px 16px; color: #1B1714; font-weight: 600; border-left: 1px solid #EAE0CB; border-bottom: 1px solid #EAE0CB; background: rgba(240, 253, 244, 0.45);">
+              <span style="color: #16A34A; font-weight: 700;">✓</span> <strong>Chiến lược toàn diện:</strong> Kết hợp chu kỳ 10 năm và lưu niên để định ra chiến thuật bung sức tấn công hay phòng thủ an toàn.
+            </td>
           </tr>
-          <tr>
-            <td style="padding: 11px 14px; font-weight: 600; color: #e4e4e7;">5. Tỷ lệ thắng lợi</td>
-            <td style="padding: 11px 14px; color: #f87171;">May rủi 50/50, tâm lý luôn bất an nơm nớp lo sợ.</td>
-            <td style="padding: 11px 14px; color: #34d399; font-weight: 700;">Độ chính xác cao, tâm an trí sáng, nắm trọn thiên cơ để bứt phá.</td>
+          <tr style="background: #FFFDF9;">
+            <td style="padding: 13px 16px; font-weight: 700; color: #1B1714;">5. Tỷ lệ thắng lợi & Tâm lý</td>
+            <td style="padding: 13px 16px; color: #861F18; border-left: 1px solid #EAE0CB;">
+              <span style="color: #DC2626; font-weight: 700;">✕</span> May rủi 50/50, tâm lý luôn hoài nghi, bất an và nơm nớp lo sợ thất thoát.
+            </td>
+            <td style="padding: 13px 16px; color: #15803D; font-weight: 700; border-left: 1px solid #EAE0CB; background: rgba(240, 253, 244, 0.6);">
+              <span style="color: #16A34A; font-weight: 700;">✓</span> <strong>Tâm an trí sáng:</strong> Độ chuẩn xác cao, tự tin ra quyết định lớn, nắm trọn thiên cơ bách chiến bách thắng.
+            </td>
           </tr>
         </tbody>
       </table>
@@ -130,25 +158,45 @@ const post1 = {
       <li><strong>Bước 5: Khóa giờ Hoàng Đạo đắc lực</strong> — Khởi sự mở cửa hàng, ký hợp đồng hay xuất hành đúng khung giờ Hoàng Đạo đã được định vị để nghênh đón cát khí.</li>
     </ol>
 
-    <!-- BANNER KÊU GỌI HÀNH ĐỘNG (CTA) CHUYỂN ĐỔI CAO -->
-    <div style="background: linear-gradient(135deg, rgba(20, 17, 44, 0.95), rgba(35, 27, 70, 0.95)); border: 2px solid #d4af37; border-radius: 12px; padding: 2rem; margin: 2.5rem 0; text-align: center; box-shadow: 0 8px 32px rgba(212, 175, 55, 0.25);">
-      <h3 style="color: #fbbf24; font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 0.8rem;">
-        ✦ ĐỪNG ĐEM SỰ NGHIỆP CỦA BẠN RA ĐÁNH CƯỢC VỚI CUỐN LỊCH IN SẴN ✦
-      </h3>
-      <p style="color: #e4e4e7; font-size: 0.96rem; max-width: 680px; margin: 0 auto 1.4rem; line-height: 1.6;">
-        Tương lai kinh doanh, tiền tài và sự an yên của bạn xứng đáng được soi chiếu bởi <strong>Lá Số Tử Vi Độc Bản</strong>. Chỉ cần nhập ngày giờ sinh, hệ thống Tử Vi Huyền Học sẽ bóc tách chi tiết cung Quan Lộc, Tài Bạch và Đại Vận để bạn biết chính xác thời điểm nào bung sức tấn công, ngày nào nên lui về phòng thủ.
+    <!-- BANNER KÊU GỌI HÀNH ĐỘNG (CTA) PHONG CÁCH MỰC & GIẤY HOÀNG KIM -->
+    <div style="background: linear-gradient(145deg, #FFFDF9 0%, #FAF5EA 100%); border: 2px solid #C5A059; border-radius: 12px; padding: 2.2rem 1.8rem; margin: 2.8rem 0; text-align: center; box-shadow: 0 8px 28px rgba(42, 35, 28, 0.08); position: relative;">
+      
+      <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(163, 40, 31, 0.08); border: 1px solid rgba(163, 40, 31, 0.25); color: #861F18; font-size: 0.82rem; font-weight: 700; padding: 4px 16px; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1rem;">
+        ✦ LẬP LÁ SỐ TỬ VI ĐỘC BẢN NAM PHÁI ✦
+      </div>
+
+      <div style="font-family: 'Noto Serif', Georgia, serif; font-size: 1.45rem; font-weight: 700; color: #861F18; line-height: 1.4; margin: 0 0 0.85rem 0; letter-spacing: 0.2px;">
+        ĐỪNG ĐEM SỰ NGHIỆP CỦA BẠN RA ĐÁNH CƯỢC VỚI CUỐN LỊCH IN SẴN
+      </div>
+
+      <p style="color: #2A231C; font-size: 0.98rem; max-width: 680px; margin: 0 auto 1.35rem; line-height: 1.7;">
+        Tương lai kinh doanh, tiền tài và sự an yên của bạn xứng đáng được soi chiếu bởi <strong style="color: #861F18;">Lá Số Tử Vi Độc Bản</strong>. Chỉ cần nhập ngày giờ sinh, hệ thống Tử Vi Huyền Học sẽ bóc tách chi tiết cung Quan Lộc, Tài Bạch và Đại Vận để bạn biết chính xác thời điểm nào bung sức tấn công, ngày nào nên lui về phòng thủ.
       </p>
+
+      <div style="display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.6rem;">
+        <span style="display: inline-flex; align-items: center; gap: 5px; background: #FAF5EB; border: 1px solid #D4AF37; color: #7A5C00; font-size: 0.84rem; font-weight: 600; padding: 5px 12px; border-radius: 6px;">
+          ✓ Loại bỏ ngày Thiên Khắc Địa Xung
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 5px; background: #FAF5EB; border: 1px solid #D4AF37; color: #7A5C00; font-size: 0.84rem; font-weight: 600; padding: 5px 12px; border-radius: 6px;">
+          ✓ Kích hoạt Cát Tinh Cung Tài & Quan
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 5px; background: #FAF5EB; border: 1px solid #D4AF37; color: #7A5C00; font-size: 0.84rem; font-weight: 600; padding: 5px 12px; border-radius: 6px;">
+          ✓ Khóa đúng khung Giờ Hoàng Đạo
+        </span>
+      </div>
+
       <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-        <a href="/" style="display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #0b0a1a; font-weight: 700; padding: 0.85rem 1.8rem; border-radius: 30px; text-decoration: none; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4); transition: transform 0.2s;">
+        <a href="/" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #A3281F 0%, #861F18 100%); color: #FFFFFF !important; font-weight: 700; font-size: 0.96rem; padding: 0.9rem 1.8rem; border-radius: 9999px; text-decoration: none; box-shadow: 0 4px 14px rgba(163, 40, 31, 0.35); transition: all 0.25s;">
           🚀 LẬP LÁ SỐ TỬ VI MIỄN PHÍ NGAY
         </a>
-        <a href="/#bang-gia-vip" style="display: inline-block; background: rgba(255, 255, 255, 0.08); color: #fef08a; border: 1px solid #d4af37; font-weight: 600; padding: 0.85rem 1.6rem; border-radius: 30px; text-decoration: none;">
+        <a href="/#bang-gia-vip" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: #FAF6ED; color: #7A5C00 !important; border: 1.5px solid #B08A3E; font-weight: 700; font-size: 0.94rem; padding: 0.88rem 1.6rem; border-radius: 9999px; text-decoration: none; box-shadow: 0 2px 8px rgba(42, 35, 28, 0.05); transition: all 0.25s;">
           👑 MỞ KHÓA BÁO CÁO VIP (CHỈ TỪ 49K)
         </a>
       </div>
-      <p style="font-size: 0.82rem; color: #a1a1aa; margin-top: 1rem;">
-        ⚡ Gói 49k: Mở khóa chọn 3 Cung Trọng Tâm (Mệnh - Tài - Quan) · Gói 99k: VIP Toàn Thư 12 Cung & Đại Hạn Thập Niên Trọn Đời.
-      </p>
+
+      <div style="border-top: 1px dashed #CFC2A6; margin-top: 1.35rem; padding-top: 0.9rem; font-size: 0.85rem; color: #5E5446;">
+        ⚡ <strong>Chính sách minh bạch:</strong> Gói 49k (Mở khóa 3 Cung trọng tâm) · Gói 99k (VIP Toàn Thư 12 Cung & Đại Hạn thập niên trọn đời).
+      </div>
     </div>
 
     <h2>Kết Luận: Thiên Thời Đã Định, Nhân Tâm Sáng Suốt</h2>
@@ -196,8 +244,8 @@ const post2 = {
     <p>Đặc biệt là những người đang bước vào độ tuổi từ <strong>25 đến 45</strong> — giai đoạn "khủng hoảng định vị cuộc đời" — nỗi sợ hãi về tương lai càng trở nên nặng nề hơn bao giờ hết: Nợ nần chưa trả hết, con cái lớn dần với vô vàn chi phí, sức khỏe cha mẹ suy giảm, công việc bấp bênh có thể bị đào thải bất cứ lúc nào. Bạn khát khao biết trước: <em>Bao giờ mình mới đổi vận? Khi nào mới có nhà, có xe, có sự nghiệp vững vàng? Hay số phận mình đã an bài là nghèo khó?</em></p>
 
     <div style="margin: 2.2rem 0; text-align: center;">
-      <img src="/images/blog/xem-tu-vi-doan-tuong-lai-so-menh-huyen-bi.jpg" alt="Sách cổ chiêm tinh bản đồ số mệnh tương lai mờ ảo huyền bí và lá số tử vi đoán tương lai" style="width: 100%; max-width: 780px; border-radius: 10px; box-shadow: 0 6px 24px rgba(0,0,0,0.35);" loading="lazy" />
-      <p style="font-size: 0.88rem; color: #a1a1aa; margin-top: 0.6rem; font-style: italic;">Hình ảnh thực tế: Bản đồ số mệnh cổ truyền dưới ánh nến huyền diệu — Nơi lưu giữ mật mã về thời vận và những bước ngoặt lớn của cuộc đời.</p>
+      <img src="/images/blog/xem-tu-vi-doan-tuong-lai-so-menh-huyen-bi.jpg" alt="Bản đồ sao Thiên Văn Đồ Tử Vi Đẩu Số giải mã số mệnh tương lai và vận hạn cuộc đời" style="width: 100%; max-width: 780px; border-radius: 10px; box-shadow: 0 6px 24px rgba(0,0,0,0.35);" loading="lazy" />
+      <p style="font-size: 0.88rem; color: #a1a1aa; margin-top: 0.6rem; font-style: italic;">Hình ảnh thực tế: Cổ đồ Thiên Văn Đồ khắc đá và bản đồ sao Tử Vi Đẩu Số — Cội nguồn của nghệ thuật chiêm tinh giải mã vận mệnh tương lai.</p>
     </div>
 
     <h2>1. Cơn Khủng Hoảng Vô Định: Vì Sao Con Người Luôn Khao Khát Nhìn Thấu Tương Lai?</h2>
@@ -223,8 +271,8 @@ const post2 = {
     </ol>
 
     <div style="margin: 2.2rem 0; text-align: center;">
-      <img src="/images/blog/chuyen-hoa-van-han-tam-phap-tu-duong.jpg" alt="Không gian thiền định đèn lồng cổ kính và chuông đồng chuyển hóa vận mệnh tâm pháp tu dưỡng" style="width: 100%; max-width: 780px; border-radius: 10px; box-shadow: 0 6px 24px rgba(0,0,0,0.35);" loading="lazy" />
-      <p style="font-size: 0.88rem; color: #a1a1aa; margin-top: 0.6rem; font-style: italic;">Hình ảnh thực tế: Chuyển hóa vận mệnh qua tâm pháp thiền định và tu dưỡng nội lực — Bình thản vượt qua năm hạn trũng để đón chờ ngày vinh quang.</p>
+      <img src="/images/blog/chuyen-hoa-van-han-tam-phap-tu-duong.jpg" alt="Chuông xoay Tây Tạng khắc mắt Phật và không gian thiền định tu dưỡng hóa giải vận hạn bế tắc trong tử vi" style="width: 100%; max-width: 780px; border-radius: 10px; box-shadow: 0 6px 24px rgba(0,0,0,0.35);" loading="lazy" />
+      <p style="font-size: 0.88rem; color: #a1a1aa; margin-top: 0.6rem; font-style: italic;">Hình ảnh thực tế: Chuông xoay Tây Tạng khắc mắt Phật — Tâm pháp tĩnh tâm thiền định tu dưỡng chuyển hóa nghịch cảnh, vượt qua năm hạn trũng.</p>
     </div>
 
     <h2>3. "Năm Hạn Trũng" Là Gì? Vì Sao Càng Nôn Nóng Gỡ Gạc Càng Mất Trắng?</h2>
@@ -242,40 +290,68 @@ const post2 = {
     <h2>4. Bảng Đối Chiếu Chiến Lược Hành Động: Khi Đại Vận Tấn Công vs. Khi Hạn Trũng Phòng Thủ</h2>
     <p>Biết mệnh để định hướng hành vi — Đó chính là đỉnh cao của trí tuệ Tử Vi Đẩu Số. Hãy tham khảo bảng chiến lược sinh tồn và bứt phá dưới đây:</p>
 
-    <div style="overflow-x: auto; margin: 1.5rem 0;">
-      <table style="width: 100%; border-collapse: collapse; background: #14112c; border: 1px solid rgba(212,175,55,0.3); border-radius: 8px; overflow: hidden; font-size: 0.92rem;">
+    <div style="overflow-x: auto; margin: 2rem 0; background: #FFFDF9; border: 1.5px solid #CFC2A6; border-radius: 10px; box-shadow: 0 4px 18px rgba(42, 35, 28, 0.05);">
+      <table style="width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.94rem; text-align: left; line-height: 1.6;">
         <thead>
-          <tr style="background: rgba(212,175,55,0.15); color: #f59e0b; border-bottom: 2px solid rgba(212,175,55,0.4);">
-            <th style="padding: 12px 14px; text-align: left; width: 22%;">Lĩnh Vực Cuộc Sống</th>
-            <th style="padding: 12px 14px; text-align: left; width: 39%; color: #f87171;">Khi Rơi Vào "Năm Hạn Trũng" (Chiến Lược Phòng Thủ)</th>
-            <th style="padding: 12px 14px; text-align: left; width: 39%; color: #34d399;">Khi Bước Vào "Đại Vận Phát Tài" (Chiến Lược Tấn Công)</th>
+          <tr>
+            <th style="padding: 14px 16px; background: #FAF5EB; color: #1B1714; font-family: 'Noto Serif', Georgia, serif; font-size: 0.98rem; font-weight: 700; border-bottom: 2px solid #B08A3E; width: 22%;">
+              Lĩnh Vực Cuộc Sống
+            </th>
+            <th style="padding: 14px 16px; background: #FDF2F2; color: #861F18; font-family: 'Noto Serif', Georgia, serif; font-size: 0.98rem; font-weight: 700; border-bottom: 2px solid #A3281F; border-left: 1px solid #EAE0CB; width: 39%;">
+              Khi Rơi Vào "Năm Hạn Trũng"
+              <span style="display: block; font-size: 0.78rem; font-family: 'Be Vietnam Pro', sans-serif; font-weight: 600; color: #A3281F; margin-top: 3px;">🛡️ Chiến lược phòng thủ & bảo toàn</span>
+            </th>
+            <th style="padding: 14px 16px; background: #F0FDF4; color: #166534; font-family: 'Noto Serif', Georgia, serif; font-size: 0.98rem; font-weight: 700; border-bottom: 2px solid #16A34A; border-left: 1px solid #EAE0CB; width: 39%;">
+              Khi Bước Vào "Đại Vận Phát Tài"
+              <span style="display: block; font-size: 0.78rem; font-family: 'Be Vietnam Pro', sans-serif; font-weight: 600; color: #15803D; margin-top: 3px;">🚀 Chiến lược tấn công & bứt phá</span>
+            </th>
           </tr>
         </thead>
         <tbody>
-          <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);">
-            <td style="padding: 11px 14px; font-weight: 600; color: #e4e4e7;">1. Tài chính & Đầu tư</td>
-            <td style="padding: 11px 14px; color: #fca5a5;">Giữ chặt tiền mặt, gửi tiết kiệm, mua vàng cất trữ. Tuyệt đối không đòn bẩy tài chính, không đầu tư mạo hiểm.</td>
-            <td style="padding: 11px 14px; color: #a7f3d0; font-weight: 600;">Mạnh dạn xuống tiền chớp thời cơ, mở rộng quy mô, rót vốn vào các tài sản sinh lời lớn.</td>
+          <tr style="border-bottom: 1px solid #EAE0CB; background: #FFFDF9;">
+            <td style="padding: 13px 16px; font-weight: 700; color: #1B1714; border-bottom: 1px solid #EAE0CB;">1. Tài chính & Đầu tư</td>
+            <td style="padding: 13px 16px; color: #861F18; border-left: 1px solid #EAE0CB; border-bottom: 1px solid #EAE0CB;">
+              <span style="color: #DC2626; font-weight: 700;">✕ Phòng thủ:</span> Giữ chặt tiền mặt, gửi tiết kiệm, mua vàng cất trữ. Tuyệt đối không dùng đòn bẩy tài chính, không đầu tư mạo hiểm.
+            </td>
+            <td style="padding: 13px 16px; color: #1B1714; font-weight: 600; border-left: 1px solid #EAE0CB; border-bottom: 1px solid #EAE0CB; background: rgba(240, 253, 244, 0.45);">
+              <span style="color: #16A34A; font-weight: 700;">✓ Bứt phá:</span> Mạnh dạn xuống tiền chớp thời cơ, mở rộng quy mô, rót vốn vào các tài sản có tiềm năng sinh lời đột phá.
+            </td>
           </tr>
-          <tr style="border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.02);">
-            <td style="padding: 11px 14px; font-weight: 600; color: #e4e4e7;">2. Công danh & Sự nghiệp</td>
-            <td style="padding: 11px 14px; color: #fca5a5;">Làm tốt việc chuyên môn hiện tại, tránh xung đột với sếp và đồng nghiệp. Hạn chế nhảy việc khi chưa có bến đỗ chắc chắn.</td>
-            <td style="padding: 11px 14px; color: #a7f3d0; font-weight: 600;">Ứng tuyển vị trí lãnh đạo, nhận dự án lớn, khởi nghiệp độc lập, xây dựng thương hiệu cá nhân mạnh mẽ.</td>
+          <tr style="border-bottom: 1px solid #EAE0CB; background: #FAF7F0;">
+            <td style="padding: 13px 16px; font-weight: 700; color: #1B1714; border-bottom: 1px solid #EAE0CB;">2. Công danh & Sự nghiệp</td>
+            <td style="padding: 13px 16px; color: #5E5446; border-left: 1px solid #EAE0CB; border-bottom: 1px solid #EAE0CB;">
+              <span style="color: #DC2626; font-weight: 700;">✕ Giữ thế:</span> Làm tốt chuyên môn hiện tại, tránh xung đột với cấp trên và đối tác. Không nên nhảy việc khi chưa có bến đỗ vững chắc.
+            </td>
+            <td style="padding: 13px 16px; color: #1B1714; font-weight: 600; border-left: 1px solid #EAE0CB; border-bottom: 1px solid #EAE0CB; background: rgba(240, 253, 244, 0.45);">
+              <span style="color: #16A34A; font-weight: 700;">✓ Thăng tiến:</span> Ứng tuyển vị trí lãnh đạo, nhận dự án lớn, khởi nghiệp độc lập, xây dựng uy tín thương hiệu cá nhân mạnh mẽ.
+            </td>
           </tr>
-          <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);">
-            <td style="padding: 11px 14px; font-weight: 600; color: #e4e4e7;">3. Đầu tư cho bản thân</td>
-            <td style="padding: 11px 14px; color: #fef08a; font-weight: 600;">Thời điểm vàng để học tập, rèn luyện kỹ năng mới, đọc sách, nâng cao tri thức và chuyên môn sâu.</td>
-            <td style="padding: 11px 14px; color: #a7f3d0;">Tận dụng tri thức đã tích lũy để biến thành tiền tài và vị thế thực tế trên thị trường.</td>
+          <tr style="border-bottom: 1px solid #EAE0CB; background: #FFFDF9;">
+            <td style="padding: 13px 16px; font-weight: 700; color: #1B1714; border-bottom: 1px solid #EAE0CB;">3. Đầu tư cho bản thân</td>
+            <td style="padding: 13px 16px; color: #7A5C00; font-weight: 600; border-left: 1px solid #EAE0CB; border-bottom: 1px solid #EAE0CB;">
+              <span style="color: #B08A3E; font-weight: 700;">★ Tích lũy:</span> Thời điểm vàng để học tập, rèn luyện kỹ năng mới, đọc sách, nâng cao tri thức và chuyên môn sâu.
+            </td>
+            <td style="padding: 13px 16px; color: #1B1714; border-left: 1px solid #EAE0CB; border-bottom: 1px solid #EAE0CB; background: rgba(240, 253, 244, 0.45);">
+              <span style="color: #16A34A; font-weight: 700;">✓ Thu hoạch:</span> Đem toàn bộ vốn sống và tri thức đã tích lũy biến thành tiền tài và vị thế vững chắc trên thương trường.
+            </td>
           </tr>
-          <tr style="border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.02);">
-            <td style="padding: 11px 14px; font-weight: 600; color: #e4e4e7;">4. Mối quan hệ & Giao tiếp</td>
-            <td style="padding: 11px 14px; color: #fca5a5;">Lùi một bước biển rộng trời cao. Giữ mồm giữ miệng, nhẫn nhịn trước thị phi và khẩu nghiệp.</td>
-            <td style="padding: 11px 14px; color: #a7f3d0; font-weight: 600;">Mở rộng mạng lưới quan hệ chất lượng, kết giao với các bậc tinh hoa và đối tác chiến lược.</td>
+          <tr style="border-bottom: 1px solid #EAE0CB; background: #FAF7F0;">
+            <td style="padding: 13px 16px; font-weight: 700; color: #1B1714; border-bottom: 1px solid #EAE0CB;">4. Mối quan hệ & Giao tiếp</td>
+            <td style="padding: 13px 16px; color: #5E5446; border-left: 1px solid #EAE0CB; border-bottom: 1px solid #EAE0CB;">
+              <span style="color: #DC2626; font-weight: 700;">✕ Nhẫn nại:</span> Lùi một bước biển rộng trời cao. Giữ mồm giữ miệng, nhẫn nhịn trước thị phi và khẩu nghiệp chốn công sở.
+            </td>
+            <td style="padding: 13px 16px; color: #1B1714; font-weight: 600; border-left: 1px solid #EAE0CB; border-bottom: 1px solid #EAE0CB; background: rgba(240, 253, 244, 0.45);">
+              <span style="color: #16A34A; font-weight: 700;">✓ Kết giao:</span> Mở rộng mạng lưới quan hệ chất lượng cao, kết giao với các bậc tinh hoa, quý nhân và đối tác chiến lược.
+            </td>
           </tr>
-          <tr>
-            <td style="padding: 11px 14px; font-weight: 600; color: #e4e4e7;">5. Tâm lý & Tinh thần</td>
-            <td style="padding: 11px 14px; color: #fef08a;">Tĩnh tâm, thiền định, làm việc thiện hồi hướng phước báu. Chấp nhận nốt trầm như một khoảng nghỉ dưỡng sức.</td>
-            <td style="padding: 11px 14px; color: #a7f3d0; font-weight: 700;">Hừng hực khí thế, quyết đoán, không do dự làm lỡ mất thiên cơ ngàn năm có một.</td>
+          <tr style="background: #FFFDF9;">
+            <td style="padding: 13px 16px; font-weight: 700; color: #1B1714;">5. Tâm lý & Tinh thần</td>
+            <td style="padding: 13px 16px; color: #7A5C00; border-left: 1px solid #EAE0CB;">
+              <span style="color: #B08A3E; font-weight: 700;">★ Tĩnh tâm:</span> Thiền định, nghe chuông xoay, làm việc thiện tích đức hồi hướng. Xem năm hạn như khoảng nghỉ dưỡng sức để nạp năng lượng.
+            </td>
+            <td style="padding: 13px 16px; color: #15803D; font-weight: 700; border-left: 1px solid #EAE0CB; background: rgba(240, 253, 244, 0.6);">
+              <span style="color: #16A34A; font-weight: 700;">✓ Khí thế:</span> Tự tin, quyết đoán, tinh thần hừng hực, chớp đúng thời cơ ngàn năm có một để thay đổi vận mệnh.
+            </td>
           </tr>
         </tbody>
       </table>
@@ -290,25 +366,45 @@ const post2 = {
       <li><strong>Trụ Cột 3 - Định Vị Đúng Nghề Thuận Theo Tinh Bàn:</strong> Người có sao <em>Thiên Cơ, Hóa Khoa</em> nên làm nghiên cứu, công nghệ, tư vấn; người có <em>Vũ Khúc, Thiên Phủ</em> nên làm tài chính, kế toán, ngân hàng; người có <em>Cự Môn, Thái Dương</em> nên làm luật sư, ngoại giao, giáo dục hoặc bán hàng. Đi thuận theo thiên bẩm của mình thì làm chơi ăn thật; đi ngược lại thì trầy da tróc vảy vẫn trắng tay.</li>
     </ol>
 
-    <!-- BANNER KÊU GỌI HÀNH ĐỘNG (CTA) CHUYỂN ĐỔI CAO -->
-    <div style="background: linear-gradient(135deg, rgba(20, 17, 44, 0.95), rgba(35, 27, 70, 0.95)); border: 2px solid #d4af37; border-radius: 12px; padding: 2rem; margin: 2.5rem 0; text-align: center; box-shadow: 0 8px 32px rgba(212, 175, 55, 0.25);">
-      <h3 style="color: #fbbf24; font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 0.8rem;">
-        ✦ NẮM TRỌN THỜI VẬN 10 NĂM ĐỜI MÌNH — TỰ TIN BƯỚC VÀO TƯƠNG LAI ✦
-      </h3>
-      <p style="color: #e4e4e7; font-size: 0.96rem; max-width: 680px; margin: 0 auto 1.4rem; line-height: 1.6;">
-        Đừng để sự mơ hồ và nỗi sợ hãi tương lai kìm hãm bước chân bạn thêm một ngày nào nữa. Hãy để hệ thống Tử Vi Huyền Học khai mở trọn bộ <strong>12 Cung Số Mệnh & Dự Báo Đại Hạn Các Thập Niên</strong> từ 6 đến 75+ tuổi của bạn ngay hôm nay!
+    <!-- BANNER KÊU GỌI HÀNH ĐỘNG (CTA) PHONG CÁCH MỰC & GIẤY HOÀNG KIM -->
+    <div style="background: linear-gradient(145deg, #FFFDF9 0%, #FAF5EA 100%); border: 2px solid #C5A059; border-radius: 12px; padding: 2.2rem 1.8rem; margin: 2.8rem 0; text-align: center; box-shadow: 0 8px 28px rgba(42, 35, 28, 0.08); position: relative;">
+      
+      <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(163, 40, 31, 0.08); border: 1px solid rgba(163, 40, 31, 0.25); color: #861F18; font-size: 0.82rem; font-weight: 700; padding: 4px 16px; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1rem;">
+        ✦ DỰ BÁO ĐẠI VẬN 10 NĂM & HÓA GIẢI BẾ TẮC ✦
+      </div>
+
+      <div style="font-family: 'Noto Serif', Georgia, serif; font-size: 1.45rem; font-weight: 700; color: #861F18; line-height: 1.4; margin: 0 0 0.85rem 0; letter-spacing: 0.2px;">
+        NẮM TRỌN THỜI VẬN 10 NĂM ĐỜI MÌNH — TỰ TIN BƯỚC VÀO TƯƠNG LAI
+      </div>
+
+      <p style="color: #2A231C; font-size: 0.98rem; max-width: 680px; margin: 0 auto 1.35rem; line-height: 1.7;">
+        Đừng để sự mơ hồ và nỗi sợ hãi tương lai kìm hãm bước chân bạn thêm một ngày nào nữa. Hãy để hệ thống Tử Vi Huyền Học khai mở trọn bộ <strong style="color: #861F18;">12 Cung Số Mệnh & Dự Báo Đại Hạn Các Thập Niên</strong> từ 6 đến 75+ tuổi của bạn ngay hôm nay!
       </p>
+
+      <div style="display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.6rem;">
+        <span style="display: inline-flex; align-items: center; gap: 5px; background: #FAF5EB; border: 1px solid #D4AF37; color: #7A5C00; font-size: 0.84rem; font-weight: 600; padding: 5px 12px; border-radius: 6px;">
+          ✓ Giải mã trọn bộ 12 Cung Số Mệnh
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 5px; background: #FAF5EB; border: 1px solid #D4AF37; color: #7A5C00; font-size: 0.84rem; font-weight: 600; padding: 5px 12px; border-radius: 6px;">
+          ✓ Dự báo Đại Hạn 10 năm & Vận Hạn năm
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 5px; background: #FAF5EB; border: 1px solid #D4AF37; color: #7A5C00; font-size: 0.84rem; font-weight: 600; padding: 5px 12px; border-radius: 6px;">
+          ✓ Tâm pháp hóa giải hung tinh bế tắc
+        </span>
+      </div>
+
       <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-        <a href="/" style="display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #0b0a1a; font-weight: 700; padding: 0.85rem 1.8rem; border-radius: 30px; text-decoration: none; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4); transition: transform 0.2s;">
+        <a href="/" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #A3281F 0%, #861F18 100%); color: #FFFFFF !important; font-weight: 700; font-size: 0.96rem; padding: 0.9rem 1.8rem; border-radius: 9999px; text-decoration: none; box-shadow: 0 4px 14px rgba(163, 40, 31, 0.35); transition: all 0.25s;">
           🔮 LẬP LÁ SỐ & XEM TƯƠNG LAI MIỄN PHÍ
         </a>
-        <a href="/#bang-gia-vip" style="display: inline-block; background: rgba(255, 255, 255, 0.08); color: #fef08a; border: 1px solid #d4af37; font-weight: 600; padding: 0.85rem 1.6rem; border-radius: 30px; text-decoration: none;">
-          ⚡ GÓI VIP 49K (3 CUNG TỰ CHỌN) / 99K (TRỌN BỘ 12 CUNG)
+        <a href="/#bang-gia-vip" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: #FAF6ED; color: #7A5C00 !important; border: 1.5px solid #B08A3E; font-weight: 700; font-size: 0.94rem; padding: 0.88rem 1.6rem; border-radius: 9999px; text-decoration: none; box-shadow: 0 2px 8px rgba(42, 35, 28, 0.05); transition: all 0.25s;">
+          ⚡ GÓI VIP 49K (3 CUNG TỰ CHỌN) / 99K
         </a>
       </div>
-      <p style="font-size: 0.82rem; color: #a1a1aa; margin-top: 1rem;">
-        👑 Mở khóa tức thì: Luận giải chi tiết không che mờ · Đối thoại 1-1 với Cố vấn Tử Vi AI Nam Phái trực tuyến 24/7.
-      </p>
+
+      <div style="border-top: 1px dashed #CFC2A6; margin-top: 1.35rem; padding-top: 0.9rem; font-size: 0.85rem; color: #5E5446;">
+        👑 <strong>Mở khóa tức thì:</strong> Luận giải chi tiết không che mờ · Đối thoại 1-1 với Cố vấn Tử Vi AI Nam Phái trực tuyến 24/7.
+      </div>
     </div>
 
     <h2>Kết Luận: Số Phận Nằm Ở Trời, Vận Mệnh Nằm Trong Tay Bạn</h2>
