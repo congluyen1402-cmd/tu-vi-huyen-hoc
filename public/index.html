@@ -48,7 +48,7 @@
   <script src="/js/config.js?v=20261111_v5"></script>
 
   <!-- Main Stylesheet (Midnight Indigo & Imperial Gold) -->
-  <link rel="stylesheet" href="/css/style.css?v=20261116_clarity_v3">
+  <link rel="stylesheet" href="/css/style.css?v=20261116_compact_v4">
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -159,10 +159,43 @@
       height: min(85vw, 800px) !important;
       pointer-events: none !important;
     }
-    section, .section, .lookup-first-section, .result-section, .luan-giai-section, .pricing-section, .features-section, .fengshui-section, .consultation-section, .faq-section, .blog-section, main {
+    /* Universal Stacking Context: All sections and main containers above cosmic background */
+    main, section, article, .section, .home-blog-section, #blog-tu-vi,
+    .lookup-first-section, .result-section, .luan-giai-section,
+    .pricing-section, .features-section, .fengshui-section,
+    .consultation-section, .faq-section, .blog-section {
+      position: relative !important;
+      z-index: 1 !important;
       background: transparent !important;
       background-color: transparent !important;
       background-image: none !important;
+    }
+    /* Compact FAQ & Blog transitions to eliminate blank gap */
+    #cau-hoi-thuong-gap, .faq-section {
+      padding-top: 3.5rem !important;
+      padding-bottom: 1.5rem !important;
+    }
+    #blog-tu-vi, .home-blog-section {
+      padding: 2.25rem 1rem 1.75rem 1rem !important;
+      position: relative !important;
+      z-index: 1 !important;
+      background: transparent !important;
+    }
+    .home-blog-card {
+      background: rgba(251, 247, 238, 0.95) !important;
+      border: 1px solid rgba(176, 138, 62, 0.35) !important;
+      border-radius: 8px !important;
+      box-shadow: 0 4px 16px rgba(42, 35, 28, 0.06) !important;
+      backdrop-filter: blur(8px) !important;
+      -webkit-backdrop-filter: blur(8px) !important;
+    }
+    .home-blog-card h3 a {
+      color: #161310 !important;
+      font-weight: 700 !important;
+    }
+    .home-blog-card p {
+      color: #2D251E !important;
+      font-weight: 500 !important;
     }
     h1, h2, h3, .heading-royal, .section-title {
       font-family: 'Noto Serif', Georgia, serif !important;
@@ -177,6 +210,8 @@
       z-index: 2 !important;
       background-color: #14110E !important;
       color: #FAF6ED !important;
+      margin-top: 1.25rem !important;
+      padding: 2.5rem 1.5rem 2rem !important;
     }
   </style>
 
@@ -1165,9 +1200,9 @@
   <!-- ============================================================ -->
   <!-- BLOG & TINH HOA TỬ VI ĐẨU SỐ 2027                            -->
   <!-- ============================================================ -->
-  <section class="home-blog-section" id="blog-tu-vi" style="padding: 3.5rem 1rem; background: var(--paper-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+  <section class="home-blog-section" id="blog-tu-vi" style="position: relative; z-index: 1; padding: 2.25rem 1rem 1.75rem 1rem; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
     <div class="container" style="max-width: 1100px; margin: 0 auto;">
-      <div style="text-align: center; margin-bottom: 2rem;">
+      <div style="text-align: center; margin-bottom: 1.25rem;">
         <span style="display: inline-block; font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px; color: var(--seal); text-transform: uppercase; background: rgba(163,40,31,0.08); padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(163,40,31,0.2); margin-bottom: 0.5rem;">✦ KHO TÀNG KIẾN THỨC &amp; VẬN HẠN 2027 ✦</span>
         <h2 style="font-family: var(--font-heading); color: var(--seal); font-size: 1.85rem; margin-bottom: 0.5rem;">Chuyên Đề Dự Báo Vận Hạn Năm Đinh Mùi</h2>
         <p style="color: var(--text-muted); font-size: 0.95rem; max-width: 650px; margin: 0 auto;">Tổng hợp các bài luận giải chuyên sâu về Tiền tài, Tài chính đầu tư và Hôn nhân gia đạo theo nguyên lý Tử Vi Nam Phái cổ truyền.</p>
@@ -1175,7 +1210,7 @@
 
       <div class="home-blog-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
         <!-- Card 1 -->
-        <article class="home-blog-card" style="background: var(--paper-card); border: 1px solid var(--line); border-radius: 8px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 12px rgba(42,35,28,0.04);">
+        <article class="home-blog-card" style="background: rgba(251, 247, 238, 0.95); border: 1px solid rgba(176, 138, 62, 0.35); border-radius: 8px; padding: 1.25rem 1.5rem; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 16px rgba(42,35,28,0.06); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);">
           <div>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
               <span style="background: rgba(194,155,56,0.15); color: #8A6818; font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 4px;">Tài lộc &amp; Sự nghiệp</span>
@@ -1192,7 +1227,7 @@
         </article>
 
         <!-- Card 2 -->
-        <article class="home-blog-card" style="background: var(--paper-card); border: 1px solid var(--line); border-radius: 8px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 12px rgba(42,35,28,0.04);">
+        <article class="home-blog-card" style="background: rgba(251, 247, 238, 0.95); border: 1px solid rgba(176, 138, 62, 0.35); border-radius: 8px; padding: 1.25rem 1.5rem; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 16px rgba(42,35,28,0.06); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);">
           <div>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
               <span style="background: rgba(163,40,31,0.1); color: var(--seal); font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 4px;">Đầu tư &amp; Rủi ro</span>
@@ -1209,7 +1244,7 @@
         </article>
 
         <!-- Card 3 -->
-        <article class="home-blog-card" style="background: var(--paper-card); border: 1px solid var(--line); border-radius: 8px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 12px rgba(42,35,28,0.04);">
+        <article class="home-blog-card" style="background: rgba(251, 247, 238, 0.95); border: 1px solid rgba(176, 138, 62, 0.35); border-radius: 8px; padding: 1.25rem 1.5rem; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 16px rgba(42,35,28,0.06); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);">
           <div>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
               <span style="background: rgba(190,24,93,0.1); color: #BE185D; font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 4px;">Hôn nhân &amp; Gia đạo</span>
@@ -1226,7 +1261,7 @@
         </article>
       </div>
 
-      <div style="text-align: center; margin-top: 2rem;">
+      <div style="text-align: center; margin-top: 1.25rem;">
         <a href="/blog" style="display: inline-flex; align-items: center; gap: 6px; padding: 0.65rem 1.6rem; border: 1.5px solid var(--seal); border-radius: 4px; color: var(--seal); font-weight: 700; text-decoration: none; font-size: 0.92rem; background: transparent; transition: all 0.2s;">
           <span>Xem tất cả bài viết trên Blog</span>
           <span>➔</span>

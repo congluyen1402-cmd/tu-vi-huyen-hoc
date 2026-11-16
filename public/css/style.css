@@ -9456,3 +9456,57 @@ footer.footer,
     opacity: 0.40 !important;
   }
 }
+
+/* ══════════════════════════════════════════════════════════
+   COMPACT LAYOUT & STACKING CONTEXT (ELIMINATE BLANK GAP)
+   ══════════════════════════════════════════════════════════ */
+main, section, article, .section, .home-blog-section, #blog-tu-vi,
+.lookup-first-section, .result-section, .luan-giai-section,
+.pricing-section, .features-section, .fengshui-section,
+.consultation-section, .faq-section, .blog-section {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+#cau-hoi-thuong-gap, .faq-section {
+  padding-top: 3.5rem !important;
+  padding-bottom: 1.5rem !important;
+}
+
+#blog-tu-vi, .home-blog-section {
+  padding: 2.25rem 1rem 1.75rem 1rem !important;
+  position: relative !important;
+  z-index: 1 !important;
+  background: transparent !important;
+}
+
+.home-blog-card {
+  background: rgba(251, 247, 238, 0.95) !important;
+  border: 1px solid rgba(176, 138, 62, 0.35) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 16px rgba(42, 35, 28, 0.06) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+}
+
+.home-blog-card h3 a {
+  color: #161310 !important;
+  font-weight: 700 !important;
+}
+
+.home-blog-card p {
+  color: #2D251E !important;
+  font-weight: 500 !important;
+}
+
+footer.footer, .footer, #footer {
+  display: block !important;
+  visibility: visible !important;
+  position: relative !important;
+  z-index: 2 !important;
+  background-color: #14110E !important;
+  color: #FAF6ED !important;
+  margin-top: 1.25rem !important;
+  padding: 2.5rem 1.5rem 2rem !important;
+}
+
