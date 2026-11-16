@@ -41,8 +41,8 @@
   --element-hoa: #A3281F;
   --element-tho: #7D4814;
 
-  /* Typography - Noto Serif Display with Be Vietnam Pro */
-  --font-heading: 'Noto Serif Display', 'Noto Serif', Georgia, serif;
+  /* Typography - Noto Serif Đậm Nét with Be Vietnam Pro */
+  --font-heading: 'Noto Serif', Georgia, serif;
   --font-body: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   /* Elevations - Subtle, non-glowing */
@@ -9132,7 +9132,9 @@ html {
 header,
 main,
 .app-container,
-.site-footer,
+footer,
+.footer,
+#footer,
 .modal-overlay,
 #appErrorBoundary {
   position: relative;
@@ -9151,7 +9153,6 @@ section,
 .consultation-section,
 .faq-section,
 .blog-section,
-.site-footer,
 main {
   background: transparent !important;
   background-color: transparent !important;
@@ -9174,18 +9175,255 @@ main {
 .center-classical-thien-ban,
 .accordion-item,
 .palace-advice {
-  background: rgba(251, 247, 238, 0.88) !important;
+  background: rgba(251, 247, 238, 0.94) !important;
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
-  border: 1px solid rgba(176, 138, 62, 0.35) !important;
+  border: 1px solid rgba(176, 138, 62, 0.4) !important;
   box-shadow: 0 4px 20px rgba(176, 138, 62, 0.08), inset 0 0 15px rgba(176, 138, 62, 0.04) !important;
 }
 
-/* Tiêu đề Noto Serif Display, in hoa, giãn chữ 0.06em */
+/* ══════════════════════════════════════════════════════════
+   ĐỘ DÀY & ĐỘ TƯƠNG PHẢN CHỮ (FIX CHỮ MỎNG & MỜ THÔNG TIN)
+   ══════════════════════════════════════════════════════════ */
+/* Tiêu đề Noto Serif nét dày dặn, uy nghi, tương phản cao */
 h1, h2, h3, .heading-royal, .section-title {
   font-family: var(--font-heading) !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.06em !important;
+  font-weight: 700 !important;
+  color: #161310 !important;
+  letter-spacing: 0.01em !important;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5) !important;
+}
+
+.section-title {
+  font-size: clamp(1.65rem, 2.8vw, 2.25rem) !important;
+  font-weight: 800 !important;
+  color: #161310 !important;
+}
+
+.lookup-title {
+  font-family: var(--font-heading) !important;
+  font-weight: 800 !important;
+  font-size: clamp(2.1rem, 3.8vw, 2.85rem) !important;
+  color: #161310 !important;
+  letter-spacing: normal !important;
+}
+
+/* Tiêu đề phụ & đoạn mô tả đậm nét, dễ đọc */
+.section-subtitle,
+.lookup-subtitle {
+  color: #2D251E !important;
+  font-weight: 500 !important;
+  font-size: 1.05rem !important;
+  line-height: 1.6 !important;
+}
+
+/* Khối phương pháp luận giải (Features - 4 bước) */
+.method-step {
+  background: rgba(251, 247, 238, 0.92) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(176, 138, 62, 0.35) !important;
+  border-radius: 8px !important;
+  padding: 1.25rem 1.4rem !important;
+  margin-bottom: 1.1rem !important;
+  box-shadow: 0 4px 16px rgba(176, 138, 62, 0.08) !important;
+}
+
+.method-step h4 {
+  font-family: var(--font-heading) !important;
+  font-weight: 700 !important;
+  font-size: 1.15rem !important;
+  color: #161310 !important;
+  margin-bottom: 0.4rem !important;
+}
+
+.method-step p {
+  color: #332B24 !important;
+  font-weight: 500 !important;
+  font-size: 0.96rem !important;
+  line-height: 1.65 !important;
+}
+
+.method-step .step-num {
+  font-weight: 800 !important;
+  color: #966E1E !important;
+  font-size: 1.65rem !important;
+}
+
+/* Khối Câu Hỏi Thường Gặp (FAQ) */
+.faq-item {
+  background: rgba(251, 247, 238, 0.95) !important;
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(176, 138, 62, 0.35) !important;
+  border-radius: 6px !important;
+  margin-bottom: 0.85rem !important;
+  box-shadow: 0 2px 8px rgba(176, 138, 62, 0.06) !important;
+}
+
+.faq-title {
+  font-weight: 700 !important;
+  color: #161310 !important;
+  font-size: 1.05rem !important;
+}
+
+.faq-answer p {
+  color: #2D251E !important;
+  font-weight: 500 !important;
+  font-size: 0.96rem !important;
+  line-height: 1.7 !important;
+}
+
+/* Banner Vận Hạn 2027 & Thẻ bảng giá */
+.pricing-seasonal-banner {
+  background: rgba(251, 247, 238, 0.96) !important;
+  border: 1.5px solid rgba(176, 138, 62, 0.5) !important;
+  color: #161310 !important;
+  font-weight: 700 !important;
+  font-size: 1.02rem !important;
+  box-shadow: 0 4px 14px rgba(176, 138, 62, 0.08) !important;
+}
+
+.pricing-card-title {
+  font-weight: 800 !important;
+  color: #161310 !important;
+  font-size: 1.25rem !important;
+  letter-spacing: normal !important;
+}
+
+/* Badge thương hiệu & chi tiết form */
+.lookup-brand-badge {
+  background: rgba(251, 247, 238, 0.95) !important;
+  border: 1.5px solid rgba(176, 138, 62, 0.45) !important;
+  font-weight: 700 !important;
+}
+
+.lookup-badge-text {
+  color: #161310 !important;
+  font-weight: 700 !important;
+}
+
+/* ══════════════════════════════════════════════════════════
+   CHÂN TRANG (FOOTER) - HOÀNG GIA HUYỀN MẶC & NỔI BẬT 100%
+   ══════════════════════════════════════════════════════════ */
+footer.footer,
+.footer,
+#footer {
+  display: block !important;
+  visibility: visible !important;
+  position: relative !important;
+  z-index: 2 !important;
+  background-color: #14110E !important;
+  background: #14110E !important;
+  color: #FAF6ED !important;
+  border-top: 2px solid rgba(176, 138, 62, 0.6) !important;
+  box-shadow: 0 -6px 25px rgba(0, 0, 0, 0.35) !important;
+  padding: 3.5rem 1.5rem 3rem !important;
+  text-align: center !important;
+  margin-top: 3rem !important;
+  clear: both !important;
+}
+
+.footer-container {
+  max-width: 1000px !important;
+  margin: 0 auto !important;
+}
+
+.footer-brand {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.footer-brand img {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 50% !important;
+  border: 1.5px solid rgba(212, 175, 55, 0.6) !important;
+}
+
+.footer-brand span {
+  font-family: var(--font-heading) !important;
+  font-size: 1.3rem !important;
+  font-weight: 700 !important;
+  color: #FAF6ED !important;
+  letter-spacing: 0.03em !important;
+}
+
+.footer-nav-links {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-wrap: wrap !important;
+  gap: 16px 22px !important;
+  margin: 1.25rem 0 1.5rem !important;
+}
+
+.footer-nav-links a {
+  color: #E6DCBD !important;
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  transition: color 0.2s ease !important;
+}
+
+.footer-nav-links a:hover {
+  color: #FFD56B !important;
+  text-decoration: underline !important;
+}
+
+.footer-policy-links {
+  display: flex !important;
+  gap: 18px !important;
+  justify-content: center !important;
+  flex-wrap: wrap !important;
+  margin: 14px 0 !important;
+  font-size: 0.88rem !important;
+}
+
+.footer-policy-links a {
+  color: #C9BFA8 !important;
+  font-size: 0.88rem !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+}
+
+.footer-policy-links a:hover {
+  color: #FFD56B !important;
+}
+
+.footer-social-btn {
+  width: 42px !important;
+  height: 42px !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(212, 175, 55, 0.5) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #FFD56B !important;
+  transition: all 0.25s ease !important;
+}
+
+.footer-social-btn:hover {
+  background: rgba(212, 175, 55, 0.25) !important;
+  border-color: #FFD56B !important;
+  transform: translateY(-2px) !important;
+}
+
+.footer-disclaimer-text {
+  color: #B8AC99 !important;
+  font-size: 0.88rem !important;
+  max-width: 780px !important;
+  margin: 1.5rem auto 1rem !important;
+  line-height: 1.65 !important;
+  font-weight: 500 !important;
+}
+
+.footer-copyright {
+  color: #8C806F !important;
+  font-size: 0.84rem !important;
+  font-weight: 500 !important;
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -9195,15 +9433,17 @@ h1, h2, h3, .heading-royal, .section-title {
   .kham-thien-astrolabe {
     width: min(92vw, 420px) !important;
     height: min(92vw, 420px) !important;
-    opacity: 0.52 !important; /* Dịu mắt trên mobile, bảo đảm đọc chữ rõ ràng 100% */
+    opacity: 0.45 !important; /* Dịu mắt trên mobile, bảo đảm đọc chữ rõ ràng 100% */
   }
 
   .tracuu-form-card,
   .card,
   .glass-card,
   .expert-profile-card,
-  .price-card {
-    background: rgba(251, 247, 238, 0.92) !important;
+  .price-card,
+  .method-step,
+  .faq-item {
+    background: rgba(251, 247, 238, 0.95) !important;
     backdrop-filter: blur(8px) !important;
     -webkit-backdrop-filter: blur(8px) !important;
   }
@@ -9213,6 +9453,6 @@ h1, h2, h3, .heading-royal, .section-title {
   .kham-thien-astrolabe {
     width: 320px !important;
     height: 320px !important;
-    opacity: 0.46 !important;
+    opacity: 0.40 !important;
   }
 }
