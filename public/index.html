@@ -48,7 +48,7 @@
   <script src="/js/config.js?v=20261111_v5"></script>
 
   <!-- Main Stylesheet (Midnight Indigo & Imperial Gold) -->
-  <link rel="stylesheet" href="/css/style.css?v=20261116_compact_v4">
+  <link rel="stylesheet" href="/css/style.css?v=20261116_nav_zindex_v5">
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -159,6 +159,22 @@
       height: min(85vw, 800px) !important;
       pointer-events: none !important;
     }
+    /* Header & Navigation Stacking: Always above scrolling page sections */
+    header, #siteHeader, .site-header {
+      position: relative !important;
+      z-index: 1000 !important;
+    }
+    .navbar, #navbar {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      z-index: 1001 !important;
+    }
+    .mobile-bottom-nav {
+      z-index: 1002 !important;
+    }
+
     /* Universal Stacking Context: All sections and main containers above cosmic background */
     main, section, article, .section, .home-blog-section, #blog-tu-vi,
     .lookup-first-section, .result-section, .luan-giai-section,
