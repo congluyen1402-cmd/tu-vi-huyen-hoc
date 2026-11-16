@@ -9031,72 +9031,105 @@ html {
 
 /* ══════════════════════════════════════════════════════════
    NỀN VŨ TRỤ HUYỀN HỌC & TINH BÀN KHÂM THIÊN GIÁM (ĐỘC BẢN)
-   Phong cách Quý Tộc Hoàng Gia - 100% Đồng bộ màu gốc
+   Phong cách Quý Tộc Hoàng Gia - Full Trang & Tối ưu Android / iOS
    ══════════════════════════════════════════════════════════ */
 .kham-thien-cosmic-bg {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-  background-color: var(--paper, #F3ECDD);
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  overflow: hidden !important;
+  background-color: var(--paper, #F3ECDD) !important;
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  will-change: transform;
 }
 
 .kham-thien-glow {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(176, 138, 62, 0.14) 0%, rgba(176, 138, 62, 0.05) 45%, transparent 75%),
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 50%, rgba(176, 138, 62, 0.16) 0%, rgba(176, 138, 62, 0.05) 50%, transparent 80%),
               radial-gradient(ellipse at 50% 15%, rgba(176, 138, 62, 0.12) 0%, transparent 65%);
 }
 
 .kham-thien-astrolabe {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: min(90vw, 850px);
-  height: min(90vw, 850px);
-  transform: translate(-50%, -50%);
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  width: min(85vw, 800px) !important;
+  height: min(85vw, 800px) !important;
+  transform: translate(-50%, -50%) !important;
+  -webkit-transform: translate(-50%, -50%) !important;
   opacity: 0.65;
-  pointer-events: none;
+  pointer-events: none !important;
+  will-change: transform;
 }
 
-/* Vòng ngoài: 24 Tiết Khí xoay thuận 180s */
+/* Vòng ngoài: 24 Tiết Khí xoay thuận 180s - Tương thích Safari WebKit & Chrome Android */
 .astrolabe-ring-outer {
+  transform-box: view-box;
   transform-origin: 400px 400px;
+  -webkit-transform-origin: 400px 400px;
   animation: astrolabeRotateClockwise 180s linear infinite;
+  -webkit-animation: astrolabeRotateClockwise 180s linear infinite;
 }
 
 /* Vòng giữa: Bát Giác Hoàng Gia xoay ngược 130s */
 .astrolabe-ring-mid {
+  transform-box: view-box;
   transform-origin: 400px 400px;
+  -webkit-transform-origin: 400px 400px;
   animation: astrolabeRotateCounterClockwise 130s linear infinite;
+  -webkit-animation: astrolabeRotateCounterClockwise 130s linear infinite;
 }
 
 /* Tâm tinh bàn: Chòm sao Bắc Đẩu Thất Tinh đứng yên */
 .astrolabe-core-dipper {
+  transform-box: view-box;
   transform-origin: 400px 400px;
+  -webkit-transform-origin: 400px 400px;
 }
 
+@-webkit-keyframes astrolabeRotateClockwise {
+  from { -webkit-transform: rotate(0deg); }
+  to { -webkit-transform: rotate(360deg); }
+}
 @keyframes astrolabeRotateClockwise {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
 
+@-webkit-keyframes astrolabeRotateCounterClockwise {
+  from { -webkit-transform: rotate(0deg); }
+  to { -webkit-transform: rotate(-360deg); }
+}
 @keyframes astrolabeRotateCounterClockwise {
   from { transform: rotate(0deg); }
   to { transform: rotate(-360deg); }
 }
 
 #cosmic-dust-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
 }
 
 /* NÂNG CẤP GIAO DIỆN CHÍNH (z-index: 1) */
 #siteHeader,
+header,
 main,
 .app-container,
 .site-footer,
@@ -9106,7 +9139,27 @@ main,
   z-index: 1;
 }
 
+/* FULL-PAGE TRANSPARENCY: Cho phép Tinh Bàn & Bụi Sáng Khâm Thiên Giám hiển thị full trang */
+section,
+.section,
+.lookup-first-section,
+.result-section,
+.luan-giai-section,
+.pricing-section,
+.features-section,
+.fengshui-section,
+.consultation-section,
+.faq-section,
+.blog-section,
+.site-footer,
+main {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
 /* Khung thẻ / Form Quý Tộc Hoàng Gia với kính mờ & viền mảnh phát sáng */
+.tracuu-form-card,
 .glass-card,
 .card,
 .form-card,
@@ -9117,7 +9170,11 @@ main,
 .expert-profile-card,
 .selection-box,
 .modal-content,
-.luan-giai-box {
+.luan-giai-box,
+.center-classical-thien-ban,
+.accordion-item,
+.palace-advice {
+  background: rgba(251, 247, 238, 0.88) !important;
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
   border: 1px solid rgba(176, 138, 62, 0.35) !important;
@@ -9129,4 +9186,33 @@ h1, h2, h3, .heading-royal, .section-title {
   font-family: var(--font-heading) !important;
   text-transform: uppercase !important;
   letter-spacing: 0.06em !important;
+}
+
+/* ══════════════════════════════════════════════════════════
+   TỐI ƯU GIAO DIỆN DI ĐỘNG (ANDROID & IOS)
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .kham-thien-astrolabe {
+    width: min(92vw, 420px) !important;
+    height: min(92vw, 420px) !important;
+    opacity: 0.52 !important; /* Dịu mắt trên mobile, bảo đảm đọc chữ rõ ràng 100% */
+  }
+
+  .tracuu-form-card,
+  .card,
+  .glass-card,
+  .expert-profile-card,
+  .price-card {
+    background: rgba(251, 247, 238, 0.92) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .kham-thien-astrolabe {
+    width: 320px !important;
+    height: 320px !important;
+    opacity: 0.46 !important;
+  }
 }

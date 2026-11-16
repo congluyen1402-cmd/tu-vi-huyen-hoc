@@ -48,7 +48,7 @@
   <script src="/js/config.js?v=20261111_v5"></script>
 
   <!-- Main Stylesheet (Midnight Indigo & Imperial Gold) -->
-  <link rel="stylesheet" href="/css/style.css?v=20261112_navfix2">
+  <link rel="stylesheet" href="/css/style.css?v=20261116_royal_mobile_v2">
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -130,6 +130,39 @@
       .hamburger {
         display: flex !important;
       }
+    }
+
+    /* Khâm Thiên Giám Background Lock & Full Page Transparency */
+    #kham-thien-cosmic-bg {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      height: 100dvh !important;
+      z-index: 0 !important;
+      pointer-events: none !important;
+      overflow: hidden !important;
+      background-color: #F3ECDD !important;
+      transform: translate3d(0, 0, 0);
+      -webkit-transform: translate3d(0, 0, 0);
+    }
+    .kham-thien-astrolabe {
+      position: fixed !important;
+      top: 50% !important;
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      -webkit-transform: translate(-50%, -50%) !important;
+      width: min(85vw, 800px) !important;
+      height: min(85vw, 800px) !important;
+      pointer-events: none !important;
+    }
+    section, .section, .lookup-first-section, .result-section, .luan-giai-section, .pricing-section, .features-section, .fengshui-section, .consultation-section, .faq-section, .blog-section, main {
+      background: transparent !important;
+      background-color: transparent !important;
+      background-image: none !important;
     }
   </style>
 
@@ -240,9 +273,9 @@
   <!-- ============================================================ -->
   <!-- NỀN VŨ TRỤ HUYỀN HỌC & TINH BÀN KHÂM THIÊN GIÁM (ĐỘC BẢN)     -->
   <!-- ============================================================ -->
-  <div id="kham-thien-cosmic-bg" class="kham-thien-cosmic-bg" aria-hidden="true">
+  <div id="kham-thien-cosmic-bg" class="kham-thien-cosmic-bg" style="position:fixed;top:0;left:0;right:0;bottom:0;width:100vw;height:100vh;height:100dvh;z-index:0;pointer-events:none;overflow:hidden;background-color:#F3ECDD;transform:translate3d(0,0,0);-webkit-transform:translate3d(0,0,0);" aria-hidden="true">
     <div class="kham-thien-glow"></div>
-    <svg class="kham-thien-astrolabe" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+    <svg class="kham-thien-astrolabe" style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);-webkit-transform:translate(-50%,-50%);pointer-events:none;" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
       <!-- Vòng ngoài: Vạch chia 24 tiết khí xoay thuận chiều kim đồng hồ (180s) -->
       <g class="astrolabe-ring-outer">
         <circle cx="400" cy="400" r="380" fill="none" stroke="var(--brass, #B08A3E)" stroke-width="1.5" stroke-opacity="0.6"/>
@@ -1417,30 +1450,33 @@
   <script src="/js/tuvi-chart.js?v=20261112_navfix2" defer></script>
   <script src="/js/app.js?v=20261112_navfix2" defer></script>
 
-  <!-- Canvas Bụi Sáng (Tối đa 45 hạt, màu chủ đạo #B08A3E bay nhẹ từ dưới lên) -->
+  <!-- Canvas Bụi Sáng (Tối ưu mượt mà 60fps trên Android & iOS) -->
   <script>
     (function() {
       const canvas = document.getElementById('cosmic-dust-canvas');
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
-      let w = canvas.width = window.innerWidth;
-      let h = canvas.height = window.innerHeight;
+      let w = 0, h = 0, animId = null;
 
-      window.addEventListener('resize', function() {
-        w = canvas.width = window.innerWidth;
-        h = canvas.height = window.innerHeight;
-      }, { passive: true });
+      function resize() {
+        w = canvas.width = window.innerWidth || document.documentElement.clientWidth;
+        h = canvas.height = window.innerHeight || document.documentElement.clientHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize, { passive: true });
+      window.addEventListener('orientationchange', function() { setTimeout(resize, 200); }, { passive: true });
 
-      const count = 45;
+      const isMobile = (window.innerWidth || document.documentElement.clientWidth) < 768;
+      const count = isMobile ? 24 : 42;
       const particles = [];
       for (let i = 0; i < count; i++) {
         particles.push({
           x: Math.random() * w,
           y: Math.random() * h,
-          r: Math.random() * 1.6 + 0.6,
-          vy: -(Math.random() * 0.35 + 0.15),
-          vx: (Math.random() - 0.5) * 0.15,
-          baseAlpha: Math.random() * 0.35 + 0.15,
+          r: (Math.random() * 1.5 + 0.6) * (isMobile ? 0.9 : 1.1),
+          vy: -(Math.random() * 0.32 + 0.12),
+          vx: (Math.random() - 0.5) * 0.12,
+          baseAlpha: Math.random() * 0.32 + 0.15,
           pulseSpeed: Math.random() * 0.02 + 0.01,
           angle: Math.random() * Math.PI * 2
         });
@@ -1453,7 +1489,7 @@
           p.y += p.vy;
           p.x += p.vx;
           p.angle += p.pulseSpeed;
-          const currentAlpha = Math.max(0.04, p.baseAlpha + Math.sin(p.angle) * 0.15);
+          const currentAlpha = Math.max(0.04, p.baseAlpha + Math.sin(p.angle) * 0.14);
 
           if (p.y < -10) {
             p.y = h + 10;
@@ -1467,9 +1503,18 @@
           ctx.fillStyle = 'rgba(176, 138, 62, ' + currentAlpha.toFixed(3) + ')';
           ctx.fill();
         }
-        requestAnimationFrame(draw);
+        animId = requestAnimationFrame(draw);
       }
-      requestAnimationFrame(draw);
+
+      document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+          if (animId) cancelAnimationFrame(animId);
+        } else {
+          animId = requestAnimationFrame(draw);
+        }
+      });
+
+      animId = requestAnimationFrame(draw);
     })();
   </script>
 </body>
