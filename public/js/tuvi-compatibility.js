@@ -1214,7 +1214,7 @@
         <!-- BẢN IN: CHÂN TRANG BÁO CÁO HỢP TUỔI VIP (CHỈ HIỂN THỊ KHI IN / XUẤT FILE PDF) -->
         <div class="print-report-footer">
           <p class="print-footer-brand">✦ HỘI ĐỒNG KHOA HỌC XEM TỬ VI HUYỀN HỌC (www.xemtuvihuyenhoc.com) ✦</p>
-          <p class="print-footer-copy">Bản Báo Cáo Hợp Tuổi Bát Tự &amp; Thần Số Học Song Bản lưu giữ trọn đời · Bản quyền thuộc tác giả Trần Công Luyện.</p>
+          <p class="print-footer-copy">Bản Báo Cáo Hợp Tuổi Bát Tự &amp; Thần Số Học Song Bản lưu giữ trọn đời · Bản quyền thuộc tác giả Thầy Kevin Trần.</p>
         </div>
       </div>
     `;

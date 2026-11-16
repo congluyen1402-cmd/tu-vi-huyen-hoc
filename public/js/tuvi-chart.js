@@ -1853,7 +1853,7 @@ const TuViChart = {
     html += `
       <div class="print-report-footer">
         <p class="print-footer-brand">✦ HỘI ĐỒNG KHOA HỌC XEM TỬ VI HUYỀN HỌC (www.xemtuvihuyenhoc.com) ✦</p>
-        <p class="print-footer-copy">Bản Báo Cáo Luận Giải Tử Vi Đẩu Số VIP lưu giữ trọn đời · Bản quyền thuộc tác giả Trần Công Luyện · Bảo mật hồ sơ tuyệt đối.</p>
+        <p class="print-footer-copy">Bản Báo Cáo Luận Giải Tử Vi Đẩu Số VIP lưu giữ trọn đời · Bản quyền thuộc tác giả Thầy Kevin Trần · Bảo mật hồ sơ tuyệt đối.</p>
       </div>
     `;
 

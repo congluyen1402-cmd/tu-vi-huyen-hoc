@@ -1144,7 +1144,7 @@
         <!-- BẢN IN: CHÂN TRANG BÁO CÁO THẦN SỐ HỌC VIP (CHỈ HIỂN THỊ KHI IN / XUẤT FILE PDF) -->
         <div class="print-report-footer">
           <p class="print-footer-brand">✦ HỘI ĐỒNG KHOA HỌC XEM TỬ VI HUYỀN HỌC (www.xemtuvihuyenhoc.com) ✦</p>
-          <p class="print-footer-copy">Bản Báo Cáo Thần Số Học Pythagoras VIP in màu trang trọng lưu giữ trọn đời · Bản quyền thuộc tác giả Trần Công Luyện.</p>
+          <p class="print-footer-copy">Bản Báo Cáo Thần Số Học Pythagoras VIP in màu trang trọng lưu giữ trọn đời · Bản quyền thuộc tác giả Thầy Kevin Trần.</p>
         </div>
       </div>
     `;
