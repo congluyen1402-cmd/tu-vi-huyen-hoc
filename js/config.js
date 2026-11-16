@@ -6,10 +6,10 @@
 window.SITE_CONFIG = {
   brandName: "Xem Tử Vi Huyền Học",
   domain: "https://www.xemtuvihuyenhoc.com",
-  currentYear: 2026,
-  currentCanChi: "Bính Ngọ",
-  nextYear: 2027,
-  nextCanChi: "Đinh Mùi",
+  currentYear: 2027,
+  currentCanChi: "Đinh Mùi",
+  nextYear: 2028,
+  nextCanChi: "Mậu Thân",
 
   // 1. THÔNG TIN LIÊN HỆ & HỖ TRỢ (Thay số Zalo thật của bạn vào đây)
   contact: {
@@ -118,11 +118,11 @@ document.addEventListener("DOMContentLoaded", function () {
     el.href = cfg.contact.ZALO_URL;
   });
 
-  // Cập nhật Banner vận hạn cuối năm 2026 - đón đầu 2027
+  // Cập nhật Banner vận hạn năm 2027 (Đinh Mùi)
   const seasonalText = document.getElementById("pricingSeasonalText");
   if (seasonalText) {
     seasonalText.textContent =
-      "Tổng kết vận trình " + cfg.currentYear + " (" + cfg.currentCanChi + ") & Đón đầu đại vận " + cfg.nextYear + " (" + cfg.nextCanChi + ")";
+      "Vận Hạn " + cfg.currentYear + " (" + cfg.currentCanChi + ") – Định vị cát hung & đại vận trọn đời";
   }
 });
 

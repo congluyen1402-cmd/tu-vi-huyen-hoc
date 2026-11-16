@@ -1263,7 +1263,7 @@
     ];
 
     var conventions = [
-      'Quy tắc giờ Tý: Sinh từ 23h00 đến 00h59 thuộc giờ Tý của ngày chọn (không tự động đổi sang ngày hôm sau).',
+      'Quy tắc giờ Tý: Sinh từ 23h00 tính theo giờ Tý chuẩn cổ truyền (hỗ trợ tùy chọn an sang ngày mới hoặc giữ nguyên ngày).',
       'Quy tắc tháng Nhuận: Tra cứu theo ngày tháng âm lịch thực tế tương ứng với lịch thiên văn Việt Nam (UTC+7).'
     ];
 

@@ -1119,16 +1119,16 @@
             this._palace49kChartKey = targetChartKey;
             this._palace49kSelectedTemp = [];
             const SELECTABLE = [
-              { key: 'tai-bach',  name: 'Tài Bạch',  icon: '💰', desc: 'Tiền tài, thu nhập, đầu tư' },
-              { key: 'quan-loc',  name: 'Quan Lộc',  icon: '💼', desc: 'Sự nghiệp, chức vụ, danh vọng' },
-              { key: 'phu-the',   name: 'Phu Thê',   icon: '💍', desc: 'Hôn nhân, tình duyên, vợ chồng' },
-              { key: 'phuc-duc',  name: 'Phúc Đức',  icon: '🌟', desc: 'Phúc phận, tổ tiên, may mắn' },
-              { key: 'dien-trach',name: 'Điền Trạch', icon: '🏡', desc: 'Nhà cửa, bất động sản' },
-              { key: 'tu-tuc',    name: 'Tử Tức',    icon: '👶', desc: 'Con cái, học trò, sáng tạo' },
-              { key: 'thien-di',  name: 'Thiên Di',  icon: '✈️', desc: 'Xuất ngoại, di chuyển, giao du' },
-              { key: 'tat-ach',   name: 'Tật Ách',   icon: '🏥', desc: 'Sức khoẻ, tai nạn, bệnh tật' },
-              { key: 'no-boc',    name: 'Nô Bộc',    icon: '🤝', desc: 'Nhân viên, bạn bè, quan hệ' },
-              { key: 'huynh-de',  name: 'Huynh Đệ',  icon: '👥', desc: 'Anh chị em, đồng liêu, đối tác' }
+              { key: 'tai-bach', name: 'Tài Bạch', icon: '💰', desc: 'Tiền tài, thu nhập, đầu tư' },
+              { key: 'quan-loc', name: 'Quan Lộc', icon: '💼', desc: 'Sự nghiệp, chức vụ, danh vọng' },
+              { key: 'phu-the', name: 'Phu Thê', icon: '💍', desc: 'Hôn nhân, tình duyên, vợ chồng' },
+              { key: 'phuc-duc', name: 'Phúc Đức', icon: '🌟', desc: 'Phúc phận, tổ tiên, may mắn' },
+              { key: 'dien-trach', name: 'Điền Trạch', icon: '🏡', desc: 'Nhà cửa, bất động sản' },
+              { key: 'tu-tuc', name: 'Tử Tức', icon: '👶', desc: 'Con cái, học trò, sáng tạo' },
+              { key: 'thien-di', name: 'Thiên Di', icon: '✈️', desc: 'Xuất ngoại, di chuyển, giao du' },
+              { key: 'tat-ach', name: 'Tật Ách', icon: '🏥', desc: 'Sức khoẻ, tai nạn, bệnh tật' },
+              { key: 'no-boc', name: 'Nô Bộc', icon: '🤝', desc: 'Nhân viên, bạn bè, quan hệ' },
+              { key: 'huynh-de', name: 'Huynh Đệ', icon: '👥', desc: 'Anh chị em, đồng liêu, đối tác' }
             ];
 
             const palaceRowsHtml = SELECTABLE.map(p => `

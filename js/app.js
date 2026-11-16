@@ -290,33 +290,24 @@
      */
     initDynamicYearLabels: function () {
       try {
-        const curDate = new Date();
-        const curYear = curDate.getFullYear();
-        const curMonth = curDate.getMonth() + 1;
-        const nextYear = curYear + 1;
-        const CAN = ["Giáp", "Ất", "Bính", "Đinh", "Mậu", "Kỷ", "Canh", "Tân", "Nhâm", "Quý"];
-        const CHI = ["Tý", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi", "Thân", "Dậu", "Tuất", "Hợi"];
-        const curCanChi = `${CAN[(curYear + 6) % 10]} ${CHI[(curYear + 8) % 12]}`;
-        const nextCanChi = `${CAN[(nextYear + 6) % 10]} ${CHI[(nextYear + 8) % 12]}`;
-
-        let yearText = `${curYear} (${curCanChi})`;
-        if (curMonth >= 11) {
-          yearText = `${curYear} (${curCanChi}) & Đón đầu ${nextYear} (${nextCanChi})`;
-        }
+        const curYear = (window.SITE_CONFIG && window.SITE_CONFIG.currentYear) || 2027;
+        const curCanChi = (window.SITE_CONFIG && window.SITE_CONFIG.currentCanChi) || "Đinh Mùi";
+        const nextYear = (window.SITE_CONFIG && window.SITE_CONFIG.nextYear) || 2028;
+        const nextCanChi = (window.SITE_CONFIG && window.SITE_CONFIG.nextCanChi) || "Mậu Thân";
 
         const labels = document.querySelectorAll(".dynamic-luu-nien-label");
         labels.forEach(el => {
-          el.textContent = `Luận đoán Vận Hạn Lưu Niên ${yearText}`;
+          el.textContent = `Dự báo Vận Hạn Lưu Niên ${curYear} (${curCanChi}) & ${nextYear} (${nextCanChi})`;
         });
 
         const copyYearEl = document.getElementById("footerCopyrightYear");
         if (copyYearEl) {
-          copyYearEl.textContent = curYear.toString();
+          copyYearEl.textContent = new Date().getFullYear().toString();
         }
 
         const seasonalTextEl = document.getElementById("pricingSeasonalText");
         if (seasonalTextEl) {
-          seasonalTextEl.textContent = `Vận hạn ${yearText} – Định vị cát hung & đại vận trọn đời`;
+          seasonalTextEl.textContent = `Vận Hạn ${curYear} (${curCanChi}) – Định vị cát hung & đại vận trọn đời`;
         }
       } catch (e) {
         console.warn("initDynamicYearLabels error:", e);

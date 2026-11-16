@@ -6758,7 +6758,232 @@ footer.footer {
   opacity: 0.9;
 }
 
-/* Neutral state for Experts */
+/* ============================================================
+   HỒ SƠ CHUYÊN GIA & BẰNG CHỨNG XÃ HỘI (EXPERT & SOCIAL PROOF)
+   ============================================================ */
+.expert-profile-card {
+  background: #FFFDF8 !important;
+  border: 1.5px solid #D4AF37 !important;
+  border-radius: 12px !important;
+  padding: 1.4rem 1.4rem 1.2rem !important;
+  margin-bottom: 1.25rem !important;
+  box-shadow: 0 4px 18px rgba(212, 175, 55, 0.15) !important;
+  position: relative !important;
+}
+
+.expert-profile-header {
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+  margin-bottom: 1rem !important;
+}
+
+.expert-avatar-wrap {
+  position: relative !important;
+  flex-shrink: 0 !important;
+  width: 96px !important;
+  height: 96px !important;
+}
+
+.expert-avatar-img {
+  width: 96px !important;
+  height: 96px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  border: 2.5px solid #D4AF37 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15) !important;
+}
+
+.expert-verified-badge {
+  position: absolute !important;
+  bottom: 2px !important;
+  right: 2px !important;
+  width: 24px !important;
+  height: 24px !important;
+  border-radius: 50% !important;
+  background: #059669 !important;
+  color: #FFFFFF !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 0.82rem !important;
+  font-weight: 800 !important;
+  border: 2px solid #FFFFFF !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2) !important;
+}
+
+.expert-header-info {
+  flex: 1 !important;
+  min-width: 0 !important;
+}
+
+.expert-role-badge {
+  display: inline-block !important;
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 1px !important;
+  color: #991B1B !important;
+  background: rgba(153, 27, 27, 0.08) !important;
+  padding: 3px 8px !important;
+  border-radius: 4px !important;
+  border: 1px solid rgba(153, 27, 27, 0.2) !important;
+  margin-bottom: 4px !important;
+}
+
+.expert-name {
+  font-family: var(--font-heading, serif) !important;
+  font-size: 1.35rem !important;
+  font-weight: 700 !important;
+  color: #1A1612 !important;
+  margin: 0 0 4px 0 !important;
+}
+
+.expert-credentials {
+  font-size: 0.85rem !important;
+  color: #4B5563 !important;
+  line-height: 1.4 !important;
+  margin: 0 !important;
+}
+
+.expert-bio-desc {
+  font-size: 0.88rem !important;
+  font-style: italic !important;
+  color: #374151 !important;
+  line-height: 1.55 !important;
+  background: rgba(212, 175, 55, 0.08) !important;
+  padding: 10px 14px !important;
+  border-left: 3px solid #D4AF37 !important;
+  border-radius: 4px !important;
+  margin: 0 0 1rem 0 !important;
+}
+
+.expert-stats-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 8px !important;
+  background: #FFFFFF !important;
+  border: 1px solid #E5D9B6 !important;
+  border-radius: 8px !important;
+  padding: 10px 8px !important;
+  text-align: center !important;
+  margin-bottom: 0.9rem !important;
+}
+
+.expert-stat-item .stat-number {
+  display: block !important;
+  font-size: 1.15rem !important;
+  font-weight: 800 !important;
+  color: #991B1B !important;
+  font-family: var(--font-heading, serif) !important;
+}
+
+.expert-stat-item .stat-label {
+  display: block !important;
+  font-size: 0.74rem !important;
+  color: #4B5563 !important;
+  margin-top: 2px !important;
+}
+
+.expert-guarantee-pills {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 6px !important;
+}
+
+.guarantee-pill {
+  font-size: 0.78rem !important;
+  font-weight: 600 !important;
+  color: #065F46 !important;
+  background: #ECFDF5 !important;
+  border: 1px solid #A7F3D0 !important;
+  padding: 4px 10px !important;
+  border-radius: 20px !important;
+}
+
+/* Đánh giá khách hàng thực tế */
+.expert-testimonials-card {
+  background: #FFFDF8 !important;
+  border: 1.5px solid #D4AF37 !important;
+  border-radius: 12px !important;
+  padding: 1.25rem !important;
+  margin-bottom: 1.25rem !important;
+  box-shadow: 0 4px 18px rgba(212, 175, 55, 0.12) !important;
+}
+
+.testimonials-title {
+  font-family: var(--font-heading, serif) !important;
+  font-size: 0.88rem !important;
+  font-weight: 700 !important;
+  color: #991B1B !important;
+  text-align: center !important;
+  margin: 0 0 1rem 0 !important;
+  letter-spacing: 0.5px !important;
+}
+
+.testimonial-item {
+  background: #FFFFFF !important;
+  border: 1px solid #E5D9B6 !important;
+  border-radius: 8px !important;
+  padding: 12px 14px !important;
+  margin-bottom: 10px !important;
+}
+
+.testimonial-item:last-child {
+  margin-bottom: 0 !important;
+}
+
+.testimonial-header {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  margin-bottom: 6px !important;
+}
+
+.reviewer-avatar {
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: 50% !important;
+  background: linear-gradient(135deg, #B91C1C, #881337) !important;
+  color: #FFFFFF !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+  flex-shrink: 0 !important;
+}
+
+.reviewer-meta {
+  flex: 1 !important;
+  min-width: 0 !important;
+}
+
+.reviewer-meta strong {
+  display: block !important;
+  font-size: 0.88rem !important;
+  color: #1F2937 !important;
+}
+
+.reviewer-meta span {
+  display: block !important;
+  font-size: 0.76rem !important;
+  color: #6B7280 !important;
+}
+
+.review-stars {
+  color: #D97706 !important;
+  font-size: 0.85rem !important;
+  letter-spacing: 1px !important;
+}
+
+.review-quote {
+  font-size: 0.85rem !important;
+  color: #374151 !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
+}
+
+/* Fallback neutral box if ever needed */
 .expert-neutral-box {
   background: var(--card);
   border: 1px solid var(--line);
