@@ -43,15 +43,28 @@ const os = require('os');
 const TMP_DIR = path.join(os.tmpdir(), 'tuvi_data');
 try { if (!fs.existsSync(TMP_DIR)) fs.mkdirSync(TMP_DIR, { recursive: true }); } catch (e) {}
 
+let DEFAULT_POSTS = [];
+try {
+  DEFAULT_POSTS = require('./data/posts.json');
+} catch (e) {
+  try { DEFAULT_POSTS = JSON.parse(fs.readFileSync(POSTS_FILE, 'utf8')); } catch (e2) {}
+}
+
 // Tự động đồng bộ các trường dữ liệu cập nhật từ codebase (như ảnh bài viết mới) vào /tmp
 try {
-  const repoPostsPath = path.join(DATA_DIR, 'posts.json');
   const tmpPostsPath = path.join(TMP_DIR, 'posts.json');
-  if (fs.existsSync(repoPostsPath) && fs.existsSync(tmpPostsPath)) {
-    const repoData = JSON.parse(fs.readFileSync(repoPostsPath, 'utf8'));
-    const tmpData = JSON.parse(fs.readFileSync(tmpPostsPath, 'utf8'));
+  let tmpData = [];
+  if (fs.existsSync(tmpPostsPath)) {
+    try { tmpData = JSON.parse(fs.readFileSync(tmpPostsPath, 'utf8')); } catch (e) {}
+  }
+  if (!Array.isArray(tmpData) || tmpData.length < (DEFAULT_POSTS && DEFAULT_POSTS.length ? DEFAULT_POSTS.length : 1)) {
+    // Nếu trong /tmp bị rỗng hoặc thiếu bài, lập tức nạp đầy đủ từ DEFAULT_POSTS
+    if (Array.isArray(DEFAULT_POSTS) && DEFAULT_POSTS.length > 0) {
+      fs.writeFileSync(tmpPostsPath, JSON.stringify(DEFAULT_POSTS, null, 2), 'utf8');
+    }
+  } else if (Array.isArray(DEFAULT_POSTS) && DEFAULT_POSTS.length > 0) {
     let updated = false;
-    repoData.forEach(rp => {
+    DEFAULT_POSTS.forEach(rp => {
       const idx = tmpData.findIndex(t => t.id === rp.id || t.slug === rp.slug);
       if (idx !== -1) {
         const tp = tmpData[idx];
@@ -70,19 +83,84 @@ try {
   }
 } catch (e) {}
 
-let DEFAULT_POSTS = [];
-try {
-  DEFAULT_POSTS = require('./data/posts.json');
-} catch (e) {
-  try { DEFAULT_POSTS = JSON.parse(fs.readFileSync(POSTS_FILE, 'utf8')); } catch (e2) {}
-}
-
 /**
  * Đọc file JSON an toàn (ưu tiên file gốc trong repo, hỗ trợ fallback sang /tmp trên Vercel Serverless)
  */
 function readJsonFile(filePath, defaultValue) {
   try {
     const baseName = path.basename(filePath);
+
+    // Xử lý bảo đảm an toàn tuyệt đối cho posts.json: Không bao giờ bị rỗng
+    if (baseName === 'posts.json') {
+      let postsList = null;
+
+      // 1. Thử đọc trực tiếp từ các đường dẫn tiềm năng trong codebase
+      const candidatePaths = [
+        filePath,
+        path.join(DATA_DIR, 'posts.json'),
+        path.join(__dirname, 'data', 'posts.json'),
+        path.join(process.cwd(), 'data', 'posts.json')
+      ];
+
+      for (const cp of candidatePaths) {
+        if (cp && fs.existsSync(cp)) {
+          try {
+            const raw = fs.readFileSync(cp, 'utf8');
+            if (raw && raw.trim()) {
+              const parsed = JSON.parse(raw);
+              if (Array.isArray(parsed) && parsed.length > 0) {
+                postsList = parsed;
+                break;
+              }
+            }
+          } catch (e) {}
+        }
+      }
+
+      // 2. Thử đọc từ /tmp nếu có dữ liệu hợp lệ
+      if (!postsList || postsList.length === 0) {
+        const tmpFilePath = path.join(TMP_DIR, baseName);
+        if (fs.existsSync(tmpFilePath)) {
+          try {
+            const raw = fs.readFileSync(tmpFilePath, 'utf8');
+            if (raw && raw.trim()) {
+              const parsed = JSON.parse(raw);
+              if (Array.isArray(parsed) && parsed.length > 0) {
+                postsList = parsed;
+              }
+            }
+          } catch (e) {}
+        }
+      }
+
+      // 3. Fallback tối thượng: Luôn dùng DEFAULT_POSTS từ require('./data/posts.json')
+      if (!postsList || postsList.length === 0) {
+        if (Array.isArray(DEFAULT_POSTS) && DEFAULT_POSTS.length > 0) {
+          postsList = JSON.parse(JSON.stringify(DEFAULT_POSTS));
+        }
+      }
+
+      // Đồng bộ thông tin mới nhất từ DEFAULT_POSTS (tiêu đề, ảnh, nội dung)
+      if (Array.isArray(postsList) && Array.isArray(DEFAULT_POSTS) && DEFAULT_POSTS.length > 0) {
+        DEFAULT_POSTS.forEach(dp => {
+          const found = postsList.find(p => p.id === dp.id || p.slug === dp.slug);
+          if (!found) {
+            postsList.push(dp);
+          } else {
+            if (dp.image) found.image = dp.image;
+            if (dp.title) found.title = dp.title;
+            if (dp.contentHtml) found.contentHtml = dp.contentHtml;
+            if (dp.description) found.description = dp.description;
+          }
+        });
+      }
+
+      if (Array.isArray(postsList) && postsList.length > 0) {
+        return postsList;
+      }
+      return Array.isArray(DEFAULT_POSTS) && DEFAULT_POSTS.length > 0 ? DEFAULT_POSTS : defaultValue;
+    }
+
     // 1. Luôn ưu tiên đọc trực tiếp từ file repo chính thức
     if (fs.existsSync(filePath)) {
       try {
@@ -113,6 +191,16 @@ function readJsonFile(filePath, defaultValue) {
  * Ghi file JSON theo cơ chế Atomic Write, tự động fallback sang /tmp trên Vercel
  */
 function writeJsonFile(filePath, data) {
+  const baseName = path.basename(filePath);
+
+  // Bảo vệ tuyệt đối: Không bao giờ cho phép ghi đè posts.json bằng mảng rỗng
+  if (baseName === 'posts.json') {
+    if (!Array.isArray(data) || data.length === 0) {
+      console.warn('Blocked attempt to overwrite posts.json with empty data');
+      return false;
+    }
+  }
+
   const jsonStr = JSON.stringify(data, null, 2);
   let written = false;
 

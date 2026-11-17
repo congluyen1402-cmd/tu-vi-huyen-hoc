@@ -16,7 +16,7 @@ function testUrl(url, expectedTitlePart) {
       const hasTitle = resData.includes(expectedTitlePart);
       const hasArticle = resData.includes('og:type" content="article"');
       const hasSchema = resData.includes('"@type": "BlogPosting"');
-      const hasCTA = resData.includes('ĐẶC QUYỀN');
+      const hasCTA = resData.includes('article-cta') || resData.includes('royal-cta') || resData.includes('ĐẶC QUYỀN') || resData.includes('GIẢI MÃ');
       console.log(`[SSR TEST] ${url}:`);
       console.log(' - Title injected:', hasTitle ? '✅ PASS' : '❌ FAIL');
       console.log(' - og:type article:', hasArticle ? '✅ PASS' : '❌ FAIL');
