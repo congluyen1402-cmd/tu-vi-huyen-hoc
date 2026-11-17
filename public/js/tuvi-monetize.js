@@ -38,6 +38,7 @@
 
     getChartKey: function (laSoOrInput) {
       if (!laSoOrInput) return '';
+      if (typeof laSoOrInput === 'string') return laSoOrInput;
       if (typeof TuViEngine !== 'undefined' && TuViEngine.getChartKey) {
         return TuViEngine.getChartKey(laSoOrInput);
       }
@@ -207,28 +208,30 @@
       var idx = selected.indexOf(palaceKey);
 
       if (idx !== -1) {
-        // Đã chọn -> Bỏ chọn để khách có thể đổi sang cung khác
-        selected.splice(idx, 1);
-        info.selectedPalaces = selected;
-        this.saveUnlockedChart(key, info);
+        // Đã chọn -> Khóa cố định, KHÔNG cho phép bỏ chọn hay sửa đổi
         if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
-          TuViApp.showToast(`Đã bỏ chọn cung. Bạn còn ${3 - selected.length}/3 lượt chọn cung cho gói 29k.`, 'info');
+          TuViApp.showToast('Cung này đã được chọn và khóa cố định theo gói 29k (không thể sửa đổi).', 'info');
         }
+        return true;
       } else {
-        // Chưa chọn -> Kiểm tra giới hạn 3 cung
-        if (selected.length >= 3) {
+        // Chưa chọn -> Kiểm tra giới hạn 3 cung hoặc đã khóa
+        if (selected.length >= 3 || info.palacesLocked) {
           if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
-            TuViApp.showToast('Bạn đã chọn tối đa 3 cung cho gói 29k! Hãy bỏ chọn 1 cung để đổi, hoặc nâng cấp VIP Toàn Thư (49k) để xem cả 12 cung.', 'warning');
+            TuViApp.showToast('Bạn đã chọn đủ 3 cung cho gói 29k (lựa chọn đã được khóa cố định, không thể sửa đổi)! Nâng cấp VIP Toàn Thư (49k) để mở trọn 12 cung.', 'warning');
           } else if (typeof alert !== 'undefined') {
-            alert('Bạn đã chọn tối đa 3 cung cho gói 29k!\nHãy bấm bỏ chọn 1 cung để đổi, hoặc nâng cấp VIP Toàn Thư (49.000đ) để mở toàn bộ 12 cung + Đại Hạn.');
+            alert('Bạn đã chọn đủ 3 cung cho gói 29k và lựa chọn đã được khóa cố định!\nHãy nâng cấp VIP Toàn Thư (49.000đ) để mở toàn bộ 12 cung + Đại Hạn.');
           }
+          this.openVipModal('Báo Cáo VIP A4 Toàn Thư', 49000);
           return false;
         }
         selected.push(palaceKey);
         info.selectedPalaces = selected;
+        if (selected.length >= 3) {
+          info.palacesLocked = true;
+        }
         this.saveUnlockedChart(key, info);
         if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
-          TuViApp.showToast(`Đã chọn thành công [${selected.length}/3 cung]! ${selected.length === 3 ? 'Đã đủ 3 cung, các cung còn lại sẽ được khóa bảo mật.' : `Còn ${3 - selected.length} lượt chọn.`}`, 'success');
+          TuViApp.showToast(`Đã chọn thành công [${selected.length}/3 cung]! ${selected.length === 3 ? 'Đã đủ 3 cung và khóa cố định, 7 cung còn lại đã được khóa bảo mật.' : `Còn ${3 - selected.length} lượt chọn.`}`, 'success');
         }
       }
 
@@ -1208,12 +1211,12 @@
             `;
 
             if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
-              TuViApp.showToast('🎉 Thanh toán 49k thành công! Hãy chọn 3 cung bạn muốn xem.', 'success');
+              TuViApp.showToast('🎉 Thanh toán 29k thành công! Hãy chọn 3 cung bạn muốn xem.', 'success');
             }
 
           } else {
             // ========================================================
-            // GÓI 99K: MÀN HÌNH SUCCESS THÔNG THƯỜNG
+            // GÓI VIP TOÀN THƯ (>= 49K): MÀN HÌNH SUCCESS THÔNG THƯỜNG
             // ========================================================
             card.innerHTML = `
               <button class="tuvi-vip-close" type="button" aria-label="Đóng" onclick="TuViMonetize.closeVipModal()">&times;</button>
@@ -1355,6 +1358,7 @@
       if (chartKey) {
         const info = this.getUnlockedChartInfo(chartKey) || {};
         info.selectedPalaces = selected.slice();
+        info.palacesLocked = true;
         this.saveUnlockedChart(chartKey, info);
       }
 
@@ -1408,6 +1412,14 @@
       const orderCode = info.orderCode || this.vipOrderCode || localStorage.getItem('tvhh_vip_order_code') || 'VIP29K';
       const currentSelected = Array.isArray(info.selectedPalaces) ? info.selectedPalaces : [];
 
+      if (currentSelected.length >= 3 || info.palacesLocked) {
+        if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
+          TuViApp.showToast('Bạn đã chọn đủ 3 cung và lựa chọn đã được khóa cố định (không thể sửa đổi)! Vui lòng nâng cấp VIP Toàn Thư (49k) để xem cả 12 cung.', 'info');
+        }
+        this.openVipModal('Báo Cáo VIP A4 Toàn Thư', 49000);
+        return;
+      }
+
       this._palace49kChartKey = targetKey;
       this._palace49kSelectedTemp = currentSelected.slice();
 
@@ -1427,11 +1439,11 @@
       const palaceRowsHtml = SELECTABLE.map(p => {
         const isChecked = currentSelected.includes(p.key);
         return `
-          <label class="palace-select-row ${isChecked ? 'checked-row' : ''}" id="psrow-${p.key}" style="display:flex; align-items:center; gap:12px; padding:10px 14px; border:1.5px solid ${isChecked ? '#059669' : '#E5D9B6'}; border-radius:8px; cursor:pointer; background:${isChecked ? '#ECFDF5' : '#FFFDF8'}; transition:all 0.15s; margin-bottom:0;">
-            <input type="checkbox" class="palace-select-cb" value="${p.key}" ${isChecked ? 'checked' : ''} style="width:18px; height:18px; accent-color:#991B1B; cursor:pointer; flex-shrink:0;" onchange="TuViMonetize._on49kCheckboxChange(this)">
+          <label class="palace-select-row ${isChecked ? 'checked-row' : ''}" id="psrow-${p.key}" style="display:flex; align-items:center; gap:12px; padding:10px 14px; border:1.5px solid ${isChecked ? '#059669' : '#E5D9B6'}; border-radius:8px; cursor:${isChecked ? 'default' : 'pointer'}; background:${isChecked ? '#ECFDF5' : '#FFFDF8'}; transition:all 0.15s; margin-bottom:0;">
+            <input type="checkbox" class="palace-select-cb" value="${p.key}" ${isChecked ? 'checked disabled' : ''} style="width:18px; height:18px; accent-color:#059669; cursor:${isChecked ? 'default' : 'pointer'}; flex-shrink:0;" onchange="TuViMonetize._on49kCheckboxChange(this)">
             <span style="font-size:1.3rem; line-height:1; flex-shrink:0;">${p.icon}</span>
             <span style="flex:1; min-width:0;">
-              <strong style="display:block; color:#1F2937; font-size:0.95rem;">${p.name}</strong>
+              <strong style="display:block; color:#1F2937; font-size:0.95rem;">${p.name} ${isChecked ? '<span style="font-size:0.75rem; color:#059669; font-weight:700;">(Đã chọn &amp; Khóa cố định)</span>' : ''}</strong>
               <span style="font-size:0.8rem; color:#6B7280;">${p.desc}</span>
             </span>
             <span class="psrow-check" style="display:${isChecked ? 'block' : 'none'}; color:#059669; font-weight:700; font-size:1.1rem; flex-shrink:0;">✓</span>
@@ -1482,7 +1494,7 @@
             </button>
 
             <p style="text-align:center; margin:0.75rem 0 0; font-size:0.8rem; color:#9CA3AF;">
-              Sau khi xác nhận, 3 cung này sẽ được mở khóa toàn diện và 7 cung còn lại sẽ được bảo mật.
+              Sau khi xác nhận, 3 cung này sẽ được <strong>khóa cố định vĩnh viễn (không thể sửa đổi)</strong> và 7 cung còn lại sẽ được bảo mật.
             </p>
           </div>
         `;
@@ -1614,17 +1626,23 @@
               <div class="vip-banner-crown" style="width:44px; height:44px; border-radius:50%; background:radial-gradient(circle, #FFE6A3, #C29B38, #8F6B00); color:#0B0A1A; display:flex; align-items:center; justify-content:center; font-size:1.4rem; box-shadow:0 0 15px rgba(212, 175, 55, 0.4); flex-shrink:0;">✨</div>
               <div class="vip-banner-text-group">
                 <h3 style="color:#FFE6A3 !important; font-family:var(--font-heading, serif); font-size:1.18rem; font-weight:700; margin:0 0 0.25rem 0; text-shadow:0 2px 4px rgba(0,0,0,0.8); letter-spacing:0.4px;">
-                  GÓI 29K ĐÃ KÍCH HOẠT · TỰ CHỌN 3 CUNG [ĐÃ CHỌN: ${selected.length}/3]
+                  GÓI 29K ĐÃ KÍCH HOẠT · TỰ CHỌN 3 CUNG [${selected.length === 3 ? '🔒 ĐÃ KHÓA CỐ ĐỊNH 3/3 CUNG' : `ĐÃ CHỌN: ${selected.length}/3`}]
                 </h3>
                 <p style="color:#F3ECDD !important; font-size:0.92rem; margin:0; line-height:1.5;">
-                  Mã đơn hàng: <strong style="color:#FFD56B !important; font-weight:800; letter-spacing:0.5px;">#${orderDisplay}</strong> — Bạn có quyền tự chọn 3 cung yêu thích. Sau khi chọn đủ 3 cung thì 7 cung còn lại sẽ được khóa.
+                  Mã đơn hàng: <strong style="color:#FFD56B !important; font-weight:800; letter-spacing:0.5px;">#${orderDisplay}</strong> — ${selected.length === 3 ? 'Bạn đã chọn đủ 3 cung trọng tâm và lựa chọn đã được khóa cố định (không thể sửa đổi). 7 cung còn lại đã được khóa bảo mật.' : 'Bạn có quyền tự chọn 3 cung yêu thích. Sau khi chọn đủ 3 cung thì lựa chọn sẽ được khóa cố định.'}
                 </p>
               </div>
             </div>
             <div class="vip-banner-actions-row">
-              <button class="btn-banner-action" style="background:#059669; color:#fff; border:1px solid #10B981; font-weight:700;" type="button" onclick="TuViMonetize.openPalaceSelectorModal()">
-                📋 ${selected.length === 3 ? 'Đổi 3 Cung Đã Chọn' : `Chọn Cung (${selected.length}/3)`}
-              </button>
+              ${selected.length < 3 ? `
+                <button class="btn-banner-action" style="background:#059669; color:#fff; border:1px solid #10B981; font-weight:700;" type="button" onclick="TuViMonetize.openPalaceSelectorModal()">
+                  📋 Chọn Cung (${selected.length}/3)
+                </button>
+              ` : `
+                <span class="btn-banner-action" style="background:#065F46; color:#ECFDF5; border:1px solid #10B981; font-weight:700; cursor:default; display:inline-flex; align-items:center;">
+                  🔒 Đã Khóa 3/3 Cung
+                </span>
+              `}
               <button class="btn-banner-action" style="background:linear-gradient(135deg, #A3281F, #7A1C14); color:#FFE6A3; border:1px solid #D4AF37; font-weight:700;" type="button" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư', 49000)">
                 👑 Nâng Cấp VIP Toàn Thư (49.000đ)
               </button>

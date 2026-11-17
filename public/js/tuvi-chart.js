@@ -1078,7 +1078,7 @@ const TuViChart = {
           `;
         } else {
           ctaButtonsHtml = `
-            <p style="font-size:0.85rem; color:#B45309; margin-bottom:6px;">🔒 Bạn đã chọn đủ 3 cung cho gói 29k.</p>
+            <p style="font-size:0.85rem; color:#B45309; margin-bottom:6px;">🔒 Bạn đã chọn đủ 3 cung (lựa chọn đã được khóa cố định theo gói 29k, không thể sửa đổi).</p>
             <button type="button" class="btn-flat-unlock" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư', 49000)">
               👑 Mở Khóa Toàn Thư 12 Cung &amp; Đại Hạn (49.000đ)
             </button>
@@ -1437,21 +1437,21 @@ const TuViChart = {
         if (isSelected) {
           return `
             <button type="button" class="palace-picker-chip active" 
-                    style="background:#065F46; color:#ECFDF5; border:1.5px solid #059669; border-radius:6px; padding:7px 10px; font-size:0.86rem; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:4px; box-shadow:0 2px 6px rgba(5,150,105,0.25); text-align:left;"
-                    onclick="TuViMonetize.selectPalaceFor49k('${p.key}')" 
-                    title="Bấm để bỏ chọn cung này">
+                    style="background:#065F46; color:#ECFDF5; border:1.5px solid #059669; border-radius:6px; padding:7px 10px; font-size:0.86rem; font-weight:700; cursor:default; display:flex; align-items:center; justify-content:space-between; gap:4px; box-shadow:0 2px 6px rgba(5,150,105,0.25); text-align:left;"
+                    onclick="if(typeof TuViApp !== 'undefined' && TuViApp.showToast) { TuViApp.showToast('Cung ${p.name} đã được chọn và khóa cố định theo gói 29k (không thể sửa đổi).', 'info'); }" 
+                    title="Đã chọn và khóa cố định">
               <span>${p.icon} ${p.name}</span>
-              <span style="font-size:0.75rem; color:#A7F3D0; font-weight:normal;">✕ Bỏ</span>
+              <span style="font-size:0.75rem; color:#A7F3D0; font-weight:700;">✓ Đã chọn</span>
             </button>
           `;
         } else if (isMax) {
           return `
             <button type="button" class="palace-picker-chip disabled" 
-                    style="background:#F3F4F6; color:#9CA3AF; border:1px dashed #D1D5DB; border-radius:6px; padding:7px 10px; font-size:0.86rem; cursor:not-allowed; opacity:0.75; display:flex; align-items:center; justify-content:space-between; gap:4px; text-align:left;"
-                    onclick="if(typeof TuViApp !== 'undefined' && TuViApp.showToast) { TuViApp.showToast('Bạn đã chọn đủ 3 cung cho gói 49k. Bấm bỏ chọn 1 cung nếu muốn đổi!', 'warning'); } else { alert('Bạn đã chọn đủ 3 cung cho gói 49k.'); }"
-                    title="Đã đủ 3 cung">
+                    style="background:#F3F4F6; color:#9CA3AF; border:1px dashed #D1D5DB; border-radius:6px; padding:7px 10px; font-size:0.86rem; cursor:pointer; opacity:0.8; display:flex; align-items:center; justify-content:space-between; gap:4px; text-align:left;"
+                    onclick="if(typeof TuViApp !== 'undefined' && TuViApp.showToast) { TuViApp.showToast('Bạn đã chọn đủ 3 cung cho gói 29k (lựa chọn đã được khóa cố định, không thể đổi lại). Nâng cấp VIP Toàn Thư (49k) để mở trọn 12 cung!', 'warning'); } TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư', 49000);"
+                    title="Bị khóa - Nâng cấp VIP 49k để mở">
               <span>${p.icon} ${p.name}</span>
-              <span style="font-size:0.72rem; color:#9CA3AF;">🔒 Khóa</span>
+              <span style="font-size:0.72rem; color:#A3281F; font-weight:600;">🔒 Khóa</span>
             </button>
           `;
         } else {
@@ -1478,15 +1478,23 @@ const TuViChart = {
             </div>
             <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
               <span style="background:${selectedPalaces.length === 3 ? '#059669' : '#C2410C'}; color:#fff; font-weight:700; font-size:0.82rem; padding:3px 10px; border-radius:9999px;">
-                ${selectedPalaces.length === 3 ? '✓ ĐÃ CHỌN ĐỦ 3/3 CUNG' : `ĐÃ CHỌN: ${selectedPalaces.length}/3 CUNG`}
+                ${selectedPalaces.length === 3 ? '🔒 ĐÃ KHÓA CỐ ĐỊNH 3/3 CUNG' : `ĐÃ CHỌN: ${selectedPalaces.length}/3 CUNG`}
               </span>
-              <button type="button" class="btn-seal" style="padding:3px 10px; font-size:0.78rem; background:#059669; border-color:#10B981;" onclick="TuViMonetize.openPalaceSelectorModal()">
-                📋 Mở Bảng Chọn
-              </button>
+              ${selectedPalaces.length < 3 ? `
+                <button type="button" class="btn-seal" style="padding:3px 10px; font-size:0.78rem; background:#059669; border-color:#10B981;" onclick="TuViMonetize.openPalaceSelectorModal()">
+                  📋 Mở Bảng Chọn
+                </button>
+              ` : `
+                <button type="button" class="btn-seal" style="padding:3px 10px; font-size:0.78rem; background:#8F1D14; border-color:#C29B38; color:#FFE6A3; font-weight:700;" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư', 49000)">
+                  👑 Lên VIP Toàn Thư (49k)
+                </button>
+              `}
             </div>
           </div>
           <p style="font-size:0.88rem; color:var(--text, #333); margin:0 0 0.85rem 0; line-height:1.55;">
-            Cung <strong>Mệnh</strong> &amp; <strong>Phụ Mẫu</strong> đã được mở MIỄN PHÍ sẵn. Quý khách vui lòng chọn 3 cung quan trọng nhất bên dưới (sau khi chọn đủ 3 cung thì 7 cung còn lại sẽ được khóa bảo mật):
+            ${selectedPalaces.length === 3
+              ? `Cung <strong>Mệnh</strong> &amp; <strong>Phụ Mẫu</strong> đã được mở MIỄN PHÍ sẵn. Bạn đã chọn xong 3 cung trọng tâm và <strong>lựa chọn đã được khóa cố định</strong> (không thể sửa đổi). Để mở khóa 7 cung còn lại và toàn bộ Đại Hạn trọn đời, vui lòng nâng cấp VIP Toàn Thư.`
+              : `Cung <strong>Mệnh</strong> &amp; <strong>Phụ Mẫu</strong> đã được mở MIỄN PHÍ sẵn. Quý khách vui lòng chọn 3 cung quan trọng nhất bên dưới (sau khi chọn đủ 3 cung thì 7 cung còn lại sẽ được khóa cố định, không thể sửa đổi):`}
           </p>
           <div class="palace-chips-grid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(135px, 1fr)); gap:8px; margin-bottom:0.85rem;">
             ${chipsHtml}
@@ -1684,7 +1692,7 @@ const TuViChart = {
                           </button>
                         ` : `
                           <div style="color:#FFE6A3; font-size:0.86rem; margin-bottom:6px; font-weight:600;">
-                            🔒 Cung này đã bị khóa vì bạn đã chọn đủ 3 cung cho gói 29k.
+                            🔒 Cung này đã bị khóa vì bạn đã chọn đủ 3 cung (lựa chọn đã được khóa cố định theo gói 29k).
                           </div>
                           <button type="button" class="btn-seal btn-cliffhanger-main" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư', 49000)">
                             👑 Mở Khóa Toàn Thư 12 Cung &amp; Đại Hạn (49.000đ)
