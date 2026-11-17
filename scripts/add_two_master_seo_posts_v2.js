@@ -32,7 +32,7 @@ const post1 = {
   updatedAt: '2026-11-17',
   readTime: '15 phút đọc',
   views: 526,
-  image: '/images/blog/nghe-thuat-chon-ngay-tot-trach-cat-tu-vi.jpg',
+  image: '/images/blog/xem-ngay-tot-dong-tho-mua-xe-trach-cat.jpg',
   author: 'Đại Sư Nam Phái',
   contentHtml: `
     <p>Trong văn hóa Á Đông hàng ngàn năm qua, cổ nhân luôn đúc kết một chân lý vàng ngọc: <em>"Thiên thời bất như địa lợi, địa lợi bất như nhân hòa"</em>. Đứng trước mỗi quyết định đại sự của một đời người — dốc cạn tiền tích lũy cả đời để <strong>động thổ xây tổ ấm</strong>, xuống tiền mua <strong>chiếc xe hơi bạc tỷ</strong> bảo vệ gia đình, đặt bút <strong>ký kết hợp đồng kinh doanh sinh tử</strong>, hay mở cửa hàng khởi nghiệp — bất kỳ ai trong chúng ta cũng đều trải qua cảm giác bồn chồn thắt ruột: <strong>"Liệu bước đi này có thuận buồm xuôi gió, đem lại tài lộc bình an, hay vô tình rước về họa tán gia bại sản, tai nạn trắc trở triền miên?"</strong></p>
@@ -40,8 +40,8 @@ const post1 = {
     <p>Để tìm sự yên tâm, hầu hết mọi người đều chọn cách tiện lợi nhất: Lật cuốn <strong>Lịch Vạn Niên</strong> hoặc mở ứng dụng điện thoại tra xem hôm nay có phải là ngày <em>Hoàng Đạo, Thanh Long hay Kim Quỹ</em>. Thế nhưng, thực tế đầy cay đắng đã xảy ra với vô số người: <strong>Dù đã chọn đúng ngày đẹp nhất trong tháng theo lịch đại trà, xe vừa lăn bánh ra khỏi showroom đã va quẹt xui xẻo, nhà vừa cất nóc gia đạo đã lục đục ốm đau, hoặc cửa hàng vừa khai trương đã vắng vẻ đìu hiu nợ nần chồng chất</strong>. Vì sao lại có nghịch lý đau lòng ấy? Cốt lõi nằm ở chỗ: <strong>Một ngày hoàng đạo của cả xã hội chưa chắc đã là ngày cát lành của riêng bản mệnh bạn!</strong></p>
 
     <div style="margin: 2.2rem 0; text-align: center;">
-      <img src="/images/blog/nghe-thuat-chon-ngay-tot-trach-cat-tu-vi.jpg" alt="La Bàn Bát Quái Phong Thủy cổ truyền và thư tịch huyền học trạch cát chọn ngày giờ đại cát khởi sự" style="width: 100%; max-width: 780px; border-radius: 10px; box-shadow: 0 6px 24px rgba(0,0,0,0.35);" loading="lazy" />
-      <p style="font-size: 0.88rem; color: #a1a1aa; margin-top: 0.6rem; font-style: italic;">Hình ảnh thực tế: Nghệ thuật Trạch Cát cổ truyền — Bộ La Bàn Bát Quái Phong Thủy (La Kinh) và thư tịch cổ định vị trường khí chọn ngày đại cát khởi sự.</p>
+      <img src="/images/blog/xem-ngay-tot-dong-tho-mua-xe-trach-cat.jpg" alt="Nhật Khuê cổ truyền hoàng gia - Thước đo thời gian thiên văn trạch cát định vị giờ đại cát khởi sự" style="width: 100%; max-width: 780px; border-radius: 10px; box-shadow: 0 6px 24px rgba(0,0,0,0.35);" loading="lazy" />
+      <p style="font-size: 0.88rem; color: #a1a1aa; margin-top: 0.6rem; font-style: italic;">Hình ảnh thực tế: Nghệ thuật Trạch Cát hoàng gia — Nhật Khuê (Đồng hồ mặt trời thiên văn cổ) định vị 12 canh giờ can chi và 24 tiết khí chọn thời khắc đại cát khởi sự.</p>
     </div>
 
     <h2>1. Bản Chất Huyền Học Của Trạch Cát: Vì Sao Lịch Vạn Niên Đại Trà Không Thể Bảo Chứng Cho Bạn?</h2>
@@ -219,7 +219,7 @@ const post2 = {
   updatedAt: '2026-11-17',
   readTime: '16 phút đọc',
   views: 684,
-  image: '/images/blog/chuyen-giao-dai-han-10-nam-tu-vi.jpg',
+  image: '/images/blog/xem-tu-vi-doan-tuong-lai-van-han-2027.jpg',
   author: 'Đại Sư Nam Phái',
   contentHtml: `
     <p>Bước vào độ tuổi <strong>30 đến 45</strong>, con người ta bỗng thấy cuộc đời không còn là những giấc mơ màu hồng của tuổi đôi mươi. Đây là quãng thời gian nghiệt ngã và khốc liệt nhất của một đời người: Trên vai là cha mẹ già yếu dần theo năm tháng, dưới tay là con cái đang tuổi ăn tuổi học cần tiền bạc đầu tư, và sau lưng là gánh nặng cơm áo gạo tiền, tiền nhà, tiền xe, áp lực công danh không cho phép bạn gục ngã dù chỉ một ngày.</p>
@@ -229,8 +229,8 @@ const post2 = {
     <p>Dưới lăng kính của <strong>Tử Vi Đẩu Số Nam Phái</strong>, mọi thăng trầm vinh nhục của bạn không phải là sự ngẫu nhiên vô cớ. Đó là sự vận hành tuần hoàn của các <strong>Đại Hạn 10 năm</strong>. Khi chưa đến thời, cố vùng vẫy chỉ tổ hao tài tốn lực; nhưng khi Đại Vận đã mở ra, người biết nắm bắt thời cơ sẽ một bước bứt phá đổi đời rực rỡ!</p>
 
     <div style="margin: 2.2rem 0; text-align: center;">
-      <img src="/images/blog/chuyen-giao-dai-han-10-nam-tu-vi.jpg" alt="Vòng xoay thiên văn cổ và sự vận chuyển của các chu kỳ đại hạn 10 năm trên lá số tử vi" style="width: 100%; max-width: 780px; border-radius: 10px; box-shadow: 0 6px 24px rgba(0,0,0,0.35);" loading="lazy" />
-      <p style="font-size: 0.88rem; color: #a1a1aa; margin-top: 0.6rem; font-style: italic;">Hình ảnh thực tế: Vòng xoay thiên văn chiêm tinh cổ — Giải mã chu kỳ chuyển giao Đại Hạn 10 năm và thời điểm vàng thay đổi vận mệnh cuộc đời.</p>
+      <img src="/images/blog/xem-tu-vi-doan-tuong-lai-van-han-2027.jpg" alt="Cổ tháp linh thiêng soi bóng hoàng hôn - Tượng trưng cho sự soi sáng định mệnh và thời vận chuyển giao" style="width: 100%; max-width: 780px; border-radius: 10px; box-shadow: 0 6px 24px rgba(0,0,0,0.35);" loading="lazy" />
+      <p style="font-size: 0.88rem; color: #a1a1aa; margin-top: 0.6rem; font-style: italic;">Hình ảnh thực tế: Cổ tháp trang nghiêm soi bóng trong hoàng hôn tĩnh lặng — Tượng trưng cho sự giác ngộ, thấu suốt định mệnh và nắm bắt thời khắc vàng đổi đời.</p>
     </div>
 
     <h2>1. Khủng Hoảng Tuổi 30 – 45 Dưới Góc Nhìn Tử Vi: Thời Điểm Giao Thoa Của Hai Đại Hạn Định Mệnh</h2>
