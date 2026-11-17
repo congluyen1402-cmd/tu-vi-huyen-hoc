@@ -2910,17 +2910,17 @@
           </p>
 
           <div class="ai-locked-questions-grid">
-            <button type="button" class="ai-locked-question-btn" onclick="TuViMonetize.openVipModal('Báo Cáo VIP &amp; Cố Vấn Tử Vi AI', 49000)">
+            <button type="button" class="ai-locked-question-btn" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư', 49000)">
               <div class="ai-q-text">💬 "Tháng nào trong năm nay tôi dễ có lộc bất ngờ?"</div>
               <span class="ai-q-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display:inline; vertical-align:-1px; margin-right:3px;"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Mở Khóa VIP</span>
             </button>
 
-            <button type="button" class="ai-locked-question-btn" onclick="TuViMonetize.openVipModal('Báo Cáo VIP &amp; Cố Vấn Tử Vi AI', 49000)">
+            <button type="button" class="ai-locked-question-btn" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư', 49000)">
               <div class="ai-q-text">💬 "Mệnh của tôi hợp làm chủ kinh doanh hay làm chuyên môn?"</div>
               <span class="ai-q-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display:inline; vertical-align:-1px; margin-right:3px;"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Mở Khóa VIP</span>
             </button>
 
-            <button type="button" class="ai-locked-question-btn" onclick="TuViMonetize.openVipModal('Báo Cáo VIP &amp; Cố Vấn Tử Vi AI', 49000)">
+            <button type="button" class="ai-locked-question-btn" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư', 49000)">
               <div class="ai-q-text">💬 "Khi nào nhân duyên vợ chồng của tôi ổn định nhất?"</div>
               <span class="ai-q-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display:inline; vertical-align:-1px; margin-right:3px;"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Mở Khóa VIP</span>
             </button>
@@ -2932,9 +2932,14 @@
               <h4>MỞ KHÓA ĐẶC QUYỀN HỎI ĐÁP CÙNG CỐ VẤN TỬ VI AI</h4>
               <p>Mỗi đơn hàng VIP được tặng kèm <strong>5 lượt hỏi đáp chuyên sâu trực tiếp</strong>. AI đối chiếu chính xác từng cung vị và sao tọa thủ trên lá số của bạn để đưa ra lời khuyên thực chứng.</p>
             </div>
-            <button type="button" class="btn-seal btn-unlock-ai-action" onclick="TuViMonetize.openVipModal('Báo Cáo VIP &amp; Cố Vấn Tử Vi AI', 49000)">
-              Mở Khóa VIP (49.000đ)
-            </button>
+            <div class="ai-paywall-actions" style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center; align-items:center;">
+              <button type="button" class="btn-seal btn-unlock-ai-action" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư', 49000)" style="font-weight:700;">
+                🔓 Mở Khóa Toàn Thư 12 Cung &amp; PDF (49.000đ) — Khuyên Dùng
+              </button>
+              <button type="button" class="btn-outline-gold" onclick="TuViMonetize.openVipModal('Gói Xem Nhanh 3 Cung', 29000)" style="padding:0.75rem 1.25rem; font-size:0.9rem; border-radius:6px; font-weight:600; cursor:pointer; border:1.5px solid #C29B38; background:#FFFDF8; color:#991B1B;">
+                Mở Khóa Nhanh 3 Cung (29.000đ)
+              </button>
+            </div>
           </div>
         </div>
       `;
@@ -3115,6 +3120,22 @@
     }
   }
 
+  function getPaywallButtonsHtml(customClass) {
+    if (typeof TuViMonetize !== 'undefined' && TuViMonetize.getPaywallButtonsHtml) {
+      return TuViMonetize.getPaywallButtonsHtml(customClass);
+    }
+    return `
+      <div class="paywall-buttons-group ${customClass || ''}" style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center; align-items:center; margin-top:12px;">
+        <button type="button" class="btn-seal" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư', 49000)" style="padding:0.75rem 1.4rem; font-size:0.92rem; font-weight:700; border-radius:6px; cursor:pointer; background:linear-gradient(135deg, #B91C1C 0%, #881337 100%); color:#FFFFFF; border:1px solid #D4AF37; box-shadow:0 3px 10px rgba(185,28,28,0.3);">
+          🔓 Mở Khóa Toàn Thư 12 Cung &amp; PDF (49.000đ) — Khuyên Dùng
+        </button>
+        <button type="button" class="btn-outline-gold" onclick="TuViMonetize.openVipModal('Gói Xem Nhanh 3 Cung', 29000)" style="padding:0.75rem 1.25rem; font-size:0.9rem; border-radius:6px; font-weight:600; cursor:pointer; border:1.5px solid #C29B38; background:#FFFDF8; color:#991B1B;">
+          Mở Khóa Nhanh 3 Cung (29.000đ)
+        </button>
+      </div>
+    `;
+  }
+
   // 6. XUẤT RA TOÀN BỘ API
   var TuViLuanGiaiEngine = {
     generatePalaceDeepAnalysis: generatePalaceDeepAnalysis,
@@ -3125,6 +3146,7 @@
     generateFreePsychologicalTeaserHtml: generateFreePsychologicalTeaserHtml,
     generatePalaceCliffhangerTeaser: generatePalaceCliffhangerTeaser,
     generateAiAdvisorHtml: generateAiAdvisorHtml,
+    getPaywallButtonsHtml: getPaywallButtonsHtml,
     fillAiQuestion: fillAiQuestion,
     submitAiQuestion: submitAiQuestion,
     CHINH_TINH_DICT: CHINH_TINH_DICT,

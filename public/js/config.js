@@ -34,40 +34,43 @@ window.SITE_CONFIG = {
   packages: {
     quick_29k: {
       id: "quick_29k",
-      name: "Gói Mở Khóa Nhanh Vận Hạn 2026–2027 & 3 Cung Trọng Tâm",
+      name: "Gói Xem Nhanh 3 Cung Tự Chọn",
       price: 29000,
       oldPrice: 99000,
       badge: "Tiết kiệm · Xem ngay",
       features: [
-        "Mở khóa chi tiết 3 cung nóng nhất: Tài Bạch, Quan Lộc, Phu Thê",
-        "Luận giải Lưu Niên 2026 (Bính Ngọ) & Dự báo sớm 2027 (Đinh Mùi)",
-        "Chỉ rõ các tháng âm lịch dễ hao tài hoặc đón lộc bất ngờ"
+        "Tự do chọn 3 cung bất kỳ (Tài Bạch, Quan Lộc, Phu Thê,...)",
+        "Phân tích chi tiết chính tinh, cát tinh, sát tinh & Đạo trị mệnh 3 cung",
+        "Tặng kèm MIỄN PHÍ Cung Mệnh & Cung Phụ Mẫu (không tính vào 3 cung)"
       ]
     },
     vip_49k: {
       id: "vip_49k",
-      name: "Báo Cáo VIP A4 Toàn Thư (12 Cung & Đại Vận Trọn Đời)",
+      name: "Báo Cáo VIP A4 Toàn Thư",
       price: 49000,
       oldPrice: 199000,
-      badge: "92% Khách hàng chọn",
+      badge: "★ ĐƯỢC CHỌN NHIỀU NHẤT",
       features: [
-        "Mở khóa toàn bộ luận giải 12 cung không che mờ",
-        "Xuất file PDF A4 đóng dấu mộc đỏ lưu trữ trọn đời",
-        "Phân tích Ma Trận Tam Phương Tứ Chính & Đại Hạn 10 năm",
-        "Luận đoán chi tiết Lưu Niên 2026 – 2027 & Cách hóa giải sát tinh"
+        "Mở khóa toàn bộ 12 cung luận giải chi tiết (không che mờ)",
+        "Luận giải Đại Hạn các thập niên (từ 6 đến 75+ tuổi) & Phương pháp Hóa giải",
+        "Phân tích Tam Phương Tứ Chính & Tứ Hóa Phi Tinh (Lộc - Quyền - Khoa - Kỵ)",
+        "Dự báo Vận Hạn Lưu Niên 2027 (Đinh Mùi) & 2028 (Mậu Thân)",
+        "Xuất file in PDF A4 màu hoàng gia trang trọng lưu giữ trọn đời",
+        "Tích hợp Cố Vấn Tử Vi AI giải đáp thấu đáo"
       ]
     },
-    deep_149k: {
-      id: "deep_149k",
-      name: "Gói Luận Giải Chuyên Sâu Hôn Nhân, Điền Sản & Cải Mệnh",
-      price: 149000,
-      oldPrice: 399000,
-      badge: "Chuyên sâu",
+    deep_490k: {
+      id: "deep_490k",
+      name: "Tham Vấn 1-1 Chuyên Gia",
+      price: 490000,
+      oldPrice: 990000,
+      badge: "Chuyên sâu 1-1",
       features: [
-        "Bao gồm toàn bộ quyền lợi của Báo Cáo VIP A4 Toàn Thư",
-        "Chuyên đề Tình Duyên: Hóa giải Cung Phu Thê gặp Tuần/Triệt, Cô Quả",
-        "Chuyên đề Tài Điền: Chu kỳ tích lũy đất đai và bứt phá tài chính",
-        "Kèm 5 lượt Hỏi Đáp trực tiếp với Cố Vấn Tử Vi AI trên lá số của bạn"
+        "Đàm đạo 1-1 riêng tư trực tiếp cùng Chuyên Gia (Zalo Call / Zoom)",
+        "Tháo gỡ nút thắt: Hôn nhân rạn nứt, công danh, đổi việc, tài vận",
+        "Tùy chọn: 490k / 45 phút (Chuyên đề) hoặc 990k / 60 phút (Toàn đồ)",
+        "Tặng kèm toàn bộ Combo Báo Cáo VIP A4 (trị giá 199.000đ)",
+        "Bảo mật 100% hồ sơ thông tin và bí mật cá nhân"
       ]
     }
   },
