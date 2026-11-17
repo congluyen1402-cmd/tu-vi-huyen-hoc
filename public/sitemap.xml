@@ -1,12 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  <url><loc>https://www.xemtuvihuyenhoc.com/</loc><lastmod>2026-11-13</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
-  <url><loc>https://www.xemtuvihuyenhoc.com/than-so-hoc</loc><lastmod>2026-11-13</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.xemtuvihuyenhoc.com/hop-tuoi</loc><lastmod>2026-11-13</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.xemtuvihuyenhoc.com/blog</loc><lastmod>2026-11-13</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url><loc>https://www.xemtuvihuyenhoc.com/</loc><lastmod>2026-11-17</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://www.xemtuvihuyenhoc.com/than-so-hoc</loc><lastmod>2026-11-17</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.xemtuvihuyenhoc.com/hop-tuoi</loc><lastmod>2026-11-17</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.xemtuvihuyenhoc.com/blog</loc><lastmod>2026-11-17</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
   <url><loc>https://www.xemtuvihuyenhoc.com/chinh-sach-bao-mat</loc><lastmod>2026-11-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.xemtuvihuyenhoc.com/chinh-sach-hoan-tien-ho-tro</loc><lastmod>2026-11-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.xemtuvihuyenhoc.com/dieu-khoan-su-dung</loc><lastmod>2026-11-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url>
+    <loc>https://www.xemtuvihuyenhoc.com/blog/xem-ngay-tot-dong-tho-mua-xe-khoi-su-ban-menh-tu-vi</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.xemtuvihuyenhoc.com/images/blog/nghe-thuat-chon-ngay-tot-trach-cat-tu-vi.jpg</image:loc>
+      <image:title>Xem Ngày Tốt Động Thổ, Mua Xe, Khởi Sự Theo Bản Mệnh Tử Vi: Bí Pháp Tránh 5 Đại Sát Kỵ &amp; Kích Hoạt Sinh Khí Cát Lành</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.xemtuvihuyenhoc.com/blog/xem-tu-vi-doan-tuong-lai-2026-2027-giai-ma-van-han-tuoi-30-45</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.xemtuvihuyenhoc.com/images/blog/chuyen-giao-dai-han-10-nam-tu-vi.jpg</image:loc>
+      <image:title>Xem Tử Vi Đoán Tương Lai 2026 – 2027: Giải Mã Vận Hạn Tuổi 30 – 45, Dấu Hiệu &quot;Đại Hạn Đổi Đời&quot; &amp; Bí Pháp Tháo Gỡ Bế Tắc Tài Vận</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.xemtuvihuyenhoc.com/blog/xem-ngay-tot-theo-tuoi-ban-menh-tu-vi-khoi-su-dai-cat</loc>
+    <lastmod>2026-11-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.xemtuvihuyenhoc.com/images/blog/xem-ngay-tot-theo-tuoi-trach-cat-huyen-hoc.jpg</image:loc>
+      <image:title>Xem Ngày Tốt Theo Tuổi &amp; Bản Mệnh Tử Vi: Bí Quyết Chọn Ngày Giờ Đại Cát Khởi Sự, Mở Hàng, Ký Kết Tránh Bẫy &quot;Tương Xung Hao Tài&quot;</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.xemtuvihuyenhoc.com/blog/xem-tu-vi-doan-tuong-lai-dai-van-phat-tai-hoa-giai-be-tac</loc>
+    <lastmod>2026-11-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.xemtuvihuyenhoc.com/images/blog/xem-tu-vi-doan-tuong-lai-so-menh-huyen-bi.jpg</image:loc>
+      <image:title>Xem Tử Vi Đoán Tương Lai: 6 Dấu Hiệu Đón Đại Vận Phát Tài &amp; Bí Quyết Tháo Gỡ Bế Tắc Khi Rơi Vào &quot;Năm Hạn Trũng&quot;</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.xemtuvihuyenhoc.com/blog/nghe-thuat-chon-ngay-tot-khoi-su-chuan-tu-vi-trach-cat-khai-van</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.xemtuvihuyenhoc.com/images/blog/nghe-thuat-chon-ngay-tot-trach-cat-tu-vi.jpg</image:loc>
+      <image:title>Nghệ Thuật Chọn Ngày Tốt Khởi Sự Chuẩn Tử Vi: Tại Sao Xem Lịch Vạn Niên Vẫn Thất Bại &amp; Bí Quyết Khải Vận Bách Chiến Bách Thắng</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.xemtuvihuyenhoc.com/blog/chuyen-giao-dai-han-10-nam-tu-vi-but-pha-tai-loc-cong-danh</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.xemtuvihuyenhoc.com/images/blog/chuyen-giao-dai-han-10-nam-tu-vi.jpg</image:loc>
+      <image:title>Chuyển Giao Đại Hạn 10 Năm Tử Vi: Nhận Biết &apos;Thời Điểm Vàng&apos; Bứt Phá Công Danh, Tiền Bạc &amp; Tránh Vết Xe Đổ Mất Trắng</image:title>
+    </image:image>
+  </url>
   <url>
     <loc>https://www.xemtuvihuyenhoc.com/blog/y-nghia-9-con-so-chu-dao-pythagoras-doi-chieu-cung-menh-tu-vi</loc>
     <lastmod>2026-11-13</lastmod>
@@ -105,46 +166,6 @@
     <image:image>
       <image:loc>https://www.xemtuvihuyenhoc.com/images/blog/menh-vo-chinh-dieu-dac-cach.jpg</image:loc>
       <image:title>Mệnh Vô Chính Diệu Là Gì? Khi Nào Mệnh Vô Chính Diệu Đắc Cách Giàu Sang Phú Quý?</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.xemtuvihuyenhoc.com/blog/nghe-thuat-chon-ngay-tot-khoi-su-chuan-tu-vi-trach-cat-khai-van</loc>
-    <lastmod>2026-11-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://www.xemtuvihuyenhoc.com/images/blog/nghe-thuat-chon-ngay-tot-trach-cat-tu-vi.jpg</image:loc>
-      <image:title>Nghệ Thuật Chọn Ngày Tốt Khởi Sự Chuẩn Tử Vi: Tại Sao Xem Lịch Vạn Niên Vẫn Thất Bại &amp; Bí Quyết Khải Vận Bách Chiến Bách Thắng</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.xemtuvihuyenhoc.com/blog/chuyen-giao-dai-han-10-nam-tu-vi-but-pha-tai-loc-cong-danh</loc>
-    <lastmod>2026-11-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://www.xemtuvihuyenhoc.com/images/blog/chuyen-giao-dai-han-10-nam-tu-vi.jpg</image:loc>
-      <image:title>Chuyển Giao Đại Hạn 10 Năm Tử Vi: Nhận Biết &apos;Thời Điểm Vàng&apos; Bứt Phá Công Danh, Tiền Bạc &amp; Tránh Vết Xe Đổ Mất Trắng</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.xemtuvihuyenhoc.com/blog/xem-ngay-tot-theo-tuoi-ban-menh-tu-vi-khoi-su-dai-cat</loc>
-    <lastmod>2026-11-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://www.xemtuvihuyenhoc.com/images/blog/xem-ngay-tot-theo-tuoi-trach-cat-huyen-hoc.jpg</image:loc>
-      <image:title>Xem Ngày Tốt Theo Tuổi &amp; Bản Mệnh Tử Vi: Bí Quyết Chọn Ngày Giờ Đại Cát Khởi Sự, Mở Hàng, Ký Kết Tránh Bẫy &quot;Tương Xung Hao Tài&quot;</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.xemtuvihuyenhoc.com/blog/xem-tu-vi-doan-tuong-lai-dai-van-phat-tai-hoa-giai-be-tac</loc>
-    <lastmod>2026-11-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://www.xemtuvihuyenhoc.com/images/blog/xem-tu-vi-doan-tuong-lai-so-menh-huyen-bi.jpg</image:loc>
-      <image:title>Xem Tử Vi Đoán Tương Lai: 6 Dấu Hiệu Đón Đại Vận Phát Tài &amp; Bí Quyết Tháo Gỡ Bế Tắc Khi Rơi Vào &quot;Năm Hạn Trũng&quot;</image:title>
     </image:image>
   </url>
 </urlset>
