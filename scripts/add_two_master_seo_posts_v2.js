@@ -141,13 +141,13 @@ const post1 = {
     <p>Việc tra cứu Tử Vi không phải là để cầu xin phép màu mê tín, mà là để bạn <strong>biết trước địa hình con đường phía trước</strong>: Chỗ nào bằng phẳng thênh thang để nhấn ga tăng tốc, chỗ nào khúc khuỷu hiểm trở để vững tay lái giảm tốc độ. Đó chính là đỉnh cao của trí tuệ làm chủ số phận!</p>
 
     <!-- KHỐI CTA HOÀNG GIA CHUYỂN ĐỔI CAO -->
-    <div style="margin: 2.5rem 0; padding: 1.8rem; background: linear-gradient(135deg, #1C1917 0%, #292524 100%); border: 2px solid #D4AF37; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); text-align: center; color: #FFFDF8;">
+    <div class="article-cta-box royal-cta-card" style="margin: 2.5rem 0; padding: 1.8rem; background: linear-gradient(135deg, #1C1917 0%, #292524 100%); border: 2px solid #D4AF37; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); text-align: center; color: #FFFDF8;">
       <span style="display: inline-block; padding: 4px 14px; background: rgba(212,175,55,0.2); border: 1px solid #D4AF37; border-radius: 9999px; color: #FFE6A3; font-size: 0.84rem; font-weight: 700; margin-bottom: 0.8rem; letter-spacing: 0.5px;">
         ✦ ĐẶC QUYỀN TRẠCH CÁT HOÀNG GIA
       </span>
-      <h3 style="color: #FFE6A3; font-family: 'Noto Serif', serif; font-size: 1.45rem; font-weight: 700; margin: 0 0 0.6rem 0; line-height: 1.4;">
+      <div class="article-cta-title" style="color: #FFE6A3 !important; font-family: 'Noto Serif', serif; font-size: 1.45rem; font-weight: 700; margin: 0 0 0.6rem 0; line-height: 1.4; text-shadow: 0 2px 6px rgba(0,0,0,0.85);">
         Tra Cứu Ngày Hoàng Đạo &amp; Bản Mệnh Trọn Đời Cho Riêng Bạn
-      </h3>
+      </div>
       <p style="color: #E7E5E4; font-size: 0.95rem; max-width: 650px; margin: 0 auto 1.4rem auto; line-height: 1.6;">
         Đừng để những việc đại sự trăm năm phó mặc cho cuốn lịch đại trà. Hãy lập lá số Tử Vi miễn phí ngay hôm nay để giải mã 12 cung số, định vị Cung Điền, Cung Tài, Cung Thiên Di và chọn ngày giờ khởi sự bách chiến bách thắng!
       </p>
@@ -323,13 +323,13 @@ const post2 = {
     <p>Thay vì mù quáng tin vào những lời rủ rê đầu tư "lợi nhuận khủng" ngoài kia, hay lo lắng ngồi xem bói toán mê tín dọa dẫm, <strong>việc đầu tiên bạn cần làm là tự nhìn lại bản thiết kế cuộc đời của chính mình</strong>. Tử Vi chính là tấm bản đồ vệ tinh soi sáng từng góc khuất trong con người và thời vận của bạn.</p>
 
     <!-- KHỐI CTA HOÀNG GIA CHUYỂN ĐỔI CAO -->
-    <div style="margin: 2.5rem 0; padding: 1.8rem; background: linear-gradient(135deg, #1C1917 0%, #292524 100%); border: 2px solid #D4AF37; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); text-align: center; color: #FFFDF8;">
+    <div class="article-cta-box royal-cta-card" style="margin: 2.5rem 0; padding: 1.8rem; background: linear-gradient(135deg, #1C1917 0%, #292524 100%); border: 2px solid #D4AF37; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); text-align: center; color: #FFFDF8;">
       <span style="display: inline-block; padding: 4px 14px; background: rgba(212,175,55,0.2); border: 1px solid #D4AF37; border-radius: 9999px; color: #FFE6A3; font-size: 0.84rem; font-weight: 700; margin-bottom: 0.8rem; letter-spacing: 0.5px;">
         ✦ GIẢI MÃ THỜI VẬN 10 NĂM TỚI
       </span>
-      <h3 style="color: #FFE6A3; font-family: 'Noto Serif', serif; font-size: 1.45rem; font-weight: 700; margin: 0 0 0.6rem 0; line-height: 1.4;">
+      <div class="article-cta-title" style="color: #FFE6A3 !important; font-family: 'Noto Serif', serif; font-size: 1.45rem; font-weight: 700; margin: 0 0 0.6rem 0; line-height: 1.4; text-shadow: 0 2px 6px rgba(0,0,0,0.85);">
         Nhìn Thấu Vận Hạn 2026 – 2027 &amp; Toàn Bộ Đại Hạn Trọn Đời
-      </h3>
+      </div>
       <p style="color: #E7E5E4; font-size: 0.95rem; max-width: 650px; margin: 0 auto 1.4rem auto; line-height: 1.6;">
         Đừng để tương lai của bạn và gia đình bị chìm trong bóng tối bất định. Lập lá số Tử Vi miễn phí ngay bây giờ và mở khóa Báo Cáo VIP A4 Toàn Thư để thấu suốt lộ trình 10 năm hưng thịnh của chính bạn!
       </p>

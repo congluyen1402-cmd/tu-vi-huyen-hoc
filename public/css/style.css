@@ -9214,13 +9214,27 @@ main {
 /* ══════════════════════════════════════════════════════════
    ĐỘ DÀY & ĐỘ TƯƠNG PHẢN CHỮ (FIX CHỮ MỎNG & MỜ THÔNG TIN)
    ══════════════════════════════════════════════════════════ */
-/* Tiêu đề Noto Serif nét dày dặn, uy nghi, tương phản cao */
+/* Tiêu đề Noto Serif nét dày dặn, uy nghi, tương phản cao trên nền sáng */
 h1, h2, h3, .heading-royal, .section-title {
   font-family: var(--font-heading) !important;
   font-weight: 700 !important;
-  color: #161310 !important;
-  letter-spacing: 0.01em !important;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5) !important;
+  color: #161310;
+  letter-spacing: 0.01em;
+}
+
+/* Đảm bảo tiêu đề trên nền tối (CTA hoàng gia, VIP card, dark container) luôn có màu vàng kim sáng rực, tương phản hoàn hảo */
+.article-cta-box h3,
+.article-cta-box .article-cta-title,
+.royal-cta-card h3,
+.royal-cta-card .article-cta-title,
+.article-content [style*="background: linear-gradient(135deg, #1C1917"] h3,
+.article-content [style*="background: linear-gradient(135deg, #1C1917"] .article-cta-title,
+.article-content [style*="background: linear-gradient(135deg, rgba(20, 17, 44"] h3,
+.article-content [style*="background: linear-gradient(135deg, rgba(20, 17, 44"] .article-cta-title,
+.vip-report-teaser h3,
+.vip-teaser-title {
+  color: #FFE6A3 !important;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.85) !important;
 }
 
 .section-title {

@@ -52,13 +52,15 @@ try {
     const tmpData = JSON.parse(fs.readFileSync(tmpPostsPath, 'utf8'));
     let updated = false;
     repoData.forEach(rp => {
-      const tp = tmpData.find(t => t.id === rp.id || t.slug === rp.slug);
-      if (tp && rp.image && tp.image !== rp.image) {
-        tp.image = rp.image;
-        updated = true;
-      }
-      if (!tp) {
-        tmpData.push(rp);
+      const idx = tmpData.findIndex(t => t.id === rp.id || t.slug === rp.slug);
+      if (idx !== -1) {
+        const tp = tmpData[idx];
+        if (tp.contentHtml !== rp.contentHtml || tp.title !== rp.title || tp.image !== rp.image || tp.description !== rp.description) {
+          tmpData[idx] = Object.assign({}, tp, rp, { views: tp.views || rp.views || 0 });
+          updated = true;
+        }
+      } else {
+        tmpData.unshift(rp);
         updated = true;
       }
     });
@@ -76,50 +78,30 @@ try {
 }
 
 /**
- * Đọc file JSON an toàn (hỗ trợ đọc từ /tmp nếu chạy trên Vercel Serverless)
+ * Đọc file JSON an toàn (ưu tiên file gốc trong repo, hỗ trợ fallback sang /tmp trên Vercel Serverless)
  */
 function readJsonFile(filePath, defaultValue) {
   try {
     const baseName = path.basename(filePath);
-    if (baseName === 'posts.json') {
-      let list = [];
-      const tmpFilePath = path.join(TMP_DIR, baseName);
-      if (fs.existsSync(tmpFilePath)) {
-        try { list = JSON.parse(fs.readFileSync(tmpFilePath, 'utf8')); } catch (e) {}
-      }
-      if (Array.isArray(DEFAULT_POSTS) && DEFAULT_POSTS.length > 0) {
-        if (!Array.isArray(list) || list.length === 0) {
-          list = JSON.parse(JSON.stringify(DEFAULT_POSTS));
-        } else {
-          DEFAULT_POSTS.forEach(dp => {
-            const found = list.find(p => p.id === dp.id || p.slug === dp.slug);
-            if (!found) {
-              list.push(dp);
-            } else {
-              if (dp.image && dp.image.includes('/images/blog/')) {
-                found.image = dp.image;
-              }
-            }
-          });
-        }
-      }
-      return list.length > 0 ? list : (defaultValue || []);
-    }
-
-    const tmpFilePath = path.join(TMP_DIR, baseName);
-    if (fs.existsSync(tmpFilePath)) {
+    // 1. Luôn ưu tiên đọc trực tiếp từ file repo chính thức
+    if (fs.existsSync(filePath)) {
       try {
-        const tmpStats = fs.statSync(tmpFilePath);
-        const origStats = fs.existsSync(filePath) ? fs.statSync(filePath) : null;
-        if (!origStats || tmpStats.mtimeMs >= origStats.mtimeMs) {
-          const data = fs.readFileSync(tmpFilePath, 'utf8');
-          return JSON.parse(data);
+        const raw = fs.readFileSync(filePath, 'utf8');
+        if (raw && raw.trim()) {
+          return JSON.parse(raw);
         }
       } catch (e) {}
     }
-    if (fs.existsSync(filePath)) {
-      const data = fs.readFileSync(filePath, 'utf8');
-      return JSON.parse(data);
+
+    // 2. Fallback sang TMP_DIR nếu đang trên môi trường Vercel Read-Only
+    const tmpFilePath = path.join(TMP_DIR, baseName);
+    if (fs.existsSync(tmpFilePath)) {
+      try {
+        const raw = fs.readFileSync(tmpFilePath, 'utf8');
+        if (raw && raw.trim()) {
+          return JSON.parse(raw);
+        }
+      } catch (e) {}
     }
   } catch (err) {
     console.error(`Error reading ${filePath}:`, err);
@@ -2198,6 +2180,9 @@ const server = http.createServer(async (req, res) => {
           let headingIndex = 0;
           const tocItems = [];
           const processedContent = (post.contentHtml || '').replace(/<(h[23])([^>]*)>(.*?)<\/\1>/gi, (match, tag, attrs, text) => {
+            if (attrs.includes('no-toc') || attrs.includes('cta') || attrs.includes('article-cta')) {
+              return match;
+            }
             headingIndex++;
             const headingId = `muc-${headingIndex}`;
             const cleanHeadingText = text.replace(/<[^>]*>/g, '').trim();
