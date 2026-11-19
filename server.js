@@ -1614,16 +1614,40 @@ const server = http.createServer(async (req, res) => {
   if (pathname === '/api/admin/orders/approve' && req.method === 'POST') {
     try {
       const body = await parseJsonBody(req);
-      const code = (body.orderCode || '').toUpperCase();
-      orders = readJsonFile(ORDERS_FILE, orders);
-      const order = orders.find(o => o.orderCode === code);
-      if (!order) {
-        return sendJson(res, 404, { success: false, message: 'Đơn hàng không tồn tại' });
+      let code = (body.orderCode || '').trim().toUpperCase().replace(/\s+/g, '');
+      if (code && !code.startsWith('TV') && /^\d+$/.test(code)) {
+        code = 'TV' + code;
       }
-      order.status = 'PAID';
-      order.paidAt = new Date().toISOString();
-      order.paymentSource = 'ADMIN_MANUAL_APPROVE';
-      order.vipAccessToken = order.vipAccessToken || order.orderCode;
+      orders = readJsonFile(ORDERS_FILE, orders);
+      let order = orders.find(o => o.orderCode && o.orderCode.toUpperCase() === code);
+      if (!order) {
+        order = {
+          id: 'ord_' + Date.now(),
+          orderCode: code || ('TV' + Math.floor(100000 + Math.random() * 900000)),
+          vipAccessToken: code || ('TV' + Math.floor(100000 + Math.random() * 900000)),
+          customerName: body.customerName || 'Khách VIP Zalo',
+          customerPhone: body.customerPhone || '',
+          packageId: body.packageId || 'vip_49k',
+          packageName: body.packageName || 'Báo Cáo VIP A4 Toàn Thư (49.000đ)',
+          amount: Number(body.amount) || 49000,
+          status: 'PAID',
+          paymentSource: 'ADMIN_MANUAL_APPROVE',
+          createdAt: new Date().toISOString(),
+          paidAt: new Date().toISOString(),
+          note: body.note || 'Duyệt thủ công từ Admin'
+        };
+        code = order.orderCode;
+        orders.unshift(order);
+      } else {
+        order.status = 'PAID';
+        order.paidAt = new Date().toISOString();
+        order.paymentSource = 'ADMIN_MANUAL_APPROVE';
+        order.vipAccessToken = order.vipAccessToken || order.orderCode;
+        if (body.packageName) order.packageName = body.packageName;
+        if (body.amount) order.amount = Number(body.amount);
+        if (body.customerName && order.customerName === 'Khách Hàng') order.customerName = body.customerName;
+        if (body.customerPhone) order.customerPhone = body.customerPhone;
+      }
       writeJsonFile(ORDERS_FILE, orders);
 
       analytics = readJsonFile(ANALYTICS_FILE, analytics);
@@ -1634,19 +1658,38 @@ const server = http.createServer(async (req, res) => {
         analytics.dailyStats[vnDate] = { pageViews: 0, visitors: [], laSoCount: 0, vipOpens: 0, revenue: 0, paidOrders: 0 };
       }
       analytics.dailyStats[vnDate].paidOrders = (analytics.dailyStats[vnDate].paidOrders || 0) + 1;
-      analytics.dailyStats[vnDate].revenue = (analytics.dailyStats[vnDate].revenue || 0) + (order.amount || 29000);
+      analytics.dailyStats[vnDate].revenue = (analytics.dailyStats[vnDate].revenue || 0) + (order.amount || 49000);
       writeJsonFile(ANALYTICS_FILE, analytics);
 
       // Cập nhật lasoLogs nếu có
       lasoLogs = readJsonFile(LASO_LOGS_FILE, []);
-      const matchedLog = lasoLogs.find(l => (order.visitorId && l.visitorId === order.visitorId) || (l.hoTen && l.hoTen === order.customerName));
+      const matchedLog = lasoLogs.find(l => 
+        (order.visitorId && l.visitorId === order.visitorId) || 
+        (l.hoTen && l.hoTen === order.customerName) ||
+        (order.customerPhone && l.soDienThoai && l.soDienThoai === order.customerPhone)
+      );
       if (matchedLog) {
         matchedLog.hasOpenedQr = true;
         matchedLog.isPaid = true;
+        matchedLog.vipCode = order.orderCode;
+        if (!order.chartKey && matchedLog.chartKey) order.chartKey = matchedLog.chartKey;
+        if (!order.chartInfo && matchedLog.chartInfo) order.chartInfo = matchedLog.chartInfo;
         writeJsonFile(LASO_LOGS_FILE, lasoLogs);
+        writeJsonFile(ORDERS_FILE, orders);
       }
 
-      return sendJson(res, 200, { success: true, message: `Đã duyệt đơn hàng ${code} thành công! Khách hàng đã được mở khóa toàn bộ quyền VIP.`, order });
+      const host = req.headers.host || 'xemtuvihuyenhoc.com';
+      const proto = req.headers['x-forwarded-proto'] || (host.includes('localhost') ? 'http' : 'https');
+      const vipUrl = `${proto}://${host}/?vip_code=${order.orderCode}`;
+      const messageTemplate = `Chào ${order.customerName}, quyền VIP Báo Cáo Tử Vi [${order.orderCode}] của bạn đã được kích hoạt thành công!\n👉 Bấm vào link dưới đây để mở khóa toàn bộ 12 Cung & xuất file PDF A4:\n${vipUrl}\n(Hoặc vào mục "Xem Lại Báo Cáo" trên web và nhập mã: ${order.orderCode})\nChúc bạn vạn sự cát lành, hanh thông tài lộc!`;
+
+      return sendJson(res, 200, {
+        success: true,
+        message: `Đã duyệt đơn hàng ${code} thành công! Khách hàng đã được mở khóa toàn bộ quyền VIP.`,
+        order,
+        vipUrl,
+        messageTemplate
+      });
     } catch (err) {
       return sendJson(res, 500, { success: false, message: err.message });
     }
@@ -1658,22 +1701,66 @@ const server = http.createServer(async (req, res) => {
       const body = await parseJsonBody(req);
       orders = readJsonFile(ORDERS_FILE, orders);
 
-      let orderCode = (body.orderCode || '').trim().toUpperCase();
+      let orderCode = (body.orderCode || '').trim().toUpperCase().replace(/\s+/g, '');
+      if (orderCode && !orderCode.startsWith('TV') && /^\d+$/.test(orderCode)) {
+        orderCode = 'TV' + orderCode;
+      }
       if (!orderCode) {
         orderCode = 'TV' + Math.floor(100000 + Math.random() * 900000);
       }
 
-      const existingIndex = orders.findIndex(o => o.orderCode === orderCode);
+      const amount = Number(body.amount) || 49000;
+      let packageId = body.packageId;
+      let packageName = body.packageName;
+
+      if (!packageId) {
+        if (amount >= 900000) packageId = 'deep_990k';
+        else if (amount >= 400000) packageId = 'deep_490k';
+        else if (amount >= 80000) packageId = 'vip_99k';
+        else if (amount >= 40000) packageId = 'vip_49k';
+        else if (amount >= 35000) packageId = 'vip_39k';
+        else packageId = 'vip_29k';
+      }
+
+      if (!packageName) {
+        if (packageId === 'vip_49k') packageName = 'Báo Cáo VIP A4 Toàn Thư (49.000đ)';
+        else if (packageId === 'vip_29k') packageName = 'Gói Xem Nhanh 3 Cung Tự Chọn (29.000đ)';
+        else if (packageId === 'vip_39k') packageName = 'Gói Thần Số Học Pythagoras VIP (39.000đ)';
+        else if (packageId === 'deep_490k') packageName = 'Tham Vấn 1-1 Chuyên Đề (490.000đ)';
+        else if (packageId === 'deep_990k') packageName = 'Luận Đàm 1-1 Toàn Đồ (990.000đ)';
+        else packageName = 'Báo Cáo VIP A4 Toàn Thư (49.000đ)';
+      }
+
+      // Khớp và đồng bộ với laso_logs.json nếu có
+      lasoLogs = readJsonFile(LASO_LOGS_FILE, []);
+      const matchedLog = lasoLogs.find(l => 
+        (body.visitorId && l.visitorId === body.visitorId) ||
+        (body.chartKey && l.chartKey === body.chartKey) ||
+        (orderCode && l.orderCode && l.orderCode.toUpperCase() === orderCode) ||
+        (body.customerName && l.hoTen && l.hoTen.toLowerCase().trim() === body.customerName.toLowerCase().trim()) ||
+        (body.customerPhone && l.soDienThoai && l.soDienThoai.trim() === body.customerPhone.trim())
+      );
+
+      if (matchedLog) {
+        matchedLog.hasOpenedQr = true;
+        matchedLog.isPaid = true;
+        matchedLog.vipCode = orderCode;
+        writeJsonFile(LASO_LOGS_FILE, lasoLogs);
+      }
+
+      const existingIndex = orders.findIndex(o => o.orderCode && o.orderCode.toUpperCase() === orderCode);
       const newOrder = {
         orderCode,
-        customerName: body.customerName || 'Khách VIP Zalo',
-        customerPhone: body.customerPhone || '',
-        packageName: body.packageName || 'Gói Luận Giải VIP Trọn Đời',
-        packageId: body.packageId || 'vip_tron_doi',
-        amount: Number(body.amount) || 29000,
+        customerName: body.customerName || (matchedLog && matchedLog.hoTen) || 'Khách VIP Zalo',
+        customerPhone: body.customerPhone || (matchedLog && matchedLog.soDienThoai) || '',
+        packageName,
+        packageId,
+        amount,
         status: 'PAID',
         vipAccessToken: orderCode,
-        createdAt: new Date().toISOString(),
+        chartKey: body.chartKey || (matchedLog && matchedLog.chartKey) || (existingIndex !== -1 ? orders[existingIndex].chartKey : null),
+        chartInfo: body.chartInfo || (matchedLog && matchedLog.chartInfo) || (existingIndex !== -1 ? orders[existingIndex].chartInfo : null),
+        createdAt: (existingIndex !== -1 && orders[existingIndex].createdAt) ? orders[existingIndex].createdAt : new Date().toISOString(),
         paidAt: new Date().toISOString(),
         paymentSource: body.paymentSource || 'MANUAL_ADMIN',
         note: body.note || 'Kích hoạt thủ công từ Admin'
@@ -1698,10 +1785,17 @@ const server = http.createServer(async (req, res) => {
       analytics.dailyStats[vnDate].revenue = (analytics.dailyStats[vnDate].revenue || 0) + newOrder.amount;
       writeJsonFile(ANALYTICS_FILE, analytics);
 
+      const host = req.headers.host || 'xemtuvihuyenhoc.com';
+      const proto = req.headers['x-forwarded-proto'] || (host.includes('localhost') ? 'http' : 'https');
+      const vipUrl = `${proto}://${host}/?vip_code=${orderCode}`;
+      const messageTemplate = `Chào ${newOrder.customerName}, quyền VIP Báo Cáo Tử Vi [${orderCode}] của bạn đã được kích hoạt thành công!\n👉 Bấm vào link dưới đây để mở khóa toàn bộ 12 Cung & xuất file PDF A4:\n${vipUrl}\n(Hoặc vào mục "Xem Lại Báo Cáo" trên web và nhập mã: ${orderCode})\nChúc bạn vạn sự cát lành, hanh thông tài lộc!`;
+
       return sendJson(res, 200, {
         success: true,
         message: `Đã kích hoạt thành công đơn hàng ${orderCode}! Khách có thể nhập mã này hoặc mở khóa ngay.`,
-        order: newOrder
+        order: newOrder,
+        vipUrl,
+        messageTemplate
       });
     } catch (err) {
       return sendJson(res, 500, { success: false, message: err.message });
@@ -1838,9 +1932,13 @@ const server = http.createServer(async (req, res) => {
     if (!token) {
       return sendJson(res, 400, { success: false, message: 'Thiếu token truy cập.' });
     }
+    orders = readJsonFile(ORDERS_FILE, orders);
+    const cleanToken = token.replace(/[\s.\-_]/g, '').toUpperCase();
+    const digitsOnly = cleanToken.replace(/^TV/, '');
     const order = orders.find(o => o.status === 'PAID' && (
-      (o.vipAccessToken && o.vipAccessToken === token) || 
-      o.orderCode.toUpperCase() === token.toUpperCase()
+      (o.vipAccessToken && o.vipAccessToken.toUpperCase() === cleanToken) || 
+      (o.orderCode && o.orderCode.toUpperCase() === cleanToken) ||
+      (digitsOnly.length >= 4 && o.orderCode && o.orderCode.toUpperCase().replace(/^TV/, '') === digitsOnly)
     ));
     if (!order) {
       return sendJson(res, 404, { success: false, message: 'Token VIP không hợp lệ hoặc đơn hàng chưa thanh toán.' });
@@ -1854,6 +1952,7 @@ const server = http.createServer(async (req, res) => {
         chartInfo: order.chartInfo || null,
         packageName: order.packageName,
         packageId: order.packageId,
+        amount: order.amount || 49000,
         vipAccessToken: order.vipAccessToken || order.orderCode,
         paidAt: order.paidAt
       }
@@ -1948,9 +2047,13 @@ const server = http.createServer(async (req, res) => {
       if (!q) {
         return sendJson(res, 400, { success: false, message: 'Vui lòng nhập Mã đơn hàng hoặc Số điện thoại.' });
       }
+      orders = readJsonFile(ORDERS_FILE, orders);
+      const cleanQ = q.replace(/[\s.\-_]/g, '').toUpperCase();
+      const digitsOnly = cleanQ.replace(/^TV/, '');
       const order = orders.find(o => o.status === 'PAID' && (
-        o.orderCode.toUpperCase() === q.toUpperCase() ||
-        (o.customerPhone && o.customerPhone.trim() === q)
+        (o.orderCode && o.orderCode.toUpperCase() === cleanQ) ||
+        (digitsOnly.length >= 4 && o.orderCode && o.orderCode.toUpperCase().replace(/^TV/, '') === digitsOnly) ||
+        (o.customerPhone && o.customerPhone.trim().replace(/[\s.\-_]/g, '') === q.replace(/[\s.\-_]/g, ''))
       ));
       if (!order) {
         return sendJson(res, 404, { success: false, message: 'Không tìm thấy đơn hàng VIP đã thanh toán với thông tin này.' });
@@ -1965,6 +2068,7 @@ const server = http.createServer(async (req, res) => {
           chartInfo: order.chartInfo || null,
           packageName: order.packageName,
           packageId: order.packageId,
+          amount: order.amount || 49000,
           vipAccessToken: order.vipAccessToken || order.orderCode,
           paidAt: order.paidAt
         }

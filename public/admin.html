@@ -848,19 +848,35 @@
   <!-- MODAL TẠO MÃ VIP NHANH / DUYỆT ĐƠN ZALO THỦ CÔNG             -->
   <!-- ============================================================ -->
   <div id="manualOrderModal" class="modal-backdrop" style="display:none;">
-    <div class="modal-card">
+    <div class="modal-card" style="max-width:540px;">
       <button type="button" class="modal-close-btn" onclick="closeManualOrderModal()">&times;</button>
-      <h3 style="font-family:'Playfair Display', serif; color:var(--gold-light); font-size:1.25rem; margin-bottom:0.5rem;">
+      <h3 style="font-family:'Playfair Display', serif; color:var(--gold-light); font-size:1.25rem; margin-bottom:0.4rem;">
         ➕ KÍCH HOẠT VIP NHANH CHO KHÁCH
       </h3>
-      <p style="color:var(--text-muted); font-size:0.84rem; margin-bottom:1.2rem;">
+      <p style="color:var(--text-muted); font-size:0.84rem; margin-bottom:1rem;">
         Sử dụng khi khách đã chuyển khoản qua Zalo hoặc khi SePay bị chậm biến động số dư.
       </p>
 
+      <!-- Khách hàng chờ duyệt / vừa lập lá số (Chọn nhanh) -->
+      <div style="margin-bottom:0.9rem; background:rgba(212,175,55,0.06); border:1px dashed rgba(212,175,55,0.3); padding:0.6rem 0.8rem; border-radius:6px;">
+        <label style="display:block; font-size:0.8rem; color:var(--gold-light); font-weight:600; margin-bottom:0.3rem;">
+          ⚡ Chọn nhanh từ khách đang chờ / vừa lập lá số (tuỳ chọn):
+        </label>
+        <select id="manualQuickCustomerSelect" class="sepay-input" style="width:100%; font-size:0.84rem; background:#14112c;" onchange="onManualQuickCustomerSelect()">
+          <option value="">-- Bấm để chọn khách hàng đã có trên hệ thống --</option>
+        </select>
+      </div>
+
       <form onsubmit="event.preventDefault(); submitManualOrder();">
+        <input type="hidden" id="manualVisitorId" value="">
+        <input type="hidden" id="manualChartKey" value="">
+
         <div style="margin-bottom:0.9rem;">
-          <label style="display:block; font-size:0.82rem; color:var(--text-muted); margin-bottom:0.3rem;">Mã Đơn Hàng (Ví dụ: TV523662 - Để trống sẽ tự sinh):</label>
-          <input type="text" id="manualOrderCode" class="sepay-input" placeholder="Ví dụ: TV523662" style="width:100%; text-transform:uppercase;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.3rem;">
+            <label style="font-size:0.82rem; color:var(--text-muted);">Mã Đơn Hàng (Ví dụ: TV523662 - Để trống sẽ tự sinh):</label>
+            <button type="button" class="btn-action-pill btn-gold-action" style="padding:2px 8px; font-size:0.75rem; border:none; cursor:pointer;" onclick="generateRandomOrderCode()">🎲 Sinh Mã Mới</button>
+          </div>
+          <input type="text" id="manualOrderCode" class="sepay-input" placeholder="Ví dụ: TV523662" style="width:100%; text-transform:uppercase; font-weight:700; letter-spacing:1px; color:var(--gold-light);">
         </div>
 
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:0.9rem;">
@@ -878,16 +894,17 @@
           <div>
             <label style="display:block; font-size:0.82rem; color:var(--text-muted); margin-bottom:0.3rem;">Gói Dịch Vụ:</label>
             <select id="manualPackageSelect" class="sepay-input" style="width:100%; background:#14112c;" onchange="onManualPackageChange()">
-              <option value="29000|Gói Mở Khóa Nhanh Vận Hạn 2026-2027 (29.000đ)">Gói Mở Khóa Nhanh 29.000đ</option>
-              <option value="49000|Báo Cáo VIP A4 Toàn Thư (49.000đ)" selected>Báo Cáo VIP Toàn Thư 49.000đ</option>
-              <option value="149000|Gói Luận Giải Chuyên Sâu Hôn Nhân & Cải Mệnh (149.000đ)">Chuyên Sâu 149.000đ</option>
-              <option value="490000|Tham Vấn 1-1 Chuyên Đề (490.000đ)">Tham Vấn 1-1 (490.000đ)</option>
-              <option value="990000|Luận Đàm 1-1 Toàn Đồ (990.000đ)">Luận Đàm 1-1 (990.000đ)</option>
+              <option value="49000|Báo Cáo VIP A4 Toàn Thư (49.000đ)" selected>Báo Cáo VIP A4 Toàn Thư (49.000đ) ★ Khuyên Dùng</option>
+              <option value="29000|Gói Xem Nhanh 3 Cung Tự Chọn (29.000đ)">Gói Xem Nhanh 3 Cung (29.000đ)</option>
+              <option value="39000|Gói Thần Số Học Pythagoras VIP (39.000đ)">Thần Số Học Pythagoras VIP (39.000đ)</option>
+              <option value="49000|Bói Hợp Tuổi Bát Tự VIP (49.000đ)">Bói Hợp Tuổi Bát Tự VIP (49.000đ)</option>
+              <option value="490000|Tham Vấn 1-1 Chuyên Đề (490.000đ)">Tham Vấn 1-1 Chuyên Đề (490.000đ / 45p)</option>
+              <option value="990000|Luận Đàm 1-1 Toàn Đồ (990.000đ)">Luận Đàm 1-1 Toàn Đồ (990.000đ / 60p)</option>
             </select>
           </div>
           <div>
             <label style="display:block; font-size:0.82rem; color:var(--text-muted); margin-bottom:0.3rem;">Số Tiền (VNĐ):</label>
-            <input type="number" id="manualAmount" class="sepay-input" value="49000" style="width:100%;" required>
+            <input type="number" id="manualAmount" class="sepay-input" value="49000" style="width:100%; font-weight:700; color:var(--gold-light);" required>
           </div>
         </div>
 
@@ -901,6 +918,89 @@
           <button type="submit" class="btn-save-cfg">⚡ Kích Hoạt VIP Ngay</button>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- MODAL THÔNG BÁO KÍCH HOẠT VIP THÀNH CÔNG & LINK GỬI KHÁCH     -->
+  <!-- ============================================================ -->
+  <div id="manualSuccessModal" class="modal-backdrop" style="display:none; z-index:10000;">
+    <div class="modal-card" style="max-width:560px; border:1px solid rgba(212,175,55,0.4); box-shadow:0 8px 32px rgba(0,0,0,0.6);">
+      <button type="button" class="modal-close-btn" onclick="closeManualSuccessModal()">&times;</button>
+      
+      <div style="text-align:center; margin-bottom:1rem;">
+        <div style="width:52px; height:52px; margin:0 auto 0.6rem; background:rgba(16,185,129,0.15); border:2px solid #10b981; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.6rem; color:#10b981;">
+          ✓
+        </div>
+        <h3 style="font-family:'Playfair Display', serif; color:var(--gold-light); font-size:1.35rem; margin-bottom:0.25rem;">
+          KÍCH HOẠT VIP THÀNH CÔNG!
+        </h3>
+        <p style="color:var(--text-muted); font-size:0.85rem; margin:0;">
+          Đơn hàng đã được ghi nhận vào hệ thống &amp; sẵn sàng gửi thông tin cho khách.
+        </p>
+      </div>
+
+      <!-- Khối chi tiết đơn -->
+      <div style="background:rgba(255,255,255,0.04); border:1px solid var(--line); border-radius:8px; padding:0.85rem 1rem; margin-bottom:1rem; font-size:0.88rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+          <span style="color:var(--text-muted);">Mã đơn hàng VIP:</span>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <strong id="successOrderCode" style="font-size:1.15rem; color:var(--gold-light); letter-spacing:1px; font-family:monospace;">TV000000</strong>
+            <button type="button" class="btn-action-pill" style="padding:2px 8px; font-size:0.75rem;" onclick="copySuccessCode()">📋 Chép Mã</button>
+          </div>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;">
+          <span style="color:var(--text-muted);">Khách hàng:</span>
+          <strong id="successCustomerName" style="color:#fff;">—</strong>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;">
+          <span style="color:var(--text-muted);">Gói dịch vụ:</span>
+          <span id="successPackageName" style="color:var(--gold-light); font-weight:600;">—</span>
+        </div>
+        <div style="display:flex; justify-content:space-between;">
+          <span style="color:var(--text-muted);">Số tiền:</span>
+          <strong id="successAmount" style="color:#34d399;">—</strong>
+        </div>
+      </div>
+
+      <!-- Link kích hoạt trực tiếp -->
+      <div style="margin-bottom:1rem;">
+        <label style="display:block; font-size:0.82rem; color:var(--gold-light); font-weight:600; margin-bottom:0.35rem;">
+          🔗 Link mở khóa VIP trực tiếp (Khách bấm vào là tự động mở 100%):
+        </label>
+        <div style="display:flex; gap:6px;">
+          <input type="text" id="successVipUrlInput" class="sepay-input" readonly style="flex:1; font-size:0.82rem; background:#0f0c24; color:#a5b4fc;" onclick="this.select()">
+          <button type="button" class="btn-action-pill btn-gold-action" style="padding:0.4rem 0.8rem; font-size:0.8rem; white-space:nowrap;" onclick="copySuccessUrl()">
+            📋 Sao Chép Link
+          </button>
+        </div>
+      </div>
+
+      <!-- Tin nhắn Zalo mẫu -->
+      <div style="margin-bottom:1.2rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.35rem;">
+          <label style="font-size:0.82rem; color:var(--gold-light); font-weight:600;">
+            💬 Tin nhắn Zalo / SMS soạn sẵn gửi khách:
+          </label>
+          <button type="button" class="btn-action-pill" style="padding:2px 8px; font-size:0.75rem;" onclick="copySuccessZaloMsg()">
+            📋 Sao Chép Tin Nhắn
+          </button>
+        </div>
+        <textarea id="successZaloMsgTextarea" class="sepay-input" rows="4" style="width:100%; font-size:0.82rem; line-height:1.5; background:#0f0c24; color:#e2e8f0; resize:none;" onclick="this.select()"></textarea>
+      </div>
+
+      <!-- Action buttons -->
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+        <div style="display:flex; gap:8px;">
+          <a id="successZaloChatBtn" href="#" target="_blank" class="btn-save-cfg" style="background:#0284c7; text-decoration:none; display:none; align-items:center; gap:6px; font-size:0.82rem; padding:0.5rem 0.9rem;">
+            📱 Nhắn Zalo Khách
+          </a>
+          <a id="successOpenReportBtn" href="#" target="_blank" class="btn-save-cfg" style="background:#059669; text-decoration:none; display:inline-flex; align-items:center; gap:6px; font-size:0.82rem; padding:0.5rem 0.9rem;">
+            👁️ Mở Báo Cáo Của Khách
+          </a>
+        </div>
+        <button type="button" class="btn-save-cfg" style="background:#374151;" onclick="closeManualSuccessModal()">Đóng</button>
+      </div>
     </div>
   </div>
 
@@ -1956,7 +2056,12 @@
                   <i data-lucide="check"></i> Duyệt Đã Nhận Tiền
                 </button>
               ` : `
-                <span style="color:#34d399; font-size:0.82rem; font-weight:600;">✓ VIP Kích Hoạt</span>
+                <div style="display:inline-flex; align-items:center; gap:4px; flex-wrap:wrap;">
+                  <span style="color:#34d399; font-size:0.82rem; font-weight:600;">✓ VIP Kích Hoạt</span>
+                  <button class="btn-action-pill btn-gold-action" style="padding:2px 7px; font-size:0.75rem; cursor:pointer;" title="Lấy Link Mở Khóa & Tin Nhắn Gửi Khách" onclick="showOrderVipShare('${o.orderCode}')">
+                    📋 Link VIP
+                  </button>
+                </div>
               `}
               <button class="btn-delete" title="Xóa đơn hàng" onclick="deleteOrder('${o.orderCode}')">
                 <i data-lucide="trash-2"></i>
@@ -1985,6 +2090,9 @@
           loadOrders();
           loadAnalytics();
           loadLasoLogs();
+          if (data.order) {
+            showManualSuccessModal(data.order);
+          }
         } else {
           showToast(data.message || 'Lỗi duyệt đơn', 'error');
         }
@@ -2012,13 +2120,121 @@
       } catch (err) {}
     }
 
-    // Modal Tạo Mã VIP Nhanh
-    function openManualOrderModal(prefillCode = '') {
+    // =========================================================================
+    // QUẢN LÝ KÍCH HOẠT VIP THỦ CÔNG & CHIA SẺ LINK CHO KHÁCH
+    // =========================================================================
+
+    function generateRandomOrderCode() {
+      const code = 'TV' + Math.floor(100000 + Math.random() * 900000);
+      const input = document.getElementById('manualOrderCode');
+      if (input) input.value = code;
+      return code;
+    }
+
+    function populateQuickCustomerSelect() {
+      const select = document.getElementById('manualQuickCustomerSelect');
+      if (!select) return;
+      select.innerHTML = '<option value="">-- Bấm để chọn khách hàng đã có trên hệ thống --</option>';
+
+      // 1. Thêm từ các đơn hàng CHỜ THANH TOÁN (pending orders)
+      const pendingOrders = (_allOrders || []).filter(o => o.status !== 'PAID');
+      if (pendingOrders.length > 0) {
+        const optgroupPending = document.createElement('optgroup');
+        optgroupPending.label = '⏳ Đơn hàng đang chờ chuyển khoản (' + pendingOrders.length + ')';
+        pendingOrders.forEach(o => {
+          const opt = document.createElement('option');
+          opt.value = JSON.stringify({
+            orderCode: o.orderCode || '',
+            customerName: o.customerName || '',
+            customerPhone: o.customerPhone || '',
+            packageName: o.packageName || '',
+            amount: o.amount || 49000,
+            visitorId: o.visitorId || '',
+            chartKey: o.chartKey || ''
+          });
+          const time = o.createdAt ? new Date(o.createdAt).toLocaleTimeString('vi-VN', {hour:'2-digit', minute:'2-digit'}) : '';
+          opt.textContent = `[${o.orderCode}] ${o.customerName || 'Khách'} - ${o.customerPhone || 'Chưa SĐT'} (${(o.amount || 0).toLocaleString('vi-VN')}đ) - ${time}`;
+          optgroupPending.appendChild(opt);
+        });
+        select.appendChild(optgroupPending);
+      }
+
+      // 2. Thêm từ khách vừa lập lá số gần đây chưa VIP
+      const unpaidLogs = (_lasoLogs || []).filter(l => !l.isPaid);
+      if (unpaidLogs.length > 0) {
+        const optgroupLogs = document.createElement('optgroup');
+        optgroupLogs.label = '🔮 Khách vừa lập lá số hôm nay (' + unpaidLogs.length + ')';
+        unpaidLogs.slice(0, 30).forEach(l => {
+          const opt = document.createElement('option');
+          opt.value = JSON.stringify({
+            orderCode: '',
+            customerName: l.hoTen || '',
+            customerPhone: l.soDienThoai || '',
+            packageName: 'Báo Cáo VIP A4 Toàn Thư (49.000đ)',
+            amount: 49000,
+            visitorId: l.visitorId || '',
+            chartKey: l.chartKey || ''
+          });
+          const time = l.timestamp ? new Date(l.timestamp).toLocaleTimeString('vi-VN', {hour:'2-digit', minute:'2-digit'}) : '';
+          const info = [l.banMenh, l.gioSinh].filter(Boolean).join(' - ');
+          opt.textContent = `[Lá Số] ${l.hoTen || 'Khách'} - ${l.soDienThoai || 'Chưa SĐT'} (${info}) - ${time}`;
+          optgroupLogs.appendChild(opt);
+        });
+        select.appendChild(optgroupLogs);
+      }
+    }
+
+    function onManualQuickCustomerSelect() {
+      const select = document.getElementById('manualQuickCustomerSelect');
+      if (!select || !select.value) return;
+      try {
+        const data = JSON.parse(select.value);
+        if (data.orderCode) {
+          document.getElementById('manualOrderCode').value = data.orderCode;
+        } else if (!document.getElementById('manualOrderCode').value.trim()) {
+          generateRandomOrderCode();
+        }
+        if (data.customerName) document.getElementById('manualCustomerName').value = data.customerName;
+        if (data.customerPhone) document.getElementById('manualCustomerPhone').value = data.customerPhone;
+        if (data.visitorId) document.getElementById('manualVisitorId').value = data.visitorId;
+        if (data.chartKey) document.getElementById('manualChartKey').value = data.chartKey;
+
+        if (data.amount) {
+          document.getElementById('manualAmount').value = data.amount;
+          const pkgSel = document.getElementById('manualPackageSelect');
+          for (let i = 0; i < pkgSel.options.length; i++) {
+            if (pkgSel.options[i].value.startsWith(data.amount + '|')) {
+              pkgSel.selectedIndex = i;
+              break;
+            }
+          }
+        }
+      } catch (e) {
+        console.error('Lỗi phân tích khách hàng được chọn:', e);
+      }
+    }
+
+    function openManualOrderModal(prefillCode = '', prefillName = '', prefillPhone = '', prefillVisitorId = '', prefillAmount = 49000, prefillChartKey = '') {
       const modal = document.getElementById('manualOrderModal');
-      document.getElementById('manualOrderCode').value = prefillCode || '';
-      document.getElementById('manualCustomerName').value = '';
-      document.getElementById('manualCustomerPhone').value = '';
+      document.getElementById('manualOrderCode').value = prefillCode || generateRandomOrderCode();
+      document.getElementById('manualCustomerName').value = prefillName || '';
+      document.getElementById('manualCustomerPhone').value = prefillPhone || '';
+      document.getElementById('manualVisitorId').value = prefillVisitorId || '';
+      document.getElementById('manualChartKey').value = prefillChartKey || '';
       document.getElementById('manualNote').value = '';
+
+      if (prefillAmount) {
+        document.getElementById('manualAmount').value = prefillAmount;
+        const pkgSel = document.getElementById('manualPackageSelect');
+        for (let i = 0; i < pkgSel.options.length; i++) {
+          if (pkgSel.options[i].value.startsWith(prefillAmount + '|')) {
+            pkgSel.selectedIndex = i;
+            break;
+          }
+        }
+      }
+
+      populateQuickCustomerSelect();
       modal.style.display = 'flex';
     }
 
@@ -2034,13 +2250,23 @@
     }
 
     async function submitManualOrder() {
-      const orderCode = document.getElementById('manualOrderCode').value.trim().toUpperCase();
+      let orderCode = document.getElementById('manualOrderCode').value.trim().toUpperCase();
+      if (!orderCode) {
+        orderCode = generateRandomOrderCode();
+      }
       const customerName = document.getElementById('manualCustomerName').value.trim();
       const customerPhone = document.getElementById('manualCustomerPhone').value.trim();
       const selVal = document.getElementById('manualPackageSelect').value;
       const [price, pkgName] = selVal.split('|');
       const amount = Number(document.getElementById('manualAmount').value) || Number(price);
       const note = document.getElementById('manualNote').value.trim();
+      const visitorId = document.getElementById('manualVisitorId').value.trim();
+      const chartKey = document.getElementById('manualChartKey').value.trim();
+
+      if (!customerName) {
+        showToast('Vui lòng nhập tên khách hàng', 'error');
+        return;
+      }
 
       try {
         const res = await fetch(getApiUrl('/api/admin/orders/create-manual'), {
@@ -2052,7 +2278,9 @@
             customerPhone,
             packageName: pkgName,
             amount,
-            note: note || 'Kích hoạt từ Admin'
+            note: note || 'Kích hoạt từ Admin',
+            visitorId,
+            chartKey
           })
         });
         if (handleAuthError(res)) return;
@@ -2063,11 +2291,104 @@
           loadOrders();
           loadAnalytics();
           loadLasoLogs();
+          showManualSuccessModal(data.order);
         } else {
           showToast(data.message || 'Lỗi tạo đơn', 'error');
         }
       } catch (err) {
         showToast('Lỗi máy chủ: ' + err.message, 'error');
+      }
+    }
+
+    // Modal Thành Công & Chia Sẻ Link VIP
+    function showManualSuccessModal(orderData) {
+      if (!orderData) return;
+      const modal = document.getElementById('manualSuccessModal');
+      if (!modal) return;
+
+      const code = orderData.orderCode || 'TV000000';
+      const name = orderData.customerName || 'Quý Khách';
+      const pkg = orderData.packageName || 'Báo Cáo VIP A4 Toàn Thư';
+      const amt = Number(orderData.amount || 49000).toLocaleString('vi-VN') + ' đ';
+      
+      const origin = window.location.origin.includes('localhost') 
+        ? window.location.origin 
+        : 'https://xemtuvihuyenhoc.com';
+      const vipUrl = orderData.vipUrl || `${origin}/?vip_code=${code}`;
+
+      document.getElementById('successOrderCode').textContent = code;
+      document.getElementById('successCustomerName').textContent = name;
+      document.getElementById('successPackageName').textContent = pkg;
+      document.getElementById('successAmount').textContent = amt;
+      document.getElementById('successVipUrlInput').value = vipUrl;
+      document.getElementById('successOpenReportBtn').href = vipUrl;
+
+      const zaloMsg = orderData.messageTemplate || 
+`Dạ chào bạn ${name}, hệ thống Xem Tử Vi Huyền Học đã kích hoạt thành công ${pkg}!
+
+👉 Bạn chỉ cần bấm vào đường link này là toàn bộ 12 Cung, Đại Hạn và Báo Cáo VIP A4 sẽ tự động mở khóa 100%:
+${vipUrl}
+
+(Mã đơn hàng của bạn: ${code})
+Chúc bạn vạn sự cát tường, khai mở hanh thông!`;
+
+      document.getElementById('successZaloMsgTextarea').value = zaloMsg;
+
+      const zaloChatBtn = document.getElementById('successZaloChatBtn');
+      if (orderData.customerPhone) {
+        const cleanPhone = orderData.customerPhone.replace(/[^0-9]/g, '');
+        zaloChatBtn.href = `https://zalo.me/${cleanPhone}`;
+        zaloChatBtn.style.display = 'inline-flex';
+      } else {
+        zaloChatBtn.style.display = 'none';
+      }
+
+      modal.style.display = 'flex';
+    }
+
+    function closeManualSuccessModal() {
+      const modal = document.getElementById('manualSuccessModal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function copySuccessCode() {
+      const code = document.getElementById('successOrderCode').textContent.trim();
+      navigator.clipboard.writeText(code).then(() => {
+        showToast(`📋 Đã sao chép mã VIP: ${code}`, 'success');
+      }).catch(() => {
+        showToast('Không thể sao chép tự động', 'error');
+      });
+    }
+
+    function copySuccessUrl() {
+      const url = document.getElementById('successVipUrlInput').value.trim();
+      navigator.clipboard.writeText(url).then(() => {
+        showToast('🔗 Đã sao chép link mở khóa VIP thành công!', 'success');
+      }).catch(() => {
+        showToast('Không thể sao chép tự động', 'error');
+      });
+    }
+
+    function copySuccessZaloMsg() {
+      const msg = document.getElementById('successZaloMsgTextarea').value.trim();
+      navigator.clipboard.writeText(msg).then(() => {
+        showToast('💬 Đã sao chép tin nhắn Zalo gửi khách!', 'success');
+      }).catch(() => {
+        showToast('Không thể sao chép tự động', 'error');
+      });
+    }
+
+    function showOrderVipShare(orderCode) {
+      const order = (_allOrders || []).find(o => o.orderCode === orderCode);
+      if (order) {
+        showManualSuccessModal(order);
+      } else {
+        showManualSuccessModal({
+          orderCode,
+          customerName: 'Khách Hàng',
+          packageName: 'Báo Cáo VIP Toàn Thư',
+          amount: 49000
+        });
       }
     }
 
@@ -2223,11 +2544,11 @@
             <td>${statusBadge}</td>
             <td>
               ${!l.isPaid ? `
-                <button class="btn-approve" onclick="openManualOrderModal()">
+                <button class="btn-approve" onclick="openManualOrderModal('', '${escapeHtml(l.hoTen || '')}', '${escapeHtml(l.soDienThoai || '')}', '${l.visitorId || ''}', 49000, '${l.chartKey || ''}')">
                   <i data-lucide="award"></i> Nâng Cấp VIP
                 </button>
               ` : `
-                <span style="color:#34d399; font-size:0.82rem;">Đã Mở Khóa</span>
+                <span style="color:#34d399; font-size:0.82rem; font-weight:600;">★ Đã Mở Khóa VIP</span>
               `}
             </td>
           </tr>

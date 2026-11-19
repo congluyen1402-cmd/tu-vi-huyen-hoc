@@ -435,16 +435,22 @@
           localStorage.removeItem('tvhh_tripwire_unlocked');
         } catch (e) { }
 
-        // 1. Kiểm tra Magic Link trên URL (?vip_token=... hoặc ?order=...)
+        // 1. Kiểm tra Magic Link trên URL (?vip_code=... hoặc ?vip_token=... hoặc ?order=...)
         if (typeof window !== 'undefined' && window.location && window.location.search) {
           const urlParams = new URLSearchParams(window.location.search);
-          const magicToken = (urlParams.get('vip_token') || urlParams.get('order') || '').trim();
+          const magicToken = (urlParams.get('vip_code') || urlParams.get('code') || urlParams.get('order_code') || urlParams.get('vip_token') || urlParams.get('order') || '').trim();
           if (magicToken) {
             try {
               const res = await fetch(this.getApiUrl('/api/orders/verify-token?token=' + encodeURIComponent(magicToken)));
               if (res.ok) {
                 const data = await res.json();
                 if (data.success && data.isVip && data.order) {
+                  this.unlockVIP(
+                    data.order.orderCode,
+                    data.order.vipAccessToken || data.order.orderCode,
+                    data.order.amount,
+                    data.order.packageId
+                  );
                   const cKey = data.order.chartKey;
                   if (cKey) {
                     this.saveUnlockedChart(cKey, data.order);
@@ -452,6 +458,9 @@
                   if (typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) {
                     this.updateActiveChartStatus(TuViChart._currentLaSo);
                     TuViChart.render(TuViChart._currentLaSo);
+                  }
+                  if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
+                    TuViApp.showToast(`🎉 Chúc mừng! Báo Cáo VIP #${data.order.orderCode} đã được kích hoạt thành công!`, 'success');
                   }
                   return;
                 }
