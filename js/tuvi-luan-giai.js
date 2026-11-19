@@ -2185,6 +2185,268 @@
     return { title, content };
   }
 
+  // ============================================================================
+  // 4.9. DỰ BÁO VẬN HẠN & CHIẾN LƯỢC NĂM 2027 (ĐINH MÙI) CHO TỪNG CUNG VỊ
+  // ============================================================================
+  function generatePalace2027Forecast(cung, cungName, laSo) {
+    if (!cung) return '';
+    const chi = cung.chi || '';
+    const can = cung.can || '';
+    const chiIdx = cung.chiIndex !== undefined ? cung.chiIndex : 0;
+    const cleanName = cungName.replace('<THÂN>', '').trim();
+    const upperName = cleanName.toUpperCase();
+
+    // 1. Phân tích Tứ Hóa Năm Đinh Mùi 2027 (Nguyệt Đồng Cơ Cự)
+    // Can Đinh: Thái Âm Hóa Lộc, Thiên Đồng Hóa Quyền, Thiên Cơ Hóa Khoa, Cự Môn Hóa Kỵ
+    const tp = (typeof detectTamPhuongPatterns === 'function' && laSo) ? detectTamPhuongPatterns(chiIdx, laSo) : null;
+    
+    const banStars = (cung.chinhTinh || []).map(s => s.name);
+    let doiStars = [];
+    let tamHopStars = [];
+    if (tp) {
+      if (tp.doiCung && tp.doiCung.chinhTinh) doiStars = tp.doiCung.chinhTinh.map(s => s.name);
+      if (tp.tamHop1 && tp.tamHop1.chinhTinh) tamHopStars = tamHopStars.concat(tp.tamHop1.chinhTinh.map(s => s.name));
+      if (tp.tamHop2 && tp.tamHop2.chinhTinh) tamHopStars = tamHopStars.concat(tp.tamHop2.chinhTinh.map(s => s.name));
+    }
+    const allChieuStars = [...new Set(doiStars.concat(tamHopStars))];
+
+    // Tứ Hóa Lưu Niên 2027 tương tác với Cung này
+    const tuHoaBadges = [];
+    if (banStars.includes('Thái Âm')) {
+      tuHoaBadges.push('<span style="display:inline-block;background:#059669;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;margin-right:4px;">★ Thái Âm [Lưu Hóa Lộc 2027 Tọa]</span>');
+    } else if (allChieuStars.includes('Thái Âm')) {
+      tuHoaBadges.push('<span style="display:inline-block;background:rgba(5,150,105,0.12);color:#059669;border:1px solid #059669;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:600;margin-right:4px;">✦ Thái Âm [Lưu Hóa Lộc 2027 Chiếu]</span>');
+    }
+
+    if (banStars.includes('Thiên Đồng')) {
+      tuHoaBadges.push('<span style="display:inline-block;background:#D97706;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;margin-right:4px;">★ Thiên Đồng [Lưu Hóa Quyền 2027 Tọa]</span>');
+    } else if (allChieuStars.includes('Thiên Đồng')) {
+      tuHoaBadges.push('<span style="display:inline-block;background:rgba(217,119,6,0.12);color:#D97706;border:1px solid #D97706;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:600;margin-right:4px;">✦ Thiên Đồng [Lưu Hóa Quyền 2027 Chiếu]</span>');
+    }
+
+    if (banStars.includes('Thiên Cơ')) {
+      tuHoaBadges.push('<span style="display:inline-block;background:#2563EB;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;margin-right:4px;">★ Thiên Cơ [Lưu Hóa Khoa 2027 Tọa]</span>');
+    } else if (allChieuStars.includes('Thiên Cơ')) {
+      tuHoaBadges.push('<span style="display:inline-block;background:rgba(37,99,235,0.12);color:#2563EB;border:1px solid #2563EB;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:600;margin-right:4px;">✦ Thiên Cơ [Lưu Hóa Khoa 2027 Chiếu]</span>');
+    }
+
+    if (banStars.includes('Cự Môn')) {
+      tuHoaBadges.push('<span style="display:inline-block;background:#DC2626;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;margin-right:4px;">⚠ Cự Môn [Lưu Hóa Kỵ 2027 Tọa]</span>');
+    } else if (allChieuStars.includes('Cự Môn')) {
+      tuHoaBadges.push('<span style="display:inline-block;background:rgba(220,38,38,0.12);color:#DC2626;border:1px solid #DC2626;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:600;margin-right:4px;">⚠ Cự Môn [Lưu Hóa Kỵ 2027 Chiếu]</span>');
+    }
+
+    // 2. Vị trí cung đối với các Lưu Tinh năm Đinh Mùi (Thái Tuế tại Mùi, Lộc Tồn tại Ngọ, Mã tại Tị)
+    let viTriLuuTinhHtml = '';
+    if (chi === 'Mùi') {
+      viTriLuuTinhHtml = `
+        <div style="background: rgba(163,40,31,0.08); border-left: 3px solid #A3281F; padding: 6px 12px; border-radius: 4px; margin-bottom: 0.65rem; font-size: 0.85rem; color: #831843; line-height: 1.55;">
+          👑 <strong>TỌA THỦ CUNG VỊ LƯU THÁI TUẾ 2027 (ĐINH MÙI):</strong> Cung ${cleanName} tọa tại Mùi chính là TÂM ĐIỂM CHUYỂN DỊCH VẬN MỆNH trong năm 2027! Khí thế Thái Tuế mang tính quyền uy tối thượng, kích hoạt mọi bước ngoặt quan trọng nhất của cả năm. Mưu sự tại cung vị này cần giữ tâm chính trực, chuẩn bị kỹ lưỡng thì đại phát dã như lôi.
+        </div>
+      `;
+    } else if (chi === 'Sửu') {
+      viTriLuuTinhHtml = `
+        <div style="background: rgba(217,119,6,0.08); border-left: 3px solid #D97706; padding: 6px 12px; border-radius: 4px; margin-bottom: 0.65rem; font-size: 0.85rem; color: #78350F; line-height: 1.55;">
+          ⚡ <strong>XUNG CHIẾU LƯU TUẾ PHÁ &amp; LƯU THIÊN HƯ 2027:</strong> Tọa tại Sửu chịu lực xung trực diện từ Lưu Thái Tuế tại Mùi. Năm 2027 ngoại cảnh liên tục thúc ép bạn phải đổi mới tư duy, phá bỏ lề lối cũ để đón nhận làn sóng tăng trưởng mới. "Cũ không đi thì mới không đến"!
+        </div>
+      `;
+    } else if (chi === 'Mão') {
+      viTriLuuTinhHtml = `
+        <div style="background: rgba(220,38,38,0.06); border-left: 3px solid #DC2626; padding: 6px 12px; border-radius: 4px; margin-bottom: 0.65rem; font-size: 0.85rem; color: #991B1B; line-height: 1.55;">
+          🐅 <strong>TAM HỢP LƯU BẠCH HỔ 2027:</strong> Cung ${cleanName} tại Mão đón Lưu Bạch Hổ tam hợp chiếu rọi. Khí thế hành động quyết liệt, quả cảm, áp lực trách nhiệm lớn; cần chú ý thủ tục pháp lý minh bạch và giữ gìn an toàn sức khỏe.
+        </div>
+      `;
+    } else if (chi === 'Hợi') {
+      viTriLuuTinhHtml = `
+        <div style="background: rgba(37,99,235,0.06); border-left: 3px solid #2563EB; padding: 6px 12px; border-radius: 4px; margin-bottom: 0.65rem; font-size: 0.85rem; color: #1E40AF; line-height: 1.55;">
+          🕊️ <strong>TAM HỢP LƯU TANG MÔN &amp; LƯU THIÊN KHÔI 2027:</strong> Cung ${cleanName} tại Hợi đón nhận quý nhân Lưu Thiên Khôi phò trợ, nhưng cần giải tỏa tâm tư trăn trở, tháo gỡ dứt điểm các vướng mắc tồn đọng từ các năm trước.
+        </div>
+      `;
+    } else if (chi === 'Ngọ') {
+      viTriLuuTinhHtml = `
+        <div style="background: rgba(5,150,105,0.08); border-left: 3px solid #059669; padding: 6px 12px; border-radius: 4px; margin-bottom: 0.65rem; font-size: 0.85rem; color: #065F46; line-height: 1.55;">
+          💰 <strong>NHỊ HỢP LƯU LỘC TỒN &amp; LƯU ĐÀ LA 2027:</strong> Can Đinh Lộc Tồn tại Ngọ! Cung ${cleanName} nhị hợp đón nhận nguồn tài lộc ngầm dồi dào, thuận bề tích lũy của cải, song cần kiên nhẫn vượt qua sự dây dưa của Lưu Đà La.
+        </div>
+      `;
+    } else if (chi === 'Tị') {
+      viTriLuuTinhHtml = `
+        <div style="background: rgba(124,58,237,0.08); border-left: 3px solid #7C3AED; padding: 6px 12px; border-radius: 4px; margin-bottom: 0.65rem; font-size: 0.85rem; color: #5B21B6; line-height: 1.55;">
+          🐎 <strong>LƯU THIÊN MÃ 2027 TỌA THỦ:</strong> Vận số kích hoạt sự dịch chuyển, xuất hành, đổi mới môi trường hoặc mở rộng phạm vi hoạt động ra các tỉnh thành xa, thậm chí xuất ngoại đón lộc tài.
+        </div>
+      `;
+    }
+
+    // 3. Nội dung chuyên sâu 2027 cho từng Cung trong 12 Cung
+    let khiVanText = '';
+    let diemRoiText = '';
+    let chienLuocText = '';
+
+    switch (upperName) {
+      case 'MỆNH':
+        khiVanText = `Năm Đinh Mùi (nạp âm Thiên Hà Thủy) mang đến trường năng lượng <strong>"Tái thiết trật tự nội tâm và nâng tầm vị thế bản thân"</strong>. Sau những chao đảo thử thách của chu kỳ trước, năm 2027 là thời điểm vũ trụ mở ra cơ hội vàng để bạn sàng lọc những điều không còn phù hợp, xác lập lại mục tiêu cuộc đời. Sự giao thoa giữa can Đinh (Âm Hỏa) và chi Mùi (Âm Thổ) đòi hỏi đương số phải giữ vững cốt cách bản lĩnh, kiên trì theo đuổi đam mê, không để các biến động dư luận bên ngoài làm xao động tâm can.`;
+        diemRoiText = `
+          • <strong>Tháng 1 &amp; Tháng 2 âm lịch (Đầu xuân):</strong> Khởi động kế hoạch mới, kiện toàn nội lực và tích lũy kiến thức; không vội bung sức liều lĩnh.<br>
+          • <strong>Tháng 6 âm lịch (Tháng Mùi - Bản vị Thái Tuế 2027):</strong> Tháng bước ngoặt trọng đại nhất năm! Dễ có sự kiện then chốt quyết định phương hướng sự nghiệp hoặc thay đổi môi trường sống.<br>
+          • <strong>Tháng 10 &amp; Tháng 11 âm lịch (Cuối năm):</strong> Gặt hái thành quả vững chắc, củng cố danh dự, uy tín cá nhân được tập thể và đối tác thừa nhận.
+        `;
+        chienLuocText = `Lấy chữ <strong>"TĨNH"</strong> để chế ngự cái <strong>"ĐỘNG"</strong>. Chủ động học thêm một kỹ năng chuyên môn sắc bén mới (hưởng ứng Thiên Cơ Hóa Khoa) để biến mình thành nhân vật không thể thay thế. Thường xuyên tĩnh tâm, ngủ đủ giấc để dưỡng nguyên khí trường thọ.`;
+        break;
+
+      case 'TÀI BẠCH':
+        khiVanText = `Trường khí tài chính năm Đinh Mùi 2027 có sự bứt phá và hội tụ rất mạnh mẽ! Nhờ <strong>Thái Âm Hóa Lộc</strong> (đệ nhất tài tinh cai quản kho tiền) kết hợp cùng <strong>Lưu Lộc Tồn tại Ngọ</strong>, dòng tiền năm nay có xu hướng dịch chuyển vào các kênh tích lũy bền vững, bất động sản hoặc nguồn thu từ chuyên môn sâu. Nguồn thu nhập chính ngạch tăng trưởng ổn định. Tuy nhiên, sự xuất hiện của Cự Môn Hóa Kỵ trong tam phương cảnh báo nguy cơ tranh chấp tiền bạc hoặc thị phi hợp đồng nếu bạn chủ quan cho vay mượn thiếu chứng từ.`;
+        diemRoiText = `
+          • <strong>Tháng 3 &amp; Tháng 9 âm lịch (Tháng Tứ Mộ Thìn - Tuất):</strong> Cảnh báo nguy cơ hao hụt ngân quỹ do chi tiêu phát sinh ngoài kế hoạch hoặc bị người thân cận cả nể làm phiền; tuyệt đối không xuống tiền đầu tư mạo hiểm trong 2 tháng này.<br>
+          • <strong>Tháng 5 âm lịch (Tháng Ngọ - Đắc Lưu Lộc Tồn) &amp; Tháng 8 âm lịch (Tháng Dậu):</strong> Thời điểm sinh khí tài lộc thăng hoa rực rỡ nhất năm 2027! Dễ có khoản thu bất ngờ, lợi nhuận lớn từ kinh doanh hoặc được giải ngân hợp đồng thuận lợi.<br>
+          • <strong>Tháng 12 âm lịch:</strong> Tích tụ đại lộc cuối năm, chốt lời bảo toàn vốn an toàn.
+        `;
+        chienLuocText = `Thực hành triệt để nguyên tắc <strong>"Tam Giỏ Tài Sản"</strong>: 60% vốn bảo toàn trong tài sản thực (bất động sản pháp lý sạch, tiết kiệm vàng/tiền gửi), 30% phục vụ xoay vòng kinh doanh cốt lõi, 10% quỹ dự phòng khẩn cấp. Mọi giao dịch tiền tệ phải giấy trắng mực đen rõ ràng, không tham gia cờ bạc, tiền ảo rủi ro cao.`;
+        break;
+
+      case 'QUAN LỘC':
+        khiVanText = `Công danh sự nghiệp năm Đinh Mùi 2027 được kích hoạt mãnh liệt bởi <strong>Thiên Đồng Hóa Quyền</strong> (dám đổi mới, bứt phá vị thế lãnh đạo) và <strong>Thiên Cơ Hóa Khoa</strong> (mưu lược tinh thông, chiến lược sắc bén). Bạn đứng trước ngưỡng cửa nâng cấp quy mô, thăng chức, đảm nhận trọng trách mới hoặc tái cấu trúc mô hình làm việc hiệu quả hơn. Tuy nhiên, cần đề phòng Cự Môn Hóa Kỵ gây ra thị phi công sở, sự đố kỵ từ đồng nghiệp hoặc sự tranh chấp hợp đồng đối tác.`;
+        diemRoiText = `
+          • <strong>Tháng 4 âm lịch (Tháng Tị - Kích hoạt Lưu Thiên Mã):</strong> Cơ hội đi công tác xa, đàm phán mở rộng thị trường liên tỉnh hoặc ký kết các hợp đồng kinh doanh lớn.<br>
+          • <strong>Tháng 6 âm lịch (Tháng Mùi) &amp; Tháng 10 âm lịch (Tháng Hợi):</strong> Thời khắc vàng để khẳng định năng lực, có quyết định bổ nhiệm thăng chức, tăng thu nhập hoặc đưa thương hiệu cá nhân lên tầm cao mới.<br>
+          • <strong>Tháng 7 &amp; Tháng 8 âm lịch:</strong> Cẩn trọng lời ăn tiếng nói nơi công sở, tránh phát ngôn cảm tính gây sơ hở cho kẻ tiểu nhân nắm thóp.
+        `;
+        chienLuocText = `Minh bạch hóa toàn bộ quy trình làm việc; lấy kết quả đo lường cụ thể làm thước đo thuyết phục thay vì chỉ tranh luận bằng lời nói. Chủ động nhận các dự án khó để chứng minh năng lực vượt trội, xây dựng mối quan hệ chân thành với các cấp quản lý và cộng sự tin cậy.`;
+        break;
+
+      case 'PHU THÊ':
+        khiVanText = `Đời sống tình cảm và đạo vợ chồng năm Đinh Mùi 2027 mang năng lượng ấm áp từ <strong>Thái Âm Hóa Lộc</strong>, thúc đẩy sự quan tâm, chăm sóc và gắn kết sâu sắc. Dù vậy, trục Can Đinh mang theo Cự Môn Hóa Kỵ nên hai người rất dễ phát sinh những cuộc tranh cãi từ chuyện vụn vặt thường nhật hoặc sự bất đồng quan điểm trong cách nuôi dạy con và chi tiêu tài chính gia đình.`;
+        diemRoiText = `
+          • <strong>Đối với người độc thân:</strong> Tháng 2, tháng 8 và tháng 11 âm lịch là những điểm sáng nhân duyên diệu kỳ; dễ gặp được ý trung nhân hiền hậu qua công việc hoặc được gia đình mai mối tác thành.<br>
+          • <strong>Đối với người đã kết hôn:</strong> Tháng 6 và tháng 9 âm lịch cần kiềm chế cái tôi, tránh tranh cãi hơn thua khi mệt mỏi; không để những áp lực công việc ngoài xã hội dội ngược về tổ ấm gia đình.<br>
+          • <strong>Tháng 12 âm lịch:</strong> Gia đạo sum họp an vui, cùng nhau chuẩn bị đón Tết đầm ấm, hỷ khí ngập tràn.
+        `;
+        chienLuocText = `Lấy đạo <strong>"TƯƠNG KÍNH NHƯ TÂN"</strong> làm kim chỉ nam. Tạo thói quen lắng nghe đối phương ít nhất 15 phút mỗi ngày mà không phán xét. Thường xuyên cùng nhau đi dạo, nấu ăn hoặc tổ chức chuyến du lịch ngắn ngày để hâm nóng ngọn lửa yêu thương.`;
+        break;
+
+      case 'ĐIỀN TRẠCH':
+        khiVanText = `<strong>NĂM ĐINH MÙI 2027 LÀ NĂM ĐẠI CÁT ĐỐI VỚI CUNG ĐIỀN TRẠCH!</strong> Trong Tử Vi Đẩu Số, sao <strong>Thái Âm</strong> là Đệ Nhất Điền Tinh (chủ quản nhà cửa, đất cát và kho báu), gặp can Đinh hóa thành <strong>LƯU HÓA LỘC</strong> trực chiếu! Đây là dấu hiệu phong thủy cực vượng cho việc tích lũy bất động sản, mua nhà tậu đất, hoàn thiện sổ đỏ hoặc cải tạo xây dựng không gian sống khang trang, tụ tài tụ lộc.`;
+        diemRoiText = `
+          • <strong>Tháng 5 âm lịch (Tháng Ngọ - Hội Lưu Lộc Tồn) &amp; Tháng 8 âm lịch (Tháng Dậu):</strong> Thời cơ vàng để giải ngân sở hữu bất động sản vị trí đẹp, giá tốt hoặc chốt lời an toàn các bất động sản đầu tư từ trước.<br>
+          • <strong>Tháng 6 âm lịch:</strong> Thích hợp cho việc khởi công sửa chữa, làm mới không gian sống, thay đổi phong thủy gia trạch.<br>
+          • <strong>Tháng 12 âm lịch:</strong> Tụ khí điền sản cuối năm, ngôi nhà đón nhận sinh khí ấm áp đón phúc tài năm mới.
+        `;
+        chienLuocText = `Ưu tiên các dự án bất động sản có pháp lý hoàn chỉnh, sổ đỏ sẵn sàng. Dọn dẹp sạch sẽ góc Tây Nam và Đông Nam trong nhà (phương vị nạp tài năm Đinh Mùi), đặt thêm cây phong thủy lá tròn xanh tươi (Kim Tiền, Thiết Mộc Lan) hoặc đèn ánh vàng để kích hoạt long mạch tài khí lưu chuyển.`;
+        break;
+
+      case 'THIÊN DI':
+        khiVanText = `Môi trường đối ngoại và vận trình xuất hành năm Đinh Mùi 2027 vô cùng sôi động nhờ <strong>Lưu Thiên Mã tọa thủ tại Tị</strong>. Bạn có cơ hội dịch chuyển, đi công tác xa, du lịch hoặc mở rộng tầm ảnh hưởng sang các thị trường liên tỉnh, thậm chí ra nước ngoài. Càng đi ra ngoài bạn càng gặp được nhiều đối tác tầm cỡ, đón nhận nguồn sinh khí mới mẻ làm bàn đạp thăng hoa.`;
+        diemRoiText = `
+          • <strong>Tháng 4 âm lịch (Tháng Tị) &amp; Tháng 10 âm lịch (Tháng Hợi):</strong> Hai tháng di chuyển nhiều nhất trong năm; cực kỳ thuận lợi cho việc ký kết hợp đồng ngoại giao hoặc mở rộng thị trường kinh doanh.<br>
+          • <strong>Tháng 7 âm lịch:</strong> Cần chú ý cẩn trọng khi đi lại vùng sông nước, kiểm tra kỹ phương tiện trước những chuyến đi xa.<br>
+          • <strong>Phương Vị Xuất Hành Đại Cát Đầu Năm 2027:</strong> Chọn hướng Đông Nam (đón Hỷ Thần) hoặc hướng Nam (đón Tài Thần) khi xuất hành mùng 1 Tết để cả năm thuận buồm xuôi gió.
+        `;
+        chienLuocText = `Tuân thủ nghiêm ngặt luật giao thông, không lái xe khi đã sử dụng rượu bia. Đến nơi xa lạ cần giữ thái độ khiêm nhường, không khoe khoang của cải để tránh kẻ xấu dòm ngó.`;
+        break;
+
+      case 'PHÚC ĐỨC':
+        khiVanText = `Cung Phúc Đức là cội nguồn tâm linh, dòng chảy âm đức tổ tiên và điểm tựa nội tâm của bạn. Trong năm Đinh Mùi 2027, trường khí âm đức tổ tiên hoạt động như chiếc khiên hộ mệnh vững chắc nhất, giúp bạn nhiều phen "tai qua nạn khỏi" một cách kỳ diệu. Trực giác tâm linh của bạn trở nên cực kỳ nhạy bén, linh cảm mách bảo chuẩn xác trong các tình huống nhạy cảm.`;
+        diemRoiText = `
+          • <strong>Tiết Thanh Minh (Tháng 3 âm lịch) &amp; Tháng 7 âm lịch (Đại lễ Vu Lan):</strong> Hai thời điểm năng lượng tâm linh kết nối mạnh mẽ nhất; rất linh ứng cho việc thăm nom tu bổ phần mộ gia tiên và làm việc thiện hồi hướng phúc báu cho tổ tiên.<br>
+          • <strong>Tháng 11 &amp; Tháng 12 âm lịch:</strong> Thời điểm tâm an thần định, nhìn nhận lại bản thân để sẵn sàng bước vào chu kỳ đại vận mới rực rỡ hơn.
+        `;
+        chienLuocText = `Chăm sóc ban thờ gia tiên chu đáo, trang nghiêm và ấm cúng. Dành thời gian mỗi ngày 15 phút thực hành thiền định hoặc đi bộ tĩnh tâm. Tâm càng thanh tịnh không màng danh lợi ảo thì trí tuệ Bát Nhã càng khai mở, phúc trạch tổ tiên càng tuôn chảy che chở cho bạn và con cháu.`;
+        break;
+
+      case 'TẬT ÁCH':
+        khiVanText = `Năm Can Đinh (Âm Hỏa) Chi Mùi (Âm Thổ) nạp âm Thiên Hà Thủy tạo sự giao thoa phức tạp giữa Hỏa khí và Thủy dịch. Bạn cần đặc biệt chú ý giữ gìn sự cân bằng thể trạng, phòng tránh tình trạng "Hỏa bốc Thủy suy" khiến cơ thể mệt mỏi, suy nhược thần kinh hoặc rối loạn chuyển hóa tạng phủ.`;
+        diemRoiText = `
+          • <strong>Hỏa &amp; Mộc vượng (Tháng 5 &amp; Tháng 6 âm lịch):</strong> Đề phòng các vấn đề về tim mạch, huyết áp dao động, đau đầu mất ngủ, mắt mỏi nhức và nóng gan.<br>
+          • <strong>Thổ &amp; Thủy xung khắc (Tháng 3, Tháng 9 &amp; Tháng 11 âm lịch):</strong> Lưu ý sức khỏe hệ tiêu hóa (dạ dày, đại tràng do căng thẳng) và hệ bài tiết (thận, bàng quang cần bổ sung đủ nước).
+        `;
+        chienLuocText = `<strong>Pháp Hóa Giải Huyết Quang Kinh Điển Cụ Nguyễn Phát Lộc:</strong> Vào đầu năm 2027 (Tháng 1 hoặc Tháng 2 âm lịch), chủ động đi kiểm tra sức khỏe tổng quát và <strong>THAM GIA HIẾN MÁU NHÂN ĐẠO (1 lần)</strong>. Việc "chủ động ra máu cứu người" sẽ hóa giải toàn bộ sát khí của Kình Dương, Bạch Hổ, biến nguy cơ phẫu thuật dao kéo thành đại phúc đức cứu mạng!`;
+        break;
+
+      case 'TỬ TỨC':
+        khiVanText = `Cung Tử Tức năm Đinh Mùi 2027 đón nhận luồng sinh khí thanh khiết tốt lành. Nếu bạn đang lên kế hoạch đón thêm thành viên mới, năm Đinh Mùi (em bé mang nạp âm Thiên Hà Thủy) là năm cực kỳ cát lành; đứa trẻ sinh ra mang trí tuệ sáng dạ, tấm lòng nhân ái, có khiếu nghệ thuật và mang lại nhiều may mắn tài lộc cho cha mẹ.`;
+        diemRoiText = `
+          • <strong>Đồng hành học vấn:</strong> Dưới ánh sáng của <strong>Thiên Cơ Hóa Khoa</strong>, con cái trong gia đình năm nay có bước tiến vượt bậc trong học tập, thi cử đỗ đạt, đạt giải thưởng hoặc thích nghi nhanh với môi trường giáo dục mới.<br>
+          • <strong>Tháng 5 &amp; Tháng 6 âm lịch (Mùa hè):</strong> Cần sát sao theo dõi và nhắc nhở trẻ nhỏ khi vui chơi gần khu vực sông nước, hồ bơi hoặc tham gia các môn thể thao vận động mạnh.
+        `;
+        chienLuocText = `Lấy phương pháp làm bạn và khích lệ làm trọng tâm. Tôn trọng sở thích và năng khiếu riêng của con thay vì áp đặt kỳ vọng quá lớn. Thường xuyên dắt con tham gia các hoạt động thiện nguyện ngoài trời để con nuôi dưỡng lòng trắc ẩn từ tấm bé.`;
+        break;
+
+      case 'PHỤ MẪU':
+        khiVanText = `Sức khỏe của cha mẹ và không khí gia đình là điều bạn cần dành nhiều tình cảm chăm sóc nhất trong năm Đinh Mùi 2027. Do sự dịch chuyển của trục sao Lưu Niên, cha mẹ có thể có những băn khoăn lo lắng cho con cháu hoặc sức khỏe có phần giảm sút do tuổi tác.`;
+        diemRoiText = `
+          • <strong>Thời điểm cần quan tâm đặc biệt:</strong> Tháng 3 và Tháng 9 âm lịch (thời điểm giao mùa) cần lưu ý huyết áp, tim mạch và các bệnh xương khớp của cha mẹ.<br>
+          • <strong>Tháng 7 âm lịch (Vu Lan Thắng Hội):</strong> Dịp quý báu để thể hiện lòng hiếu kính, đưa cha mẹ đi du lịch nghỉ dưỡng hoặc biếu tặng các sản phẩm chăm sóc sức khỏe dinh dưỡng.
+        `;
+        chienLuocText = `Cổ nhân đúc kết: <em>"Bách thiện hiếu vi tiên"</em> (Trong trăm việc thiện, chữ Hiếu đứng hàng đầu). Dù công việc bận rộn đến đâu, hãy thường xuyên gọi điện vấn an, lắng nghe cha mẹ tâm sự. Sự hiếu thuận chân thành của bạn chính là "phong thủy cao cấp nhất" giúp tiêu trừ mọi vận hạn trên con đường lập thân!`;
+        break;
+
+      case 'HUYNH ĐỆ':
+        khiVanText = `Mối quan hệ giữa bạn và anh chị em ruột thịt, bạn bè tri kỷ có nhiều dịp gắn kết sum họp ấm cúng trong năm Đinh Mùi 2027. Sự tương trợ về tinh thần và chia sẻ kinh nghiệm cuộc sống diễn ra hài hòa, mang lại nguồn động viên tinh thần to lớn.`;
+        diemRoiText = `
+          • <strong>Tháng 6 &amp; Tháng 12 âm lịch:</strong> Những dịp sum vầy gia đình ấm áp, anh em quây quần chia sẻ thành quả một năm làm việc.<br>
+          • <strong>Cảnh Báo Về Tiền Bạc:</strong> Lưu Hóa Kỵ (Cự Môn) nhắc nhở bạn cần tuyệt đối minh bạch trong mọi việc hùn hạp tài chính. Nếu có sự vay mượn hoặc mua bán chung, phải có văn bản thỏa thuận rạch ròi, tránh tâm lý "anh em một nhà sao cũng được" dễ dẫn đến rạn nứt tình cảm.
+        `;
+        chienLuocText = `"Huynh đệ như thủ túc" — Giúp đỡ nhau bằng sự chân thành, tôn trọng sự độc lập kinh tế của nhau. Gạt bỏ mọi so bì tỵ nạnh nhỏ nhen để giữ cho đại gia đình luôn thuận hòa hưng thịnh.`;
+        break;
+
+      case 'NÔ BỘC':
+        khiVanText = `Mạng lưới quan hệ xã giao, đối tác làm ăn và đồng nghiệp cấp dưới của bạn sẽ trải qua một cuộc <strong>"Thanh lọc tự nhiên"</strong> rất rõ nét trong năm Đinh Mùi 2027. Nhờ năng lượng Thái Tuế và Cự Môn Hóa Kỵ thử thách, bạn sẽ nhìn thấu ai là người cộng sự trung thành, có tâm có tầm, và ai chỉ là kẻ xu nịnh cơ hội tìm kiếm lợi ích cá nhân.`;
+        diemRoiText = `
+          • <strong>Tháng 7 &amp; Tháng 8 âm lịch:</strong> Đề phòng sự cạnh tranh không lành mạnh, tiểu nhân đặt điều sau lưng hoặc nhân sự dưới quyền làm việc tắc trách gây ảnh hưởng đến uy tín chung.<br>
+          • <strong>Tháng 4 &amp; Tháng 10 âm lịch:</strong> Thời điểm gặp gỡ được những đối tác uy tín, có năng lực chuyên môn cao từ phương xa đến hợp tác.
+        `;
+        chienLuocText = `Tuyệt đối tuân thủ nguyên tắc <strong>"Bằng hữu tương kính, tài chính phân minh"</strong>. Không đứng tên bảo lãnh vay nợ hay cầm cố tài sản hộ bất kỳ người bạn nào. Khi tuyển dụng hay giao việc quan trọng, hãy chọn người có phẩm chất trung thực, cẩn trọng thay vì chỉ nghe theo những lời hoa mỹ.`;
+        break;
+
+      default:
+        khiVanText = `Năm Đinh Mùi 2027 mở ra chu kỳ năng lượng mới, mang đến cơ hội thanh lọc và củng cố vững chắc cho cung vị này.`;
+        diemRoiText = `Cần lưu tâm các tháng giữa năm (Tháng 5, Tháng 6 âm lịch) và các tháng cuối năm để nắm bắt cơ hội bứt phá.`;
+        chienLuocText = `Giữ tâm thiện lương, hành sự minh bạch, tích cực trau dồi nội lực để biến mọi thử thách thành cơ hội vươn lên.`;
+        break;
+    }
+
+    // Gộp thành khối HTML hoàn chỉnh, đậm chất Hoàng Gia
+    return `
+      <div class="luan-giai-block luu-nien-2027-block" style="margin: 1rem 0; background: linear-gradient(135deg, rgba(218, 165, 32, 0.09), rgba(254, 250, 240, 0.98)); border: 1.5px solid rgba(212, 175, 55, 0.45); border-radius: 8px; padding: 1.05rem 1.25rem; box-shadow: 0 3px 12px rgba(0,0,0,0.03);">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 0.65rem; border-bottom: 1px dashed rgba(212, 175, 55, 0.4); padding-bottom: 0.55rem;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 1.25rem; color: #D4AF37;">🔥</span>
+            <strong style="color: var(--seal, #A3281F); font-size: 0.98rem; font-family: var(--font-heading, serif); text-transform: uppercase; letter-spacing: 0.4px;">
+              DỰ BÁO VẬN HẠN &amp; CHIẾN LƯỢC NĂM 2027 (ĐINH MÙI)
+            </strong>
+          </div>
+          <span style="background: linear-gradient(135deg, #A3281F, #C8362D); color: #FFF; font-size: 0.75rem; font-weight: 700; padding: 2px 10px; border-radius: 12px; letter-spacing: 0.3px;">
+            ✨ Cung ${chi} (${can}) · Cung Vị ${cleanName}
+          </span>
+        </div>
+
+        ${tuHoaBadges.length > 0 ? `
+          <div style="margin-bottom: 0.65rem; display: flex; flex-wrap: wrap; gap: 6px; align-items: center;">
+            <span style="font-size: 0.8rem; font-weight: 700; color: #78350F;">Tứ Hóa Năm Đinh Chiếu Mệnh:</span>
+            ${tuHoaBadges.join('')}
+          </div>
+        ` : ''}
+
+        ${viTriLuuTinhHtml}
+
+        <div style="font-size: 0.88rem; line-height: 1.68; color: var(--text, #2A231C); margin-top: 0.5rem;">
+          <div style="margin-bottom: 0.65rem;">
+            <strong style="color: #926A06; font-size: 0.9rem;">✦ Khí Vận &amp; Năng Lượng Chi Phối Năm 2027:</strong><br>
+            ${khiVanText}
+          </div>
+
+          <div style="margin-bottom: 0.65rem; background: rgba(255,255,255,0.7); padding: 8px 12px; border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.25);">
+            <strong style="color: #A3281F; font-size: 0.9rem;">✦ Điểm Rơi Cơ Hội &amp; Các Tháng Âm Lịch Trọng Điểm:</strong><br>
+            ${diemRoiText}
+          </div>
+
+          <div style="margin-top: 0.5rem; background: rgba(5, 150, 105, 0.06); padding: 8px 12px; border-radius: 6px; border-left: 3px solid #059669;">
+            <strong style="color: #065F46; font-size: 0.9rem;">✦ Chiến Lược Hành Động &amp; Bí Pháp Cải Vận 2027 (Cụ Nguyễn Phát Lộc):</strong><br>
+            ${chienLuocText}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
   // 5. CÔNG THỨC ĐỘNG TẠO BÀI BIỆN GIẢI CHUYÊN SÂU TỪNG CUNG
   function generatePalaceDeepAnalysis(cung, laSo) {
     const chi = cung.chi;
@@ -2193,6 +2455,9 @@
     const isThan = cung.cungName.includes('<THÂN>');
     const banMenh = laSo.napAm || 'Dương Liễu Mộc';
     const cuc = laSo.cucInfo ? laSo.cucInfo.name : 'Hỏa lục cục';
+
+    // 0. Dự Báo Biến Động & Chiến Lược Vận Hạn Năm 2027 (Đinh Mùi)
+    const luuNien2027Html = generatePalace2027Forecast(cung, cungName, laSo);
 
     // 1. Phân tích Khí Tượng & Cách Cục
     let tieuDe = '';
@@ -2463,6 +2728,7 @@
     return {
       tieuDe: tieuDe,
       cachCucHtml: cachCucHtml,
+      luuNien2027Html: luuNien2027Html,
       tamPhuongHtml: tamPhuongHtml,
       chinhTinhDetailHtml: chinhTinhDetailHtml,
       tuHoaDetailHtml: tuHoaDetailHtml,
@@ -2813,6 +3079,7 @@
 
   function generatePalaceCliffhangerTeaser(cung, laSo) {
     const cungName = cung.cungName.replace('<THÂN>', '').trim();
+    const upperName = cungName.toUpperCase();
     const chinhTinhNames = (cung.chinhTinh || []).map(s => s.name + (s.dacHam ? ' ' + s.dacHam : '')).join(', ') || 'Vô Chính Diệu';
     
     const satTinhNames = (cung.phuTinhRight || []).map(s => s.name).slice(0, 3).join(', ');
@@ -2820,68 +3087,96 @@
 
     let bullets = [];
 
-    switch (cungName) {
+    switch (upperName) {
+      case 'MỆNH':
+        bullets = [
+          `Dự báo khí vận bản lề năm Đinh Mùi 2027: Cơ hội tái lập vị thế và bứt phá của <strong>[${chinhTinhNames}]</strong>.`,
+          `Tháng 6 âm lịch (Tháng Mùi - Bản vị Thái Tuế 2027): Bước ngoặt chuyển dịch lớn nhất trong năm cần chuẩn bị những gì?`,
+          `Phương pháp Cải Mệnh &amp; Hóa Giải nghiệp lực tinh đẩu của cụ Nguyễn Phát Lộc giúp vạn sự hanh thông.`
+        ];
+        break;
       case 'TÀI BẠCH':
         bullets = [
-          `Bí pháp kích hoạt nguồn tiền đại cát từ <strong>[${chinhTinhNames}]</strong> trong năm Bính Ngọ 2026.`,
-          `Tháng âm lịch trong năm 2026 – 2027 cần đề phòng hao tài lớn nhất do tác động của <strong>[${satTinhNames || 'Địa Không, Tiểu Hao'}]</strong>.`,
-          `Định hướng phân bổ dòng vốn: Lá số của bạn hợp đầu tư Bất Động Sản, Chứng Khoán hay kinh doanh dịch vụ?`,
-          `Toàn văn phương pháp Cải Mệnh &amp; Tích Phúc Tụ Tài kinh điển của cụ Nguyễn Phát Lộc cho Cung Tài Bạch.`
+          `Dự báo dòng tiền bùng nổ &amp; điểm rơi tài lộc năm Đinh Mùi 2027 theo thế đứng <strong>[${chinhTinhNames}]</strong>.`,
+          `Tháng âm lịch trong năm 2027 cần đề phòng hao tài lớn nhất do tác động của <strong>[${satTinhNames || 'Địa Không, Tiểu Hao'}]</strong>.`,
+          `Định hướng phân bổ dòng vốn: Cơ hội đầu tư Bất Động Sản, Đất Cát hay tích lũy an toàn trong năm Đinh Mùi khi Thái Âm Hóa Lộc ngự trị.`,
+          `Toàn văn phương pháp Cải Mệnh &amp; Tích Phúc Tụ Tài kinh điển năm 2027 của cụ Nguyễn Phát Lộc cho Cung Tài Bạch.`
         ];
         break;
       case 'QUAN LỘC':
         bullets = [
-          `Ngành nghề &amp; lĩnh vực đại vận giúp bạn đột phá công danh với thế đứng của <strong>[${chinhTinhNames}]</strong>.`,
-          `Thời điểm vàng chuyển việc, thăng chức hoặc mở rộng quy mô kinh doanh trong 2 năm 2026 – 2027.`,
-          `Bí quyết chế ngự tiểu nhân ganh ghét và kích hoạt quý nhân nâng đỡ trên con đường thăng tiến.`
+          `Thời điểm vàng chuyển việc, thăng chức hoặc mở rộng quy mô kinh doanh trong năm Đinh Mùi 2027.`,
+          `Ngành nghề &amp; lĩnh vực đại vận giúp bạn đột phá công danh với thế đứng <strong>[${chinhTinhNames}]</strong> và Thiên Đồng Hóa Quyền.`,
+          `Bí quyết chế ngự tiểu nhân ganh ghét, phòng ngừa thị phi do Cự Môn Hóa Kỵ và kích hoạt quý nhân nâng đỡ năm 2027.`
         ];
         break;
       case 'PHU THÊ':
         bullets = [
-          `Chân dung, tính cách &amp; nghề nghiệp của người bạn đời tiền định qua bộ sao <strong>[${chinhTinhNames}]</strong>.`,
-          `Thời điểm kết hôn hoặc giai đoạn thử thách hôn nhân cần hóa giải để gia đạo hòa thuận bền lâu.`,
+          `Dự báo biến động tình duyên &amp; hòa khí gia đạo năm 2027 Đinh Mùi dưới tác động của <strong>[${chinhTinhNames}]</strong>.`,
+          `Thời điểm hỷ tín kết hôn hoặc các tháng âm lịch cần kiềm chế cái tôi để tránh rạn nứt hôn nhân.`,
           `Phương pháp hóa giải triệt để ảnh hưởng của <strong>[${satTinhNames || 'Sát Tinh ngầm / Không Vong'}]</strong> để giữ trọn lửa ấm gia đình.`
         ];
         break;
       case 'ĐIỀN TRẠCH':
         bullets = [
-          `Quy mô và thời điểm tích lũy bất động sản lớn nhất trong đời theo thế đứng của <strong>[${chinhTinhNames}]</strong>.`,
-          `Năm nào trong đại vận là thời điểm vàng để mua bán nhà đất không lo tranh chấp, sinh lời tối đa?`,
-          `Bí quyết phong thủy nhà ở kích hoạt cung Tài Lộc tương sinh với bản mệnh.`
+          `Cơ hội vàng mua bán nhà đất, tích lũy bất động sản năm 2027 khi Thái Âm Hóa Lộc ngự trị.`,
+          `Tháng âm lịch đắc tài đắc lộc để xuống tiền ký hợp đồng mua đất, xây sửa nhà cửa sinh lời tối đa.`,
+          `Bí quyết phong thủy kích hoạt góc tài vị Đông Nam và Tây Nam đón sinh khí thịnh vượng năm Đinh Mùi 2027.`
         ];
         break;
       case 'THIÊN DI':
         bullets = [
-          `Vận số xuất ngoại, đi xa lập nghiệp: Cơ hội thăng tiến và đắc thời đắc vị ngoài xã hội.`,
-          `Phương vị xuất hành đại cát và các tháng cần cẩn trọng an toàn giao thông năm 2026.`,
-          `Cách biến môi trường xã hội bên ngoài thành bàn đạp làm giàu nhanh chóng.`
+          `Vận xuất ngoại, đi xa lập nghiệp năm 2027: Kích hoạt Lưu Thiên Mã tại Tị mở rộng tầm ảnh hưởng.`,
+          `Phương vị xuất hành đại cát đầu năm 2027 và các tháng cần cẩn trọng an toàn giao thông.`,
+          `Cách biến môi trường đối ngoại bên ngoài thành bàn đạp làm giàu nhanh chóng trong năm Đinh Mùi.`
         ];
         break;
       case 'PHÚC ĐỨC':
         bullets = [
-          `Mức độ thụ hưởng phúc ấm tổ tiên và chiều sâu nội tâm theo bộ sao <strong>[${chinhTinhNames}]</strong>.`,
+          `Mức độ thụ hưởng phúc ấm tổ tiên và trực giác tâm linh dẫn lối vượt sóng gió năm Đinh Mùi 2027 theo bộ sao <strong>[${chinhTinhNames}]</strong>.`,
           `Nguồn năng lượng tâm linh và nghiệp lực dòng họ tác động đến hậu vận như thế nào?`,
-          `Phương pháp tu dưỡng tâm tính &amp; tích lũy âm đức giúp tiêu trừ vận hạn lớn.`
+          `Phương pháp tu dưỡng tâm tính, tích lũy âm đức giúp tiêu trừ vận hạn lớn trong năm 2027.`
         ];
         break;
       case 'TỬ TỨC':
         bullets = [
-          `Số lượng, giới tính và đường công danh hiển đạt của con cái sau này theo <strong>[${chinhTinhNames}]</strong>.`,
-          `Tính cách con cái và phương pháp giáo dục phù hợp để con thành tài, hiếu thuận.`,
-          `Hóa giải các hung tinh chiếu cung con cái để gia đạo bình an.`
+          `Cát khí sinh con năm Đinh Mùi 2027 (Thiên Hà Thủy) và vận mệnh thông tuệ của quý tử theo <strong>[${chinhTinhNames}]</strong>.`,
+          `Đồng hành học vấn và thi cử của con cái dưới ánh sáng của Thiên Cơ Hóa Khoa năm 2027.`,
+          `Hóa giải các hung tinh chiếu cung con cái để gia đạo bình an, con thảo cháu hiền.`
         ];
         break;
       case 'TẬT ÁCH':
         bullets = [
-          `Bản đồ sức khỏe: Các cơ quan tạng phủ dễ suy yếu cần chú ý bảo dưỡng theo ngũ hành bản mệnh.`,
-          `Năm hạn và tháng âm lịch cần đề phòng tai nạn, bệnh tật bất ngờ trong đại vận.`,
+          `Bản đồ sức khỏe 2027: Nguy cơ Hỏa - Thủy tương tranh ảnh hưởng đến tim mạch, tiêu hóa và tạng phủ theo ngũ hành bản mệnh.`,
+          `Tháng âm lịch trong năm Đinh Mùi 2027 cần đề phòng tai nạn, bệnh tật bất ngờ.`,
           `Pháp hóa giải huyết quang và cách ăn uống dưỡng sinh khoa học của cụ Nguyễn Phát Lộc.`
+        ];
+        break;
+      case 'PHỤ MẪU':
+        bullets = [
+          `Sức khỏe và vận hạn của cha mẹ trong năm 2027: Các tháng giao mùa cần chú ý huyết áp, xương khớp.`,
+          `Chữ Hiếu vi tiên: Bí pháp phụng dưỡng cha mẹ để kích hoạt đại phúc báu cho chính mình trong năm Đinh Mùi.`,
+          `Hóa giải xung khắc thế hệ, tạo dựng sự ấm êm thuận hòa trong gia đạo.`
+        ];
+        break;
+      case 'HUYNH ĐỆ':
+        bullets = [
+          `Sự tương trợ tài chính và làm ăn giữa anh chị em ruột thịt trong năm 2027.`,
+          `Nguyên tắc ứng xử phân minh tiền bạc để tránh rạn nứt tình cảm do Cự Môn Hóa Kỵ năm Đinh Mùi.`,
+          `Thời điểm sum vầy ấm cúng và phương pháp cùng nhau gìn giữ gia phong dòng họ.`
+        ];
+        break;
+      case 'NÔ BỘC':
+        bullets = [
+          `Thanh lọc mạng lưới quan hệ xã giao, đối tác làm ăn và nhân sự dưới quyền năm Đinh Mùi 2027.`,
+          `Bí quyết nhận diện tri kỷ và phòng tránh tiểu nhân, phản trắc nơi công sở.`,
+          `Nguyên tắc bất di bất dịch: Không đứng tên bảo lãnh nợ nần để bảo vệ bình an gia tộc.`
         ];
         break;
       default:
         bullets = [
           `Toàn bộ ma trận Tam Phương Tứ Chính hội chiếu tương tác vào Cung <strong>${cungName}</strong>.`,
-          `Dự báo cơ hội bứt phá và rủi ro tiềm ẩn trong chu kỳ 2 năm tới (2026 – 2027).`,
+          `Dự báo cơ hội bứt phá và rủi ro tiềm ẩn trong năm 2027 (Đinh Mùi).`,
           `Lời khuyên Cải Mệnh &amp; Hóa Giải sát tinh chi tiết từ các bậc tiền bối Tử Vi Lý Số.`
         ];
     }
@@ -3139,6 +3434,7 @@
   // 6. XUẤT RA TOÀN BỘ API
   var TuViLuanGiaiEngine = {
     generatePalaceDeepAnalysis: generatePalaceDeepAnalysis,
+    generatePalace2027Forecast: generatePalace2027Forecast,
     synthesizeCatTinhCombination: synthesizeCatTinhCombination,
     synthesizeSatTinhCombination: synthesizeSatTinhCombination,
     synthesizeCatSatInteraction: synthesizeCatSatInteraction,

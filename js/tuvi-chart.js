@@ -1099,7 +1099,7 @@ const TuViChart = {
         <div class="sheet-locked-wrap">
           <p class="sheet-leading-text"><strong>Luận điểm ban đầu:</strong> ${firstSentences}</p>
           <div class="sheet-fade-mask" aria-hidden="true">
-            <p>Toàn bộ ma trận Tam Phương Tứ Chính, Tứ Hóa Phi Tinh Lộc Quyền Khoa Kỵ, Cát Tinh phò tá, Sát Tinh thử thách và Đạo Trị Mệnh hóa giải vận hạn của Cung ${cung.cungName} được phân tích toàn diện trong bản luận giải chuyên sâu...</p>
+            <p>✦ Dự Báo Vận Hạn Năm 2027 (Đinh Mùi): Toàn bộ ma trận Tam Phương Tứ Chính, Tứ Hóa Phi Tinh Lộc Quyền Khoa Kỵ năm Đinh Mùi, Cát Tinh phò tá, Sát Tinh thử thách, các tháng âm lịch bùng nổ tài lộc/công danh và Đạo Trị Mệnh của Cung ${cung.cungName} được phân tích toàn diện trong bản luận giải chuyên sâu...</p>
           </div>
           <div class="sheet-unlock-cta">
             ${ctaButtonsHtml}
@@ -1128,6 +1128,7 @@ const TuViChart = {
         luanGiaiBody = `
           <div class="sheet-free-analysis">
             ${deepAnalysis.cachCucHtml ? `<div class="sheet-analysis-block">${deepAnalysis.cachCucHtml}</div>` : ''}
+            ${deepAnalysis.luuNien2027Html ? `<div class="sheet-analysis-block">${deepAnalysis.luuNien2027Html}</div>` : ''}
             ${tamPhuongBlock}
             ${deepAnalysis.chinhTinhDetailHtml ? `<div class="sheet-analysis-block">${deepAnalysis.chinhTinhDetailHtml}</div>` : ''}
             ${isTamPhuongUnlocked && deepAnalysis.tuHoaDetailHtml ? `<div class="sheet-analysis-block">${deepAnalysis.tuHoaDetailHtml}</div>` : ''}
@@ -1546,6 +1547,7 @@ const TuViChart = {
 
       const tieuDeText = analysis ? analysis.tieuDe : `${cung.cungName} Tọa Cung ${cung.chi}`;
       const cachCucText = analysis ? analysis.cachCucHtml : `<p>Tọa thủ tại cung ${cung.chi} thuộc ngũ hành bản vị.</p>`;
+      const luuNien2027Text = (analysis && analysis.luuNien2027Html) ? analysis.luuNien2027Html : '';
       const tamPhuongText = (analysis && analysis.tamPhuongHtml) ? analysis.tamPhuongHtml : '';
       const chinhTinhText = analysis ? analysis.chinhTinhDetailHtml : '';
       const tuHoaText = analysis ? analysis.tuHoaDetailHtml : '';
@@ -1574,6 +1576,9 @@ const TuViChart = {
                 <div class="luan-giai-block cach-cuc-block" style="margin-bottom: 0.8rem; font-size: 0.92rem; line-height: 1.65; color: var(--text);">
                   ${cachCucText}
                 </div>
+
+                <!-- 1.5. DỰ BÁO VẬN HẠN & CHIẾN LƯỢC NĂM 2027 (ĐINH MÙI) -->
+                ${luuNien2027Text}
 
                 <!-- 2. Tương Tác Tam Phương Tứ Chính & Đại Cách Cục -->
                 ${isTamPhuongUnlocked ? tamPhuongText : `
@@ -1628,8 +1633,8 @@ const TuViChart = {
           cliff = TuViLuanGiaiEngine.generatePalaceCliffhangerTeaser(cung, laSo);
         }
         const bulletsList = cliff ? cliff.bullets : [
-          `Bí pháp kích hoạt quý nhân phò trợ Cung ${cung.cungName} trong năm 2026 – 2027.`,
-          `Tháng âm lịch cần đề phòng biến cố hao tài hoặc thị phi tình cảm.`,
+          `Dự báo cơ hội bứt phá và rủi ro Cung ${cung.cungName} trong năm Đinh Mùi 2027.`,
+          `Tháng âm lịch cần đề phòng biến cố hao tài hoặc thị phi tình cảm năm 2027.`,
           `Phương pháp Cải Mệnh &amp; hóa giải sát tinh của tiền nhân.`
         ];
 
@@ -1723,9 +1728,9 @@ const TuViChart = {
     });
 
     // Item 7: Tính năm Dương lịch hiện tại và Can Chi động
-    const curYear = new Date().getFullYear();
-    const nextYear = curYear + 1;
-    const curCanChi = this.getCanChiYear(curYear);
+    const curYear = (window.SITE_CONFIG && window.SITE_CONFIG.currentYear) || 2027;
+    const nextYear = (window.SITE_CONFIG && window.SITE_CONFIG.nextYear) || (curYear + 1);
+    const curCanChi = (window.SITE_CONFIG && window.SITE_CONFIG.currentCanChi) || this.getCanChiYear(curYear);
     const nextCanChi = this.getCanChiYear(nextYear);
 
     // Thêm Khối Vận Hạn Từng Giai Đoạn & Phương Pháp Hóa Giải

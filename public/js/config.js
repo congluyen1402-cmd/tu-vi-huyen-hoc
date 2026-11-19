@@ -54,7 +54,7 @@ window.SITE_CONFIG = {
         "Mở khóa toàn bộ 12 cung luận giải chi tiết (không che mờ)",
         "Luận giải Đại Hạn các thập niên (từ 6 đến 75+ tuổi) & Phương pháp Hóa giải",
         "Phân tích Tam Phương Tứ Chính & Tứ Hóa Phi Tinh (Lộc - Quyền - Khoa - Kỵ)",
-        "Dự báo Vận Hạn Lưu Niên 2027 (Đinh Mùi) & 2028 (Mậu Thân)",
+        "Dự báo Vận Hạn Năm 2027 (Đinh Mùi) chuyên sâu trọn vẹn 12 Cung số & Đại Hạn",
         "Xuất file in PDF A4 màu hoàng gia trang trọng lưu giữ trọn đời",
         "Tích hợp Cố Vấn Tử Vi AI giải đáp thấu đáo"
       ]
