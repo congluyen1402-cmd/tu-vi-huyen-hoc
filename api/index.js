@@ -1,11 +1,11 @@
 const server = require('../server.js');
 
 module.exports = (req, res) => {
-  if (!req.url.includes('?')) {
-    const originalUrl = req.headers['x-matched-path'] || req.headers['x-vercel-matched-path'];
-    if (originalUrl && originalUrl !== '/api' && !originalUrl.includes('[')) {
-      req.url = originalUrl;
-    }
+  const originalUrl = req.headers['x-matched-path'] || req.headers['x-vercel-matched-path'];
+  if (originalUrl && originalUrl !== '/api' && !originalUrl.includes('[')) {
+    const queryIdx = req.url.indexOf('?');
+    const queryStr = queryIdx !== -1 ? req.url.slice(queryIdx) : '';
+    req.url = originalUrl + queryStr;
   }
   server.emit('request', req, res);
 };

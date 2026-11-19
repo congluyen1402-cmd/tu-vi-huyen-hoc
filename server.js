@@ -50,6 +50,13 @@ try {
   try { DEFAULT_POSTS = JSON.parse(fs.readFileSync(POSTS_FILE, 'utf8')); } catch (e2) {}
 }
 
+let DEFAULT_ORDERS = [];
+try {
+  DEFAULT_ORDERS = require('./data/orders.json');
+} catch (e) {
+  try { DEFAULT_ORDERS = JSON.parse(fs.readFileSync(ORDERS_FILE, 'utf8')); } catch (e2) {}
+}
+
 // Tự động đồng bộ các trường dữ liệu cập nhật từ codebase (như ảnh bài viết mới) vào /tmp
 try {
   const tmpPostsPath = path.join(TMP_DIR, 'posts.json');
@@ -161,21 +168,50 @@ function readJsonFile(filePath, defaultValue) {
       return Array.isArray(DEFAULT_POSTS) && DEFAULT_POSTS.length > 0 ? DEFAULT_POSTS : defaultValue;
     }
 
-    // 1. Luôn ưu tiên đọc trực tiếp từ file repo chính thức
-    if (fs.existsSync(filePath)) {
+    // Xử lý bảo đảm an toàn cho orders.json: Ưu tiên dữ liệu mới nhất từ TMP_DIR và gộp với DEFAULT_ORDERS
+    if (baseName === 'orders.json') {
+      let ordersList = [];
+      const tmpFilePath = path.join(TMP_DIR, baseName);
+      if (fs.existsSync(tmpFilePath)) {
+        try {
+          const raw = fs.readFileSync(tmpFilePath, 'utf8');
+          if (raw && raw.trim()) {
+            const parsed = JSON.parse(raw);
+            if (Array.isArray(parsed) && parsed.length > 0) ordersList = parsed;
+          }
+        } catch (e) {}
+      }
+
+      // Đọc thêm từ repo hoặc DEFAULT_ORDERS để gộp các đơn hàng đã lưu trong git
+      const baseOrders = (Array.isArray(DEFAULT_ORDERS) && DEFAULT_ORDERS.length > 0) ? DEFAULT_ORDERS : (fs.existsSync(filePath) ? JSON.parse(fs.readFileSync(filePath, 'utf8')) : []);
+      if (Array.isArray(baseOrders)) {
+        baseOrders.forEach(bo => {
+          if (!ordersList.some(o => (o.orderCode && bo.orderCode && o.orderCode.toUpperCase() === bo.orderCode.toUpperCase()) || (bo.transactionId && o.transactionId && String(o.transactionId) === String(bo.transactionId)))) {
+            ordersList.push(bo);
+          }
+        });
+      }
+
+      if (ordersList.length > 0) return ordersList;
+      return Array.isArray(DEFAULT_ORDERS) && DEFAULT_ORDERS.length > 0 ? JSON.parse(JSON.stringify(DEFAULT_ORDERS)) : (Array.isArray(defaultValue) ? defaultValue : []);
+    }
+
+    // Với các file runtime khác (users.json, bookings.json, analytics.json, laso_logs.json):
+    // Ưu tiên đọc từ TMP_DIR vì đây là nơi lưu các thay đổi runtime trên Vercel
+    const tmpFilePath = path.join(TMP_DIR, baseName);
+    if (fs.existsSync(tmpFilePath)) {
       try {
-        const raw = fs.readFileSync(filePath, 'utf8');
+        const raw = fs.readFileSync(tmpFilePath, 'utf8');
         if (raw && raw.trim()) {
           return JSON.parse(raw);
         }
       } catch (e) {}
     }
 
-    // 2. Fallback sang TMP_DIR nếu đang trên môi trường Vercel Read-Only
-    const tmpFilePath = path.join(TMP_DIR, baseName);
-    if (fs.existsSync(tmpFilePath)) {
+    // Fallback sang file repo gốc nếu chưa có trong TMP_DIR
+    if (fs.existsSync(filePath)) {
       try {
-        const raw = fs.readFileSync(tmpFilePath, 'utf8');
+        const raw = fs.readFileSync(filePath, 'utf8');
         if (raw && raw.trim()) {
           return JSON.parse(raw);
         }
@@ -897,14 +933,68 @@ const server = http.createServer(async (req, res) => {
     const code = pathname.split('/').pop().toUpperCase().trim();
     let order = orders.find(o => o.orderCode && o.orderCode.toUpperCase() === code);
     
-    // Nếu chưa có trong orders.json, kiểm tra SePay live trước xem đã có giao dịch ngân hàng thực tế chưa
-    if (!order && code) {
-      await syncOrdersWithSePay().catch(() => {});
-      orders = readJsonFile(ORDERS_FILE, orders);
-      order = orders.find(o => o.orderCode && o.orderCode.toUpperCase() === code);
+    // Nếu chưa có trong orders.json hoặc đơn chưa PAID, kiểm tra trực tiếp từ SePay live
+    if (!order || order.status !== 'PAID') {
+      try {
+        const sepayApiKey = (appConfig && appConfig.sepayApiKey) || process.env.SEPAY_API_KEY || 'RRZCQTG7ON8EDQLFGWSSDAUC60M69ZBW4BSQE3OHUCHDNOMU7MVRPEVZRZI3MTYF';
+        if (sepayApiKey && code) {
+          const sepayData = await fetchSePayTransactions(30);
+          const txList = (sepayData && (sepayData.transactions || sepayData.messages)) || [];
+          const cleanCode = code.replace(/[\s.\-_]/g, '').toUpperCase();
+          const digitsOnly = cleanCode.replace(/^TV/, '');
+
+          const matchedTx = txList.find(tx => {
+            const rawContent = String(tx.transaction_content || tx.content || tx.description || '').toUpperCase();
+            const cleanContent = rawContent.replace(/[\s.\-_]/g, '');
+            const amountIn = Number(tx.amount_in || tx.transferAmount || tx.amount || 0);
+            const hasCode = cleanContent.includes(cleanCode) || (digitsOnly.length >= 5 && cleanContent.includes(digitsOnly));
+            return hasCode && amountIn >= 2000;
+          });
+
+          if (matchedTx) {
+            const amountIn = Number(matchedTx.amount_in || matchedTx.transferAmount || matchedTx.amount || 49000);
+            const pkgId = amountIn >= 150000 ? 'vip_199k' : (amountIn >= 80000 ? 'vip_99k' : (amountIn >= 40000 ? 'vip_49k' : 'vip_29k'));
+            const pkgName = pkgId === 'vip_49k' ? 'Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ 12 Cung & Xuất PDF)' :
+              (pkgId === 'vip_29k' ? 'Gói Xem Nhanh 3 Cung Tự Chọn (29.000đ)' : 'Gói VIP Chuyên Sâu');
+
+            if (order) {
+              order.status = 'PAID';
+              order.paidAt = matchedTx.transaction_date || order.paidAt || new Date().toISOString();
+              order.paymentSource = 'SEPAY_STATUS_LIVE_CHECK';
+              order.amount = amountIn;
+              order.packageName = pkgName;
+              order.packageId = pkgId;
+              order.transactionId = String(matchedTx.id || '');
+              order.vipAccessToken = order.vipAccessToken || order.orderCode;
+            } else {
+              order = {
+                id: 'ord_' + Date.now(),
+                orderCode: code,
+                vipAccessToken: code,
+                chartKey: (parsedUrl.query && parsedUrl.query.chartKey) || null,
+                chartInfo: null,
+                customerName: 'Khách Chuyển Khoản VietinBank',
+                customerPhone: '108884822302',
+                packageId: pkgId,
+                packageName: pkgName,
+                amount: amountIn,
+                status: 'PAID',
+                paymentSource: 'SEPAY_STATUS_AUTO_INIT',
+                transactionId: String(matchedTx.id || ''),
+                createdAt: matchedTx.transaction_date ? new Date(matchedTx.transaction_date).toISOString() : new Date().toISOString(),
+                paidAt: matchedTx.transaction_date ? new Date(matchedTx.transaction_date).toISOString() : new Date().toISOString(),
+                note: `Đồng bộ trực tiếp khi kiểm tra trạng thái: ${matchedTx.transaction_content}`
+              };
+              orders.unshift(order);
+            }
+            writeJsonFile(ORDERS_FILE, orders);
+          }
+        }
+      } catch (e) {
+        console.error('Direct SePay status poll error:', e);
+      }
     }
 
-    // Nếu vẫn không có: Tuyệt đối KHÔNG tự động lưu đơn PENDING ảo vào orders.json!
     if (!order) {
       const queryAmount = Number(parsedUrl.query.amount) || 49000;
       return sendJson(res, 200, {
@@ -918,17 +1008,23 @@ const server = http.createServer(async (req, res) => {
         vipToken: '',
         vipAccessToken: '',
         paidAt: null,
-        packageId: queryAmount >= 80000 ? 'vip_99k' : 'vip_49k',
+        packageId: queryAmount >= 80000 ? 'vip_99k' : (queryAmount >= 40000 ? 'vip_49k' : 'vip_29k'),
         packageName: '',
         amount: queryAmount
       });
     }
 
-    if (order && order.status === 'PENDING') {
-      await checkSePayForOrder(order);
+    const isPaid = Boolean(order && order.status === 'PAID');
+    let finalPkgName = order.packageName || '';
+    let finalPkgId = order.packageId || (order.amount >= 40000 ? 'vip_49k' : 'vip_29k');
+    if (order.amount >= 40000 && order.amount < 80000) {
+      finalPkgName = 'Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ 12 Cung & Xuất PDF)';
+      finalPkgId = 'vip_49k';
+    } else if (order.amount >= 20000 && order.amount < 40000) {
+      finalPkgName = 'Gói Xem Nhanh 3 Cung Tự Chọn (29.000đ)';
+      finalPkgId = 'vip_29k';
     }
 
-    const isPaid = Boolean(order && order.status === 'PAID');
     return sendJson(res, 200, {
       success: true,
       paid: isPaid,
@@ -937,11 +1033,11 @@ const server = http.createServer(async (req, res) => {
       orderCode: order.orderCode,
       chartKey: order.chartKey || null,
       chartInfo: order.chartInfo || null,
-      vipToken: order.vipAccessToken,
-      vipAccessToken: order.vipAccessToken,
+      vipToken: order.vipAccessToken || order.orderCode,
+      vipAccessToken: order.vipAccessToken || order.orderCode,
       paidAt: order.paidAt,
-      packageId: order.packageId || 'vip_49k',
-      packageName: order.packageName || '',
+      packageId: finalPkgId,
+      packageName: finalPkgName,
       amount: order.amount || 49000
     });
   }
