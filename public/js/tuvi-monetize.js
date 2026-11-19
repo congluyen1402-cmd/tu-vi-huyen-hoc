@@ -1082,6 +1082,13 @@
 
       localStorage.setItem('tvhh_vip_order_code', orderCode);
       localStorage.setItem('tvhh_vip_token', vipToken);
+      this.saveCodeToHistory(orderCode, {
+        packageName: packageName,
+        packageId: packageId,
+        amount: displayAmount,
+        chartKey: targetChartKey,
+        unlockedAt: new Date().toISOString()
+      });
       try {
         sessionStorage.removeItem('tvhh_pending_order');
         sessionStorage.removeItem('tvhh_pending_chart_key');
@@ -1227,6 +1234,7 @@
             // ========================================================
             // GÓI VIP TOÀN THƯ (>= 49K): MÀN HÌNH SUCCESS THÔNG THƯỜNG
             // ========================================================
+            const successMagicLink = this.getMagicLink(orderCode);
             card.innerHTML = `
               <button class="tuvi-vip-close" type="button" aria-label="Đóng" onclick="TuViMonetize.closeVipModal()">&times;</button>
               <div class="vip-success-container">
@@ -1241,20 +1249,41 @@
                   Hệ thống đã nhận đủ <strong>${Number(displayAmount).toLocaleString('vi-VN')} đ</strong> cho mã đơn <strong>#${orderCode}</strong>.<br>
                   Toàn bộ luận giải VIP và tính năng xuất PDF A4 của bạn đã được mở khóa tự động!
                 </p>
-                <div class="vip-success-meta">
-                  <span>Mã đơn: <strong>#${orderCode}</strong></span>
+
+                <!-- KHỐI LƯU MÃ & MAGIC LINK XEM LẠI TRỌN ĐỜI -->
+                <div style="background:rgba(212,175,55,0.08); border:1.5px dashed #d4af37; border-radius:10px; padding:12px 14px; margin:1rem 0; text-align:left;">
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                    <span style="font-size:0.86rem; color:#d4af37; font-weight:700;">💾 Mã &amp; Magic Link Xem Lại:</span>
+                    <span style="font-size:0.75rem; color:#10b981; font-weight:600;">✓ Đã lưu trên máy này</span>
+                  </div>
+                  <div style="display:flex; gap:6px; margin-bottom:8px; flex-wrap:wrap;">
+                    <input type="text" value="${successMagicLink}" readonly style="flex:1; min-width:180px; font-size:0.82rem; padding:6px 8px; background:#14112c; color:#93c5fd; border:1px solid rgba(212,175,55,0.3); border-radius:6px; font-family:monospace;" onclick="this.select()">
+                    <button type="button" onclick="TuViMonetize.copyMagicLink('${orderCode}')" style="background:linear-gradient(135deg, #d4af37 0%, #f59e0b 100%); color:#14112c; font-weight:700; font-size:0.78rem; padding:6px 12px; border:none; border-radius:6px; cursor:pointer; white-space:nowrap;">
+                      📋 Chép Link
+                    </button>
+                    <button type="button" onclick="TuViMonetize.copyVipCode('${orderCode}')" style="background:rgba(255,255,255,0.12); color:#fff; font-size:0.78rem; padding:6px 10px; border:1px solid rgba(255,255,255,0.25); border-radius:6px; cursor:pointer; white-space:nowrap;">
+                      📋 Chép Mã
+                    </button>
+                  </div>
+                  <p style="font-size:0.76rem; color:var(--text-muted, #9ca3af); margin:0; line-height:1.45;">
+                    📌 <em>Mẹo: Hãy bấm <strong>"Chép Link"</strong> gửi vào tin nhắn Zalo hoặc Ghi chú để mở lại bản luận giải trên điện thoại hoặc máy tính khác bất cứ lúc nào!</em>
+                  </p>
+                </div>
+
+                <div class="vip-success-meta" style="margin-bottom:1rem;">
+                  <span>Mã đơn: <strong style="color:var(--gold-light, #d4af37); font-size:1.05rem; letter-spacing:0.5px;">#${orderCode}</strong></span>
                   <span>•</span>
                   <span>Thời gian: <strong>${new Date().toLocaleTimeString('vi-VN')}</strong></span>
                 </div>
-                <button type="button" class="btn-seal btn-success-dismiss" onclick="TuViMonetize.closeVipModal();">
+                <button type="button" class="btn-seal btn-success-dismiss" style="width:100%; font-size:1rem; padding:0.85rem; font-weight:700;" onclick="TuViMonetize.closeVipModal();">
                   ✨ Xem Ngay Bản Luận Giải Đầy Đủ
                 </button>
-                <p class="vip-auto-close-countdown">Cửa sổ sẽ tự động đóng sau <strong id="vipSuccessCountdown">3</strong> giây...</p>
+                <p class="vip-auto-close-countdown" style="margin-top:0.75rem;">Cửa sổ sẽ tự động đóng sau <strong id="vipSuccessCountdown">15</strong> giây...</p>
               </div>
             `;
 
-            // Đếm ngược 3 giây tự động đóng modal (chỉ dùng cho gói VIP Toàn Thư)
-            let secondsLeft = 3;
+            // Đếm ngược 15 giây tự động đóng modal (để khách có đủ thời gian đọc và chép link)
+            let secondsLeft = 15;
             if (this._autoCloseTimer) clearInterval(this._autoCloseTimer);
             this._autoCloseTimer = setInterval(() => {
               secondsLeft -= 1;
@@ -1668,23 +1697,193 @@
       }
     },
 
-    copyMagicLink: function () {
-      const token = this.vipAccessToken || localStorage.getItem('tvhh_vip_token') || this.vipOrderCode || localStorage.getItem('tvhh_vip_order_code') || 'TV';
-      const fullUrl = window.location.origin + window.location.pathname + '?vip_token=' + encodeURIComponent(token);
+    unlockVIP: function (orderCode, vipToken, amount, packageId) {
+      const isFull = (packageId === 'vip_49k' || packageId === 'vip_99k' || packageId === 'combo_99k' || packageId === 'deep_490k' || packageId === 'vip_call' || Number(amount || 0) >= 49000);
+      this.isVipUnlocked = isFull;
+      this.isTripwireUnlocked = !isFull;
+      this.vipOrderCode = orderCode;
+      this.vipAccessToken = vipToken || orderCode;
+
+      try {
+        localStorage.setItem('tvhh_vip_order_code', orderCode);
+        localStorage.setItem('tvhh_vip_token', this.vipAccessToken);
+        this.saveCodeToHistory(orderCode, {
+          packageId: packageId,
+          amount: amount,
+          unlockedAt: new Date().toISOString()
+        });
+      } catch (e) { }
+
+      if (isFull) {
+        this.applyVipUI();
+      }
+    },
+
+    saveCodeToHistory: function (orderCode, meta) {
+      if (!orderCode) return;
+      try {
+        const cleanCode = String(orderCode).trim().toUpperCase();
+        let history = [];
+        try {
+          history = JSON.parse(localStorage.getItem('tvhh_vip_codes_history') || '[]');
+        } catch (e) { history = []; }
+        if (!Array.isArray(history)) history = [];
+
+        const existingIdx = history.findIndex(item => (typeof item === 'string' ? item : (item && item.code)) === cleanCode);
+        const entry = Object.assign({
+          code: cleanCode,
+          savedAt: new Date().toISOString()
+        }, meta || {});
+
+        if (existingIdx !== -1) {
+          history[existingIdx] = Object.assign({}, history[existingIdx], entry);
+        } else {
+          history.unshift(entry);
+        }
+        localStorage.setItem('tvhh_vip_codes_history', JSON.stringify(history.slice(0, 20)));
+      } catch (e) { }
+    },
+
+    getSavedVipCodes: function () {
+      const list = [];
+      const seen = new Set();
+
+      // 1. Mã đơn hiện tại trong localStorage
+      try {
+        const cur = (localStorage.getItem('tvhh_vip_order_code') || '').trim().toUpperCase();
+        if (cur && !seen.has(cur)) {
+          seen.add(cur);
+          list.push({ code: cur, label: 'Mã VIP hiện tại' });
+        }
+      } catch (e) { }
+
+      // 2. Danh sách lịch sử mã
+      try {
+        const hist = JSON.parse(localStorage.getItem('tvhh_vip_codes_history') || '[]');
+        if (Array.isArray(hist)) {
+          hist.forEach(item => {
+            const code = (typeof item === 'string' ? item : (item && item.code ? item.code : '')).trim().toUpperCase();
+            if (code && !seen.has(code)) {
+              seen.add(code);
+              list.push({
+                code: code,
+                label: (item && item.packageName) || 'Báo Cáo VIP',
+                savedAt: item && item.savedAt
+              });
+            }
+          });
+        }
+      } catch (e) { }
+
+      // 3. Các lá số đã mở khóa trong tvhh_unlocked_charts
+      try {
+        const charts = JSON.parse(localStorage.getItem('tvhh_unlocked_charts') || '{}');
+        Object.keys(charts).forEach(k => {
+          const item = charts[k];
+          if (item && item.orderCode) {
+            const code = String(item.orderCode).trim().toUpperCase();
+            if (code && !seen.has(code)) {
+              seen.add(code);
+              list.push({
+                code: code,
+                label: item.packageName || 'Lá Số Đã Mở Khóa',
+                savedAt: item.unlockedAt
+              });
+            }
+          }
+        });
+      } catch (e) { }
+
+      return list;
+    },
+
+    getMagicLink: function (orderCode) {
+      const code = (orderCode || this.vipOrderCode || localStorage.getItem('tvhh_vip_order_code') || this.vipAccessToken || localStorage.getItem('tvhh_vip_token') || '').trim().toUpperCase();
+      if (!code) return '';
+      const origin = (typeof window !== 'undefined' && window.location && window.location.origin)
+        ? (window.location.origin.includes('localhost') ? window.location.origin : 'https://xemtuvihuyenhoc.com')
+        : 'https://xemtuvihuyenhoc.com';
+      return `${origin}/?vip_code=${encodeURIComponent(code)}`;
+    },
+
+    copyMagicLink: function (orderCode) {
+      const link = this.getMagicLink(orderCode);
+      if (!link) {
+        if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
+          TuViApp.showToast('Chưa có mã đơn VIP để tạo Magic Link', 'error');
+        }
+        return;
+      }
+
+      const onSuccess = () => {
+        if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
+          TuViApp.showToast('🔗 Đã sao chép Magic Link mở khóa VIP! Hãy lưu vào Zalo hoặc ghi chú để xem lại bất cứ lúc nào.', 'success');
+        } else {
+          alert('Đã sao chép Magic Link VIP:\n' + link);
+        }
+      };
 
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(fullUrl).then(() => {
-          if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
-            TuViApp.showToast('✅ Đã sao chép link VIP vào bộ nhớ tạm! Bạn có thể lưu vào Zalo hoặc ghi chú để xem lại trên bất kỳ thiết bị nào.', 'success');
-          } else {
-            alert('Đã sao chép Link VIP:\n' + fullUrl);
-          }
-        }).catch(() => {
-          prompt('Link xem lại trọn đời của bạn (hãy sao chép và lưu lại):', fullUrl);
+        navigator.clipboard.writeText(link).then(onSuccess).catch(() => {
+          this._fallbackCopyText(link, 'Magic Link mở khóa VIP của bạn:');
         });
       } else {
-        prompt('Link xem lại trọn đời của bạn (hãy sao chép và lưu lại):', fullUrl);
+        this._fallbackCopyText(link, 'Magic Link mở khóa VIP của bạn:');
       }
+    },
+
+    copyVipCode: function (orderCode) {
+      const code = (orderCode || this.vipOrderCode || localStorage.getItem('tvhh_vip_order_code') || '').trim().toUpperCase();
+      if (!code) return;
+      const onSuccess = () => {
+        if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
+          TuViApp.showToast(`📋 Đã sao chép Mã VIP: ${code}`, 'success');
+        } else {
+          alert('Đã sao chép Mã VIP: ' + code);
+        }
+      };
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(code).then(onSuccess).catch(() => {
+          this._fallbackCopyText(code, 'Mã VIP của bạn:');
+        });
+      } else {
+        this._fallbackCopyText(code, 'Mã VIP của bạn:');
+      }
+    },
+
+    copyRestoreMagicLink: function () {
+      const input = document.getElementById('restoreMagicLinkInput');
+      const val = input ? input.value : '';
+      if (!val) return;
+      this.copyMagicLink(val);
+    },
+
+    quickRestoreSavedCode: function (orderCode) {
+      const input = document.getElementById('restoreQueryInput');
+      if (input) input.value = orderCode;
+      this.handleRestoreSubmit();
+    },
+
+    _fallbackCopyText: function (text, promptTitle) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try {
+        const ok = document.execCommand('copy');
+        if (ok && typeof TuViApp !== 'undefined' && TuViApp.showToast) {
+          TuViApp.showToast('📋 Đã sao chép thành công!', 'success');
+        } else {
+          prompt(promptTitle || 'Sao chép nội dung bên dưới:', text);
+        }
+      } catch (e) {
+        prompt(promptTitle || 'Sao chép nội dung bên dưới:', text);
+      }
+      document.body.removeChild(ta);
     },
 
     /**
@@ -2404,22 +2603,64 @@
 
       const html = `
         <div id="tuvi-restore-modal" class="tuvi-tool-modal-backdrop">
-          <div class="tuvi-tool-modal-card">
+          <div class="tuvi-tool-modal-card" style="max-width:520px;">
             <button class="tuvi-tool-modal-close" onclick="TuViMonetize.closeRestoreModal()">&times;</button>
-            <h3><i data-lucide="key-round"></i> Xem Lại Báo Cáo VIP</h3>
-            <p class="tuvi-tool-modal-desc">
+            <h3 style="color:#D4AF37; display:flex; align-items:center; gap:8px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg>
+              Xem Lại Báo Cáo VIP
+            </h3>
+            <p class="tuvi-tool-modal-desc" style="font-size:0.88rem; line-height:1.5; margin-bottom:1rem;">
               Nhập mã đơn hàng (ví dụ: TV123456) hoặc số điện thoại đã dùng khi thanh toán để mở khóa lại lá số và tải file PDF:
             </p>
-            <form onsubmit="TuViMonetize.handleRestoreSubmit(event)">
-              <div class="tuvi-tool-input-wrap">
-                <label for="restoreQueryInput">Mã Đơn Hàng hoặc Số Điện Thoại:</label>
-                <input type="text" id="restoreQueryInput" class="tuvi-tool-input" placeholder="Ví dụ: TV216469 hoặc 0988888888" required autocomplete="off">
+
+            <!-- KHỐI MÃ VIP ĐÃ LƯU TRÊN MÁY NÀY (TỰ ĐỘNG HIỆN NẾU CÓ) -->
+            <div id="restoreSavedSection" style="display:none; margin-bottom:1rem;"></div>
+
+            <form id="restoreQueryForm" onsubmit="TuViMonetize.handleRestoreSubmit(event)">
+              <div class="tuvi-tool-input-wrap" style="margin-bottom:0.8rem;">
+                <label for="restoreQueryInput" style="font-weight:600; font-size:0.85rem; color:#fff;">Mã Đơn Hàng hoặc Số Điện Thoại:</label>
+                <input type="text" id="restoreQueryInput" class="tuvi-tool-input" placeholder="Ví dụ: TV216469 hoặc 0988888888" required autocomplete="off" style="text-transform:uppercase; font-weight:700; letter-spacing:0.5px;">
               </div>
-              <div id="restoreErrorMsg" class="tuvi-tool-error"></div>
-              <button type="submit" id="btnRestoreSubmit" class="btn-tool-submit" style="margin-top: 10px;">
-                Xem lại báo cáo
+              <div id="restoreErrorMsg" class="tuvi-tool-error" style="display:none; margin-bottom:0.8rem;"></div>
+              <button type="submit" id="btnRestoreSubmit" class="btn-tool-submit" style="width:100%; padding:0.75rem 1rem; font-weight:700; font-size:0.95rem; background:linear-gradient(135deg, #991b1b 0%, #b91c1c 100%); color:#fff; border:none; border-radius:8px; cursor:pointer;">
+                🔍 Xem lại báo cáo
               </button>
             </form>
+
+            <!-- KHỐI KẾT QUẢ KHÔI PHỤC THÀNH CÔNG & MAGIC LINK -->
+            <div id="restoreSuccessSection" style="display:none; margin-top:1.1rem; padding:14px; background:rgba(16,185,129,0.08); border:1.5px solid #10b981; border-radius:10px;">
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+                <span style="width:24px; height:24px; border-radius:50%; background:#10b981; color:#fff; display:flex; align-items:center; justify-content:center; font-size:0.85rem; font-weight:bold;">✓</span>
+                <strong style="color:#10b981; font-size:0.95rem;">Khôi Phục Thành Công &amp; Đã Lưu Vào Máy!</strong>
+              </div>
+              <div style="font-size:0.85rem; color:#e2e8f0; margin-bottom:10px;">
+                Mã đơn: <strong id="restoreSuccessCode" style="color:#fbbf24; font-family:monospace; font-size:1.05rem;">—</strong>
+                <span style="margin:0 6px; color:#6b7280;">•</span>
+                Gói: <span id="restoreSuccessPkg" style="color:#a7f3d0; font-weight:600;">—</span>
+              </div>
+              
+              <!-- Magic Link -->
+              <div style="margin-bottom:12px;">
+                <label style="display:block; font-size:0.78rem; color:#d4af37; font-weight:700; margin-bottom:4px;">
+                  🔗 Magic Link Mở Khóa Trọn Đời (Gửi vào Zalo / Ghi chú):
+                </label>
+                <div style="display:flex; gap:6px;">
+                  <input type="text" id="restoreMagicLinkInput" readonly style="flex:1; font-size:0.8rem; padding:6px 8px; background:#0f0c24; color:#93c5fd; border:1px solid rgba(212,175,55,0.4); border-radius:6px; font-family:monospace;" onclick="this.select()">
+                  <button type="button" onclick="TuViMonetize.copyRestoreMagicLink()" style="background:linear-gradient(135deg, #d4af37 0%, #f59e0b 100%); color:#14112c; font-weight:700; font-size:0.78rem; padding:6px 12px; border:none; border-radius:6px; cursor:pointer; white-space:nowrap;">
+                    📋 Chép Link
+                  </button>
+                </div>
+                <p style="font-size:0.74rem; color:#9ca3af; margin:5px 0 0 0; line-height:1.4;">
+                  💡 Bấm vào link này từ bất kỳ thiết bị nào (điện thoại, máy tính) để mở khóa báo cáo 100% tự động!
+                </p>
+              </div>
+
+              <div style="display:flex; justify-content:flex-end; gap:8px;">
+                <button type="button" class="btn-tool-submit" style="padding:0.55rem 1.2rem; font-size:0.85rem; background:#059669; color:#fff;" onclick="TuViMonetize.closeRestoreModal();">
+                  ✨ Xem Bản Luận Giải Ngay
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       `;
@@ -2439,8 +2680,49 @@
         errEl.textContent = '';
         errEl.style.display = 'none';
       }
+      const successSec = document.getElementById('restoreSuccessSection');
+      if (successSec) successSec.style.display = 'none';
+
       const input = document.getElementById('restoreQueryInput');
-      if (input) input.value = '';
+      const savedSection = document.getElementById('restoreSavedSection');
+
+      // Kiểm tra danh sách mã VIP đã lưu trên thiết bị
+      const savedCodes = this.getSavedVipCodes();
+      if (savedCodes && savedCodes.length > 0 && savedSection) {
+        savedSection.innerHTML = `
+          <div style="background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.35); border-radius:8px; padding:10px 12px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <span style="font-size:0.8rem; color:#f59e0b; font-weight:700;">✨ Đã tìm thấy mã VIP lưu trên thiết bị này:</span>
+              <span style="font-size:0.75rem; color:#10b981; font-weight:600;">● Có sẵn</span>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              ${savedCodes.slice(0, 3).map(s => `
+                <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(0,0,0,0.25); padding:6px 10px; border-radius:6px; border:1px solid rgba(255,255,255,0.08);">
+                  <div>
+                    <strong style="color:#fbbf24; font-family:monospace; font-size:1rem; letter-spacing:0.5px;">${s.code}</strong>
+                    <span style="font-size:0.75rem; color:#9ca3af; margin-left:6px;">(${s.label || 'Báo Cáo VIP'})</span>
+                  </div>
+                  <div style="display:flex; gap:6px;">
+                    <button type="button" onclick="TuViMonetize.quickRestoreSavedCode('${s.code}')" style="background:#991b1b; color:#fff; font-size:0.75rem; font-weight:600; padding:4px 9px; border:none; border-radius:4px; cursor:pointer;">
+                      ⚡ Mở Ngay
+                    </button>
+                    <button type="button" onclick="TuViMonetize.copyMagicLink('${s.code}')" style="background:rgba(255,255,255,0.12); color:#e5e7eb; font-size:0.75rem; padding:4px 8px; border:1px solid rgba(255,255,255,0.2); border-radius:4px; cursor:pointer;" title="Sao chép Magic Link">
+                      🔗 Magic Link
+                    </button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+        savedSection.style.display = 'block';
+        if (input && !input.value) {
+          input.value = savedCodes[0].code;
+        }
+      } else if (savedSection) {
+        savedSection.style.display = 'none';
+        if (input) input.value = '';
+      }
 
       modal.classList.add('active');
       document.body.style.overflow = 'hidden';
@@ -2462,6 +2744,7 @@
       const input = document.getElementById('restoreQueryInput');
       const errEl = document.getElementById('restoreErrorMsg');
       const btn = document.getElementById('btnRestoreSubmit');
+      const successSec = document.getElementById('restoreSuccessSection');
       const val = (input ? input.value : '').trim();
 
       if (!val) return;
@@ -2470,6 +2753,7 @@
         btn.textContent = '⏳ Đang tra cứu dữ liệu...';
       }
       if (errEl) errEl.style.display = 'none';
+      if (successSec) successSec.style.display = 'none';
 
       try {
         const res = await fetch(this.getApiUrl('/api/orders/restore'), {
@@ -2483,30 +2767,46 @@
           const oCode = data.order.orderCode;
           const vTok = data.order.vipAccessToken || data.order.orderCode;
           const cKey = data.order.chartKey;
+
+          this.unlockVIP(
+            oCode,
+            vTok,
+            data.order.amount,
+            data.order.packageId
+          );
+
           if (cKey) {
             this.saveUnlockedChart(cKey, data.order);
           }
-          this.vipAccessToken = vTok;
-          this.vipOrderCode = oCode;
 
-          localStorage.setItem('tvhh_vip_token', this.vipAccessToken);
-          localStorage.setItem('tvhh_vip_order_code', this.vipOrderCode);
-
+          // Cập nhật URL hiện tại với ?vip_code=
           try {
             const url = new URL(window.location.href);
-            url.searchParams.set('vip_token', this.vipAccessToken);
+            url.searchParams.set('vip_code', oCode);
             window.history.replaceState({}, '', url.toString());
           } catch (e) { }
 
-          this.closeRestoreModal();
-
+          // Cập nhật giao diện lá số
           if (typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) {
             this.updateActiveChartStatus(TuViChart._currentLaSo);
             TuViChart.render(TuViChart._currentLaSo);
           }
 
+          // Hiển thị phần kết quả thành công và Magic Link trong modal
+          if (successSec) {
+            const codeEl = document.getElementById('restoreSuccessCode');
+            const pkgEl = document.getElementById('restoreSuccessPkg');
+            const linkInput = document.getElementById('restoreMagicLinkInput');
+            if (codeEl) codeEl.textContent = oCode;
+            if (pkgEl) pkgEl.textContent = data.order.packageName || 'Báo Cáo VIP Toàn Thư';
+            if (linkInput) linkInput.value = this.getMagicLink(oCode);
+            successSec.style.display = 'block';
+          } else {
+            this.closeRestoreModal();
+          }
+
           if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
-            TuViApp.showToast(`🎉 Khôi phục thành công đơn hàng ${data.order.orderCode}!`, 'success');
+            TuViApp.showToast(`🎉 Khôi phục thành công đơn hàng ${oCode}!`, 'success');
           }
         } else {
           if (errEl) {
@@ -2522,10 +2822,7 @@
       } finally {
         if (btn) {
           btn.disabled = false;
-          btn.innerHTML = `
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 5px;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            Tìm & Khôi Phục Ngay
-          `;
+          btn.innerHTML = `🔍 Xem lại báo cáo`;
         }
       }
     },

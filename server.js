@@ -1025,6 +1025,10 @@ const server = http.createServer(async (req, res) => {
       finalPkgId = 'vip_29k';
     }
 
+    const host = req.headers.host || 'xemtuvihuyenhoc.com';
+    const proto = req.headers['x-forwarded-proto'] || (host.includes('localhost') ? 'http' : 'https');
+    const vipUrl = `${proto}://${host}/?vip_code=${order.orderCode}`;
+
     return sendJson(res, 200, {
       success: true,
       paid: isPaid,
@@ -1035,6 +1039,7 @@ const server = http.createServer(async (req, res) => {
       chartInfo: order.chartInfo || null,
       vipToken: order.vipAccessToken || order.orderCode,
       vipAccessToken: order.vipAccessToken || order.orderCode,
+      vipUrl: vipUrl,
       paidAt: order.paidAt,
       packageId: finalPkgId,
       packageName: finalPkgName,
@@ -1943,9 +1948,14 @@ const server = http.createServer(async (req, res) => {
     if (!order) {
       return sendJson(res, 404, { success: false, message: 'Token VIP không hợp lệ hoặc đơn hàng chưa thanh toán.' });
     }
+    const host = req.headers.host || 'xemtuvihuyenhoc.com';
+    const proto = req.headers['x-forwarded-proto'] || (host.includes('localhost') ? 'http' : 'https');
+    const vipUrl = `${proto}://${host}/?vip_code=${order.orderCode}`;
+
     return sendJson(res, 200, {
       success: true,
       isVip: true,
+      vipUrl: vipUrl,
       order: {
         orderCode: order.orderCode,
         chartKey: order.chartKey || null,
@@ -1954,6 +1964,7 @@ const server = http.createServer(async (req, res) => {
         packageId: order.packageId,
         amount: order.amount || 49000,
         vipAccessToken: order.vipAccessToken || order.orderCode,
+        vipUrl: vipUrl,
         paidAt: order.paidAt
       }
     });
@@ -2058,10 +2069,15 @@ const server = http.createServer(async (req, res) => {
       if (!order) {
         return sendJson(res, 404, { success: false, message: 'Không tìm thấy đơn hàng VIP đã thanh toán với thông tin này.' });
       }
+      const host = req.headers.host || 'xemtuvihuyenhoc.com';
+      const proto = req.headers['x-forwarded-proto'] || (host.includes('localhost') ? 'http' : 'https');
+      const vipUrl = `${proto}://${host}/?vip_code=${order.orderCode}`;
+
       return sendJson(res, 200, {
         success: true,
         isVip: true,
         message: 'Khôi phục quyền VIP thành công!',
+        vipUrl: vipUrl,
         order: {
           orderCode: order.orderCode,
           chartKey: order.chartKey || null,
@@ -2070,6 +2086,7 @@ const server = http.createServer(async (req, res) => {
           packageId: order.packageId,
           amount: order.amount || 49000,
           vipAccessToken: order.vipAccessToken || order.orderCode,
+          vipUrl: vipUrl,
           paidAt: order.paidAt
         }
       });
