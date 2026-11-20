@@ -1288,6 +1288,19 @@ const server = http.createServer(async (req, res) => {
       }
       await dbSet('tvhh_orders', orders);
 
+      if (body.chartKey || body.chartInfo) {
+        try {
+          lasoLogs = await dbGet('tvhh_laso_logs', []);
+          const log = lasoLogs.find(l => (body.visitorId && l.visitorId === body.visitorId) || (l.hoTen && l.hoTen === order.customerName));
+          if (log) {
+            log.vipCode = order.orderCode;
+            if (body.chartKey) log.chartKey = body.chartKey;
+            if (body.chartInfo) log.chartInfo = body.chartInfo;
+            await dbSet('tvhh_laso_logs', lasoLogs);
+          }
+        } catch (e) { }
+      }
+
       const qrUrl = `https://qr.sepay.vn/img?bank=${appConfig.bankId}&acc=${appConfig.accountNo}&template=compact&amount=${order.amount}&des=${order.orderCode}`;
 
       return sendJson(res, 200, {
@@ -1705,16 +1718,25 @@ const server = http.createServer(async (req, res) => {
         const isTestLaso = details && (details.hoTen === 'Nguyễn Hoàng Minh Quân' || details.customerName === 'Nguyễn Hoàng Minh Quân');
         if (!isTestLaso) {
           lasoLogs = await dbGet('tvhh_laso_logs', []);
+          const parsedCInfo = (details && details.chartInfo) ? details.chartInfo : parseChartInfoFromLog({
+            hoTen: (details && (details.hoTen || details.fullName)) || 'Khách Vãng Lai',
+            gioiTinh: (details && (details.gioiTinh || details.gender)) || 'Nam',
+            ngayThangNam: (details && (details.ngayThangNam || details.dob)) || '',
+            gioSinh: (details && (details.gioSinh || details.birthHour)) || '',
+            isLunar: Boolean(details && details.isLunar)
+          });
           const newLasoLog = {
             id: 'ls_' + Date.now() + '_' + Math.floor(Math.random() * 1000),
             timestamp: new Date().toISOString(),
             visitorId: visitorId || 'anonymous',
             hoTen: (details && (details.hoTen || details.fullName)) || 'Khách Vãng Lai',
             gioiTinh: (details && (details.gioiTinh || details.gender)) || 'Nam',
-            ngayThangNam: (details && (details.ngayThangNam || details.dob)) || '',
-            gioSinh: (details && (details.gioSinh || details.birthHour)) || '',
+            ngayThangNam: (details && (details.ngayThangNam || details.dob)) || (parsedCInfo ? `${parsedCInfo.ngay}/${parsedCInfo.thang}/${parsedCInfo.nam}` : ''),
+            gioSinh: (details && (details.gioSinh || details.birthHour)) || (parsedCInfo ? `${parsedCInfo.gio}:${parsedCInfo.phut}` : ''),
             banMenh: (details && (details.banMenh || details.menh)) || '',
             cucMenh: (details && (details.cucMenh || details.cuc)) || '',
+            chartKey: (details && details.chartKey) || null,
+            chartInfo: parsedCInfo,
             hasOpenedQr: false,
             isPaid: false
           };
@@ -1733,11 +1755,14 @@ const server = http.createServer(async (req, res) => {
         analytics.summary.totalVipModalOpens = (analytics.summary.totalVipModalOpens || 0) + 1;
         analytics.dailyStats[vnDate].vipOpens = (analytics.dailyStats[vnDate].vipOpens || 0) + 1;
 
-        if (visitorId) {
+        if (visitorId || (details && details.orderCode)) {
           lasoLogs = await dbGet('tvhh_laso_logs', []);
-          const matchedLog = lasoLogs.find(l => l.visitorId === visitorId);
+          const matchedLog = lasoLogs.find(l => (visitorId && l.visitorId === visitorId) || (details && details.orderCode && l.vipCode === details.orderCode));
           if (matchedLog) {
             matchedLog.hasOpenedQr = true;
+            if (details && details.orderCode) matchedLog.vipCode = details.orderCode;
+            if (details && details.chartKey) matchedLog.chartKey = details.chartKey;
+            if (details && details.chartInfo) matchedLog.chartInfo = details.chartInfo;
             await dbSet('tvhh_laso_logs', lasoLogs);
           }
         }
@@ -2485,7 +2510,41 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  // Khôi phục quyền VIP qua Mã Đơn hoặc Số Điện Thoại: POST /api/orders/restore
+  function parseChartInfoFromLog(log) {
+  if (!log) return null;
+  if (log.chartInfo && log.chartInfo.ngay && log.chartInfo.thang && log.chartInfo.nam) {
+    return log.chartInfo;
+  }
+  let ngay = 1, thang = 1, nam = 1990;
+  if (log.ngayThangNam) {
+    const parts = String(log.ngayThangNam).split(/[\/\-.]/).map(p => parseInt(p, 10));
+    if (parts.length >= 3) {
+      ngay = parts[0] || 1;
+      thang = parts[1] || 1;
+      nam = parts[2] || 1990;
+    }
+  }
+  let gio = 8, phut = 0;
+  if (log.gioSinh) {
+    const tParts = String(log.gioSinh).split(/[:hH]/).map(p => parseInt(p, 10));
+    gio = !isNaN(tParts[0]) ? tParts[0] : 8;
+    phut = !isNaN(tParts[1]) ? tParts[1] : 0;
+  }
+  const rawGender = String(log.gioiTinh || 'nam').toLowerCase().trim();
+  const isNu = rawGender === 'nu' || rawGender === 'nữ' || rawGender === 'female' || rawGender === '0';
+  return {
+    hoTen: log.hoTen || 'Đương Số VIP',
+    gioiTinh: isNu ? 'nu' : 'nam',
+    ngay: ngay,
+    thang: thang,
+    nam: nam,
+    gio: gio,
+    phut: phut,
+    isLunar: Boolean(log.isLunar)
+  };
+}
+
+// Khôi phục quyền VIP qua Mã Đơn hoặc Số Điện Thoại: POST /api/orders/restore
   if (pathname === '/api/orders/restore' && req.method === 'POST') {
     if (isRateLimited(`restore_${clientIp}`, 10, 60000)) {
       return sendJson(res, 429, { success: false, message: 'Quá nhiều yêu cầu khôi phục. Vui lòng thử lại sau 1 phút.' });
@@ -2564,17 +2623,48 @@ const server = http.createServer(async (req, res) => {
         return sendJson(res, 404, { success: false, message: 'Không tìm thấy đơn hàng VIP đã thanh toán với thông tin này.' });
       }
 
-      // Đối chiếu liên kết thông tin lá số nếu đơn hàng chưa có
-      if (order && (!order.chartKey || !order.chartInfo)) {
+      // Đối chiếu liên kết thông tin lá số nếu đơn hàng chưa có chartInfo chuẩn
+      if (order && (!order.chartInfo || !order.chartInfo.ngay)) {
         lasoLogs = await dbGet('tvhh_laso_logs', []);
-        const matchedLog = lasoLogs.find(l => 
-          (order.visitorId && l.visitorId === order.visitorId) ||
-          (l.vipCode && (l.vipCode === order.orderCode || l.vipCode.replace(/^TV/, '') === digitsOnly)) ||
-          (order.customerPhone && l.soDienThoai && l.soDienThoai === order.customerPhone)
+        let matchedLog = lasoLogs.find(l => 
+          (l.vipCode && (l.vipCode === order.orderCode || l.vipCode.replace(/^TV/, '') === digitsOnly))
         );
+        if (!matchedLog && order.visitorId) {
+          matchedLog = lasoLogs.find(l => l.visitorId === order.visitorId);
+        }
+        if (!matchedLog && order.customerPhone && order.customerPhone !== '108884822302') {
+          matchedLog = lasoLogs.find(l => l.soDienThoai && l.soDienThoai === order.customerPhone);
+        }
+        if (!matchedLog && order.customerName && !order.customerName.includes('VietinBank') && !order.customerName.includes('Vãng Lai')) {
+          matchedLog = lasoLogs.find(l => l.hoTen && l.hoTen.toLowerCase().trim() === order.customerName.toLowerCase().trim());
+        }
+        if (!matchedLog && order.createdAt) {
+          const orderTime = new Date(order.createdAt).getTime();
+          const candidateLogs = lasoLogs.filter(l => {
+            const logTime = l.timestamp ? new Date(l.timestamp).getTime() : 0;
+            return logTime <= (orderTime + 5 * 60000);
+          });
+          if (candidateLogs.length > 0) {
+            candidateLogs.sort((a, b) => {
+              const diffA = Math.abs(orderTime - (new Date(a.timestamp).getTime() || 0));
+              const diffB = Math.abs(orderTime - (new Date(b.timestamp).getTime() || 0));
+              return diffA - diffB;
+            });
+            matchedLog = candidateLogs[0];
+          }
+        }
+
         if (matchedLog) {
-          if (!order.chartKey && matchedLog.chartKey) order.chartKey = matchedLog.chartKey;
-          if (!order.chartInfo && matchedLog.chartInfo) order.chartInfo = matchedLog.chartInfo;
+          const parsedInfo = parseChartInfoFromLog(matchedLog);
+          if (parsedInfo) {
+            order.chartInfo = parsedInfo;
+            if (!order.chartKey) {
+              order.chartKey = matchedLog.chartKey || `laso_${parsedInfo.hoTen}_${parsedInfo.gioiTinh}_${parsedInfo.ngay}_${parsedInfo.thang}_${parsedInfo.nam}_${parsedInfo.gio}_${parsedInfo.phut}_0`.toLowerCase().replace(/\s+/g, '_');
+            }
+            try {
+              await dbSet('tvhh_orders', orders);
+            } catch (e) { }
+          }
         }
       }
       const host = req.headers.host || 'xemtuvihuyenhoc.com';

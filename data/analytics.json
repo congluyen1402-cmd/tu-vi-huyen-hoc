@@ -1,28 +1,30 @@
 {
   "summary": {
-    "totalPageViews": 190,
-    "uniqueVisitors": 24,
-    "totalLaSoCalculated": 5,
-    "totalPalaceClicks": 135,
+    "totalPageViews": 538,
+    "uniqueVisitors": 51,
+    "totalLaSoCalculated": 11,
+    "totalPalaceClicks": 423,
     "totalVipModalOpens": 0,
     "totalPaidOrders": 25,
     "totalRevenue": 1765000
   },
   "palaceClicks": {
-    "PHÚC ĐỨC": 5,
-    "ĐIỀN TRẠCH": 11,
-    "QUAN LỘC": 12,
-    "NÔ BỘC": 11,
-    "PHỤ MẪU": 11,
-    "THIÊN DI": 11,
-    "MỆNH": 11,
-    "TẬT ÁCH": 11,
-    "HUYNH ĐỆ": 13,
+    "PHÚC ĐỨC": 29,
+    "ĐIỀN TRẠCH": 35,
+    "QUAN LỘC": 36,
+    "NÔ BỘC": 35,
+    "PHỤ MẪU": 35,
+    "THIÊN DI": 29,
+    "MỆNH": 35,
+    "TẬT ÁCH": 35,
+    "HUYNH ĐỆ": 37,
     "PHU THÊ<THÂN>": 5,
-    "TỬ TỨC": 11,
-    "TÀI BẠCH": 11,
-    "PHU THÊ": 6,
-    "PHÚC ĐỨC<THÂN>": 6
+    "TỬ TỨC": 35,
+    "TÀI BẠCH": 17,
+    "PHU THÊ": 30,
+    "PHÚC ĐỨC<THÂN>": 6,
+    "TÀI BẠCH<THÂN>": 18,
+    "THIÊN DI<THÂN>": 6
   },
   "visitors": {
     "vis_mwogy46q_0yg4sct": {
@@ -144,6 +146,141 @@
       "firstSeen": "2026-11-20T05:40:26.706Z",
       "eventsCount": 2,
       "lastSeen": "2026-11-20T05:40:26.887Z"
+    },
+    "vis_mwokd68w_ixz6w6i": {
+      "firstSeen": "2026-11-20T05:54:00.704Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-20T05:54:00.831Z"
+    },
+    "vis_mwokd692_f8h5nwj": {
+      "firstSeen": "2026-11-20T05:54:00.822Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-20T05:54:00.881Z"
+    },
+    "vis_mwokd692_w7r7gc7": {
+      "firstSeen": "2026-11-20T05:54:00.843Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-20T05:54:00.918Z"
+    },
+    "vis_mwokekd6_cnr096f": {
+      "firstSeen": "2026-11-20T05:55:05.735Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-20T05:55:05.855Z"
+    },
+    "vis_mwokekd3_4el8lw5": {
+      "firstSeen": "2026-11-20T05:55:05.879Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-20T05:55:05.961Z"
+    },
+    "vis_mwokekd2_bra9h1c": {
+      "firstSeen": "2026-11-20T05:55:05.929Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-20T05:55:06.419Z"
+    },
+    "vis_mwokfp2g_7vg3b5v": {
+      "firstSeen": "2026-11-20T05:55:58.329Z",
+      "eventsCount": 27,
+      "lastSeen": "2026-11-20T05:56:03.892Z"
+    },
+    "vis_mwokfp2i_jstbvpj": {
+      "firstSeen": "2026-11-20T05:55:58.449Z",
+      "eventsCount": 27,
+      "lastSeen": "2026-11-20T05:56:03.843Z"
+    },
+    "vis_mwokfp37_xsz6exi": {
+      "firstSeen": "2026-11-20T05:55:58.488Z",
+      "eventsCount": 27,
+      "lastSeen": "2026-11-20T05:56:03.571Z"
+    },
+    "vis_mwokxuiz_1mts85e": {
+      "firstSeen": "2026-11-20T06:10:05.102Z",
+      "eventsCount": 14,
+      "lastSeen": "2026-11-20T06:10:06.366Z"
+    },
+    "vis_mwokxuiz_d1n5kcm": {
+      "firstSeen": "2026-11-20T06:10:05.196Z",
+      "eventsCount": 14,
+      "lastSeen": "2026-11-20T06:10:06.032Z"
+    },
+    "vis_mwokxuj1_g027gdf": {
+      "firstSeen": "2026-11-20T06:10:05.231Z",
+      "eventsCount": 14,
+      "lastSeen": "2026-11-20T06:10:06.165Z"
+    },
+    "vis_mwokxyd8_jcp5ya9": {
+      "firstSeen": "2026-11-20T06:10:10.034Z",
+      "eventsCount": 14,
+      "lastSeen": "2026-11-20T06:10:11.316Z"
+    },
+    "vis_mwokxydv_8oydrzu": {
+      "firstSeen": "2026-11-20T06:10:10.174Z",
+      "eventsCount": 14,
+      "lastSeen": "2026-11-20T06:10:11.017Z"
+    },
+    "vis_mwokxye4_w57w0y3": {
+      "firstSeen": "2026-11-20T06:10:10.206Z",
+      "eventsCount": 14,
+      "lastSeen": "2026-11-20T06:10:11.181Z"
+    },
+    "vis_mwokz4do_wwcxrdq": {
+      "firstSeen": "2026-11-20T06:11:04.540Z",
+      "eventsCount": 14,
+      "lastSeen": "2026-11-20T06:11:05.799Z"
+    },
+    "vis_mwokz4dx_fk7v7u4": {
+      "firstSeen": "2026-11-20T06:11:04.634Z",
+      "eventsCount": 14,
+      "lastSeen": "2026-11-20T06:11:05.407Z"
+    },
+    "vis_mwokz4fj_awg2p70": {
+      "firstSeen": "2026-11-20T06:11:04.709Z",
+      "eventsCount": 14,
+      "lastSeen": "2026-11-20T06:11:05.549Z"
+    },
+    "vis_mwokz6q4_jf4slmb": {
+      "firstSeen": "2026-11-20T06:11:07.610Z",
+      "eventsCount": 14,
+      "lastSeen": "2026-11-20T06:11:08.442Z"
+    },
+    "vis_mwokz6ud_qwgatlw": {
+      "firstSeen": "2026-11-20T06:11:07.742Z",
+      "eventsCount": 14,
+      "lastSeen": "2026-11-20T06:11:08.937Z"
+    },
+    "vis_mwokz6ua_o2d0980": {
+      "firstSeen": "2026-11-20T06:11:07.823Z",
+      "eventsCount": 14,
+      "lastSeen": "2026-11-20T06:11:08.748Z"
+    },
+    "vis_mwokzlr6_gvcm6j2": {
+      "firstSeen": "2026-11-20T06:11:27.224Z",
+      "eventsCount": 27,
+      "lastSeen": "2026-11-20T06:11:32.363Z"
+    },
+    "vis_mwokzlqp_anmnxnh": {
+      "firstSeen": "2026-11-20T06:11:27.235Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-20T06:11:27.532Z"
+    },
+    "vis_mwokzlqp_at02343": {
+      "firstSeen": "2026-11-20T06:11:27.481Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-20T06:11:27.495Z"
+    },
+    "vis_mwokzlsv_4udpdql": {
+      "firstSeen": "2026-11-20T06:11:27.516Z",
+      "eventsCount": 27,
+      "lastSeen": "2026-11-20T06:11:32.566Z"
+    },
+    "vis_mwokzlso_o3uxmrq": {
+      "firstSeen": "2026-11-20T06:11:27.563Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-20T06:11:27.584Z"
+    },
+    "vis_mwokzlub_c1vqpm6": {
+      "firstSeen": "2026-11-20T06:11:27.665Z",
+      "eventsCount": 27,
+      "lastSeen": "2026-11-20T06:11:33.240Z"
     }
   },
   "dailyStats": {
@@ -214,7 +351,7 @@
       "paidOrders": 2
     },
     "2026-11-20": {
-      "pageViews": 190,
+      "pageViews": 538,
       "visitors": [
         "vis_mwogy46q_0yg4sct",
         "vis_mwogzduy_xprj3ld",
@@ -239,9 +376,36 @@
         "vis_mwojilnx_a6fg547",
         "vis_mwojvppx_is02tao",
         "vis_mwojvppx_k8jb1lt",
-        "vis_mwojvppx_yinjpu5"
+        "vis_mwojvppx_yinjpu5",
+        "vis_mwokd68w_ixz6w6i",
+        "vis_mwokd692_f8h5nwj",
+        "vis_mwokd692_w7r7gc7",
+        "vis_mwokekd6_cnr096f",
+        "vis_mwokekd3_4el8lw5",
+        "vis_mwokekd2_bra9h1c",
+        "vis_mwokfp2g_7vg3b5v",
+        "vis_mwokfp2i_jstbvpj",
+        "vis_mwokfp37_xsz6exi",
+        "vis_mwokxuiz_1mts85e",
+        "vis_mwokxuiz_d1n5kcm",
+        "vis_mwokxuj1_g027gdf",
+        "vis_mwokxyd8_jcp5ya9",
+        "vis_mwokxydv_8oydrzu",
+        "vis_mwokxye4_w57w0y3",
+        "vis_mwokz4do_wwcxrdq",
+        "vis_mwokz4dx_fk7v7u4",
+        "vis_mwokz4fj_awg2p70",
+        "vis_mwokz6q4_jf4slmb",
+        "vis_mwokz6ud_qwgatlw",
+        "vis_mwokz6ua_o2d0980",
+        "vis_mwokzlr6_gvcm6j2",
+        "vis_mwokzlqp_anmnxnh",
+        "vis_mwokzlqp_at02343",
+        "vis_mwokzlsv_4udpdql",
+        "vis_mwokzlso_o3uxmrq",
+        "vis_mwokzlub_c1vqpm6"
       ],
-      "laSoCount": 5,
+      "laSoCount": 11,
       "vipOpens": 0,
       "revenue": 0,
       "paidOrders": 0
@@ -249,381 +413,20 @@
   },
   "events": [
     {
-      "eventType": "page_view",
-      "visitorId": "vis_mwojvppx_k8jb1lt",
-      "details": {
-        "path": "/"
-      },
-      "timestamp": "2026-11-20T05:40:26.947Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwojvppx_yinjpu5",
-      "details": {
-        "path": "/"
-      },
-      "timestamp": "2026-11-20T05:40:26.887Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwojvppx_is02tao",
-      "details": {
-        "path": "/"
-      },
-      "timestamp": "2026-11-20T05:40:26.866Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwojvppx_yinjpu5",
-      "details": {
-        "path": "/",
-        "referrer": "",
-        "screen": "390x844",
-        "device": "mobile"
-      },
-      "timestamp": "2026-11-20T05:40:26.706Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwojvppx_k8jb1lt",
-      "details": {
-        "path": "/",
-        "referrer": "",
-        "screen": "390x844",
-        "device": "mobile"
-      },
-      "timestamp": "2026-11-20T05:40:26.692Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwojvppx_is02tao",
-      "details": {
-        "path": "/",
-        "referrer": "",
-        "screen": "390x844",
-        "device": "mobile"
-      },
-      "timestamp": "2026-11-20T05:40:26.605Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwojilnx_a6fg547",
-      "details": {
-        "path": "/"
-      },
-      "timestamp": "2026-11-20T05:30:14.287Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwojilnr_69i7rus",
-      "details": {
-        "path": "/"
-      },
-      "timestamp": "2026-11-20T05:30:14.275Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwojilnx_a6fg547",
-      "details": {
-        "path": "/",
-        "referrer": "",
-        "screen": "390x844",
-        "device": "mobile"
-      },
-      "timestamp": "2026-11-20T05:30:14.255Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwojilnr_69i7rus",
-      "details": {
-        "path": "/",
-        "referrer": "",
-        "screen": "390x844",
-        "device": "mobile"
-      },
-      "timestamp": "2026-11-20T05:30:14.241Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwojilnl_oclvdfs",
-      "details": {
-        "path": "/"
-      },
-      "timestamp": "2026-11-20T05:30:14.212Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwojilnl_oclvdfs",
-      "details": {
-        "path": "/",
-        "referrer": "",
-        "screen": "390x844",
-        "device": "mobile"
-      },
-      "timestamp": "2026-11-20T05:30:14.116Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwoiz9x8_sx5f8u6",
-      "details": {
-        "path": "/"
-      },
-      "timestamp": "2026-11-20T05:15:12.850Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwoiz9x8_sx5f8u6",
-      "details": {
-        "path": "/",
-        "referrer": "",
-        "screen": "390x844",
-        "device": "mobile"
-      },
-      "timestamp": "2026-11-20T05:15:12.815Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwoiz4t7_i0s43au",
-      "details": {
-        "path": "/"
-      },
-      "timestamp": "2026-11-20T05:15:06.328Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwoiz4t7_i0s43au",
-      "details": {
-        "path": "/",
-        "referrer": "",
-        "screen": "390x844",
-        "device": "mobile"
-      },
-      "timestamp": "2026-11-20T05:15:06.175Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwoiz4mu_ehpk6i3",
-      "details": {
-        "path": "/"
-      },
-      "timestamp": "2026-11-20T05:15:06.006Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwoiz4mu_ehpk6i3",
-      "details": {
-        "path": "/",
-        "referrer": "",
-        "screen": "390x844",
-        "device": "mobile"
-      },
-      "timestamp": "2026-11-20T05:15:05.896Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwoiyuhu_ydsukoz",
-      "details": {
-        "path": "/"
-      },
-      "timestamp": "2026-11-20T05:14:52.711Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwoiyuhf_ftdeiw3",
-      "details": {
-        "path": "/"
-      },
-      "timestamp": "2026-11-20T05:14:52.683Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwoiyuhu_ydsukoz",
-      "details": {
-        "path": "/",
-        "referrer": "",
-        "screen": "390x844",
-        "device": "mobile"
-      },
-      "timestamp": "2026-11-20T05:14:52.656Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwoiyuhf_v9ojn14",
-      "details": {
-        "path": "/"
-      },
-      "timestamp": "2026-11-20T05:14:52.645Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwoiyuhf_ftdeiw3",
-      "details": {
-        "path": "/",
-        "referrer": "",
-        "screen": "390x844",
-        "device": "mobile"
-      },
-      "timestamp": "2026-11-20T05:14:52.606Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwoiyuhf_v9ojn14",
-      "details": {
-        "path": "/",
-        "referrer": "",
-        "screen": "390x844",
-        "device": "mobile"
-      },
-      "timestamp": "2026-11-20T05:14:52.507Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwoiy4v7_nig2p8j",
-      "details": {
-        "path": "/"
-      },
-      "timestamp": "2026-11-20T05:14:19.889Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwoiy4wo_ra1x2w7",
-      "details": {
-        "path": "/"
-      },
-      "timestamp": "2026-11-20T05:14:19.604Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwoiy4wo_ra1x2w7",
-      "details": {
-        "path": "/",
-        "referrer": "",
-        "screen": "390x844",
-        "device": "mobile"
-      },
-      "timestamp": "2026-11-20T05:14:19.557Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwoiy4v7_urjp9at",
-      "details": {
-        "path": "/"
-      },
-      "timestamp": "2026-11-20T05:14:19.547Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwoiy4v7_nig2p8j",
-      "details": {
-        "path": "/",
-        "referrer": "",
-        "screen": "390x844",
-        "device": "mobile"
-      },
-      "timestamp": "2026-11-20T05:14:19.491Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwoiy4v7_urjp9at",
-      "details": {
-        "path": "/",
-        "referrer": "",
-        "screen": "390x844",
-        "device": "mobile"
-      },
-      "timestamp": "2026-11-20T05:14:19.411Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwoixrkx_9lqm6db",
-      "details": {
-        "path": "/"
-      },
-      "timestamp": "2026-11-20T05:14:02.669Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwoixrmg_cmzpypz",
-      "details": {
-        "path": "/"
-      },
-      "timestamp": "2026-11-20T05:14:02.353Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwoixrkx_9lqm6db",
-      "details": {
-        "path": "/",
-        "referrer": "",
-        "screen": "390x844",
-        "device": "mobile"
-      },
-      "timestamp": "2026-11-20T05:14:02.270Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwoixrmg_cmzpypz",
-      "details": {
-        "path": "/",
-        "referrer": "",
-        "screen": "390x844",
-        "device": "mobile"
-      },
-      "timestamp": "2026-11-20T05:14:02.237Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwoixrkf_2a1neer",
-      "details": {
-        "path": "/"
-      },
-      "timestamp": "2026-11-20T05:14:02.223Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwoixrkf_2a1neer",
-      "details": {
-        "path": "/",
-        "referrer": "",
-        "screen": "390x844",
-        "device": "mobile"
-      },
-      "timestamp": "2026-11-20T05:14:02.171Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "path": "/"
-      },
-      "timestamp": "2026-11-20T04:36:24.755Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "path": "/",
-        "referrer": "",
-        "screen": "390x844",
-        "device": "mobile"
-      },
-      "timestamp": "2026-11-20T04:36:24.130Z"
-    },
-    {
       "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
+      "visitorId": "vis_mwokzlub_c1vqpm6",
       "details": {
-        "palaceName": "TÀI BẠCH",
-        "cungName": "TÀI BẠCH",
+        "palaceName": "TÀI BẠCH<THÂN>",
+        "cungName": "TÀI BẠCH<THÂN>",
         "chi": "Hợi",
         "can": "Đinh",
         "isLocked": false
       },
-      "timestamp": "2026-11-20T04:36:24.081Z"
+      "timestamp": "2026-11-20T06:11:33.240Z"
     },
     {
       "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
+      "visitorId": "vis_mwokzlub_c1vqpm6",
       "details": {
         "palaceName": "TỬ TỨC",
         "cungName": "TỬ TỨC",
@@ -631,1483 +434,191 @@
         "can": "Mậu",
         "isLocked": false
       },
-      "timestamp": "2026-11-20T04:36:24.075Z"
+      "timestamp": "2026-11-20T06:11:33.232Z"
     },
     {
       "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "PHU THÊ<THÂN>",
-        "cungName": "PHU THÊ<THÂN>",
-        "chi": "Sửu",
-        "can": "Kỷ",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:36:24.070Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "HUYNH ĐỆ",
-        "cungName": "HUYNH ĐỆ",
-        "chi": "Dần",
-        "can": "Mậu",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:36:24.065Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "TẬT ÁCH",
-        "cungName": "TẬT ÁCH",
-        "chi": "Tuất",
-        "can": "Bính",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:36:24.061Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "MỆNH",
-        "cungName": "MỆNH",
-        "chi": "Mão",
-        "can": "Kỷ",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:36:24.056Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "THIÊN DI",
-        "cungName": "THIÊN DI",
-        "chi": "Dậu",
-        "can": "Ất",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:36:24.050Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "PHỤ MẪU",
-        "cungName": "PHỤ MẪU",
-        "chi": "Thìn",
-        "can": "Canh",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:36:24.045Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "NÔ BỘC",
-        "cungName": "NÔ BỘC",
-        "chi": "Thân",
-        "can": "Giáp",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:36:24.040Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "QUAN LỘC",
-        "cungName": "QUAN LỘC",
-        "chi": "Mùi",
-        "can": "Quý",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:36:24.035Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "ĐIỀN TRẠCH",
-        "cungName": "ĐIỀN TRẠCH",
-        "chi": "Ngọ",
-        "can": "Nhâm",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:36:24.029Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "PHÚC ĐỨC",
-        "cungName": "PHÚC ĐỨC",
-        "chi": "Tỵ",
-        "can": "Tân",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:36:24.023Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "HUYNH ĐỆ",
-        "cungName": "HUYNH ĐỆ",
-        "chi": "Dần",
-        "can": "Mậu",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:36:23.150Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "TÀI BẠCH",
-        "cungName": "TÀI BẠCH",
-        "chi": "Hợi",
-        "can": "Đinh",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:36:18.640Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "TỬ TỨC",
-        "cungName": "TỬ TỨC",
-        "chi": "Tý",
-        "can": "Mậu",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:36:18.635Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "PHU THÊ<THÂN>",
-        "cungName": "PHU THÊ<THÂN>",
-        "chi": "Sửu",
-        "can": "Kỷ",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:36:18.629Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "HUYNH ĐỆ",
-        "cungName": "HUYNH ĐỆ",
-        "chi": "Dần",
-        "can": "Mậu",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:36:18.624Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "TẬT ÁCH",
-        "cungName": "TẬT ÁCH",
-        "chi": "Tuất",
-        "can": "Bính",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:36:18.619Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "MỆNH",
-        "cungName": "MỆNH",
-        "chi": "Mão",
-        "can": "Kỷ",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:36:18.613Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "THIÊN DI",
-        "cungName": "THIÊN DI",
-        "chi": "Dậu",
-        "can": "Ất",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:36:18.607Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "PHỤ MẪU",
-        "cungName": "PHỤ MẪU",
-        "chi": "Thìn",
-        "can": "Canh",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:36:18.601Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "NÔ BỘC",
-        "cungName": "NÔ BỘC",
-        "chi": "Thân",
-        "can": "Giáp",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:36:18.597Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "QUAN LỘC",
-        "cungName": "QUAN LỘC",
-        "chi": "Mùi",
-        "can": "Quý",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:36:18.591Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "ĐIỀN TRẠCH",
-        "cungName": "ĐIỀN TRẠCH",
-        "chi": "Ngọ",
-        "can": "Nhâm",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:36:18.587Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "PHÚC ĐỨC",
-        "cungName": "PHÚC ĐỨC",
-        "chi": "Tỵ",
-        "can": "Tân",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:36:18.582Z"
-    },
-    {
-      "eventType": "lap_la_so",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "hoTen": "Nguyễn Thị Hương",
-        "gioiTinh": "nu",
-        "ngayThangNam": "15/8/1995",
-        "gioSinh": "9:15",
-        "banMenh": "",
-        "cucMenh": ""
-      },
-      "timestamp": "2026-11-20T04:36:18.528Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "TÀI BẠCH",
-        "cungName": "TÀI BẠCH",
-        "chi": "Hợi",
-        "can": "Đinh",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:36:18.335Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "TỬ TỨC",
-        "cungName": "TỬ TỨC",
-        "chi": "Tý",
-        "can": "Mậu",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:36:18.330Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "PHU THÊ<THÂN>",
-        "cungName": "PHU THÊ<THÂN>",
-        "chi": "Sửu",
-        "can": "Kỷ",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:36:18.326Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "HUYNH ĐỆ",
-        "cungName": "HUYNH ĐỆ",
-        "chi": "Dần",
-        "can": "Mậu",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:36:18.319Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "TẬT ÁCH",
-        "cungName": "TẬT ÁCH",
-        "chi": "Tuất",
-        "can": "Bính",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:36:18.314Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "MỆNH",
-        "cungName": "MỆNH",
-        "chi": "Mão",
-        "can": "Kỷ",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:36:18.309Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "THIÊN DI",
-        "cungName": "THIÊN DI",
-        "chi": "Dậu",
-        "can": "Ất",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:36:18.304Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "PHỤ MẪU",
-        "cungName": "PHỤ MẪU",
-        "chi": "Thìn",
-        "can": "Canh",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:36:18.299Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "NÔ BỘC",
-        "cungName": "NÔ BỘC",
-        "chi": "Thân",
-        "can": "Giáp",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:36:18.294Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "QUAN LỘC",
-        "cungName": "QUAN LỘC",
-        "chi": "Mùi",
-        "can": "Quý",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:36:18.290Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "ĐIỀN TRẠCH",
-        "cungName": "ĐIỀN TRẠCH",
-        "chi": "Ngọ",
-        "can": "Nhâm",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:36:18.284Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "palaceName": "PHÚC ĐỨC",
-        "cungName": "PHÚC ĐỨC",
-        "chi": "Tỵ",
-        "can": "Tân",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:36:18.279Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "path": "/"
-      },
-      "timestamp": "2026-11-20T04:36:14.890Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwohl6ad_dibgz9n",
-      "details": {
-        "path": "/",
-        "referrer": "",
-        "screen": "390x844",
-        "device": "mobile"
-      },
-      "timestamp": "2026-11-20T04:36:14.838Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh8rs9_342yysn",
-      "details": {
-        "palaceName": "PHỤ MẪU",
-        "cungName": "PHỤ MẪU",
-        "chi": "Hợi",
-        "can": "Tân",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:26:40.860Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh8rs9_342yysn",
-      "details": {
-        "palaceName": "PHÚC ĐỨC<THÂN>",
-        "cungName": "PHÚC ĐỨC<THÂN>",
-        "chi": "Tý",
-        "can": "Nhâm",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:26:40.856Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh8rs9_342yysn",
-      "details": {
-        "palaceName": "ĐIỀN TRẠCH",
-        "cungName": "ĐIỀN TRẠCH",
-        "chi": "Sửu",
-        "can": "Quý",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:26:40.853Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh8rs9_342yysn",
-      "details": {
-        "palaceName": "QUAN LỘC",
-        "cungName": "QUAN LỘC",
-        "chi": "Dần",
-        "can": "Nhâm",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:26:40.849Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh8rs9_342yysn",
-      "details": {
-        "palaceName": "MỆNH",
-        "cungName": "MỆNH",
-        "chi": "Tuất",
-        "can": "Canh",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:26:40.845Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh8rs9_342yysn",
-      "details": {
-        "palaceName": "NÔ BỘC",
-        "cungName": "NÔ BỘC",
-        "chi": "Mão",
-        "can": "Quý",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:26:40.842Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh8rs9_342yysn",
-      "details": {
-        "palaceName": "HUYNH ĐỆ",
-        "cungName": "HUYNH ĐỆ",
-        "chi": "Dậu",
-        "can": "Kỷ",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:26:40.838Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh8rs9_342yysn",
-      "details": {
-        "palaceName": "THIÊN DI",
-        "cungName": "THIÊN DI",
-        "chi": "Thìn",
-        "can": "Giáp",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:26:40.833Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh8rs9_342yysn",
+      "visitorId": "vis_mwokzlub_c1vqpm6",
       "details": {
         "palaceName": "PHU THÊ",
         "cungName": "PHU THÊ",
-        "chi": "Thân",
+        "chi": "Sửu",
+        "can": "Kỷ",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:33.225Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlub_c1vqpm6",
+      "details": {
+        "palaceName": "HUYNH ĐỆ",
+        "cungName": "HUYNH ĐỆ",
+        "chi": "Dần",
         "can": "Mậu",
         "isLocked": false
       },
-      "timestamp": "2026-11-20T04:26:40.828Z"
+      "timestamp": "2026-11-20T06:11:33.217Z"
     },
     {
       "eventType": "view_cung",
-      "visitorId": "vis_mwoh8rs9_342yysn",
-      "details": {
-        "palaceName": "TỬ TỨC",
-        "cungName": "TỬ TỨC",
-        "chi": "Mùi",
-        "can": "Đinh",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:26:40.824Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh8rs9_342yysn",
-      "details": {
-        "palaceName": "TÀI BẠCH",
-        "cungName": "TÀI BẠCH",
-        "chi": "Ngọ",
-        "can": "Bính",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:26:40.820Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh8rs9_342yysn",
+      "visitorId": "vis_mwokzlub_c1vqpm6",
       "details": {
         "palaceName": "TẬT ÁCH",
         "cungName": "TẬT ÁCH",
-        "chi": "Tỵ",
+        "chi": "Tuất",
+        "can": "Bính",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:33.210Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlub_c1vqpm6",
+      "details": {
+        "palaceName": "MỆNH",
+        "cungName": "MỆNH",
+        "chi": "Mão",
+        "can": "Kỷ",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:33.202Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlub_c1vqpm6",
+      "details": {
+        "palaceName": "THIÊN DI",
+        "cungName": "THIÊN DI",
+        "chi": "Dậu",
         "can": "Ất",
         "isLocked": false
       },
-      "timestamp": "2026-11-20T04:26:40.814Z"
+      "timestamp": "2026-11-20T06:11:33.195Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlub_c1vqpm6",
+      "details": {
+        "palaceName": "PHỤ MẪU",
+        "cungName": "PHỤ MẪU",
+        "chi": "Thìn",
+        "can": "Canh",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:33.186Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlub_c1vqpm6",
+      "details": {
+        "palaceName": "NÔ BỘC",
+        "cungName": "NÔ BỘC",
+        "chi": "Thân",
+        "can": "Giáp",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:33.178Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlub_c1vqpm6",
+      "details": {
+        "palaceName": "QUAN LỘC",
+        "cungName": "QUAN LỘC",
+        "chi": "Mùi",
+        "can": "Quý",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:33.168Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlub_c1vqpm6",
+      "details": {
+        "palaceName": "ĐIỀN TRẠCH",
+        "cungName": "ĐIỀN TRẠCH",
+        "chi": "Ngọ",
+        "can": "Nhâm",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:33.160Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlub_c1vqpm6",
+      "details": {
+        "palaceName": "PHÚC ĐỨC",
+        "cungName": "PHÚC ĐỨC",
+        "chi": "Tỵ",
+        "can": "Tân",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:33.152Z"
     },
     {
       "eventType": "lap_la_so",
-      "visitorId": "vis_mwoh8rs9_342yysn",
+      "visitorId": "vis_mwokzlub_c1vqpm6",
       "details": {
-        "hoTen": "Tran Van B",
+        "hoTen": "Nguyễn Văn An",
         "gioiTinh": "nam",
-        "ngayThangNam": "20/5/1992",
-        "gioSinh": "14:30",
+        "ngayThangNam": "15/8/1990",
+        "gioSinh": "8:30",
         "banMenh": "",
-        "cucMenh": ""
+        "cucMenh": "",
+        "chartKey": "laso_nguyen_van_an_nam_15_8_1990_8_30_0",
+        "chartInfo": {
+          "hoTen": "Nguyễn Văn An",
+          "gioiTinh": "nam",
+          "ngay": 15,
+          "thang": 8,
+          "nam": 1990,
+          "gio": 8,
+          "phut": 30,
+          "isLunar": false
+        }
       },
-      "timestamp": "2026-11-20T04:26:39.839Z"
+      "timestamp": "2026-11-20T06:11:32.753Z"
     },
     {
       "eventType": "view_cung",
-      "visitorId": "vis_mwoh8rs9_342yysn",
+      "visitorId": "vis_mwokzlsv_4udpdql",
       "details": {
-        "palaceName": "PHỤ MẪU",
-        "cungName": "PHỤ MẪU",
+        "palaceName": "TÀI BẠCH<THÂN>",
+        "cungName": "TÀI BẠCH<THÂN>",
         "chi": "Hợi",
-        "can": "Tân",
+        "can": "Đinh",
         "isLocked": false
       },
-      "timestamp": "2026-11-20T04:26:39.652Z"
+      "timestamp": "2026-11-20T06:11:32.566Z"
     },
     {
       "eventType": "view_cung",
-      "visitorId": "vis_mwoh8rs9_342yysn",
+      "visitorId": "vis_mwokzlsv_4udpdql",
       "details": {
-        "palaceName": "PHÚC ĐỨC<THÂN>",
-        "cungName": "PHÚC ĐỨC<THÂN>",
+        "palaceName": "TỬ TỨC",
+        "cungName": "TỬ TỨC",
         "chi": "Tý",
-        "can": "Nhâm",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:26:39.647Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh8rs9_342yysn",
-      "details": {
-        "palaceName": "ĐIỀN TRẠCH",
-        "cungName": "ĐIỀN TRẠCH",
-        "chi": "Sửu",
-        "can": "Quý",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:26:39.642Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh8rs9_342yysn",
-      "details": {
-        "palaceName": "QUAN LỘC",
-        "cungName": "QUAN LỘC",
-        "chi": "Dần",
-        "can": "Nhâm",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:26:39.638Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh8rs9_342yysn",
-      "details": {
-        "palaceName": "MỆNH",
-        "cungName": "MỆNH",
-        "chi": "Tuất",
-        "can": "Canh",
+        "can": "Mậu",
         "isLocked": false
       },
-      "timestamp": "2026-11-20T04:26:39.634Z"
+      "timestamp": "2026-11-20T06:11:32.559Z"
     },
     {
       "eventType": "view_cung",
-      "visitorId": "vis_mwoh8rs9_342yysn",
-      "details": {
-        "palaceName": "NÔ BỘC",
-        "cungName": "NÔ BỘC",
-        "chi": "Mão",
-        "can": "Quý",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:26:39.630Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh8rs9_342yysn",
-      "details": {
-        "palaceName": "HUYNH ĐỆ",
-        "cungName": "HUYNH ĐỆ",
-        "chi": "Dậu",
-        "can": "Kỷ",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:26:39.624Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh8rs9_342yysn",
-      "details": {
-        "palaceName": "THIÊN DI",
-        "cungName": "THIÊN DI",
-        "chi": "Thìn",
-        "can": "Giáp",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:26:39.620Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh8rs9_342yysn",
+      "visitorId": "vis_mwokzlsv_4udpdql",
       "details": {
         "palaceName": "PHU THÊ",
         "cungName": "PHU THÊ",
-        "chi": "Thân",
-        "can": "Mậu",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:26:39.615Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh8rs9_342yysn",
-      "details": {
-        "palaceName": "TỬ TỨC",
-        "cungName": "TỬ TỨC",
-        "chi": "Mùi",
-        "can": "Đinh",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:26:39.611Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh8rs9_342yysn",
-      "details": {
-        "palaceName": "TÀI BẠCH",
-        "cungName": "TÀI BẠCH",
-        "chi": "Ngọ",
-        "can": "Bính",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:26:39.606Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh8rs9_342yysn",
-      "details": {
-        "palaceName": "TẬT ÁCH",
-        "cungName": "TẬT ÁCH",
-        "chi": "Tỵ",
-        "can": "Ất",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:26:39.601Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwoh8rs9_342yysn",
-      "details": {
-        "path": "/"
-      },
-      "timestamp": "2026-11-20T04:26:36.254Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwoh8rs9_342yysn",
-      "details": {
-        "path": "/",
-        "referrer": "",
-        "screen": "390x844",
-        "device": "mobile"
-      },
-      "timestamp": "2026-11-20T04:26:36.186Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh7syp_jm66odh",
-      "details": {
-        "palaceName": "PHỤ MẪU",
-        "cungName": "PHỤ MẪU",
-        "chi": "Hợi",
-        "can": "Tân",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:25:55.824Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh7syp_jm66odh",
-      "details": {
-        "palaceName": "PHÚC ĐỨC<THÂN>",
-        "cungName": "PHÚC ĐỨC<THÂN>",
-        "chi": "Tý",
-        "can": "Nhâm",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:25:55.819Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh7syp_jm66odh",
-      "details": {
-        "palaceName": "ĐIỀN TRẠCH",
-        "cungName": "ĐIỀN TRẠCH",
-        "chi": "Sửu",
-        "can": "Quý",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:25:55.814Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh7syp_jm66odh",
-      "details": {
-        "palaceName": "QUAN LỘC",
-        "cungName": "QUAN LỘC",
-        "chi": "Dần",
-        "can": "Nhâm",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:25:55.810Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh7syp_jm66odh",
-      "details": {
-        "palaceName": "MỆNH",
-        "cungName": "MỆNH",
-        "chi": "Tuất",
-        "can": "Canh",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:25:55.807Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh7syp_jm66odh",
-      "details": {
-        "palaceName": "NÔ BỘC",
-        "cungName": "NÔ BỘC",
-        "chi": "Mão",
-        "can": "Quý",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:25:55.802Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh7syp_jm66odh",
-      "details": {
-        "palaceName": "HUYNH ĐỆ",
-        "cungName": "HUYNH ĐỆ",
-        "chi": "Dậu",
-        "can": "Kỷ",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:25:55.796Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh7syp_jm66odh",
-      "details": {
-        "palaceName": "THIÊN DI",
-        "cungName": "THIÊN DI",
-        "chi": "Thìn",
-        "can": "Giáp",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:25:55.792Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh7syp_jm66odh",
-      "details": {
-        "palaceName": "PHU THÊ",
-        "cungName": "PHU THÊ",
-        "chi": "Thân",
-        "can": "Mậu",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:25:55.788Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh7syp_jm66odh",
-      "details": {
-        "palaceName": "TỬ TỨC",
-        "cungName": "TỬ TỨC",
-        "chi": "Mùi",
-        "can": "Đinh",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:25:55.782Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh7syp_jm66odh",
-      "details": {
-        "palaceName": "TÀI BẠCH",
-        "cungName": "TÀI BẠCH",
-        "chi": "Ngọ",
-        "can": "Bính",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:25:55.778Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh7syp_jm66odh",
-      "details": {
-        "palaceName": "TẬT ÁCH",
-        "cungName": "TẬT ÁCH",
-        "chi": "Tỵ",
-        "can": "Ất",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:25:55.773Z"
-    },
-    {
-      "eventType": "lap_la_so",
-      "visitorId": "vis_mwoh7syp_jm66odh",
-      "details": {
-        "hoTen": "Tran Van B",
-        "gioiTinh": "nam",
-        "ngayThangNam": "20/5/1992",
-        "gioSinh": "14:30",
-        "banMenh": "",
-        "cucMenh": ""
-      },
-      "timestamp": "2026-11-20T04:25:54.816Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh7syp_jm66odh",
-      "details": {
-        "palaceName": "PHỤ MẪU",
-        "cungName": "PHỤ MẪU",
-        "chi": "Hợi",
-        "can": "Tân",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:25:54.603Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh7syp_jm66odh",
-      "details": {
-        "palaceName": "PHÚC ĐỨC<THÂN>",
-        "cungName": "PHÚC ĐỨC<THÂN>",
-        "chi": "Tý",
-        "can": "Nhâm",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:25:54.599Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh7syp_jm66odh",
-      "details": {
-        "palaceName": "ĐIỀN TRẠCH",
-        "cungName": "ĐIỀN TRẠCH",
-        "chi": "Sửu",
-        "can": "Quý",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:25:54.595Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh7syp_jm66odh",
-      "details": {
-        "palaceName": "QUAN LỘC",
-        "cungName": "QUAN LỘC",
-        "chi": "Dần",
-        "can": "Nhâm",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:25:54.592Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh7syp_jm66odh",
-      "details": {
-        "palaceName": "MỆNH",
-        "cungName": "MỆNH",
-        "chi": "Tuất",
-        "can": "Canh",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:25:54.588Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh7syp_jm66odh",
-      "details": {
-        "palaceName": "NÔ BỘC",
-        "cungName": "NÔ BỘC",
-        "chi": "Mão",
-        "can": "Quý",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:25:54.584Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh7syp_jm66odh",
-      "details": {
-        "palaceName": "HUYNH ĐỆ",
-        "cungName": "HUYNH ĐỆ",
-        "chi": "Dậu",
-        "can": "Kỷ",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:25:54.580Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh7syp_jm66odh",
-      "details": {
-        "palaceName": "THIÊN DI",
-        "cungName": "THIÊN DI",
-        "chi": "Thìn",
-        "can": "Giáp",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:25:54.576Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh7syp_jm66odh",
-      "details": {
-        "palaceName": "PHU THÊ",
-        "cungName": "PHU THÊ",
-        "chi": "Thân",
-        "can": "Mậu",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:25:54.572Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh7syp_jm66odh",
-      "details": {
-        "palaceName": "TỬ TỨC",
-        "cungName": "TỬ TỨC",
-        "chi": "Mùi",
-        "can": "Đinh",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:25:54.567Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh7syp_jm66odh",
-      "details": {
-        "palaceName": "TÀI BẠCH",
-        "cungName": "TÀI BẠCH",
-        "chi": "Ngọ",
-        "can": "Bính",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:25:54.563Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh7syp_jm66odh",
-      "details": {
-        "palaceName": "TẬT ÁCH",
-        "cungName": "TẬT ÁCH",
-        "chi": "Tỵ",
-        "can": "Ất",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:25:54.558Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwoh7syp_jm66odh",
-      "details": {
-        "path": "/"
-      },
-      "timestamp": "2026-11-20T04:25:51.186Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwoh7syp_jm66odh",
-      "details": {
-        "path": "/",
-        "referrer": "",
-        "screen": "390x844",
-        "device": "mobile"
-      },
-      "timestamp": "2026-11-20T04:25:51.105Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh73l3_v4d34s1",
-      "details": {
-        "palaceName": "QUAN LỘC",
-        "cungName": "QUAN LỘC",
-        "chi": "Dần",
-        "can": "Nhâm",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:25:25.897Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh73l3_v4d34s1",
-      "details": {
-        "palaceName": "PHỤ MẪU",
-        "cungName": "PHỤ MẪU",
-        "chi": "Hợi",
-        "can": "Tân",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:25:22.883Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh73l3_v4d34s1",
-      "details": {
-        "palaceName": "PHÚC ĐỨC<THÂN>",
-        "cungName": "PHÚC ĐỨC<THÂN>",
-        "chi": "Tý",
-        "can": "Nhâm",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:25:22.878Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh73l3_v4d34s1",
-      "details": {
-        "palaceName": "ĐIỀN TRẠCH",
-        "cungName": "ĐIỀN TRẠCH",
-        "chi": "Sửu",
-        "can": "Quý",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:25:22.875Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh73l3_v4d34s1",
-      "details": {
-        "palaceName": "QUAN LỘC",
-        "cungName": "QUAN LỘC",
-        "chi": "Dần",
-        "can": "Nhâm",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:25:22.871Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh73l3_v4d34s1",
-      "details": {
-        "palaceName": "MỆNH",
-        "cungName": "MỆNH",
-        "chi": "Tuất",
-        "can": "Canh",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:25:22.865Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh73l3_v4d34s1",
-      "details": {
-        "palaceName": "NÔ BỘC",
-        "cungName": "NÔ BỘC",
-        "chi": "Mão",
-        "can": "Quý",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:25:22.861Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh73l3_v4d34s1",
-      "details": {
-        "palaceName": "HUYNH ĐỆ",
-        "cungName": "HUYNH ĐỆ",
-        "chi": "Dậu",
-        "can": "Kỷ",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:25:22.857Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh73l3_v4d34s1",
-      "details": {
-        "palaceName": "THIÊN DI",
-        "cungName": "THIÊN DI",
-        "chi": "Thìn",
-        "can": "Giáp",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:25:22.851Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh73l3_v4d34s1",
-      "details": {
-        "palaceName": "PHU THÊ",
-        "cungName": "PHU THÊ",
-        "chi": "Thân",
-        "can": "Mậu",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:25:22.847Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh73l3_v4d34s1",
-      "details": {
-        "palaceName": "TỬ TỨC",
-        "cungName": "TỬ TỨC",
-        "chi": "Mùi",
-        "can": "Đinh",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:25:22.844Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh73l3_v4d34s1",
-      "details": {
-        "palaceName": "TÀI BẠCH",
-        "cungName": "TÀI BẠCH",
-        "chi": "Ngọ",
-        "can": "Bính",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:25:22.839Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh73l3_v4d34s1",
-      "details": {
-        "palaceName": "TẬT ÁCH",
-        "cungName": "TẬT ÁCH",
-        "chi": "Tỵ",
-        "can": "Ất",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:25:22.835Z"
-    },
-    {
-      "eventType": "lap_la_so",
-      "visitorId": "vis_mwoh73l3_v4d34s1",
-      "details": {
-        "hoTen": "Tran Van B",
-        "gioiTinh": "nam",
-        "ngayThangNam": "20/5/1992",
-        "gioSinh": "14:30",
-        "banMenh": "",
-        "cucMenh": ""
-      },
-      "timestamp": "2026-11-20T04:25:21.876Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh73l3_v4d34s1",
-      "details": {
-        "palaceName": "PHỤ MẪU",
-        "cungName": "PHỤ MẪU",
-        "chi": "Hợi",
-        "can": "Tân",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:25:21.662Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh73l3_v4d34s1",
-      "details": {
-        "palaceName": "PHÚC ĐỨC<THÂN>",
-        "cungName": "PHÚC ĐỨC<THÂN>",
-        "chi": "Tý",
-        "can": "Nhâm",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:25:21.658Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh73l3_v4d34s1",
-      "details": {
-        "palaceName": "ĐIỀN TRẠCH",
-        "cungName": "ĐIỀN TRẠCH",
-        "chi": "Sửu",
-        "can": "Quý",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:25:21.654Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh73l3_v4d34s1",
-      "details": {
-        "palaceName": "QUAN LỘC",
-        "cungName": "QUAN LỘC",
-        "chi": "Dần",
-        "can": "Nhâm",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:25:21.650Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh73l3_v4d34s1",
-      "details": {
-        "palaceName": "MỆNH",
-        "cungName": "MỆNH",
-        "chi": "Tuất",
-        "can": "Canh",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:25:21.644Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh73l3_v4d34s1",
-      "details": {
-        "palaceName": "NÔ BỘC",
-        "cungName": "NÔ BỘC",
-        "chi": "Mão",
-        "can": "Quý",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:25:21.640Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh73l3_v4d34s1",
-      "details": {
-        "palaceName": "HUYNH ĐỆ",
-        "cungName": "HUYNH ĐỆ",
-        "chi": "Dậu",
-        "can": "Kỷ",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:25:21.633Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh73l3_v4d34s1",
-      "details": {
-        "palaceName": "THIÊN DI",
-        "cungName": "THIÊN DI",
-        "chi": "Thìn",
-        "can": "Giáp",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:25:21.628Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh73l3_v4d34s1",
-      "details": {
-        "palaceName": "PHU THÊ",
-        "cungName": "PHU THÊ",
-        "chi": "Thân",
-        "can": "Mậu",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:25:21.623Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh73l3_v4d34s1",
-      "details": {
-        "palaceName": "TỬ TỨC",
-        "cungName": "TỬ TỨC",
-        "chi": "Mùi",
-        "can": "Đinh",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:25:21.618Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh73l3_v4d34s1",
-      "details": {
-        "palaceName": "TÀI BẠCH",
-        "cungName": "TÀI BẠCH",
-        "chi": "Ngọ",
-        "can": "Bính",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:25:21.613Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwoh73l3_v4d34s1",
-      "details": {
-        "palaceName": "TẬT ÁCH",
-        "cungName": "TẬT ÁCH",
-        "chi": "Tỵ",
-        "can": "Ất",
-        "isLocked": true
-      },
-      "timestamp": "2026-11-20T04:25:21.608Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwoh73l3_v4d34s1",
-      "details": {
-        "path": "/"
-      },
-      "timestamp": "2026-11-20T04:25:18.216Z"
-    },
-    {
-      "eventType": "page_view",
-      "visitorId": "vis_mwoh73l3_v4d34s1",
-      "details": {
-        "path": "/",
-        "referrer": "",
-        "screen": "390x844",
-        "device": "mobile"
-      },
-      "timestamp": "2026-11-20T04:25:18.170Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwogzduy_xprj3ld",
-      "details": {
-        "palaceName": "HUYNH ĐỆ",
-        "cungName": "HUYNH ĐỆ",
-        "chi": "Dần",
-        "can": "Mậu",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:19:24.908Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwogzduy_xprj3ld",
-      "details": {
-        "palaceName": "TÀI BẠCH",
-        "cungName": "TÀI BẠCH",
-        "chi": "Hợi",
-        "can": "Đinh",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:19:22.990Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwogzduy_xprj3ld",
-      "details": {
-        "palaceName": "TỬ TỨC",
-        "cungName": "TỬ TỨC",
-        "chi": "Tý",
-        "can": "Mậu",
-        "isLocked": false
-      },
-      "timestamp": "2026-11-20T04:19:22.985Z"
-    },
-    {
-      "eventType": "view_cung",
-      "visitorId": "vis_mwogzduy_xprj3ld",
-      "details": {
-        "palaceName": "PHU THÊ<THÂN>",
-        "cungName": "PHU THÊ<THÂN>",
         "chi": "Sửu",
         "can": "Kỷ",
         "isLocked": false
       },
-      "timestamp": "2026-11-20T04:19:22.979Z"
+      "timestamp": "2026-11-20T06:11:32.552Z"
     },
     {
       "eventType": "view_cung",
-      "visitorId": "vis_mwogzduy_xprj3ld",
+      "visitorId": "vis_mwokzlsv_4udpdql",
       "details": {
         "palaceName": "HUYNH ĐỆ",
         "cungName": "HUYNH ĐỆ",
@@ -2115,11 +626,11 @@
         "can": "Mậu",
         "isLocked": false
       },
-      "timestamp": "2026-11-20T04:19:22.973Z"
+      "timestamp": "2026-11-20T06:11:32.545Z"
     },
     {
       "eventType": "view_cung",
-      "visitorId": "vis_mwogzduy_xprj3ld",
+      "visitorId": "vis_mwokzlsv_4udpdql",
       "details": {
         "palaceName": "TẬT ÁCH",
         "cungName": "TẬT ÁCH",
@@ -2127,11 +638,11 @@
         "can": "Bính",
         "isLocked": false
       },
-      "timestamp": "2026-11-20T04:19:22.967Z"
+      "timestamp": "2026-11-20T06:11:32.538Z"
     },
     {
       "eventType": "view_cung",
-      "visitorId": "vis_mwogzduy_xprj3ld",
+      "visitorId": "vis_mwokzlsv_4udpdql",
       "details": {
         "palaceName": "MỆNH",
         "cungName": "MỆNH",
@@ -2139,11 +650,11 @@
         "can": "Kỷ",
         "isLocked": false
       },
-      "timestamp": "2026-11-20T04:19:22.962Z"
+      "timestamp": "2026-11-20T06:11:32.531Z"
     },
     {
       "eventType": "view_cung",
-      "visitorId": "vis_mwogzduy_xprj3ld",
+      "visitorId": "vis_mwokzlsv_4udpdql",
       "details": {
         "palaceName": "THIÊN DI",
         "cungName": "THIÊN DI",
@@ -2151,11 +662,11 @@
         "can": "Ất",
         "isLocked": false
       },
-      "timestamp": "2026-11-20T04:19:22.957Z"
+      "timestamp": "2026-11-20T06:11:32.523Z"
     },
     {
       "eventType": "view_cung",
-      "visitorId": "vis_mwogzduy_xprj3ld",
+      "visitorId": "vis_mwokzlsv_4udpdql",
       "details": {
         "palaceName": "PHỤ MẪU",
         "cungName": "PHỤ MẪU",
@@ -2163,11 +674,11 @@
         "can": "Canh",
         "isLocked": false
       },
-      "timestamp": "2026-11-20T04:19:22.950Z"
+      "timestamp": "2026-11-20T06:11:32.517Z"
     },
     {
       "eventType": "view_cung",
-      "visitorId": "vis_mwogzduy_xprj3ld",
+      "visitorId": "vis_mwokzlsv_4udpdql",
       "details": {
         "palaceName": "NÔ BỘC",
         "cungName": "NÔ BỘC",
@@ -2175,11 +686,11 @@
         "can": "Giáp",
         "isLocked": false
       },
-      "timestamp": "2026-11-20T04:19:22.944Z"
+      "timestamp": "2026-11-20T06:11:32.510Z"
     },
     {
       "eventType": "view_cung",
-      "visitorId": "vis_mwogzduy_xprj3ld",
+      "visitorId": "vis_mwokzlsv_4udpdql",
       "details": {
         "palaceName": "QUAN LỘC",
         "cungName": "QUAN LỘC",
@@ -2187,11 +698,11 @@
         "can": "Quý",
         "isLocked": false
       },
-      "timestamp": "2026-11-20T04:19:22.939Z"
+      "timestamp": "2026-11-20T06:11:32.502Z"
     },
     {
       "eventType": "view_cung",
-      "visitorId": "vis_mwogzduy_xprj3ld",
+      "visitorId": "vis_mwokzlsv_4udpdql",
       "details": {
         "palaceName": "ĐIỀN TRẠCH",
         "cungName": "ĐIỀN TRẠCH",
@@ -2199,11 +710,11 @@
         "can": "Nhâm",
         "isLocked": false
       },
-      "timestamp": "2026-11-20T04:19:22.933Z"
+      "timestamp": "2026-11-20T06:11:32.495Z"
     },
     {
       "eventType": "view_cung",
-      "visitorId": "vis_mwogzduy_xprj3ld",
+      "visitorId": "vis_mwokzlsv_4udpdql",
       "details": {
         "palaceName": "PHÚC ĐỨC",
         "cungName": "PHÚC ĐỨC",
@@ -2211,36 +722,23 @@
         "can": "Tân",
         "isLocked": false
       },
-      "timestamp": "2026-11-20T04:19:22.927Z"
-    },
-    {
-      "eventType": "lap_la_so",
-      "visitorId": "vis_mwogzduy_xprj3ld",
-      "details": {
-        "hoTen": "Nguyen Van A",
-        "gioiTinh": "nam",
-        "ngayThangNam": "15/8/1995",
-        "gioSinh": "9:00",
-        "banMenh": "",
-        "cucMenh": ""
-      },
-      "timestamp": "2026-11-20T04:19:22.035Z"
+      "timestamp": "2026-11-20T06:11:32.489Z"
     },
     {
       "eventType": "view_cung",
-      "visitorId": "vis_mwogzduy_xprj3ld",
+      "visitorId": "vis_mwokzlub_c1vqpm6",
       "details": {
-        "palaceName": "TÀI BẠCH",
-        "cungName": "TÀI BẠCH",
+        "palaceName": "TÀI BẠCH<THÂN>",
+        "cungName": "TÀI BẠCH<THÂN>",
         "chi": "Hợi",
         "can": "Đinh",
         "isLocked": true
       },
-      "timestamp": "2026-11-20T04:19:21.738Z"
+      "timestamp": "2026-11-20T06:11:32.459Z"
     },
     {
       "eventType": "view_cung",
-      "visitorId": "vis_mwogzduy_xprj3ld",
+      "visitorId": "vis_mwokzlub_c1vqpm6",
       "details": {
         "palaceName": "TỬ TỨC",
         "cungName": "TỬ TỨC",
@@ -2248,23 +746,23 @@
         "can": "Mậu",
         "isLocked": true
       },
-      "timestamp": "2026-11-20T04:19:21.735Z"
+      "timestamp": "2026-11-20T06:11:32.452Z"
     },
     {
       "eventType": "view_cung",
-      "visitorId": "vis_mwogzduy_xprj3ld",
+      "visitorId": "vis_mwokzlub_c1vqpm6",
       "details": {
-        "palaceName": "PHU THÊ<THÂN>",
-        "cungName": "PHU THÊ<THÂN>",
+        "palaceName": "PHU THÊ",
+        "cungName": "PHU THÊ",
         "chi": "Sửu",
         "can": "Kỷ",
         "isLocked": true
       },
-      "timestamp": "2026-11-20T04:19:21.730Z"
+      "timestamp": "2026-11-20T06:11:32.444Z"
     },
     {
       "eventType": "view_cung",
-      "visitorId": "vis_mwogzduy_xprj3ld",
+      "visitorId": "vis_mwokzlub_c1vqpm6",
       "details": {
         "palaceName": "HUYNH ĐỆ",
         "cungName": "HUYNH ĐỆ",
@@ -2272,11 +770,11 @@
         "can": "Mậu",
         "isLocked": true
       },
-      "timestamp": "2026-11-20T04:19:21.726Z"
+      "timestamp": "2026-11-20T06:11:32.436Z"
     },
     {
       "eventType": "view_cung",
-      "visitorId": "vis_mwogzduy_xprj3ld",
+      "visitorId": "vis_mwokzlub_c1vqpm6",
       "details": {
         "palaceName": "TẬT ÁCH",
         "cungName": "TẬT ÁCH",
@@ -2284,11 +782,11 @@
         "can": "Bính",
         "isLocked": true
       },
-      "timestamp": "2026-11-20T04:19:21.722Z"
+      "timestamp": "2026-11-20T06:11:32.428Z"
     },
     {
       "eventType": "view_cung",
-      "visitorId": "vis_mwogzduy_xprj3ld",
+      "visitorId": "vis_mwokzlub_c1vqpm6",
       "details": {
         "palaceName": "MỆNH",
         "cungName": "MỆNH",
@@ -2296,11 +794,11 @@
         "can": "Kỷ",
         "isLocked": false
       },
-      "timestamp": "2026-11-20T04:19:21.718Z"
+      "timestamp": "2026-11-20T06:11:32.421Z"
     },
     {
       "eventType": "view_cung",
-      "visitorId": "vis_mwogzduy_xprj3ld",
+      "visitorId": "vis_mwokzlub_c1vqpm6",
       "details": {
         "palaceName": "THIÊN DI",
         "cungName": "THIÊN DI",
@@ -2308,11 +806,11 @@
         "can": "Ất",
         "isLocked": true
       },
-      "timestamp": "2026-11-20T04:19:21.714Z"
+      "timestamp": "2026-11-20T06:11:32.414Z"
     },
     {
       "eventType": "view_cung",
-      "visitorId": "vis_mwogzduy_xprj3ld",
+      "visitorId": "vis_mwokzlub_c1vqpm6",
       "details": {
         "palaceName": "PHỤ MẪU",
         "cungName": "PHỤ MẪU",
@@ -2320,11 +818,11 @@
         "can": "Canh",
         "isLocked": false
       },
-      "timestamp": "2026-11-20T04:19:21.710Z"
+      "timestamp": "2026-11-20T06:11:32.406Z"
     },
     {
       "eventType": "view_cung",
-      "visitorId": "vis_mwogzduy_xprj3ld",
+      "visitorId": "vis_mwokzlub_c1vqpm6",
       "details": {
         "palaceName": "NÔ BỘC",
         "cungName": "NÔ BỘC",
@@ -2332,11 +830,11 @@
         "can": "Giáp",
         "isLocked": true
       },
-      "timestamp": "2026-11-20T04:19:21.706Z"
+      "timestamp": "2026-11-20T06:11:32.397Z"
     },
     {
       "eventType": "view_cung",
-      "visitorId": "vis_mwogzduy_xprj3ld",
+      "visitorId": "vis_mwokzlub_c1vqpm6",
       "details": {
         "palaceName": "QUAN LỘC",
         "cungName": "QUAN LỘC",
@@ -2344,11 +842,11 @@
         "can": "Quý",
         "isLocked": true
       },
-      "timestamp": "2026-11-20T04:19:21.702Z"
+      "timestamp": "2026-11-20T06:11:32.390Z"
     },
     {
       "eventType": "view_cung",
-      "visitorId": "vis_mwogzduy_xprj3ld",
+      "visitorId": "vis_mwokzlub_c1vqpm6",
       "details": {
         "palaceName": "ĐIỀN TRẠCH",
         "cungName": "ĐIỀN TRẠCH",
@@ -2356,11 +854,11 @@
         "can": "Nhâm",
         "isLocked": true
       },
-      "timestamp": "2026-11-20T04:19:21.697Z"
+      "timestamp": "2026-11-20T06:11:32.381Z"
     },
     {
       "eventType": "view_cung",
-      "visitorId": "vis_mwogzduy_xprj3ld",
+      "visitorId": "vis_mwokzlub_c1vqpm6",
       "details": {
         "palaceName": "PHÚC ĐỨC",
         "cungName": "PHÚC ĐỨC",
@@ -2368,118 +866,1927 @@
         "can": "Tân",
         "isLocked": true
       },
-      "timestamp": "2026-11-20T04:19:21.692Z"
+      "timestamp": "2026-11-20T06:11:32.372Z"
     },
     {
-      "eventType": "page_view",
-      "visitorId": "vis_mwogzduy_xprj3ld",
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlr6_gvcm6j2",
       "details": {
-        "path": "/"
+        "palaceName": "TỬ TỨC",
+        "cungName": "TỬ TỨC",
+        "chi": "Tý",
+        "can": "Mậu",
+        "isLocked": false
       },
-      "timestamp": "2026-11-20T04:19:18.297Z"
+      "timestamp": "2026-11-20T06:11:32.363Z"
     },
     {
-      "eventType": "page_view",
-      "visitorId": "vis_mwogzduy_xprj3ld",
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlr6_gvcm6j2",
       "details": {
-        "path": "/",
-        "referrer": "",
-        "screen": "390x844",
-        "device": "mobile"
+        "palaceName": "PHU THÊ",
+        "cungName": "PHU THÊ",
+        "chi": "Sửu",
+        "can": "Kỷ",
+        "isLocked": false
       },
-      "timestamp": "2026-11-20T04:19:18.238Z"
+      "timestamp": "2026-11-20T06:11:32.352Z"
     },
     {
-      "eventType": "page_view",
-      "visitorId": "vis_mwogy46q_0yg4sct",
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlr6_gvcm6j2",
       "details": {
-        "path": "/"
+        "palaceName": "HUYNH ĐỆ",
+        "cungName": "HUYNH ĐỆ",
+        "chi": "Dần",
+        "can": "Mậu",
+        "isLocked": false
       },
-      "timestamp": "2026-11-20T04:18:19.068Z"
+      "timestamp": "2026-11-20T06:11:32.343Z"
     },
     {
-      "eventType": "page_view",
-      "visitorId": "vis_mwogy46q_0yg4sct",
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlr6_gvcm6j2",
       "details": {
-        "path": "/",
-        "referrer": "",
-        "screen": "390x844",
-        "device": "mobile"
+        "palaceName": "TẬT ÁCH",
+        "cungName": "TẬT ÁCH",
+        "chi": "Tuất",
+        "can": "Bính",
+        "isLocked": false
       },
-      "timestamp": "2026-11-20T04:18:19.025Z"
+      "timestamp": "2026-11-20T06:11:32.333Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlr6_gvcm6j2",
+      "details": {
+        "palaceName": "MỆNH",
+        "cungName": "MỆNH",
+        "chi": "Mão",
+        "can": "Kỷ",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:32.323Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlr6_gvcm6j2",
+      "details": {
+        "palaceName": "TÀI BẠCH<THÂN>",
+        "cungName": "TÀI BẠCH<THÂN>",
+        "chi": "Hợi",
+        "can": "Đinh",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:32.315Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlr6_gvcm6j2",
+      "details": {
+        "palaceName": "THIÊN DI",
+        "cungName": "THIÊN DI",
+        "chi": "Dậu",
+        "can": "Ất",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:32.304Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlr6_gvcm6j2",
+      "details": {
+        "palaceName": "PHỤ MẪU",
+        "cungName": "PHỤ MẪU",
+        "chi": "Thìn",
+        "can": "Canh",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:32.296Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlr6_gvcm6j2",
+      "details": {
+        "palaceName": "NÔ BỘC",
+        "cungName": "NÔ BỘC",
+        "chi": "Thân",
+        "can": "Giáp",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:32.288Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlr6_gvcm6j2",
+      "details": {
+        "palaceName": "QUAN LỘC",
+        "cungName": "QUAN LỘC",
+        "chi": "Mùi",
+        "can": "Quý",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:32.281Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlr6_gvcm6j2",
+      "details": {
+        "palaceName": "ĐIỀN TRẠCH",
+        "cungName": "ĐIỀN TRẠCH",
+        "chi": "Ngọ",
+        "can": "Nhâm",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:32.272Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlr6_gvcm6j2",
+      "details": {
+        "palaceName": "PHÚC ĐỨC",
+        "cungName": "PHÚC ĐỨC",
+        "chi": "Tỵ",
+        "can": "Tân",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:32.265Z"
     },
     {
       "eventType": "lap_la_so",
-      "visitorId": "vis_user_real_998877",
+      "visitorId": "vis_mwokzlsv_4udpdql",
       "details": {
-        "hoTen": "Lê Minh Tuấn",
-        "ngayThangNam": "15/08/1995"
+        "hoTen": "Nguyễn Văn An",
+        "gioiTinh": "nam",
+        "ngayThangNam": "15/8/1990",
+        "gioSinh": "8:30",
+        "banMenh": "",
+        "cucMenh": "",
+        "chartKey": "laso_nguyen_van_an_nam_15_8_1990_8_30_0",
+        "chartInfo": {
+          "hoTen": "Nguyễn Văn An",
+          "gioiTinh": "nam",
+          "ngay": 15,
+          "thang": 8,
+          "nam": 1990,
+          "gio": 8,
+          "phut": 30,
+          "isLunar": false
+        }
       },
-      "timestamp": "2026-11-15T07:20:10.075Z"
+      "timestamp": "2026-11-20T06:11:32.120Z"
+    },
+    {
+      "eventType": "lap_la_so",
+      "visitorId": "vis_mwokzlr6_gvcm6j2",
+      "details": {
+        "hoTen": "Nguyễn Văn An",
+        "gioiTinh": "nam",
+        "ngayThangNam": "15/8/1990",
+        "gioSinh": "8:30",
+        "banMenh": "",
+        "cucMenh": "",
+        "chartKey": "laso_nguyen_van_an_nam_15_8_1990_8_30_0",
+        "chartInfo": {
+          "hoTen": "Nguyễn Văn An",
+          "gioiTinh": "nam",
+          "ngay": 15,
+          "thang": 8,
+          "nam": 1990,
+          "gio": 8,
+          "phut": 30,
+          "isLunar": false
+        }
+      },
+      "timestamp": "2026-11-20T06:11:32.106Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlsv_4udpdql",
+      "details": {
+        "palaceName": "TÀI BẠCH<THÂN>",
+        "cungName": "TÀI BẠCH<THÂN>",
+        "chi": "Hợi",
+        "can": "Đinh",
+        "isLocked": true
+      },
+      "timestamp": "2026-11-20T06:11:31.830Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlsv_4udpdql",
+      "details": {
+        "palaceName": "TỬ TỨC",
+        "cungName": "TỬ TỨC",
+        "chi": "Tý",
+        "can": "Mậu",
+        "isLocked": true
+      },
+      "timestamp": "2026-11-20T06:11:31.823Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlsv_4udpdql",
+      "details": {
+        "palaceName": "PHU THÊ",
+        "cungName": "PHU THÊ",
+        "chi": "Sửu",
+        "can": "Kỷ",
+        "isLocked": true
+      },
+      "timestamp": "2026-11-20T06:11:31.816Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlsv_4udpdql",
+      "details": {
+        "palaceName": "HUYNH ĐỆ",
+        "cungName": "HUYNH ĐỆ",
+        "chi": "Dần",
+        "can": "Mậu",
+        "isLocked": true
+      },
+      "timestamp": "2026-11-20T06:11:31.807Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlsv_4udpdql",
+      "details": {
+        "palaceName": "TẬT ÁCH",
+        "cungName": "TẬT ÁCH",
+        "chi": "Tuất",
+        "can": "Bính",
+        "isLocked": true
+      },
+      "timestamp": "2026-11-20T06:11:31.799Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlsv_4udpdql",
+      "details": {
+        "palaceName": "MỆNH",
+        "cungName": "MỆNH",
+        "chi": "Mão",
+        "can": "Kỷ",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:31.788Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlsv_4udpdql",
+      "details": {
+        "palaceName": "THIÊN DI",
+        "cungName": "THIÊN DI",
+        "chi": "Dậu",
+        "can": "Ất",
+        "isLocked": true
+      },
+      "timestamp": "2026-11-20T06:11:31.779Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlsv_4udpdql",
+      "details": {
+        "palaceName": "PHỤ MẪU",
+        "cungName": "PHỤ MẪU",
+        "chi": "Thìn",
+        "can": "Canh",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:31.772Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlsv_4udpdql",
+      "details": {
+        "palaceName": "NÔ BỘC",
+        "cungName": "NÔ BỘC",
+        "chi": "Thân",
+        "can": "Giáp",
+        "isLocked": true
+      },
+      "timestamp": "2026-11-20T06:11:31.765Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlsv_4udpdql",
+      "details": {
+        "palaceName": "QUAN LỘC",
+        "cungName": "QUAN LỘC",
+        "chi": "Mùi",
+        "can": "Quý",
+        "isLocked": true
+      },
+      "timestamp": "2026-11-20T06:11:31.758Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlsv_4udpdql",
+      "details": {
+        "palaceName": "ĐIỀN TRẠCH",
+        "cungName": "ĐIỀN TRẠCH",
+        "chi": "Ngọ",
+        "can": "Nhâm",
+        "isLocked": true
+      },
+      "timestamp": "2026-11-20T06:11:31.749Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlsv_4udpdql",
+      "details": {
+        "palaceName": "PHÚC ĐỨC",
+        "cungName": "PHÚC ĐỨC",
+        "chi": "Tỵ",
+        "can": "Tân",
+        "isLocked": true
+      },
+      "timestamp": "2026-11-20T06:11:31.741Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlr6_gvcm6j2",
+      "details": {
+        "palaceName": "TÀI BẠCH<THÂN>",
+        "cungName": "TÀI BẠCH<THÂN>",
+        "chi": "Hợi",
+        "can": "Đinh",
+        "isLocked": true
+      },
+      "timestamp": "2026-11-20T06:11:31.734Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlr6_gvcm6j2",
+      "details": {
+        "palaceName": "TỬ TỨC",
+        "cungName": "TỬ TỨC",
+        "chi": "Tý",
+        "can": "Mậu",
+        "isLocked": true
+      },
+      "timestamp": "2026-11-20T06:11:31.725Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlr6_gvcm6j2",
+      "details": {
+        "palaceName": "PHU THÊ",
+        "cungName": "PHU THÊ",
+        "chi": "Sửu",
+        "can": "Kỷ",
+        "isLocked": true
+      },
+      "timestamp": "2026-11-20T06:11:31.718Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlr6_gvcm6j2",
+      "details": {
+        "palaceName": "HUYNH ĐỆ",
+        "cungName": "HUYNH ĐỆ",
+        "chi": "Dần",
+        "can": "Mậu",
+        "isLocked": true
+      },
+      "timestamp": "2026-11-20T06:11:31.708Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlr6_gvcm6j2",
+      "details": {
+        "palaceName": "TẬT ÁCH",
+        "cungName": "TẬT ÁCH",
+        "chi": "Tuất",
+        "can": "Bính",
+        "isLocked": true
+      },
+      "timestamp": "2026-11-20T06:11:31.702Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlr6_gvcm6j2",
+      "details": {
+        "palaceName": "MỆNH",
+        "cungName": "MỆNH",
+        "chi": "Mão",
+        "can": "Kỷ",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:31.694Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlr6_gvcm6j2",
+      "details": {
+        "palaceName": "THIÊN DI",
+        "cungName": "THIÊN DI",
+        "chi": "Dậu",
+        "can": "Ất",
+        "isLocked": true
+      },
+      "timestamp": "2026-11-20T06:11:31.687Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlr6_gvcm6j2",
+      "details": {
+        "palaceName": "PHỤ MẪU",
+        "cungName": "PHỤ MẪU",
+        "chi": "Thìn",
+        "can": "Canh",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:31.679Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlr6_gvcm6j2",
+      "details": {
+        "palaceName": "NÔ BỘC",
+        "cungName": "NÔ BỘC",
+        "chi": "Thân",
+        "can": "Giáp",
+        "isLocked": true
+      },
+      "timestamp": "2026-11-20T06:11:31.672Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlr6_gvcm6j2",
+      "details": {
+        "palaceName": "QUAN LỘC",
+        "cungName": "QUAN LỘC",
+        "chi": "Mùi",
+        "can": "Quý",
+        "isLocked": true
+      },
+      "timestamp": "2026-11-20T06:11:31.661Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlr6_gvcm6j2",
+      "details": {
+        "palaceName": "ĐIỀN TRẠCH",
+        "cungName": "ĐIỀN TRẠCH",
+        "chi": "Ngọ",
+        "can": "Nhâm",
+        "isLocked": true
+      },
+      "timestamp": "2026-11-20T06:11:31.654Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokzlr6_gvcm6j2",
+      "details": {
+        "palaceName": "PHÚC ĐỨC",
+        "cungName": "PHÚC ĐỨC",
+        "chi": "Tỵ",
+        "can": "Tân",
+        "isLocked": true
+      },
+      "timestamp": "2026-11-20T06:11:31.644Z"
     },
     {
       "eventType": "page_view",
-      "visitorId": "vis_user_real_998877",
+      "visitorId": "vis_mwokzlub_c1vqpm6",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "390x664",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-20T06:11:27.683Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwokzlub_c1vqpm6",
       "details": {
         "path": "/"
       },
-      "timestamp": "2026-11-15T07:20:10.059Z"
+      "timestamp": "2026-11-20T06:11:27.665Z"
     },
     {
-      "type": "payment_success",
-      "orderCode": "TV844994",
-      "amount": 49000,
-      "source": "SEPAY_AUTO_SYNC",
-      "at": "2026-11-14T17:32:08.000Z"
+      "eventType": "page_view",
+      "visitorId": "vis_mwokzlsv_4udpdql",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-20T06:11:27.611Z"
     },
     {
-      "type": "payment_success",
-      "orderCode": "TV169121",
-      "amount": 49000,
-      "source": "SEPAY_AUTO_SYNC",
-      "at": "2026-11-14T05:21:32.000Z"
+      "eventType": "page_view",
+      "visitorId": "vis_mwokzlso_o3uxmrq",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-20T06:11:27.584Z"
     },
     {
-      "type": "payment_success",
-      "orderCode": "TV571283",
-      "amount": 49000,
-      "source": "SEPAY_AUTO_SYNC",
-      "at": "2026-11-13T16:30:03.000Z"
+      "eventType": "page_view",
+      "visitorId": "vis_mwokzlso_o3uxmrq",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "390x844",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-20T06:11:27.563Z"
     },
     {
-      "type": "payment_success",
-      "orderCode": "TV104571",
-      "amount": 49000,
-      "source": "SEPAY_AUTO_SYNC",
-      "at": "2026-11-13T04:27:37.000Z"
+      "eventType": "page_view",
+      "visitorId": "vis_mwokzlr6_gvcm6j2",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-20T06:11:27.541Z"
     },
     {
-      "type": "payment_success",
-      "orderCode": "TV774622",
-      "amount": 49000,
-      "source": "SEPAY_AUTO_SYNC",
-      "at": "2026-11-13T04:04:15.000Z"
+      "eventType": "page_view",
+      "visitorId": "vis_mwokzlqp_anmnxnh",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-20T06:11:27.532Z"
     },
     {
-      "type": "payment_success",
-      "orderCode": "TV244402",
-      "amount": 49000,
-      "source": "SEPAY_VIETINBANK",
-      "at": "2026-11-12T11:44:49.000Z"
+      "eventType": "page_view",
+      "visitorId": "vis_mwokzlsv_4udpdql",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "412x839",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-20T06:11:27.516Z"
     },
     {
-      "type": "payment_success",
-      "orderCode": "TV167918",
-      "amount": 49000,
-      "source": "SEPAY_VIETINBANK",
-      "at": "2026-11-12T07:46:44.000Z"
+      "eventType": "page_view",
+      "visitorId": "vis_mwokzlqp_at02343",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-20T06:11:27.495Z"
     },
     {
-      "type": "payment_success",
-      "orderCode": "TV77365",
-      "amount": 99000,
-      "source": "SEPAY_MOMO_VIETINBANK",
-      "at": "2026-10-22T12:56:25.000Z"
+      "eventType": "page_view",
+      "visitorId": "vis_mwokzlqp_at02343",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "390x844",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-20T06:11:27.481Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwokzlqp_anmnxnh",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "390x844",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-20T06:11:27.235Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwokzlr6_gvcm6j2",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "1280x720",
+        "device": "desktop"
+      },
+      "timestamp": "2026-11-20T06:11:27.224Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6ud_qwgatlw",
+      "details": {
+        "palaceName": "TẬT ÁCH",
+        "cungName": "TẬT ÁCH",
+        "chi": "Hợi",
+        "can": "Đinh",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.937Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6ud_qwgatlw",
+      "details": {
+        "palaceName": "TÀI BẠCH<THÂN>",
+        "cungName": "TÀI BẠCH<THÂN>",
+        "chi": "Tý",
+        "can": "Mậu",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.927Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6ud_qwgatlw",
+      "details": {
+        "palaceName": "TỬ TỨC",
+        "cungName": "TỬ TỨC",
+        "chi": "Sửu",
+        "can": "Kỷ",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.919Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6ud_qwgatlw",
+      "details": {
+        "palaceName": "PHU THÊ",
+        "cungName": "PHU THÊ",
+        "chi": "Dần",
+        "can": "Mậu",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.909Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6ud_qwgatlw",
+      "details": {
+        "palaceName": "THIÊN DI",
+        "cungName": "THIÊN DI",
+        "chi": "Tuất",
+        "can": "Bính",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.902Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6ud_qwgatlw",
+      "details": {
+        "palaceName": "HUYNH ĐỆ",
+        "cungName": "HUYNH ĐỆ",
+        "chi": "Mão",
+        "can": "Kỷ",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.894Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6ud_qwgatlw",
+      "details": {
+        "palaceName": "NÔ BỘC",
+        "cungName": "NÔ BỘC",
+        "chi": "Dậu",
+        "can": "Ất",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.885Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6ud_qwgatlw",
+      "details": {
+        "palaceName": "MỆNH",
+        "cungName": "MỆNH",
+        "chi": "Thìn",
+        "can": "Canh",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.875Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6ud_qwgatlw",
+      "details": {
+        "palaceName": "QUAN LỘC",
+        "cungName": "QUAN LỘC",
+        "chi": "Thân",
+        "can": "Giáp",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.868Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6ud_qwgatlw",
+      "details": {
+        "palaceName": "ĐIỀN TRẠCH",
+        "cungName": "ĐIỀN TRẠCH",
+        "chi": "Mùi",
+        "can": "Quý",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.860Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6ud_qwgatlw",
+      "details": {
+        "palaceName": "PHÚC ĐỨC",
+        "cungName": "PHÚC ĐỨC",
+        "chi": "Ngọ",
+        "can": "Nhâm",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.852Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6ud_qwgatlw",
+      "details": {
+        "palaceName": "PHỤ MẪU",
+        "cungName": "PHỤ MẪU",
+        "chi": "Tỵ",
+        "can": "Tân",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.844Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6ua_o2d0980",
+      "details": {
+        "palaceName": "TẬT ÁCH",
+        "cungName": "TẬT ÁCH",
+        "chi": "Hợi",
+        "can": "Đinh",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.748Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6ua_o2d0980",
+      "details": {
+        "palaceName": "TÀI BẠCH<THÂN>",
+        "cungName": "TÀI BẠCH<THÂN>",
+        "chi": "Tý",
+        "can": "Mậu",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.740Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6ua_o2d0980",
+      "details": {
+        "palaceName": "TỬ TỨC",
+        "cungName": "TỬ TỨC",
+        "chi": "Sửu",
+        "can": "Kỷ",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.733Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6ua_o2d0980",
+      "details": {
+        "palaceName": "PHU THÊ",
+        "cungName": "PHU THÊ",
+        "chi": "Dần",
+        "can": "Mậu",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.725Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6ua_o2d0980",
+      "details": {
+        "palaceName": "THIÊN DI",
+        "cungName": "THIÊN DI",
+        "chi": "Tuất",
+        "can": "Bính",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.715Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6ua_o2d0980",
+      "details": {
+        "palaceName": "HUYNH ĐỆ",
+        "cungName": "HUYNH ĐỆ",
+        "chi": "Mão",
+        "can": "Kỷ",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.708Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6ua_o2d0980",
+      "details": {
+        "palaceName": "NÔ BỘC",
+        "cungName": "NÔ BỘC",
+        "chi": "Dậu",
+        "can": "Ất",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.701Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6ua_o2d0980",
+      "details": {
+        "palaceName": "MỆNH",
+        "cungName": "MỆNH",
+        "chi": "Thìn",
+        "can": "Canh",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.694Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6ua_o2d0980",
+      "details": {
+        "palaceName": "QUAN LỘC",
+        "cungName": "QUAN LỘC",
+        "chi": "Thân",
+        "can": "Giáp",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.687Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6ua_o2d0980",
+      "details": {
+        "palaceName": "ĐIỀN TRẠCH",
+        "cungName": "ĐIỀN TRẠCH",
+        "chi": "Mùi",
+        "can": "Quý",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.679Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6ua_o2d0980",
+      "details": {
+        "palaceName": "PHÚC ĐỨC",
+        "cungName": "PHÚC ĐỨC",
+        "chi": "Ngọ",
+        "can": "Nhâm",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.673Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6ua_o2d0980",
+      "details": {
+        "palaceName": "PHỤ MẪU",
+        "cungName": "PHỤ MẪU",
+        "chi": "Tỵ",
+        "can": "Tân",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.665Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6q4_jf4slmb",
+      "details": {
+        "palaceName": "TẬT ÁCH",
+        "cungName": "TẬT ÁCH",
+        "chi": "Hợi",
+        "can": "Đinh",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.442Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6q4_jf4slmb",
+      "details": {
+        "palaceName": "TÀI BẠCH<THÂN>",
+        "cungName": "TÀI BẠCH<THÂN>",
+        "chi": "Tý",
+        "can": "Mậu",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.436Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6q4_jf4slmb",
+      "details": {
+        "palaceName": "TỬ TỨC",
+        "cungName": "TỬ TỨC",
+        "chi": "Sửu",
+        "can": "Kỷ",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.428Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6q4_jf4slmb",
+      "details": {
+        "palaceName": "PHU THÊ",
+        "cungName": "PHU THÊ",
+        "chi": "Dần",
+        "can": "Mậu",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.419Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6q4_jf4slmb",
+      "details": {
+        "palaceName": "THIÊN DI",
+        "cungName": "THIÊN DI",
+        "chi": "Tuất",
+        "can": "Bính",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.409Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6q4_jf4slmb",
+      "details": {
+        "palaceName": "HUYNH ĐỆ",
+        "cungName": "HUYNH ĐỆ",
+        "chi": "Mão",
+        "can": "Kỷ",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.401Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6q4_jf4slmb",
+      "details": {
+        "palaceName": "NÔ BỘC",
+        "cungName": "NÔ BỘC",
+        "chi": "Dậu",
+        "can": "Ất",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.392Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6q4_jf4slmb",
+      "details": {
+        "palaceName": "MỆNH",
+        "cungName": "MỆNH",
+        "chi": "Thìn",
+        "can": "Canh",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.381Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6q4_jf4slmb",
+      "details": {
+        "palaceName": "QUAN LỘC",
+        "cungName": "QUAN LỘC",
+        "chi": "Thân",
+        "can": "Giáp",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.372Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6q4_jf4slmb",
+      "details": {
+        "palaceName": "ĐIỀN TRẠCH",
+        "cungName": "ĐIỀN TRẠCH",
+        "chi": "Mùi",
+        "can": "Quý",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.365Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6q4_jf4slmb",
+      "details": {
+        "palaceName": "PHÚC ĐỨC",
+        "cungName": "PHÚC ĐỨC",
+        "chi": "Ngọ",
+        "can": "Nhâm",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.358Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz6q4_jf4slmb",
+      "details": {
+        "palaceName": "PHỤ MẪU",
+        "cungName": "PHỤ MẪU",
+        "chi": "Tỵ",
+        "can": "Tân",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:08.350Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwokz6ua_o2d0980",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-20T06:11:07.869Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwokz6ud_qwgatlw",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-20T06:11:07.846Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwokz6ua_o2d0980",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "412x839",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-20T06:11:07.823Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwokz6ud_qwgatlw",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "1280x720",
+        "device": "desktop"
+      },
+      "timestamp": "2026-11-20T06:11:07.742Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwokz6q4_jf4slmb",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-20T06:11:07.627Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwokz6q4_jf4slmb",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "390x664",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-20T06:11:07.611Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4do_wwcxrdq",
+      "details": {
+        "palaceName": "MỆNH",
+        "cungName": "MỆNH",
+        "chi": "Hợi",
+        "can": "Ất",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.799Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4do_wwcxrdq",
+      "details": {
+        "palaceName": "PHỤ MẪU",
+        "cungName": "PHỤ MẪU",
+        "chi": "Tý",
+        "can": "Bính",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.789Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4do_wwcxrdq",
+      "details": {
+        "palaceName": "PHÚC ĐỨC",
+        "cungName": "PHÚC ĐỨC",
+        "chi": "Sửu",
+        "can": "Đinh",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.780Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4do_wwcxrdq",
+      "details": {
+        "palaceName": "ĐIỀN TRẠCH",
+        "cungName": "ĐIỀN TRẠCH",
+        "chi": "Dần",
+        "can": "Bính",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.769Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4do_wwcxrdq",
+      "details": {
+        "palaceName": "HUYNH ĐỆ",
+        "cungName": "HUYNH ĐỆ",
+        "chi": "Tuất",
+        "can": "Giáp",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.758Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4do_wwcxrdq",
+      "details": {
+        "palaceName": "QUAN LỘC",
+        "cungName": "QUAN LỘC",
+        "chi": "Mão",
+        "can": "Đinh",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.749Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4do_wwcxrdq",
+      "details": {
+        "palaceName": "PHU THÊ",
+        "cungName": "PHU THÊ",
+        "chi": "Dậu",
+        "can": "Quý",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.740Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4do_wwcxrdq",
+      "details": {
+        "palaceName": "NÔ BỘC",
+        "cungName": "NÔ BỘC",
+        "chi": "Thìn",
+        "can": "Mậu",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.732Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4do_wwcxrdq",
+      "details": {
+        "palaceName": "TỬ TỨC",
+        "cungName": "TỬ TỨC",
+        "chi": "Thân",
+        "can": "Nhâm",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.722Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4do_wwcxrdq",
+      "details": {
+        "palaceName": "TÀI BẠCH",
+        "cungName": "TÀI BẠCH",
+        "chi": "Mùi",
+        "can": "Tân",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.715Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4do_wwcxrdq",
+      "details": {
+        "palaceName": "TẬT ÁCH",
+        "cungName": "TẬT ÁCH",
+        "chi": "Ngọ",
+        "can": "Canh",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.707Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4do_wwcxrdq",
+      "details": {
+        "palaceName": "THIÊN DI<THÂN>",
+        "cungName": "THIÊN DI<THÂN>",
+        "chi": "Tỵ",
+        "can": "Kỷ",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.700Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4fj_awg2p70",
+      "details": {
+        "palaceName": "MỆNH",
+        "cungName": "MỆNH",
+        "chi": "Hợi",
+        "can": "Ất",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.549Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4fj_awg2p70",
+      "details": {
+        "palaceName": "PHỤ MẪU",
+        "cungName": "PHỤ MẪU",
+        "chi": "Tý",
+        "can": "Bính",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.537Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4fj_awg2p70",
+      "details": {
+        "palaceName": "PHÚC ĐỨC",
+        "cungName": "PHÚC ĐỨC",
+        "chi": "Sửu",
+        "can": "Đinh",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.526Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4fj_awg2p70",
+      "details": {
+        "palaceName": "ĐIỀN TRẠCH",
+        "cungName": "ĐIỀN TRẠCH",
+        "chi": "Dần",
+        "can": "Bính",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.518Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4fj_awg2p70",
+      "details": {
+        "palaceName": "HUYNH ĐỆ",
+        "cungName": "HUYNH ĐỆ",
+        "chi": "Tuất",
+        "can": "Giáp",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.510Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4fj_awg2p70",
+      "details": {
+        "palaceName": "QUAN LỘC",
+        "cungName": "QUAN LỘC",
+        "chi": "Mão",
+        "can": "Đinh",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.502Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4fj_awg2p70",
+      "details": {
+        "palaceName": "PHU THÊ",
+        "cungName": "PHU THÊ",
+        "chi": "Dậu",
+        "can": "Quý",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.494Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4fj_awg2p70",
+      "details": {
+        "palaceName": "NÔ BỘC",
+        "cungName": "NÔ BỘC",
+        "chi": "Thìn",
+        "can": "Mậu",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.486Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4fj_awg2p70",
+      "details": {
+        "palaceName": "TỬ TỨC",
+        "cungName": "TỬ TỨC",
+        "chi": "Thân",
+        "can": "Nhâm",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.477Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4fj_awg2p70",
+      "details": {
+        "palaceName": "TÀI BẠCH",
+        "cungName": "TÀI BẠCH",
+        "chi": "Mùi",
+        "can": "Tân",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.469Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4fj_awg2p70",
+      "details": {
+        "palaceName": "TẬT ÁCH",
+        "cungName": "TẬT ÁCH",
+        "chi": "Ngọ",
+        "can": "Canh",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.461Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4fj_awg2p70",
+      "details": {
+        "palaceName": "THIÊN DI<THÂN>",
+        "cungName": "THIÊN DI<THÂN>",
+        "chi": "Tỵ",
+        "can": "Kỷ",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.453Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4dx_fk7v7u4",
+      "details": {
+        "palaceName": "MỆNH",
+        "cungName": "MỆNH",
+        "chi": "Hợi",
+        "can": "Ất",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.407Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4dx_fk7v7u4",
+      "details": {
+        "palaceName": "PHỤ MẪU",
+        "cungName": "PHỤ MẪU",
+        "chi": "Tý",
+        "can": "Bính",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.399Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4dx_fk7v7u4",
+      "details": {
+        "palaceName": "PHÚC ĐỨC",
+        "cungName": "PHÚC ĐỨC",
+        "chi": "Sửu",
+        "can": "Đinh",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.389Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4dx_fk7v7u4",
+      "details": {
+        "palaceName": "ĐIỀN TRẠCH",
+        "cungName": "ĐIỀN TRẠCH",
+        "chi": "Dần",
+        "can": "Bính",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.382Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4dx_fk7v7u4",
+      "details": {
+        "palaceName": "HUYNH ĐỆ",
+        "cungName": "HUYNH ĐỆ",
+        "chi": "Tuất",
+        "can": "Giáp",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.373Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4dx_fk7v7u4",
+      "details": {
+        "palaceName": "QUAN LỘC",
+        "cungName": "QUAN LỘC",
+        "chi": "Mão",
+        "can": "Đinh",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.364Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4dx_fk7v7u4",
+      "details": {
+        "palaceName": "PHU THÊ",
+        "cungName": "PHU THÊ",
+        "chi": "Dậu",
+        "can": "Quý",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.355Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4dx_fk7v7u4",
+      "details": {
+        "palaceName": "NÔ BỘC",
+        "cungName": "NÔ BỘC",
+        "chi": "Thìn",
+        "can": "Mậu",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.347Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4dx_fk7v7u4",
+      "details": {
+        "palaceName": "TỬ TỨC",
+        "cungName": "TỬ TỨC",
+        "chi": "Thân",
+        "can": "Nhâm",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.337Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4dx_fk7v7u4",
+      "details": {
+        "palaceName": "TÀI BẠCH",
+        "cungName": "TÀI BẠCH",
+        "chi": "Mùi",
+        "can": "Tân",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.329Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4dx_fk7v7u4",
+      "details": {
+        "palaceName": "TẬT ÁCH",
+        "cungName": "TẬT ÁCH",
+        "chi": "Ngọ",
+        "can": "Canh",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.320Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokz4dx_fk7v7u4",
+      "details": {
+        "palaceName": "THIÊN DI<THÂN>",
+        "cungName": "THIÊN DI<THÂN>",
+        "chi": "Tỵ",
+        "can": "Kỷ",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:11:05.311Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwokz4fj_awg2p70",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-20T06:11:04.730Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwokz4fj_awg2p70",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "412x839",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-20T06:11:04.709Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwokz4dx_fk7v7u4",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-20T06:11:04.647Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwokz4dx_fk7v7u4",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "390x664",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-20T06:11:04.634Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwokz4do_wwcxrdq",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-20T06:11:04.627Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwokz4do_wwcxrdq",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "1280x720",
+        "device": "desktop"
+      },
+      "timestamp": "2026-11-20T06:11:04.540Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokxyd8_jcp5ya9",
+      "details": {
+        "palaceName": "TẬT ÁCH",
+        "cungName": "TẬT ÁCH",
+        "chi": "Hợi",
+        "can": "Đinh",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:10:11.316Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokxyd8_jcp5ya9",
+      "details": {
+        "palaceName": "TÀI BẠCH<THÂN>",
+        "cungName": "TÀI BẠCH<THÂN>",
+        "chi": "Tý",
+        "can": "Mậu",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:10:11.308Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokxyd8_jcp5ya9",
+      "details": {
+        "palaceName": "TỬ TỨC",
+        "cungName": "TỬ TỨC",
+        "chi": "Sửu",
+        "can": "Kỷ",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:10:11.302Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokxyd8_jcp5ya9",
+      "details": {
+        "palaceName": "PHU THÊ",
+        "cungName": "PHU THÊ",
+        "chi": "Dần",
+        "can": "Mậu",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:10:11.295Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokxyd8_jcp5ya9",
+      "details": {
+        "palaceName": "THIÊN DI",
+        "cungName": "THIÊN DI",
+        "chi": "Tuất",
+        "can": "Bính",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:10:11.289Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokxyd8_jcp5ya9",
+      "details": {
+        "palaceName": "HUYNH ĐỆ",
+        "cungName": "HUYNH ĐỆ",
+        "chi": "Mão",
+        "can": "Kỷ",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:10:11.282Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokxyd8_jcp5ya9",
+      "details": {
+        "palaceName": "NÔ BỘC",
+        "cungName": "NÔ BỘC",
+        "chi": "Dậu",
+        "can": "Ất",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:10:11.276Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokxyd8_jcp5ya9",
+      "details": {
+        "palaceName": "MỆNH",
+        "cungName": "MỆNH",
+        "chi": "Thìn",
+        "can": "Canh",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:10:11.269Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokxyd8_jcp5ya9",
+      "details": {
+        "palaceName": "QUAN LỘC",
+        "cungName": "QUAN LỘC",
+        "chi": "Thân",
+        "can": "Giáp",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:10:11.262Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokxyd8_jcp5ya9",
+      "details": {
+        "palaceName": "ĐIỀN TRẠCH",
+        "cungName": "ĐIỀN TRẠCH",
+        "chi": "Mùi",
+        "can": "Quý",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:10:11.256Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokxyd8_jcp5ya9",
+      "details": {
+        "palaceName": "PHÚC ĐỨC",
+        "cungName": "PHÚC ĐỨC",
+        "chi": "Ngọ",
+        "can": "Nhâm",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:10:11.250Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokxyd8_jcp5ya9",
+      "details": {
+        "palaceName": "PHỤ MẪU",
+        "cungName": "PHỤ MẪU",
+        "chi": "Tỵ",
+        "can": "Tân",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:10:11.243Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokxye4_w57w0y3",
+      "details": {
+        "palaceName": "TẬT ÁCH",
+        "cungName": "TẬT ÁCH",
+        "chi": "Hợi",
+        "can": "Đinh",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:10:11.181Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokxye4_w57w0y3",
+      "details": {
+        "palaceName": "TÀI BẠCH<THÂN>",
+        "cungName": "TÀI BẠCH<THÂN>",
+        "chi": "Tý",
+        "can": "Mậu",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:10:11.173Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokxye4_w57w0y3",
+      "details": {
+        "palaceName": "TỬ TỨC",
+        "cungName": "TỬ TỨC",
+        "chi": "Sửu",
+        "can": "Kỷ",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:10:11.162Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokxye4_w57w0y3",
+      "details": {
+        "palaceName": "PHU THÊ",
+        "cungName": "PHU THÊ",
+        "chi": "Dần",
+        "can": "Mậu",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:10:11.154Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokxye4_w57w0y3",
+      "details": {
+        "palaceName": "THIÊN DI",
+        "cungName": "THIÊN DI",
+        "chi": "Tuất",
+        "can": "Bính",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:10:11.146Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokxye4_w57w0y3",
+      "details": {
+        "palaceName": "HUYNH ĐỆ",
+        "cungName": "HUYNH ĐỆ",
+        "chi": "Mão",
+        "can": "Kỷ",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:10:11.139Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokxye4_w57w0y3",
+      "details": {
+        "palaceName": "NÔ BỘC",
+        "cungName": "NÔ BỘC",
+        "chi": "Dậu",
+        "can": "Ất",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:10:11.131Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokxye4_w57w0y3",
+      "details": {
+        "palaceName": "MỆNH",
+        "cungName": "MỆNH",
+        "chi": "Thìn",
+        "can": "Canh",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:10:11.124Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokxye4_w57w0y3",
+      "details": {
+        "palaceName": "QUAN LỘC",
+        "cungName": "QUAN LỘC",
+        "chi": "Thân",
+        "can": "Giáp",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:10:11.116Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokxye4_w57w0y3",
+      "details": {
+        "palaceName": "ĐIỀN TRẠCH",
+        "cungName": "ĐIỀN TRẠCH",
+        "chi": "Mùi",
+        "can": "Quý",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:10:11.108Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokxye4_w57w0y3",
+      "details": {
+        "palaceName": "PHÚC ĐỨC",
+        "cungName": "PHÚC ĐỨC",
+        "chi": "Ngọ",
+        "can": "Nhâm",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:10:11.101Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokxye4_w57w0y3",
+      "details": {
+        "palaceName": "PHỤ MẪU",
+        "cungName": "PHỤ MẪU",
+        "chi": "Tỵ",
+        "can": "Tân",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:10:11.095Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokxydv_8oydrzu",
+      "details": {
+        "palaceName": "TẬT ÁCH",
+        "cungName": "TẬT ÁCH",
+        "chi": "Hợi",
+        "can": "Đinh",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:10:11.017Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokxydv_8oydrzu",
+      "details": {
+        "palaceName": "TÀI BẠCH<THÂN>",
+        "cungName": "TÀI BẠCH<THÂN>",
+        "chi": "Tý",
+        "can": "Mậu",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:10:11.011Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokxydv_8oydrzu",
+      "details": {
+        "palaceName": "TỬ TỨC",
+        "cungName": "TỬ TỨC",
+        "chi": "Sửu",
+        "can": "Kỷ",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:10:11.005Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokxydv_8oydrzu",
+      "details": {
+        "palaceName": "PHU THÊ",
+        "cungName": "PHU THÊ",
+        "chi": "Dần",
+        "can": "Mậu",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:10:10.994Z"
+    },
+    {
+      "eventType": "view_cung",
+      "visitorId": "vis_mwokxydv_8oydrzu",
+      "details": {
+        "palaceName": "THIÊN DI",
+        "cungName": "THIÊN DI",
+        "chi": "Tuất",
+        "can": "Bính",
+        "isLocked": false
+      },
+      "timestamp": "2026-11-20T06:10:10.984Z"
     }
   ]
 }

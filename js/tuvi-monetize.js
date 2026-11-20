@@ -72,6 +72,74 @@
       }
     },
 
+    extractChartInfo: function (laSo) {
+      if (!laSo) {
+        const hName = (document.getElementById('hoTen')?.value || '').trim();
+        const nSinh = parseInt(document.getElementById('ngaySinh')?.value, 10);
+        const tSinh = parseInt(document.getElementById('thangSinh')?.value, 10);
+        const namSinh = parseInt(document.getElementById('namSinh')?.value, 10);
+        if (hName && nSinh && tSinh && namSinh) {
+          return {
+            hoTen: hName,
+            gioiTinh: (document.getElementById('gioiTinh')?.value || 'nam').toLowerCase(),
+            ngay: nSinh,
+            thang: tSinh,
+            nam: namSinh,
+            gio: parseInt(document.getElementById('gioSinh')?.value || '8', 10),
+            phut: parseInt(document.getElementById('phutSinh')?.value || '0', 10),
+            isLunar: document.getElementById('loaiLich')?.value === 'am'
+          };
+        }
+        return null;
+      }
+
+      const inp = laSo._input || {};
+      const sol = laSo.solarDate || {};
+      const ngay = inp.ngay || sol.day || laSo.ngay;
+      const thang = inp.thang || sol.month || laSo.thang;
+      const nam = inp.nam || sol.year || laSo.nam;
+      const rawGender = String(laSo.gioiTinh || inp.gioiTinh || 'nam').toLowerCase();
+      const isNu = rawGender === 'nu' || rawGender === 'nữ' || rawGender === 'female' || rawGender === '0';
+
+      return {
+        hoTen: laSo.hoTen || inp.hoTen || (document.getElementById('hoTen')?.value) || 'Đương Số VIP',
+        gioiTinh: isNu ? 'nu' : 'nam',
+        ngay: parseInt(ngay, 10) || 1,
+        thang: parseInt(thang, 10) || 1,
+        nam: parseInt(nam, 10) || 1990,
+        gio: inp.gio !== undefined ? parseInt(inp.gio, 10) : (laSo.gio !== undefined ? parseInt(laSo.gio, 10) : 8),
+        phut: inp.phut !== undefined ? parseInt(inp.phut, 10) : (laSo.phut !== undefined ? parseInt(laSo.phut, 10) : 0),
+        isLunar: Boolean(laSo.isLunar || inp.isLunar)
+      };
+    },
+
+    getSavedChartInfoForCode: function (orderCode) {
+      if (!orderCode) return null;
+      const cleanCode = String(orderCode).trim().toUpperCase();
+      try {
+        const hist = JSON.parse(localStorage.getItem('tvhh_vip_codes_history') || '[]');
+        if (Array.isArray(hist)) {
+          const item = hist.find(h => (h && h.code === cleanCode));
+          if (item && item.chartInfo && item.chartInfo.ngay) {
+            return item.chartInfo;
+          }
+        }
+      } catch (e) { }
+
+      try {
+        const charts = JSON.parse(localStorage.getItem('tvhh_unlocked_charts') || '{}');
+        for (const k in charts) {
+          if (charts[k] && (charts[k].orderCode === cleanCode || charts[k].vipAccessToken === cleanCode)) {
+            if (charts[k].chartInfo && charts[k].chartInfo.ngay) {
+              return charts[k].chartInfo;
+            }
+          }
+        }
+      } catch (e) { }
+
+      return null;
+    },
+
     saveUnlockedChart: function (chartKey, orderInfo) {
       if (!chartKey) return;
       try {
@@ -539,16 +607,7 @@
         body: JSON.stringify({
           orderCode: this.currentOrderId,
           chartKey: activeChartKey,
-          chartInfo: activeLaSo ? {
-            hoTen: activeLaSo.hoTen || (activeLaSo._input && activeLaSo._input.hoTen) || '',
-            gioiTinh: activeLaSo.gioiTinh || (activeLaSo._input && activeLaSo._input.gioiTinh) || 'nam',
-            ngay: (activeLaSo._input && activeLaSo._input.ngay) || activeLaSo.ngay,
-            thang: (activeLaSo._input && activeLaSo._input.thang) || activeLaSo.thang,
-            nam: (activeLaSo._input && activeLaSo._input.nam) || activeLaSo.nam,
-            gio: (activeLaSo._input && activeLaSo._input.gio) !== undefined ? activeLaSo._input.gio : activeLaSo.gio,
-            phut: (activeLaSo._input && activeLaSo._input.phut) !== undefined ? activeLaSo._input.phut : activeLaSo.phut,
-            isLunar: Boolean(activeLaSo.isLunar || (activeLaSo._input && activeLaSo._input.isLunar))
-          } : null,
+          chartInfo: this.extractChartInfo(activeLaSo),
           packageId: this.currentPackagePrice >= 400000 ? 'vip_call' : 'vip_49k',
           packageName: this.currentPackageName,
           amount: this.currentPackagePrice,
@@ -611,16 +670,7 @@
         body: JSON.stringify({
           orderCode: this.currentOrderId,
           chartKey: activeChartKey,
-          chartInfo: activeLaSo ? {
-            hoTen: activeLaSo.hoTen || (activeLaSo._input && activeLaSo._input.hoTen) || '',
-            gioiTinh: activeLaSo.gioiTinh || (activeLaSo._input && activeLaSo._input.gioiTinh) || 'nam',
-            ngay: (activeLaSo._input && activeLaSo._input.ngay) || activeLaSo.ngay,
-            thang: (activeLaSo._input && activeLaSo._input.thang) || activeLaSo.thang,
-            nam: (activeLaSo._input && activeLaSo._input.nam) || activeLaSo.nam,
-            gio: (activeLaSo._input && activeLaSo._input.gio) !== undefined ? activeLaSo._input.gio : activeLaSo.gio,
-            phut: (activeLaSo._input && activeLaSo._input.phut) !== undefined ? activeLaSo._input.phut : activeLaSo.phut,
-            isLunar: Boolean(activeLaSo.isLunar || (activeLaSo._input && activeLaSo._input.isLunar))
-          } : null,
+          chartInfo: this.extractChartInfo(activeLaSo),
           packageId: this.currentPackagePrice >= 400000 ? 'vip_call' : 'vip_49k',
           packageName: this.currentPackageName,
           amount: this.currentPackagePrice,
@@ -1365,10 +1415,17 @@
         } catch (e) { history = []; }
         if (!Array.isArray(history)) history = [];
 
+        // Lấy chartInfo từ meta hoặc từ lá số hiện tại
+        let chartInfo = meta && meta.chartInfo;
+        if (!chartInfo && typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) {
+          chartInfo = this.extractChartInfo(TuViChart._currentLaSo);
+        }
+
         const existingIdx = history.findIndex(item => (typeof item === 'string' ? item : (item && item.code)) === cleanCode);
         const entry = Object.assign({
           code: cleanCode,
-          savedAt: new Date().toISOString()
+          savedAt: new Date().toISOString(),
+          chartInfo: chartInfo || null
         }, meta || {});
 
         if (existingIdx !== -1) {
@@ -2232,29 +2289,37 @@
      * DOM Modal Khôi phục / Tra cứu quyền VIP
      */
     /**
-     * Tự động phục hồi và hiển thị lá số khi khôi phục VIP hoặc mở Magic Link
+     * Tự động phục hồi và hiển thị lá số CHUẨN XÁC KHI KHÔI PHỤC VIP HOẶC MỞ MAGIC LINK
      */
     renderChartFromOrderOrStorage: function (order) {
-      var cInfo = order && order.chartInfo;
-      var renderedChart = false;
+      var cInfo = (order && order.chartInfo) || this.getSavedChartInfoForCode(order && order.orderCode);
+      var orderCode = order && order.orderCode;
 
-      // 1. Phục hồi từ chartInfo nếu có lưu trên đơn hàng
-      if (cInfo && typeof TuViEngine !== 'undefined' && typeof TuViChart !== 'undefined') {
+      // 1. Phục hồi từ chartInfo nếu có lưu trên đơn hàng hoặc lưu trên thiết bị
+      if (cInfo && cInfo.ngay && typeof TuViEngine !== 'undefined' && typeof TuViChart !== 'undefined') {
         try {
           if (document.getElementById('hoTen')) document.getElementById('hoTen').value = cInfo.hoTen || '';
           if (document.getElementById('gioiTinh')) document.getElementById('gioiTinh').value = cInfo.gioiTinh || 'nam';
-          if (document.getElementById('ngaySinh') && cInfo.ngay) document.getElementById('ngaySinh').value = cInfo.ngay;
-          if (document.getElementById('thangSinh') && cInfo.thang) document.getElementById('thangSinh').value = cInfo.thang;
-          if (document.getElementById('namSinh') && cInfo.nam) document.getElementById('namSinh').value = cInfo.nam;
+          if (document.getElementById('ngaySinh')) document.getElementById('ngaySinh').value = cInfo.ngay;
+          if (document.getElementById('thangSinh')) document.getElementById('thangSinh').value = cInfo.thang;
+          if (document.getElementById('namSinh')) document.getElementById('namSinh').value = cInfo.nam;
           if (document.getElementById('gioSinh') && cInfo.gio !== undefined) document.getElementById('gioSinh').value = cInfo.gio;
-          if (document.getElementById('phutSinh') && cInfo.phut !== undefined) document.getElementById('phutSinh').value = cInfo.phut;
           if (document.getElementById('loaiLich')) document.getElementById('loaiLich').value = cInfo.isLunar ? 'am' : 'duong';
 
-          var gio = (cInfo.gio !== undefined && cInfo.gio !== null) ? parseInt(cInfo.gio, 10) : 0;
+          var phutEl = document.getElementById('phutSinh');
+          if (phutEl && cInfo.phut !== undefined) {
+            phutEl.value = cInfo.phut;
+            if (!phutEl.value) {
+              var r5 = Math.round(Number(cInfo.phut) / 5) * 5;
+              phutEl.value = String(r5);
+            }
+          }
+
+          var gio = (cInfo.gio !== undefined && cInfo.gio !== null) ? parseInt(cInfo.gio, 10) : 8;
           var phut = (cInfo.phut !== undefined && cInfo.phut !== null) ? parseInt(cInfo.phut, 10) : 0;
           var gioIndex = (typeof TuViApp !== 'undefined' && TuViApp.getHourChiIndex)
             ? TuViApp.getHourChiIndex(gio, phut)
-            : Math.floor(((gio + 1) % 24) / 2);
+            : (gio === 23 || gio === 0 ? 0 : Math.floor((gio + 1) / 2));
           var gioPhutText = `${gio} giờ ${phut < 10 ? '0' + phut : phut} phút`;
 
           var computedLaSo = TuViEngine.lapLaSo({
@@ -2274,29 +2339,44 @@
           computedLaSo.hoTen = cInfo.hoTen || 'Đương Số VIP';
 
           TuViChart._currentLaSo = computedLaSo;
+          var chartKey = this.getChartKey(computedLaSo);
+          this.activeChartKey = chartKey;
+          this.isVipUnlocked = true;
+          this.isTripwireUnlocked = false;
+          this.vipOrderCode = orderCode || this.vipOrderCode;
+
+          this.saveUnlockedChart(chartKey, Object.assign({}, order, { chartInfo: cInfo }));
           this.updateActiveChartStatus(computedLaSo);
           TuViChart.render(computedLaSo);
+
+          var ketQuaEl = document.getElementById('ket-qua');
+          if (ketQuaEl) {
+            ketQuaEl.style.display = 'block';
+            ketQuaEl.classList.add('visible');
+          }
+
           if (typeof TuViApp !== 'undefined' && TuViApp.collapseForm) {
             TuViApp.collapseForm(computedLaSo);
           }
           try {
             sessionStorage.setItem('tvhh_last_laso', JSON.stringify(computedLaSo));
+            sessionStorage.setItem('tvhh_last_chart_info', JSON.stringify(cInfo));
           } catch (e) { }
-          renderedChart = true;
+          return true;
         } catch (errChart) {
-          console.warn('Lỗi auto-render từ chartInfo:', errChart);
+          console.error('Lỗi auto-render từ chartInfo:', errChart);
         }
       }
 
-      // 2. Nếu đã có lá số sẵn trên giao diện
-      if (!renderedChart && typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) {
+      // 2. Nếu không có chartInfo nhưng trên giao diện đã có lá số
+      if (typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) {
         this.updateActiveChartStatus(TuViChart._currentLaSo);
         TuViChart.render(TuViChart._currentLaSo);
-        renderedChart = true;
+        return true;
       }
 
       // 3. Phục hồi từ sessionStorage nếu có
-      if (!renderedChart && typeof TuViChart !== 'undefined') {
+      if (typeof TuViChart !== 'undefined') {
         try {
           var savedLaSo = sessionStorage.getItem('tvhh_last_laso');
           if (savedLaSo) {
@@ -2307,31 +2387,21 @@
             if (typeof TuViApp !== 'undefined' && TuViApp.collapseForm) {
               TuViApp.collapseForm(parsed);
             }
-            renderedChart = true;
+            return true;
           }
         } catch (e) { }
       }
 
       // 4. Nếu người dùng đã điền đủ ngày sinh trên form, tự tính lại
-      if (!renderedChart && typeof TuViApp !== 'undefined' && typeof TuViApp.handleFormSubmit === 'function') {
+      if (typeof TuViApp !== 'undefined' && typeof TuViApp.handleFormSubmit === 'function') {
         var hName = (document.getElementById('hoTen')?.value || '').trim();
         var nSinh = document.getElementById('ngaySinh')?.value;
         if (hName && nSinh) {
           TuViApp.handleFormSubmit();
-          renderedChart = true;
+          return true;
         }
       }
-
-      // 5. Cuộn mượt đến bảng kết quả
-      if (renderedChart) {
-        var resultEl = document.getElementById('ket-qua');
-        if (resultEl) {
-          resultEl.style.display = 'block';
-          resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }
-
-      return renderedChart;
+      return false;
     },
 
     /**
@@ -2401,7 +2471,7 @@
 
               <!-- CÁC NÚT HÀNH ĐỘNG TO RÕ DỄ BẤM TRÊN MOBILE -->
               <div style="display:flex; flex-direction:column; gap:8px; margin-top:12px;">
-                <button type="button" class="btn-tool-submit" style="width:100%; padding:0.8rem 1rem; font-size:0.95rem; font-weight:700; background:linear-gradient(135deg, #15803d 0%, #16a34a 100%); color:#fff; border:none; border-radius:8px; cursor:pointer; box-shadow:0 2px 6px rgba(22,163,74,0.3); display:flex; align-items:center; justify-content:center; gap:6px;" onclick="TuViMonetize.viewReportNow();">
+                <button type="button" id="btnRestoreViewNow" class="btn-tool-submit" style="width:100%; padding:0.8rem 1rem; font-size:0.95rem; font-weight:700; background:linear-gradient(135deg, #15803d 0%, #16a34a 100%); color:#fff; border:none; border-radius:8px; cursor:pointer; box-shadow:0 2px 6px rgba(22,163,74,0.3); display:flex; align-items:center; justify-content:center; gap:6px;" onclick="TuViMonetize.viewReportNow();">
                   ✨ Xem Bản Luận Giải Ngay (Tự Động Cuộn)
                 </button>
                 <button type="button" style="width:100%; padding:0.65rem 1rem; font-size:0.88rem; font-weight:600; background:#ffffff; color:#374151; border:1px solid #d1d5db; border-radius:8px; cursor:pointer;" onclick="TuViMonetize.closeRestoreModal();">

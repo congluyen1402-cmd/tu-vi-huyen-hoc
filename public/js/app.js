@@ -869,22 +869,37 @@
                 window.scrollTo({ top: Math.max(0, targetY), behavior: 'smooth' });
               }
 
+              const chartInfoData = {
+                hoTen: hoTen || computedLaSo.hoTen || 'Khách Xem Mệnh',
+                gioiTinh: (gioiTinh || computedLaSo.gioiTinh || 'nam').toLowerCase(),
+                ngay: parseInt(ngay, 10),
+                thang: parseInt(thang, 10),
+                nam: parseInt(nam, 10),
+                gio: parseInt(gio || '8', 10),
+                phut: parseInt(phut || '0', 10),
+                isLunar: Boolean(isLunar)
+              };
+
               if (window.TuViTracker && window.TuViTracker.track) {
                 window.TuViTracker.track('lap_la_so', {
-                  hoTen: hoTen || computedLaSo.hoTen || 'Khách Xem Mệnh',
-                  gioiTinh: gioiTinh || computedLaSo.gioiTinh || 'Nam',
+                  hoTen: chartInfoData.hoTen,
+                  gioiTinh: chartInfoData.gioiTinh,
                   ngayThangNam: `${ngay}/${thang}/${nam}`,
                   gioSinh: `${gio || '00'}:${phut || '00'}`,
                   banMenh: computedLaSo.menh || '',
-                  cucMenh: computedLaSo.cuc || ''
+                  cucMenh: computedLaSo.cuc || '',
+                  chartKey: computedLaSo.key || computedLaSo._chartKey,
+                  chartInfo: chartInfoData
                 });
               } else if (typeof TuViMonetize !== 'undefined' && TuViMonetize.trackEvent) {
                 TuViMonetize.trackEvent('lap_la_so', {
-                  hoTen: hoTen || computedLaSo.hoTen,
-                  gioiTinh: gioiTinh || computedLaSo.gioiTinh,
+                  hoTen: chartInfoData.hoTen,
+                  gioiTinh: chartInfoData.gioiTinh,
                   namSinh: nam,
                   cuc: computedLaSo.cuc,
-                  menh: computedLaSo.menh
+                  menh: computedLaSo.menh,
+                  chartKey: computedLaSo.key || computedLaSo._chartKey,
+                  chartInfo: chartInfoData
                 });
               }
             }

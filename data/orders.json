@@ -27,8 +27,17 @@
     "status": "PAID",
     "paymentSource": "SEPAY_AUTO_SYNC",
     "vipAccessToken": "TV810357",
-    "chartKey": null,
-    "chartInfo": null,
+    "chartKey": "laso_trần_công_luyện_nam_14_2_1994_6_15_0",
+    "chartInfo": {
+      "hoTen": "Trần Công Luyện",
+      "gioiTinh": "nam",
+      "ngay": 14,
+      "thang": 2,
+      "nam": 1994,
+      "gio": 6,
+      "phut": 15,
+      "isLunar": false
+    },
     "createdAt": "2026-11-20T01:25:03.000Z",
     "paidAt": "2026-11-20T01:25:03.000Z",
     "note": "Đồng bộ từ SePay VietinBank: CT DEN:910T26B0XBYQGDBC MBVCB.17130290766.523429.SEVQR TV810357.CT tu 1017230885 TRAN CONG LUYEN toi 108884822302 TRAN CONG LUYEN tai VIETINBANK",
@@ -413,6 +422,17 @@
     "paidAt": "2026-11-20 00:08:06",
     "note": "Đồng bộ từ SePay VietinBank: 910D61120JVPP517 SEVQR TV622349",
     "transactionId": "100957569",
-    "referenceNumber": "910D61120JVPP517"
+    "referenceNumber": "910D61120JVPP517",
+    "chartInfo": {
+      "hoTen": "Lê Minh Tuấn",
+      "gioiTinh": "nam",
+      "ngay": 15,
+      "thang": 8,
+      "nam": 1995,
+      "gio": 8,
+      "phut": 0,
+      "isLunar": false
+    },
+    "chartKey": "laso_lê_minh_tuấn_nam_15_8_1995_8_0_0"
   }
 ]
