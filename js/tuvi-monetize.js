@@ -455,10 +455,7 @@
                   if (cKey) {
                     this.saveUnlockedChart(cKey, data.order);
                   }
-                  if (typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) {
-                    this.updateActiveChartStatus(TuViChart._currentLaSo);
-                    TuViChart.render(TuViChart._currentLaSo);
-                  }
+                  this.renderChartFromOrderOrStorage(data.order);
                   if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
                     TuViApp.showToast(`🎉 Chúc mừng! Báo Cáo VIP #${data.order.orderCode} đã được kích hoạt thành công!`, 'success');
                   }
@@ -2598,6 +2595,112 @@
     /**
      * DOM Modal Khôi phục / Tra cứu quyền VIP
      */
+    /**
+     * Tự động phục hồi và hiển thị lá số khi khôi phục VIP hoặc mở Magic Link
+     */
+    renderChartFromOrderOrStorage: function (order) {
+      var cInfo = order && order.chartInfo;
+      var renderedChart = false;
+
+      // 1. Phục hồi từ chartInfo nếu có lưu trên đơn hàng
+      if (cInfo && typeof TuViEngine !== 'undefined' && typeof TuViChart !== 'undefined') {
+        try {
+          if (document.getElementById('hoTen')) document.getElementById('hoTen').value = cInfo.hoTen || '';
+          if (document.getElementById('gioiTinh')) document.getElementById('gioiTinh').value = cInfo.gioiTinh || 'nam';
+          if (document.getElementById('ngaySinh') && cInfo.ngay) document.getElementById('ngaySinh').value = cInfo.ngay;
+          if (document.getElementById('thangSinh') && cInfo.thang) document.getElementById('thangSinh').value = cInfo.thang;
+          if (document.getElementById('namSinh') && cInfo.nam) document.getElementById('namSinh').value = cInfo.nam;
+          if (document.getElementById('gioSinh') && cInfo.gio !== undefined) document.getElementById('gioSinh').value = cInfo.gio;
+          if (document.getElementById('phutSinh') && cInfo.phut !== undefined) document.getElementById('phutSinh').value = cInfo.phut;
+          if (document.getElementById('loaiLich')) document.getElementById('loaiLich').value = cInfo.isLunar ? 'am' : 'duong';
+
+          var gio = (cInfo.gio !== undefined && cInfo.gio !== null) ? parseInt(cInfo.gio, 10) : 0;
+          var phut = (cInfo.phut !== undefined && cInfo.phut !== null) ? parseInt(cInfo.phut, 10) : 0;
+          var gioIndex = (typeof TuViApp !== 'undefined' && TuViApp.getHourChiIndex)
+            ? TuViApp.getHourChiIndex(gio, phut)
+            : Math.floor(((gio + 1) % 24) / 2);
+          var gioPhutText = `${gio} giờ ${phut < 10 ? '0' + phut : phut} phút`;
+
+          var computedLaSo = TuViEngine.lapLaSo({
+            ngay: parseInt(cInfo.ngay, 10),
+            thang: parseInt(cInfo.thang, 10),
+            nam: parseInt(cInfo.nam, 10),
+            gioIndex: gioIndex,
+            gioiTinh: cInfo.gioiTinh || 'nam',
+            isLunar: Boolean(cInfo.isLunar),
+            gioPhutText: gioPhutText,
+            hoTen: cInfo.hoTen || 'Đương Số VIP',
+            gio: gio,
+            phut: phut,
+            gioTyMode: 'next_day',
+            viewYear: 2026
+          });
+          computedLaSo.hoTen = cInfo.hoTen || 'Đương Số VIP';
+
+          TuViChart._currentLaSo = computedLaSo;
+          this.updateActiveChartStatus(computedLaSo);
+          TuViChart.render(computedLaSo);
+          if (typeof TuViApp !== 'undefined' && TuViApp.collapseForm) {
+            TuViApp.collapseForm(computedLaSo);
+          }
+          try {
+            sessionStorage.setItem('tvhh_last_laso', JSON.stringify(computedLaSo));
+          } catch (e) { }
+          renderedChart = true;
+        } catch (errChart) {
+          console.warn('Lỗi auto-render từ chartInfo:', errChart);
+        }
+      }
+
+      // 2. Nếu đã có lá số sẵn trên giao diện
+      if (!renderedChart && typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) {
+        this.updateActiveChartStatus(TuViChart._currentLaSo);
+        TuViChart.render(TuViChart._currentLaSo);
+        renderedChart = true;
+      }
+
+      // 3. Phục hồi từ sessionStorage nếu có
+      if (!renderedChart && typeof TuViChart !== 'undefined') {
+        try {
+          var savedLaSo = sessionStorage.getItem('tvhh_last_laso');
+          if (savedLaSo) {
+            var parsed = JSON.parse(savedLaSo);
+            TuViChart._currentLaSo = parsed;
+            this.updateActiveChartStatus(parsed);
+            TuViChart.render(parsed);
+            if (typeof TuViApp !== 'undefined' && TuViApp.collapseForm) {
+              TuViApp.collapseForm(parsed);
+            }
+            renderedChart = true;
+          }
+        } catch (e) { }
+      }
+
+      // 4. Nếu người dùng đã điền đủ ngày sinh trên form, tự tính lại
+      if (!renderedChart && typeof TuViApp !== 'undefined' && typeof TuViApp.handleFormSubmit === 'function') {
+        var hName = (document.getElementById('hoTen')?.value || '').trim();
+        var nSinh = document.getElementById('ngaySinh')?.value;
+        if (hName && nSinh) {
+          TuViApp.handleFormSubmit();
+          renderedChart = true;
+        }
+      }
+
+      // 5. Cuộn mượt đến bảng kết quả
+      if (renderedChart) {
+        var resultEl = document.getElementById('ket-qua');
+        if (resultEl) {
+          resultEl.style.display = 'block';
+          resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+
+      return renderedChart;
+    },
+
+    /**
+     * DOM Modal Khôi phục / Tra cứu quyền VIP
+     */
     createRestoreModalDOM: function () {
       if (document.getElementById('tuvi-restore-modal')) return;
 
@@ -2609,16 +2712,16 @@
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg>
               Xem Lại Báo Cáo VIP
             </h3>
-            <p class="tuvi-tool-modal-desc" style="font-size:0.88rem; line-height:1.5; margin-bottom:1rem;">
+            <p class="tuvi-tool-modal-desc" style="font-size:0.88rem; line-height:1.5; margin-bottom:1rem; color:#4b5563;">
               Nhập mã đơn hàng (ví dụ: TV123456) hoặc số điện thoại đã dùng khi thanh toán để mở khóa lại lá số và tải file PDF:
             </p>
 
             <!-- KHỐI MÃ VIP ĐÃ LƯU TRÊN MÁY NÀY (TỰ ĐỘNG HIỆN NẾU CÓ) -->
-            <div id="restoreSavedSection" style="display:none; margin-bottom:1rem;"></div>
+            <div id="restoreSavedSection" style="display:none; margin-bottom:1.1rem;"></div>
 
             <form id="restoreQueryForm" onsubmit="TuViMonetize.handleRestoreSubmit(event)">
               <div class="tuvi-tool-input-wrap" style="margin-bottom:0.8rem;">
-                <label for="restoreQueryInput" style="font-weight:600; font-size:0.85rem; color:#fff;">Mã Đơn Hàng hoặc Số Điện Thoại:</label>
+                <label for="restoreQueryInput" style="display:block; font-weight:700; font-size:0.88rem; color:#3b1e08; margin-bottom:6px;">Mã Đơn Hàng hoặc Số Điện Thoại:</label>
                 <input type="text" id="restoreQueryInput" class="tuvi-tool-input" placeholder="Ví dụ: TV216469 hoặc 0988888888" required autocomplete="off" style="text-transform:uppercase; font-weight:700; letter-spacing:0.5px;">
               </div>
               <div id="restoreErrorMsg" class="tuvi-tool-error" style="display:none; margin-bottom:0.8rem;"></div>
@@ -2628,35 +2731,35 @@
             </form>
 
             <!-- KHỐI KẾT QUẢ KHÔI PHỤC THÀNH CÔNG & MAGIC LINK -->
-            <div id="restoreSuccessSection" style="display:none; margin-top:1.1rem; padding:14px; background:rgba(16,185,129,0.08); border:1.5px solid #10b981; border-radius:10px;">
+            <div id="restoreSuccessSection" style="display:none; margin-top:1.1rem; padding:14px; background:#f0fdf4; border:1.5px solid #16a34a; border-radius:10px;">
               <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
-                <span style="width:24px; height:24px; border-radius:50%; background:#10b981; color:#fff; display:flex; align-items:center; justify-content:center; font-size:0.85rem; font-weight:bold;">✓</span>
-                <strong style="color:#10b981; font-size:0.95rem;">Khôi Phục Thành Công &amp; Đã Lưu Vào Máy!</strong>
+                <span style="width:24px; height:24px; border-radius:50%; background:#16a34a; color:#fff; display:flex; align-items:center; justify-content:center; font-size:0.85rem; font-weight:bold;">✓</span>
+                <strong style="color:#15803d; font-size:0.95rem;">Khôi Phục Thành Công &amp; Đã Lưu Vào Máy!</strong>
               </div>
-              <div style="font-size:0.85rem; color:#e2e8f0; margin-bottom:10px;">
-                Mã đơn: <strong id="restoreSuccessCode" style="color:#fbbf24; font-family:monospace; font-size:1.05rem;">—</strong>
-                <span style="margin:0 6px; color:#6b7280;">•</span>
-                Gói: <span id="restoreSuccessPkg" style="color:#a7f3d0; font-weight:600;">—</span>
+              <div style="font-size:0.88rem; color:#1f2937; margin-bottom:10px;">
+                Mã đơn: <strong id="restoreSuccessCode" style="color:#991b1b; font-family:monospace; font-size:1.1rem;">—</strong>
+                <span style="margin:0 6px; color:#9ca3af;">•</span>
+                Gói: <span id="restoreSuccessPkg" style="color:#15803d; font-weight:700;">—</span>
               </div>
               
               <!-- Magic Link -->
               <div style="margin-bottom:12px;">
-                <label style="display:block; font-size:0.78rem; color:#d4af37; font-weight:700; margin-bottom:4px;">
+                <label style="display:block; font-size:0.8rem; color:#92400e; font-weight:700; margin-bottom:4px;">
                   🔗 Magic Link Mở Khóa Trọn Đời (Gửi vào Zalo / Ghi chú):
                 </label>
                 <div style="display:flex; gap:6px;">
-                  <input type="text" id="restoreMagicLinkInput" readonly style="flex:1; font-size:0.8rem; padding:6px 8px; background:#0f0c24; color:#93c5fd; border:1px solid rgba(212,175,55,0.4); border-radius:6px; font-family:monospace;" onclick="this.select()">
-                  <button type="button" onclick="TuViMonetize.copyRestoreMagicLink()" style="background:linear-gradient(135deg, #d4af37 0%, #f59e0b 100%); color:#14112c; font-weight:700; font-size:0.78rem; padding:6px 12px; border:none; border-radius:6px; cursor:pointer; white-space:nowrap;">
+                  <input type="text" id="restoreMagicLinkInput" readonly style="flex:1; font-size:0.82rem; padding:7px 9px; background:#ffffff; color:#1e3a8a; border:1px solid #d1d5db; border-radius:6px; font-family:monospace;" onclick="this.select()">
+                  <button type="button" onclick="TuViMonetize.copyRestoreMagicLink()" style="background:linear-gradient(135deg, #d4af37 0%, #b45309 100%); color:#ffffff; font-weight:700; font-size:0.8rem; padding:7px 12px; border:none; border-radius:6px; cursor:pointer; white-space:nowrap; box-shadow:0 1px 3px rgba(0,0,0,0.1);">
                     📋 Chép Link
                   </button>
                 </div>
-                <p style="font-size:0.74rem; color:#9ca3af; margin:5px 0 0 0; line-height:1.4;">
+                <p style="font-size:0.75rem; color:#4b5563; margin:5px 0 0 0; line-height:1.4;">
                   💡 Bấm vào link này từ bất kỳ thiết bị nào (điện thoại, máy tính) để mở khóa báo cáo 100% tự động!
                 </p>
               </div>
 
               <div style="display:flex; justify-content:flex-end; gap:8px;">
-                <button type="button" class="btn-tool-submit" style="padding:0.55rem 1.2rem; font-size:0.85rem; background:#059669; color:#fff;" onclick="TuViMonetize.closeRestoreModal();">
+                <button type="button" class="btn-tool-submit" style="padding:0.6rem 1.4rem; font-size:0.88rem; font-weight:700; background:#15803d; color:#fff; border:none; border-radius:6px; cursor:pointer;" onclick="TuViMonetize.closeRestoreModal();">
                   ✨ Xem Bản Luận Giải Ngay
                 </button>
               </div>
@@ -2690,28 +2793,36 @@
       const savedCodes = this.getSavedVipCodes();
       if (savedCodes && savedCodes.length > 0 && savedSection) {
         savedSection.innerHTML = `
-          <div style="background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.35); border-radius:8px; padding:10px 12px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-              <span style="font-size:0.8rem; color:#f59e0b; font-weight:700;">✨ Đã tìm thấy mã VIP lưu trên thiết bị này:</span>
-              <span style="font-size:0.75rem; color:#10b981; font-weight:600;">● Có sẵn</span>
+          <div style="background:#FFF9E6; border:1.5px solid #D4AF37; border-radius:10px; padding:12px 14px; box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+              <span style="font-size:0.84rem; color:#92400e; font-weight:700;">✨ Đã tìm thấy mã VIP lưu trên thiết bị này:</span>
+              <span style="font-size:0.75rem; background:#dcfce7; color:#15803d; font-weight:700; padding:2px 8px; border-radius:12px;">● Sẵn sàng</span>
             </div>
-            <div style="display:flex; flex-direction:column; gap:6px;">
-              ${savedCodes.slice(0, 3).map(s => `
-                <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(0,0,0,0.25); padding:6px 10px; border-radius:6px; border:1px solid rgba(255,255,255,0.08);">
-                  <div>
-                    <strong style="color:#fbbf24; font-family:monospace; font-size:1rem; letter-spacing:0.5px;">${s.code}</strong>
-                    <span style="font-size:0.75rem; color:#9ca3af; margin-left:6px;">(${s.label || 'Báo Cáo VIP'})</span>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              ${savedCodes.slice(0, 4).map(s => {
+                let pkgTitle = s.label || 'Báo Cáo VIP Toàn Thư (49k)';
+                if (pkgTitle.includes('49') || pkgTitle.includes('Toàn Thư')) {
+                  pkgTitle = 'Báo Cáo VIP Toàn Thư (49k)';
+                } else if (pkgTitle.includes('29') || pkgTitle.includes('3 Cung')) {
+                  pkgTitle = 'Gói Xem Nhanh 3 Cung (29k)';
+                }
+                return `
+                <div style="display:flex; justify-content:space-between; align-items:center; background:#ffffff; padding:8px 12px; border-radius:8px; border:1px solid #e5e7eb; box-shadow:0 1px 3px rgba(0,0,0,0.05);">
+                  <div style="display:flex; flex-direction:column;">
+                    <strong style="color:#991b1b; font-family:monospace; font-size:1.05rem; letter-spacing:0.8px;">${s.code}</strong>
+                    <span style="font-size:0.75rem; color:#4b5563; font-weight:600; margin-top:1px;">${pkgTitle}</span>
                   </div>
-                  <div style="display:flex; gap:6px;">
-                    <button type="button" onclick="TuViMonetize.quickRestoreSavedCode('${s.code}')" style="background:#991b1b; color:#fff; font-size:0.75rem; font-weight:600; padding:4px 9px; border:none; border-radius:4px; cursor:pointer;">
+                  <div style="display:flex; gap:8px;">
+                    <button type="button" onclick="TuViMonetize.quickRestoreSavedCode('${s.code}')" style="background:#991b1b; color:#ffffff; font-size:0.8rem; font-weight:700; padding:6px 12px; border:none; border-radius:6px; cursor:pointer; box-shadow:0 2px 4px rgba(153,27,27,0.25);">
                       ⚡ Mở Ngay
                     </button>
-                    <button type="button" onclick="TuViMonetize.copyMagicLink('${s.code}')" style="background:rgba(255,255,255,0.12); color:#e5e7eb; font-size:0.75rem; padding:4px 8px; border:1px solid rgba(255,255,255,0.2); border-radius:4px; cursor:pointer;" title="Sao chép Magic Link">
+                    <button type="button" onclick="TuViMonetize.copyMagicLink('${s.code}')" style="background:#f3f4f6; color:#1f2937; font-size:0.8rem; font-weight:600; padding:6px 10px; border:1px solid #d1d5db; border-radius:6px; cursor:pointer;" title="Sao chép Magic Link">
                       🔗 Magic Link
                     </button>
                   </div>
                 </div>
-              `).join('')}
+              `;
+              }).join('')}
             </div>
           </div>
         `;
@@ -2786,11 +2897,8 @@
             window.history.replaceState({}, '', url.toString());
           } catch (e) { }
 
-          // Cập nhật giao diện lá số
-          if (typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) {
-            this.updateActiveChartStatus(TuViChart._currentLaSo);
-            TuViChart.render(TuViChart._currentLaSo);
-          }
+          // Tự động khôi phục và vẽ lá số
+          this.renderChartFromOrderOrStorage(data.order);
 
           // Hiển thị phần kết quả thành công và Magic Link trong modal
           if (successSec) {

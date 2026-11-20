@@ -475,19 +475,28 @@ async function syncOrdersWithSePay() {
         const pkgId = amountIn >= 150000 ? 'vip_199k' : (amountIn >= 80000 ? 'vip_99k' : (amountIn >= 40000 ? 'vip_49k' : (amountIn >= 35000 ? 'vip_39k' : 'vip_29k')));
         const pkgName = pkgId === 'vip_199k' ? 'Gói Luận Sâu Đại Vận & Cải Mệnh Chuyên Sâu (199.000đ)' :
           (pkgId === 'vip_99k' ? 'Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung & Đại Hạn) (99.000đ)' :
-          (pkgId === 'vip_49k' ? 'Gói Luận 3 Cung Tự Chọn (49.000đ)' :
-          (pkgId === 'vip_39k' ? 'Gói Thần Số Học VIP Toàn Thư A4 (39.000đ)' : 'Gói Mở Khóa Nhanh 3 Cung Trọng Tâm (29.000đ)')));
+          (pkgId === 'vip_49k' ? 'Báo Cáo VIP A4 Toàn Thư (49.000đ)' :
+          (pkgId === 'vip_39k' ? 'Gói Thần Số Học VIP Toàn Thư A4 (39.000đ)' : 'Gói Xem Nhanh 3 Cung (29.000đ)')));
+
+        // Liên kết chartKey & chartInfo từ laso_logs nếu có
+        const digits = matchedCode.replace(/^TV/, '');
+        const matchedLog = lasoLogs.find(l =>
+          (l.vipCode && (l.vipCode === matchedCode || l.vipCode.replace(/^TV/, '') === digits)) ||
+          (l.chartKey && l.chartKey.includes(digits))
+        );
 
         const newOrder = {
           orderCode: matchedCode,
-          customerName: rawContent.includes('TRAN CONG LUYEN') ? 'Trần Công Luyện' : 'Khách Chuyển Khoản VietinBank',
-          customerPhone: '108884822302',
+          customerName: rawContent.includes('TRAN CONG LUYEN') ? 'Trần Công Luyện' : (matchedLog ? (matchedLog.hoTen || 'Khách Chuyển Khoản VietinBank') : 'Khách Chuyển Khoản VietinBank'),
+          customerPhone: matchedLog ? (matchedLog.soDienThoai || '108884822302') : '108884822302',
           packageId: pkgId,
           packageName: pkgName,
           amount: amountIn,
           status: 'PAID',
           paymentSource: 'SEPAY_AUTO_SYNC',
           vipAccessToken: matchedCode,
+          chartKey: matchedLog ? matchedLog.chartKey : null,
+          chartInfo: matchedLog ? matchedLog.chartInfo : null,
           createdAt: tx.transaction_date ? new Date(tx.transaction_date).toISOString() : new Date().toISOString(),
           paidAt: tx.transaction_date ? new Date(tx.transaction_date).toISOString() : new Date().toISOString(),
           note: `Đồng bộ từ SePay VietinBank: ${tx.transaction_content}`,
@@ -1940,11 +1949,22 @@ const server = http.createServer(async (req, res) => {
     orders = readJsonFile(ORDERS_FILE, orders);
     const cleanToken = token.replace(/[\s.\-_]/g, '').toUpperCase();
     const digitsOnly = cleanToken.replace(/^TV/, '');
-    const order = orders.find(o => o.status === 'PAID' && (
+    let order = orders.find(o => o.status === 'PAID' && (
       (o.vipAccessToken && o.vipAccessToken.toUpperCase() === cleanToken) || 
       (o.orderCode && o.orderCode.toUpperCase() === cleanToken) ||
       (digitsOnly.length >= 4 && o.orderCode && o.orderCode.toUpperCase().replace(/^TV/, '') === digitsOnly)
     ));
+    if (!order) {
+      try {
+        await syncOrdersWithSePay();
+        orders = readJsonFile(ORDERS_FILE, orders);
+        order = orders.find(o => o.status === 'PAID' && (
+          (o.vipAccessToken && o.vipAccessToken.toUpperCase() === cleanToken) || 
+          (o.orderCode && o.orderCode.toUpperCase() === cleanToken) ||
+          (digitsOnly.length >= 4 && o.orderCode && o.orderCode.toUpperCase().replace(/^TV/, '') === digitsOnly)
+        ));
+      } catch (e) {}
+    }
     if (!order) {
       return sendJson(res, 404, { success: false, message: 'Token VIP không hợp lệ hoặc đơn hàng chưa thanh toán.' });
     }
@@ -2061,13 +2081,82 @@ const server = http.createServer(async (req, res) => {
       orders = readJsonFile(ORDERS_FILE, orders);
       const cleanQ = q.replace(/[\s.\-_]/g, '').toUpperCase();
       const digitsOnly = cleanQ.replace(/^TV/, '');
-      const order = orders.find(o => o.status === 'PAID' && (
+      let order = orders.find(o => o.status === 'PAID' && (
         (o.orderCode && o.orderCode.toUpperCase() === cleanQ) ||
         (digitsOnly.length >= 4 && o.orderCode && o.orderCode.toUpperCase().replace(/^TV/, '') === digitsOnly) ||
         (o.customerPhone && o.customerPhone.trim().replace(/[\s.\-_]/g, '') === q.replace(/[\s.\-_]/g, ''))
       ));
+
+      if (!order) {
+        // Tự động đối soát từ SePay live để không bỏ sót giao dịch của khách
+        try {
+          await syncOrdersWithSePay();
+          orders = readJsonFile(ORDERS_FILE, orders);
+          order = orders.find(o => o.status === 'PAID' && (
+            (o.orderCode && o.orderCode.toUpperCase() === cleanQ) ||
+            (digitsOnly.length >= 4 && o.orderCode && o.orderCode.toUpperCase().replace(/^TV/, '') === digitsOnly) ||
+            (o.customerPhone && o.customerPhone.trim().replace(/[\s.\-_]/g, '') === q.replace(/[\s.\-_]/g, ''))
+          ));
+        } catch (e) {
+          console.error('Error auto-syncing SePay on restore:', e);
+        }
+      }
+
+      if (!order && (cleanQ.startsWith('TV') || digitsOnly.length >= 5)) {
+        try {
+          const sepayData = await fetchSePayTransactions(50);
+          const txList = (sepayData && (sepayData.transactions || sepayData.messages)) || [];
+          const matchedTx = txList.find(tx => {
+            const rawContent = String(tx.transaction_content || tx.content || tx.description || '').toUpperCase();
+            const cleanContent = rawContent.replace(/[\s.\-_]/g, '');
+            const amountIn = Number(tx.amount_in || tx.transferAmount || tx.amount || 0);
+            return (cleanContent.includes(cleanQ) || (digitsOnly.length >= 5 && cleanContent.includes(digitsOnly))) && amountIn >= 2000;
+          });
+          if (matchedTx) {
+            const amountIn = Number(matchedTx.amount_in || matchedTx.transferAmount || matchedTx.amount || 49000);
+            const pkgId = amountIn >= 40000 ? 'vip_49k' : 'vip_29k';
+            const pkgName = pkgId === 'vip_49k' ? 'Báo Cáo VIP A4 Toàn Thư (49.000đ)' : 'Gói Xem Nhanh 3 Cung (29.000đ)';
+            const orderCode = cleanQ.startsWith('TV') ? cleanQ : ('TV' + digitsOnly);
+            order = {
+              orderCode: orderCode,
+              customerName: 'Khách Chuyển Khoản VietinBank',
+              customerPhone: '108884822302',
+              packageId: pkgId,
+              packageName: pkgName,
+              amount: amountIn,
+              status: 'PAID',
+              paymentSource: 'SEPAY_RESTORE_DIRECT_MATCH',
+              vipAccessToken: orderCode,
+              createdAt: matchedTx.transaction_date || new Date().toISOString(),
+              paidAt: matchedTx.transaction_date || new Date().toISOString(),
+              note: `Đồng bộ từ SePay VietinBank: ${matchedTx.transaction_content}`,
+              transactionId: String(matchedTx.id || ''),
+              referenceNumber: matchedTx.reference_number || ''
+            };
+            orders.unshift(order);
+            writeJsonFile(ORDERS_FILE, orders);
+          }
+        } catch (e) {
+          console.error('Error direct matching SePay on restore:', e);
+        }
+      }
+
       if (!order) {
         return sendJson(res, 404, { success: false, message: 'Không tìm thấy đơn hàng VIP đã thanh toán với thông tin này.' });
+      }
+
+      // Đối chiếu liên kết thông tin lá số nếu đơn hàng chưa có
+      if (order && (!order.chartKey || !order.chartInfo)) {
+        lasoLogs = readJsonFile(LASO_LOGS_FILE, []);
+        const matchedLog = lasoLogs.find(l => 
+          (order.visitorId && l.visitorId === order.visitorId) ||
+          (l.vipCode && (l.vipCode === order.orderCode || l.vipCode.replace(/^TV/, '') === digitsOnly)) ||
+          (order.customerPhone && l.soDienThoai && l.soDienThoai === order.customerPhone)
+        );
+        if (matchedLog) {
+          if (!order.chartKey && matchedLog.chartKey) order.chartKey = matchedLog.chartKey;
+          if (!order.chartInfo && matchedLog.chartInfo) order.chartInfo = matchedLog.chartInfo;
+        }
       }
       const host = req.headers.host || 'xemtuvihuyenhoc.com';
       const proto = req.headers['x-forwarded-proto'] || (host.includes('localhost') ? 'http' : 'https');
