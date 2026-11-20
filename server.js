@@ -833,6 +833,58 @@ const PALACE_MAP = {
   'PHÃšC Ä á»¨C<THÃ‚N>': 'PHÚC ĐỨC <THÂN>'
 };
 
+function escapeXml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+}
+
+// Khởi tạo XML sitemap chuẩn Google News & Image Extension
+function generateSitemapXml(allPosts) {
+  let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n`;
+  xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/</loc><lastmod>2026-11-13</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>\n`;
+  xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/than-so-hoc</loc><lastmod>2026-11-13</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>\n`;
+  xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/hop-tuoi</loc><lastmod>2026-11-13</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>\n`;
+  xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/blog</loc><lastmod>2026-11-13</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>\n`;
+  xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/chinh-sach-bao-mat</loc><lastmod>2026-11-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
+  xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/chinh-sach-hoan-tien-ho-tro</loc><lastmod>2026-11-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
+  xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/dieu-khoan-su-dung</loc><lastmod>2026-11-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
+  (allPosts || []).forEach(p => {
+    const postImg = p.image ? (p.image.startsWith('http') ? p.image : 'https://www.xemtuvihuyenhoc.com' + p.image) : 'https://www.xemtuvihuyenhoc.com/img/og-image.jpg';
+    const lastModDate = p.updatedAt ? p.updatedAt.split('T')[0] : (p.publishedAt || '2026-11-13');
+    xml += `  <url>\n`;
+    xml += `    <loc>https://www.xemtuvihuyenhoc.com/blog/${p.slug}</loc>\n`;
+    xml += `    <lastmod>${lastModDate}</lastmod>\n`;
+    xml += `    <changefreq>weekly</changefreq>\n`;
+    xml += `    <priority>0.85</priority>\n`;
+    xml += `    <image:image>\n`;
+    xml += `      <image:loc>${postImg}</image:loc>\n`;
+    xml += `      <image:title>${escapeXml(p.title)}</image:title>\n`;
+    xml += `    </image:image>\n`;
+    xml += `  </url>\n`;
+  });
+  xml += `</urlset>`;
+  return xml;
+}
+
+function syncSitemapFile(allPosts) {
+  try {
+    const xml = generateSitemapXml(allPosts);
+    const sitemapPath = path.join(__dirname, 'sitemap.xml');
+    fs.writeFileSync(sitemapPath, xml, 'utf8');
+    const publicDir = path.join(__dirname, 'public');
+    if (fs.existsSync(publicDir)) {
+      fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), xml, 'utf8');
+    }
+  } catch (e) {
+    // Safe fallback trên Vercel read-only
+  }
+}
+
 /**
  * Tự động làm sạch và chuẩn hóa toàn bộ cơ sở dữ liệu (Database Normalization)
  */
@@ -881,6 +933,26 @@ async function autoNormalizeDatabase() {
     analytics.summary.totalPaidOrders = paidList.length;
     analytics.summary.totalRevenue = paidList.reduce((sum, o) => sum + (o.amount || 0), 0);
     await dbSet('tvhh_analytics', analytics);
+
+    // 5. Chuẩn hóa & đồng bộ posts: Đảm bảo các bài blog SEO mới nhất luôn được cập nhật vào Redis & sitemap
+    let filePosts = [];
+    try { filePosts = JSON.parse(fs.readFileSync(POSTS_FILE, 'utf8')); } catch (e) {}
+    let redisPosts = await dbGet('tvhh_posts', []);
+    if (!Array.isArray(redisPosts) || redisPosts.length === 0) {
+      redisPosts = filePosts;
+    } else {
+      filePosts.forEach(fp => {
+        const exist = redisPosts.find(rp => rp.slug === fp.slug || rp.id === fp.id);
+        if (!exist) {
+          redisPosts.unshift(fp);
+        } else {
+          Object.assign(exist, fp, { views: Math.max(exist.views || 0, fp.views || 0) });
+        }
+      });
+    }
+    posts = redisPosts;
+    await dbSet('tvhh_posts', redisPosts);
+    syncSitemapFile(redisPosts);
 
     return {
       success: true,
@@ -2625,58 +2697,6 @@ const server = http.createServer(async (req, res) => {
       .replace(/>/g, '&gt;');
   }
 
-  function escapeXml(str) {
-    if (!str) return '';
-    return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&apos;');
-  }
-
-  // Khởi tạo XML sitemap chuẩn Google News & Image Extension
-  function generateSitemapXml(allPosts) {
-    let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n`;
-    xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/</loc><lastmod>2026-11-13</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>\n`;
-    xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/than-so-hoc</loc><lastmod>2026-11-13</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>\n`;
-    xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/hop-tuoi</loc><lastmod>2026-11-13</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>\n`;
-    xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/blog</loc><lastmod>2026-11-13</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>\n`;
-    xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/chinh-sach-bao-mat</loc><lastmod>2026-11-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
-    xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/chinh-sach-hoan-tien-ho-tro</loc><lastmod>2026-11-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
-    xml += `  <url><loc>https://www.xemtuvihuyenhoc.com/dieu-khoan-su-dung</loc><lastmod>2026-11-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>\n`;
-    (allPosts || []).forEach(p => {
-      const postImg = p.image ? (p.image.startsWith('http') ? p.image : 'https://www.xemtuvihuyenhoc.com' + p.image) : 'https://www.xemtuvihuyenhoc.com/img/og-image.jpg';
-      const lastModDate = p.updatedAt ? p.updatedAt.split('T')[0] : (p.publishedAt || '2026-11-13');
-      xml += `  <url>\n`;
-      xml += `    <loc>https://www.xemtuvihuyenhoc.com/blog/${p.slug}</loc>\n`;
-      xml += `    <lastmod>${lastModDate}</lastmod>\n`;
-      xml += `    <changefreq>weekly</changefreq>\n`;
-      xml += `    <priority>0.85</priority>\n`;
-      xml += `    <image:image>\n`;
-      xml += `      <image:loc>${postImg}</image:loc>\n`;
-      xml += `      <image:title>${escapeXml(p.title)}</image:title>\n`;
-      xml += `    </image:image>\n`;
-      xml += `  </url>\n`;
-    });
-    xml += `</urlset>`;
-    return xml;
-  }
-
-  function syncSitemapFile(allPosts) {
-    try {
-      const xml = generateSitemapXml(allPosts);
-      const sitemapPath = path.join(__dirname, 'sitemap.xml');
-      fs.writeFileSync(sitemapPath, xml, 'utf8');
-      const publicDir = path.join(__dirname, 'public');
-      if (fs.existsSync(publicDir)) {
-        fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), xml, 'utf8');
-      }
-    } catch (e) {
-      // Safe fallback trên Vercel read-only
-    }
-  }
-
   // API danh sách bài viết công khai: GET /api/posts
   if (pathname === '/api/posts' && req.method === 'GET') {
     posts = await dbGet('tvhh_posts', []);
@@ -2894,11 +2914,23 @@ const server = http.createServer(async (req, res) => {
   </script>
 `;
 
-          if (Array.isArray(post.faq) && post.faq.length > 0) {
+          let faqList = Array.isArray(post.faq) ? post.faq : [];
+          if (faqList.length === 0 && post.contentHtml && post.contentHtml.includes('Câu Hỏi Thường Gặp')) {
+            const faqSection = post.contentHtml.split(/<h2>.*?Câu Hỏi Thường Gặp.*?<\/h2>/i)[1] || '';
+            const faqMatches = [...faqSection.matchAll(/<h3>(.*?)<\/h3>\s*<p>(.*?)<\/p>/gis)];
+            if (faqMatches.length > 0) {
+              faqList = faqMatches.map(m => ({
+                question: m[1].replace(/<[^>]*>/g, '').trim(),
+                answer: m[2].replace(/<[^>]*>/g, '').trim()
+              }));
+            }
+          }
+
+          if (faqList.length > 0) {
             const schemaFaq = {
               "@context": "https://schema.org",
               "@type": "FAQPage",
-              "mainEntity": post.faq.map(f => ({
+              "mainEntity": faqList.map(f => ({
                 "@type": "Question",
                 "name": f.question,
                 "acceptedAnswer": {

@@ -1,7 +1,7 @@
 {
   "summary": {
-    "totalPageViews": 184,
-    "uniqueVisitors": 21,
+    "totalPageViews": 190,
+    "uniqueVisitors": 24,
     "totalLaSoCalculated": 5,
     "totalPalaceClicks": 135,
     "totalVipModalOpens": 0,
@@ -129,6 +129,21 @@
       "firstSeen": "2026-11-20T05:30:14.255Z",
       "eventsCount": 2,
       "lastSeen": "2026-11-20T05:30:14.287Z"
+    },
+    "vis_mwojvppx_is02tao": {
+      "firstSeen": "2026-11-20T05:40:26.605Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-20T05:40:26.866Z"
+    },
+    "vis_mwojvppx_k8jb1lt": {
+      "firstSeen": "2026-11-20T05:40:26.692Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-20T05:40:26.947Z"
+    },
+    "vis_mwojvppx_yinjpu5": {
+      "firstSeen": "2026-11-20T05:40:26.706Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-20T05:40:26.887Z"
     }
   },
   "dailyStats": {
@@ -199,7 +214,7 @@
       "paidOrders": 2
     },
     "2026-11-20": {
-      "pageViews": 184,
+      "pageViews": 190,
       "visitors": [
         "vis_mwogy46q_0yg4sct",
         "vis_mwogzduy_xprj3ld",
@@ -221,7 +236,10 @@
         "vis_mwoiz9x8_sx5f8u6",
         "vis_mwojilnl_oclvdfs",
         "vis_mwojilnr_69i7rus",
-        "vis_mwojilnx_a6fg547"
+        "vis_mwojilnx_a6fg547",
+        "vis_mwojvppx_is02tao",
+        "vis_mwojvppx_k8jb1lt",
+        "vis_mwojvppx_yinjpu5"
       ],
       "laSoCount": 5,
       "vipOpens": 0,
@@ -230,6 +248,63 @@
     }
   },
   "events": [
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwojvppx_k8jb1lt",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-20T05:40:26.947Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwojvppx_yinjpu5",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-20T05:40:26.887Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwojvppx_is02tao",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-20T05:40:26.866Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwojvppx_yinjpu5",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "390x844",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-20T05:40:26.706Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwojvppx_k8jb1lt",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "390x844",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-20T05:40:26.692Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwojvppx_is02tao",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "390x844",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-20T05:40:26.605Z"
+    },
     {
       "eventType": "page_view",
       "visitorId": "vis_mwojilnx_a6fg547",
@@ -2405,48 +2480,6 @@
       "amount": 99000,
       "source": "SEPAY_MOMO_VIETINBANK",
       "at": "2026-10-22T12:56:25.000Z"
-    },
-    {
-      "type": "payment_success",
-      "orderCode": "TV75218",
-      "amount": 99000,
-      "source": "SEPAY_VCB_VIETINBANK",
-      "at": "2026-10-20T03:18:19.000Z"
-    },
-    {
-      "type": "payment_success",
-      "orderCode": "TV70079",
-      "amount": 99000,
-      "source": "SEPAY_MOMO_VIETINBANK",
-      "at": "2026-10-20T02:52:24.000Z"
-    },
-    {
-      "type": "payment_success",
-      "orderCode": "TV23713",
-      "amount": 199000,
-      "source": "SEPAY_VIETINBANK",
-      "at": "2026-09-22T01:43:35.000Z"
-    },
-    {
-      "type": "payment_success",
-      "orderCode": "TV59865",
-      "amount": 199000,
-      "source": "SEPAY_VIETINBANK",
-      "at": "2026-09-22T01:37:13.000Z"
-    },
-    {
-      "type": "payment_success",
-      "orderCode": "TV79252",
-      "amount": 199000,
-      "source": "SEPAY_VIETINBANK",
-      "at": "2026-09-21T10:15:20.000Z"
-    },
-    {
-      "type": "payment_success",
-      "orderCode": "TV002000",
-      "amount": 2000,
-      "source": "SEPAY_VIETINBANK",
-      "at": "2026-09-21T09:21:54.000Z"
     }
   ]
 }

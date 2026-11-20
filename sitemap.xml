@@ -1,13 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  <url><loc>https://www.xemtuvihuyenhoc.com/</loc><lastmod>2026-11-17</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
-  <url><loc>https://www.xemtuvihuyenhoc.com/than-so-hoc</loc><lastmod>2026-11-17</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.xemtuvihuyenhoc.com/hop-tuoi</loc><lastmod>2026-11-17</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.xemtuvihuyenhoc.com/blog</loc><lastmod>2026-11-17</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url><loc>https://www.xemtuvihuyenhoc.com/</loc><lastmod>2026-11-13</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://www.xemtuvihuyenhoc.com/than-so-hoc</loc><lastmod>2026-11-13</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.xemtuvihuyenhoc.com/hop-tuoi</loc><lastmod>2026-11-13</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.xemtuvihuyenhoc.com/blog</loc><lastmod>2026-11-13</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
   <url><loc>https://www.xemtuvihuyenhoc.com/chinh-sach-bao-mat</loc><lastmod>2026-11-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.xemtuvihuyenhoc.com/chinh-sach-hoan-tien-ho-tro</loc><lastmod>2026-11-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.xemtuvihuyenhoc.com/dieu-khoan-su-dung</loc><lastmod>2026-11-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url>
+    <loc>https://www.xemtuvihuyenhoc.com/blog/xem-ngay-tot-xuat-hanh-khai-truong-2026-2027-trach-cat-tu-vi</loc>
+    <lastmod>2026-11-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.xemtuvihuyenhoc.com/images/blog/la-kinh-y-jing-trach-cat-khai-van.jpg</image:loc>
+      <image:title>Xem Ngày Tốt Xuất Hành Khai Trương 2026 – 2027: Tuyệt Kỹ Trạch Cát &quot;Khai Vận Sinh Tài&quot; Theo Cung Quan Cung Tài Lá Số Tử Vi</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.xemtuvihuyenhoc.com/blog/tu-vi-doan-tuong-lai-2026-2027-khung-hoang-tuoi-30-45-dai-van-phat-tai</loc>
+    <lastmod>2026-11-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.xemtuvihuyenhoc.com/images/blog/hon-thien-nghi-chiem-tinh-tu-vi-co.jpg</image:loc>
+      <image:title>Tử Vi Đoán Tương Lai 2026 – 2027: Giải Mã Khủng Hoảng Tuổi 30 – 45, Dấu Hiệu Bạn Sắp Bước Vào &quot;Đại Vận Phát Tài&quot; &amp; Bí Quyết Chuyển Hung Thành Cát</image:title>
+    </image:image>
+  </url>
   <url>
     <loc>https://www.xemtuvihuyenhoc.com/blog/xem-ngay-tot-dong-tho-mua-xe-khoi-su-ban-menh-tu-vi</loc>
     <lastmod>2026-11-17</lastmod>
