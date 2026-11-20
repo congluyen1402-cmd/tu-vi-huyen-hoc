@@ -292,6 +292,143 @@ let appConfig = readJsonFile(CONFIG_FILE, {
   sepayApiKey: 'RRZCQTG7ON8EDQLFGWSSDAUC60M69ZBW4BSQE3OHUCHDNOMU7MVRPEVZRZI3MTYF'
 });
 
+// ============================================================================
+// HỆ THỐNG LƯU TRỮ ĐÁM MÂY (UPSTASH REDIS REST API & LOCAL FILE FALLBACK)
+// ============================================================================
+function getUpstashConfig() {
+  const url = (process.env.UPSTASH_REDIS_REST_URL || '').trim().replace(/\/$/, '');
+  const token = (process.env.UPSTASH_REDIS_REST_TOKEN || '').trim();
+  return { url, token, isConfigured: Boolean(url && token) };
+}
+
+const KEY_FILE_MAP = {
+  'tvhh_orders': ORDERS_FILE,
+  'tvhh_analytics': ANALYTICS_FILE,
+  'tvhh_posts': POSTS_FILE,
+  'tvhh_bookings': BOOKINGS_FILE,
+  'tvhh_config': CONFIG_FILE,
+  'tvhh_users': USERS_FILE,
+  'tvhh_sessions': SESSIONS_FILE,
+  'tvhh_laso_logs': LASO_LOGS_FILE
+};
+
+function getLocalFileFallback(key, defaultValue) {
+  const filePath = KEY_FILE_MAP[key] || path.join(DATA_DIR, `${key}.json`);
+  return readJsonFile(filePath, defaultValue);
+}
+
+function setLocalFileFallback(key, value) {
+  const filePath = KEY_FILE_MAP[key] || path.join(DATA_DIR, `${key}.json`);
+  return writeJsonFile(filePath, value);
+}
+
+/**
+ * Đọc dữ liệu từ Upstash Redis REST API (kèm fallback an toàn sang file cục bộ)
+ */
+async function dbGet(key, defaultValue) {
+  const upstash = getUpstashConfig();
+  if (upstash.isConfigured) {
+    try {
+      const res = await fetch(`${upstash.url}/get/${encodeURIComponent(key)}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${upstash.token}`
+        }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data && data.result !== null && data.result !== undefined) {
+          if (typeof data.result === 'string') {
+            try {
+              return JSON.parse(data.result);
+            } catch (e) {
+              return data.result;
+            }
+          }
+          return data.result;
+        }
+      }
+    } catch (err) {
+      console.warn(`[Upstash dbGet Error] ${key}:`, err.message);
+    }
+  }
+
+  // Fallback sang local file (hoặc /tmp trên Vercel Serverless)
+  const fallback = getLocalFileFallback(key, defaultValue);
+  // Tự động seed dữ liệu ban đầu lên Upstash nếu key còn trống
+  if (upstash.isConfigured && fallback !== null && fallback !== undefined) {
+    dbSet(key, fallback).catch(() => {});
+  }
+  return fallback;
+}
+
+/**
+ * Ghi dữ liệu vào Upstash Redis REST API (kèm ghi dự phòng local file)
+ */
+async function dbSet(key, value) {
+  const upstash = getUpstashConfig();
+  let cloudOk = false;
+
+  if (upstash.isConfigured) {
+    try {
+      const payload = JSON.stringify(value);
+      // Gửi command array ["SET", key, payload] qua POST root URL
+      // để xử lý tối ưu 100% tiếng Việt có dấu, ký tự đặc biệt và payload bài viết dài
+      const res = await fetch(upstash.url, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${upstash.token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(['SET', key, payload])
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data && (data.result === 'OK' || data.result)) {
+          cloudOk = true;
+        }
+      } else {
+        // Fallback sang POST /set/${key}
+        const res2 = await fetch(`${upstash.url}/set/${encodeURIComponent(key)}`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${upstash.token}`,
+            'Content-Type': 'application/json'
+          },
+          body: payload
+        });
+        if (res2.ok) cloudOk = true;
+      }
+    } catch (err) {
+      console.warn(`[Upstash dbSet Error] ${key}:`, err.message);
+    }
+  }
+
+  // Luôn ghi backup vào local file hoặc /tmp
+  const localOk = setLocalFileFallback(key, value);
+  return cloudOk || localOk;
+}
+
+/**
+ * Hydrate dữ liệu bộ nhớ từ Cloud DB khi khởi động
+ */
+async function initCloudDb() {
+  if (!getUpstashConfig().isConfigured) return;
+  try {
+    orders = await dbGet('tvhh_orders', orders);
+    posts = await dbGet('tvhh_posts', posts);
+    appConfig = await dbGet('tvhh_config', appConfig);
+    analytics = await dbGet('tvhh_analytics', analytics);
+    bookings = await dbGet('tvhh_bookings', bookings);
+    lasoLogs = await dbGet('tvhh_laso_logs', lasoLogs);
+    users = await dbGet('tvhh_users', users);
+    sessions = await dbGet('tvhh_sessions', sessions);
+  } catch (err) {
+    console.warn('[initCloudDb] Warning:', err.message);
+  }
+}
+initCloudDb();
+
 /**
  * Tra cứu danh sách giao dịch ngân hàng trực tiếp từ SePay
  */
@@ -352,7 +489,7 @@ async function checkSePayForOrder(order) {
       const req = https.request(options, (res) => {
         let data = '';
         res.on('data', chunk => data += chunk);
-        res.on('end', () => {
+        res.on('end', async () => {
           try {
             if (res.statusCode === 200) {
               const json = JSON.parse(data);
@@ -377,14 +514,14 @@ async function checkSePayForOrder(order) {
                 order.paymentSource = 'SEPAY_ACTIVE_POLL';
                 order.transactionId = matchedTx.id || matchedTx.reference_number || matchedTx.referenceCode;
                 order.amount = amountIn;
-                writeJsonFile(ORDERS_FILE, orders);
+                await dbSet('tvhh_orders', orders);
 
                 if (order.userId) {
                   const user = users.find(u => u.id === order.userId);
                   if (user) {
                     user.isVip = true;
                     user.vipPackage = order.packageId;
-                    writeJsonFile(USERS_FILE, users);
+                    await dbSet('tvhh_users', users);
                   }
                 }
 
@@ -397,7 +534,7 @@ async function checkSePayForOrder(order) {
                   source: 'SEPAY_ACTIVE_POLL',
                   at: new Date().toISOString()
                 });
-                writeJsonFile(ANALYTICS_FILE, analytics);
+                await dbSet('tvhh_analytics', analytics);
 
                 return resolve(true);
               }
@@ -434,9 +571,9 @@ async function syncOrdersWithSePay() {
     const txList = (sepayData && (sepayData.transactions || sepayData.messages)) || [];
     if (!Array.isArray(txList) || txList.length === 0) return 0;
 
-    orders = readJsonFile(ORDERS_FILE, orders);
-    analytics = readJsonFile(ANALYTICS_FILE, analytics);
-    lasoLogs = readJsonFile(LASO_LOGS_FILE, lasoLogs);
+    orders = await dbGet('tvhh_orders', orders);
+    analytics = await dbGet('tvhh_analytics', analytics);
+    lasoLogs = await dbGet('tvhh_laso_logs', lasoLogs);
     let updatedCount = 0;
 
     for (const tx of txList) {
@@ -509,10 +646,10 @@ async function syncOrdersWithSePay() {
     }
 
     if (updatedCount > 0) {
-      writeJsonFile(ORDERS_FILE, orders);
+      await dbSet('tvhh_orders', orders);
       const paidList = orders.filter(o => o.status === 'PAID');
       analytics.summary.totalPaidOrders = paidList.length;
-      writeJsonFile(ANALYTICS_FILE, analytics);
+      await dbSet('tvhh_analytics', analytics);
     }
     return updatedCount;
   } catch (err) {
@@ -644,11 +781,13 @@ function sendJson(res, statusCode, data) {
   res.end(JSON.stringify(data));
 }
 
-// Lấy tài khoản đăng nhập từ Token Header
-function getAuthenticatedUser(req) {
+// Lấy tài khoản đăng nhập từ Token Header (tự động đồng bộ với Cloud DB)
+async function getAuthenticatedUser(req) {
   const authHeader = req.headers['authorization'];
   if (!authHeader || !authHeader.startsWith('Bearer ')) return null;
   const token = authHeader.substring(7);
+  sessions = await dbGet('tvhh_sessions', sessions);
+  users = await dbGet('tvhh_users', users);
   const userId = sessions[token];
   if (!userId) return null;
   return users.find(u => u.id === userId) || null;
@@ -688,6 +827,39 @@ const server = http.createServer(async (req, res) => {
       'Access-Control-Allow-Headers': 'Content-Type, Authorization, x-admin-token'
     });
     return res.end();
+  }
+
+  // =========================================================================
+  // KIỂM TRA TRẠNG THÁI KẾT NỐI DATABASE (HEALTH CHECK)
+  // =========================================================================
+  if (pathname === '/api/health-db' && req.method === 'GET') {
+    try {
+      const upstash = getUpstashConfig();
+      const pingVal = 'pong_' + Date.now();
+      let writeOk = false;
+      let readVal = null;
+      try {
+        writeOk = await dbSet('tvhh_ping', { ping: pingVal, at: new Date().toISOString() });
+        const pingObj = await dbGet('tvhh_ping', null);
+        readVal = pingObj ? pingObj.ping : null;
+      } catch (dbErr) {
+        console.warn('[health-db] Ping error:', dbErr.message);
+      }
+
+      const isHealthy = Boolean(readVal === pingVal || (!upstash.isConfigured && writeOk));
+      return sendJson(res, 200, {
+        ok: isHealthy,
+        storage: upstash.isConfigured ? 'upstash-redis' : 'local-file',
+        ping: readVal === pingVal ? 'success' : (writeOk ? 'write_only' : 'failed'),
+        timestamp: new Date().toISOString()
+      });
+    } catch (err) {
+      return sendJson(res, 500, {
+        ok: false,
+        storage: process.env.UPSTASH_REDIS_REST_URL ? 'upstash-redis' : 'local-file',
+        error: err.message
+      });
+    }
   }
 
   // =========================================================================
@@ -763,11 +935,11 @@ const server = http.createServer(async (req, res) => {
       };
 
       users.push(newUser);
-      writeJsonFile(USERS_FILE, users);
+      await dbSet('tvhh_users', users);
 
       const token = crypto.randomBytes(32).toString('hex');
       sessions[token] = newUser.id;
-      writeJsonFile(SESSIONS_FILE, sessions);
+      await dbSet('tvhh_sessions', sessions);
 
       return sendJson(res, 200, {
         success: true,
@@ -800,7 +972,7 @@ const server = http.createServer(async (req, res) => {
 
       const token = crypto.randomBytes(32).toString('hex');
       sessions[token] = user.id;
-      writeJsonFile(SESSIONS_FILE, sessions);
+      await dbSet('tvhh_sessions', sessions);
 
       return sendJson(res, 200, {
         success: true,
@@ -821,7 +993,7 @@ const server = http.createServer(async (req, res) => {
 
   // 3. Thông tin tài khoản hiện tại: GET /api/auth/me
   if (pathname === '/api/auth/me' && req.method === 'GET') {
-    const user = getAuthenticatedUser(req);
+    const user = await getAuthenticatedUser(req);
     if (!user) {
       return sendJson(res, 401, { success: false, message: 'Chưa đăng nhập hoặc phiên làm việc đã hết hạn.' });
     }
@@ -843,7 +1015,7 @@ const server = http.createServer(async (req, res) => {
     if (authHeader && authHeader.startsWith('Bearer ')) {
       const token = authHeader.substring(7);
       delete sessions[token];
-      writeJsonFile(SESSIONS_FILE, sessions);
+      await dbSet('tvhh_sessions', sessions);
     }
     return sendJson(res, 200, { success: true, message: 'Đăng xuất thành công.' });
   }
@@ -855,9 +1027,9 @@ const server = http.createServer(async (req, res) => {
   // 5. Tạo đơn hàng mở khóa: POST /api/orders/create
   if (pathname === '/api/orders/create' && req.method === 'POST') {
     try {
-      orders = readJsonFile(ORDERS_FILE, orders);
+      orders = await dbGet('tvhh_orders', orders);
       const body = await parseJsonBody(req);
-      const user = getAuthenticatedUser(req);
+      const user = await getAuthenticatedUser(req);
 
       // Nếu client gửi orderCode (ví dụ TV715225) thì ưu tiên dùng đúng orderCode đó!
       let orderCode = (body.orderCode && typeof body.orderCode === 'string' && body.orderCode.trim().length >= 4)
@@ -915,7 +1087,7 @@ const server = http.createServer(async (req, res) => {
         if (body.packageName && order.status !== 'PAID') order.packageName = body.packageName;
         if (body.packageId && order.status !== 'PAID') order.packageId = body.packageId;
       }
-      writeJsonFile(ORDERS_FILE, orders);
+      await dbSet('tvhh_orders', orders);
 
       const qrUrl = `https://qr.sepay.vn/img?bank=${appConfig.bankId}&acc=${appConfig.accountNo}&template=compact&amount=${order.amount}&des=${order.orderCode}`;
 
@@ -938,7 +1110,7 @@ const server = http.createServer(async (req, res) => {
 
   // 6. Kiểm tra trạng thái đơn hàng: GET /api/orders/status/:orderCode
   if (pathname.startsWith('/api/orders/status/') && req.method === 'GET') {
-    orders = readJsonFile(ORDERS_FILE, orders);
+    orders = await dbGet('tvhh_orders', orders);
     const code = pathname.split('/').pop().toUpperCase().trim();
     let order = orders.find(o => o.orderCode && o.orderCode.toUpperCase() === code);
     
@@ -995,7 +1167,7 @@ const server = http.createServer(async (req, res) => {
               };
               orders.unshift(order);
             }
-            writeJsonFile(ORDERS_FILE, orders);
+            await dbSet('tvhh_orders', orders);
           }
         }
       } catch (e) {
@@ -1063,7 +1235,7 @@ const server = http.createServer(async (req, res) => {
       const cleanContent = rawContent.replace(/[\s.\-_]/g, '');
       const inAmount = parseFloat(body.transferAmount || body.amount_in || body.amount || 0);
 
-      orders = readJsonFile(ORDERS_FILE, orders);
+      orders = await dbGet('tvhh_orders', orders);
 
       const orderMatch = orders.find(o => {
         const cleanCode = String(o.orderCode || '').replace(/[\s.\-_]/g, '').toUpperCase();
@@ -1078,18 +1250,18 @@ const server = http.createServer(async (req, res) => {
         orderMatch.transactionId = String(body.id || body.referenceCode || Date.now());
         if (inAmount > 0) orderMatch.amount = inAmount;
         orderMatch.vipAccessToken = orderMatch.vipAccessToken || orderMatch.orderCode;
-        writeJsonFile(ORDERS_FILE, orders);
+        await dbSet('tvhh_orders', orders);
 
         if (orderMatch.userId) {
           const user = users.find(u => u.id === orderMatch.userId);
           if (user) {
             user.isVip = true;
             user.vipPackage = orderMatch.packageId;
-            writeJsonFile(USERS_FILE, users);
+            await dbSet('tvhh_users', users);
           }
         }
 
-        analytics = readJsonFile(ANALYTICS_FILE, analytics);
+        analytics = await dbGet('tvhh_analytics', analytics);
         const paidOrdersList = orders.filter(o => o.status === 'PAID');
         analytics.summary.totalPaidOrders = paidOrdersList.length;
         if (!Array.isArray(analytics.events)) analytics.events = [];
@@ -1100,15 +1272,15 @@ const server = http.createServer(async (req, res) => {
           source: 'SEPAY_WEBHOOK',
           at: new Date().toISOString()
         });
-        writeJsonFile(ANALYTICS_FILE, analytics);
+        await dbSet('tvhh_analytics', analytics);
 
         // Cập nhật lasoLogs
-        lasoLogs = readJsonFile(LASO_LOGS_FILE, []);
+        lasoLogs = await dbGet('tvhh_laso_logs', []);
         const matchedLog = lasoLogs.find(l => (orderMatch.visitorId && l.visitorId === orderMatch.visitorId) || (l.hoTen && l.hoTen === orderMatch.customerName));
         if (matchedLog) {
           matchedLog.hasOpenedQr = true;
           matchedLog.isPaid = true;
-          writeJsonFile(LASO_LOGS_FILE, lasoLogs);
+          await dbSet('tvhh_laso_logs', lasoLogs);
         }
 
         return sendJson(res, 200, { success: true, message: 'Đã cập nhật đơn hàng thành công' });
@@ -1143,12 +1315,12 @@ const server = http.createServer(async (req, res) => {
           createdAt: new Date().toISOString()
         };
         orders.unshift(newOrder);
-        writeJsonFile(ORDERS_FILE, orders);
+        await dbSet('tvhh_orders', orders);
 
-        analytics = readJsonFile(ANALYTICS_FILE, analytics);
+        analytics = await dbGet('tvhh_analytics', analytics);
         const paidOrdersList = orders.filter(o => o.status === 'PAID');
         analytics.summary.totalPaidOrders = paidOrdersList.length;
-        writeJsonFile(ANALYTICS_FILE, analytics);
+        await dbSet('tvhh_analytics', analytics);
 
         return sendJson(res, 200, { success: true, message: 'Đã tự động khởi tạo và kích hoạt đơn hàng từ webhook' });
       }
@@ -1167,7 +1339,7 @@ const server = http.createServer(async (req, res) => {
   // 8. Tự động kiểm tra / xác nhận thanh toán trực tiếp: POST /api/orders/check-payment
   if ((pathname === '/api/orders/check-payment' || pathname === '/api/orders/confirm-payment' || pathname === '/api/orders/check') && req.method === 'POST') {
     try {
-      orders = readJsonFile(ORDERS_FILE, orders);
+      orders = await dbGet('tvhh_orders', orders);
       const body = await parseJsonBody(req);
       const code = (body.orderCode || '').toUpperCase().trim();
       let order = orders.find(o => o.orderCode && o.orderCode.toUpperCase() === code);
@@ -1175,7 +1347,7 @@ const server = http.createServer(async (req, res) => {
       // Nếu chưa có trong orders.json, kiểm tra trực tiếp từ SePay xem đã có giao dịch ngân hàng thực tế chưa
       if (!order && code) {
         await syncOrdersWithSePay().catch(() => {});
-        orders = readJsonFile(ORDERS_FILE, orders);
+        orders = await dbGet('tvhh_orders', orders);
         order = orders.find(o => o.orderCode && o.orderCode.toUpperCase() === code);
       }
 
@@ -1220,11 +1392,11 @@ const server = http.createServer(async (req, res) => {
           order.paymentSource = 'CUSTOMER_TRANSACTION_ID_VERIFIED';
           order.transactionId = String(realTx.id);
           order.referenceNumber = realTx.reference_number || '';
-          writeJsonFile(ORDERS_FILE, orders);
+          await dbSet('tvhh_orders', orders);
 
-          analytics = readJsonFile(ANALYTICS_FILE, analytics);
+          analytics = await dbGet('tvhh_analytics', analytics);
           analytics.summary.totalPaidOrders = orders.filter(o => o.status === 'PAID').length;
-          writeJsonFile(ANALYTICS_FILE, analytics);
+          await dbSet('tvhh_analytics', analytics);
 
           return sendJson(res, 200, {
             success: true,
@@ -1294,7 +1466,7 @@ const server = http.createServer(async (req, res) => {
         return sendJson(res, 200, { success: true, isTest: true });
       }
 
-      analytics = readJsonFile(ANALYTICS_FILE, analytics);
+      analytics = await dbGet('tvhh_analytics', analytics);
       if (!analytics.summary) analytics.summary = {};
       if (!analytics.visitors) analytics.visitors = {};
       if (!analytics.palaceClicks) analytics.palaceClicks = {};
@@ -1333,7 +1505,7 @@ const server = http.createServer(async (req, res) => {
         // Lưu thông tin lá số của khách vào danh sách khách hàng gần đây (bỏ qua automated test)
         const isTestLaso = details && (details.hoTen === 'Nguyễn Hoàng Minh Quân' || details.customerName === 'Nguyễn Hoàng Minh Quân');
         if (!isTestLaso) {
-          lasoLogs = readJsonFile(LASO_LOGS_FILE, []);
+          lasoLogs = await dbGet('tvhh_laso_logs', []);
           const newLasoLog = {
             id: 'ls_' + Date.now() + '_' + Math.floor(Math.random() * 1000),
             timestamp: new Date().toISOString(),
@@ -1349,7 +1521,7 @@ const server = http.createServer(async (req, res) => {
           };
           lasoLogs.unshift(newLasoLog);
           if (lasoLogs.length > 200) lasoLogs = lasoLogs.slice(0, 200);
-          writeJsonFile(LASO_LOGS_FILE, lasoLogs);
+          await dbSet('tvhh_laso_logs', lasoLogs);
         }
 
       } else if (eventType === 'view_cung' || eventType === 'click_locked_feature') {
@@ -1363,11 +1535,11 @@ const server = http.createServer(async (req, res) => {
         analytics.dailyStats[vnDate].vipOpens = (analytics.dailyStats[vnDate].vipOpens || 0) + 1;
 
         if (visitorId) {
-          lasoLogs = readJsonFile(LASO_LOGS_FILE, []);
+          lasoLogs = await dbGet('tvhh_laso_logs', []);
           const matchedLog = lasoLogs.find(l => l.visitorId === visitorId);
           if (matchedLog) {
             matchedLog.hasOpenedQr = true;
-            writeJsonFile(LASO_LOGS_FILE, lasoLogs);
+            await dbSet('tvhh_laso_logs', lasoLogs);
           }
         }
       } else if (eventType === 'than_so_hoc_tra_cuu') {
@@ -1383,12 +1555,12 @@ const server = http.createServer(async (req, res) => {
         analytics.dailyStats[vnDate].revenue = (analytics.dailyStats[vnDate].revenue || 0) + paidAmount;
 
         if (visitorId) {
-          lasoLogs = readJsonFile(LASO_LOGS_FILE, []);
+          lasoLogs = await dbGet('tvhh_laso_logs', []);
           const matchedLog = lasoLogs.find(l => l.visitorId === visitorId);
           if (matchedLog) {
             matchedLog.hasOpenedQr = true;
             matchedLog.isPaid = true;
-            writeJsonFile(LASO_LOGS_FILE, lasoLogs);
+            await dbSet('tvhh_laso_logs', lasoLogs);
           }
         }
       }
@@ -1405,7 +1577,7 @@ const server = http.createServer(async (req, res) => {
         analytics.events = analytics.events.slice(0, 200);
       }
 
-      writeJsonFile(ANALYTICS_FILE, analytics);
+      await dbSet('tvhh_analytics', analytics);
       return sendJson(res, 200, { success: true });
     } catch (err) {
       return sendJson(res, 500, { success: false, message: err.message });
@@ -1431,7 +1603,7 @@ const server = http.createServer(async (req, res) => {
         });
       }
 
-      bookings = readJsonFile(BOOKINGS_FILE, []);
+      bookings = await dbGet('tvhh_bookings', []);
       const newBooking = {
         id: 'bk_' + Date.now() + '_' + Math.floor(Math.random() * 1000),
         customerName,
@@ -1447,7 +1619,7 @@ const server = http.createServer(async (req, res) => {
 
       bookings.unshift(newBooking);
       if (bookings.length > 300) bookings = bookings.slice(0, 300);
-      writeJsonFile(BOOKINGS_FILE, bookings);
+      await dbSet('tvhh_bookings', bookings);
 
       return sendJson(res, 200, {
         success: true,
@@ -1462,8 +1634,8 @@ const server = http.createServer(async (req, res) => {
   // 10. Dashboard Analytics cho Quản Trị Viên: GET /api/admin/analytics
   if (pathname === '/api/admin/analytics' && req.method === 'GET') {
     await syncOrdersWithSePay().catch(() => {});
-    orders = readJsonFile(ORDERS_FILE, orders);
-    analytics = readJsonFile(ANALYTICS_FILE, analytics);
+    orders = await dbGet('tvhh_orders', orders);
+    analytics = await dbGet('tvhh_analytics', analytics);
 
     // Tính toán theo Múi giờ Việt Nam (UTC+7)
     const nowUtc = new Date();
@@ -1618,7 +1790,7 @@ const server = http.createServer(async (req, res) => {
   // Lấy danh sách đơn hàng: GET /api/admin/orders
   if (pathname === '/api/admin/orders' && req.method === 'GET') {
     await syncOrdersWithSePay().catch(() => {});
-    orders = readJsonFile(ORDERS_FILE, orders);
+    orders = await dbGet('tvhh_orders', orders);
     orders.sort((a, b) => new Date(b.paidAt || b.createdAt || 0) - new Date(a.paidAt || a.createdAt || 0));
     return sendJson(res, 200, { success: true, orders, total: orders.length });
   }
@@ -1631,7 +1803,7 @@ const server = http.createServer(async (req, res) => {
       if (code && !code.startsWith('TV') && /^\d+$/.test(code)) {
         code = 'TV' + code;
       }
-      orders = readJsonFile(ORDERS_FILE, orders);
+      orders = await dbGet('tvhh_orders', orders);
       let order = orders.find(o => o.orderCode && o.orderCode.toUpperCase() === code);
       if (!order) {
         order = {
@@ -1661,9 +1833,9 @@ const server = http.createServer(async (req, res) => {
         if (body.customerName && order.customerName === 'Khách Hàng') order.customerName = body.customerName;
         if (body.customerPhone) order.customerPhone = body.customerPhone;
       }
-      writeJsonFile(ORDERS_FILE, orders);
+      await dbSet('tvhh_orders', orders);
 
-      analytics = readJsonFile(ANALYTICS_FILE, analytics);
+      analytics = await dbGet('tvhh_analytics', analytics);
       analytics.summary.totalPaidOrders = (analytics.summary.totalPaidOrders || 0) + 1;
       const vnDate = new Date(Date.now() + 7 * 3600 * 1000).toISOString().slice(0, 10);
       analytics.dailyStats = analytics.dailyStats || {};
@@ -1672,10 +1844,10 @@ const server = http.createServer(async (req, res) => {
       }
       analytics.dailyStats[vnDate].paidOrders = (analytics.dailyStats[vnDate].paidOrders || 0) + 1;
       analytics.dailyStats[vnDate].revenue = (analytics.dailyStats[vnDate].revenue || 0) + (order.amount || 49000);
-      writeJsonFile(ANALYTICS_FILE, analytics);
+      await dbSet('tvhh_analytics', analytics);
 
       // Cập nhật lasoLogs nếu có
-      lasoLogs = readJsonFile(LASO_LOGS_FILE, []);
+      lasoLogs = await dbGet('tvhh_laso_logs', []);
       const matchedLog = lasoLogs.find(l => 
         (order.visitorId && l.visitorId === order.visitorId) || 
         (l.hoTen && l.hoTen === order.customerName) ||
@@ -1687,8 +1859,8 @@ const server = http.createServer(async (req, res) => {
         matchedLog.vipCode = order.orderCode;
         if (!order.chartKey && matchedLog.chartKey) order.chartKey = matchedLog.chartKey;
         if (!order.chartInfo && matchedLog.chartInfo) order.chartInfo = matchedLog.chartInfo;
-        writeJsonFile(LASO_LOGS_FILE, lasoLogs);
-        writeJsonFile(ORDERS_FILE, orders);
+        await dbSet('tvhh_laso_logs', lasoLogs);
+        await dbSet('tvhh_orders', orders);
       }
 
       const host = req.headers.host || 'xemtuvihuyenhoc.com';
@@ -1712,7 +1884,7 @@ const server = http.createServer(async (req, res) => {
   if (pathname === '/api/admin/orders/create-manual' && req.method === 'POST') {
     try {
       const body = await parseJsonBody(req);
-      orders = readJsonFile(ORDERS_FILE, orders);
+      orders = await dbGet('tvhh_orders', orders);
 
       let orderCode = (body.orderCode || '').trim().toUpperCase().replace(/\s+/g, '');
       if (orderCode && !orderCode.startsWith('TV') && /^\d+$/.test(orderCode)) {
@@ -1744,7 +1916,7 @@ const server = http.createServer(async (req, res) => {
       }
 
       // Khớp và đồng bộ với laso_logs.json nếu có
-      lasoLogs = readJsonFile(LASO_LOGS_FILE, []);
+      lasoLogs = await dbGet('tvhh_laso_logs', []);
       const matchedLog = lasoLogs.find(l => 
         (body.visitorId && l.visitorId === body.visitorId) ||
         (body.chartKey && l.chartKey === body.chartKey) ||
@@ -1757,7 +1929,7 @@ const server = http.createServer(async (req, res) => {
         matchedLog.hasOpenedQr = true;
         matchedLog.isPaid = true;
         matchedLog.vipCode = orderCode;
-        writeJsonFile(LASO_LOGS_FILE, lasoLogs);
+        await dbSet('tvhh_laso_logs', lasoLogs);
       }
 
       const existingIndex = orders.findIndex(o => o.orderCode && o.orderCode.toUpperCase() === orderCode);
@@ -1784,9 +1956,9 @@ const server = http.createServer(async (req, res) => {
         orders.unshift(newOrder);
       }
 
-      writeJsonFile(ORDERS_FILE, orders);
+      await dbSet('tvhh_orders', orders);
 
-      analytics = readJsonFile(ANALYTICS_FILE, analytics);
+      analytics = await dbGet('tvhh_analytics', analytics);
       analytics.summary.totalPaidOrders = (analytics.summary.totalPaidOrders || 0) + 1;
       const vnDate = new Date(Date.now() + 7 * 3600 * 1000).toISOString().slice(0, 10);
       analytics.dailyStats = analytics.dailyStats || {};
@@ -1795,7 +1967,7 @@ const server = http.createServer(async (req, res) => {
       }
       analytics.dailyStats[vnDate].paidOrders = (analytics.dailyStats[vnDate].paidOrders || 0) + 1;
       analytics.dailyStats[vnDate].revenue = (analytics.dailyStats[vnDate].revenue || 0) + newOrder.amount;
-      writeJsonFile(ANALYTICS_FILE, analytics);
+      await dbSet('tvhh_analytics', analytics);
 
       const host = req.headers.host || 'xemtuvihuyenhoc.com';
       const proto = req.headers['x-forwarded-proto'] || (host.includes('localhost') ? 'http' : 'https');
@@ -1817,7 +1989,7 @@ const server = http.createServer(async (req, res) => {
   // Tra cứu giao dịch VietinBank thực tế từ SePay & Tự động đối soát: GET /api/admin/sepay-transactions
   if (pathname === '/api/admin/sepay-transactions' && req.method === 'GET') {
     try {
-      orders = readJsonFile(ORDERS_FILE, orders);
+      orders = await dbGet('tvhh_orders', orders);
       const sepayData = await fetchSePayTransactions(25);
       const transactions = (sepayData && (sepayData.transactions || sepayData.messages)) || [];
       let matchedCount = 0;
@@ -1848,10 +2020,10 @@ const server = http.createServer(async (req, res) => {
       });
 
       if (matchedCount > 0) {
-        writeJsonFile(ORDERS_FILE, orders);
-        analytics = readJsonFile(ANALYTICS_FILE, analytics);
+        await dbSet('tvhh_orders', orders);
+        analytics = await dbGet('tvhh_analytics', analytics);
         analytics.summary.totalPaidOrders = (analytics.summary.totalPaidOrders || 0) + matchedCount;
-        writeJsonFile(ANALYTICS_FILE, analytics);
+        await dbSet('tvhh_analytics', analytics);
       }
 
       return sendJson(res, 200, {
@@ -1869,13 +2041,13 @@ const server = http.createServer(async (req, res) => {
 
   // Lấy nhật ký khách hàng lập lá số: GET /api/admin/laso-logs
   if (pathname === '/api/admin/laso-logs' && req.method === 'GET') {
-    lasoLogs = readJsonFile(LASO_LOGS_FILE, []);
+    lasoLogs = await dbGet('tvhh_laso_logs', []);
     return sendJson(res, 200, { success: true, total: lasoLogs.length, logs: lasoLogs });
   }
 
   // Lấy danh sách lịch tư vấn 1-1: GET /api/admin/bookings
   if (pathname === '/api/admin/bookings' && req.method === 'GET') {
-    bookings = readJsonFile(BOOKINGS_FILE, []);
+    bookings = await dbGet('tvhh_bookings', []);
     return sendJson(res, 200, { success: true, total: bookings.length, bookings });
   }
 
@@ -1884,14 +2056,14 @@ const server = http.createServer(async (req, res) => {
     try {
       const body = await parseJsonBody(req);
       const { id, status } = body;
-      bookings = readJsonFile(BOOKINGS_FILE, []);
+      bookings = await dbGet('tvhh_bookings', []);
       const item = bookings.find(b => b.id === id);
       if (!item) {
         return sendJson(res, 404, { success: false, message: 'Không tìm thấy lịch tư vấn' });
       }
       item.status = status || 'CONTACTED';
       item.updatedAt = new Date().toISOString();
-      writeJsonFile(BOOKINGS_FILE, bookings);
+      await dbSet('tvhh_bookings', bookings);
       return sendJson(res, 200, { success: true, message: 'Đã cập nhật trạng thái lịch tư vấn thành công', booking: item });
     } catch (err) {
       return sendJson(res, 500, { success: false, message: err.message });
@@ -1903,11 +2075,11 @@ const server = http.createServer(async (req, res) => {
     try {
       const body = await parseJsonBody(req);
       const code = (body.orderCode || '').toUpperCase();
-      orders = readJsonFile(ORDERS_FILE, orders);
+      orders = await dbGet('tvhh_orders', orders);
       const idx = orders.findIndex(o => o.orderCode === code);
       if (idx !== -1) {
         orders.splice(idx, 1);
-        writeJsonFile(ORDERS_FILE, orders);
+        await dbSet('tvhh_orders', orders);
       }
       return sendJson(res, 200, { success: true, message: 'Đã xóa đơn hàng' });
     } catch (err) {
@@ -1918,6 +2090,7 @@ const server = http.createServer(async (req, res) => {
   // Cấu hình hệ thống (SePay API Key): GET & POST /api/admin/config
   if (pathname === '/api/admin/config') {
     if (req.method === 'GET') {
+      appConfig = await dbGet('tvhh_config', appConfig);
       const masked = Object.assign({}, appConfig);
       if (masked.sepayApiKey && masked.sepayApiKey.length > 8) {
         masked.sepayApiKey = masked.sepayApiKey.slice(0, 4) + '••••••••••••••••' + masked.sepayApiKey.slice(-4);
@@ -1930,7 +2103,7 @@ const server = http.createServer(async (req, res) => {
         if (typeof body.sepayApiKey !== 'undefined') appConfig.sepayApiKey = body.sepayApiKey.trim();
         if (body.accountNo) appConfig.accountNo = body.accountNo.trim();
         if (body.accountName) appConfig.accountName = body.accountName.trim();
-        writeJsonFile(CONFIG_FILE, appConfig);
+        await dbSet('tvhh_config', appConfig);
         return sendJson(res, 200, { success: true, message: 'Đã lưu cấu hình thành công' });
       } catch (err) {
         return sendJson(res, 500, { success: false, message: err.message });
@@ -1944,7 +2117,7 @@ const server = http.createServer(async (req, res) => {
     if (!token) {
       return sendJson(res, 400, { success: false, message: 'Thiếu token truy cập.' });
     }
-    orders = readJsonFile(ORDERS_FILE, orders);
+    orders = await dbGet('tvhh_orders', orders);
     const cleanToken = token.replace(/[\s.\-_]/g, '').toUpperCase();
     const digitsOnly = cleanToken.replace(/^TV/, '');
     let order = orders.find(o => o.status === 'PAID' && (
@@ -1955,7 +2128,7 @@ const server = http.createServer(async (req, res) => {
     if (!order) {
       try {
         await syncOrdersWithSePay();
-        orders = readJsonFile(ORDERS_FILE, orders);
+        orders = await dbGet('tvhh_orders', orders);
         order = orders.find(o => o.status === 'PAID' && (
           (o.vipAccessToken && o.vipAccessToken.toUpperCase() === cleanToken) || 
           (o.orderCode && o.orderCode.toUpperCase() === cleanToken) ||
@@ -2000,7 +2173,7 @@ const server = http.createServer(async (req, res) => {
         return sendJson(res, 400, { success: false, message: 'Vui lòng nhập câu hỏi cần cố vấn.' });
       }
 
-      orders = readJsonFile(ORDERS_FILE, orders);
+      orders = await dbGet('tvhh_orders', orders);
       const code = (orderCode || '').trim().toUpperCase();
       const token = (vipToken || '').trim();
 
@@ -2021,7 +2194,7 @@ const server = http.createServer(async (req, res) => {
           createdAt: new Date().toISOString()
         };
         orders.push(order);
-        writeJsonFile(ORDERS_FILE, orders);
+        await dbSet('tvhh_orders', orders);
       }
 
       if (!order || order.status !== 'PAID') {
@@ -2050,7 +2223,7 @@ const server = http.createServer(async (req, res) => {
         answer: answer,
         askedAt: new Date().toISOString()
       });
-      writeJsonFile(ORDERS_FILE, orders);
+      await dbSet('tvhh_orders', orders);
 
       return sendJson(res, 200, {
         success: true,
@@ -2076,7 +2249,7 @@ const server = http.createServer(async (req, res) => {
       if (!q) {
         return sendJson(res, 400, { success: false, message: 'Vui lòng nhập Mã đơn hàng hoặc Số điện thoại.' });
       }
-      orders = readJsonFile(ORDERS_FILE, orders);
+      orders = await dbGet('tvhh_orders', orders);
       const cleanQ = q.replace(/[\s.\-_]/g, '').toUpperCase();
       const digitsOnly = cleanQ.replace(/^TV/, '');
       let order = orders.find(o => o.status === 'PAID' && (
@@ -2089,7 +2262,7 @@ const server = http.createServer(async (req, res) => {
         // Tự động đối soát từ SePay live để không bỏ sót giao dịch của khách
         try {
           await syncOrdersWithSePay();
-          orders = readJsonFile(ORDERS_FILE, orders);
+          orders = await dbGet('tvhh_orders', orders);
           order = orders.find(o => o.status === 'PAID' && (
             (o.orderCode && o.orderCode.toUpperCase() === cleanQ) ||
             (digitsOnly.length >= 4 && o.orderCode && o.orderCode.toUpperCase().replace(/^TV/, '') === digitsOnly) ||
@@ -2132,7 +2305,7 @@ const server = http.createServer(async (req, res) => {
               referenceNumber: matchedTx.reference_number || ''
             };
             orders.unshift(order);
-            writeJsonFile(ORDERS_FILE, orders);
+            await dbSet('tvhh_orders', orders);
           }
         } catch (e) {
           console.error('Error direct matching SePay on restore:', e);
@@ -2145,7 +2318,7 @@ const server = http.createServer(async (req, res) => {
 
       // Đối chiếu liên kết thông tin lá số nếu đơn hàng chưa có
       if (order && (!order.chartKey || !order.chartInfo)) {
-        lasoLogs = readJsonFile(LASO_LOGS_FILE, []);
+        lasoLogs = await dbGet('tvhh_laso_logs', []);
         const matchedLog = lasoLogs.find(l => 
           (order.visitorId && l.visitorId === order.visitorId) ||
           (l.vipCode && (l.vipCode === order.orderCode || l.vipCode.replace(/^TV/, '') === digitsOnly)) ||
@@ -2219,12 +2392,12 @@ const server = http.createServer(async (req, res) => {
         users.push(user);
       }
       order.userId = user.id;
-      writeJsonFile(USERS_FILE, users);
-      writeJsonFile(ORDERS_FILE, orders);
+      await dbSet('tvhh_users', users);
+      await dbSet('tvhh_orders', orders);
 
       const token = crypto.randomBytes(32).toString('hex');
       sessions[token] = user.id;
-      writeJsonFile(SESSIONS_FILE, sessions);
+      await dbSet('tvhh_sessions', sessions);
 
       return sendJson(res, 200, {
         success: true,
@@ -2245,7 +2418,7 @@ const server = http.createServer(async (req, res) => {
 
   // Kiểm tra quyền truy cập tính năng: GET /api/tuvi/access-check
   if (pathname === '/api/tuvi/access-check' && req.method === 'GET') {
-    const user = getAuthenticatedUser(req);
+    const user = await getAuthenticatedUser(req);
     const isVip = user ? user.isVip : false;
 
     return sendJson(res, 200, {
@@ -2330,7 +2503,7 @@ const server = http.createServer(async (req, res) => {
 
   // API danh sách bài viết công khai: GET /api/posts
   if (pathname === '/api/posts' && req.method === 'GET') {
-    posts = readJsonFile(POSTS_FILE, []);
+    posts = await dbGet('tvhh_posts', []);
     const publicList = posts.map(p => ({
       id: p.id,
       slug: p.slug,
@@ -2350,7 +2523,7 @@ const server = http.createServer(async (req, res) => {
 
   // Quản lý Blog cho Admin: GET /api/admin/posts
   if (pathname === '/api/admin/posts' && req.method === 'GET') {
-    posts = readJsonFile(POSTS_FILE, []);
+    posts = await dbGet('tvhh_posts', []);
     return sendJson(res, 200, posts);
   }
 
@@ -2358,7 +2531,7 @@ const server = http.createServer(async (req, res) => {
   if (pathname === '/api/admin/posts/save' && req.method === 'POST') {
     try {
       const body = await parseJsonBody(req);
-      posts = readJsonFile(POSTS_FILE, []);
+      posts = await dbGet('tvhh_posts', []);
       let post = posts.find(p => (body.id && p.id === body.id) || (body.slug && p.slug === body.slug));
       if (post) {
         Object.assign(post, body, { updatedAt: new Date().toISOString() });
@@ -2372,7 +2545,7 @@ const server = http.createServer(async (req, res) => {
         }, body);
         posts.unshift(post);
       }
-      writeJsonFile(POSTS_FILE, posts);
+      await dbSet('tvhh_posts', posts);
       syncSitemapFile(posts);
       return sendJson(res, 200, { success: true, post });
     } catch (err) {
@@ -2384,9 +2557,9 @@ const server = http.createServer(async (req, res) => {
   if (pathname === '/api/admin/posts/delete' && req.method === 'POST') {
     try {
       const body = await parseJsonBody(req);
-      posts = readJsonFile(POSTS_FILE, []);
+      posts = await dbGet('tvhh_posts', []);
       posts = posts.filter(p => p.id !== body.id && p.slug !== body.slug);
-      writeJsonFile(POSTS_FILE, posts);
+      await dbSet('tvhh_posts', posts);
       syncSitemapFile(posts);
       return sendJson(res, 200, { success: true, message: 'Đã xóa bài viết' });
     } catch (err) {
@@ -2405,7 +2578,7 @@ const server = http.createServer(async (req, res) => {
 
   // Dynamic Sitemap: GET /sitemap.xml
   if (pathname === '/sitemap.xml' || (parsedUrl.query && parsedUrl.query.render_sitemap === 'true')) {
-    posts = readJsonFile(POSTS_FILE, []);
+    posts = await dbGet('tvhh_posts', []);
     const xml = generateSitemapXml(posts);
     syncSitemapFile(posts);
     res.writeHead(200, Object.assign({ 'Content-Type': 'application/xml; charset=utf-8' }, HTTP_SECURITY_HEADERS));
@@ -2424,11 +2597,11 @@ const server = http.createServer(async (req, res) => {
   if (blogSlugParam) {
     const slug = decodeURIComponent(blogSlugParam).trim();
     if (slug) {
-      posts = readJsonFile(POSTS_FILE, []);
+      posts = await dbGet('tvhh_posts', []);
       const post = posts.find(p => p.slug === slug);
       if (post) {
         post.views = (post.views || 0) + 1;
-        writeJsonFile(POSTS_FILE, posts);
+        await dbSet('tvhh_posts', posts);
 
         const blogHtmlPath = path.join(__dirname, 'blog.html');
         fs.readFile(blogHtmlPath, 'utf8', (err, template) => {
