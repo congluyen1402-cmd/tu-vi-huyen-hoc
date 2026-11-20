@@ -399,13 +399,17 @@ const TuViChart = {
     // 3. Render Luận Giải Chi Tiết
     this.renderLuanGiai(laSo);
 
-    // Khởi tạo thanh CTA dính đáy nếu chưa là VIP
+    // Khởi tạo thanh CTA dính đáy nếu chưa là VIP, hoặc nút nổi cuộn xem luận giải nếu đã là VIP
     const isVip = Boolean(
       (typeof TuViAuth !== 'undefined' && TuViAuth.isVip && TuViAuth.isVip(laSo)) ||
       (typeof TuViMonetize !== 'undefined' && TuViMonetize.isChartVip && TuViMonetize.isChartVip(laSo)) ||
       (typeof TuViMonetize !== 'undefined' && TuViMonetize.isVipUnlocked)
     );
     this.initStickyBottomCta(isVip);
+
+    if (isVip && typeof TuViMonetize !== 'undefined' && typeof TuViMonetize.initVipScrollPill === 'function') {
+      TuViMonetize.initVipScrollPill();
+    }
 
     // 4. Khuyến nghị Vật Phẩm Phong Thủy Hộ Mệnh (Thương Mại Hóa)
     if (typeof TuViMonetize !== 'undefined') {
@@ -1431,28 +1435,31 @@ const TuViChart = {
       <div id="vip12PalacesSection" style="scroll-margin-top: 80px;"></div>
 
       ${isVip ? `
-        <div class="vip-12palaces-toolbar" style="background: linear-gradient(135deg, rgba(163,40,31,0.08) 0%, rgba(212,175,55,0.12) 100%); border: 1.5px solid var(--seal, #A3281F); border-radius: 10px; padding: 1rem 1.25rem; margin: 1.5rem 0 1.25rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.75rem;">
-          <div>
-            <div style="font-size: 0.78rem; font-weight: 700; color: #10B981; letter-spacing: 0.5px; text-transform: uppercase;">
-              👑 ĐẶC QUYỀN VIP TOÀN THƯ · ĐÃ MỞ KHÓA TRỌN VẸN 12 CUNG
+        <!-- THẺ CHỈ DẪN NỔI BẬT DÀNH CHO KHÁCH VIP KHI CUỘN TỚI -->
+        <div id="vipScrollGuideCard" class="vip-scroll-guide-card" style="background: linear-gradient(135deg, rgba(212,175,55,0.15) 0%, rgba(163,40,31,0.12) 100%); border: 2px solid #D4AF37; border-radius: 12px; padding: 1.15rem 1.25rem; margin: 1.5rem 0 1.25rem; box-shadow: 0 4px 20px rgba(212,175,55,0.18);">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.85rem;">
+            <div>
+              <div style="font-size: 0.8rem; font-weight: 800; color: #10B981; letter-spacing: 0.6px; text-transform: uppercase; display: flex; align-items: center; gap: 6px;">
+                <span>👑 BÁO CÁO VIP ĐÃ MỞ KHÓA HOÀN TOÀN</span>
+              </div>
+              <div style="font-family: var(--font-heading); font-size: 1.2rem; font-weight: 700; color: var(--ink); margin-top: 3px;">
+                👇 BẠN ĐANG Ở ĐÚNG NƠI: XEM CHI TIẾT 12 CUNG &amp; VẬN HẠN DƯỚI ĐÂY
+              </div>
+              <div style="font-size: 0.86rem; color: var(--text-muted); margin-top: 4px; line-height: 1.5;">
+                Toàn bộ 12 cung bên dưới đã được mở khóa tự động. Bấm <strong>"Mở Rộng Tất Cả 12 Cung"</strong> để đọc liền mạch từ Cung Mệnh đến Cung Phụ Mẫu!
+              </div>
             </div>
-            <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700; color: var(--ink); margin-top: 2px;">
-              Bản Luận Giải Chi Tiết 12 Cung &amp; Vận Hạn 2026 - 2027
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <button type="button" class="btn-toolbar" onclick="TuViChart.expandAllPalaces()" style="background: #A3281F; color: #fff; border: 1px solid #D4AF37; font-weight: 700; font-size: 0.85rem; padding: 0.5rem 1rem; cursor: pointer; border-radius: 6px; box-shadow: 0 2px 8px rgba(163,40,31,0.3);">
+                📖 Mở Rộng Tất Cả 12 Cung
+              </button>
+              <button type="button" class="btn-toolbar" onclick="TuViChart.collapseAllPalaces()" style="background: var(--card); color: var(--text); border: 1px solid var(--line); font-size: 0.84rem; padding: 0.5rem 0.8rem; cursor: pointer; border-radius: 6px;">
+                📁 Thu Gọn
+              </button>
+              <button type="button" class="btn-toolbar" onclick="TuViMonetize.printVipReport()" style="background: #10B981; color: #fff; border: 1px solid #10B981; font-weight: 700; font-size: 0.85rem; padding: 0.5rem 1rem; cursor: pointer; border-radius: 6px; box-shadow: 0 2px 8px rgba(16,185,129,0.3);">
+                📥 Xuất File PDF VIP A4
+              </button>
             </div>
-            <div style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;">
-              Đã bao gồm Ma Trận Tam Phương Tứ Chính, Tứ Hóa Phi Tinh và Đạo Cải Số Cụ Nguyễn Phát Lộc.
-            </div>
-          </div>
-          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-            <button type="button" class="btn-toolbar" onclick="TuViChart.expandAllPalaces()" style="background: var(--seal); color: #fff; border-color: var(--seal); font-weight: 600; font-size: 0.84rem; padding: 0.45rem 0.9rem; cursor: pointer; border-radius: 6px;">
-              📖 Mở Rộng Tất Cả 12 Cung
-            </button>
-            <button type="button" class="btn-toolbar" onclick="TuViChart.collapseAllPalaces()" style="background: var(--card); color: var(--text); border-color: var(--line); font-size: 0.84rem; padding: 0.45rem 0.8rem; cursor: pointer; border-radius: 6px;">
-              📁 Thu Gọn
-            </button>
-            <button type="button" class="btn-toolbar" onclick="TuViMonetize.printVipReport()" style="background: #10B981; color: #fff; border-color: #10B981; font-weight: 600; font-size: 0.84rem; padding: 0.45rem 0.9rem; cursor: pointer; border-radius: 6px;">
-              📥 Xuất PDF A4
-            </button>
           </div>
         </div>
       ` : ''}

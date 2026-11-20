@@ -803,6 +803,97 @@
       }
     },
 
+    /**
+     * Cuộn mượt mà trực tiếp xuống phần Luận Giải 12 Cung & Mở rộng toàn bộ
+     */
+    scrollToLuanGiai: function () {
+      const doScroll = () => {
+        const target = document.getElementById('vipScrollGuideCard') ||
+                       document.getElementById('vip12PalacesSection') ||
+                       document.getElementById('luan-giai') ||
+                       document.getElementById('accordionList') ||
+                       document.querySelector('.luan-giai-section') ||
+                       document.getElementById('compVipReportSection') ||
+                       document.getElementById('numReportSection');
+        if (target) {
+          const yOffset = -70; // Trừ hao thanh điều hướng cố định (header/nav)
+          const y = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+
+          if (typeof TuViChart !== 'undefined' && typeof TuViChart.expandAllPalaces === 'function') {
+            TuViChart.expandAllPalaces();
+          }
+
+          target.classList.add('vip-target-highlight');
+          setTimeout(() => target.classList.remove('vip-target-highlight'), 3600);
+        }
+      };
+
+      // Kích hoạt nhiều nhịp để khắc phục tình trạng layout reflow khi đóng modal
+      setTimeout(doScroll, 80);
+      setTimeout(doScroll, 350);
+      setTimeout(doScroll, 700);
+    },
+
+    scrollToLuanGiaiAndClose: function () {
+      if (this._autoCloseTimer) {
+        clearInterval(this._autoCloseTimer);
+        this._autoCloseTimer = null;
+      }
+      this.closeVipModal();
+      this.scrollToLuanGiai();
+    },
+
+    /**
+     * Khởi tạo nút nổi điều hướng nhanh xuống phần luận giải trên mobile khi đã là VIP
+     */
+    initVipScrollPill: function () {
+      if (typeof window === 'undefined' || typeof document === 'undefined') return;
+      let pill = document.getElementById('vipMobileScrollPill');
+      if (!pill) {
+        pill = document.createElement('div');
+        pill.id = 'vipMobileScrollPill';
+        pill.className = 'vip-mobile-scroll-pill';
+        pill.setAttribute('role', 'button');
+        pill.setAttribute('aria-label', 'Cuộn xuống xem luận giải 12 cung');
+        pill.innerHTML = `
+          <span class="pill-bounce-icon">👇</span>
+          <span>Kéo Xuống Xem Luận Giải 12 Cung</span>
+        `;
+        pill.onclick = () => {
+          TuViMonetize.scrollToLuanGiai();
+        };
+        document.body.appendChild(pill);
+      } else {
+        pill.classList.remove('hidden');
+      }
+
+      if (this._onPillScrollHandler) {
+        window.removeEventListener('scroll', this._onPillScrollHandler);
+      }
+
+      const updateVisibility = () => {
+        const p = document.getElementById('vipMobileScrollPill');
+        if (!p) return;
+        const target = document.getElementById('vipScrollGuideCard') ||
+                       document.getElementById('vip12PalacesSection') ||
+                       document.getElementById('luan-giai') ||
+                       document.getElementById('accordionList');
+        if (!target) return;
+        const rect = target.getBoundingClientRect();
+        // Khi đỉnh phần luận giải đã cuộn vào tầm mắt (< 260px) thì ẩn pill để không che chữ
+        if (rect.top <= 260) {
+          p.classList.add('hidden');
+        } else {
+          p.classList.remove('hidden');
+        }
+      };
+
+      this._onPillScrollHandler = updateVisibility;
+      window.addEventListener('scroll', this._onPillScrollHandler, { passive: true });
+      updateVisibility();
+    },
+
     closeVipModal: function (fromPopstate) {
       const modal = document.getElementById('tuvi-vip-modal');
       if (modal) {
@@ -814,30 +905,7 @@
       }
 
       if (this.isVipUnlocked || this.isTripwireUnlocked) {
-        setTimeout(() => {
-          const vip12 = document.getElementById('vip12PalacesSection');
-          if (vip12) {
-            vip12.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          } else {
-            const compVip = document.getElementById('compVipReportSection');
-            if (compVip) {
-              compVip.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              return;
-            }
-            const numVip = document.getElementById('numReportSection');
-            if (numVip) {
-              numVip.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              return;
-            }
-            const luanGiai = document.getElementById('luanGiaiSection') || document.querySelector('.luan-giai-section');
-            if (luanGiai) {
-              luanGiai.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-          }
-          if (typeof TuViChart !== 'undefined' && TuViChart.expandAllPalaces) {
-            TuViChart.expandAllPalaces();
-          }
-        }, 120);
+        this.scrollToLuanGiai();
       }
 
       // NẾU CHƯA MỞ KHÓA VIP: KHÔNG TẮT HẲN POLLING!
@@ -1057,8 +1125,27 @@
                 Toàn bộ luận giải VIP 12 Cung và tính năng xuất PDF A4 của bạn đã được mở khóa tự động!
               </p>
 
+              <!-- HƯỚNG DẪN RÕ RÀNG: BẢN LUẬN GIẢI NẰM Ở PHÍA DƯỚI LÁ SỐ -->
+              <div style="background: linear-gradient(135deg, rgba(16,185,129,0.14) 0%, rgba(212,175,55,0.2) 100%); border: 2px solid #FDE047; border-radius: 12px; padding: 14px 16px; margin: 1rem 0; text-align: center; box-shadow: 0 4px 16px rgba(245,158,11,0.25);">
+                <div style="display:flex; align-items:center; justify-content:center; gap:8px; font-size:0.95rem; font-weight:800; color:#FDE047; text-transform:uppercase; letter-spacing:0.5px;">
+                  <span style="font-size:1.35rem; display:inline-block; animation:bounceDown 1.5s infinite ease-in-out;">👇</span>
+                  <span>Bản Luận Giải Nằm Ngay Phía Dưới Lá Số</span>
+                  <span style="font-size:1.35rem; display:inline-block; animation:bounceDown 1.5s infinite ease-in-out;">👇</span>
+                </div>
+                <p style="font-size:0.84rem; color:#FAF6ED; margin:6px 0 0; line-height:1.5;">
+                  Sau khi bấm nút bên dưới, màn hình sẽ <strong>tự động cuộn mượt xuống phía dưới lá số</strong> và mở bung trọn vẹn 12 Cung &amp; Vận Hạn để bạn đọc ngay!
+                </p>
+              </div>
+
+              <!-- NÚT BẤM TO NỔI BẬT: CUỘN XUỐNG XEM LUẬN GIẢI 12 CUNG -->
+              <button type="button" class="btn-seal btn-success-dismiss" style="width:100%; font-size:1.02rem; padding:0.95rem 1rem; font-weight:800; background:linear-gradient(135deg, #B91C1C 0%, #A3281F 50%, #D4AF37 100%); color:#FFFFFF !important; border:2px solid #FDE047; border-radius:10px; box-shadow:0 6px 20px rgba(185,28,28,0.55); cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:1rem;" onclick="TuViMonetize.scrollToLuanGiaiAndClose();">
+                <span style="font-size:1.25rem; animation:bounceDown 1.5s infinite ease-in-out;">👇</span>
+                <span>BẤM VÀO ĐÂY ĐỂ CUỘN XUỐNG XEM LUẬN GIẢI</span>
+                <span style="font-size:1.25rem; animation:bounceDown 1.5s infinite ease-in-out;">👇</span>
+              </button>
+
               <!-- KHỐI LƯU MÃ & MAGIC LINK XEM LẠI TRỌN ĐỜI -->
-              <div style="background:rgba(212,175,55,0.08); border:1.5px dashed #d4af37; border-radius:10px; padding:12px 14px; margin:1rem 0; text-align:left;">
+              <div style="background:rgba(212,175,55,0.08); border:1.5px dashed #d4af37; border-radius:10px; padding:12px 14px; margin:0 0 1rem; text-align:left;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
                   <span style="font-size:0.86rem; color:#d4af37; font-weight:700;">💾 Mã &amp; Magic Link Xem Lại:</span>
                   <span style="font-size:0.75rem; color:#10b981; font-weight:600;">✓ Đã lưu trên máy này</span>
@@ -1077,19 +1164,16 @@
                 </p>
               </div>
 
-              <div class="vip-success-meta" style="margin-bottom:1rem;">
+              <div class="vip-success-meta" style="margin-bottom:0.75rem;">
                 <span>Mã đơn: <strong style="color:var(--gold-light, #d4af37); font-size:1.05rem; letter-spacing:0.5px;">#${orderCode}</strong></span>
                 <span>•</span>
                 <span>Thời gian: <strong>${new Date().toLocaleTimeString('vi-VN')}</strong></span>
               </div>
-              <button type="button" class="btn-seal btn-success-dismiss" style="width:100%; font-size:1rem; padding:0.85rem; font-weight:700;" onclick="TuViMonetize.closeVipModal();">
-                ✨ Xem Ngay Bản Luận Giải Đầy Đủ
-              </button>
-              <p class="vip-auto-close-countdown" style="margin-top:0.75rem;">Cửa sổ sẽ tự động đóng sau <strong id="vipSuccessCountdown">15</strong> giây...</p>
+              <p class="vip-auto-close-countdown" style="margin-top:0.5rem;">Cửa sổ sẽ tự động đóng và cuộn xuống sau <strong id="vipSuccessCountdown">15</strong> giây...</p>
             </div>
           `;
 
-          // Đếm ngược 15 giây tự động đóng modal
+          // Đếm ngược 15 giây tự động đóng modal & cuộn xuống luận giải
           let secondsLeft = 15;
           if (this._autoCloseTimer) clearInterval(this._autoCloseTimer);
           this._autoCloseTimer = setInterval(() => {
@@ -1099,9 +1183,11 @@
             if (secondsLeft <= 0) {
               clearInterval(this._autoCloseTimer);
               this._autoCloseTimer = null;
-              this.closeVipModal();
+              this.scrollToLuanGiaiAndClose();
             }
           }, 1000);
+
+          this.initVipScrollPill();
 
           if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
             TuViApp.showToast('🎉 Thanh toán thành công! Toàn bộ 12 cung & PDF đã được mở khóa.', 'success');
@@ -1228,6 +1314,15 @@
             </button>
             <button class="btn-banner-action btn-banner-claim" type="button" onclick="TuViMonetize.openClaimAccountModal()">
               🛡️ Tạo Mật Khẩu Bảo Vệ (Tùy Chọn)
+            </button>
+          </div>
+          <div style="width:100%; margin-top:0.75rem; padding-top:0.75rem; border-top:1px dashed rgba(212,175,55,0.3); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.6rem;">
+            <span style="font-size:0.86rem; color:#FDE047; font-weight:700; display:flex; align-items:center; gap:6px;">
+              <span style="font-size:1.1rem; display:inline-block; animation:bounceDown 1.5s infinite ease-in-out;">👇</span>
+              <span>Hướng dẫn xem: Toàn bộ bản luận giải chi tiết 12 Cung &amp; Vận Hạn nằm ở <strong>ngay phía dưới lá số</strong>.</span>
+            </span>
+            <button type="button" class="btn-banner-action" onclick="TuViMonetize.scrollToLuanGiai()" style="background:linear-gradient(135deg, #B91C1C 0%, #D4AF37 100%); color:#fff; font-weight:800; border:1px solid #FDE047; box-shadow:0 2px 10px rgba(185,28,28,0.4); cursor:pointer;">
+              👇 Cuộn Xuống Xem Luận Giải Ngay ➔
             </button>
           </div>
         </div>
@@ -1413,15 +1508,7 @@
         this._restoreCountdownTimer = null;
       }
       this.closeRestoreModal();
-      if (typeof TuViChart !== 'undefined' && typeof TuViChart.expandAllPalaces === 'function') {
-        TuViChart.expandAllPalaces();
-      }
-      setTimeout(() => {
-        const target = document.getElementById('vip12PalacesSection') || document.getElementById('ket-qua');
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 100);
+      this.scrollToLuanGiai();
     },
 
     _fallbackCopyText: function (text, promptTitle) {
