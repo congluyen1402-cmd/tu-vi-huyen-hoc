@@ -462,7 +462,7 @@
      */
     restoreLastSession: function () {
       try {
-        const saved = sessionStorage.getItem('tvhh_last_laso');
+        const saved = sessionStorage.getItem('tvhh_last_laso') || localStorage.getItem('tvhh_last_laso');
         if (saved) {
           const laSo = JSON.parse(saved);
           if (laSo && typeof TuViChart !== 'undefined') {
@@ -852,9 +852,11 @@
               this.collapseForm(computedLaSo);
               this.saveHistory(computedLaSo);
 
-              // Lưu vào sessionStorage (Phase 4 Item 6)
+              // Lưu vào sessionStorage và localStorage (Đảm bảo an toàn khi chuyển app ngân hàng trên Mobile)
               try {
-                sessionStorage.setItem('tvhh_last_laso', JSON.stringify(computedLaSo));
+                const laSoJson = JSON.stringify(computedLaSo);
+                sessionStorage.setItem('tvhh_last_laso', laSoJson);
+                localStorage.setItem('tvhh_last_laso', laSoJson);
               } catch (e) {}
 
               this.showToast('Khởi tạo và an định lá số thành công!', 'success');

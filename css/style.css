@@ -6164,7 +6164,7 @@ footer.footer {
 }
 
 /* 12. Palace Bottom Sheet & Side Panel */
-.tuvi-palace-sheet {
+.tuvi-palace-sheet .sheet-panel {
   background: var(--card) !important;
   border: 1px solid var(--line) !important;
   color: var(--text) !important;

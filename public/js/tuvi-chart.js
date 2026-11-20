@@ -253,15 +253,54 @@ const TuViChart = {
     if (!item) return;
     const isOpen = item.classList.contains('open');
     const body = item.querySelector('.accordion-body');
+    const icon = item.querySelector('.toggle-icon');
     if (isOpen) {
       item.classList.remove('open');
       if (body) body.style.display = 'none';
+      if (icon) icon.textContent = '▼';
       btn.setAttribute('aria-expanded', 'false');
     } else {
       item.classList.add('open');
       if (body) body.style.display = 'block';
+      if (icon) icon.textContent = '▲';
       btn.setAttribute('aria-expanded', 'true');
     }
+  },
+
+  expandAllPalaces: function () {
+    const items = document.querySelectorAll('#accordionList .accordion-item');
+    items.forEach(it => {
+      it.classList.add('open');
+      const toggleIcon = it.querySelector('.toggle-icon');
+      if (toggleIcon) toggleIcon.textContent = '▲';
+      const btn = it.querySelector('.accordion-header');
+      if (btn) btn.setAttribute('aria-expanded', 'true');
+      const body = it.querySelector('.accordion-body');
+      if (body) body.style.display = 'block';
+    });
+  },
+
+  collapseAllPalaces: function () {
+    const items = document.querySelectorAll('#accordionList .accordion-item');
+    items.forEach((it, idx) => {
+      if (idx === 0) {
+        it.classList.add('open');
+        const toggleIcon = it.querySelector('.toggle-icon');
+        if (toggleIcon) toggleIcon.textContent = '▲';
+        const btn = it.querySelector('.accordion-header');
+        if (btn) btn.setAttribute('aria-expanded', 'true');
+        const body = it.querySelector('.accordion-body');
+        if (body) body.style.display = 'block';
+      } else {
+        it.classList.remove('open');
+        const toggleIcon = it.querySelector('.toggle-icon');
+        if (toggleIcon) toggleIcon.textContent = '▼';
+        const btn = it.querySelector('.accordion-header');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+        const body = it.querySelector('.accordion-body');
+        if (body) body.style.display = 'none';
+      }
+    });
   },
 
   initStickyBottomCta: function (isVip) {
@@ -1113,7 +1152,7 @@ const TuViChart = {
             ${deepAnalysis.catTinhDetailHtml ? `<div class="sheet-analysis-block">${deepAnalysis.catTinhDetailHtml}</div>` : ''}
             ${deepAnalysis.satTinhDetailHtml ? `<div class="sheet-analysis-block">${deepAnalysis.satTinhDetailHtml}</div>` : ''}
             ${deepAnalysis.catSatInteractionHtml ? `<div class="sheet-analysis-block">${deepAnalysis.catSatInteractionHtml}</div>` : ''}
-            ${deepAnalysis.loiKhuyenHtml ? `<div class="sheet-analysis-block sheet-advice-box">${deepAnalysis.loiKhuyenHtml}</div>` : ''}
+            ${(deepAnalysis.caiSoHtml || deepAnalysis.loiKhuyenHtml) ? `<div class="sheet-analysis-block sheet-advice-box">${deepAnalysis.caiSoHtml || deepAnalysis.loiKhuyenHtml}</div>` : ''}
           </div>
         `;
       } else {
@@ -1388,6 +1427,36 @@ const TuViChart = {
     let html = `
       ${freeDossierHtml}
 
+      <!-- ĐIỂM NEO ĐIỀU HƯỚNG BẢN VIP 12 CUNG (Dành cho Mobile sau thanh toán) -->
+      <div id="vip12PalacesSection" style="scroll-margin-top: 80px;"></div>
+
+      ${isVip ? `
+        <div class="vip-12palaces-toolbar" style="background: linear-gradient(135deg, rgba(163,40,31,0.08) 0%, rgba(212,175,55,0.12) 100%); border: 1.5px solid var(--seal, #A3281F); border-radius: 10px; padding: 1rem 1.25rem; margin: 1.5rem 0 1.25rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.75rem;">
+          <div>
+            <div style="font-size: 0.78rem; font-weight: 700; color: #10B981; letter-spacing: 0.5px; text-transform: uppercase;">
+              👑 ĐẶC QUYỀN VIP TOÀN THƯ · ĐÃ MỞ KHÓA TRỌN VẸN 12 CUNG
+            </div>
+            <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700; color: var(--ink); margin-top: 2px;">
+              Bản Luận Giải Chi Tiết 12 Cung &amp; Vận Hạn 2026 - 2027
+            </div>
+            <div style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;">
+              Đã bao gồm Ma Trận Tam Phương Tứ Chính, Tứ Hóa Phi Tinh và Đạo Cải Số Cụ Nguyễn Phát Lộc.
+            </div>
+          </div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button type="button" class="btn-toolbar" onclick="TuViChart.expandAllPalaces()" style="background: var(--seal); color: #fff; border-color: var(--seal); font-weight: 600; font-size: 0.84rem; padding: 0.45rem 0.9rem; cursor: pointer; border-radius: 6px;">
+              📖 Mở Rộng Tất Cả 12 Cung
+            </button>
+            <button type="button" class="btn-toolbar" onclick="TuViChart.collapseAllPalaces()" style="background: var(--card); color: var(--text); border-color: var(--line); font-size: 0.84rem; padding: 0.45rem 0.8rem; cursor: pointer; border-radius: 6px;">
+              📁 Thu Gọn
+            </button>
+            <button type="button" class="btn-toolbar" onclick="TuViMonetize.printVipReport()" style="background: #10B981; color: #fff; border-color: #10B981; font-weight: 600; font-size: 0.84rem; padding: 0.45rem 0.9rem; cursor: pointer; border-radius: 6px;">
+              📥 Xuất PDF A4
+            </button>
+          </div>
+        </div>
+      ` : ''}
+
       <div class="accordion-progress-wrap" style="margin-bottom: 1.5rem;">
         <div class="accordion-progress-label">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--seal, #A3281F);"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -1432,16 +1501,22 @@ const TuViChart = {
       const caiSoText = analysis ? analysis.caiSoHtml : 'Giữ tâm thái an hòa, tích cực hành thiện tích đức, thận trọng trong các quyết định lớn để hóa giải ách nạn, vươn tới thành công.';
 
       if (isFullyUnlocked) {
-        // CUNG ĐÃ ĐƯỢC MỞ KHÓA HOÀN TOÀN
+        // CUNG ĐÃ ĐƯỢC MỞ KHÓA HOÀN TOÀN: Mặc định mở toàn bộ nếu là gói VIP
+        const isOpen = isVip || isFirst;
         html += `
-          <div class="accordion-item ${isFirst ? 'open' : ''}" data-palace="${item.key}">
-            <button class="accordion-header" aria-expanded="${isFirst ? 'true' : 'false'}" type="button" onclick="TuViChart.toggleAccordionItem(this)">
+          <div class="accordion-item ${isOpen ? 'open' : ''}" data-palace="${item.key}">
+            <button class="accordion-header" aria-expanded="${isOpen ? 'true' : 'false'}" type="button" onclick="TuViChart.toggleAccordionItem(this)">
               <span class="palace-icon" aria-hidden="true">${item.icon}</span>
               <span class="palace-name">${cung.cungName} · Cung ${cung.chi} (${cung.can})</span>
+              ${isVip ? `
+                <span class="seal-badge" style="background:#ECFDF5; color:#059669; border:1px solid #10B981; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:700;">
+                  👑 Đã Mở Khóa VIP
+                </span>
+              ` : ''}
               <span class="palace-stars-count" style="color:var(--seal, #A3281F); font-weight:600;">${tieuDeText}</span>
-              <span class="toggle-icon" aria-hidden="true">▼</span>
+              <span class="toggle-icon" aria-hidden="true">${isOpen ? '▲' : '▼'}</span>
             </button>
-            <div class="accordion-body" role="region" style="${isFirst ? 'display:block;' : 'display:none;'}">
+            <div class="accordion-body" role="region" style="${isOpen ? 'display:block;' : 'display:none;'}">
               <div class="luan-giai-scholarly-content">
                 <div class="luan-giai-nhandinh-badge">${tieuDeText}</div>
                 

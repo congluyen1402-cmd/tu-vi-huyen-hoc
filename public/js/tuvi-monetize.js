@@ -219,6 +219,19 @@
         this.activeChartKey = key;
         this.applyVipUI();
         return true;
+      } else if (this.isVipUnlocked && this.vipOrderCode) {
+        // Khách vừa thanh toán VIP thành công hoặc có session VIP active: tự động liên kết key hiện tại
+        this.saveUnlockedChart(key, {
+          orderCode: this.vipOrderCode,
+          vipAccessToken: this.vipAccessToken,
+          packageId: 'vip_49k',
+          packageName: 'Báo Cáo VIP A4 Toàn Thư (49.000đ)',
+          amount: 49000,
+          unlockedAt: new Date().toISOString()
+        });
+        this.activeChartKey = key;
+        this.applyVipUI();
+        return true;
       } else {
         this.isVipUnlocked = false;
         this.isTripwireUnlocked = false;
@@ -396,8 +409,19 @@
             const res = await fetch(this.getApiUrl('/api/orders/verify-token?token=' + encodeURIComponent(storedToken)));
             if (res.ok) {
               const data = await res.json();
-              if (data.success && data.isVip && data.order && data.order.chartKey) {
-                this.saveUnlockedChart(data.order.chartKey, data.order);
+              if (data.success && data.isVip && data.order) {
+                if (data.order.chartKey) {
+                  this.saveUnlockedChart(data.order.chartKey, data.order);
+                }
+                this.unlockVIP(
+                  data.order.orderCode,
+                  data.order.vipAccessToken || data.order.orderCode,
+                  data.order.amount,
+                  data.order.packageId
+                );
+                if (typeof TuViChart !== 'undefined' && !TuViChart._currentLaSo) {
+                  this.renderChartFromOrderOrStorage(data.order);
+                }
               }
             }
           } catch (err) {
@@ -430,16 +454,8 @@
           const checkOnActive = () => {
             const code = this.currentOrderId || (typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('tvhh_pending_order') : null);
             if (code && !this.isVipUnlocked) {
-              const price = this.currentPackagePrice || (typeof sessionStorage !== 'undefined' ? Number(sessionStorage.getItem('tvhh_pending_price')) : 49000) || 49000;
-              fetch(this.getApiUrl(`/api/orders/status/${code}?amount=${price}`))
-                .then(r => r.json())
-                .then(data => {
-                  if (data && (data.isPaid || data.paid || data.status === 'PAID')) {
-                    this.stopOrderPolling();
-                    this.onPaymentSuccess(data);
-                  }
-                })
-                .catch(() => { });
+              // Khách chuyển từ app ngân hàng về lại tab web: kích hoạt quét liên tục siêu tốc
+              this.startOrderPolling(code);
             }
           };
 
@@ -799,19 +815,27 @@
 
       if (this.isVipUnlocked || this.isTripwireUnlocked) {
         setTimeout(() => {
-          const compVip = document.getElementById('compVipReportSection');
-          if (compVip) {
-            compVip.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            return;
+          const vip12 = document.getElementById('vip12PalacesSection');
+          if (vip12) {
+            vip12.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } else {
+            const compVip = document.getElementById('compVipReportSection');
+            if (compVip) {
+              compVip.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              return;
+            }
+            const numVip = document.getElementById('numReportSection');
+            if (numVip) {
+              numVip.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              return;
+            }
+            const luanGiai = document.getElementById('luanGiaiSection') || document.querySelector('.luan-giai-section');
+            if (luanGiai) {
+              luanGiai.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
           }
-          const numVip = document.getElementById('numReportSection');
-          if (numVip) {
-            numVip.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            return;
-          }
-          const luanGiai = document.getElementById('luanGiaiSection') || document.querySelector('.luan-giai-section');
-          if (luanGiai) {
-            luanGiai.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          if (typeof TuViChart !== 'undefined' && TuViChart.expandAllPalaces) {
+            TuViChart.expandAllPalaces();
           }
         }, 120);
       }
@@ -906,6 +930,11 @@
       const orderCode = (data && (data.orderCode || (data.order && data.order.orderCode))) || this.currentOrderId;
       const vipToken = (data && (data.vipToken || data.vipAccessToken || (data.order && data.order.vipAccessToken))) || 'vip_' + Date.now();
 
+      // Phục hồi lá số từ thông tin đơn hàng nếu chưa có lá số trên màn hình
+      if (typeof TuViChart !== 'undefined' && !TuViChart._currentLaSo) {
+        this.renderChartFromOrderOrStorage(data.order || data);
+      }
+
       // Xác định lá số tương ứng để mở khóa độc lập
       const currentChart = (typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) ? TuViChart._currentLaSo : null;
       let targetChartKey = (data && (data.chartKey || (data.order && data.order.chartKey)));
@@ -955,6 +984,11 @@
       try {
         sessionStorage.removeItem('tvhh_pending_order');
         sessionStorage.removeItem('tvhh_pending_chart_key');
+        if (typeof TuViChart !== 'undefined' && TuViChart._currentLaSo) {
+          const chartJson = JSON.stringify(TuViChart._currentLaSo);
+          localStorage.setItem('tvhh_last_laso', chartJson);
+          sessionStorage.setItem('tvhh_last_laso', chartJson);
+        }
       } catch (e) { }
 
       // Mở khóa UI ở trang phía sau
