@@ -32,18 +32,6 @@ window.SITE_CONFIG = {
 
   // 3. CẤU HÌNH CÁC GÓI MỞ KHÓA TỰ ĐỘNG (MICRO-TRANSACTIONS)
   packages: {
-    quick_29k: {
-      id: "quick_29k",
-      name: "Gói Xem Nhanh 3 Cung Tự Chọn",
-      price: 29000,
-      oldPrice: 99000,
-      badge: "Tiết kiệm · Xem ngay",
-      features: [
-        "Tự do chọn 3 cung bất kỳ (Tài Bạch, Quan Lộc, Phu Thê,...)",
-        "Phân tích chi tiết chính tinh, cát tinh, sát tinh & Đạo trị mệnh 3 cung",
-        "Tặng kèm MIỄN PHÍ Cung Mệnh & Cung Phụ Mẫu (không tính vào 3 cung)"
-      ]
-    },
     vip_49k: {
       id: "vip_49k",
       name: "Báo Cáo VIP A4 Toàn Thư",

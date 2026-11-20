@@ -3229,10 +3229,7 @@
             </div>
             <div class="ai-paywall-actions" style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center; align-items:center;">
               <button type="button" class="btn-seal btn-unlock-ai-action" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư', 49000)" style="font-weight:700;">
-                🔓 Mở Khóa Toàn Thư 12 Cung &amp; PDF (49.000đ) — Khuyên Dùng
-              </button>
-              <button type="button" class="btn-outline-gold" onclick="TuViMonetize.openVipModal('Gói Xem Nhanh 3 Cung', 29000)" style="padding:0.75rem 1.25rem; font-size:0.9rem; border-radius:6px; font-weight:600; cursor:pointer; border:1.5px solid #C29B38; background:#FFFDF8; color:#991B1B;">
-                Mở Khóa Nhanh 3 Cung (29.000đ)
+                🔓 Mở Khóa Toàn Thư 12 Cung &amp; PDF (49.000đ)
               </button>
             </div>
           </div>
@@ -3422,10 +3419,7 @@
     return `
       <div class="paywall-buttons-group ${customClass || ''}" style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center; align-items:center; margin-top:12px;">
         <button type="button" class="btn-seal" onclick="TuViMonetize.openVipModal('Báo Cáo VIP A4 Toàn Thư', 49000)" style="padding:0.75rem 1.4rem; font-size:0.92rem; font-weight:700; border-radius:6px; cursor:pointer; background:linear-gradient(135deg, #B91C1C 0%, #881337 100%); color:#FFFFFF; border:1px solid #D4AF37; box-shadow:0 3px 10px rgba(185,28,28,0.3);">
-          🔓 Mở Khóa Toàn Thư 12 Cung &amp; PDF (49.000đ) — Khuyên Dùng
-        </button>
-        <button type="button" class="btn-outline-gold" onclick="TuViMonetize.openVipModal('Gói Xem Nhanh 3 Cung', 29000)" style="padding:0.75rem 1.25rem; font-size:0.9rem; border-radius:6px; font-weight:600; cursor:pointer; border:1.5px solid #C29B38; background:#FFFDF8; color:#991B1B;">
-          Mở Khóa Nhanh 3 Cung (29.000đ)
+          🔓 Mở Khóa Toàn Thư 12 Cung &amp; PDF (49.000đ)
         </button>
       </div>
     `;

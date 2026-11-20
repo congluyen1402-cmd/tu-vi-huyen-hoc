@@ -2366,14 +2366,17 @@ a:hover {
 }
 
 /* ============================================================
-   7. PRICING (3 PLANS)
+   7. PRICING (2 PLANS)
    ============================================================ */
 .pricing-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
   align-items: stretch;
   margin-top: 1.5rem;
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .pricing-card {
@@ -5675,22 +5678,22 @@ h1, h2, h3, h4, h5, h6, .font-heading, .section-title {
   box-shadow: none !important;
 }
 
-/* 6. Pricing Section (3 Plain Equal Columns) */
+/* 6. Pricing Section (2 Balanced Plans) */
 .pricing-section {
   background-color: var(--paper) !important;
 }
 .pricing-grid {
   display: grid !important;
-  grid-template-columns: repeat(3, 1fr) !important;
+  grid-template-columns: repeat(2, 1fr) !important;
   gap: 1.5rem !important;
   align-items: stretch !important;
   margin-top: 1.25rem !important;
   width: 100% !important;
-  max-width: 1140px !important;
+  max-width: 860px !important;
   margin-left: auto !important;
   margin-right: auto !important;
 }
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .pricing-grid {
     grid-template-columns: 1fr !important;
     max-width: 480px !important;

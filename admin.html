@@ -895,7 +895,6 @@
             <label style="display:block; font-size:0.82rem; color:var(--text-muted); margin-bottom:0.3rem;">Gói Dịch Vụ:</label>
             <select id="manualPackageSelect" class="sepay-input" style="width:100%; background:#14112c;" onchange="onManualPackageChange()">
               <option value="49000|Báo Cáo VIP A4 Toàn Thư (49.000đ)" selected>Báo Cáo VIP A4 Toàn Thư (49.000đ) ★ Khuyên Dùng</option>
-              <option value="29000|Gói Xem Nhanh 3 Cung Tự Chọn (29.000đ)">Gói Xem Nhanh 3 Cung (29.000đ)</option>
               <option value="39000|Gói Thần Số Học Pythagoras VIP (39.000đ)">Thần Số Học Pythagoras VIP (39.000đ)</option>
               <option value="49000|Bói Hợp Tuổi Bát Tự VIP (49.000đ)">Bói Hợp Tuổi Bát Tự VIP (49.000đ)</option>
               <option value="490000|Tham Vấn 1-1 Chuyên Đề (490.000đ)">Tham Vấn 1-1 Chuyên Đề (490.000đ / 45p)</option>
@@ -1959,7 +1958,7 @@
         } else if (ev.eventType === 'open_vip_modal') {
           icon = 'qr-code';
           color = '#f59e0b';
-          text = `Khách mở modal quét mã VietQR: <strong>${ev.details?.orderCode || 'Đơn hàng'}</strong> (${(ev.details?.amount || 29000).toLocaleString('vi-VN')} đ)`;
+          text = `Khách mở modal quét mã VietQR: <strong>${ev.details?.orderCode || 'Đơn hàng'}</strong> (${(ev.details?.amount || 49000).toLocaleString('vi-VN')} đ)`;
         } else if (ev.eventType === 'payment_success') {
           icon = 'check-circle';
           color = '#34d399';
@@ -2032,7 +2031,7 @@
       tbody.innerHTML = orders.map(o => {
         const isPaid = o.status === 'PAID';
         const dateStr = o.paidAt ? new Date(o.paidAt).toLocaleString('vi-VN') : new Date(o.createdAt).toLocaleString('vi-VN');
-        const amountStr = (o.amount || 29000).toLocaleString('vi-VN') + ' đ';
+        const amountStr = (o.amount || 49000).toLocaleString('vi-VN') + ' đ';
 
         return `
           <tr>

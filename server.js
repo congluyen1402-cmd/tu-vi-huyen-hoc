@@ -3,7 +3,7 @@
  * XEM TỬ VI HUYỀN HỌC - BACKEND SERVER (Node.js)
  * Cung cấp:
  *  1. Quản lý Tài Khoản Đăng Ký / Đăng Nhập (Tự động lưu vào data/users.json)
- *  2. Quản lý Gói Cước & Phân Quyền (Free vs VIP 29k / 49k / 149k)
+ *  2. Quản lý Gói Cước & Phân Quyền (Free vs VIP 49k / 490k / 990k)
  *  3. Cổng Đơn Hàng & Xác Nhận Thanh Toán VietQR Tự Động (SePay)
  *  4. Hệ thống Blog SEO SSR (/blog/:slug), Dynamic Sitemap & Robots.txt
  *  5. Bảo Mật Cao Cấp: Security Headers, Atomic File Write, timingSafeEqual & Rate Limiting
@@ -371,7 +371,7 @@ async function checkSePayForOrder(order) {
               });
 
               if (matchedTx) {
-                const amountIn = Number(matchedTx.amount_in || matchedTx.transferAmount || matchedTx.amount || order.amount || 29000);
+                const amountIn = Number(matchedTx.amount_in || matchedTx.transferAmount || matchedTx.amount || order.amount || 49000);
                 order.status = 'PAID';
                 order.paidAt = matchedTx.transaction_date || new Date().toISOString();
                 order.paymentSource = 'SEPAY_ACTIVE_POLL';
@@ -472,11 +472,11 @@ async function syncOrdersWithSePay() {
         }
       } else if (matchedCode) {
         // Tự động tạo mới đơn hàng PAID từ giao dịch ngân hàng
-        const pkgId = amountIn >= 150000 ? 'vip_199k' : (amountIn >= 80000 ? 'vip_99k' : (amountIn >= 40000 ? 'vip_49k' : (amountIn >= 35000 ? 'vip_39k' : 'vip_29k')));
+        const pkgId = amountIn >= 150000 ? 'vip_199k' : (amountIn >= 80000 ? 'vip_99k' : (amountIn >= 40000 ? 'vip_49k' : (amountIn >= 35000 ? 'vip_39k' : 'vip_49k')));
         const pkgName = pkgId === 'vip_199k' ? 'Gói Luận Sâu Đại Vận & Cải Mệnh Chuyên Sâu (199.000đ)' :
           (pkgId === 'vip_99k' ? 'Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung & Đại Hạn) (99.000đ)' :
           (pkgId === 'vip_49k' ? 'Báo Cáo VIP A4 Toàn Thư (49.000đ)' :
-          (pkgId === 'vip_39k' ? 'Gói Thần Số Học VIP Toàn Thư A4 (39.000đ)' : 'Gói Xem Nhanh 3 Cung (29.000đ)')));
+          (pkgId === 'vip_39k' ? 'Gói Thần Số Học VIP Toàn Thư A4 (39.000đ)' : 'Báo Cáo VIP A4 Toàn Thư (49.000đ)')));
 
         // Liên kết chartKey & chartInfo từ laso_logs nếu có
         const digits = matchedCode.replace(/^TV/, '');
@@ -962,9 +962,8 @@ const server = http.createServer(async (req, res) => {
 
           if (matchedTx) {
             const amountIn = Number(matchedTx.amount_in || matchedTx.transferAmount || matchedTx.amount || 49000);
-            const pkgId = amountIn >= 150000 ? 'vip_199k' : (amountIn >= 80000 ? 'vip_99k' : (amountIn >= 40000 ? 'vip_49k' : 'vip_29k'));
-            const pkgName = pkgId === 'vip_49k' ? 'Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ 12 Cung & Xuất PDF)' :
-              (pkgId === 'vip_29k' ? 'Gói Xem Nhanh 3 Cung Tự Chọn (29.000đ)' : 'Gói VIP Chuyên Sâu');
+            const pkgId = amountIn >= 150000 ? 'vip_199k' : (amountIn >= 80000 ? 'vip_99k' : (amountIn >= 40000 ? 'vip_49k' : 'vip_49k'));
+            const pkgName = pkgId === 'vip_49k' ? 'Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ 12 Cung & Xuất PDF)' : 'Gói VIP Chuyên Sâu';
 
             if (order) {
               order.status = 'PAID';
@@ -1017,7 +1016,7 @@ const server = http.createServer(async (req, res) => {
         vipToken: '',
         vipAccessToken: '',
         paidAt: null,
-        packageId: queryAmount >= 80000 ? 'vip_99k' : (queryAmount >= 40000 ? 'vip_49k' : 'vip_29k'),
+        packageId: queryAmount >= 80000 ? 'vip_99k' : 'vip_49k',
         packageName: '',
         amount: queryAmount
       });
@@ -1025,13 +1024,13 @@ const server = http.createServer(async (req, res) => {
 
     const isPaid = Boolean(order && order.status === 'PAID');
     let finalPkgName = order.packageName || '';
-    let finalPkgId = order.packageId || (order.amount >= 40000 ? 'vip_49k' : 'vip_29k');
+    let finalPkgId = order.packageId || 'vip_49k';
     if (order.amount >= 40000 && order.amount < 80000) {
       finalPkgName = 'Báo Cáo VIP A4 Toàn Thư (Mở Khóa Toàn Bộ 12 Cung & Xuất PDF)';
       finalPkgId = 'vip_49k';
     } else if (order.amount >= 20000 && order.amount < 40000) {
-      finalPkgName = 'Gói Xem Nhanh 3 Cung Tự Chọn (29.000đ)';
-      finalPkgId = 'vip_29k';
+      finalPkgName = 'Báo Cáo VIP A4 Toàn Thư (49.000đ)';
+      finalPkgId = 'vip_49k';
     }
 
     const host = req.headers.host || 'xemtuvihuyenhoc.com';
@@ -1120,11 +1119,11 @@ const server = http.createServer(async (req, res) => {
       if (matchedCodeMatch && inAmount >= 2000) {
         const rawCode = matchedCodeMatch[0].toUpperCase();
         const newCode = rawCode.startsWith('TV') ? rawCode : ('TV' + (matchedCodeMatch[1] || rawCode));
-        const pkgId = inAmount >= 150000 ? 'vip_199k' : (inAmount >= 80000 ? 'vip_99k' : (inAmount >= 40000 ? 'vip_49k' : (inAmount >= 35000 ? 'vip_39k' : 'vip_29k')));
+        const pkgId = inAmount >= 150000 ? 'vip_199k' : (inAmount >= 80000 ? 'vip_99k' : (inAmount >= 40000 ? 'vip_49k' : (inAmount >= 35000 ? 'vip_39k' : 'vip_49k')));
         const pkgName = pkgId === 'vip_199k' ? 'Gói Luận Sâu Đại Vận & Cải Mệnh Chuyên Sâu (199.000đ)' :
           (pkgId === 'vip_99k' ? 'Báo Cáo VIP A4 Toàn Thư (Mở Khóa 12 Cung & Đại Hạn) (99.000đ)' :
-          (pkgId === 'vip_49k' ? 'Gói Luận 3 Cung Tự Chọn (49.000đ)' :
-          (pkgId === 'vip_39k' ? 'Gói Thần Số Học VIP Toàn Thư A4 (39.000đ)' : 'Gói Mở Khóa Nhanh 3 Cung Trọng Tâm (29.000đ)')));
+          (pkgId === 'vip_49k' ? 'Báo Cáo VIP A4 Toàn Thư (49.000đ)' :
+          (pkgId === 'vip_39k' ? 'Gói Thần Số Học VIP Toàn Thư A4 (39.000đ)' : 'Báo Cáo VIP A4 Toàn Thư (49.000đ)')));
 
         const newOrder = {
           id: 'ord_' + Date.now(),
@@ -1380,7 +1379,7 @@ const server = http.createServer(async (req, res) => {
       } else if (eventType === 'payment_success') {
         analytics.summary.totalPaidOrders = (analytics.summary.totalPaidOrders || 0) + 1;
         analytics.dailyStats[vnDate].paidOrders = (analytics.dailyStats[vnDate].paidOrders || 0) + 1;
-        const paidAmount = Number((details && details.amount) || 29000);
+        const paidAmount = Number((details && details.amount) || 49000);
         analytics.dailyStats[vnDate].revenue = (analytics.dailyStats[vnDate].revenue || 0) + paidAmount;
 
         if (visitorId) {
@@ -1733,12 +1732,11 @@ const server = http.createServer(async (req, res) => {
         else if (amount >= 80000) packageId = 'vip_99k';
         else if (amount >= 40000) packageId = 'vip_49k';
         else if (amount >= 35000) packageId = 'vip_39k';
-        else packageId = 'vip_29k';
+        else packageId = 'vip_49k';
       }
 
       if (!packageName) {
         if (packageId === 'vip_49k') packageName = 'Báo Cáo VIP A4 Toàn Thư (49.000đ)';
-        else if (packageId === 'vip_29k') packageName = 'Gói Xem Nhanh 3 Cung Tự Chọn (29.000đ)';
         else if (packageId === 'vip_39k') packageName = 'Gói Thần Số Học Pythagoras VIP (39.000đ)';
         else if (packageId === 'deep_490k') packageName = 'Tham Vấn 1-1 Chuyên Đề (490.000đ)';
         else if (packageId === 'deep_990k') packageName = 'Luận Đàm 1-1 Toàn Đồ (990.000đ)';
@@ -2114,8 +2112,8 @@ const server = http.createServer(async (req, res) => {
           });
           if (matchedTx) {
             const amountIn = Number(matchedTx.amount_in || matchedTx.transferAmount || matchedTx.amount || 49000);
-            const pkgId = amountIn >= 40000 ? 'vip_49k' : 'vip_29k';
-            const pkgName = pkgId === 'vip_49k' ? 'Báo Cáo VIP A4 Toàn Thư (49.000đ)' : 'Gói Xem Nhanh 3 Cung (29.000đ)';
+            const pkgId = amountIn >= 40000 ? 'vip_49k' : 'vip_49k';
+            const pkgName = 'Báo Cáo VIP A4 Toàn Thư (49.000đ)';
             const orderCode = cleanQ.startsWith('TV') ? cleanQ : ('TV' + digitsOnly);
             order = {
               orderCode: orderCode,
@@ -2743,7 +2741,7 @@ const server = http.createServer(async (req, res) => {
               </div>
               <div class="vip-teaser-footer" style="border-top:1px dashed rgba(194, 155, 56, 0.4);padding-top:1.15rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
                 <div class="vip-teaser-price-wrap" style="display:inline-flex;align-items:center;gap:8px;background:#2A2118 !important;border:1px solid #C29B38 !important;border-radius:8px;padding:0.55rem 1.15rem;color:#FAF6ED !important;font-size:0.92rem;margin:0;">
-                  <span style="color:#FAF6ED !important;">Chi phí trợ duyên chỉ từ:</span> <span class="vip-price-highlight" style="font-family:var(--font-heading, serif);font-size:1.35rem;color:#FFD56B !important;font-weight:800;letter-spacing:0.5px;text-shadow:0 1px 2px rgba(0,0,0,0.5);">29.000đ – 39.000đ</span>
+                  <span style="color:#FAF6ED !important;">Chi phí trợ duyên chỉ:</span> <span class="vip-price-highlight" style="font-family:var(--font-heading, serif);font-size:1.35rem;color:#FFD56B !important;font-weight:800;letter-spacing:0.5px;text-shadow:0 1px 2px rgba(0,0,0,0.5);">49.000đ</span>
                 </div>
                 <a href="/#bang-gia-dich-vu" class="btn-vip-action" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg, #C29B38 0%, #E5BA5C 100%);color:#1A1510 !important;font-weight:800;font-size:0.95rem;padding:0.75rem 1.6rem;border-radius:6px;text-decoration:none;box-shadow:0 4px 14px rgba(194, 155, 56, 0.45);">
                   <i data-lucide="crown"></i> MỞ KHÓA BÁO CÁO VIP NGAY
