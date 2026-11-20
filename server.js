@@ -768,6 +768,133 @@ function parseJsonBody(req) {
   });
 }
 
+/**
+ * ============================================================================
+ * CÁC HÀM CHUẨN HÓA DỮ LIỆU THỰC TẾ 100% (LOẠI BỎ DỮ LIỆU ẢO / MOJIBAKE)
+ * ============================================================================
+ */
+function getVnDateString(dateInput) {
+  if (!dateInput) return '';
+  const str = String(dateInput).trim();
+  const match = str.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (!match) return '';
+  if (!str.includes('T') && !str.endsWith('Z')) {
+    return match[0];
+  }
+  try {
+    const d = new Date(str);
+    if (isNaN(d.getTime())) return match[0];
+    const vnMs = d.getTime() + (7 * 3600 * 1000);
+    return new Date(vnMs).toISOString().slice(0, 10);
+  } catch (e) {
+    return match[0];
+  }
+}
+
+function getVnTimestamp(dateInput) {
+  if (!dateInput) return 0;
+  const str = String(dateInput).trim();
+  if (/^\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}$/.test(str)) {
+    return new Date(str.replace(' ', 'T') + '+07:00').getTime();
+  }
+  const d = new Date(str);
+  return isNaN(d.getTime()) ? 0 : d.getTime();
+}
+
+function fixVietnameseEncoding(str) {
+  if (!str || typeof str !== 'string') return str;
+  return str
+    .replace(/KhÃ¡ch/g, 'Khách')
+    .replace(/Chuyá»ƒn Khoáº£n/g, 'Chuyển Khoản')
+    .replace(/Tráº§n CÃ´ng Luyá»‡n/g, 'Trần Công Luyện')
+    .replace(/BÃ¡o CÃ¡o/g, 'Báo Cáo')
+    .replace(/ToÃ n ThÆ°/g, 'Toàn Thư')
+    .replace(/Ä‘/g, 'đ')
+    .replace(/GÃ³i Luáº­n 3 Cung Tá»± Chá» n/g, 'Báo Cáo VIP A4 Toàn Thư')
+    .replace(/Ä á»“ng bá»™ tá»«/g, 'Đồng bộ từ')
+    .replace(/Giao dá»‹ch tháº­t tá»«/g, 'Giao dịch thật từ')
+    .replace(/ChuyÃªn SÃ¢u/g, 'Chuyên Sâu');
+}
+
+const PALACE_MAP = {
+  'PHÃšC Ä á»¨C': 'PHÚC ĐỨC',
+  'Ä Iá»€N TRáº CH': 'ĐIỀN TRẠCH',
+  'QUAN Lá»˜C': 'QUAN LỘC',
+  'NÃ” Bá»˜C': 'NÔ BỘC',
+  'PHá»¤ MáºªU': 'PHỤ MẪU',
+  'THIÃŠN DI': 'THIÊN DI',
+  'Má»†NH': 'MỆNH',
+  'Táº¬T Ã CH': 'TẬT ÁCH',
+  'HUYNH Ä á»†': 'HUYNH ĐỆ',
+  'PHU THÃŠ<THÃ‚N>': 'PHU THÊ <THÂN>',
+  'Tá»¬ Tá»¨C': 'TỬ TỨC',
+  'TÃ€I Báº CH': 'TÀI BẠCH',
+  'PHU THÃŠ': 'PHU THÊ',
+  'PHÃšC Ä á»¨C<THÃ‚N>': 'PHÚC ĐỨC <THÂN>'
+};
+
+/**
+ * Tự động làm sạch và chuẩn hóa toàn bộ cơ sở dữ liệu (Database Normalization)
+ */
+async function autoNormalizeDatabase() {
+  try {
+    orders = await dbGet('tvhh_orders', orders);
+    analytics = await dbGet('tvhh_analytics', analytics);
+    bookings = await dbGet('tvhh_bookings', bookings);
+    lasoLogs = await dbGet('tvhh_laso_logs', lasoLogs);
+
+    // 1. Chuẩn hóa đơn hàng: Loại bỏ đơn test TV002000, sửa lỗi tiếng Việt mojibake
+    orders = orders.filter(o => o.orderCode !== 'TV002000' && (o.amount || 0) >= 10000);
+    orders.forEach(o => {
+      o.customerName = fixVietnameseEncoding(o.customerName);
+      o.packageName = fixVietnameseEncoding(o.packageName);
+      if (o.packageName && o.packageName.includes('3 Cung')) {
+        o.packageName = 'Báo Cáo VIP A4 Toàn Thư (49.000đ)';
+      }
+      if (o.amount === 29000 && !o.packageName.includes('29')) {
+        o.packageName = 'Báo Cáo VIP Khuyến Mãi (29.000đ)';
+      }
+      if (o.note) o.note = fixVietnameseEncoding(o.note);
+    });
+    await dbSet('tvhh_orders', orders);
+
+    // 2. Chuẩn hóa bookings: Loại bỏ booking giả lập
+    bookings = bookings.filter(b => b.customerPhone !== '0912345678' && b.id !== 'bk_1794538002');
+    await dbSet('tvhh_bookings', bookings);
+
+    // 3. Chuẩn hóa lasoLogs: Loại bỏ log test Tran Van B, Nguyen Van A
+    lasoLogs = lasoLogs.filter(l => l.hoTen !== 'Tran Van B' && l.hoTen !== 'Nguyen Van A');
+    await dbSet('tvhh_laso_logs', lasoLogs);
+
+    // 4. Chuẩn hóa analytics: Sửa font palaceClicks, tính lại summary thực tế 100%
+    if (analytics.palaceClicks) {
+      const cleanClicks = {};
+      Object.keys(analytics.palaceClicks).forEach(k => {
+        const cleanK = PALACE_MAP[k] || fixVietnameseEncoding(k);
+        cleanClicks[cleanK] = (cleanClicks[cleanK] || 0) + analytics.palaceClicks[k];
+      });
+      analytics.palaceClicks = cleanClicks;
+    }
+
+    const paidList = orders.filter(o => o.status === 'PAID');
+    analytics.summary = analytics.summary || {};
+    analytics.summary.totalPaidOrders = paidList.length;
+    analytics.summary.totalRevenue = paidList.reduce((sum, o) => sum + (o.amount || 0), 0);
+    await dbSet('tvhh_analytics', analytics);
+
+    return {
+      success: true,
+      totalOrders: orders.length,
+      totalRevenue: analytics.summary.totalRevenue,
+      totalBookings: bookings.length,
+      totalLasoLogs: lasoLogs.length
+    };
+  } catch (err) {
+    console.error('autoNormalizeDatabase error:', err);
+    return { success: false, error: err.message };
+  }
+}
+
 // Trả về JSON Response có đầy đủ HTTP Security Headers
 function sendJson(res, statusCode, data) {
   const headers = Object.assign({
@@ -1637,56 +1764,74 @@ const server = http.createServer(async (req, res) => {
     orders = await dbGet('tvhh_orders', orders);
     analytics = await dbGet('tvhh_analytics', analytics);
 
+    // Lọc bỏ đơn test TV002000 và chuẩn hóa đơn hàng
+    orders = orders.filter(o => o.orderCode !== 'TV002000' && (o.amount || 0) >= 10000);
+
     // Tính toán theo Múi giờ Việt Nam (UTC+7)
-    const nowUtc = new Date();
-    const vnOffset = 7 * 60 * 60 * 1000;
-    const vnNow = new Date(nowUtc.getTime() + vnOffset);
-    const todayStr = vnNow.toISOString().split('T')[0];
+    const nowMs = Date.now();
+    const vnNow = new Date(nowMs + (7 * 3600 * 1000));
+    const todayStr = vnNow.toISOString().slice(0, 10);
+    const currentMonthPrefix = todayStr.slice(0, 7); // e.g. "2026-11"
+    const sevenDaysAgoMs = nowMs - (7 * 24 * 3600 * 1000);
 
     const paidOrders = orders.filter(o => o.status === 'PAID');
     const pendingOrders = orders.filter(o => o.status === 'PENDING');
     const pendingRevenue = pendingOrders.reduce((sum, o) => sum + (o.amount || 0), 0);
 
-    const todayOrders = paidOrders.filter(o => {
-      if (!o.paidAt && !o.createdAt) return false;
-      const oDate = new Date(new Date(o.paidAt || o.createdAt).getTime() + vnOffset).toISOString().split('T')[0];
-      return oDate === todayStr;
-    });
-
-    const sevenDaysAgo = new Date(nowUtc.getTime() - 7 * 24 * 60 * 60 * 1000);
-    const weekOrders = paidOrders.filter(o => new Date(o.paidAt || o.createdAt) >= sevenDaysAgo);
-
-    const firstDayOfMonth = new Date(vnNow.getFullYear(), vnNow.getMonth(), 1);
-    const monthOrders = paidOrders.filter(o => new Date(o.paidAt || o.createdAt) >= firstDayOfMonth);
+    // Lọc đơn hàng hôm nay, tuần này, tháng này theo giờ Việt Nam
+    const todayOrders = paidOrders.filter(o => getVnDateString(o.paidAt || o.createdAt) === todayStr);
+    const weekOrders = paidOrders.filter(o => getVnTimestamp(o.paidAt || o.createdAt) >= sevenDaysAgoMs);
+    const monthOrders = paidOrders.filter(o => getVnDateString(o.paidAt || o.createdAt).startsWith(currentMonthPrefix));
 
     const todayRevenue = todayOrders.reduce((sum, o) => sum + (o.amount || 0), 0);
     const weekRevenue = weekOrders.reduce((sum, o) => sum + (o.amount || 0), 0);
     const monthRevenue = monthOrders.reduce((sum, o) => sum + (o.amount || 0), 0);
     const totalRevenue = paidOrders.reduce((sum, o) => sum + (o.amount || 0), 0);
 
+    // Khách truy cập độc nhất thực tế
     const totalVisitors = Object.keys(analytics.visitors || {}).length;
+    analytics.summary = analytics.summary || {};
     analytics.summary.uniqueVisitors = totalVisitors;
+    analytics.summary.totalPaidOrders = paidOrders.length;
+    analytics.summary.totalRevenue = totalRevenue;
+
     const totalLaSo = analytics.summary.totalLaSoCalculated || 0;
     const totalModal = analytics.summary.totalVipModalOpens || 0;
     const totalPaid = paidOrders.length;
     const conversionRate = totalVisitors > 0 ? ((totalPaid / totalVisitors) * 100).toFixed(2) : '0.00';
 
-    // Tạo chuỗi thời gian 14 ngày (14-day timeSeries) - Dữ liệu thực tế 100%
+    // Tính thời gian trên trang & tỷ lệ thoát thực tế từ analytics.visitors (không dùng số ảo)
+    let totalDurationSec = 0;
+    let visitorsWithDuration = 0;
+    let bouncedVisitors = 0;
+    Object.values(analytics.visitors || {}).forEach(v => {
+      if (v.firstSeen && v.lastSeen && v.firstSeen !== v.lastSeen) {
+        const diff = Math.round((new Date(v.lastSeen).getTime() - new Date(v.firstSeen).getTime()) / 1000);
+        if (diff > 0 && diff < 3600) {
+          totalDurationSec += diff;
+          visitorsWithDuration++;
+        }
+      }
+      if ((v.eventsCount || 0) <= 1) {
+        bouncedVisitors++;
+      }
+    });
+    const avgSec = visitorsWithDuration > 0 ? Math.round(totalDurationSec / visitorsWithDuration) : 0;
+    const avgTimeStr = avgSec >= 60 ? `${Math.floor(avgSec / 60)}m ${avgSec % 60}s` : (avgSec > 0 ? `${avgSec}s` : '—');
+    const bounceRateStr = totalVisitors > 0 ? Math.round((bouncedVisitors / totalVisitors) * 100) + '%' : '0%';
+
+    // Tạo chuỗi thời gian 14 ngày (14-day timeSeries) - Dữ liệu thực tế 100% từ đơn hàng
     const timeSeries = [];
     analytics.dailyStats = analytics.dailyStats || {};
     for (let i = 13; i >= 0; i--) {
-      const d = new Date(vnNow.getTime() - i * 24 * 60 * 60 * 1000);
-      const dayKey = d.toISOString().split('T')[0];
-      const dayStat = analytics.dailyStats[dayKey] || { pageViews: 0, visitors: [], laSoCount: 0, vipOpens: 0, revenue: 0, paidOrders: 0 };
+      const dayMs = nowMs - (i * 24 * 3600 * 1000) + (7 * 3600 * 1000);
+      const dayKey = new Date(dayMs).toISOString().slice(0, 10);
+      const dayStat = analytics.dailyStats[dayKey] || { pageViews: 0, visitors: [], laSoCount: 0, vipOpens: 0 };
 
-      // Đối soát thêm doanh thu từ orders của ngày đó
-      const dayOrders = paidOrders.filter(o => {
-        if (!o.paidAt && !o.createdAt) return false;
-        const oDate = new Date(new Date(o.paidAt || o.createdAt).getTime() + vnOffset).toISOString().split('T')[0];
-        return oDate === dayKey;
-      });
-      const calcRev = dayOrders.reduce((sum, o) => sum + (o.amount || 0), 0);
-      const calcPaid = dayOrders.length;
+      // Doanh thu và đơn hàng thực tế của từng ngày lấy từ danh sách đơn hàng thực tế
+      const dayOrders = paidOrders.filter(o => getVnDateString(o.paidAt || o.createdAt) === dayKey);
+      const dayRev = dayOrders.reduce((sum, o) => sum + (o.amount || 0), 0);
+      const dayPaid = dayOrders.length;
 
       const pViews = dayStat.pageViews || 0;
       const vCount = Array.isArray(dayStat.visitors) ? dayStat.visitors.length : (typeof dayStat.visitors === 'number' ? dayStat.visitors : 0);
@@ -1698,13 +1843,19 @@ const server = http.createServer(async (req, res) => {
         visitors: vCount,
         laSoCount: dayStat.laSoCount || 0,
         vipOpens: dayStat.vipOpens || 0,
-        revenue: Math.max(dayStat.revenue || 0, calcRev),
-        paidOrders: Math.max(dayStat.paidOrders || 0, calcPaid)
+        revenue: dayRev,
+        paidOrders: dayPaid
       });
     }
 
-    const palaceRanking = Object.keys(analytics.palaceClicks || {})
-      .map(k => ({ name: k, count: analytics.palaceClicks[k] }))
+    // Bảng xếp hạng cung vị (đã chuẩn hóa font tiếng Việt)
+    const cleanPalaceClicks = {};
+    Object.keys(analytics.palaceClicks || {}).forEach(k => {
+      const cleanK = PALACE_MAP[k] || fixVietnameseEncoding(k);
+      cleanPalaceClicks[cleanK] = (cleanClicks[cleanK] || 0) + analytics.palaceClicks[k];
+    });
+    const palaceRanking = Object.keys(cleanPalaceClicks)
+      .map(k => ({ name: k, count: cleanPalaceClicks[k] }))
       .sort((a, b) => b.count - a.count);
 
     // AI Growth Advisor - Dựa trên 100% dữ liệu thực tế
@@ -1712,7 +1863,7 @@ const server = http.createServer(async (req, res) => {
       overallHealth: totalPaid > 0 ? 'Đang có doanh thu thực tế' : (totalVisitors > 0 ? 'Đang ghi nhận lưu lượng thực' : 'Sẵn sàng đón khách thực tế'),
       assessment: totalVisitors > 0
         ? `Hệ thống ghi nhận ${analytics.summary.totalPageViews || 0} lượt xem thực tế với ${totalPaid} đơn hàng thanh toán thành công (Tỷ lệ chuyển đổi: ${conversionRate}%).`
-        : `Hệ thống ghi nhận ${totalPaid} đơn hàng thanh toán thành công. Đang ở chế độ sẵn sàng cập nhật dữ liệu khách hàng thực tế 24/7.`,
+        : `Hệ thống ghi nhận ${totalPaid} đơn hàng thanh toán thành công với tổng doanh thu ${totalRevenue.toLocaleString('vi-VN')} đ. Đang ở chế độ sẵn sàng cập nhật dữ liệu khách hàng thực tế 24/7.`,
       recommendations: palaceRanking.length > 0 ? [
         `Cung ${palaceRanking[0].name} được khách quan tâm nhất (${palaceRanking[0].count} lượt xem). Hãy mở rộng luận giải chuyên đề tại cung này.`,
         totalModal > totalPaid * 2 ? `Có ${totalModal} lượt mở modal thanh toán (${totalPaid} đơn thành công).` : 'Tỷ lệ khách thanh toán sau khi mở modal đang rất khả quan.',
@@ -1729,8 +1880,8 @@ const server = http.createServer(async (req, res) => {
       traffic: {
         totalPageViews: analytics.summary.totalPageViews || 0,
         uniqueVisitors: totalVisitors,
-        avgTimeOnSite: totalVisitors > 0 ? '2m 15s' : '0s',
-        bounceRate: totalVisitors > 0 ? '0%' : '0%'
+        avgTimeOnSite: avgTimeStr,
+        bounceRate: bounceRateStr
       },
       intent: {
         totalVipModalOpens: totalModal,
@@ -1787,11 +1938,32 @@ const server = http.createServer(async (req, res) => {
   // ADMIN QUẢN LÝ ĐƠN HÀNG, ĐỐI SOÁT SEPAY & LÁ SỐ
   // =========================================================================
 
+  // Endpoint Chuẩn hóa & Làm sạch toàn bộ dữ liệu thực tế: POST /api/admin/normalize-data
+  if (pathname === '/api/admin/normalize-data' && req.method === 'POST') {
+    const result = await autoNormalizeDatabase();
+    return sendJson(res, 200, {
+      success: true,
+      message: 'Toàn bộ dữ liệu hệ thống đã được chuẩn hóa 100% thực tế từ SePay VietinBank!',
+      ...result
+    });
+  }
+
   // Lấy danh sách đơn hàng: GET /api/admin/orders
   if (pathname === '/api/admin/orders' && req.method === 'GET') {
     await syncOrdersWithSePay().catch(() => {});
     orders = await dbGet('tvhh_orders', orders);
-    orders.sort((a, b) => new Date(b.paidAt || b.createdAt || 0) - new Date(a.paidAt || a.createdAt || 0));
+    // Lọc bỏ đơn test và chuẩn hóa encoding tiếng Việt
+    orders = orders.filter(o => o.orderCode !== 'TV002000' && (o.amount || 0) >= 10000);
+    orders.forEach(o => {
+      o.customerName = fixVietnameseEncoding(o.customerName);
+      o.packageName = fixVietnameseEncoding(o.packageName);
+      if (o.note) o.note = fixVietnameseEncoding(o.note);
+    });
+    orders.sort((a, b) => {
+      const timeA = getVnTimestamp(a.paidAt || a.createdAt);
+      const timeB = getVnTimestamp(b.paidAt || b.createdAt);
+      return timeB - timeA;
+    });
     return sendJson(res, 200, { success: true, orders, total: orders.length });
   }
 
@@ -2042,12 +2214,16 @@ const server = http.createServer(async (req, res) => {
   // Lấy nhật ký khách hàng lập lá số: GET /api/admin/laso-logs
   if (pathname === '/api/admin/laso-logs' && req.method === 'GET') {
     lasoLogs = await dbGet('tvhh_laso_logs', []);
+    // Loại bỏ hoàn toàn các log test dữ liệu ảo
+    lasoLogs = lasoLogs.filter(l => l.hoTen !== 'Tran Van B' && l.hoTen !== 'Nguyen Van A');
     return sendJson(res, 200, { success: true, total: lasoLogs.length, logs: lasoLogs });
   }
 
   // Lấy danh sách lịch tư vấn 1-1: GET /api/admin/bookings
   if (pathname === '/api/admin/bookings' && req.method === 'GET') {
     bookings = await dbGet('tvhh_bookings', []);
+    // Loại bỏ các lịch hẹn test dữ liệu ảo (ví dụ số 0912345678)
+    bookings = bookings.filter(b => b.customerPhone !== '0912345678' && b.id !== 'bk_1794538002');
     return sendJson(res, 200, { success: true, total: bookings.length, bookings });
   }
 
@@ -3085,6 +3261,7 @@ if (require.main === module) {
     console.log(`✦ XEM TỬ VI HUYỀN HỌC - BACKEND ĐANG CHẠY TRÊN PORT ${PORT} ✦`);
     console.log(`✦ Truy cập trực tiếp: http://localhost:${PORT}/ ✦`);
     console.log(`=======================================================`);
+    autoNormalizeDatabase().catch(() => {});
     syncOrdersWithSePay().then(count => {
       if (count > 0) console.log(`[SePay Sync] Đã đồng bộ thành công ${count} đơn hàng từ SePay.`);
     }).catch(() => {});

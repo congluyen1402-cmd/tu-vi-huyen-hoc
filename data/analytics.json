@@ -1,12 +1,12 @@
 {
   "summary": {
-    "totalPageViews": 154,
-    "uniqueVisitors": 6,
+    "totalPageViews": 184,
+    "uniqueVisitors": 21,
     "totalLaSoCalculated": 5,
     "totalPalaceClicks": 135,
     "totalVipModalOpens": 0,
-    "totalPaidOrders": 26,
-    "totalRevenue": 1239000
+    "totalPaidOrders": 25,
+    "totalRevenue": 1765000
   },
   "palaceClicks": {
     "PHÚC ĐỨC": 5,
@@ -54,6 +54,81 @@
       "firstSeen": "2026-11-20T04:36:14.838Z",
       "eventsCount": 42,
       "lastSeen": "2026-11-20T04:36:24.755Z"
+    },
+    "vis_mwoixrkf_2a1neer": {
+      "firstSeen": "2026-11-20T05:14:02.171Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-20T05:14:02.223Z"
+    },
+    "vis_mwoixrmg_cmzpypz": {
+      "firstSeen": "2026-11-20T05:14:02.237Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-20T05:14:02.353Z"
+    },
+    "vis_mwoixrkx_9lqm6db": {
+      "firstSeen": "2026-11-20T05:14:02.270Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-20T05:14:02.669Z"
+    },
+    "vis_mwoiy4v7_urjp9at": {
+      "firstSeen": "2026-11-20T05:14:19.411Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-20T05:14:19.547Z"
+    },
+    "vis_mwoiy4v7_nig2p8j": {
+      "firstSeen": "2026-11-20T05:14:19.491Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-20T05:14:19.889Z"
+    },
+    "vis_mwoiy4wo_ra1x2w7": {
+      "firstSeen": "2026-11-20T05:14:19.557Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-20T05:14:19.604Z"
+    },
+    "vis_mwoiyuhf_v9ojn14": {
+      "firstSeen": "2026-11-20T05:14:52.507Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-20T05:14:52.644Z"
+    },
+    "vis_mwoiyuhf_ftdeiw3": {
+      "firstSeen": "2026-11-20T05:14:52.606Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-20T05:14:52.683Z"
+    },
+    "vis_mwoiyuhu_ydsukoz": {
+      "firstSeen": "2026-11-20T05:14:52.656Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-20T05:14:52.711Z"
+    },
+    "vis_mwoiz4mu_ehpk6i3": {
+      "firstSeen": "2026-11-20T05:15:05.896Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-20T05:15:06.006Z"
+    },
+    "vis_mwoiz4t7_i0s43au": {
+      "firstSeen": "2026-11-20T05:15:06.175Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-20T05:15:06.328Z"
+    },
+    "vis_mwoiz9x8_sx5f8u6": {
+      "firstSeen": "2026-11-20T05:15:12.815Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-20T05:15:12.850Z"
+    },
+    "vis_mwojilnl_oclvdfs": {
+      "firstSeen": "2026-11-20T05:30:14.116Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-20T05:30:14.212Z"
+    },
+    "vis_mwojilnr_69i7rus": {
+      "firstSeen": "2026-11-20T05:30:14.241Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-20T05:30:14.275Z"
+    },
+    "vis_mwojilnx_a6fg547": {
+      "firstSeen": "2026-11-20T05:30:14.255Z",
+      "eventsCount": 2,
+      "lastSeen": "2026-11-20T05:30:14.287Z"
     }
   },
   "dailyStats": {
@@ -124,14 +199,29 @@
       "paidOrders": 2
     },
     "2026-11-20": {
-      "pageViews": 154,
+      "pageViews": 184,
       "visitors": [
         "vis_mwogy46q_0yg4sct",
         "vis_mwogzduy_xprj3ld",
         "vis_mwoh73l3_v4d34s1",
         "vis_mwoh7syp_jm66odh",
         "vis_mwoh8rs9_342yysn",
-        "vis_mwohl6ad_dibgz9n"
+        "vis_mwohl6ad_dibgz9n",
+        "vis_mwoixrkf_2a1neer",
+        "vis_mwoixrmg_cmzpypz",
+        "vis_mwoixrkx_9lqm6db",
+        "vis_mwoiy4v7_urjp9at",
+        "vis_mwoiy4v7_nig2p8j",
+        "vis_mwoiy4wo_ra1x2w7",
+        "vis_mwoiyuhf_v9ojn14",
+        "vis_mwoiyuhf_ftdeiw3",
+        "vis_mwoiyuhu_ydsukoz",
+        "vis_mwoiz4mu_ehpk6i3",
+        "vis_mwoiz4t7_i0s43au",
+        "vis_mwoiz9x8_sx5f8u6",
+        "vis_mwojilnl_oclvdfs",
+        "vis_mwojilnr_69i7rus",
+        "vis_mwojilnx_a6fg547"
       ],
       "laSoCount": 5,
       "vipOpens": 0,
@@ -140,6 +230,291 @@
     }
   },
   "events": [
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwojilnx_a6fg547",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-20T05:30:14.287Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwojilnr_69i7rus",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-20T05:30:14.275Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwojilnx_a6fg547",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "390x844",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-20T05:30:14.255Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwojilnr_69i7rus",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "390x844",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-20T05:30:14.241Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwojilnl_oclvdfs",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-20T05:30:14.212Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwojilnl_oclvdfs",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "390x844",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-20T05:30:14.116Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwoiz9x8_sx5f8u6",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-20T05:15:12.850Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwoiz9x8_sx5f8u6",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "390x844",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-20T05:15:12.815Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwoiz4t7_i0s43au",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-20T05:15:06.328Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwoiz4t7_i0s43au",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "390x844",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-20T05:15:06.175Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwoiz4mu_ehpk6i3",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-20T05:15:06.006Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwoiz4mu_ehpk6i3",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "390x844",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-20T05:15:05.896Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwoiyuhu_ydsukoz",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-20T05:14:52.711Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwoiyuhf_ftdeiw3",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-20T05:14:52.683Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwoiyuhu_ydsukoz",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "390x844",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-20T05:14:52.656Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwoiyuhf_v9ojn14",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-20T05:14:52.645Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwoiyuhf_ftdeiw3",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "390x844",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-20T05:14:52.606Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwoiyuhf_v9ojn14",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "390x844",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-20T05:14:52.507Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwoiy4v7_nig2p8j",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-20T05:14:19.889Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwoiy4wo_ra1x2w7",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-20T05:14:19.604Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwoiy4wo_ra1x2w7",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "390x844",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-20T05:14:19.557Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwoiy4v7_urjp9at",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-20T05:14:19.547Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwoiy4v7_nig2p8j",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "390x844",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-20T05:14:19.491Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwoiy4v7_urjp9at",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "390x844",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-20T05:14:19.411Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwoixrkx_9lqm6db",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-20T05:14:02.669Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwoixrmg_cmzpypz",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-20T05:14:02.353Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwoixrkx_9lqm6db",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "390x844",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-20T05:14:02.270Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwoixrmg_cmzpypz",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "390x844",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-20T05:14:02.237Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwoixrkf_2a1neer",
+      "details": {
+        "path": "/"
+      },
+      "timestamp": "2026-11-20T05:14:02.223Z"
+    },
+    {
+      "eventType": "page_view",
+      "visitorId": "vis_mwoixrkf_2a1neer",
+      "details": {
+        "path": "/",
+        "referrer": "",
+        "screen": "390x844",
+        "device": "mobile"
+      },
+      "timestamp": "2026-11-20T05:14:02.171Z"
+    },
     {
       "eventType": "page_view",
       "visitorId": "vis_mwohl6ad_dibgz9n",

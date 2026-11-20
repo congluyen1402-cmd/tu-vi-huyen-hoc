@@ -1065,6 +1065,9 @@
         <button class="btn-action-pill" onclick="openSepayReconcileModal()">
           <i data-lucide="repeat"></i> 🔄 Đối Soát SePay
         </button>
+        <button class="btn-action-pill" onclick="normalizeAllData()" title="Làm sạch &amp; chuẩn hóa dữ liệu 100% thực tế">
+          <i data-lucide="shield-check"></i> 🧹 Chuẩn Hóa Dữ Liệu
+        </button>
         <button class="btn-action-pill" onclick="refreshAllData()">
           <i data-lucide="refresh-cw"></i> Làm Mới
         </button>
@@ -1084,10 +1087,10 @@
         <span style="font-size:0.85rem; font-weight:600; color:var(--text);">Bộ Lọc Thời Gian Thống Kê:</span>
       </div>
       <div class="filter-tabs">
-        <button class="filter-tab active" data-range="today" onclick="switchTimeFilter('today')">Hôm nay</button>
+        <button class="filter-tab active" data-range="all" onclick="switchTimeFilter('all')">Tất cả thời gian</button>
+        <button class="filter-tab" data-range="today" onclick="switchTimeFilter('today')">Hôm nay</button>
         <button class="filter-tab" data-range="7d" onclick="switchTimeFilter('7d')">7 ngày qua</button>
         <button class="filter-tab" data-range="30d" onclick="switchTimeFilter('30d')">30 ngày qua</button>
-        <button class="filter-tab" data-range="all" onclick="switchTimeFilter('all')">Tất cả thời gian</button>
       </div>
     </div>
 
@@ -1638,7 +1641,7 @@
     // =========================================================================
     // BỘ LỌC THỜI GIAN
     // =========================================================================
-    let _currentTimeFilter = 'today';
+    let _currentTimeFilter = 'all';
 
     function switchTimeFilter(range) {
       _currentTimeFilter = range;
@@ -2015,6 +2018,36 @@
           const matchMemo = ('sevqr ' + (o.orderCode || '')).toLowerCase().includes(search);
           if (!matchCode && !matchName && !matchPhone && !matchNote && !matchTx && !matchMemo) return false;
         }
+
+        // Lọc theo bộ lọc thời gian nếu có
+        if (_currentTimeFilter && _currentTimeFilter !== 'all') {
+          const dStr = o.paidAt || o.createdAt;
+          if (!dStr) return true;
+          let timeMs = 0;
+          if (typeof dStr === 'number') {
+            timeMs = dStr;
+          } else {
+            let str = String(dStr).trim();
+            if (!str.includes('Z') && !str.includes('+') && !str.includes('T')) {
+              str = str.replace(' ', 'T') + '+07:00';
+            }
+            timeMs = new Date(str).getTime();
+            if (isNaN(timeMs)) timeMs = new Date(dStr).getTime() || 0;
+          }
+
+          const now = new Date();
+          const vnTodayStr = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Ho_Chi_Minh' }).format(now);
+          const orderDateStr = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Ho_Chi_Minh' }).format(new Date(timeMs));
+
+          if (_currentTimeFilter === 'today') {
+            return orderDateStr === vnTodayStr;
+          } else if (_currentTimeFilter === '7d') {
+            return (now.getTime() - timeMs) <= 7 * 86400 * 1000;
+          } else if (_currentTimeFilter === '30d') {
+            return (now.getTime() - timeMs) <= 30 * 86400 * 1000;
+          }
+        }
+
         return true;
       });
 
@@ -2857,6 +2890,30 @@ Chúc bạn vạn sự cát tường, khai mở hanh thông!`;
         }
       } catch (err) {
         showToast('Lỗi kết nối khi xóa bài viết', 'error');
+      }
+    }
+
+    // =========================================================================
+    // CHUẨN HÓA DỮ LIỆU THỰC TẾ 100%
+    // =========================================================================
+    async function normalizeAllData() {
+      if (!confirm('Bạn có muốn hệ thống chuẩn hóa & làm sạch 100% dữ liệu thực tế từ SePay VietinBank?')) return;
+      try {
+        showToast('⏳ Đang chuẩn hóa dữ liệu thực tế...', 'info');
+        const res = await fetch(getApiUrl('/api/admin/normalize-data'), {
+          method: 'POST',
+          headers: getAdminHeaders()
+        });
+        if (handleAuthError(res)) return;
+        const data = await res.json();
+        if (data.success) {
+          showToast('✅ Đã chuẩn hóa 100% dữ liệu thực tế thành công!', 'success');
+          refreshAllData();
+        } else {
+          showToast(data.message || 'Lỗi chuẩn hóa', 'error');
+        }
+      } catch (err) {
+        showToast('Lỗi kết nối máy chủ: ' + err.message, 'error');
       }
     }
 

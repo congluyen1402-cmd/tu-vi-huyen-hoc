@@ -13,58 +13,6 @@
     "isPaid": false
   },
   {
-    "id": "ls_1795148799837_100",
-    "timestamp": "2026-11-20T04:26:39.837Z",
-    "visitorId": "vis_mwoh8rs9_342yysn",
-    "hoTen": "Tran Van B",
-    "gioiTinh": "nam",
-    "ngayThangNam": "20/5/1992",
-    "gioSinh": "14:30",
-    "banMenh": "",
-    "cucMenh": "",
-    "hasOpenedQr": false,
-    "isPaid": false
-  },
-  {
-    "id": "ls_1795148754813_316",
-    "timestamp": "2026-11-20T04:25:54.813Z",
-    "visitorId": "vis_mwoh7syp_jm66odh",
-    "hoTen": "Tran Van B",
-    "gioiTinh": "nam",
-    "ngayThangNam": "20/5/1992",
-    "gioSinh": "14:30",
-    "banMenh": "",
-    "cucMenh": "",
-    "hasOpenedQr": false,
-    "isPaid": false
-  },
-  {
-    "id": "ls_1795148721873_113",
-    "timestamp": "2026-11-20T04:25:21.873Z",
-    "visitorId": "vis_mwoh73l3_v4d34s1",
-    "hoTen": "Tran Van B",
-    "gioiTinh": "nam",
-    "ngayThangNam": "20/5/1992",
-    "gioSinh": "14:30",
-    "banMenh": "",
-    "cucMenh": "",
-    "hasOpenedQr": false,
-    "isPaid": false
-  },
-  {
-    "id": "ls_1795148362032_680",
-    "timestamp": "2026-11-20T04:19:22.032Z",
-    "visitorId": "vis_mwogzduy_xprj3ld",
-    "hoTen": "Nguyen Van A",
-    "gioiTinh": "nam",
-    "ngayThangNam": "15/8/1995",
-    "gioSinh": "9:00",
-    "banMenh": "",
-    "cucMenh": "",
-    "hasOpenedQr": false,
-    "isPaid": false
-  },
-  {
     "id": "ls_1794727210072_330",
     "timestamp": "2026-11-15T07:20:10.072Z",
     "visitorId": "vis_user_real_998877",
