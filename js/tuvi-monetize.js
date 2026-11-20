@@ -1403,7 +1403,25 @@
     quickRestoreSavedCode: function (orderCode) {
       const input = document.getElementById('restoreQueryInput');
       if (input) input.value = orderCode;
-      this.handleRestoreSubmit();
+      // true = Tự động đóng modal ngay sau khi khôi phục thành công để vào xem lá số mượt mà
+      this.handleRestoreSubmit(null, true);
+    },
+
+    viewReportNow: function () {
+      if (this._restoreCountdownTimer) {
+        clearInterval(this._restoreCountdownTimer);
+        this._restoreCountdownTimer = null;
+      }
+      this.closeRestoreModal();
+      if (typeof TuViChart !== 'undefined' && typeof TuViChart.expandAllPalaces === 'function') {
+        TuViChart.expandAllPalaces();
+      }
+      setTimeout(() => {
+        const target = document.getElementById('vip12PalacesSection') || document.getElementById('ket-qua');
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
     },
 
     _fallbackCopyText: function (text, promptTitle) {
@@ -2236,9 +2254,9 @@
       if (document.getElementById('tuvi-restore-modal')) return;
 
       const html = `
-        <div id="tuvi-restore-modal" class="tuvi-tool-modal-backdrop">
+        <div id="tuvi-restore-modal" class="tuvi-tool-modal-backdrop" onclick="if(event.target === this) TuViMonetize.closeRestoreModal()">
           <div class="tuvi-tool-modal-card" style="max-width:520px;">
-            <button class="tuvi-tool-modal-close" onclick="TuViMonetize.closeRestoreModal()">&times;</button>
+            <button class="tuvi-tool-modal-close" onclick="TuViMonetize.closeRestoreModal()" aria-label="Đóng">&times;</button>
             <h3 style="color:#D4AF37; display:flex; align-items:center; gap:8px;">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg>
               Xem Lại Báo Cáo VIP
@@ -2256,9 +2274,14 @@
                 <input type="text" id="restoreQueryInput" class="tuvi-tool-input" placeholder="Ví dụ: TV216469 hoặc 0988888888" required autocomplete="off" style="text-transform:uppercase; font-weight:700; letter-spacing:0.5px;">
               </div>
               <div id="restoreErrorMsg" class="tuvi-tool-error" style="display:none; margin-bottom:0.8rem;"></div>
-              <button type="submit" id="btnRestoreSubmit" class="btn-tool-submit" style="width:100%; padding:0.75rem 1rem; font-weight:700; font-size:0.95rem; background:linear-gradient(135deg, #991b1b 0%, #b91c1c 100%); color:#fff; border:none; border-radius:8px; cursor:pointer;">
+              <button type="submit" id="btnRestoreSubmit" class="btn-tool-submit" style="width:100%; padding:0.75rem 1rem; font-weight:700; font-size:0.95rem; background:linear-gradient(135deg, #991b1b 0%, #b91c1c 100%); color:#fff; border:none; border-radius:8px; cursor:pointer; box-shadow:0 2px 4px rgba(153,27,27,0.25);">
                 🔍 Xem lại báo cáo
               </button>
+              <div style="text-align:center; margin-top:8px;">
+                <button type="button" onclick="TuViMonetize.closeRestoreModal()" style="background:none; border:none; color:#6b7280; font-size:0.86rem; text-decoration:underline; cursor:pointer; padding:6px 12px;">
+                  ✕ Đóng cửa sổ tra cứu
+                </button>
+              </div>
             </form>
 
             <!-- KHỐI KẾT QUẢ KHÔI PHỤC THÀNH CÔNG & MAGIC LINK -->
@@ -2289,10 +2312,17 @@
                 </p>
               </div>
 
-              <div style="display:flex; justify-content:flex-end; gap:8px;">
-                <button type="button" class="btn-tool-submit" style="padding:0.6rem 1.4rem; font-size:0.88rem; font-weight:700; background:#15803d; color:#fff; border:none; border-radius:6px; cursor:pointer;" onclick="TuViMonetize.closeRestoreModal();">
-                  ✨ Xem Bản Luận Giải Ngay
+              <!-- CÁC NÚT HÀNH ĐỘNG TO RÕ DỄ BẤM TRÊN MOBILE -->
+              <div style="display:flex; flex-direction:column; gap:8px; margin-top:12px;">
+                <button type="button" class="btn-tool-submit" style="width:100%; padding:0.8rem 1rem; font-size:0.95rem; font-weight:700; background:linear-gradient(135deg, #15803d 0%, #16a34a 100%); color:#fff; border:none; border-radius:8px; cursor:pointer; box-shadow:0 2px 6px rgba(22,163,74,0.3); display:flex; align-items:center; justify-content:center; gap:6px;" onclick="TuViMonetize.viewReportNow();">
+                  ✨ Xem Bản Luận Giải Ngay (Tự Động Cuộn)
                 </button>
+                <button type="button" style="width:100%; padding:0.65rem 1rem; font-size:0.88rem; font-weight:600; background:#ffffff; color:#374151; border:1px solid #d1d5db; border-radius:8px; cursor:pointer;" onclick="TuViMonetize.closeRestoreModal();">
+                  ✕ Đóng Cửa Sổ Tra Cứu
+                </button>
+              </div>
+              <div id="restoreCountdownMsg" style="text-align:center; font-size:0.78rem; color:#6b7280; margin-top:8px;">
+                ⏱ Cửa sổ tự động chuyển tới lá số sau <strong id="restoreCountdownNum" style="color:#15803d;">4</strong>s...
               </div>
             </div>
           </div>
@@ -2302,6 +2332,11 @@
     },
 
     openRestoreModal: function () {
+      if (this._restoreCountdownTimer) {
+        clearInterval(this._restoreCountdownTimer);
+        this._restoreCountdownTimer = null;
+      }
+
       let modal = document.getElementById('tuvi-restore-modal');
       if (!modal) {
         this.createRestoreModalDOM();
@@ -2319,6 +2354,10 @@
 
       const input = document.getElementById('restoreQueryInput');
       const savedSection = document.getElementById('restoreSavedSection');
+
+      // Cuộn card lên đầu
+      const card = modal.querySelector('.tuvi-tool-modal-card');
+      if (card) card.scrollTop = 0;
 
       // Kiểm tra danh sách mã VIP đã lưu trên thiết bị
       const savedCodes = this.getSavedVipCodes();
@@ -2364,6 +2403,16 @@
         if (input) input.value = '';
       }
 
+      // Lắng nghe phím ESC để đóng modal
+      if (!this._restoreKeyHandler) {
+        this._restoreKeyHandler = (evt) => {
+          if (evt.key === 'Escape') {
+            TuViMonetize.closeRestoreModal();
+          }
+        };
+        window.addEventListener('keydown', this._restoreKeyHandler);
+      }
+
       modal.classList.add('active');
       document.body.style.overflow = 'hidden';
       if (typeof window !== 'undefined' && window.lucide) {
@@ -2372,6 +2421,14 @@
     },
 
     closeRestoreModal: function () {
+      if (this._restoreCountdownTimer) {
+        clearInterval(this._restoreCountdownTimer);
+        this._restoreCountdownTimer = null;
+      }
+      if (this._restoreKeyHandler) {
+        window.removeEventListener('keydown', this._restoreKeyHandler);
+        this._restoreKeyHandler = null;
+      }
       const modal = document.getElementById('tuvi-restore-modal');
       if (modal) {
         modal.classList.remove('active');
@@ -2379,8 +2436,13 @@
       }
     },
 
-    handleRestoreSubmit: async function (e) {
+    handleRestoreSubmit: async function (e, autoClose = false) {
       if (e) e.preventDefault();
+      if (this._restoreCountdownTimer) {
+        clearInterval(this._restoreCountdownTimer);
+        this._restoreCountdownTimer = null;
+      }
+
       const input = document.getElementById('restoreQueryInput');
       const errEl = document.getElementById('restoreErrorMsg');
       const btn = document.getElementById('btnRestoreSubmit');
@@ -2429,21 +2491,63 @@
           // Tự động khôi phục và vẽ lá số
           this.renderChartFromOrderOrStorage(data.order);
 
-          // Hiển thị phần kết quả thành công và Magic Link trong modal
-          if (successSec) {
-            const codeEl = document.getElementById('restoreSuccessCode');
-            const pkgEl = document.getElementById('restoreSuccessPkg');
-            const linkInput = document.getElementById('restoreMagicLinkInput');
-            if (codeEl) codeEl.textContent = oCode;
-            if (pkgEl) pkgEl.textContent = data.order.packageName || 'Báo Cáo VIP Toàn Thư';
-            if (linkInput) linkInput.value = this.getMagicLink(oCode);
-            successSec.style.display = 'block';
-          } else {
+          if (autoClose) {
+            // Khi bấm "⚡ Mở Ngay": đóng modal tức thì, cuộn ngay tới kết quả lá số
             this.closeRestoreModal();
-          }
+            if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
+              TuViApp.showToast(`🎉 Đã mở khóa thành công lá số VIP #${oCode}!`, 'success');
+            }
+            if (typeof TuViChart !== 'undefined' && typeof TuViChart.expandAllPalaces === 'function') {
+              TuViChart.expandAllPalaces();
+            }
+            setTimeout(() => {
+              const target = document.getElementById('vip12PalacesSection') || document.getElementById('ket-qua');
+              if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            }, 120);
+          } else {
+            // Khi nhập qua form thủ công: Hiển thị phần kết quả thành công và Magic Link trong modal
+            if (successSec) {
+              const codeEl = document.getElementById('restoreSuccessCode');
+              const pkgEl = document.getElementById('restoreSuccessPkg');
+              const linkInput = document.getElementById('restoreMagicLinkInput');
+              if (codeEl) codeEl.textContent = oCode;
+              if (pkgEl) pkgEl.textContent = data.order.packageName || 'Báo Cáo VIP Toàn Thư';
+              if (linkInput) linkInput.value = this.getMagicLink(oCode);
+              successSec.style.display = 'block';
 
-          if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
-            TuViApp.showToast(`🎉 Khôi phục thành công đơn hàng ${oCode}!`, 'success');
+              // Cuộn nhẹ modal xuống khối thành công để thấy các nút hành động
+              const card = document.querySelector('#tuvi-restore-modal .tuvi-tool-modal-card');
+              if (card) {
+                setTimeout(() => {
+                  card.scrollTo({ top: card.scrollHeight, behavior: 'smooth' });
+                }, 60);
+              }
+
+              // Đếm ngược 4s tự động chuyển sang xem lá số nếu khách không bấm gì
+              let timeLeft = 4;
+              const countNum = document.getElementById('restoreCountdownNum');
+              if (countNum) countNum.textContent = timeLeft;
+              this._restoreCountdownTimer = setInterval(() => {
+                timeLeft--;
+                const liveNum = document.getElementById('restoreCountdownNum');
+                if (liveNum) liveNum.textContent = timeLeft;
+                if (timeLeft <= 0) {
+                  if (this._restoreCountdownTimer) {
+                    clearInterval(this._restoreCountdownTimer);
+                    this._restoreCountdownTimer = null;
+                  }
+                  TuViMonetize.viewReportNow();
+                }
+              }, 1000);
+            } else {
+              this.closeRestoreModal();
+            }
+
+            if (typeof TuViApp !== 'undefined' && TuViApp.showToast) {
+              TuViApp.showToast(`🎉 Khôi phục thành công đơn hàng ${oCode}!`, 'success');
+            }
           }
         } else {
           if (errEl) {
@@ -2471,9 +2575,9 @@
       if (document.getElementById('tuvi-claim-modal')) return;
 
       const html = `
-        <div id="tuvi-claim-modal" class="tuvi-tool-modal-backdrop">
+        <div id="tuvi-claim-modal" class="tuvi-tool-modal-backdrop" onclick="if(event.target === this) TuViMonetize.closeClaimAccountModal()">
           <div class="tuvi-tool-modal-card">
-            <button class="tuvi-tool-modal-close" onclick="TuViMonetize.closeClaimAccountModal()">&times;</button>
+            <button class="tuvi-tool-modal-close" onclick="TuViMonetize.closeClaimAccountModal()" aria-label="Đóng">&times;</button>
             <h3>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
               Tạo Mật Khẩu Bảo Vệ

@@ -12,6 +12,12 @@ module.exports = defineConfig({
     baseURL: 'http://localhost:8080',
     trace: 'on-first-retry'
   },
+  webServer: {
+    command: 'node server.js',
+    port: 8080,
+    reuseExistingServer: !process.env.CI,
+    timeout: 10000
+  },
   projects: [
     {
       name: 'Desktop Chromium',
